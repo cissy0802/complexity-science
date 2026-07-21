@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Hierarchy &amp; Near-Decomposability — Survivable Complexity Is Assembled · Complexity Science T3</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,"SF Pro Display","Noto Sans SC",sans-serif;color:#e4ded5;line-height:1.85;min-height:100vh;
+  background:radial-gradient(1100px 620px at 12% -6%,rgba(224,137,94,0.10),transparent 62%),radial-gradient(950px 700px at 100% 2%,rgba(166,147,205,0.09),transparent 58%),linear-gradient(168deg,#100f0d 0%,#15161b 48%,#0a0a0c 100%);background-attachment:fixed}
+.wrap{max-width:760px;margin:0 auto;padding:30px 22px 90px}
+header{padding:52px 0 8px;border-bottom:1px solid rgba(255,255,255,0.07);margin-bottom:34px}
+.week-tag{font-family:"SF Mono",Menlo,monospace;font-size:0.72rem;font-weight:700;letter-spacing:2px;color:#e0895e;border:1px solid rgba(224,137,94,0.4);background:rgba(224,137,94,0.07);padding:3px 11px;border-radius:20px}
+h1{font-size:2.5rem;font-weight:800;letter-spacing:0.5px;line-height:1.2;margin:20px 0 0;background:linear-gradient(106deg,#e0895e 0%,#d9b45f 34%,#9fbc7a 68%,#63b3a6 100%);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+.sub{font-size:1.05rem;color:#aba498;margin-top:14px;font-weight:500}
+.date{font-family:"SF Mono",Menlo,monospace;font-size:0.75rem;color:#57524b;margin-top:18px;letter-spacing:1px}
+.pitch{margin:22px 0 30px;font-size:0.97rem;color:#cd7f9b;border-left:2px solid rgba(205,127,155,0.5);padding-left:16px;font-style:italic}
+.intro{font-size:1.02rem;color:#cfc8bc;margin-bottom:14px}
+.intro p{margin-bottom:16px}
+h2{font-size:1.42rem;font-weight:700;color:#e9e3d9;margin:56px 0 8px;letter-spacing:0.3px}
+h2 .n{font-family:"SF Mono",Menlo,monospace;font-size:0.85rem;color:#9fbc7a;display:block;margin-bottom:6px;letter-spacing:2px}
+.he{font-size:0.68em;color:#8d867b;font-weight:500;letter-spacing:0}
+p{margin-bottom:17px}
+.lead{color:#cfc8bc}
+b,strong{color:#f0eae0;font-weight:600}
+em{color:#d9b45f;font-style:normal;font-weight:500}
+.dim{color:#8d867b}
+a.reflink{display:inline-block;font-size:0.82rem;font-family:"SF Mono",Menlo,monospace;color:#63b3a6;border:1px solid rgba(99,179,166,0.38);background:rgba(99,179,166,0.07);padding:1px 9px;border-radius:20px;text-decoration:none;transition:all 0.15s;white-space:nowrap}
+a.reflink:hover{background:rgba(99,179,166,0.16);border-color:rgba(99,179,166,0.7)}
+figure{margin:30px 0}
+figure svg{display:block;width:100%;height:auto;border-radius:12px;background:rgba(255,255,255,0.018);border:1px solid rgba(255,255,255,0.06)}
+figcaption{font-size:0.82rem;color:#787268;margin-top:11px;text-align:center;line-height:1.6}
+.decide{margin:24px 0;border:1px solid rgba(224,137,94,0.36);background:rgba(224,137,94,0.055);border-radius:12px;padding:15px 19px}
+.decide .lb{font-family:"SF Mono",Menlo,monospace;font-size:0.73rem;letter-spacing:1.5px;color:#e0895e;font-weight:700;display:block;margin-bottom:7px}
+.decide p{margin:0;font-size:0.95rem;color:#ddd5c9}
+.crossx-inline{margin:20px 0 22px;border-left:2px solid rgba(205,127,155,0.55);padding:2px 0 2px 15px;font-size:0.89rem;color:#a9a096;line-height:1.72}
+.crossx-inline b{color:#cd7f9b;font-weight:600}
+.bigcat{margin:46px 0 10px;border:1px solid rgba(217,180,95,0.38);background:rgba(217,180,95,0.05);border-radius:14px;padding:20px 22px}
+.bigcat h3{font-size:1.02rem;color:#d9b45f;margin-bottom:14px;letter-spacing:0.5px}
+.bigcat ol{list-style:none;padding:0}
+.bigcat li{margin-bottom:15px;font-size:0.94rem;color:#d5cdc1;line-height:1.78}
+.bigcat li:last-child{margin-bottom:0}
+.bigcat .dm{font-family:"SF Mono",Menlo,monospace;font-size:0.73rem;color:#d9b45f;border:1px solid rgba(217,180,95,0.32);border-radius:4px;padding:1px 7px;margin-right:8px;white-space:nowrap}
+.crossx{margin:46px 0 10px;border:1px solid rgba(205,127,155,0.38);background:rgba(205,127,155,0.05);border-radius:14px;padding:20px 22px}
+.crossx h3{font-size:1.02rem;color:#cd7f9b;margin-bottom:14px;letter-spacing:0.5px}
+.crossx ul{list-style:none;padding:0}
+.crossx li{margin-bottom:16px;font-size:0.94rem;color:#d5cdc1;line-height:1.78}
+.crossx li:last-child{margin-bottom:0}
+.crossx li b{color:#cd7f9b;font-weight:600}
+.thinking{margin:46px 0 10px}
+.thinking h3{font-size:1.02rem;color:#a693cd;margin-bottom:14px;letter-spacing:0.5px}
+details{border:1px solid rgba(166,147,205,0.22);border-radius:10px;padding:12px 16px;margin-bottom:10px;background:rgba(166,147,205,0.035)}
+summary{cursor:pointer;font-size:0.93rem;color:#c9c2b6;font-weight:500}
+summary::marker{color:#a693cd}
+details p{margin:12px 0 0;font-size:0.9rem;color:#a9a096;line-height:1.75}
+.refs{margin:46px 0 10px}
+.refs h3{font-size:1.02rem;color:#79a6d2;margin-bottom:14px;letter-spacing:0.5px}
+.refs ul{list-style:none;padding:0}
+.refs li{margin-bottom:10px;font-size:0.9rem;color:#8d867b;line-height:1.7}
+.refs a{color:#79a6d2;text-decoration:none;border-bottom:1px solid rgba(121,166,210,0.3)}
+.refs a:hover{color:#a6c4e2;border-bottom-color:rgba(121,166,210,0.7)}
+footer{text-align:center;padding:56px 0 10px;font-size:0.78rem;color:#57524b;font-family:"SF Mono",Menlo,monospace;border-top:1px solid rgba(255,255,255,0.06);margin-top:50px}
+footer a{color:#79a6d2;text-decoration:none}
+@media(max-width:600px){h1{font-size:1.85rem}.wrap{padding:24px 16px 60px}h2{font-size:1.22rem}}
+</style></head><body>
+<div class="wrap">
+
+<header>
+  <span class="week-tag">TOPIC 3 · PHASE A</span>
+  <h1>Hierarchy &amp; Near-Decomposability</h1>
+  <p class="sub">Survivable complexity is assembled, not authored</p>
+  <p class="date">2026-07-21 · What Counts as Complex</p>
+</header>
+
+<p class="pitch">You assume that "taking a system apart to analyse it" is the analyst's free choice — cut it fine or cut it coarse, as you like. It isn't. Whether a system <em>can</em> be cleanly taken apart is a property of the system, not of you; and that property is exactly what decided whether it could be evolved into existence in the first place, and whether it can be changed later without the whole thing coming down.</p>
+
+<div class="intro">
+<p>A watch has a thousand parts. Imagine two watchmakers making watches of equal precision and equal value — yet one grows rich and the other goes broke. The difference isn't skill. It's the <b>order in which they put the parts together</b>. That little story — told by Herbert Simon in 1962 — is the seed of this whole issue.</p>
+<p>The question it answers is plain: why is nearly every complex system you meet — from cells to companies to operating systems — built as nested boxes within boxes? Coincidence, taste, or is there a harder reason forcing them into that shape, one they cannot survive without?</p>
+<p class="dim">This issue and the last one (emergence) are a pair: emergence is about "the whole having properties the parts lack"; this issue is about how those wholes get built up, layer by layer, and taken apart again. Built up, and taken apart — those turn out to be two faces of the same thing, as we'll see.</p>
+</div>
+
+<h2><span class="n">01</span>The two watchmakers</h2>
+
+<p class="lead">Simon's parable runs like this. Two watchmakers, Hora and Tempus, each make watches of a thousand parts. Both are equally skilled and equally in demand — which is precisely the problem, because the phone keeps ringing with new orders.</p>
+
+<p>Here's the catch: the watch on the bench isn't finished when the phone rings, and you must put it down to answer. And <b>a half-assembled watch, set down, falls apart</b> — as long as what you've built so far isn't a whole that can stand on its own, letting go collapses it back into a heap of parts.</p>
+
+<p>Tempus adds parts one at a time; even at part 999 he still holds a heap that scatters the moment he lets go. So every ring of the phone sends him nearly back to the start. Hora does it differently: he <em>builds stable sub-assemblies first</em> — ten parts clicked into a small module that stands on its own, ten such modules into a larger one, ten of those into the finished watch. When the phone rings he loses, at most, <b>the one sub-assembly he's currently on</b>; every completed module stays intact.</p>
+
+<figure>
+<svg viewBox="0 0 720 320" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Two watchmakers: Tempus builds flat and restarts on interruption; Hora builds in layers and loses only the current module">
+  <defs>
+    <marker id="arA" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="10" markerHeight="10" markerUnits="userSpaceOnUse" orient="auto">
+      <path d="M0,1 L9,5 L0,9 z" fill="#cd7f9b"/>
+    </marker>
+    <marker id="arB" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="10" markerHeight="10" markerUnits="userSpaceOnUse" orient="auto">
+      <path d="M0,1 L9,5 L0,9 z" fill="#9fbc7a"/>
+    </marker>
+  </defs>
+
+  <text x="180" y="34" text-anchor="middle" fill="#cd7f9b" font-size="14" font-family="-apple-system,sans-serif" font-weight="700">Tempus · flat</text>
+  <text x="180" y="54" text-anchor="middle" fill="#8d867b" font-size="11" font-family="-apple-system,sans-serif">one part at a time, never a module</text>
+  <g transform="translate(70,74)">
+    <rect x="0" y="0" width="220" height="70" rx="6" fill="none" stroke="rgba(205,127,155,0.35)"/>
+    <circle cx="18" cy="35" r="5" fill="#8a7a4f"/><circle cx="38" cy="35" r="5" fill="#8a7a4f"/><circle cx="58" cy="35" r="5" fill="#8a7a4f"/><circle cx="78" cy="35" r="5" fill="#8a7a4f"/><circle cx="98" cy="35" r="5" fill="#8a7a4f"/><circle cx="118" cy="35" r="5" fill="#8a7a4f"/><circle cx="138" cy="35" r="5" fill="#8a7a4f"/><circle cx="158" cy="35" r="5" fill="#8a7a4f"/><circle cx="178" cy="35" r="5" fill="#8a7a4f"/><circle cx="198" cy="35" r="5" fill="#e0895e"/>
+  </g>
+  <line x1="180" y1="152" x2="180" y2="184" stroke="#cd7f9b" stroke-width="1.5" marker-end="url(#arA)"/>
+  <text x="250" y="172" text-anchor="middle" fill="#cd7f9b" font-size="11" font-family="-apple-system,sans-serif">phone rings</text>
+  <g transform="translate(70,196)">
+    <rect x="0" y="0" width="220" height="70" rx="6" fill="none" stroke="rgba(205,127,155,0.22)" stroke-dasharray="4 4"/>
+    <circle cx="24" cy="20" r="4" fill="#57524b"/><circle cx="66" cy="52" r="4" fill="#57524b"/><circle cx="110" cy="24" r="4" fill="#57524b"/><circle cx="150" cy="50" r="4" fill="#57524b"/><circle cx="190" cy="22" r="4" fill="#57524b"/><circle cx="44" cy="48" r="4" fill="#57524b"/><circle cx="92" cy="52" r="4" fill="#57524b"/><circle cx="170" cy="50" r="4" fill="#57524b"/><circle cx="132" cy="20" r="4" fill="#57524b"/>
+  </g>
+  <text x="180" y="292" text-anchor="middle" fill="#787268" font-size="11" font-family="-apple-system,sans-serif">scatters to a heap · nearly back to start</text>
+
+  <line x1="330" y1="170" x2="368" y2="170" stroke="rgba(255,255,255,0.14)" stroke-width="1"/>
+
+  <text x="540" y="34" text-anchor="middle" fill="#9fbc7a" font-size="14" font-family="-apple-system,sans-serif" font-weight="700">Hora · layered</text>
+  <text x="540" y="54" text-anchor="middle" fill="#8d867b" font-size="11" font-family="-apple-system,sans-serif">clicks into modules that stand alone</text>
+  <g transform="translate(410,74)">
+    <rect x="0" y="0" width="260" height="70" rx="6" fill="none" stroke="rgba(159,188,122,0.35)"/>
+    <rect x="14" y="18" width="58" height="34" rx="5" fill="rgba(159,188,122,0.12)" stroke="rgba(159,188,122,0.5)"/>
+    <circle cx="26" cy="35" r="4" fill="#9fbc7a"/><circle cx="43" cy="35" r="4" fill="#9fbc7a"/><circle cx="60" cy="35" r="4" fill="#9fbc7a"/>
+    <rect x="86" y="18" width="58" height="34" rx="5" fill="rgba(159,188,122,0.12)" stroke="rgba(159,188,122,0.5)"/>
+    <circle cx="98" cy="35" r="4" fill="#9fbc7a"/><circle cx="115" cy="35" r="4" fill="#9fbc7a"/><circle cx="132" cy="35" r="4" fill="#9fbc7a"/>
+    <rect x="158" y="18" width="58" height="34" rx="5" fill="rgba(224,137,94,0.14)" stroke="rgba(224,137,94,0.6)"/>
+    <circle cx="170" cy="35" r="4" fill="#e0895e"/><circle cx="187" cy="35" r="4" fill="#e0895e"/><circle cx="204" cy="35" r="4" fill="#8a7a4f"/>
+  </g>
+  <line x1="540" y1="152" x2="540" y2="184" stroke="#9fbc7a" stroke-width="1.5" marker-end="url(#arB)"/>
+  <text x="610" y="172" text-anchor="middle" fill="#9fbc7a" font-size="11" font-family="-apple-system,sans-serif">phone rings</text>
+  <g transform="translate(410,196)">
+    <rect x="0" y="0" width="260" height="70" rx="6" fill="none" stroke="rgba(159,188,122,0.35)"/>
+    <rect x="14" y="18" width="58" height="34" rx="5" fill="rgba(159,188,122,0.12)" stroke="rgba(159,188,122,0.5)"/>
+    <circle cx="26" cy="35" r="4" fill="#9fbc7a"/><circle cx="43" cy="35" r="4" fill="#9fbc7a"/><circle cx="60" cy="35" r="4" fill="#9fbc7a"/>
+    <rect x="86" y="18" width="58" height="34" rx="5" fill="rgba(159,188,122,0.12)" stroke="rgba(159,188,122,0.5)"/>
+    <circle cx="98" cy="35" r="4" fill="#9fbc7a"/><circle cx="115" cy="35" r="4" fill="#9fbc7a"/><circle cx="132" cy="35" r="4" fill="#9fbc7a"/>
+    <rect x="158" y="18" width="58" height="34" rx="5" fill="none" stroke="rgba(205,127,155,0.3)" stroke-dasharray="3 3"/>
+    <circle cx="170" cy="24" r="4" fill="#57524b"/><circle cx="204" cy="46" r="4" fill="#57524b"/><circle cx="186" cy="30" r="4" fill="#57524b"/>
+  </g>
+  <text x="540" y="292" text-anchor="middle" fill="#787268" font-size="11" font-family="-apple-system,sans-serif">only the current module scatters · the rest hold</text>
+</svg>
+<figcaption>Same thousand parts, same interruptions. Tempus resets to zero each time; Hora only falls back to the last "safe point." Stable intermediate forms are autosaves.</figcaption>
+</figure>
+
+<p>Simon did the arithmetic: if the chance of interruption per part added is even one percent, the two men's efficiencies differ by <b>orders of magnitude</b> — Hora finishes comfortably, Tempus almost never completes a single watch. The whole gap comes from one thing: Hora's half-products are, at every stage, <em>wholes that stand on their own</em>.</p>
+
+<p>Read that backwards and you get this issue's first hard conclusion: <b>among complex systems that are built up step by step — whether by evolution or by engineering — only those with stable intermediate forms can actually get built.</b> Complex systems without stable intermediate forms aren't forbidden; they're <em>nearly impossible to reach</em>, because every path to them scatters too easily en route. So everything around you is nested boxes not because layering is pretty, but because the un-layered ones never survived long enough for you to see them.</p>
+
+<div class="crossx-inline">
+🌀 <b>Biology · "What use is half an eye?"</b>　The creationist's favourite challenge: the eye is so intricate that a half-evolved eye would be useless, so how could it be selected and kept? The challenge lands on exactly the wrong side of the watchmaker parable. Nilsson and Pelger (1994) worked it through stage by stage: from a patch of light-sensitive skin to a focusing lens eye, <b>every intermediate form is itself a usable module</b> — a little light-sensing beats blindness, a little direction-sensing beats undirected sensing. Evolution can build an eye <em>precisely because</em> each intermediate stands on its own, like one of Hora's sub-assemblies; the complex organs evolution <em>can't</em> build are the ones whose intermediates wouldn't hold.
+</div>
+
+<h2><span class="n">02</span>Decomposability is a property of the system</h2>
+
+<p class="lead">Now swing the camera from "how it gets built" to "what it looks like once built." Simon gave layered systems a more precise name: <em>near-decomposable</em> — almost, but not quite, separable.</p>
+
+<p>The definition is two sentences, each needing care: <b>interactions <em>within</em> a module are strong and fast; interactions <em>between</em> modules are weak and slow.</b> Note "weak," not "absent" — with no connection at all you'd have several unrelated systems, not one system. The whole subtlety lives in that "near": connected, but loosely.</p>
+
+<p>This strong/weak gap has a very practical consequence, which Simon stated crisply. His own example: a building, several rooms, walls between them that don't insulate perfectly. You light a stove in one room. Two things happen on sharply different timescales — <b>in the short run</b>, the air in each room quickly settles to its own temperature while barely any heat has yet crossed between rooms, so you can treat each room as an independent little system and solve it alone; <b>in the long run</b>, heat slowly seeps through the walls until all rooms drift toward one common temperature.</p>
+
+<figure>
+<svg viewBox="0 0 720 300" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Near-decomposable coupling matrix: dense strong diagonal blocks, sparse weak off-diagonal, with two timescales">
+  <text x="360" y="30" text-anchor="middle" fill="#aba498" font-size="13" font-family="-apple-system,sans-serif">Who interacts strongly with whom — dark = strong, faint = weak</text>
+
+  <g transform="translate(70,54)">
+    <rect x="0" y="0" width="216" height="216" fill="none" stroke="rgba(255,255,255,0.14)"/>
+    <rect x="0" y="0" width="72" height="72" fill="rgba(224,137,94,0.30)"/>
+    <rect x="0" y="0" width="24" height="24" fill="#c0703f"/><rect x="24" y="0" width="24" height="24" fill="#a8894a"/><rect x="48" y="0" width="24" height="24" fill="#c0703f"/>
+    <rect x="0" y="24" width="24" height="24" fill="#a8894a"/><rect x="24" y="24" width="24" height="24" fill="#c0703f"/><rect x="48" y="24" width="24" height="24" fill="#a8894a"/>
+    <rect x="0" y="48" width="24" height="24" fill="#c0703f"/><rect x="24" y="48" width="24" height="24" fill="#a8894a"/><rect x="48" y="48" width="24" height="24" fill="#c0703f"/>
+    <rect x="72" y="72" width="72" height="72" fill="rgba(224,137,94,0.30)"/>
+    <rect x="72" y="72" width="24" height="24" fill="#c0703f"/><rect x="96" y="72" width="24" height="24" fill="#a8894a"/><rect x="120" y="72" width="24" height="24" fill="#c0703f"/>
+    <rect x="72" y="96" width="24" height="24" fill="#a8894a"/><rect x="96" y="96" width="24" height="24" fill="#c0703f"/><rect x="120" y="96" width="24" height="24" fill="#a8894a"/>
+    <rect x="72" y="120" width="24" height="24" fill="#c0703f"/><rect x="96" y="120" width="24" height="24" fill="#a8894a"/><rect x="120" y="120" width="24" height="24" fill="#c0703f"/>
+    <rect x="144" y="144" width="72" height="72" fill="rgba(224,137,94,0.30)"/>
+    <rect x="144" y="144" width="24" height="24" fill="#c0703f"/><rect x="168" y="144" width="24" height="24" fill="#a8894a"/><rect x="192" y="144" width="24" height="24" fill="#c0703f"/>
+    <rect x="144" y="168" width="24" height="24" fill="#a8894a"/><rect x="168" y="168" width="24" height="24" fill="#c0703f"/><rect x="192" y="168" width="24" height="24" fill="#a8894a"/>
+    <rect x="144" y="192" width="24" height="24" fill="#c0703f"/><rect x="168" y="192" width="24" height="24" fill="#a8894a"/><rect x="192" y="192" width="24" height="24" fill="#c0703f"/>
+    <rect x="96" y="24" width="10" height="10" fill="#4a4438"/><rect x="24" y="108" width="10" height="10" fill="#4a4438"/><rect x="168" y="96" width="10" height="10" fill="#4a4438"/><rect x="120" y="168" width="10" height="10" fill="#4a4438"/><rect x="192" y="48" width="10" height="10" fill="#3a352e"/><rect x="48" y="192" width="10" height="10" fill="#3a352e"/>
+    <text x="36" y="-8" text-anchor="middle" fill="#e0895e" font-size="10" font-family="SF Mono,monospace">module 1</text>
+    <text x="108" y="-8" text-anchor="middle" fill="#e0895e" font-size="10" font-family="SF Mono,monospace">module 2</text>
+    <text x="180" y="-8" text-anchor="middle" fill="#e0895e" font-size="10" font-family="SF Mono,monospace">module 3</text>
+  </g>
+  <text x="178" y="292" text-anchor="middle" fill="#787268" font-size="11" font-family="-apple-system,sans-serif">three dense diagonal blocks (strong within); faint stray points off them (weak between)</text>
+
+  <g transform="translate(360,60)">
+    <line x1="20" y1="180" x2="300" y2="180" stroke="rgba(255,255,255,0.16)" stroke-width="1.5"/>
+    <line x1="20" y1="180" x2="20" y2="20" stroke="rgba(255,255,255,0.16)" stroke-width="1.5"/>
+    <text x="160" y="204" text-anchor="middle" fill="#8d867b" font-size="11" font-family="-apple-system,sans-serif">time →</text>
+    <text x="4" y="14" fill="#8d867b" font-size="11" font-family="-apple-system,sans-serif">temp.</text>
+    <path d="M20,150 C40,70 70,58 110,55" fill="none" stroke="#c0703f" stroke-width="2"/>
+    <path d="M20,60 C40,120 70,132 110,135" fill="none" stroke="#d9b45f" stroke-width="2"/>
+    <path d="M20,105 C45,96 75,94 110,95" fill="none" stroke="#9fbc7a" stroke-width="2"/>
+    <line x1="110" y1="20" x2="110" y2="180" stroke="rgba(255,255,255,0.14)" stroke-width="1" stroke-dasharray="3 3"/>
+    <text x="110" y="16" text-anchor="middle" fill="#aba498" font-size="9.5" font-family="-apple-system,sans-serif">each module settles internally first</text>
+    <path d="M110,55 C180,70 240,88 290,96" fill="none" stroke="#c0703f" stroke-width="2"/>
+    <path d="M110,135 C180,120 240,104 290,98" fill="none" stroke="#d9b45f" stroke-width="2"/>
+    <path d="M110,95 C180,96 240,97 290,97" fill="none" stroke="#9fbc7a" stroke-width="2"/>
+    <text x="235" y="126" text-anchor="middle" fill="#8d867b" font-size="9.5" font-family="-apple-system,sans-serif">then modules slowly converge</text>
+    <text x="150" y="176" fill="#57524b" font-size="9.5" font-family="-apple-system,sans-serif">short run: solve each alone　·　long run: only aggregates couple</text>
+  </g>
+</svg>
+<figcaption>Near-decomposable = a "block-diagonal" coupling graph. It yields two timescales: short-run, the modules are independent and can be solved apart; long-run, they influence each other only through aggregates.</figcaption>
+</figure>
+
+<p>This is why you can <b>study the parts of a complex system separately</b> without being completely wrong: not because they're truly unrelated, but because over the span you care about, the coupling between modules is slow enough to treat as an unchanging background. It's also another way of stating last issue's "effective degrees of freedom" — near-decomposability is the physical precondition for that "effective layer" to have a description of its own.</p>
+
+<div class="decide">
+<span class="lb">🎯 DECISION LINE</span>
+<p>Whether to split a system and handle the parts separately shouldn't be a gut call — <b>measure its coupling timescales</b>: how fast does a module settle internally, versus how fast do modules seep into each other? The bigger the gap in orders of magnitude, the safer it is to "solve apart," to parallelise, to outsource, to divide labour. When the two speeds are close — or reversed, external faster than internal — any split will deceive you, and the move is to map the coupling structure first, not to force a cut.</p>
+</div>
+
+<div class="crossx-inline">
+🌀 <b>Celestial mechanics · why you solve Earth–Moon first, then its orbit around the Sun</b>　To compute the Moon's orbit, astronomers usually solve "Earth–Moon" as an isolated two-body system, then add the Sun's pull as a slow perturbation. This divide-and-conquer is legitimate purely because <em>the timescales separate</em>: the Moon circles Earth in about a month, the Earth–Moon system circles the Sun in a year — an order of magnitude apart. <em>Change the timescale and the seam vanishes</em>: over hundreds of millions of years the accumulated solar perturbation is enough to reshape the whole orbit, and "Earth–Moon is an independent module" stops being true. Decomposability is not a nameplate on the system; it's a sentence bolted to a particular timescale.
+</div>
+
+<h2><span class="n">03</span>Where the seams really are — you don't draw them</h2>
+
+<p class="lead">Since modules are loosely coupled, you can <b>change one module without disturbing the others</b> — swap the kitchen stove without rewiring the whole building. That sounds ordinary, but it's the entire source of <em>evolvability</em> and maintainability: in a near-decomposable system, the consequences of a change are <em>trapped</em> inside a module rather than running out along strong couplings.</p>
+
+<p>And here hides the most common — and costliest — mistake: <b>people draw module boundaries by "function" or by the org chart, while the system's real seams live in the coupling graph, and the two often don't coincide.</b> The module you think you have need not be its actual module.</p>
+
+<p>In 1972 the computer scientist David Parnas said it outright. The prevailing wisdom was to split software by "processing step" — read input, then sort, then output, one module per step. Parnas argued this was wrong: split instead by <em>which design decisions are likely to change together</em>, hiding each volatile decision inside a module (he called this "information hiding"), so interfaces stay stable and internals are swappable. In this issue's terms: <b>the seam should be cut where coupling is weak, not where the flowchart is easy to draw.</b> Cut wrong, and you think you've separated things while every change still yanks the whole web.</p>
+
+<figure>
+<svg viewBox="0 0 720 290" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Same nodes, two cuts: a wrong seam crossing a strong coupling, and a right seam along the weak bridge">
+  <defs>
+    <marker id="arC" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="10" markerHeight="10" markerUnits="userSpaceOnUse" orient="auto">
+      <path d="M0,1 L9,5 L0,9 z" fill="#cd7f9b"/>
+    </marker>
+  </defs>
+  <text x="180" y="28" text-anchor="middle" fill="#cd7f9b" font-size="13" font-family="-apple-system,sans-serif" font-weight="700">wrong: across a strong coupling</text>
+  <g font-family="-apple-system,sans-serif">
+    <line x1="70" y1="90" x2="130" y2="80" stroke="#8a7a4f" stroke-width="3"/>
+    <line x1="70" y1="90" x2="110" y2="140" stroke="#8a7a4f" stroke-width="3"/>
+    <line x1="130" y1="80" x2="110" y2="140" stroke="#8a7a4f" stroke-width="3"/>
+    <line x1="250" y1="90" x2="290" y2="130" stroke="#8a7a4f" stroke-width="3"/>
+    <line x1="250" y1="90" x2="230" y2="150" stroke="#8a7a4f" stroke-width="3"/>
+    <line x1="290" y1="130" x2="230" y2="150" stroke="#8a7a4f" stroke-width="3"/>
+    <line x1="130" y1="80" x2="250" y2="90" stroke="#4a4438" stroke-width="1" stroke-dasharray="3 3"/>
+    <circle cx="70" cy="90" r="9" fill="#e0895e"/><circle cx="130" cy="80" r="9" fill="#e0895e"/><circle cx="110" cy="140" r="9" fill="#e0895e"/>
+    <circle cx="250" cy="90" r="9" fill="#63b3a6"/><circle cx="290" cy="130" r="9" fill="#63b3a6"/><circle cx="230" cy="150" r="9" fill="#63b3a6"/>
+    <line x1="170" y1="55" x2="140" y2="185" stroke="#cd7f9b" stroke-width="2.5" stroke-dasharray="7 5" marker-end="url(#arC)"/>
+    <text x="120" y="210" text-anchor="middle" fill="#cd7f9b" font-size="10.5">knife falls on a strong link</text>
+    <text x="180" y="234" text-anchor="middle" fill="#787268" font-size="10.5">→ every change still yanks the web</text>
+  </g>
+
+  <line x1="360" y1="70" x2="360" y2="200" stroke="rgba(255,255,255,0.12)" stroke-width="1"/>
+
+  <text x="540" y="28" text-anchor="middle" fill="#9fbc7a" font-size="13" font-family="-apple-system,sans-serif" font-weight="700">right: along the weak bridge</text>
+  <g font-family="-apple-system,sans-serif">
+    <line x1="430" y1="90" x2="490" y2="80" stroke="#8a7a4f" stroke-width="3"/>
+    <line x1="430" y1="90" x2="470" y2="140" stroke="#8a7a4f" stroke-width="3"/>
+    <line x1="490" y1="80" x2="470" y2="140" stroke="#8a7a4f" stroke-width="3"/>
+    <line x1="610" y1="90" x2="650" y2="130" stroke="#8a7a4f" stroke-width="3"/>
+    <line x1="610" y1="90" x2="590" y2="150" stroke="#8a7a4f" stroke-width="3"/>
+    <line x1="650" y1="130" x2="590" y2="150" stroke="#8a7a4f" stroke-width="3"/>
+    <line x1="490" y1="80" x2="610" y2="90" stroke="#4a4438" stroke-width="1" stroke-dasharray="3 3"/>
+    <circle cx="430" cy="90" r="9" fill="#e0895e"/><circle cx="490" cy="80" r="9" fill="#e0895e"/><circle cx="470" cy="140" r="9" fill="#e0895e"/>
+    <circle cx="610" cy="90" r="9" fill="#63b3a6"/><circle cx="650" cy="130" r="9" fill="#63b3a6"/><circle cx="590" cy="150" r="9" fill="#63b3a6"/>
+    <line x1="550" y1="55" x2="550" y2="185" stroke="#9fbc7a" stroke-width="2.5" stroke-dasharray="7 5"/>
+    <text x="550" y="210" text-anchor="middle" fill="#9fbc7a" font-size="10.5">knife falls on the weak bridge</text>
+    <text x="540" y="234" text-anchor="middle" fill="#787268" font-size="10.5">→ change one side, the other holds</text>
+  </g>
+  <text x="360" y="270" text-anchor="middle" fill="#57524b" font-size="11" font-family="-apple-system,sans-serif">thick = strong coupling, dashed = weak. Same nodes; the seam's location decides how changeable the system is</text>
+</svg>
+<figcaption>Module boundaries aren't drawn at will. Cut across a strong coupling and the split is only nominal; cut along the weak bridge and you really can "change one part without moving the rest."</figcaption>
+</figure>
+
+<p>So "taking a system apart," done right, isn't: decide how many pieces, then hack it into that many. It's: <b>see the coupling structure first, find the few bridges that were already thin, and cut along them.</b> Natural seams are discovered, not decreed. Decreed boundaries the system doesn't honour.</p>
+
+<div class="decide">
+<span class="lb">🎯 DECISION LINE</span>
+<p>Before splitting a system (code, org, process, plan), don't ask "how many pieces" — draw the "who-drags-whom-when-changed" graph first, and cut where the drag is least. A test you can run on the spot: imagine changing each candidate module and count how many things outside it get pulled in. Fewer pulls means you found a real seam; if every candidate drags a whole crowd, the pile simply isn't near-decomposable right now, and forcing a cut just hides the strong coupling where you can't see it.</p>
+</div>
+
+<div class="crossx-inline">
+🌀 <b>Linguistics · double articulation</b>　The French linguist André Martinet noted that human language has "double articulation": a bottom layer of a few dozen phonemes that are <em>themselves meaningless</em>, combining into meaningful morphemes and words, which combine into sentences. That's a two-level near-decomposable structure — the rules of the phoneme layer (articulation) and of the meaning layer (semantics) are weakly coupled and can be studied apart. <b>Implication</b>: the hierarchy here isn't for tidiness, it's to <em>generate the unlimited from the finite</em> — a few dozen phonemes hold up hundreds of thousands of words. Flatten the layers, give every meaning its own indivisible whole-symbol, and a language's expressive power collapses to only the words you happened to coin in advance. Layering is the source of generativity, not its decoration.
+</div>
+
+<h2><span class="n">04</span>Where this breaks down</h2>
+
+<p class="lead">Now the other side. Near-decomposability is an excellent lens, but there are three places it gets pushed too far, and you should mark the boundaries before you use it.</p>
+
+<p><b>First, the "necessarily" in "complex systems are necessarily hierarchical" is inflated by survivorship.</b> Strictly, Simon's argument shows only this: among complex systems that a stepwise, interruptible process can <em>build</em>, the layered ones dominate overwhelmingly. It does not show that non-hierarchical complex systems are logically impossible. A whole class of them has no clean seams at all — in physics, <em>spin glasses</em> and various <em>frustrated</em> systems, where every element couples strongly to a great many others, so any cut severs a mass of strong links. They're genuinely complex and genuinely real; they just can't be built up layer by layer like a watch. So the accurate statement is: hierarchy is not the <em>definition</em> of complexity — it's the entry fee paid by complexity that can be <em>built up incrementally</em>.</p>
+
+<p><b>Second, seams drift, especially under stress.</b> Near-decomposability is a fair-weather property. The cross-module links that are weak in calm times can <em>strengthen together</em> when the system is under pressure — in that block-diagonal matrix from the last section, the faint off-diagonal points darken all at once, and the three modules fuse into one indivisible block. In finance it's "correlations approach 1 in a crisis"; in engineering it's "a hidden shared dependency surfaces under load." Every division of labour, parallelisation, and isolation you built on the fair-weather seams fails at exactly the moment you most need it to hold.</p>
+
+<p><b>Third, modularity itself has a cost; more is not better.</b> Cutting requires interfaces, and interfaces have overhead and lose information; cut too fine and things that could have been jointly optimised are artificially walled apart, so you can no longer reach the global optimum. The "near" in near-decomposability has proportion — it says <em>there exists</em> a scale at which coupling is weak enough, not that finer is better. The real craft is finding the grain size that's just right, not mindless splitting.</p>
+
+<div class="decide">
+<span class="lb">🎯 DECISION LINE</span>
+<p>Before judging with "near-decomposability," answer three things plainly: (1) is your system the kind that was <em>built up stepwise</em>? (yes → the hierarchy prior holds; no → don't assume it has seams); (2) will the weak couplings you rely on strengthen together under stress or crisis? (yes → don't base your contingency plan on the calm-weather boundaries); (3) is your grain too fine, walling apart things that should be jointly optimised? Fail these three and don't let modularity give you false confidence.</p>
+</div>
+
+<div class="bigcat">
+<h3>🎒 Scene · BigCat</h3>
+<ol>
+<li><span class="dm">Engineering &amp; systems</span>You want to split a service that's getting harder to change, and in the meeting everyone reaches for "business function" boundaries — orders here, users there, payments over there. Stop first: pull the last six months of changes and see <b>which files/modules keep getting changed together in the same commit</b>. "Always changed together" is hard evidence of strong coupling, regardless of whether they belong to the same business area. Redrawing boundaries by "changed together" often looks very different from "by business function" — the latter is the org chart, the former is the coupling graph. Concrete move: before finalising the split, check your module lines against the co-change matrix in version history; don't let the flowchart overrule the coupling graph.</li>
+<li><span class="dm">Parenting</span>A child's been off lately, and your instinct is to change a bundle of things at once: sleep, diet, screen limits, more playtime. That treats several near-decomposable factors as one indivisible block — so even if things improve, you won't know which lever did it, and next time you're guessing again. Treat it as a near-decomposable system: <b>change one module at a time, give it a long enough observation window</b> (the time for the module to settle internally), then change the next. Concrete move: not "a full overhaul" but pick one variable, set an observation period, and watch only the one indicator tied to it — trading "changed everything, can't tell" for "one at a time, causality visible."</li>
+<li><span class="dm">Investing &amp; position sizing</span>You treat positions as unrelated modules to diversify risk — different sectors, regions, asset classes, imagining a block-diagonal matrix where each falls on its own. That holds in calm times and fails precisely in a crisis: the weak off-diagonal correlations strengthen together and the whole portfolio collapses into one module (this is exactly limit two from section four). So diversification can't be measured only in fair weather. Concrete move: run a "stressed-correlation" check on the book — imagine a broad sell-off and ask which nominally independent positions are actually betting on the same hidden factor (the same rate sensitivity, the same supply chain, the same customer base); size positions by <b>crisis correlation</b>, not calm-weather correlation.</li>
+</ol>
+</div>
+
+<div class="crossx">
+<h3>🌀 Crossings · across the disciplines</h3>
+<ul>
+<li><b>Economics &amp; institutions · Chandler and Williamson's "M-form" firm</b>: In 1962 — the same year as Simon — the historian Alfred Chandler documented how DuPont and General Motors moved from one sprawling mass to a "multidivisional" structure; later Oliver Williamson turned it into a hard claim: split the firm into near-decomposable divisions, let each division regulate itself fast internally (strong coupling within), and let headquarters manage the one slow, shared thing across the whole firm — the allocation of capital between divisions (the weak, slow cross-module coupling). All three of this issue's mechanisms hold here as a set: layering lets the firm be built up large without scattering (the watchmaker); weak inter-division coupling lets one division's trouble not drag down the rest (near-decomposability); and you carve divisions by "whose decisions must change together," not by the boss's org chart (finding the seam). <b>But it doesn't hold here</b>: near-decomposability assumes interactions decay with "distance," yet some things in a firm inherently penetrate every division — the same pool of cash, the same key customer, the same shared platform team. Such shared resources re-weld the nominally independent divisions, so the seam you drew on the org chart is no seam at all on the real interest-and-information graph. So the M-form isn't "split and done" — it means continuously watching those few penetrating strong couplings, and not being fooled by the tidy boxes.</li>
+<li><b>Biology · endosymbiosis: swallowing a living module whole</b>: The mitochondrion inside a eukaryotic cell was once a free-living bacterium that, at some point in evolutionary history, was engulfed by another cell and — instead of being digested — became a stable "energy module" inside it (Lynn Margulis's endosymbiotic theory). This is the watchmaker parable made literal in evolutionary biology: to build a eukaryotic cell, evolution didn't rebuild from atoms; it <em>encapsulated an already-stably-running module whole, then recombined</em> — exactly Hora clicking a ready-made sub-assembly onto the stack. From which follows a non-obvious conclusion: <b>if reusable stable modules are evolution's least-effortful way to build, then the very reason such "swallow a whole module" events are extraordinarily rare (eukaryogenesis succeeded essentially only once in Earth's history of life) is that the hard part isn't the assembly — it's first <em>having</em> a module that can be encapsulated whole and still not scatter afterward</b>. The scarcity of stable intermediate forms, not assembly, is the real bottleneck on jumps in complexity.</li>
+<li><b>Philosophy of science · the domain where reductionism works</b>: Near-decomposability reclassifies the old "reductionism vs holism" quarrel from a clash of stances into an empirical question. <em>When</em> is reductionism — break a system into parts, understand them separately, reassemble — right? The answer is surprisingly precise: <b>exactly when the system is near-decomposable</b>. If inter-module coupling is weak enough, the error you make by studying the parts apart is small enough, and reductionism works (this is just the flip side of section two's "you can solve apart"). In globally strongly-coupled systems like spin glasses or deeply entangled ecological networks, taking things apart discards nearly all the information, and reductionism fails on the spot — which connects to Topic 1's "why reductionism fails in complex systems." <b>But it doesn't hold here</b>: this ruler only measures whether "taking apart to analyse" is valid, not whether the high-level phenomena are real. Even if a system is perfectly near-decomposable and reduces cleanly, the emergent high-level properties (temperature, price) are still real — decomposability is about the <em>epistemic</em> feasibility of analysis, not the <em>ontological</em> existence of levels; don't use the former to deny the latter.</li>
+</ul>
+</div>
+
+<div class="thinking">
+<h3>Going Deeper</h3>
+<details><summary>If a system isn't near-decomposable now, can you modularise it by force?</summary><p>You can, but it matters whether you're <em>discovering</em> a seam or <em>manufacturing</em> one. Manufacturing a seam = deliberately severing some existing strong couplings and replacing them with controlled narrow interfaces (microservices, department walls, legal-entity isolation all do this). The cost is that the severed couplings were doing something useful; once cut, either you rebuild them through the interface (with overhead) or you genuinely lose them. So modularisation isn't free tidying — it's a trade of "joint-optimisation capacity" for "changeability," and you have to check whether the exchange rate is worth it.</p></details>
+<details><summary>How does near-decomposability relate to last issue's "emergence" and "effective degrees of freedom"?</summary><p>They're two faces of one thing. Emergence says the high level has a self-contained description of its own (temperature, price); near-decomposability says <em>why</em> that description can be self-contained — because the low level is packaged into weakly-coupled modules, and the modules' internal detail settles into a background constant on the high level's timescale, so the high level need only track a few aggregates. Without near-decomposability there's no clean "effective layer," and emergence has nothing to stand on.</p></details>
+<details><summary>Why is organisational change so hard, even when the new structure is clearly better?</summary><p>Because what's being changed is module <em>boundaries</em>, and boundaries are exactly where coupling is most tangled and history heaviest. A system runs near-decomposably in normal times because its current boundaries roughly align with the actual coupling; redraw the boundaries and you briefly manufacture a crowd of strong couplings that straddle the new lines (collaboration once inside one department must suddenly cross departments), so during the transition the system is <em>less</em> decomposable and more prone to scatter — isomorphic to Topic 10's "you must get worse before the tipping point."</p></details>
+<details><summary>Is "finding the natural seam" just hindsight? Are there real seams, or do we just call our cuts seams?</summary><p>An honest worry, and the place this method is most prone to self-deception. The test is to make "seam" make a falsifiable prediction: if you claim a spot is a weak-coupling natural seam, then after cutting along it the two sides should be able to change <em>independently</em>, neither triggering rework in the other. If every change to one side forces you back to fix the other, what you found isn't a seam — it's a cut you hoped was one. A seam's truth is judged by the knock-on consequences of change, not by how nice the diagram looks.</p></details>
+</div>
+
+<div class="refs">
+<h3>Further Reading</h3>
+<ul>
+<li>Herbert A. Simon, <a href="https://www.jstor.org/stable/985254">The Architecture of Complexity</a> (1962 — the original paper: the watchmaker parable and near-decomposability)</li>
+<li>Simon &amp; Ando, <a href="https://www.jstor.org/stable/1907631">Aggregation of Variables in Dynamic Systems</a> (1961 — the mathematics of "short-run independent, long-run aggregated")</li>
+<li>David L. Parnas, <a href="https://dl.acm.org/doi/10.1145/361598.361623">On the Criteria To Be Used in Decomposing Systems into Modules</a> (1972 — information hiding)</li>
+<li>Melvin Conway, <a href="https://www.melconway.com/Home/Conways_Law.html">How Do Committees Invent?</a> (1968 — Conway's law: a system's structure mirrors the organisation's communication structure)</li>
+<li>Nilsson &amp; Pelger, <a href="https://royalsocietypublishing.org/doi/10.1098/rspb.1994.0048">A Pessimistic Estimate of the Time Required for an Eye to Evolve</a> (1994 — the eye's stepwise evolution)</li>
+<li>Lynn Margulis, <a href="https://en.wikipedia.org/wiki/Symbiogenesis">Symbiogenesis</a> (the mitochondrion as an encapsulated stable module)</li>
+<li>Oliver Williamson, <a href="https://en.wikipedia.org/wiki/M-form">The M-form hypothesis</a> (the multidivisional firm as near-decomposable)</li>
+<li><a href="https://plato.stanford.edu/entries/simon/">Herbert Simon (Stanford Encyclopedia of Philosophy)</a> (an overview of bounded rationality and the sciences of the artificial)</li>
+</ul>
+</div>
+
+<footer>BigCat · Complexity Science · <a href="index.en.html">← All Topics</a></footer>
+</div>
+</body></html>
