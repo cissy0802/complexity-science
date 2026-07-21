@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="zh-CN"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>复杂性科学 · Complexity Science — BigCat</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,"SF Pro Display","Noto Sans SC",sans-serif;color:#dfe7f0;line-height:1.7;min-height:100vh;
+  background:radial-gradient(1200px 600px at 15% -5%,rgba(45,212,191,0.10),transparent 60%),radial-gradient(1000px 700px at 100% 0%,rgba(244,114,182,0.09),transparent 55%),linear-gradient(165deg,#050a12 0%,#08131f 45%,#04080e 100%);background-attachment:fixed}
+.wrap{max-width:880px;margin:0 auto;padding:30px 22px 90px}
+header{text-align:center;padding:56px 0 20px}
+.kick{font-size:0.76rem;letter-spacing:3px;color:#2dd4bf;font-family:"SF Mono",Menlo,monospace;text-transform:uppercase;margin-bottom:16px;opacity:0.9}
+h1{font-size:2.9rem;font-weight:800;letter-spacing:1px;line-height:1.15;background:linear-gradient(110deg,#2dd4bf 0%,#818cf8 40%,#f472b6 70%,#fb923c 100%);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;filter:drop-shadow(0 2px 22px rgba(129,140,248,0.35))}
+h1 .en{display:block;font-size:1.05rem;font-weight:500;letter-spacing:5px;margin-top:12px;color:#7c86a0;-webkit-text-fill-color:#7c86a0}
+.tagline{margin-top:20px;font-size:0.98rem;color:#a8b4c6;max-width:640px;margin-left:auto;margin-right:auto}
+.tagline b{color:#f472b6;font-weight:600}
+.pos{margin:30px auto 0;max-width:660px;font-size:0.85rem;color:#828da3;background:rgba(255,255,255,0.03);border:1px solid rgba(129,140,248,0.15);border-radius:12px;padding:14px 20px;line-height:1.6}
+.pos code{font-family:"SF Mono",Menlo,monospace;color:#2dd4bf;font-size:0.82rem}
+.seclabel{font-family:"SF Mono",Menlo,monospace;font-size:0.8rem;letter-spacing:3px;color:#646e85;margin:52px 0 6px;text-transform:uppercase}
+.secsub{font-size:0.88rem;color:#6f7990;margin-bottom:20px}
+.phase{margin:26px 0 10px;display:flex;align-items:center;gap:12px}
+.phase .tag{font-family:"SF Mono",Menlo,monospace;font-size:0.72rem;font-weight:700;letter-spacing:1px;padding:3px 10px;border-radius:20px;border:1px solid;white-space:nowrap}
+.pA .tag{color:#2dd4bf;border-color:rgba(45,212,191,0.4);background:rgba(45,212,191,0.06)}
+.pB .tag{color:#818cf8;border-color:rgba(129,140,248,0.4);background:rgba(129,140,248,0.06)}
+.pC .tag{color:#fb923c;border-color:rgba(251,146,60,0.4);background:rgba(251,146,60,0.06)}
+.pD .tag{color:#f472b6;border-color:rgba(244,114,182,0.4);background:rgba(244,114,182,0.06)}
+.pE .tag{color:#22d3ee;border-color:rgba(34,211,238,0.4);background:rgba(34,211,238,0.06)}
+.pF .tag{color:#fbbf24;border-color:rgba(251,191,36,0.4);background:rgba(251,191,36,0.06)}
+.pG .tag{color:#4ade80;border-color:rgba(74,222,128,0.4);background:rgba(74,222,128,0.06)}
+.pH .tag{color:#c084fc;border-color:rgba(192,132,252,0.4);background:rgba(192,132,252,0.06)}
+.phase .nm{font-size:0.95rem;font-weight:600;color:#c2cbdb}
+.phase .nm small{color:#646e85;font-weight:400;margin-left:6px;font-size:0.78rem}
+.entry{display:flex;align-items:baseline;gap:12px;padding:9px 14px;border-radius:9px;text-decoration:none;transition:all 0.16s;border:1px solid transparent}
+a.entry:hover{background:rgba(255,255,255,0.04);border-color:rgba(45,212,191,0.25);transform:translateX(3px)}
+.entry .d{font-family:"SF Mono",Menlo,monospace;font-size:0.76rem;color:#525c73;min-width:38px}
+.entry .t{font-size:0.95rem;color:#454f66}
+a.entry .t{color:#ccd5e4}
+a.entry:hover .t{color:#fff}
+.entry .dc{margin-left:auto;font-family:"SF Mono",Menlo,monospace;font-size:0.72rem;color:#fb923c;opacity:0.5;white-space:nowrap}
+a.entry .dc{opacity:0.85}
+.reflib{margin-top:14px}
+.refgrp{font-size:0.82rem;color:#828da3;font-family:"SF Mono",Menlo,monospace;margin:20px 0 10px;letter-spacing:1px}
+.refgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:10px}
+.refcard{padding:12px 14px;border-radius:10px;border:1px solid rgba(255,255,255,0.06);background:rgba(255,255,255,0.02);font-size:0.86rem;color:#525c73;text-decoration:none;transition:all 0.16s}
+a.refcard{color:#bcc5d6;border-color:rgba(129,140,248,0.22)}
+a.refcard:hover{background:rgba(129,140,248,0.08);border-color:rgba(129,140,248,0.5);color:#fff}
+.refcard .rt{display:block;font-family:"SF Mono",Menlo,monospace;font-size:0.66rem;color:#646e85;margin-bottom:3px}
+footer{text-align:center;padding:60px 0 10px;font-size:0.8rem;color:#525c73;font-family:"SF Mono",Menlo,monospace}
+footer a{color:#818cf8;text-decoration:none}
+@media(max-width:600px){h1{font-size:2.1rem}.entry{flex-wrap:wrap;row-gap:2px}.entry .dc{flex-basis:100%;margin-left:50px;white-space:normal}.wrap{padding:24px 16px 60px}}
+</style></head><body>
+<div class="wrap">
+<header>
+  <div class="kick">// BigCat's Learning Hub</div>
+  <h1>复杂性科学<span class="en">COMPLEXITY SCIENCE</span></h1>
+  <p class="tagline"><b>局部规则 → 整体行为</b>这一条因果链本身。简单规则怎么长出整体行为、这种行为为什么预测不了、以及能拿它怎么办。每期两条并列主线：<b>决策线</b>与<b>越界线</b>。</p>
+  <div class="pos">
+    <strong style="color:#c2cbdb">两类页面：</strong>
+    <code>主线</code> 按顺序读（什么是复杂→动力学→自组织→网络→适应→尺度→韧性→方法）；
+    <code>参考库</code> 是经典模型的独立解释页，主线碰到就 <code>→ 参考</code> 链过去、按需生成。
+  </div>
+</header>
+
+<div class="seclabel">// 主线 · Main Track</div>
+<div class="secsub">左边是每期的<b style="color:#818cf8">机制</b>，右边 <span style="color:#fb923c">🎯</span> 是它的<b style="color:#fb923c">决策线</b>——这条机制对预测、干预、下注意味着什么。</div>
+
+<div class="phase pA"><span class="tag">A · 什么算复杂</span><span class="nm">What Counts as Complex <small>Topic 1–6</small></span></div>
+<div class="entry"><span class="d">T1</span><span class="t">复杂 ≠ 复杂化 — 有序/随机/复杂三分·混沌边缘</span><span class="dc">🎯 换解释层</span></div>
+<div class="entry"><span class="d">T2</span><span class="t">涌现 — 弱涌现vs强涌现·微观全知也推不出宏观</span><span class="dc">🎯 原因与责任不同层</span></div>
+<div class="entry"><span class="d">T3</span><span class="t">层级与近可分解性 — Simon 钟表匠·为何必然分层</span><span class="dc">🎯 先找天然接缝</span></div>
+<div class="entry"><span class="d">T4</span><span class="t">极简规则的无限性 — 元胞自动机·生命游戏·规则110</span><span class="dc">🎯 别从结果反推阴谋</span></div>
+<div class="entry"><span class="d">T5</span><span class="t">非线性 — 阈值与突变·叠加原理失效</span><span class="dc">🎯 大回报与大灾难同源</span></div>
+<div class="entry"><span class="d">T6</span><span class="t">反馈回路 — 正/负反馈·时滞·存量与流量</span><span class="dc">🎯 骂人没用，改回路</span></div>
+
+<div class="phase pB"><span class="tag">B · 动力学</span><span class="nm">Dynamics & Unpredictability <small>Topic 7–12</small></span></div>
+<div class="entry"><span class="d">T7</span><span class="t">状态空间的语言 — 相图·不动点·吸引子四型</span><span class="dc">🎯 问「往哪儿走」</span></div>
+<div class="entry"><span class="d">T8</span><span class="t">混沌 — 确定论≠可预测·洛伦兹·混沌≠随机</span><span class="dc">🎯 不可预测≠不可理解</span></div>
+<div class="entry"><span class="d">T9</span><span class="t">通往混沌之路 — 逻辑斯蒂映射·倍周期·费根鲍姆常数</span><span class="dc">🎯 找那个参数</span></div>
+<div class="entry"><span class="d">T10</span><span class="t">分岔与临界转变 — 鞍结分岔·双稳态·滞后回线</span><span class="dc">🎯 认出单向门</span></div>
+<div class="entry"><span class="d">T11</span><span class="t">可预测性的两种极限 — 李雅普诺夫时间·计算不可约性</span><span class="dc">🎯 改做分布与情景</span></div>
+<div class="entry"><span class="d">T12</span><span class="t">噪声与涨落 — 随机共振·路径依赖与锁定</span><span class="dc">🎯 早期保留多样性</span></div>
+
+<div class="phase pC"><span class="tag">C · 自组织与临界</span><span class="nm">Self-Organization & Criticality <small>Topic 13–19</small></span></div>
+<div class="entry"><span class="d">T13</span><span class="t">自组织 — 贝纳德对流·图灵斑图·鸟群蚁群·自催化集</span><span class="dc">🎯 何时不设协调者</span></div>
+<div class="entry"><span class="d">T14</span><span class="t">同步 — Kuramoto·萤火虫齐闪·千禧桥共振</span><span class="dc">🎯 调耦合，不下号令</span></div>
+<div class="entry"><span class="d">T15</span><span class="t">耗散结构 — 普里高津·远离平衡态·生命作为熵的出口</span><span class="dc">🎯 问能量账单谁在付</span></div>
+<div class="entry"><span class="d">T16</span><span class="t">相变与普适类 — 序参量·细节无关性·重整化直觉</span><span class="dc">🎯 找序参量，别数细节</span></div>
+<div class="entry"><span class="d">T17</span><span class="t">渗流与连通阈值 — 越线即贯通·巨簇涌现</span><span class="dc">🎯 找阈值，别找原因</span></div>
+<div class="entry"><span class="d">T18</span><span class="t">自组织临界性 — 沙堆模型·大事件不需要大原因</span><span class="dc">🎯 别找「罪魁」</span></div>
+<div class="entry"><span class="d">T19</span><span class="t">幂律与重尾 — 与正态的根本差异·均值可能不存在</span><span class="dc">🎯 平均值是陷阱</span></div>
+
+<div class="phase pD"><span class="tag">D · 网络</span><span class="nm">Networks <small>Topic 20–25</small></span></div>
+<div class="entry"><span class="d">T20</span><span class="t">结构决定动力学 — 度/路径/聚类·社群与模块度</span><span class="dc">🎯 先画关系图</span></div>
+<div class="entry"><span class="d">T21</span><span class="t">小世界 — 六度分隔的真相·弱连接的力量</span><span class="dc">🎯 你缺的是跨圈捷径</span></div>
+<div class="entry"><span class="d">T22</span><span class="t">无标度与优先连接 — 富者愈富·以及对它的系统性反驳</span><span class="dc">🎯 先发优势值得重注</span></div>
+<div class="entry"><span class="d">T23</span><span class="t">鲁棒但脆弱 — 抗随机故障、怕定点攻击</span><span class="dc">🎯 先找出枢纽</span></div>
+<div class="entry"><span class="d">T24</span><span class="t">传播与传染 — R₀·传播阈值·复杂传染vs简单传染</span><span class="dc">🎯 观念≠病毒</span></div>
+<div class="entry"><span class="d">T25</span><span class="t">级联失效与系统性风险 — 负载重分配·正常事故理论</span><span class="dc">🎯 效率与韧性的汇率</span></div>
+
+<div class="phase pE"><span class="tag">E · 适应与演化</span><span class="nm">Adaptation & Evolution <small>Topic 26–31</small></span></div>
+<div class="entry"><span class="d">T26</span><span class="t">复杂适应系统 — Holland·规则本身在演化</span><span class="dc">🎯 模型公开即失效</span></div>
+<div class="entry"><span class="d">T27</span><span class="t">基于主体建模 — 谢林隔离模型·建模的诚实与陷阱</span><span class="dc">🎯 恶果不需恶意</span></div>
+<div class="entry"><span class="d">T28</span><span class="t">适应性景观 — 局部最优·NK 模型·探索vs利用</span><span class="dc">🎯 何时必须先下山</span></div>
+<div class="entry"><span class="d">T29</span><span class="t">演化博弈与合作的起源 — ESS·空间结构如何救合作</span><span class="dc">🎯 要合作先改结构</span></div>
+<div class="entry"><span class="d">T30</span><span class="t">集体智能与群体愚蠢 — 独立性与多样性是硬前提</span><span class="dc">🎯 人多管用的条件</span></div>
+<div class="entry"><span class="d">T31</span><span class="t">共演化与红皇后 — 军备竞赛·为何均衡才罕见</span><span class="dc">🎯 跑更快还是换赛道</span></div>
+
+<div class="phase pF"><span class="tag">F · 尺度</span><span class="nm">Scale <small>Topic 32–35</small></span></div>
+<div class="entry"><span class="d">T32</span><span class="t">尺度不变与分形 — 自相似·分形维数·海岸线悖论</span><span class="dc">🎯 「多长」是尺度问题</span></div>
+<div class="entry"><span class="d">T33</span><span class="t">异速生长律 — 3/4 次幂·为何大动物心跳慢</span><span class="dc">🎯 规模变则比例变</span></div>
+<div class="entry"><span class="d">T34</span><span class="t">城市与公司的规模律 — 次线性vs超线性·城市不死公司必死</span><span class="dc">🎯 你在哪条曲线</span></div>
+<div class="entry"><span class="d">T35</span><span class="t">增长的极限与 S 曲线 — 指数必然折返·超调与崩溃</span><span class="dc">🎯 加注还是换车</span></div>
+
+<div class="phase pG"><span class="tag">G · 脆弱与韧性</span><span class="nm">Fragility, Resilience & Early Warning <small>Topic 36–40</small></span></div>
+<div class="entry"><span class="d">T36</span><span class="t">临界慢化与早期预警信号 — 方差上升·恢复变慢·失效条件</span><span class="dc">🎯 设先行指标</span></div>
+<div class="entry"><span class="d">T37</span><span class="t">厚尾世界的风险 — 极端不是异常·遍历性问题</span><span class="dc">🎯 破产不能算期望</span></div>
+<div class="entry"><span class="d">T38</span><span class="t">韧性与适应循环 — Panarchy·冗余/模块化/多样性</span><span class="dc">🎯 为不确定性设计</span></div>
+<div class="entry"><span class="d">T39</span><span class="t">反脆弱与选择权 — 凸性·杠铃策略·以及对它的批评</span><span class="dc">🎯 把收益做成凸的</span></div>
+<div class="entry"><span class="d">T40</span><span class="t">干预复杂系统 — Meadows 杠杆点·Ashby 必要多样性</span><span class="dc">🎯 本站操作总纲</span></div>
+
+<div class="phase pH"><span class="tag">H · 方法与限度</span><span class="nm">Method & Limits <small>Topic 41–44</small></span></div>
+<div class="entry"><span class="d">T41</span><span class="t">复杂度到底怎么量 — 熵/柯氏复杂度/有效复杂度/逻辑深度</span><span class="dc">🎯 先问是哪种复杂</span></div>
+<div class="entry"><span class="d">T42</span><span class="t">建模的陷阱 — 过拟合与叙事·「看起来像幂律」的误判</span><span class="dc">🎯 同时汇报失效条件</span></div>
+<div class="entry"><span class="d">T43</span><span class="t">对复杂性科学的批判 — 哪些指控成立·诚实的边界</span><span class="dc">🎯 先知道哪儿不管用</span></div>
+<div class="entry"><span class="d">T44</span><span class="t">思想史与人物 — 控制论→一般系统论→圣塔菲</span><span class="dc">🎯 概念是谁逼出来的</span></div>
+
+<div class="seclabel">// 参考库 · Reference Library</div>
+<div class="secsub">经典模型与方法的独立解释页，被主线按需 link、随主线自然长满（不按顺序读）。每页固定回答：它问什么问题 → 规则本身 → 跑起来会看到什么 → 解释了现实中的什么 → <b style="color:#f472b6">不能解释什么</b>。</div>
+<div class="reflib">
+  <div class="refgrp">经典模型 · Classic Models</div>
+  <div class="refgrid">
+    <span class="refcard"><span class="rt">ref</span>生命游戏与元胞自动机</span>
+    <span class="refcard"><span class="rt">ref</span>逻辑斯蒂映射</span>
+    <span class="refcard"><span class="rt">ref</span>洛伦兹系统</span>
+    <span class="refcard"><span class="rt">ref</span>相空间与吸引子</span>
+    <span class="refcard"><span class="rt">ref</span>Kuramoto 同步模型</span>
+    <span class="refcard"><span class="rt">ref</span>Ising 模型</span>
+    <span class="refcard"><span class="rt">ref</span>沙堆模型</span>
+    <span class="refcard"><span class="rt">ref</span>渗流模型</span>
+    <span class="refcard"><span class="rt">ref</span>Boids 鸟群模型</span>
+    <span class="refcard"><span class="rt">ref</span>蚁群与去中心共识</span>
+    <span class="refcard"><span class="rt">ref</span>小世界模型</span>
+    <span class="refcard"><span class="rt">ref</span>优先连接模型</span>
+    <span class="refcard"><span class="rt">ref</span>SIR 模型</span>
+    <span class="refcard"><span class="rt">ref</span>谢林隔离模型</span>
+    <span class="refcard"><span class="rt">ref</span>NK 适应性景观</span>
+    <span class="refcard"><span class="rt">ref</span>复制动态</span>
+    <span class="refcard"><span class="rt">ref</span>Lotka-Volterra 模型</span>
+    <span class="refcard"><span class="rt">ref</span>系统动力学（存量-流量）</span>
+    <span class="refcard"><span class="rt">ref</span>遗传算法</span>
+  </div>
+  <div class="refgrp">方法 · Methods</div>
+  <div class="refgrid">
+    <span class="refcard"><span class="rt">ref</span>幂律的识别与误判</span>
+    <span class="refcard"><span class="rt">ref</span>网络中心性指标</span>
+    <span class="refcard"><span class="rt">ref</span>蒙特卡罗与集合模拟</span>
+    <span class="refcard"><span class="rt">ref</span>重整化群直觉</span>
+  </div>
+  <div class="refgrp">学派 · Schools</div>
+  <div class="refgrid">
+    <span class="refcard"><span class="rt">ref</span>圣塔菲研究所与学派谱系</span>
+    <span class="refcard"><span class="rt">ref</span>控制论谱系</span>
+  </div>
+</div>
+
+<footer>BigCat · Complexity Science · <a href="https://cissy0802.github.io/">← Learning Hub</a></footer>
+</div>
+<script src="https://hub.cissychen.com/comments.js" defer></script>
+<script src="https://hub.cissychen.com/search.js" defer></script>
+<script src="https://hub.cissychen.com/index-button.js" defer></script>
+<script src="https://hub.cissychen.com/i18n-tts.js" defer></script>
+</body></html>
