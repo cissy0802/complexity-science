@@ -3,46 +3,46 @@
 <title>Complexity Science — BigCat</title>
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
-body{font-family:-apple-system,"SF Pro Display","Noto Sans SC",sans-serif;color:#dfe7f0;line-height:1.7;min-height:100vh;
-  background:radial-gradient(1200px 600px at 15% -5%,rgba(45,212,191,0.10),transparent 60%),radial-gradient(1000px 700px at 100% 0%,rgba(244,114,182,0.09),transparent 55%),linear-gradient(165deg,#050a12 0%,#08131f 45%,#04080e 100%);background-attachment:fixed}
+body{font-family:-apple-system,"SF Pro Display","Noto Sans SC",sans-serif;color:#e4ded5;line-height:1.7;min-height:100vh;
+  background:radial-gradient(1100px 620px at 12% -6%,rgba(224,137,94,0.10),transparent 62%),radial-gradient(950px 700px at 100% 2%,rgba(166,147,205,0.09),transparent 58%),linear-gradient(168deg,#100f0d 0%,#15161b 48%,#0a0a0c 100%);background-attachment:fixed}
 .wrap{max-width:880px;margin:0 auto;padding:30px 22px 90px}
 header{text-align:center;padding:56px 0 20px}
-.kick{font-size:0.76rem;letter-spacing:3px;color:#2dd4bf;font-family:"SF Mono",Menlo,monospace;text-transform:uppercase;margin-bottom:16px;opacity:0.9}
-h1{font-size:2.9rem;font-weight:800;letter-spacing:1px;line-height:1.15;background:linear-gradient(110deg,#2dd4bf 0%,#818cf8 40%,#f472b6 70%,#fb923c 100%);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;filter:drop-shadow(0 2px 22px rgba(129,140,248,0.35))}
-h1 .en{display:block;font-size:1.05rem;font-weight:500;letter-spacing:5px;margin-top:12px;color:#7c86a0;-webkit-text-fill-color:#7c86a0}
-.tagline{margin-top:20px;font-size:0.98rem;color:#a8b4c6;max-width:640px;margin-left:auto;margin-right:auto}
-.tagline b{color:#f472b6;font-weight:600}
-.pos{margin:30px auto 0;max-width:660px;font-size:0.85rem;color:#828da3;background:rgba(255,255,255,0.03);border:1px solid rgba(129,140,248,0.15);border-radius:12px;padding:14px 20px;line-height:1.6}
-.pos code{font-family:"SF Mono",Menlo,monospace;color:#2dd4bf;font-size:0.82rem}
-.seclabel{font-family:"SF Mono",Menlo,monospace;font-size:0.8rem;letter-spacing:3px;color:#646e85;margin:52px 0 6px;text-transform:uppercase}
-.secsub{font-size:0.88rem;color:#6f7990;margin-bottom:20px}
+.kick{font-size:0.76rem;letter-spacing:3px;color:#e0895e;font-family:"SF Mono",Menlo,monospace;text-transform:uppercase;margin-bottom:16px;opacity:0.85}
+h1{font-size:2.9rem;font-weight:800;letter-spacing:1px;line-height:1.15;background:linear-gradient(108deg,#e0895e 0%,#d9b45f 32%,#63b3a6 66%,#a693cd 100%);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;filter:drop-shadow(0 2px 24px rgba(224,137,94,0.28))}
+h1 .en{display:block;font-size:1.05rem;font-weight:500;letter-spacing:5px;margin-top:12px;color:#847d72;-webkit-text-fill-color:#847d72}
+.tagline{margin-top:20px;font-size:0.98rem;color:#aba498;max-width:640px;margin-left:auto;margin-right:auto}
+.tagline b{color:#cd7f9b;font-weight:600}
+.pos{margin:30px auto 0;max-width:660px;font-size:0.85rem;color:#8d867b;background:rgba(255,255,255,0.025);border:1px solid rgba(166,147,205,0.16);border-radius:12px;padding:14px 20px;line-height:1.6}
+.pos code{font-family:"SF Mono",Menlo,monospace;color:#63b3a6;font-size:0.82rem}
+.seclabel{font-family:"SF Mono",Menlo,monospace;font-size:0.8rem;letter-spacing:3px;color:#6b665e;margin:52px 0 6px;text-transform:uppercase}
+.secsub{font-size:0.88rem;color:#787268;margin-bottom:20px}
 .phase{margin:26px 0 10px;display:flex;align-items:center;gap:12px}
 .phase .tag{font-family:"SF Mono",Menlo,monospace;font-size:0.72rem;font-weight:700;letter-spacing:1px;padding:3px 10px;border-radius:20px;border:1px solid;white-space:nowrap}
-.pA .tag{color:#2dd4bf;border-color:rgba(45,212,191,0.4);background:rgba(45,212,191,0.06)}
-.pB .tag{color:#818cf8;border-color:rgba(129,140,248,0.4);background:rgba(129,140,248,0.06)}
-.pC .tag{color:#fb923c;border-color:rgba(251,146,60,0.4);background:rgba(251,146,60,0.06)}
-.pD .tag{color:#f472b6;border-color:rgba(244,114,182,0.4);background:rgba(244,114,182,0.06)}
-.pE .tag{color:#22d3ee;border-color:rgba(34,211,238,0.4);background:rgba(34,211,238,0.06)}
-.pF .tag{color:#fbbf24;border-color:rgba(251,191,36,0.4);background:rgba(251,191,36,0.06)}
-.pG .tag{color:#4ade80;border-color:rgba(74,222,128,0.4);background:rgba(74,222,128,0.06)}
-.pH .tag{color:#c084fc;border-color:rgba(192,132,252,0.4);background:rgba(192,132,252,0.06)}
-.phase .nm{font-size:0.95rem;font-weight:600;color:#c2cbdb}
-.phase .nm small{color:#646e85;font-weight:400;margin-left:6px;font-size:0.78rem}
+.pA .tag{color:#e0895e;border-color:rgba(224,137,94,0.40);background:rgba(224,137,94,0.07)}
+.pB .tag{color:#d9b45f;border-color:rgba(217,180,95,0.40);background:rgba(217,180,95,0.07)}
+.pC .tag{color:#9fbc7a;border-color:rgba(159,188,122,0.40);background:rgba(159,188,122,0.07)}
+.pD .tag{color:#63b3a6;border-color:rgba(99,179,166,0.40);background:rgba(99,179,166,0.07)}
+.pE .tag{color:#79a6d2;border-color:rgba(121,166,210,0.40);background:rgba(121,166,210,0.07)}
+.pF .tag{color:#a693cd;border-color:rgba(166,147,205,0.40);background:rgba(166,147,205,0.07)}
+.pG .tag{color:#cd7f9b;border-color:rgba(205,127,155,0.40);background:rgba(205,127,155,0.07)}
+.pH .tag{color:#a8a49c;border-color:rgba(168,164,156,0.40);background:rgba(168,164,156,0.07)}
+.phase .nm{font-size:0.95rem;font-weight:600;color:#c9c2b6}
+.phase .nm small{color:#6b665e;font-weight:400;margin-left:6px;font-size:0.78rem}
 .entry{display:flex;align-items:baseline;gap:12px;padding:9px 14px;border-radius:9px;text-decoration:none;transition:all 0.16s;border:1px solid transparent}
-a.entry:hover{background:rgba(255,255,255,0.04);border-color:rgba(45,212,191,0.25);transform:translateX(3px)}
-.entry .d{font-family:"SF Mono",Menlo,monospace;font-size:0.76rem;color:#525c73;min-width:38px}
-.entry .t{font-size:0.95rem;color:#454f66}
-a.entry .t{color:#ccd5e4}
+a.entry:hover{background:rgba(255,255,255,0.035);border-color:rgba(99,179,166,0.28);transform:translateX(3px)}
+.entry .d{font-family:"SF Mono",Menlo,monospace;font-size:0.76rem;color:#57524b;min-width:38px}
+.entry .t{font-size:0.95rem;color:#4c4740}
+a.entry .t{color:#d2cbc0}
 a.entry:hover .t{color:#fff}
 .reflib{margin-top:14px}
-.refgrp{font-size:0.82rem;color:#828da3;font-family:"SF Mono",Menlo,monospace;margin:20px 0 10px;letter-spacing:1px}
+.refgrp{font-size:0.82rem;color:#8d867b;font-family:"SF Mono",Menlo,monospace;margin:20px 0 10px;letter-spacing:1px}
 .refgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:10px}
-.refcard{padding:12px 14px;border-radius:10px;border:1px solid rgba(255,255,255,0.06);background:rgba(255,255,255,0.02);font-size:0.86rem;color:#525c73;text-decoration:none;transition:all 0.16s}
-a.refcard{color:#bcc5d6;border-color:rgba(129,140,248,0.22)}
-a.refcard:hover{background:rgba(129,140,248,0.08);border-color:rgba(129,140,248,0.5);color:#fff}
-.refcard .rt{display:block;font-family:"SF Mono",Menlo,monospace;font-size:0.66rem;color:#646e85;margin-bottom:3px}
-footer{text-align:center;padding:60px 0 10px;font-size:0.8rem;color:#525c73;font-family:"SF Mono",Menlo,monospace}
-footer a{color:#818cf8;text-decoration:none}
+.refcard{padding:12px 14px;border-radius:10px;border:1px solid rgba(255,255,255,0.055);background:rgba(255,255,255,0.018);font-size:0.86rem;color:#57524b;text-decoration:none;transition:all 0.16s}
+a.refcard{color:#c2bbb0;border-color:rgba(166,147,205,0.24)}
+a.refcard:hover{background:rgba(166,147,205,0.09);border-color:rgba(166,147,205,0.52);color:#fff}
+.refcard .rt{display:block;font-family:"SF Mono",Menlo,monospace;font-size:0.66rem;color:#6b665e;margin-bottom:3px}
+footer{text-align:center;padding:60px 0 10px;font-size:0.8rem;color:#57524b;font-family:"SF Mono",Menlo,monospace}
+footer a{color:#79a6d2;text-decoration:none}
 @media(max-width:600px){h1{font-size:2.1rem}.entry{flex-wrap:wrap;row-gap:2px}.wrap{padding:24px 16px 60px}}
 </style></head><body>
 <div class="wrap">
@@ -51,14 +51,14 @@ footer a{color:#818cf8;text-decoration:none}
   <h1>Complexity Science<span class="en">LOCAL RULES &rarr; GLOBAL BEHAVIOR</span></h1>
   <p class="tagline">The causal chain itself: <b>local rules &rarr; global behavior</b>. How simple rules grow into collective behavior, why that behavior resists prediction, and what you can actually do with it. Every issue runs two parallel threads — a <b>decision line</b> and a <b>crossing line</b>.</p>
   <div class="pos">
-    <strong style="color:#c2cbdb">Two kinds of pages:</strong>
+    <strong style="color:#d8d2c8">Two kinds of pages:</strong>
     <code>Main track</code> reads in order (what counts as complex &rarr; dynamics &rarr; self-organization &rarr; networks &rarr; adaptation &rarr; scale &rarr; resilience &rarr; method);
     <code>Reference library</code> holds one page per classic model, linked from the main track and written on demand.
   </div>
 </header>
 
 <div class="seclabel">// Main Track</div>
-<div class="secsub">Read in order. Each issue works through one <b style="color:#818cf8">mechanism</b> — how it grows out of local rules, why it resists prediction — and lands it on a <b style="color:#fb923c">decision line</b> (what to do, or stop doing) and a <b style="color:#f472b6">crossing line</b> (where the same mechanism turns up in an unrelated field).</div>
+<div class="secsub">Read in order. Each issue works through one <b style="color:#79a6d2">mechanism</b> — how it grows out of local rules, why it resists prediction — and lands it on a <b style="color:#e0895e">decision line</b> (what to do, or stop doing) and a <b style="color:#cd7f9b">crossing line</b> (where the same mechanism turns up in an unrelated field).</div>
 
 <div class="phase pA"><span class="tag">A · WHAT COUNTS</span><span class="nm">What Counts as Complex <small>Topic 1–6</small></span></div>
 <div class="entry"><span class="d">T1</span><span class="t">Complex ≠ complicated — ordered/random/complex · the edge of chaos</span></div>
@@ -121,7 +121,7 @@ footer a{color:#818cf8;text-decoration:none}
 <div class="entry"><span class="d">T44</span><span class="t">Intellectual history — cybernetics → general systems theory → Santa Fe</span></div>
 
 <div class="seclabel">// Reference Library</div>
-<div class="secsub">Standalone pages for classic models and methods, linked on demand from the main track (not meant to be read in order). Each answers the same five questions: what problem it poses → the rules themselves → what you see when it runs → what it explains in the real world → <b style="color:#f472b6">what it cannot explain</b>.</div>
+<div class="secsub">Standalone pages for classic models and methods, linked on demand from the main track (not meant to be read in order). Each answers the same five questions: what problem it poses → the rules themselves → what you see when it runs → what it explains in the real world → <b style="color:#cd7f9b">what it cannot explain</b>.</div>
 <div class="reflib">
   <div class="refgrp">Classic Models</div>
   <div class="refgrid">
