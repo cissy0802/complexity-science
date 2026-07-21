@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Sandpile Model · Reference · Complexity Science</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,"SF Pro Display","Noto Sans SC",sans-serif;color:#e4ded5;line-height:1.85;min-height:100vh;
+  background:radial-gradient(1100px 620px at 12% -6%,rgba(99,179,166,0.09),transparent 62%),radial-gradient(950px 700px at 100% 2%,rgba(166,147,205,0.08),transparent 58%),linear-gradient(168deg,#100f0d 0%,#15161b 48%,#0a0a0c 100%);background-attachment:fixed}
+.wrap{max-width:720px;margin:0 auto;padding:30px 22px 90px}
+header{padding:52px 0 8px;border-bottom:1px solid rgba(255,255,255,0.07);margin-bottom:32px}
+.rtag{font-family:"SF Mono",Menlo,monospace;font-size:0.72rem;font-weight:700;letter-spacing:2px;color:#63b3a6;border:1px solid rgba(99,179,166,0.4);background:rgba(99,179,166,0.07);padding:3px 11px;border-radius:20px}
+h1{font-size:2.15rem;font-weight:800;line-height:1.2;margin:20px 0 0;color:#f0eae0}
+.sub{font-size:0.98rem;color:#aba498;margin-top:12px}
+.meta{font-family:"SF Mono",Menlo,monospace;font-size:0.75rem;color:#57524b;margin-top:16px;letter-spacing:1px}
+h2{font-size:1.25rem;font-weight:700;color:#e9e3d9;margin:44px 0 10px}
+h2 .n{font-family:"SF Mono",Menlo,monospace;font-size:0.8rem;color:#63b3a6;display:block;margin-bottom:5px;letter-spacing:2px}
+p{margin-bottom:16px}
+b,strong{color:#f0eae0;font-weight:600}
+em{color:#d9b45f;font-style:normal;font-weight:500}
+.rule{border:1px solid rgba(99,179,166,0.3);background:rgba(99,179,166,0.05);border-radius:12px;padding:16px 20px;margin:22px 0;font-size:0.94rem;color:#d5cdc1}
+.rule ol{padding-left:20px;margin:0}
+.rule li{margin-bottom:7px}
+.rule li:last-child{margin-bottom:0}
+figure{margin:28px 0}
+figure svg{display:block;width:100%;height:auto;border-radius:12px;background:rgba(255,255,255,0.018);border:1px solid rgba(255,255,255,0.06)}
+figcaption{font-size:0.82rem;color:#787268;margin-top:10px;text-align:center;line-height:1.6}
+.cant{border:1px solid rgba(205,127,155,0.36);background:rgba(205,127,155,0.05);border-radius:12px;padding:18px 21px;margin:26px 0 10px}
+.cant h3{font-size:1rem;color:#cd7f9b;margin-bottom:12px}
+.cant ul{list-style:none;padding:0}
+.cant li{margin-bottom:13px;font-size:0.93rem;color:#d5cdc1;line-height:1.76}
+.cant li:last-child{margin-bottom:0}
+.cant li b{color:#cd7f9b}
+.refs{margin:40px 0 10px}
+.refs h3{font-size:1rem;color:#79a6d2;margin-bottom:12px}
+.refs ul{list-style:none;padding:0}
+.refs li{margin-bottom:9px;font-size:0.89rem;color:#8d867b;line-height:1.7}
+.refs a{color:#79a6d2;text-decoration:none;border-bottom:1px solid rgba(121,166,210,0.3)}
+.refs a:hover{color:#a6c4e2}
+footer{text-align:center;padding:52px 0 10px;font-size:0.78rem;color:#57524b;font-family:"SF Mono",Menlo,monospace;border-top:1px solid rgba(255,255,255,0.06);margin-top:46px}
+footer a{color:#79a6d2;text-decoration:none}
+@media(max-width:600px){h1{font-size:1.7rem}.wrap{padding:24px 16px 60px}}
+</style></head><body>
+<div class="wrap">
+
+<header>
+  <span class="rtag">REF · CLASSIC MODEL</span>
+  <h1>The Sandpile Model</h1>
+  <p class="sub">Bak-Tang-Wiesenfeld, 1987 — the prototype of self-organized criticality</p>
+  <p class="meta">Linked from: Topic 18 · Self-Organized Criticality</p>
+</header>
+
+<h2><span class="n">01</span>The question it poses</h2>
+<p>In 1980s physics, criticality was a rare guest: you had to tune the temperature to a precise value before a system showed scale-free fluctuations. Yet scale-free things are everywhere in nature — earthquake magnitudes, river branching, price jumps, the 1/f noise in electronic devices.</p>
+<p>Bak and his colleagues asked: <b>is there a class of system that reaches criticality by itself, with nobody tuning anything?</b> The sandpile is their minimal answer — the dumbest possible device that still demonstrates the point.</p>
+
+<h2><span class="n">02</span>The rules themselves</h2>
+<div class="rule">
+<ol>
+<li>An N×N grid; each cell holds an integer <em>z</em> — read it as the number of grains stacked there.</li>
+<li>Pick a cell at random and add 1 to its <em>z</em>.</li>
+<li>Any cell with <em>z</em> &gt; 3 topples: subtract 4 from itself, add 1 to each of its four neighbours.</li>
+<li>A toppling may push a neighbour above 3, which topples in turn, until no cell exceeds 3. That whole chain is one <b>avalanche</b>.</li>
+<li>Grains pushed past the boundary leave the system (otherwise it would fill up forever).</li>
+<li>Only once the avalanche has fully stopped is the next grain added.</li>
+</ol>
+</div>
+<p>That last rule is easy to skip past, and it is what makes the model work: <b>driving must be far slower than relaxation.</b> This is separation of timescales — slow drive, fast release. Where a real system fails this condition, the model’s conclusions do not transfer.</p>
+
+<figure>
+<svg viewBox="0 0 700 200" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Toppling rule: the centre cell loses 4, each of four neighbours gains 1">
+  <defs>
+    <marker id="rs1" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="10" markerHeight="10" markerUnits="userSpaceOnUse" orient="auto">
+      <path d="M0,1 L9,5 L0,9 z" fill="#63b3a6"/>
+    </marker>
+  </defs>
+  <text x="350" y="26" text-anchor="middle" fill="#aba498" font-size="13" font-family="-apple-system,sans-serif">One toppling: a conservative redistribution</text>
+
+  <g transform="translate(148,54)">
+    <rect x="42" y="0" width="42" height="42" fill="#3a352c" stroke="rgba(255,255,255,0.12)"/><text x="63" y="27" text-anchor="middle" fill="#aba498" font-size="15" font-family="SF Mono,monospace">2</text>
+    <rect x="0" y="42" width="42" height="42" fill="#3a352c" stroke="rgba(255,255,255,0.12)"/><text x="21" y="69" text-anchor="middle" fill="#aba498" font-size="15" font-family="SF Mono,monospace">1</text>
+    <rect x="42" y="42" width="42" height="42" fill="#7a4a30" stroke="rgba(224,137,94,0.7)"/><text x="63" y="69" text-anchor="middle" fill="#f0d0bc" font-size="15" font-family="SF Mono,monospace">4</text>
+    <rect x="84" y="42" width="42" height="42" fill="#3a352c" stroke="rgba(255,255,255,0.12)"/><text x="105" y="69" text-anchor="middle" fill="#aba498" font-size="15" font-family="SF Mono,monospace">3</text>
+    <rect x="42" y="84" width="42" height="42" fill="#3a352c" stroke="rgba(255,255,255,0.12)"/><text x="63" y="111" text-anchor="middle" fill="#aba498" font-size="15" font-family="SF Mono,monospace">0</text>
+  </g>
+  <text x="211" y="196" text-anchor="middle" fill="#787268" font-size="11.5" font-family="-apple-system,sans-serif">centre cell z = 4 &gt; 3, must topple</text>
+
+  <line x1="300" y1="117" x2="368" y2="117" stroke="#63b3a6" stroke-width="2" marker-end="url(#rs1)"/>
+
+  <g transform="translate(400,54)">
+    <rect x="42" y="0" width="42" height="42" fill="#4a4438" stroke="rgba(255,255,255,0.12)"/><text x="63" y="27" text-anchor="middle" fill="#9fbc7a" font-size="15" font-family="SF Mono,monospace">3</text>
+    <rect x="0" y="42" width="42" height="42" fill="#4a4438" stroke="rgba(255,255,255,0.12)"/><text x="21" y="69" text-anchor="middle" fill="#9fbc7a" font-size="15" font-family="SF Mono,monospace">2</text>
+    <rect x="42" y="42" width="42" height="42" fill="#26241f" stroke="rgba(255,255,255,0.12)"/><text x="63" y="69" text-anchor="middle" fill="#8d867b" font-size="15" font-family="SF Mono,monospace">0</text>
+    <rect x="84" y="42" width="42" height="42" fill="#7a4a30" stroke="rgba(224,137,94,0.7)"/><text x="105" y="69" text-anchor="middle" fill="#f0d0bc" font-size="15" font-family="SF Mono,monospace">4</text>
+    <rect x="42" y="84" width="42" height="42" fill="#4a4438" stroke="rgba(255,255,255,0.12)"/><text x="63" y="111" text-anchor="middle" fill="#9fbc7a" font-size="15" font-family="SF Mono,monospace">1</text>
+  </g>
+  <text x="463" y="196" text-anchor="middle" fill="#c0703f" font-size="11.5" font-family="-apple-system,sans-serif">right neighbour is now full → topples next</text>
+  <text x="622" y="112" text-anchor="middle" fill="#787268" font-size="11.5" font-family="-apple-system,sans-serif">the chain</text>
+  <text x="622" y="130" text-anchor="middle" fill="#787268" font-size="11.5" font-family="-apple-system,sans-serif">unfolds here</text>
+</svg>
+<figcaption>Toppling conserves grains: all four leaving the centre land on its neighbours. Sand exits only at the boundary.</figcaption>
+</figure>
+
+<h2><span class="n">03</span>What you see when it runs</h2>
+<p>The pile starts empty and added grains do essentially nothing. As cells fill up, avalanches appear and grow. Eventually the system settles into a <b>statistically steady</b> state: average density stops changing, yet avalanches keep occurring, ranging from a single cell to sweeps across the whole grid.</p>
+<p>Plot avalanche size against time and you get an irregular spike train — no period, no precursor, no sign that a big one is coming.</p>
+
+<figure>
+<svg viewBox="0 0 700 220" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Spike train of avalanche sizes over time, with no period and no precursor">
+  <text x="350" y="24" text-anchor="middle" fill="#aba498" font-size="13" font-family="-apple-system,sans-serif">Avalanche size over time — nothing unusual precedes the big one</text>
+  <line x1="60" y1="170" x2="660" y2="170" stroke="rgba(255,255,255,0.18)" stroke-width="1.5"/>
+  <line x1="60" y1="170" x2="60" y2="46" stroke="rgba(255,255,255,0.18)" stroke-width="1.5"/>
+  <text x="360" y="200" text-anchor="middle" fill="#8d867b" font-size="11.5" font-family="-apple-system,sans-serif">grains added (time) →</text>
+  <text x="30" y="112" fill="#8d867b" font-size="11.5" font-family="-apple-system,sans-serif" transform="rotate(-90 30 112)">size</text>
+  <g stroke="#9fbc7a" stroke-width="2.5">
+    <line x1="80" y1="170" x2="80" y2="162"/><line x1="98" y1="170" x2="98" y2="158"/><line x1="116" y1="170" x2="116" y2="166"/><line x1="134" y1="170" x2="134" y2="140"/><line x1="152" y1="170" x2="152" y2="164"/><line x1="170" y1="170" x2="170" y2="152"/><line x1="188" y1="170" x2="188" y2="167"/><line x1="206" y1="170" x2="206" y2="128"/><line x1="224" y1="170" x2="224" y2="161"/><line x1="242" y1="170" x2="242" y2="166"/><line x1="260" y1="170" x2="260" y2="148"/><line x1="278" y1="170" x2="278" y2="163"/><line x1="296" y1="170" x2="296" y2="157"/><line x1="314" y1="170" x2="314" y2="167"/>
+    <line x1="350" y1="170" x2="350" y2="159"/><line x1="368" y1="170" x2="368" y2="165"/><line x1="386" y1="170" x2="386" y2="134"/><line x1="404" y1="170" x2="404" y2="162"/><line x1="422" y1="170" x2="422" y2="167"/><line x1="440" y1="170" x2="440" y2="150"/><line x1="458" y1="170" x2="458" y2="164"/><line x1="476" y1="170" x2="476" y2="120"/><line x1="494" y1="170" x2="494" y2="166"/><line x1="512" y1="170" x2="512" y2="156"/><line x1="530" y1="170" x2="530" y2="163"/><line x1="548" y1="170" x2="548" y2="167"/><line x1="566" y1="170" x2="566" y2="142"/><line x1="584" y1="170" x2="584" y2="165"/><line x1="602" y1="170" x2="602" y2="159"/><line x1="620" y1="170" x2="620" y2="166"/><line x1="638" y1="170" x2="638" y2="161"/>
+  </g>
+  <line x1="332" y1="170" x2="332" y2="54" stroke="#e0895e" stroke-width="3"/>
+  <text x="332" y="44" text-anchor="middle" fill="#e0895e" font-size="12" font-family="SF Mono,monospace">big avalanche</text>
+  <text x="332" y="188" text-anchor="middle" fill="#c0703f" font-size="11" font-family="-apple-system,sans-serif">triggered by the same action as all the others</text>
+</svg>
+<figcaption>No period, no precursor, no "typical size". Histogram these heights and you get a power law.</figcaption>
+</figure>
+
+<p>There is one more elegant property: in 1990 Deepak Dhar proved the model is <b>abelian</b> — when several cells are over threshold at once, the final configuration is identical no matter what order you topple them in. The process may be reordered freely; the outcome is unique.</p>
+
+<h2><span class="n">04</span>What it explains in the real world</h2>
+<p>The sandpile is not meant to predict any single event. It explains <b>why an entire class of systems has no typical event size</b>. Anything with slow accumulation, threshold release, and release propagating to neighbours can take it as a first approximation:</p>
+<p>crustal stress and earthquakes (the Gutenberg-Richter law is the firmest real-world counterpart), forest fuel and wildfire, load redistribution and blackout size, extinction cascades in ecosystems. It makes exactly one core prediction: <b>the size distribution should be a power law, not a bell curve.</b> That prediction can be refuted by data — which is precisely what makes it a scientific model.</p>
+
+<div class="cant">
+<h3>What it cannot explain</h3>
+<ul>
+<li><b>It does not explain real sandpiles.</b> Awkward, but it has to be said: experiments with actual sand find periodic large collapses beyond a certain pile size, not a power law. The 1996 <em>Nature</em> rice-pile experiment sharpened the condition — elongated grains obey, near-spherical ones do not, and the difference is whether grains interlock and pass stress along. The model captures a class of mechanism, not sand.</li>
+<li><b>It predicts no individual avalanche.</b> It gives a distribution, not a schedule. Asking it when the next big one arrives, or how big this one will get, demands from a purely statistical model exactly what it declines to offer.</li>
+<li><b>It does not apply without separation of timescales.</b> Rule 6 requires the avalanche to finish before the next grain lands. If driving is as fast as relaxation — continuous loading while collapse is under way — the system enters a different regime and a power law need not appear.</li>
+<li><b>It is not a substitute for judgments of responsibility.</b> "Avalanche size is independent of who triggered it" is a claim about statistics. Every toppling has a real causal chain you can trace cell by cell. Reading it as "so nobody can be blamed" swaps a statistical claim for an ethical one.</li>
+<li><b>Even the exponents deserve caution.</b> Avalanche exponents for the 2D BTW model remain disputed (multifractal scaling is involved) and differ between definitions. Before quoting a number, say which quantity and which definition you mean.</li>
+</ul>
+</div>
+
+<div class="refs">
+<h3>Further reading</h3>
+<ul>
+<li>Bak, Tang &amp; Wiesenfeld, <a href="https://doi.org/10.1103/PhysRevLett.59.381">Self-organized criticality: An explanation of 1/f noise</a> (1987)</li>
+<li>Dhar, <a href="https://doi.org/10.1103/PhysRevLett.64.1613">Self-organized critical state of sandpile automaton models</a> (1990, the abelian property)</li>
+<li>Frette et al., <a href="https://www.nature.com/articles/379049a0">Avalanche dynamics in a pile of rice</a> (1996)</li>
+<li><a href="https://en.wikipedia.org/wiki/Abelian_sandpile_model">Abelian sandpile model</a> (patterns and mathematical properties)</li>
+</ul>
+</div>
+
+<footer>BigCat · Complexity Science · <a href="index.en.html">← All topics</a></footer>
+</div>
+</body></html>

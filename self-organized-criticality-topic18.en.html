@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Self-Organized Criticality — Big Events Need No Big Cause · Complexity Science T18</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,"SF Pro Display","Noto Sans SC",sans-serif;color:#e4ded5;line-height:1.85;min-height:100vh;
+  background:radial-gradient(1100px 620px at 12% -6%,rgba(224,137,94,0.10),transparent 62%),radial-gradient(950px 700px at 100% 2%,rgba(166,147,205,0.09),transparent 58%),linear-gradient(168deg,#100f0d 0%,#15161b 48%,#0a0a0c 100%);background-attachment:fixed}
+.wrap{max-width:760px;margin:0 auto;padding:30px 22px 90px}
+header{padding:52px 0 8px;border-bottom:1px solid rgba(255,255,255,0.07);margin-bottom:34px}
+.week-tag{font-family:"SF Mono",Menlo,monospace;font-size:0.72rem;font-weight:700;letter-spacing:2px;color:#9fbc7a;border:1px solid rgba(159,188,122,0.4);background:rgba(159,188,122,0.07);padding:3px 11px;border-radius:20px}
+h1{font-size:2.5rem;font-weight:800;letter-spacing:0.5px;line-height:1.2;margin:20px 0 0;background:linear-gradient(106deg,#e0895e 0%,#d9b45f 34%,#9fbc7a 68%,#63b3a6 100%);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+.sub{font-size:1.05rem;color:#aba498;margin-top:14px;font-weight:500}
+.date{font-family:"SF Mono",Menlo,monospace;font-size:0.75rem;color:#57524b;margin-top:18px;letter-spacing:1px}
+.pitch{margin:22px 0 30px;font-size:0.97rem;color:#cd7f9b;border-left:2px solid rgba(205,127,155,0.5);padding-left:16px;font-style:italic}
+.intro{font-size:1.02rem;color:#cfc8bc;margin-bottom:14px}
+.intro p{margin-bottom:16px}
+h2{font-size:1.42rem;font-weight:700;color:#e9e3d9;margin:56px 0 8px;letter-spacing:0.3px}
+h2 .n{font-family:"SF Mono",Menlo,monospace;font-size:0.85rem;color:#9fbc7a;display:block;margin-bottom:6px;letter-spacing:2px}
+p{margin-bottom:17px}
+.lead{color:#cfc8bc}
+b,strong{color:#f0eae0;font-weight:600}
+em{color:#d9b45f;font-style:normal;font-weight:500}
+.dim{color:#8d867b}
+a.reflink{display:inline-block;font-size:0.82rem;font-family:"SF Mono",Menlo,monospace;color:#63b3a6;border:1px solid rgba(99,179,166,0.38);background:rgba(99,179,166,0.07);padding:1px 9px;border-radius:20px;text-decoration:none;transition:all 0.15s;white-space:nowrap}
+a.reflink:hover{background:rgba(99,179,166,0.16);border-color:rgba(99,179,166,0.7)}
+figure{margin:30px 0}
+figure svg{display:block;width:100%;height:auto;border-radius:12px;background:rgba(255,255,255,0.018);border:1px solid rgba(255,255,255,0.06)}
+figcaption{font-size:0.82rem;color:#787268;margin-top:11px;text-align:center;line-height:1.6}
+.decide{margin:24px 0;border:1px solid rgba(224,137,94,0.36);background:rgba(224,137,94,0.055);border-radius:12px;padding:15px 19px}
+.decide .lb{font-family:"SF Mono",Menlo,monospace;font-size:0.73rem;letter-spacing:1.5px;color:#e0895e;font-weight:700;display:block;margin-bottom:7px}
+.decide p{margin:0;font-size:0.95rem;color:#ddd5c9}
+.crossx-inline{margin:20px 0 22px;border-left:2px solid rgba(205,127,155,0.55);padding:2px 0 2px 15px;font-size:0.89rem;color:#a9a096;line-height:1.72}
+.crossx-inline b{color:#cd7f9b;font-weight:600}
+.bigcat{margin:46px 0 10px;border:1px solid rgba(217,180,95,0.38);background:rgba(217,180,95,0.05);border-radius:14px;padding:20px 22px}
+.bigcat h3{font-size:1.02rem;color:#d9b45f;margin-bottom:14px;letter-spacing:0.5px}
+.bigcat ol{list-style:none;padding:0}
+.bigcat li{margin-bottom:15px;font-size:0.94rem;color:#d5cdc1;line-height:1.78}
+.bigcat li:last-child{margin-bottom:0}
+.bigcat .dm{font-family:"SF Mono",Menlo,monospace;font-size:0.73rem;color:#d9b45f;border:1px solid rgba(217,180,95,0.32);border-radius:4px;padding:1px 7px;margin-right:8px;white-space:nowrap}
+.crossx{margin:46px 0 10px;border:1px solid rgba(205,127,155,0.38);background:rgba(205,127,155,0.05);border-radius:14px;padding:20px 22px}
+.crossx h3{font-size:1.02rem;color:#cd7f9b;margin-bottom:14px;letter-spacing:0.5px}
+.crossx ul{list-style:none;padding:0}
+.crossx li{margin-bottom:16px;font-size:0.94rem;color:#d5cdc1;line-height:1.78}
+.crossx li:last-child{margin-bottom:0}
+.crossx li b{color:#cd7f9b;font-weight:600}
+.thinking{margin:46px 0 10px}
+.thinking h3{font-size:1.02rem;color:#a693cd;margin-bottom:14px;letter-spacing:0.5px}
+details{border:1px solid rgba(166,147,205,0.22);border-radius:10px;padding:12px 16px;margin-bottom:10px;background:rgba(166,147,205,0.035)}
+summary{cursor:pointer;font-size:0.93rem;color:#c9c2b6;font-weight:500}
+summary::marker{color:#a693cd}
+details p{margin:12px 0 0;font-size:0.9rem;color:#a9a096;line-height:1.75}
+.refs{margin:46px 0 10px}
+.refs h3{font-size:1.02rem;color:#79a6d2;margin-bottom:14px;letter-spacing:0.5px}
+.refs ul{list-style:none;padding:0}
+.refs li{margin-bottom:10px;font-size:0.9rem;color:#8d867b;line-height:1.7}
+.refs a{color:#79a6d2;text-decoration:none;border-bottom:1px solid rgba(121,166,210,0.3)}
+.refs a:hover{color:#a6c4e2;border-bottom-color:rgba(121,166,210,0.7)}
+footer{text-align:center;padding:56px 0 10px;font-size:0.78rem;color:#57524b;font-family:"SF Mono",Menlo,monospace;border-top:1px solid rgba(255,255,255,0.06);margin-top:50px}
+footer a{color:#79a6d2;text-decoration:none}
+@media(max-width:600px){h1{font-size:1.85rem}.wrap{padding:24px 16px 60px}h2{font-size:1.22rem}}
+</style></head><body>
+<div class="wrap">
+
+<header>
+  <span class="week-tag">TOPIC 18 · PHASE C</span>
+  <h1>Self-Organized Criticality</h1>
+  <p class="sub">Big events need no big cause</p>
+  <p class="date">2026-07-20 · Self-Organization &amp; Criticality</p>
+</header>
+
+<p class="pitch">After every crash and every outage we go looking for the culprit. But there is a whole class of system whose largest disasters are set off by the most ordinary thing imaginable — and in those systems, the act of hunting for a culprit carries no information at all.</p>
+
+<div class="intro">
+<p>A magnitude-8 earthquake and a magnitude-3 earthquake begin the same way: somewhere a piece of rock stops holding and slips. No great earthquake is caused by a correspondingly great slip. The difference isn't in the beginning. It's in how much else lets go afterwards.</p>
+<p>That sounds like the familiar line about small causes having large effects. The genuinely counterintuitive part comes next: systems like this climb <em>by themselves</em> to the state where a touch can bring everything down, and then stay there. Nobody tunes a parameter. Nothing unusual arrives from outside. Stability is the thing that would need explaining; being one grain from collapse is the resting state.</p>
+<p class="dim">Five issues on this site deal with criticality, from different angles: Topic 10 is bifurcation and tipping (the system jumps to another stable state), Topic 16 is phase transitions and universality (why details stop mattering at the critical point), Topic 17 is percolation (connectivity suddenly spanning), Topic 36 is critical slowing down (how to monitor it). <b>This issue asks one question only: who tuned the system to the critical point?</b> The answer is that nobody did — it walked there on its own.</p>
+</div>
+
+<h2><span class="n">01</span>The story of one grain</h2>
+
+<p class="lead">In 1987 three physicists — Per Bak, Chao Tang and Kurt Wiesenfeld — wrote down a set of rules simple enough to be faintly ridiculous <a class="reflink" href="ref-sandpile.en.html">→ ref · sandpile model</a>:</p>
+
+<p>Picture a sheet of graph paper with a few grains of sand in each square. Pick a square at random and add one grain. If that square now holds more than three grains it topples: four grains leave, one going to each of its four neighbours. A neighbour that now holds more than three topples in turn. Grains that spill off the edge are gone.</p>
+
+<p>That's the entire model. No physics, no friction coefficient, no gravity. Yet run it and this happens: <b>the grain you just added may do nothing at all, or it may set off a chain of topplings that sweeps across half the sheet.</b> And you cannot tell the two apart in advance, because the grain you added was identical both times.</p>
+
+<figure>
+<svg viewBox="0 0 720 300" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Three frames of the sandpile model: adding a grain, a single toppling, a cascade">
+  <defs>
+    <marker id="ar18ae" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="9" markerHeight="9" markerUnits="userSpaceOnUse" orient="auto">
+      <path d="M0,1 L9,5 L0,9 z" fill="#8d867b"/>
+    </marker>
+  </defs>
+  <text x="360" y="26" text-anchor="middle" fill="#aba498" font-size="13" font-family="-apple-system,sans-serif">Same rule, same grain — outcomes three orders of magnitude apart</text>
+
+  <text x="112" y="58" text-anchor="middle" fill="#9fbc7a" font-size="12" font-family="SF Mono,monospace">1. add a grain</text>
+  <g transform="translate(40,70)">
+    <rect x="0" y="0" width="144" height="144" fill="none" stroke="rgba(255,255,255,0.10)"/>
+    <rect x="0" y="0" width="24" height="24" fill="#2a2a26"/><rect x="24" y="0" width="24" height="24" fill="#4a4438"/><rect x="48" y="0" width="24" height="24" fill="#6b5f45"/><rect x="72" y="0" width="24" height="24" fill="#4a4438"/><rect x="96" y="0" width="24" height="24" fill="#2a2a26"/><rect x="120" y="0" width="24" height="24" fill="#6b5f45"/>
+    <rect x="0" y="24" width="24" height="24" fill="#6b5f45"/><rect x="24" y="24" width="24" height="24" fill="#8a7a4f"/><rect x="48" y="24" width="24" height="24" fill="#4a4438"/><rect x="72" y="24" width="24" height="24" fill="#8a7a4f"/><rect x="96" y="24" width="24" height="24" fill="#6b5f45"/><rect x="120" y="24" width="24" height="24" fill="#4a4438"/>
+    <rect x="0" y="48" width="24" height="24" fill="#4a4438"/><rect x="24" y="48" width="24" height="24" fill="#6b5f45"/><rect x="48" y="48" width="24" height="24" fill="#8a7a4f"/><rect x="72" y="48" width="24" height="24" fill="#6b5f45"/><rect x="96" y="48" width="24" height="24" fill="#8a7a4f"/><rect x="120" y="48" width="24" height="24" fill="#6b5f45"/>
+    <rect x="0" y="72" width="24" height="24" fill="#8a7a4f"/><rect x="24" y="72" width="24" height="24" fill="#4a4438"/><rect x="48" y="72" width="24" height="24" fill="#6b5f45"/><rect x="72" y="72" width="24" height="24" fill="#8a7a4f"/><rect x="96" y="72" width="24" height="24" fill="#4a4438"/><rect x="120" y="72" width="24" height="24" fill="#8a7a4f"/>
+    <rect x="0" y="96" width="24" height="24" fill="#6b5f45"/><rect x="24" y="96" width="24" height="24" fill="#8a7a4f"/><rect x="48" y="96" width="24" height="24" fill="#4a4438"/><rect x="72" y="96" width="24" height="24" fill="#6b5f45"/><rect x="96" y="96" width="24" height="24" fill="#8a7a4f"/><rect x="120" y="96" width="24" height="24" fill="#2a2a26"/>
+    <rect x="0" y="120" width="24" height="24" fill="#2a2a26"/><rect x="24" y="120" width="24" height="24" fill="#6b5f45"/><rect x="48" y="120" width="24" height="24" fill="#8a7a4f"/><rect x="72" y="120" width="24" height="24" fill="#4a4438"/><rect x="96" y="120" width="24" height="24" fill="#6b5f45"/><rect x="120" y="120" width="24" height="24" fill="#8a7a4f"/>
+    <circle cx="60" cy="60" r="6" fill="#e0895e"/>
+  </g>
+  <text x="112" y="238" text-anchor="middle" fill="#787268" font-size="11" font-family="-apple-system,sans-serif">this cell is now full</text>
+
+  <line x1="196" y1="142" x2="228" y2="142" stroke="#8d867b" stroke-width="1.5" marker-end="url(#ar18ae)"/>
+
+  <text x="308" y="58" text-anchor="middle" fill="#9fbc7a" font-size="12" font-family="SF Mono,monospace">2. one toppling</text>
+  <g transform="translate(236,70)">
+    <rect x="0" y="0" width="144" height="144" fill="none" stroke="rgba(255,255,255,0.10)"/>
+    <rect x="0" y="0" width="24" height="24" fill="#2a2a26"/><rect x="24" y="0" width="24" height="24" fill="#4a4438"/><rect x="48" y="0" width="24" height="24" fill="#6b5f45"/><rect x="72" y="0" width="24" height="24" fill="#4a4438"/><rect x="96" y="0" width="24" height="24" fill="#2a2a26"/><rect x="120" y="0" width="24" height="24" fill="#6b5f45"/>
+    <rect x="0" y="24" width="24" height="24" fill="#6b5f45"/><rect x="24" y="24" width="24" height="24" fill="#8a7a4f"/><rect x="48" y="24" width="24" height="24" fill="#a8894a"/><rect x="72" y="24" width="24" height="24" fill="#8a7a4f"/><rect x="96" y="24" width="24" height="24" fill="#6b5f45"/><rect x="120" y="24" width="24" height="24" fill="#4a4438"/>
+    <rect x="0" y="48" width="24" height="24" fill="#4a4438"/><rect x="24" y="48" width="24" height="24" fill="#a8894a"/><rect x="48" y="48" width="24" height="24" fill="#2a2a26"/><rect x="72" y="48" width="24" height="24" fill="#a8894a"/><rect x="96" y="48" width="24" height="24" fill="#8a7a4f"/><rect x="120" y="48" width="24" height="24" fill="#6b5f45"/>
+    <rect x="0" y="72" width="24" height="24" fill="#8a7a4f"/><rect x="24" y="72" width="24" height="24" fill="#4a4438"/><rect x="48" y="72" width="24" height="24" fill="#a8894a"/><rect x="72" y="72" width="24" height="24" fill="#8a7a4f"/><rect x="96" y="72" width="24" height="24" fill="#4a4438"/><rect x="120" y="72" width="24" height="24" fill="#8a7a4f"/>
+    <rect x="0" y="96" width="24" height="24" fill="#6b5f45"/><rect x="24" y="96" width="24" height="24" fill="#8a7a4f"/><rect x="48" y="96" width="24" height="24" fill="#4a4438"/><rect x="72" y="96" width="24" height="24" fill="#6b5f45"/><rect x="96" y="96" width="24" height="24" fill="#8a7a4f"/><rect x="120" y="96" width="24" height="24" fill="#2a2a26"/>
+    <rect x="0" y="120" width="24" height="24" fill="#2a2a26"/><rect x="24" y="120" width="24" height="24" fill="#6b5f45"/><rect x="48" y="120" width="24" height="24" fill="#8a7a4f"/><rect x="72" y="120" width="24" height="24" fill="#4a4438"/><rect x="96" y="120" width="24" height="24" fill="#6b5f45"/><rect x="120" y="120" width="24" height="24" fill="#8a7a4f"/>
+  </g>
+  <text x="308" y="238" text-anchor="middle" fill="#787268" font-size="11" font-family="-apple-system,sans-serif">one grain to each neighbour</text>
+
+  <line x1="392" y1="142" x2="424" y2="142" stroke="#8d867b" stroke-width="1.5" marker-end="url(#ar18ae)"/>
+
+  <text x="504" y="58" text-anchor="middle" fill="#e0895e" font-size="12" font-family="SF Mono,monospace">3. cascade</text>
+  <g transform="translate(432,70)">
+    <rect x="0" y="0" width="144" height="144" fill="none" stroke="rgba(255,255,255,0.10)"/>
+    <rect x="0" y="0" width="24" height="24" fill="#2a2a26"/><rect x="24" y="0" width="24" height="24" fill="#c0703f"/><rect x="48" y="0" width="24" height="24" fill="#c0703f"/><rect x="72" y="0" width="24" height="24" fill="#c0703f"/><rect x="96" y="0" width="24" height="24" fill="#2a2a26"/><rect x="120" y="0" width="24" height="24" fill="#6b5f45"/>
+    <rect x="0" y="24" width="24" height="24" fill="#c0703f"/><rect x="24" y="24" width="24" height="24" fill="#c0703f"/><rect x="48" y="24" width="24" height="24" fill="#c0703f"/><rect x="72" y="24" width="24" height="24" fill="#c0703f"/><rect x="96" y="24" width="24" height="24" fill="#c0703f"/><rect x="120" y="24" width="24" height="24" fill="#4a4438"/>
+    <rect x="0" y="48" width="24" height="24" fill="#c0703f"/><rect x="24" y="48" width="24" height="24" fill="#c0703f"/><rect x="48" y="48" width="24" height="24" fill="#c0703f"/><rect x="72" y="48" width="24" height="24" fill="#c0703f"/><rect x="96" y="48" width="24" height="24" fill="#c0703f"/><rect x="120" y="48" width="24" height="24" fill="#6b5f45"/>
+    <rect x="0" y="72" width="24" height="24" fill="#c0703f"/><rect x="24" y="72" width="24" height="24" fill="#c0703f"/><rect x="48" y="72" width="24" height="24" fill="#c0703f"/><rect x="72" y="72" width="24" height="24" fill="#c0703f"/><rect x="96" y="72" width="24" height="24" fill="#4a4438"/><rect x="120" y="72" width="24" height="24" fill="#8a7a4f"/>
+    <rect x="0" y="96" width="24" height="24" fill="#6b5f45"/><rect x="24" y="96" width="24" height="24" fill="#c0703f"/><rect x="48" y="96" width="24" height="24" fill="#c0703f"/><rect x="72" y="96" width="24" height="24" fill="#6b5f45"/><rect x="96" y="96" width="24" height="24" fill="#8a7a4f"/><rect x="120" y="96" width="24" height="24" fill="#2a2a26"/>
+    <rect x="0" y="120" width="24" height="24" fill="#2a2a26"/><rect x="24" y="120" width="24" height="24" fill="#6b5f45"/><rect x="48" y="120" width="24" height="24" fill="#8a7a4f"/><rect x="72" y="120" width="24" height="24" fill="#4a4438"/><rect x="96" y="120" width="24" height="24" fill="#6b5f45"/><rect x="120" y="120" width="24" height="24" fill="#8a7a4f"/>
+  </g>
+  <text x="504" y="238" text-anchor="middle" fill="#c0703f" font-size="11" font-family="-apple-system,sans-serif">19 cells drawn in</text>
+
+  <text x="640" y="128" text-anchor="middle" fill="#787268" font-size="11" font-family="-apple-system,sans-serif">the next grain</text>
+  <text x="640" y="146" text-anchor="middle" fill="#787268" font-size="11" font-family="-apple-system,sans-serif">may move just</text>
+  <text x="640" y="164" text-anchor="middle" fill="#9fbc7a" font-size="13" font-family="SF Mono,monospace">1 cell</text>
+  <text x="360" y="278" text-anchor="middle" fill="#57524b" font-size="11" font-family="-apple-system,sans-serif">Shade = grains in the cell; orange = cells that toppled during this avalanche</text>
+</svg>
+<figcaption>One avalanche in the sandpile model. The action that triggered it is identical to the action that does nothing.</figcaption>
+</figure>
+
+<p>The most important sentence of this issue is already buried in there: <b>in systems like this there is no correspondence between the triggering event and the size of the event.</b> So when you ask what caused this great avalanche, the answer is always an ordinary grain of sand — true, and completely unilluminating.</p>
+
+<div class="crossx-inline">
+🌀 <b>Engineering · dynamite at ski resorts</b>　Standard avalanche control is not about holding the snow back. It is about setting off strings of small avalanches with explosives while the snowpack is still thin. The logic is that rule read backwards: since the trigger is neither controllable nor informative, stop managing triggers and manage <b>accumulation</b> — hold the system further from its critical point. Prevention stops being "predict which grain" and becomes "don't let the pile reach that height."
+</div>
+
+<h2><span class="n">02</span>The system walks to the cliff edge by itself</h2>
+
+<p class="lead">In the phase-transition picture, the critical point is something you <em>tune</em> to: cool the magnet to precisely the right temperature and it sits at criticality. Miss by a little and it doesn't. This is why physics long treated criticality as rare and delicately prepared.</p>
+
+<p>What's strange about the sandpile is that <b>nobody is tuning anything.</b> You add grains one at a time. Past a certain point the system settles onto a particular slope — too shallow and grains pile up and steepen it, too steep and a large avalanche unloads it. Both sides push inward.</p>
+
+<p>Criticality here isn't a target to aim at; it's an <em>attractor</em>. The system's own dynamics carry it there and then it stays. That is the whole content of the word "self-organized": nobody organized it into criticality, it went by itself.</p>
+
+<figure>
+<svg viewBox="0 0 720 240" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Critical slope as an attractor: too shallow accumulates, too steep avalanches">
+  <defs>
+    <marker id="ar18be" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="11" markerHeight="11" markerUnits="userSpaceOnUse" orient="auto">
+      <path d="M0,1 L9,5 L0,9 z" fill="#9fbc7a"/>
+    </marker>
+    <marker id="ar18ce" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="11" markerHeight="11" markerUnits="userSpaceOnUse" orient="auto">
+      <path d="M0,1 L9,5 L0,9 z" fill="#e0895e"/>
+    </marker>
+  </defs>
+  <text x="360" y="28" text-anchor="middle" fill="#aba498" font-size="13" font-family="-apple-system,sans-serif">Along the slope axis, both sides are pushed to the same value</text>
+
+  <line x1="80" y1="150" x2="640" y2="150" stroke="rgba(255,255,255,0.16)" stroke-width="1.5"/>
+  <text x="80" y="176" text-anchor="middle" fill="#787268" font-size="11" font-family="-apple-system,sans-serif">shallow</text>
+  <text x="640" y="176" text-anchor="middle" fill="#787268" font-size="11" font-family="-apple-system,sans-serif">steep</text>
+  <text x="360" y="200" text-anchor="middle" fill="#57524b" font-size="11" font-family="-apple-system,sans-serif">slope of the pile →</text>
+
+  <line x1="360" y1="106" x2="360" y2="150" stroke="#d9b45f" stroke-width="2"/>
+  <circle cx="360" cy="150" r="7" fill="#d9b45f"/>
+  <text x="360" y="96" text-anchor="middle" fill="#d9b45f" font-size="12.5" font-family="SF Mono,monospace">critical slope θc</text>
+
+  <line x1="150" y1="150" x2="330" y2="150" stroke="#9fbc7a" stroke-width="2.5" marker-end="url(#ar18be)"/>
+  <text x="228" y="136" text-anchor="middle" fill="#9fbc7a" font-size="12" font-family="-apple-system,sans-serif">add grains → pile up → steepen</text>
+
+  <line x1="570" y1="150" x2="390" y2="150" stroke="#e0895e" stroke-width="2.5" marker-end="url(#ar18ce)"/>
+  <text x="490" y="136" text-anchor="middle" fill="#e0895e" font-size="12" font-family="-apple-system,sans-serif">avalanche → unload → flatten</text>
+
+  <text x="360" y="228" text-anchor="middle" fill="#8d867b" font-size="11.5" font-family="-apple-system,sans-serif">No one sets the system to θc — it is the one place neither side pushes away from</text>
+</svg>
+<figcaption>Criticality isn't a point being aimed at, it's an attractor. That is what "self-organized" means in self-organized criticality.</figcaption>
+</figure>
+
+<p>This changes the character of the whole subject. If criticality had to be finely prepared, critical systems in the real world would be vanishingly rare. If systems climb there on their own, then <b>anything built out of slow accumulation plus threshold release drifts automatically into a state where something big could happen at any moment</b> — crustal stress, forest fuel load, leverage in a financial system, the technical debt nobody in the org wants to raise.</p>
+
+<div class="decide">
+<span class="lb">🎯 DECISION LINE</span>
+<p>Stop asking what triggered it; ask how far it currently sits from criticality. The trigger is neither predictable nor informative, but <b>accumulation is measurable</b> — snowpack depth, fuel load, leverage ratio, the queue of unreviewed changes. Move your monitoring budget off catching triggers and onto measuring build-up.</p>
+</div>
+
+<div class="crossx-inline">
+🌀 <b>Institutions · the reversal in forest fire policy</b>　The US Forest Service spent decades suppressing every fire it could, and the result was undergrowth accumulating untouched for generations until a fire became Yellowstone 1988. Policy eventually reversed toward controlled burns — because suppressing small events was <b>driving</b> the system toward criticality. The inference isn't obvious: intuition says fewer events means safer, when in a self-organized critical system the small events you prevent are stored up as the magnitude of a future large one.
+</div>
+
+<h2><span class="n">03</span>There is no such thing as a typical size</h2>
+
+<p class="lead">Run the sandpile ten thousand times, record how many cells each avalanche touched, and plot the distribution. You get a power law: enormous numbers of tiny avalanches, very few huge ones, no gap in between — and <em>no typical value</em>.</p>
+
+<p>Compare human height. Height has a typical value, around 1.7 metres, with almost everyone clustered nearby. You have never met a three-metre person and never will. That's a bell curve; it has a scale.</p>
+
+<p>Avalanche size has nothing of the kind. The longer you measure, the larger the largest avalanche you've seen, without limit. Asking how big a typical avalanche is, is like asking how big a typical earthquake is — the question has no mathematical answer.</p>
+
+<figure>
+<svg viewBox="0 0 720 300" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="On log-log axes a power law is a straight line while a normal distribution plunges to zero">
+  <line x1="90" y1="240" x2="640" y2="240" stroke="rgba(255,255,255,0.18)" stroke-width="1.5"/>
+  <line x1="90" y1="240" x2="90" y2="50" stroke="rgba(255,255,255,0.18)" stroke-width="1.5"/>
+  <text x="365" y="272" text-anchor="middle" fill="#8d867b" font-size="12" font-family="-apple-system,sans-serif">avalanche size (log) →</text>
+  <text x="34" y="150" fill="#8d867b" font-size="12" font-family="-apple-system,sans-serif" transform="rotate(-90 34 150)">frequency (log)</text>
+
+  <line x1="110" y1="72" x2="620" y2="228" stroke="#e0895e" stroke-width="2.5"/>
+  <circle cx="140" cy="81" r="3.5" fill="#e0895e"/><circle cx="215" cy="104" r="3.5" fill="#e0895e"/><circle cx="290" cy="127" r="3.5" fill="#e0895e"/><circle cx="365" cy="150" r="3.5" fill="#e0895e"/><circle cx="440" cy="173" r="3.5" fill="#e0895e"/><circle cx="515" cy="196" r="3.5" fill="#e0895e"/><circle cx="590" cy="219" r="3.5" fill="#e0895e"/>
+  <text x="588" y="204" fill="#e0895e" font-size="12.5" font-family="SF Mono,monospace">power law</text>
+  <text x="424" y="128" fill="#c0703f" font-size="11.5" font-family="-apple-system,sans-serif">straight = each 10× in size, a fixed drop in frequency</text>
+
+  <path d="M110,86 C170,88 210,96 245,124 C275,150 292,196 302,240" fill="none" stroke="#79a6d2" stroke-width="2.5"/>
+  <text x="238" y="212" fill="#79a6d2" font-size="12.5" font-family="SF Mono,monospace">normal</text>
+  <line x1="302" y1="240" x2="620" y2="240" stroke="#79a6d2" stroke-width="2.5" stroke-dasharray="4 4" opacity="0.5"/>
+  <text x="404" y="256" fill="#5c7f9e" font-size="11" font-family="-apple-system,sans-serif">all of this: the bell curve says "cannot happen"</text>
+
+  <text x="365" y="292" text-anchor="middle" fill="#57524b" font-size="11" font-family="-apple-system,sans-serif">One chart. For the events on the right, a bell curve predicts a rate of about zero — and they happen every year</text>
+</svg>
+<figcaption>On log-log axes a power law is a straight line: no break point, and no "typical size".</figcaption>
+</figure>
+
+<p>That straight line is everywhere in the real world. The <b>Gutenberg-Richter law</b> puts it most bluntly for earthquakes: raise the magnitude by one and the number of such quakes falls to roughly a tenth. The relation holds across several orders of magnitude and a century has not overturned it. Blackout sizes, forest fire areas, and market drawdowns all produce comparable lines.</p>
+
+<p>So "big events need no big cause" acquires an exact meaning: <b>large and small events are two ends of one process, not two kinds of thing.</b> To go looking for a special cause commensurate with the largest one is to assume it belongs to a separate category — and on the distribution there is no such dividing line to be found.</p>
+
+<div class="crossx-inline">
+🌀 <b>History &amp; war · Richardson's statistics of deadly quarrels</b>　The meteorologist Lewis Fry Richardson spent decades counting the dead in conflicts of every size, and found that from street brawls to world wars the magnitudes follow a power law with no break. That yields a conclusion historians tend to dislike: if great wars and small skirmishes sit on the same straight line, then "what caused the First World War" — a demand for a unique cause worthy of its scale — may have been the wrong question from the start. The Archduke was the grain of sand.
+</div>
+
+<div class="decide">
+<span class="lb">🎯 DECISION LINE</span>
+<p>Stop naming a culprit for every crash, outage, or wave of resignations. Do two things instead: plot the <b>size distribution</b> of comparable past events and check whether it's a straight line; if it is, shift resources from stopping the next trigger toward reducing coupling and accumulation. In a power-law world, blame carries essentially zero information.</p>
+</div>
+
+<h2><span class="n">04</span>Where this stops being true</h2>
+
+<p class="lead">Now the other side. Self-organized criticality is among the most abused ideas in complexity science, and you should know its limits before you use it.</p>
+
+<p><b>First, real sand doesn't really obey it.</b> This is a little awkward — around 1990 people actually ran the experiment, building real piles and measuring avalanches, and found that beyond a certain size what appeared were <em>periodic</em> large collapses rather than a power law. The sandpile model is a fine model; it just isn't a model of sandpiles.</p>
+
+<p>Later work in Chicago and Oslo gave a more honest answer. In the rice-pile experiment published in <em>Nature</em> in 1996, <b>elongated grains produced a power law and near-spherical grains did not.</b> What mattered was whether grains could interlock and pass stress along. That's a specific precondition, and not everything satisfies it.</p>
+
+<p><b>Second, "looks like a power law" usually isn't one.</b> On log axes the eye readily reads a gentle curve as a straight line, and log-normal or exponentially truncated distributions look much the same when plotted. In 2009 Clauset, Shalizi and Newman re-examined a set of widely cited power-law datasets with a uniform statistical test, and a substantial share failed. Looking straight is not evidence.</p>
+
+<p><b>Third, and most important: none of this is an excuse.</b> "Big events need no big cause" says the <em>magnitude</em> needs no matching cause. It does not say there was no cause, and it does not say nobody is responsible. Every toppling in the sandpile has an exact causal chain you can trace cell by cell. SOC claims one thing only: <b>the length of those chains is distributed without a scale, so the identity of the chain's starting point does not explain the size of the outcome.</b> Reading it as "so no one can be blamed" swaps a claim about statistics for a claim about responsibility.</p>
+
+<div class="decide">
+<span class="lb">🎯 DECISION LINE</span>
+<p>Test before you conclude (Clauset's method has ready implementations), and state explicitly whether your system satisfies the three preconditions: slow accumulation, threshold release, local coupling. Missing any one of them, don't tell SOC stories about it — least of all to get someone off the hook.</p>
+</div>
+
+<div class="bigcat">
+<h3>🎒 Scenarios · BigCat</h3>
+<ol>
+<li><span class="dm">TEAMS &amp; ORG</span>Every incident review lands on "so-and-so pushed a change without review" — that is naming the grain of sand for an avalanche. Try the other view: pull this quarter's <b>change frequency, review queue length, and rollback rate</b> and look at the trend lines. If all three are climbing, it would have gone the same way whoever made that change. Concrete move: delete the "responsible party" field from the review template and add a line for "how this quarter's accumulation metrics moved versus last".</li>
+<li><span class="dm">INVESTING</span>Reviewing a drawdown as "it was that piece of news" is the same grain-hunting. What is measurable is the build-up: <b>rising correlation (diversification quietly failing), leverage levels, thinning liquidity depth</b> — these are the snowpack. And the real decision isn't predicting the trigger; it's whether position size survives the tail. With no typical drawdown, you cannot set leverage from an average historical one.</li>
+<li><span class="dm">WRITING &amp; THIS SITE</span>Don't judge topic direction by average response per issue. Reach is almost certainly heavy-tailed — total readership is decided by a handful of issues, and the mean carries next to no information. So the goal isn't for every issue to clear a bar; it's to <b>keep the tail possible</b>: hold the range of topics open, don't imitate last issue's winning formula. A concrete test: if the last ten issues look increasingly alike, you have already cut off your own tail.</li>
+</ol>
+</div>
+
+<div class="crossx">
+<h3>🌀 Crossings</h3>
+<ul>
+<li><b>Literature &amp; history · Tolstoy</b>: the epilogue of <em>War and Peace</em> spends two chapters demolishing the great-man theory — Napoleon, Tolstoy says, was carried along by the resultant of history while imagining he was pushing it. The three mechanisms of this issue together supply the machinery that argument lacked: the system reaches criticality on its own (no great man needed to create the conditions), trigger and magnitude are unrelated (Napoleon's decision was no "larger" than anyone else's), and the size distribution has no scale (the Napoleonic wars sit on the same line as a border skirmish). <b>But it doesn't hold here</b>: Tolstoy's argument is teleological — he assigns history's direction to an unknowable, near-providential necessity, whereas SOC promises no direction at all and is entirely silent about where things are heading. Borrowing his rhetoric to prop up SOC smuggles the fatalism in with it. What you can borrow is his suspicion of culprit-narratives, not his philosophy of history.</li>
+<li><b>Engineering &amp; institutions · the "root cause" doctrine</b>: the incident-investigation industry was built for decades on root cause analysis — one accident, one root cause, fix it. But in tightly coupled systems, safety researchers (Hollnagel among them) have long argued that a root cause is <em>constructed</em> by the investigation rather than discovered: tracing back along the causal chain, you can always stop somewhere that looks fixable, and where you stop depends on the investigation's budget and politics, not on the system. That is isomorphic to section three here — the causal chain is real, but its starting point does not explain the magnitude. So "fix the root cause" will systematically underestimate the next one: you fixed the grain of sand, and the height of the pile did not move.</li>
+<li><b>Psychology · the fundamental attribution error</b>: people systematically overweight character and underweight circumstance when explaining others' behaviour. In this issue's setting the bias gets a harder version: it isn't merely that we overrate the person's contribution, it's that <b>in a scale-free system the variable "who triggered it" carries almost no explanatory variance at all</b> — the weight isn't mis-estimated, the term is near zero. It also explains why blame is so stubbornly satisfying: a power-law distribution offers no narrative whatsoever, and the mind wants a narrative, not a distribution.</li>
+</ul>
+</div>
+
+<div class="thinking">
+<h3>Going deeper</h3>
+<details><summary>If suppressing small events builds up big ones, when is suppression the right call?</summary><p>It turns on whether the accumulation genuinely transfers. Forest fuel accumulates, so putting out small fires has a price; early cases of an infectious disease being contained do not get "stored" into a larger future epidemic, because the susceptible population isn't monotonically increasing the way fuel is. The test: whatever the event you prevented would have released — did it stay in the system, or did it actually go away?</p></details>
+<details><summary>Why might tighter financial regulation make crises larger?</summary><p>One explanation is exactly SOC's: regulation removes small local failures, institutions therefore crowd into the permitted configuration, correlation rises and coupling tightens — the accumulation continues, only its release is postponed and synchronised. But this is easily abused into "so don't regulate", which it does not imply: an equally available reading is that the wrong thing was regulated (triggers rather than coupling).</p></details>
+<details><summary>Does "scale-free" mean disasters can't be defended against?</summary><p>No. What it rules out is predicting the size of the next one, not lowering the overall level of risk. Changing coupling strength or inserting modular firebreaks can shift the entire power-law line downward or introduce an exponential cutoff — which is exactly what grid islanding and financial firewalls do. You give up point prediction, not intervention.</p></details>
+<details><summary>Can an organisation deliberately hold itself near criticality to stay adaptive?</summary><p>Edge-of-chaos advocates say yes, and that it's the best place for innovation. Be careful: as it stands that is more metaphor than testable claim — you would first have to say what this organisation's "slope" is and how you'd measure it. Criticality without a stated unit is just an attractive word.</p></details>
+</div>
+
+<div class="refs">
+<h3>Further reading</h3>
+<ul>
+<li>Bak, Tang &amp; Wiesenfeld, <a href="https://doi.org/10.1103/PhysRevLett.59.381">Self-organized criticality: An explanation of 1/f noise</a> (1987, the original paper)</li>
+<li>Per Bak, <a href="https://en.wikipedia.org/wiki/How_Nature_Works">How Nature Works</a> (the full popular argument — also the most criticised statement of it)</li>
+<li>Frette et al., <a href="https://www.nature.com/articles/379049a0">Avalanche dynamics in a pile of rice</a> (1996, elongated grains obey, round grains don't)</li>
+<li>Clauset, Shalizi &amp; Newman, <a href="https://arxiv.org/abs/0706.1062">Power-law distributions in empirical data</a> (2009, the test and a lot of counterexamples)</li>
+<li><a href="https://en.wikipedia.org/wiki/Gutenberg%E2%80%93Richter_law">Gutenberg-Richter law</a> (earthquake magnitude-frequency relation)</li>
+<li>Lewis Fry Richardson, <a href="https://en.wikipedia.org/wiki/Lewis_Fry_Richardson#Statistics_of_deadly_quarrels">Statistics of Deadly Quarrels</a> (power laws in the size of wars)</li>
+<li>Melanie Mitchell, <a href="https://global.oup.com/academic/product/complexity-9780199798100">Complexity: A Guided Tour</a> (a restrained assessment of SOC)</li>
+</ul>
+</div>
+
+<footer>BigCat · Complexity Science · <a href="index.en.html">← All topics</a></footer>
+</div>
+</body></html>
