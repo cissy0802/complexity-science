@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Emergence — How the Upper Layer Arises · Complexity Science T2</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,"SF Pro Display","Noto Sans SC",sans-serif;color:#e4ded5;line-height:1.85;min-height:100vh;
+  background:radial-gradient(1100px 620px at 12% -6%,rgba(224,137,94,0.10),transparent 62%),radial-gradient(950px 700px at 100% 2%,rgba(166,147,205,0.09),transparent 58%),linear-gradient(168deg,#100f0d 0%,#15161b 48%,#0a0a0c 100%);background-attachment:fixed}
+.wrap{max-width:760px;margin:0 auto;padding:30px 22px 90px}
+header{padding:52px 0 8px;border-bottom:1px solid rgba(255,255,255,0.07);margin-bottom:34px}
+.week-tag{font-family:"SF Mono",Menlo,monospace;font-size:0.72rem;font-weight:700;letter-spacing:2px;color:#e0895e;border:1px solid rgba(224,137,94,0.4);background:rgba(224,137,94,0.07);padding:3px 11px;border-radius:20px}
+h1{font-size:2.5rem;font-weight:800;letter-spacing:0.5px;line-height:1.2;margin:20px 0 0;background:linear-gradient(106deg,#e0895e 0%,#d9b45f 34%,#9fbc7a 68%,#63b3a6 100%);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+.sub{font-size:1.05rem;color:#aba498;margin-top:14px;font-weight:500}
+.date{font-family:"SF Mono",Menlo,monospace;font-size:0.75rem;color:#57524b;margin-top:18px;letter-spacing:1px}
+.pitch{margin:22px 0 30px;font-size:0.97rem;color:#cd7f9b;border-left:2px solid rgba(205,127,155,0.5);padding-left:16px;font-style:italic}
+.intro{font-size:1.02rem;color:#cfc8bc;margin-bottom:14px}
+.intro p{margin-bottom:16px}
+h2{font-size:1.42rem;font-weight:700;color:#e9e3d9;margin:56px 0 8px;letter-spacing:0.3px}
+h2 .n{font-family:"SF Mono",Menlo,monospace;font-size:0.85rem;color:#9fbc7a;display:block;margin-bottom:6px;letter-spacing:2px}
+p{margin-bottom:17px}
+.lead{color:#cfc8bc}
+b,strong{color:#f0eae0;font-weight:600}
+em{color:#d9b45f;font-style:normal;font-weight:500}
+.dim{color:#8d867b}
+a.reflink{display:inline-block;font-size:0.82rem;font-family:"SF Mono",Menlo,monospace;color:#63b3a6;border:1px solid rgba(99,179,166,0.38);background:rgba(99,179,166,0.07);padding:1px 9px;border-radius:20px;text-decoration:none;transition:all 0.15s;white-space:nowrap}
+a.reflink:hover{background:rgba(99,179,166,0.16);border-color:rgba(99,179,166,0.7)}
+figure{margin:30px 0}
+figure svg{display:block;width:100%;height:auto;border-radius:12px;background:rgba(255,255,255,0.018);border:1px solid rgba(255,255,255,0.06)}
+figcaption{font-size:0.82rem;color:#787268;margin-top:11px;text-align:center;line-height:1.6}
+.decide{margin:24px 0;border:1px solid rgba(224,137,94,0.36);background:rgba(224,137,94,0.055);border-radius:12px;padding:15px 19px}
+.decide .lb{font-family:"SF Mono",Menlo,monospace;font-size:0.73rem;letter-spacing:1.5px;color:#e0895e;font-weight:700;display:block;margin-bottom:7px}
+.decide p{margin:0;font-size:0.95rem;color:#ddd5c9}
+.crossx-inline{margin:20px 0 22px;border-left:2px solid rgba(205,127,155,0.55);padding:2px 0 2px 15px;font-size:0.89rem;color:#a9a096;line-height:1.72}
+.crossx-inline b{color:#cd7f9b;font-weight:600}
+.bigcat{margin:46px 0 10px;border:1px solid rgba(217,180,95,0.38);background:rgba(217,180,95,0.05);border-radius:14px;padding:20px 22px}
+.bigcat h3{font-size:1.02rem;color:#d9b45f;margin-bottom:14px;letter-spacing:0.5px}
+.bigcat ol{list-style:none;padding:0}
+.bigcat li{margin-bottom:15px;font-size:0.94rem;color:#d5cdc1;line-height:1.78}
+.bigcat li:last-child{margin-bottom:0}
+.bigcat .dm{font-family:"SF Mono",Menlo,monospace;font-size:0.73rem;color:#d9b45f;border:1px solid rgba(217,180,95,0.32);border-radius:4px;padding:1px 7px;margin-right:8px;white-space:nowrap}
+.crossx{margin:46px 0 10px;border:1px solid rgba(205,127,155,0.38);background:rgba(205,127,155,0.05);border-radius:14px;padding:20px 22px}
+.crossx h3{font-size:1.02rem;color:#cd7f9b;margin-bottom:14px;letter-spacing:0.5px}
+.crossx ul{list-style:none;padding:0}
+.crossx li{margin-bottom:16px;font-size:0.94rem;color:#d5cdc1;line-height:1.78}
+.crossx li:last-child{margin-bottom:0}
+.crossx li b{color:#cd7f9b;font-weight:600}
+.thinking{margin:46px 0 10px}
+.thinking h3{font-size:1.02rem;color:#a693cd;margin-bottom:14px;letter-spacing:0.5px}
+details{border:1px solid rgba(166,147,205,0.22);border-radius:10px;padding:12px 16px;margin-bottom:10px;background:rgba(166,147,205,0.035)}
+summary{cursor:pointer;font-size:0.93rem;color:#c9c2b6;font-weight:500}
+summary::marker{color:#a693cd}
+details p{margin:12px 0 0;font-size:0.9rem;color:#a9a096;line-height:1.75}
+.refs{margin:46px 0 10px}
+.refs h3{font-size:1.02rem;color:#79a6d2;margin-bottom:14px;letter-spacing:0.5px}
+.refs ul{list-style:none;padding:0}
+.refs li{margin-bottom:10px;font-size:0.9rem;color:#8d867b;line-height:1.7}
+.refs a{color:#79a6d2;text-decoration:none;border-bottom:1px solid rgba(121,166,210,0.3)}
+.refs a:hover{color:#a6c4e2;border-bottom-color:rgba(121,166,210,0.7)}
+footer{text-align:center;padding:56px 0 10px;font-size:0.78rem;color:#57524b;font-family:"SF Mono",Menlo,monospace;border-top:1px solid rgba(255,255,255,0.06);margin-top:50px}
+footer a{color:#79a6d2;text-decoration:none}
+@media(max-width:600px){h1{font-size:1.85rem}.wrap{padding:24px 16px 60px}h2{font-size:1.22rem}}
+</style></head><body>
+<div class="wrap">
+
+<header>
+  <span class="week-tag">TOPIC 2 · PHASE A</span>
+  <h1>Emergence</h1>
+  <p class="sub">How the upper layer arises, and whether it's "real"</p>
+  <p class="date">2026-07-21 · What Counts as Complex</p>
+</header>
+
+<p class="pitch">That jam on the motorway is moving backwards — steadily, briskly — while every car making it up moves forward. The jam-as-a-thing is inside no single car; it has its own speed, its own lifespan, and yet nobody built it. The whole of complexity science begins with one question: is that a real thing?</p>
+
+<div class="intro">
+<p>You've met the "phantom jam": no accident ahead, no exit, no reason at all, and yet traffic clots and clears for no visible cause. Stranger still, seen from above, <em>the clotted band travels backwards</em> — like a wave, propagating steadily against the flow of cars at roughly a dozen kilometres per hour, at a speed that has nothing to do with how fast any car is driving.</p>
+<p>There's a question you can't sidestep here: is that clot a real thing? It has no mass, it is no particular car, and you can't lift it out. Yet it has a definite speed, it has edges, it can be measured, and it can hit you. It is a new layer that <b>emerges</b> from a great many cars all "driving forward" on their own — this is <em>emergence</em>.</p>
+<p class="dim">Topic 1 argued that levels really exist and why reductionism is only half right. <b>This issue chases one thing only: how the upper layer actually arises, and whether it is "real" — whether you can blame it, whether you can count on it.</b> The answer turns "emergence" from a mystical word into something with a concrete mechanism and a clear boundary.</p>
+</div>
+
+<h2><span class="n">01</span>No single car is the jam</h2>
+
+<p class="lead">Look at the clot closely. Its most counterintuitive feature: <b>the things making it up move one way, and it moves the other.</b></p>
+
+<p>Every car creeps forward (edge on a little, then a little more). But the "densest stretch" moves backward — because cars behind keep entering the crowded zone and cars ahead keep squeezing out of it, so the marker for "the most crowded position" slides steadily rearward. In 2008 a Japanese group actually built this on a circular track: put a ring of cars in steady car-following, add no obstacle whatsoever, and a jam still forms spontaneously and propagates backward at a stable speed. <b>The jam needs no cause; it grows out of the simple rule of following the car ahead.</b></p>
+
+<figure>
+<svg viewBox="0 0 720 300" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Two moments of traffic: each car moves forward while the densest jam band moves backward">
+  <defs>
+    <marker id="arT2fwd" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="9" markerHeight="9" markerUnits="userSpaceOnUse" orient="auto">
+      <path d="M0,1 L9,5 L0,9 z" fill="#9fbc7a"/>
+    </marker>
+    <marker id="arT2back" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="11" markerHeight="11" markerUnits="userSpaceOnUse" orient="auto">
+      <path d="M0,1 L9,5 L0,9 z" fill="#cd7f9b"/>
+    </marker>
+  </defs>
+  <text x="360" y="24" text-anchor="middle" fill="#aba498" font-size="13" font-family="-apple-system,sans-serif">Each car forward · the jam band backward — opposite directions</text>
+
+  <text x="46" y="92" fill="#787268" font-size="12" font-family="SF Mono,monospace">t</text>
+  <line x1="80" y1="98" x2="648" y2="98" stroke="rgba(255,255,255,0.14)" stroke-width="1"/>
+  <rect x="330" y="74" width="150" height="26" fill="rgba(205,127,155,0.16)" stroke="rgba(205,127,155,0.4)"/>
+  <text x="405" y="66" text-anchor="middle" fill="#cd7f9b" font-size="10.5" font-family="-apple-system,sans-serif">densest (jam)</text>
+  <g fill="#79a6d2"><rect x="110" y="82" width="14" height="9" rx="2"/><rect x="170" y="82" width="14" height="9" rx="2"/><rect x="240" y="82" width="14" height="9" rx="2"/><rect x="300" y="82" width="14" height="9" rx="2"/></g>
+  <g fill="#cd7f9b"><rect x="336" y="82" width="14" height="9" rx="2"/><rect x="358" y="82" width="14" height="9" rx="2"/><rect x="380" y="82" width="14" height="9" rx="2"/><rect x="402" y="82" width="14" height="9" rx="2"/><rect x="424" y="82" width="14" height="9" rx="2"/><rect x="446" y="82" width="14" height="9" rx="2"/></g>
+  <g fill="#79a6d2"><rect x="510" y="82" width="14" height="9" rx="2"/><rect x="580" y="82" width="14" height="9" rx="2"/><rect x="628" y="82" width="14" height="9" rx="2"/></g>
+
+  <text x="34" y="192" fill="#787268" font-size="12" font-family="SF Mono,monospace">t+1</text>
+  <line x1="80" y1="198" x2="648" y2="198" stroke="rgba(255,255,255,0.14)" stroke-width="1"/>
+  <rect x="270" y="174" width="150" height="26" fill="rgba(205,127,155,0.16)" stroke="rgba(205,127,155,0.4)"/>
+  <g fill="#79a6d2"><rect x="136" y="182" width="14" height="9" rx="2"/><rect x="196" y="182" width="14" height="9" rx="2"/><rect x="266" y="182" width="14" height="9" rx="2"/></g>
+  <g fill="#cd7f9b"><rect x="288" y="182" width="14" height="9" rx="2"/><rect x="310" y="182" width="14" height="9" rx="2"/><rect x="332" y="182" width="14" height="9" rx="2"/><rect x="354" y="182" width="14" height="9" rx="2"/><rect x="376" y="182" width="14" height="9" rx="2"/><rect x="398" y="182" width="14" height="9" rx="2"/></g>
+  <g fill="#79a6d2"><rect x="470" y="182" width="14" height="9" rx="2"/><rect x="536" y="182" width="14" height="9" rx="2"/><rect x="606" y="182" width="14" height="9" rx="2"/></g>
+
+  <line x1="150" y1="238" x2="230" y2="238" stroke="#9fbc7a" stroke-width="2.5" marker-end="url(#arT2fwd)"/>
+  <text x="245" y="242" fill="#9fbc7a" font-size="12" font-family="-apple-system,sans-serif">each car: forward</text>
+  <line x1="470" y1="238" x2="390" y2="238" stroke="#cd7f9b" stroke-width="2.5" marker-end="url(#arT2back)"/>
+  <text x="486" y="242" fill="#cd7f9b" font-size="12" font-family="-apple-system,sans-serif">jam band: backward</text>
+  <text x="360" y="278" text-anchor="middle" fill="#57524b" font-size="11" font-family="-apple-system,sans-serif">Over the same interval the blue cars all shifted right, yet the pink "densest band" moved left</text>
+</svg>
+<figcaption>The phantom jam. The jam band has its own speed and direction, but equals no car in it — it emerges from the local rule of car-following.</figcaption>
+</figure>
+
+<p>So "which car is the jam in" has no answer — it is in no single car, it is in the <b>pattern of relations between cars</b>. That is the first sense of emergence: <em>a real, measurable, causally effective thing can equal none of the parts that make it up.</em> You can be stopped by it (it has causal power), yet you can dismantle every car and never find it (it is not on the micro level).</p>
+
+<div class="crossx-inline">
+🌀 <b>Society &amp; institutions · public opinion, which nobody holds</b>　A poll reads "52% approval" — but that number is nobody's view; each person holds a definite "approve" or "disapprove", and "52%" is held by no one. Like temperature, like the jam, it is a macro quantity that appears only after individuals are averaged away. <b>Corollary: precisely because no one owns it, you can't "move" it by persuading any single person; and yet it genuinely pushes back on politicians and shifts policy — a thing nobody holds is still causally effective.</b>
+</div>
+
+<h2><span class="n">02</span>Emergence is what survives coarse-graining</h2>
+
+<p class="lead">So how does the upper layer arise? The mechanism is surprisingly plain: <b>deliberately average away the micro detail and keep only the mean — what's left is the macro layer.</b> That "averaging" has a name: <em>coarse-graining</em>.</p>
+
+<p>Take temperature. A glass of water holds about 10²³ molecules, each careering about at its own velocity — an astronomical amount of micro information. But you don't care where the five-hundred-millionth molecule is heading right now; you only want to know "is it hot?" Temperature is the number you get after <em>averaging</em> all that motion: it is proportional to the molecules' mean kinetic energy. You deliberately forget every individual velocity and keep only the average — and that is how temperature "arises".</p>
+
+<p>Hidden here is a key concept: <b>effective degrees of freedom</b>. That glass has an astronomical number of independently varying quantities at the micro level (each molecule's position and velocity), but at the macro level the ones you actually track are a mere handful — temperature, pressure, volume. <b>Collapsing from 10²³ variables to three or four isn't a labour-saving approximation; it is why the macro layer exists at all: the overwhelming majority of micro detail simply doesn't act on macro behaviour, and gets averaged out.</b> Emergent laws (the ideal gas law) are terse precisely because they deal only with the survivors.</p>
+
+<figure>
+<svg viewBox="0 0 720 250" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Left: many scattered micro velocity arrows; via coarse-graining, right: collapse to a single macro variable T">
+  <defs>
+    <marker id="arT2m" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" markerUnits="userSpaceOnUse" orient="auto">
+      <path d="M0,1 L9,5 L0,9 z" fill="#8d867b"/>
+    </marker>
+    <marker id="arT2big" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="12" markerHeight="12" markerUnits="userSpaceOnUse" orient="auto">
+      <path d="M0,1 L9,5 L0,9 z" fill="#d9b45f"/>
+    </marker>
+  </defs>
+  <text x="360" y="26" text-anchor="middle" fill="#aba498" font-size="13" font-family="-apple-system,sans-serif">10²³ colliding molecules → average away individuals → one number</text>
+
+  <rect x="60" y="52" width="230" height="150" rx="8" fill="rgba(255,255,255,0.015)" stroke="rgba(255,255,255,0.12)"/>
+  <text x="175" y="222" text-anchor="middle" fill="#787268" font-size="11" font-family="-apple-system,sans-serif">micro: one velocity per molecule</text>
+  <g stroke="#8d867b" stroke-width="1.3">
+    <line x1="88" y1="82" x2="112" y2="70" marker-end="url(#arT2m)"/>
+    <line x1="140" y1="76" x2="128" y2="100" marker-end="url(#arT2m)"/>
+    <line x1="190" y1="70" x2="214" y2="84" marker-end="url(#arT2m)"/>
+    <line x1="250" y1="80" x2="232" y2="66" marker-end="url(#arT2m)"/>
+    <line x1="96" y1="128" x2="120" y2="140" marker-end="url(#arT2m)"/>
+    <line x1="160" y1="120" x2="150" y2="146" marker-end="url(#arT2m)"/>
+    <line x1="210" y1="126" x2="236" y2="118" marker-end="url(#arT2m)"/>
+    <line x1="262" y1="132" x2="244" y2="150" marker-end="url(#arT2m)"/>
+    <line x1="104" y1="176" x2="128" y2="166" marker-end="url(#arT2m)"/>
+    <line x1="168" y1="170" x2="180" y2="192" marker-end="url(#arT2m)"/>
+    <line x1="224" y1="180" x2="200" y2="172" marker-end="url(#arT2m)"/>
+  </g>
+
+  <line x1="308" y1="127" x2="430" y2="127" stroke="#d9b45f" stroke-width="2.5" marker-end="url(#arT2big)"/>
+  <text x="369" y="114" text-anchor="middle" fill="#d9b45f" font-size="12" font-family="-apple-system,sans-serif">coarse-grain</text>
+  <text x="369" y="150" text-anchor="middle" fill="#8d867b" font-size="11" font-family="-apple-system,sans-serif">take the mean</text>
+
+  <rect x="470" y="80" width="190" height="94" rx="10" fill="rgba(217,180,95,0.10)" stroke="rgba(217,180,95,0.45)"/>
+  <text x="565" y="128" text-anchor="middle" fill="#e9e3d9" font-size="30" font-family="SF Mono,monospace">T</text>
+  <text x="565" y="152" text-anchor="middle" fill="#d9b45f" font-size="11.5" font-family="-apple-system,sans-serif">temperature: one macro variable</text>
+  <text x="565" y="200" text-anchor="middle" fill="#787268" font-size="11" font-family="-apple-system,sans-serif">effective DOF: astronomical → a few</text>
+</svg>
+<figcaption>The macro layer isn't a thumbnail of the micro one; it's the residue after averaging. Most micro detail doesn't act on the macro — which is exactly why the upper layer can be simple.</figcaption>
+</figure>
+
+<p>Price works the same way: a market price is the number you get when countless buyers' and sellers' judgements, needs and inventories are "averaged" together, and no single person's mind holds it. It is the same kind of thing as temperature — <b>a macro variable that pools dispersed information, is owned by no one, and yet turns around and coordinates everyone's behaviour.</b></p>
+
+<div class="crossx-inline">
+🌀 <b>Engineering &amp; design · why the subway map works</b>　The London Underground map is deliberately wrong — it ignores true distances and the shape of the ground, keeping only "which station connects to which." It's more usable than an accurate map precisely because it <em>threw away the right things</em>: the only effective degrees of freedom you need for a commute are the connections, and the rest is noise. <b>Corollary: a good abstraction isn't "more information", it's knowing which details can safely be averaged away — pick the wrong survivors and the abstraction is useless.</b>
+</div>
+
+<h2><span class="n">03</span>Weak, strong, and "uncomputable"</h2>
+
+<p class="lead">Now the distinction that matters most. When people say "emergence" they blend two very different claims; philosophers have named them: <b>weak emergence</b> and <b>strong emergence</b>.</p>
+
+<p><b>Weak emergence</b> says: the macro behaviour arises from the micro rules and can't be guessed in advance, but it <em>is derivable from the micro in principle</em> — only, the sole way to derive it is to run it honestly, with no shortcut. Traffic jams, temperature, the shape of a starling flock are all weakly emergent. The philosopher Mark Bedau gave a crisp definition: weak emergence is exactly the macro phenomenon that can be reached <em>only</em> by simulation, with no closed-form shortcut. It isn't mysterious at all — it is merely <em>computationally unavoidable</em>.</p>
+
+<p><b>Strong emergence</b> is far more radical: the macro produces something <em>underivable from the micro even in principle</em>, and can even issue orders back down to the micro (this is <em>downward causation</em>). The example wheeled out over and over is essentially one: consciousness. Whether strong emergence holds at all is an unsettled dispute — the last section settles that account.</p>
+
+<figure>
+<svg viewBox="0 0 720 270" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Weak emergence: micro rules derive macro by simulation; strong emergence: macro underivable from micro with contested downward causation">
+  <defs>
+    <marker id="arT2w" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="10" markerHeight="10" markerUnits="userSpaceOnUse" orient="auto">
+      <path d="M0,1 L9,5 L0,9 z" fill="#9fbc7a"/>
+    </marker>
+    <marker id="arT2d" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="10" markerHeight="10" markerUnits="userSpaceOnUse" orient="auto">
+      <path d="M0,1 L9,5 L0,9 z" fill="#a693cd"/>
+    </marker>
+  </defs>
+  <text x="185" y="30" text-anchor="middle" fill="#9fbc7a" font-size="13" font-family="-apple-system,sans-serif">weak · derivable, but only by running it</text>
+  <rect x="70" y="52" width="110" height="46" rx="8" fill="rgba(255,255,255,0.02)" stroke="rgba(255,255,255,0.16)"/>
+  <text x="125" y="80" text-anchor="middle" fill="#cfc8bc" font-size="12.5" font-family="-apple-system,sans-serif">micro rules</text>
+  <rect x="70" y="170" width="110" height="46" rx="8" fill="rgba(159,188,122,0.10)" stroke="rgba(159,188,122,0.45)"/>
+  <text x="125" y="198" text-anchor="middle" fill="#cfc8bc" font-size="12.5" font-family="-apple-system,sans-serif">macro behaviour</text>
+  <line x1="125" y1="100" x2="125" y2="168" stroke="#9fbc7a" stroke-width="2.5" marker-end="url(#arT2w)"/>
+  <text x="196" y="138" fill="#9fbc7a" font-size="11.5" font-family="-apple-system,sans-serif">simulate</text>
+  <text x="196" y="154" fill="#787268" font-size="10.5" font-family="-apple-system,sans-serif">no shortcut</text>
+
+  <line x1="360" y1="45" x2="360" y2="230" stroke="rgba(255,255,255,0.08)" stroke-width="1"/>
+
+  <text x="535" y="30" text-anchor="middle" fill="#a693cd" font-size="13" font-family="-apple-system,sans-serif">strong · underivable even in principle?</text>
+  <rect x="480" y="52" width="110" height="46" rx="8" fill="rgba(255,255,255,0.02)" stroke="rgba(255,255,255,0.16)"/>
+  <text x="535" y="80" text-anchor="middle" fill="#cfc8bc" font-size="12.5" font-family="-apple-system,sans-serif">micro rules</text>
+  <rect x="480" y="170" width="110" height="46" rx="8" fill="rgba(166,147,205,0.12)" stroke="rgba(166,147,205,0.45)"/>
+  <text x="535" y="198" text-anchor="middle" fill="#cfc8bc" font-size="12.5" font-family="-apple-system,sans-serif">macro (mind?)</text>
+  <line x1="505" y1="168" x2="505" y2="100" stroke="#8d867b" stroke-width="2" stroke-dasharray="5 4"/>
+  <line x1="495" y1="142" x2="515" y2="122" stroke="#cd7f9b" stroke-width="2.5"/>
+  <line x1="515" y1="142" x2="495" y2="122" stroke="#cd7f9b" stroke-width="2.5"/>
+  <text x="452" y="138" text-anchor="end" fill="#8d867b" font-size="11" font-family="-apple-system,sans-serif">underivable</text>
+  <line x1="565" y1="168" x2="565" y2="100" stroke="#a693cd" stroke-width="2.5" marker-end="url(#arT2d)"/>
+  <text x="620" y="132" fill="#a693cd" font-size="11.5" font-family="-apple-system,sans-serif">downward</text>
+  <text x="620" y="148" fill="#787268" font-size="11" font-family="-apple-system,sans-serif">contested</text>
+  <text x="360" y="256" text-anchor="middle" fill="#57524b" font-size="11" font-family="-apple-system,sans-serif">Complexity science lives almost entirely on the left; the right is a philosophical open case — don't sell them mixed</text>
+</svg>
+<figcaption>The two "emergences" are different things. The left (weak) is this site's home turf — solid and computable; the right (strong) is, for now, more argument than conclusion. Blending them is the word's commonest sleight of hand.</figcaption>
+</figure>
+
+<p>That "only by running it, no shortcut" in weak emergence has a heavier consequence than it sounds. It means: <b>even with total micro omniscience, you may not be able to compute the macro in advance.</b> Laplace imagined an all-knowing "demon" that, knowing everything about every particle now, could deduce all of the future. But for a weakly emergent system, "deducing" it just is running the whole system through at full length — the only way to know the result is to wait for it to happen. Omniscience does not automatically equal foresight.</p>
+
+<p>This step yields the issue's decision line directly. Since the cause of the macro phenomenon (the jam) lives at the <em>macro level</em> (the cars are too dense) and not in any car (no one did anything wrong), then:</p>
+
+<div class="decide">
+<span class="lb">🎯 DECISION LINE</span>
+<p>When a bad outcome recurs, first separate <b>which level the cause is on from which level the responsibility is on</b> — they needn't be the same level, and needn't be the level your intuition reaches for. The cause of a jam is density (macro), not any driver (micro); to fix it you change the macro (metering, staggering, adding lanes), and punishing one car does nothing. Concrete move: facing a recurring bad outcome, ask "<b>if a different person / car / employee were put in the same position, would the result be the same?</b>" — if yes, the cause is structural; stop hunting a culprit at the individual level and stop expecting a swap to fix it.</p>
+</div>
+
+<div class="crossx-inline">
+🌀 <b>Biology · an ant colony finds the shortest path, yet no ant knows the route</b>　Ants obey only a local rule — follow stronger pheromone, deposit pheromone as you go — and the whole colony converges reliably on the shortest path to food. This is textbook weak emergence: the colony-level "decision" is fully derivable from the single-ant rule (only by running it), yet no individual ant holds that route. <b>Corollary: a group's "intelligence" is not an amplification of individual intelligence but a property of another level — so to make a group better at solving, tune its local rules and information channels, not the schooling of any one ant.</b> (Ant colonies get their own treatment in Topic 13.)</p>
+</div>
+
+<h2><span class="n">04</span>Where this breaks down</h2>
+
+<p class="lead">Now the other side. "Emergence" is the most explanatory — and the most easily weaponised — word in complexity science. Three boundaries have to be drawn first.</p>
+
+<p><b>First, strong emergence may not hold at all.</b> "Consciousness strongly emerges from neurons" sounds profound, but many philosophers point to a fatal flaw: if the macro really could issue downward orders to the micro, that collides with the causal closure of the physical (every physical event has a sufficient physical cause) — the causal exclusion problem (Jaegwon Kim's argument). Either downward causation is false, or it is really just "weak emergence we can't yet compute." Strong emergence has no uncontested instance to this day. <b>Using "strong emergence" as an established fact to argue for anything else is out of bounds.</b></p>
+
+<p><b>Second, "emergence" is often a spell for ending inquiry.</b> Saying "it's emergent", if you can't follow it with "coarse-grained from what, which effective degrees of freedom survived, derivable-in-principle by simulation or not," isn't an explanation — it's a fig leaf, dressing up "I don't know" as "I understand." A genuine emergence explanation always states what was averaged away and what survived.</p>
+
+<p><b>Third, don't misread "the cause is at the macro level" as "individuals bear no responsibility."</b> This is the last section's decision line's most dangerous slippage. Saying the cause of the jam is density, not any car, is about the <em>explanatory level of causation</em>; it in no way excuses "the car that ran the red light should be fined." Emergence claims one thing only: <b>the regularities of macro patterns are found at the macro level — not that micro-level behaviour has no right and wrong.</b> Swapping a claim about "which level the explanation is on" for a claim about "who is off the hook" is exactly how it gets abused — questions of responsibility need a different ruler, and emergence doesn't hand you that ruler.</p>
+
+<div class="decide">
+<span class="lb">🎯 DECISION LINE</span>
+<p>Before you say "this is emergent", run a three-question self-check: <b>①coarse-grained from what? ②which macro variables (effective degrees of freedom) survived? ③is it weak emergence, computable in principle, or are you claiming a strong emergence underivable even in principle?</b> If you can answer all three, it's an operational judgement; if you can't, you're probably using "emergence" to dodge explaining. <em>"Emergence" that can't say what was averaged away, like "complex" with no units, is just a word.</em></p>
+</div>
+
+<div class="crossx-inline">
+🌀 <b>Neuroscience · "consciousness emerges from neurons" says nothing</b>　That sentence has been used as a conclusion for decades, but as long as it can't answer "coarse-grained from what, which effective degrees of freedom survived, derivable in principle or not," it has merely rewritten "we don't understand consciousness" into a nicer sentence. <b>Corollary: on consciousness, "emergence" is currently a placeholder, not a mechanism — it marks where the problem sits without supplying a single step of actual derivation; taking the placeholder for the answer is this word's most respectable abuse.</b>
+</div>
+
+<div class="bigcat">
+<h3>🎒 Scenarios · BigCat</h3>
+<ol>
+<li><span class="dm">TEAMS &amp; ORG</span>The hard-to-name "atmosphere" in a team — buck-passing, no one daring to report bad news, no one telling the truth in meetings — is a textbook emergent property: it is in no single person, it is in the structure of interactions. The common error is to treat it as a micro problem — "so-and-so just isn't working out", swap them, and months later the identical atmosphere has grown back. The test: <b>if a different person in the same position still converges to the same behaviour, the problem is structural.</b> Concrete move: stop hunting "who's the troublemaker" and change a few macro effective degrees of freedom — who reports to whom, how long bad news takes to surface, whether telling the truth gets punished; make "days for a problem to go from happening to being put on the table this quarter" the metric you actually watch.</li>
+<li><span class="dm">CONTEMPLATIVE PRACTICE</span>A recurring emotional state (anxiety, irritability, low mood) is a layer coarse-grained out of many micro conditions (sleep, food, information intake, interpersonal friction) — it maps onto no single thought. So reasoning with it at the level of thoughts ("think it through") often fails: you're trying to move a macro variable at the micro level. The test: <b>if "figuring it out" has been repeated round after round and the state hasn't budged, the lever isn't at the thought level.</b> Concrete move: stop "analysing the cause one more time" and work the level below (regularise sleep first, cut information overload), or simply treat the state as a <em>readout</em> — it is telling you which upstream conditions are out of balance, not posing a problem to be argued down.</li>
+</ol>
+</div>
+
+<div class="crossx">
+<h3>🌀 Crossings</h3>
+<ul>
+<li><b>Sociology · Durkheim's "social facts"</b>: over a century ago Émile Durkheim insisted that <em>social facts</em> — suicide rates, the collective conscience — are real, external to the individual, and coercive, and so must be explained at the social level rather than reduced to individual psychology; in <em>Suicide</em> he found a society's suicide rate astonishingly stable year on year, even though exactly who dies changes completely. The mechanisms of this issue give him a vocabulary: a stable suicide rate is a macro variable that survives coarse-graining over millions of individuals (weak emergence), its cause sits on the effective degree of freedom called social integration, so "explaining a social rate by individual motives" is a level error. <b>But it doesn't hold here</b>: the molecules temperature coarse-grains over don't know they're being averaged, whereas social facts are made of people who <em>read</em> the macro number and change accordingly — once "the suicide rate" or "the unemployment rate" is published and made a target, people react and the macro variable itself drifts (exactly Goodhart's law, coming in Topic 26). Durkheim's analogy between social facts and physical facts splits precisely here: physical macro variables are inert, social ones look back at you. What you can borrow is "explain it at the macro level", not "society is inert and computable like a gas".</li>
+<li><b>History &amp; war · morale and formation</b>: Napoleon is often quoted as holding that in war the moral is to the physical as three to one. Morale, cohesion, the "momentum" of a formation are all emergent properties of a unit — a phalanx has fighting power no single hoplite possesses, and a routed army, made of the very same men, has seen its power collapse. The three mechanisms together explain why "attacking morale" so often beats "grinding down numbers": fighting power is a macro variable coarse-grained out of many soldiers (the effective degree of freedom of cohesion), and if you attack that macro variable directly — a flanking manoeuvre that manufactures the impression of encirclement, a night raid that severs the chain of command — the fighting power can collapse wholesale at very little cost in casualties. <b>So "annihilating the enemy's bodies" need not be the cheapest path; "dissolving the variable that exists only in the whole" is</b> — a shortcut invisible to purely reductionist warfare, which counts heads and grinds.</li>
+<li><b>Music · a chord's tension is in none of its notes</b>: press three notes together and a quality of "consonance" or "tension" appears — yet listen to any one of them alone and the quality is gone; it is emergent from the <em>relation</em> between notes. A harmonic progression can drive a listener's emotion precisely because of this layer that exists only in the whole. <b>Corollary: composition and arrangement never operate on "a single note" but on this emergent relational layer — to adjust a passage's "tension", altering one note's pitch is beside the point; what you move is the intervals between them.</b> This is isomorphic to the traffic jam: the property lives in the pattern of relations, not in the parts.</li>
+</ul>
+</div>
+
+<div class="thinking">
+<h3>Going deeper</h3>
+<details><summary>If a macro law is only the residue of averaging, how can it turn around and "constrain" the micro?</summary><p>This is the heart of the downward-causation dispute. The mild reading (which most complexity scientists accept) is that the macro doesn't mysteriously "give orders"; it acts as a <em>boundary condition and statistical constraint</em> on the micro — temperature, for instance, fixes the distribution of molecular speeds. Only the radical reading (strong emergence) claims the macro is an independent causal source, and that step runs into the causal closure of physics and remains unproven. Deciding which one you mean saves half the pointless arguments.</p></details>
+<details><summary>Is "only by simulation, no shortcut" the same as "chaos makes it unpredictable"?</summary><p>No, though they're often conflated. Chaos is about sensitivity to initial conditions (Topic 8) — errors get amplified exponentially, so prediction hits a precision limit. Weak emergence's "no shortcut" is about <em>computational</em> irreducibility: even with perfectly precise initial conditions and no chaos at all, to know the macro state at step N you must compute all the way to step N. One is "measurement error blows up", the other is "the calculation can't be sped up" — different limits from different sources, laid side by side in Topic 11.</p></details>
+<details><summary>Since the macro layer discards micro detail, can it sometimes be "wrong"?</summary><p>Yes, and that's the price of coarse-graining. When the detail you averaged away does in fact bear on the macro, the macro description fails — for instance near a critical point, tiny fluctuations get amplified to macroscopic scale and "averaging" is no longer safe (Topic 16 on phase transitions shows exactly this: at criticality, fluctuations at every scale matter). So the macro layer's validity is itself conditional: far from criticality, with micro detail averageable, it holds.</p></details>
+<details><summary>Are emergent properties "discovered", or "made" by our choice of coarse-graining?</summary><p>A bit of both, which is the honest difficulty. You do <em>choose</em> how to coarse-grain (track temperature, or something else), but once chosen, whether the macro layer shows stable, reproducible regularities is not up to you — temperature is a good macro variable because reliable laws really did grow up around it, whereas a randomly chosen coarse-graining might leave no regularity at all. So "choice" decides which layer you're looking at; "discovery" decides whether that layer has anything to see.</p></details>
+</div>
+
+<div class="refs">
+<h3>Further reading</h3>
+<ul>
+<li>Sugiyama et al., <a href="https://doi.org/10.1088/1367-2630/10/3/033001">Traffic jams without bottlenecks</a> (New J. Phys., 2008 — the circular-track phantom-jam experiment)</li>
+<li>Mark A. Bedau, <a href="https://philpapers.org/rec/BEDWE">Weak Emergence</a> (1997 — the "derivable only by simulation" definition)</li>
+<li>David J. Chalmers, <a href="http://consc.net/papers/emergence.pdf">Strong and Weak Emergence</a> (2006 — the split, and the consciousness case)</li>
+<li>Stanford Encyclopedia of Philosophy, <a href="https://plato.stanford.edu/entries/properties-emergent/">Emergent Properties</a> (a survey of emergence and downward causation)</li>
+<li>P. W. Anderson, <a href="https://www.science.org/doi/10.1126/science.177.4047.393">More Is Different</a> (Science, 1972 — the physics founding text on emergence)</li>
+<li>Émile Durkheim, <a href="https://en.wikipedia.org/wiki/Suicide_(book)">Suicide</a> (1897 — the classic study of social facts as emergent)</li>
+<li><a href="https://en.wikipedia.org/wiki/Downward_causation">Downward causation</a> (on downward causation and the causal exclusion problem)</li>
+</ul>
+</div>
+
+<footer>BigCat · Complexity Science · <a href="index.en.html">← All topics</a></footer>
+</div>
+<script src="https://hub.cissychen.com/lightbox.js" defer></script>
+</body></html>
