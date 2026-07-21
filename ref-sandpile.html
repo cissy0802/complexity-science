@@ -13,6 +13,7 @@ h1{font-size:2.15rem;font-weight:800;line-height:1.2;margin:20px 0 0;color:#f0ea
 .meta{font-family:"SF Mono",Menlo,monospace;font-size:0.75rem;color:#57524b;margin-top:16px;letter-spacing:1px}
 h2{font-size:1.25rem;font-weight:700;color:#e9e3d9;margin:44px 0 10px}
 h2 .n{font-family:"SF Mono",Menlo,monospace;font-size:0.8rem;color:#63b3a6;display:block;margin-bottom:5px;letter-spacing:2px}
+.he{font-size:0.68em;color:#8d867b;font-weight:500;letter-spacing:0}
 p{margin-bottom:16px}
 b,strong{color:#f0eae0;font-weight:600}
 em{color:#d9b45f;font-style:normal;font-weight:500}
@@ -44,26 +45,26 @@ footer a{color:#79a6d2;text-decoration:none}
 <header>
   <span class="rtag">REF · 经典模型</span>
   <h1>沙堆模型</h1>
-  <p class="sub">Bak-Tang-Wiesenfeld，1987 — 自组织临界性的原型</p>
+  <p class="sub">Bak-Tang-Wiesenfeld，1987 — 自组织临界性（self-organized criticality, SOC）的原型</p>
   <p class="meta">被引用于：Topic 18 自组织临界性</p>
 </header>
 
-<h2><span class="n">01</span>它问的是什么问题</h2>
+<h2><span class="n">01</span>它问的是什么问题<span class="he">（The Question It Poses）</span></h2>
 <p>1980 年代的物理学里，临界态是个稀客：你必须把温度精确调到某一点，系统才会呈现出无标度的涨落。可是自然界里，无标度的东西俯拾皆是——地震大小、河流分叉、股价跳动、电子器件里的 1/f 噪声。</p>
 <p>Bak 他们要问的是：<b>有没有一类系统，不需要任何人调参数，就会自己跑到临界态去？</b>沙堆模型是他们给出的最小回答——一个能把这件事演示清楚的、尽可能笨的装置。</p>
 
-<h2><span class="n">02</span>规则本身</h2>
+<h2><span class="n">02</span>规则本身<span class="he">（The Rules）</span></h2>
 <div class="rule">
 <ol>
 <li>一张 N×N 的方格，每格存一个整数 <em>z</em>（可以理解成"这格堆了几粒沙"）。</li>
 <li>随机挑一格，<em>z</em> 加 1。</li>
 <li>任何一格只要 <em>z</em> &gt; 3，就倾倒：自己减 4，上下左右各加 1。</li>
-<li>倾倒可能让邻格也超过 3，于是继续倾倒，直到全场都不超过 3 为止。这一整串连锁叫一次<b>雪崩</b>。</li>
+<li>倾倒可能让邻格也超过 3，于是继续倾倒，直到全场都不超过 3 为止。这一整串连锁叫一次<b>雪崩</b>（avalanche）。</li>
 <li>倒到边界外的沙直接消失（否则系统会一直涨）。</li>
 <li>雪崩完全停下来之后，才加下一粒沙。</li>
 </ol>
 </div>
-<p>最后一条容易被忽略，但它是整个模型成立的关键：<b>加沙必须比雪崩慢得多。</b>这叫时间尺度分离——缓慢驱动、快速释放。现实系统不满足这一条时，模型的结论就不能照搬。</p>
+<p>最后一条容易被忽略，但它是整个模型成立的关键：<b>加沙必须比雪崩慢得多。</b>这叫时间尺度分离（separation of timescales）——缓慢驱动、快速释放。现实系统不满足这一条时，模型的结论就不能照搬。</p>
 
 <figure>
 <svg viewBox="0 0 700 200" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="倾倒规则：中心格减4，四个邻格各加1">
@@ -99,7 +100,7 @@ footer a{color:#79a6d2;text-decoration:none}
 <figcaption>倾倒是守恒的：中心格失去的 4 粒，一粒不少地进了四个邻居。沙只在边界上离开系统。</figcaption>
 </figure>
 
-<h2><span class="n">03</span>跑起来会看到什么</h2>
+<h2><span class="n">03</span>跑起来会看到什么<span class="he">（What You See When It Runs）</span></h2>
 <p>刚开始沙堆是空的，加进去的沙基本不引发任何事。随着格子普遍变满，雪崩开始出现，并且越来越大。最终系统停在一个<b>统计上稳定</b>的状态：平均密度不再变化，但雪崩仍在不断发生，且大小从 1 格到横跨全场都有。</p>
 <p>把每次雪崩的规模按时间画出来，是一条毫无规律的尖峰序列——没有周期，没有预兆，也看不出"大的要来了"。</p>
 
@@ -121,14 +122,14 @@ footer a{color:#79a6d2;text-decoration:none}
 <figcaption>没有周期、没有前兆、没有"典型规模"。把这些高度做成直方图，就是一条幂律。</figcaption>
 </figure>
 
-<p>另有一个漂亮的性质：Deepak Dhar 1990 年证明这个模型是<b>阿贝尔的</b>——一次雪崩里若有多格同时超标，无论你按什么顺序让它们倒，最终格局完全相同。过程可以乱序，结果唯一。</p>
+<p>另有一个漂亮的性质：Deepak Dhar 1990 年证明这个模型是<b>阿贝尔的</b>（abelian）——一次雪崩里若有多格同时超标，无论你按什么顺序让它们倒，最终格局完全相同。过程可以乱序，结果唯一。</p>
 
-<h2><span class="n">04</span>它解释了现实中的什么</h2>
+<h2><span class="n">04</span>它解释了现实中的什么<span class="he">（What It Explains）</span></h2>
 <p>沙堆模型不是要预测某一次事件，而是解释<b>为什么一整类系统的事件规模没有典型值</b>。凡是具备"缓慢积累 + 到阈值就释放 + 释放会传给邻居"这三件事的系统，都可以拿它当第一近似：</p>
-<p>地壳应力与地震（古登堡-里希特定律是这条思路最硬的现实对应）、森林可燃物与山火、电网负载重分配与停电规模、生态系统里的灭绝级联。它给出的核心预期只有一条：<b>规模分布应当是幂律，而不是钟形。</b>这条预期是可以被数据否掉的——这也正是它作为科学模型的价值所在。</p>
+<p>地壳应力与地震（古登堡-里希特定律 Gutenberg-Richter law 是这条思路最硬的现实对应）、森林可燃物与山火、电网负载重分配与停电规模、生态系统里的灭绝级联。它给出的核心预期只有一条：<b>规模分布应当是幂律（power law），而不是钟形。</b>这条预期是可以被数据否掉的——这也正是它作为科学模型的价值所在。</p>
 
 <div class="cant">
-<h3>它不能解释什么</h3>
+<h3>它不能解释什么<span class="he">（What It Cannot Explain）</span></h3>
 <ul>
 <li><b>不能解释真沙堆。</b>这一点很尴尬但必须说：真实沙子的实验里，堆大到一定程度后出现的是周期性大崩塌，不是幂律。1996 年《自然》上的米堆实验给出了更细的条件——细长米粒服从，接近球形的不服从，差别在颗粒能否互相卡住并把应力传出去。模型抓住的是一类机制，不是沙子。</li>
 <li><b>不能预测任何一次雪崩。</b>它给的是分布，不是时刻表。用它去推断"下一次大事什么时候来""这次会有多大"，是在向一个只谈统计的模型索要它明确拒绝提供的东西。</li>
@@ -139,7 +140,7 @@ footer a{color:#79a6d2;text-decoration:none}
 </div>
 
 <div class="refs">
-<h3>延伸阅读</h3>
+<h3>延伸阅读<span class="he">（Further Reading）</span></h3>
 <ul>
 <li>Bak, Tang &amp; Wiesenfeld, <a href="https://doi.org/10.1103/PhysRevLett.59.381">Self-organized criticality: An explanation of 1/f noise</a>（1987）</li>
 <li>Dhar, <a href="https://doi.org/10.1103/PhysRevLett.64.1613">Self-organized critical state of sandpile automaton models</a>（1990，阿贝尔性质）</li>
