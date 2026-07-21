@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Complex ≠ Complicated — More Parts Isn't Complexity · Complexity Science T1</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,"SF Pro Display","Noto Sans SC",sans-serif;color:#e4ded5;line-height:1.85;min-height:100vh;
+  background:radial-gradient(1100px 620px at 12% -6%,rgba(224,137,94,0.10),transparent 62%),radial-gradient(950px 700px at 100% 2%,rgba(166,147,205,0.09),transparent 58%),linear-gradient(168deg,#100f0d 0%,#15161b 48%,#0a0a0c 100%);background-attachment:fixed}
+.wrap{max-width:760px;margin:0 auto;padding:30px 22px 90px}
+header{padding:52px 0 8px;border-bottom:1px solid rgba(255,255,255,0.07);margin-bottom:34px}
+.week-tag{font-family:"SF Mono",Menlo,monospace;font-size:0.72rem;font-weight:700;letter-spacing:2px;color:#e0895e;border:1px solid rgba(224,137,94,0.4);background:rgba(224,137,94,0.07);padding:3px 11px;border-radius:20px}
+h1{font-size:2.5rem;font-weight:800;letter-spacing:0.5px;line-height:1.2;margin:20px 0 0;background:linear-gradient(106deg,#e0895e 0%,#d9b45f 34%,#9fbc7a 68%,#63b3a6 100%);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+.sub{font-size:1.05rem;color:#aba498;margin-top:14px;font-weight:500}
+.date{font-family:"SF Mono",Menlo,monospace;font-size:0.75rem;color:#57524b;margin-top:18px;letter-spacing:1px}
+.pitch{margin:22px 0 30px;font-size:0.97rem;color:#cd7f9b;border-left:2px solid rgba(205,127,155,0.5);padding-left:16px;font-style:italic}
+.intro{font-size:1.02rem;color:#cfc8bc;margin-bottom:14px}
+.intro p{margin-bottom:16px}
+h2{font-size:1.42rem;font-weight:700;color:#e9e3d9;margin:56px 0 8px;letter-spacing:0.3px}
+h2 .n{font-family:"SF Mono",Menlo,monospace;font-size:0.85rem;color:#9fbc7a;display:block;margin-bottom:6px;letter-spacing:2px}
+p{margin-bottom:17px}
+.lead{color:#cfc8bc}
+b,strong{color:#f0eae0;font-weight:600}
+em{color:#d9b45f;font-style:normal;font-weight:500}
+.dim{color:#8d867b}
+a.reflink{display:inline-block;font-size:0.82rem;font-family:"SF Mono",Menlo,monospace;color:#63b3a6;border:1px solid rgba(99,179,166,0.38);background:rgba(99,179,166,0.07);padding:1px 9px;border-radius:20px;text-decoration:none;transition:all 0.15s;white-space:nowrap}
+a.reflink:hover{background:rgba(99,179,166,0.16);border-color:rgba(99,179,166,0.7)}
+figure{margin:30px 0}
+figure svg{display:block;width:100%;height:auto;border-radius:12px;background:rgba(255,255,255,0.018);border:1px solid rgba(255,255,255,0.06)}
+figcaption{font-size:0.82rem;color:#787268;margin-top:11px;text-align:center;line-height:1.6}
+.decide{margin:24px 0;border:1px solid rgba(224,137,94,0.36);background:rgba(224,137,94,0.055);border-radius:12px;padding:15px 19px}
+.decide .lb{font-family:"SF Mono",Menlo,monospace;font-size:0.73rem;letter-spacing:1.5px;color:#e0895e;font-weight:700;display:block;margin-bottom:7px}
+.decide p{margin:0;font-size:0.95rem;color:#ddd5c9}
+.crossx-inline{margin:20px 0 22px;border-left:2px solid rgba(205,127,155,0.55);padding:2px 0 2px 15px;font-size:0.89rem;color:#a9a096;line-height:1.72}
+.crossx-inline b{color:#cd7f9b;font-weight:600}
+.bigcat{margin:46px 0 10px;border:1px solid rgba(217,180,95,0.38);background:rgba(217,180,95,0.05);border-radius:14px;padding:20px 22px}
+.bigcat h3{font-size:1.02rem;color:#d9b45f;margin-bottom:14px;letter-spacing:0.5px}
+.bigcat ol{list-style:none;padding:0}
+.bigcat li{margin-bottom:15px;font-size:0.94rem;color:#d5cdc1;line-height:1.78}
+.bigcat li:last-child{margin-bottom:0}
+.bigcat .dm{font-family:"SF Mono",Menlo,monospace;font-size:0.73rem;color:#d9b45f;border:1px solid rgba(217,180,95,0.32);border-radius:4px;padding:1px 7px;margin-right:8px;white-space:nowrap}
+.crossx{margin:46px 0 10px;border:1px solid rgba(205,127,155,0.38);background:rgba(205,127,155,0.05);border-radius:14px;padding:20px 22px}
+.crossx h3{font-size:1.02rem;color:#cd7f9b;margin-bottom:14px;letter-spacing:0.5px}
+.crossx ul{list-style:none;padding:0}
+.crossx li{margin-bottom:16px;font-size:0.94rem;color:#d5cdc1;line-height:1.78}
+.crossx li:last-child{margin-bottom:0}
+.crossx li b{color:#cd7f9b;font-weight:600}
+.thinking{margin:46px 0 10px}
+.thinking h3{font-size:1.02rem;color:#a693cd;margin-bottom:14px;letter-spacing:0.5px}
+details{border:1px solid rgba(166,147,205,0.22);border-radius:10px;padding:12px 16px;margin-bottom:10px;background:rgba(166,147,205,0.035)}
+summary{cursor:pointer;font-size:0.93rem;color:#c9c2b6;font-weight:500}
+summary::marker{color:#a693cd}
+details p{margin:12px 0 0;font-size:0.9rem;color:#a9a096;line-height:1.75}
+.refs{margin:46px 0 10px}
+.refs h3{font-size:1.02rem;color:#79a6d2;margin-bottom:14px;letter-spacing:0.5px}
+.refs ul{list-style:none;padding:0}
+.refs li{margin-bottom:10px;font-size:0.9rem;color:#8d867b;line-height:1.7}
+.refs a{color:#79a6d2;text-decoration:none;border-bottom:1px solid rgba(121,166,210,0.3)}
+.refs a:hover{color:#a6c4e2;border-bottom-color:rgba(121,166,210,0.7)}
+footer{text-align:center;padding:56px 0 10px;font-size:0.78rem;color:#57524b;font-family:"SF Mono",Menlo,monospace;border-top:1px solid rgba(255,255,255,0.06);margin-top:50px}
+footer a{color:#79a6d2;text-decoration:none}
+@media(max-width:600px){h1{font-size:1.85rem}.wrap{padding:24px 16px 60px}h2{font-size:1.22rem}}
+</style></head><body>
+<div class="wrap">
+
+<header>
+  <span class="week-tag">TOPIC 1 · PHASE A</span>
+  <h1>Complex ≠ Complicated</h1>
+  <p class="sub">More parts isn't complexity — entanglement is</p>
+  <p class="date">2026-07-21 · What Counts as Complex</p>
+</header>
+
+<p class="pitch">A Boeing has six million parts and it is not complex. A flock of starlings runs on three rules and it is. We get these two words backwards almost every time — and the price of getting them backwards is that you keep taking apart the one kind of thing that should never be taken apart.</p>
+
+<div class="intro">
+<p>An aircraft maintenance manual is as thick as a brick, but read it and every part is in there: what it is, what it connects to, how to swap it when it fails. The millions of connections between parts are all connections <em>written down in the manual</em>. However vast the machine, it is the kind of thing you can trace, one line at a time.</p>
+<p>Why a city clogs into gridlock out of nowhere on an unremarkable Wednesday afternoon is in no manual anywhere. Nobody designed that jam; every driver in it just wants to get home; the rules could not be simpler — and yet you can know every car and every driver's intent and still not predict where the next jam forms.</p>
+<p>This is the dividing line the whole site turns on: <b>"many parts, thick manual" is one thing; "simple pieces entangling into behaviour you cannot compute" is another.</b> The first is <em>complicated</em>, the second is <em>complex</em>. Telling them apart is the foundation for everything that follows — because the two call for opposite methods.</p>
+</div>
+
+<h2><span class="n">01</span>Ordered, random, and the layer in between</h2>
+
+<p class="lead">Start by putting "complex" on a single axis. The left end is <b>perfectly ordered</b>, the right end is <b>perfectly random</b>, and complexity lives in the middle — only in the middle.</p>
+
+<p>The left end: a salt crystal, atoms laid out in a perfect grid. See one corner and you know the whole thing, because it is a single motif repeated forever. One sentence describes it completely: "tile this cell out endlessly." A pendulum, a marching column, all live at this end. They look orderly, but they carry <em>almost no information</em> — no surprises, the next step always guessable.</p>
+
+<p>The right end: television static, gas molecules colliding at random, a run of coin flips. Here every spot is unrelated to every other; stare at ten thousand points and you can't guess the ten-thousand-and-first. It <em>looks</em> information-rich, but the information is mutually unrelated and adds up to no structure — so describing it is also easy: one statistical parameter ("half heads, half tails") is enough, and the rest of the detail doesn't matter.</p>
+
+<p>Here's the crux: <b>both extremes are actually "simple".</b> Order is simple because it compresses (one sentence); randomness is simple because it has no structure to speak of (one statistic and you're done). The genuinely hard thing is neither pure repetition nor pure noise, but the layer that has <em>structure and surprise at once</em> — a living cell, a language, a city, an ecosystem. It can't be squeezed into a sentence, and it can't be statistically averaged away; you have to keep almost all of it to describe it. That layer is complexity.</p>
+
+<figure>
+<svg viewBox="0 0 720 340" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Along an ordered-to-random axis, structural complexity peaks in the middle, forming an inverted U">
+  <defs>
+    <marker id="arT1a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="10" markerHeight="10" markerUnits="userSpaceOnUse" orient="auto">
+      <path d="M0,1 L9,5 L0,9 z" fill="#8d867b"/>
+    </marker>
+  </defs>
+  <text x="360" y="26" text-anchor="middle" fill="#aba498" font-size="13" font-family="-apple-system,sans-serif">Both ends are "simple" — a sentence or a statistic; the hard part is only the middle</text>
+
+  <path d="M92,214 C240,214 300,86 360,86 C420,86 480,214 628,214" fill="none" stroke="#e0895e" stroke-width="2.5"/>
+  <text x="360" y="74" text-anchor="middle" fill="#e0895e" font-size="12.5" font-family="SF Mono,monospace">structural complexity</text>
+
+  <line x1="80" y1="214" x2="640" y2="214" stroke="rgba(255,255,255,0.16)" stroke-width="1.5" marker-end="url(#arT1a)"/>
+  <text x="92" y="300" text-anchor="middle" fill="#79a6d2" font-size="12" font-family="-apple-system,sans-serif">ordered</text>
+  <text x="360" y="300" text-anchor="middle" fill="#e0895e" font-size="12" font-family="-apple-system,sans-serif">complex</text>
+  <text x="628" y="300" text-anchor="middle" fill="#9fbc7a" font-size="12" font-family="-apple-system,sans-serif">random</text>
+  <text x="360" y="324" text-anchor="middle" fill="#57524b" font-size="11" font-family="-apple-system,sans-serif">ordered ←　degree of disorder　→ random</text>
+
+  <g transform="translate(56,228)">
+    <rect x="0" y="0" width="72" height="42" fill="none" stroke="rgba(121,166,210,0.35)"/>
+    <circle cx="12" cy="12" r="2.6" fill="#79a6d2"/><circle cx="30" cy="12" r="2.6" fill="#79a6d2"/><circle cx="48" cy="12" r="2.6" fill="#79a6d2"/><circle cx="66" cy="12" r="2.6" fill="#79a6d2"/>
+    <circle cx="12" cy="30" r="2.6" fill="#79a6d2"/><circle cx="30" cy="30" r="2.6" fill="#79a6d2"/><circle cx="48" cy="30" r="2.6" fill="#79a6d2"/><circle cx="66" cy="30" r="2.6" fill="#79a6d2"/>
+  </g>
+  <g transform="translate(324,228)">
+    <rect x="0" y="0" width="72" height="42" fill="none" stroke="rgba(224,137,94,0.4)"/>
+    <circle cx="10" cy="10" r="2.6" fill="#e0895e"/><circle cx="26" cy="14" r="2.6" fill="#e0895e"/><circle cx="30" cy="30" r="2.6" fill="#e0895e"/><circle cx="46" cy="9" r="2.6" fill="#e0895e"/><circle cx="52" cy="24" r="2.6" fill="#e0895e"/><circle cx="63" cy="33" r="2.6" fill="#e0895e"/>
+    <path d="M10,10 L26,14 L30,30 M26,14 L46,9 L52,24 L63,33" fill="none" stroke="rgba(224,137,94,0.55)" stroke-width="1.1"/>
+  </g>
+  <g transform="translate(592,228)">
+    <rect x="0" y="0" width="72" height="42" fill="none" stroke="rgba(159,188,122,0.35)"/>
+    <circle cx="9" cy="31" r="2.6" fill="#9fbc7a"/><circle cx="21" cy="8" r="2.6" fill="#9fbc7a"/><circle cx="35" cy="22" r="2.6" fill="#9fbc7a"/><circle cx="41" cy="36" r="2.6" fill="#9fbc7a"/><circle cx="55" cy="13" r="2.6" fill="#9fbc7a"/><circle cx="64" cy="28" r="2.6" fill="#9fbc7a"/><circle cx="15" cy="18" r="2.6" fill="#9fbc7a"/>
+  </g>
+</svg>
+<figcaption>Structural complexity peaks between "ordered" and "random". Both ends fit in a sentence; the middle layer doesn't — and that is what this site is about.</figcaption>
+</figure>
+
+<p>The trichotomy is not new. In 1948 the mathematician <b>Warren Weaver</b> (one of the founders of information theory) cut scientific problems into three: <em>problems of simplicity</em> (a few variables, the Newtonian kind), <em>disorganized complexity</em> (vast numbers of random variables, mopped up wholesale by statistical mechanics — a tank of gas), and, wedged in between and hardest of all, <em>organized complexity</em> — a moderate number of variables that are also entangled with each other, where life, economies and ecosystems all sit. He already saw that science was a triumph at both ends and nearly blank in the middle. Complexity science is the field that later went straight at that blank.</p>
+
+<p>The middle layer has a louder name too: the <b>edge of chaos</b> — too ordered and a system freezes, too random and it falls apart; only pinned to the narrow band between the two can it hold structure while still throwing up new patterns. It's a useful phrase, and also the most abused one — its trouble waits for the last section.</p>
+
+<div class="crossx-inline">
+🌀 <b>Engineering &amp; tech · good encryption must "look like noise"</b>　The ultimate goal of a ciphertext is to be statistically indistinguishable from pure randomness — pushed to the far right of the axis. Conversely, any structure left in the ciphertext (some letters too frequent, a stretch that repeats) is a crack: that's exactly where a codebreaker gets in. So the same axis hands cryptography a counterintuitive criterion: <b>here, "having structure" is not a virtue but a vulnerability, and security means having successfully erased structure.</b>
+</div>
+
+<h2><span class="n">02</span>Complicated is not complex</h2>
+
+<p class="lead">English keeps the two words apart, which is lucky, because they name two entirely different things. The difference has four counts, and every one is practical.</p>
+
+<p><b>First, can you take it apart.</b> A complicated thing decomposes: strip a jet engine down to pieces, study each on its own, bolt it back together, and your understanding of the whole is intact. A complex thing dies on the operating table: put an ecosystem's species one by one into separate jars and the relations that made it an ecosystem — who eats whom, who pollinates whom — were severed the moment you started separating.</p>
+
+<p><b>Second, is there a chief designer.</b> Complicated things are usually designed — there are blueprints, someone accountable for the whole. Complex things typically have no central designer: nobody designed English grammar, and nobody designed a city's commute flow; they grew out of countless local actions on their own.</p>
+
+<p><b>Third, is the behaviour predictable.</b> A complicated-but-not-complex system, as long as it isn't broken, behaves repeatably — same input, same output, which is precisely why we trust machines. A complex system is full of loops and mutual influence, so the same starting point can run to wildly different outcomes (Topic 8, "chaos", takes that to its conclusion).</p>
+
+<p><b>Fourth, and most consequential — where the extra comes from.</b> Double the parts of a complicated system and you get a bigger machine. Double the units of a complex system and you often get a <em>different kind of thing</em>: ten people are a team, ten thousand are a market, and the laws of their behaviour aren't even on the same level.</p>
+
+<figure>
+<svg viewBox="0 0 720 300" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Left: a top-down decomposable tree. Right: a tangled, loop-bearing network with no apex">
+  <defs>
+    <marker id="arT1b" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" markerUnits="userSpaceOnUse" orient="auto">
+      <path d="M0,1 L9,5 L0,9 z" fill="#79a6d2"/>
+    </marker>
+    <marker id="arT1c" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" markerUnits="userSpaceOnUse" orient="auto">
+      <path d="M0,1 L9,5 L0,9 z" fill="#cd7f9b"/>
+    </marker>
+  </defs>
+  <text x="180" y="28" text-anchor="middle" fill="#79a6d2" font-size="13" font-family="-apple-system,sans-serif">complicated · decomposable</text>
+  <text x="540" y="28" text-anchor="middle" fill="#cd7f9b" font-size="13" font-family="-apple-system,sans-serif">complex · dies when split</text>
+
+  <circle cx="180" cy="62" r="12" fill="#1a1b20" stroke="#79a6d2" stroke-width="1.6"/>
+  <circle cx="110" cy="140" r="12" fill="#1a1b20" stroke="#79a6d2" stroke-width="1.6"/>
+  <circle cx="180" cy="140" r="12" fill="#1a1b20" stroke="#79a6d2" stroke-width="1.6"/>
+  <circle cx="250" cy="140" r="12" fill="#1a1b20" stroke="#79a6d2" stroke-width="1.6"/>
+  <circle cx="82" cy="218" r="12" fill="#1a1b20" stroke="#79a6d2" stroke-width="1.6"/>
+  <circle cx="138" cy="218" r="12" fill="#1a1b20" stroke="#79a6d2" stroke-width="1.6"/>
+  <circle cx="222" cy="218" r="12" fill="#1a1b20" stroke="#79a6d2" stroke-width="1.6"/>
+  <circle cx="278" cy="218" r="12" fill="#1a1b20" stroke="#79a6d2" stroke-width="1.6"/>
+  <line x1="171" y1="72" x2="119" y2="130" stroke="#79a6d2" stroke-width="1.4" marker-end="url(#arT1b)"/>
+  <line x1="180" y1="76" x2="180" y2="126" stroke="#79a6d2" stroke-width="1.4" marker-end="url(#arT1b)"/>
+  <line x1="189" y1="72" x2="241" y2="130" stroke="#79a6d2" stroke-width="1.4" marker-end="url(#arT1b)"/>
+  <line x1="103" y1="150" x2="88" y2="205" stroke="#79a6d2" stroke-width="1.4" marker-end="url(#arT1b)"/>
+  <line x1="117" y1="150" x2="132" y2="205" stroke="#79a6d2" stroke-width="1.4" marker-end="url(#arT1b)"/>
+  <line x1="243" y1="150" x2="228" y2="205" stroke="#79a6d2" stroke-width="1.4" marker-end="url(#arT1b)"/>
+  <line x1="257" y1="150" x2="272" y2="205" stroke="#79a6d2" stroke-width="1.4" marker-end="url(#arT1b)"/>
+  <text x="180" y="268" text-anchor="middle" fill="#787268" font-size="11" font-family="-apple-system,sans-serif">an apex, one-way, each block liftable alone</text>
+
+  <line x1="360" y1="50" x2="360" y2="250" stroke="rgba(255,255,255,0.08)" stroke-width="1"/>
+
+  <circle cx="470" cy="80" r="12" fill="#1a1b20" stroke="#cd7f9b" stroke-width="1.6"/>
+  <circle cx="600" cy="72" r="12" fill="#1a1b20" stroke="#cd7f9b" stroke-width="1.6"/>
+  <circle cx="540" cy="140" r="12" fill="#1a1b20" stroke="#cd7f9b" stroke-width="1.6"/>
+  <circle cx="452" cy="200" r="12" fill="#1a1b20" stroke="#cd7f9b" stroke-width="1.6"/>
+  <circle cx="600" cy="196" r="12" fill="#1a1b20" stroke="#cd7f9b" stroke-width="1.6"/>
+  <line x1="481" y1="86" x2="529" y2="132" stroke="#cd7f9b" stroke-width="1.3" marker-end="url(#arT1c)"/>
+  <line x1="531" y1="132" x2="479" y2="88" stroke="#cd7f9b" stroke-width="1.3" marker-end="url(#arT1c)"/>
+  <line x1="589" y1="80" x2="551" y2="132" stroke="#cd7f9b" stroke-width="1.3" marker-end="url(#arT1c)"/>
+  <line x1="551" y1="149" x2="591" y2="188" stroke="#cd7f9b" stroke-width="1.3" marker-end="url(#arT1c)"/>
+  <line x1="592" y1="205" x2="464" y2="200" stroke="#cd7f9b" stroke-width="1.3" marker-end="url(#arT1c)"/>
+  <line x1="461" y1="190" x2="533" y2="150" stroke="#cd7f9b" stroke-width="1.3" marker-end="url(#arT1c)"/>
+  <line x1="482" y1="76" x2="588" y2="72" stroke="#cd7f9b" stroke-width="1.3" marker-end="url(#arT1c)"/>
+  <text x="536" y="268" text-anchor="middle" fill="#787268" font-size="11" font-family="-apple-system,sans-serif">no apex, looped, cut one relation and it changes</text>
+</svg>
+<figcaption>The part count can be identical. The difference is structure: left is top-down, take-apart-and-reassemble; right is looped, has no "master switch", and the relations themselves are the content.</figcaption>
+</figure>
+
+<div class="decide">
+<span class="lb">🎯 DECISION LINE</span>
+<p>Before you set out to solve a problem, spend thirty seconds deciding whether it is <b>complicated</b> or <b>complex</b>. The fastest of the four tests: <b>can you split it, solve the pieces, and reassemble without losing anything?</b> If yes — decompose as usual, bring in experts, add process, the finer the better. If no — stop; don't pour more detail into the model. For a complex system, "look more closely" does not bring you nearer the answer; you need to move up to a higher level of description (next section spells out that move). The cost of the wrong method isn't wasted effort, it's <em>backfire</em>: take the machine-disassembly approach to an ecosystem and you sever, with your own hands, the relations that made it work.</p>
+</div>
+
+<div class="crossx-inline">
+🌀 <b>Biology &amp; ecology · Australia's cane toads</b>　In 1935 Australia imported the cane toad to deal with cane beetles — treating an ecosystem as a machine you fix by dropping in a spare part. The toads barely ate the beetles; being toxic and predator-free, they instead spread into a plague that continues today. This is the textbook fate of mistaking the <em>complex</em> for the <em>complicated</em>: an ecosystem doesn't decompose, and what you "add" is never an isolated part but a whole string of relations you couldn't foresee. <b>Corollary: any intervention that assumes separable parts runs cascading consequences down the web of relations in a complex system — ask what it will connect to before you act.</b>
+</div>
+
+<h2><span class="n">03</span>More is different</h2>
+
+<p class="lead">In 1972 the physicist <b>Philip Anderson</b> (a future Nobel laureate) wrote a four-page essay that rewrote how an entire field saw itself. The title was four words: <em>More Is Different</em>.</p>
+
+<p>What he set out to oppose was a belief then almost unquestioned: reductionism. Reductionism says everything is built from more fundamental things, so once you understand the deepest particles and laws you have, in principle, understood everything; chemistry, biology, psychology above are just "applied physics".</p>
+
+<p>Anderson granted the first half: yes, you can <em>reduce</em> anything down to fundamental particles. Then he cut the second half clean off: <b>being able to take it apart is not the same as being able to put it back.</b> Whenever a great many units gather together, new laws appear that don't exist in a single unit and can't be derived directly from the units' laws. One water molecule has no "temperature", and no "liquid" or "solid"; temperature and phase are concepts that only appear once water molecules are in bulk. One neuron has no "memory"; one person has no "inflation". These aren't applied-physics exercises — they are a <em>new level</em>, with its own vocabulary and its own laws.</p>
+
+<figure>
+<svg viewBox="0 0 720 320" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Levels stacked from particles to society; new laws emerge going up, the downward reduction path is cut">
+  <defs>
+    <marker id="arT1up" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="12" markerHeight="12" markerUnits="userSpaceOnUse" orient="auto">
+      <path d="M0,1 L9,5 L0,9 z" fill="#9fbc7a"/>
+    </marker>
+    <marker id="arT1dn" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="12" markerHeight="12" markerUnits="userSpaceOnUse" orient="auto">
+      <path d="M0,1 L9,5 L0,9 z" fill="#8d867b"/>
+    </marker>
+  </defs>
+  <text x="360" y="26" text-anchor="middle" fill="#aba498" font-size="13" font-family="-apple-system,sans-serif">Each level up throws off words the level below simply lacks — not "exercises"</text>
+
+  <g font-family="-apple-system,sans-serif">
+    <rect x="150" y="46" width="300" height="40" rx="7" fill="rgba(166,147,205,0.12)" stroke="rgba(166,147,205,0.5)"/>
+    <text x="300" y="71" text-anchor="middle" fill="#c9c2b6" font-size="13">society · markets</text>
+    <text x="470" y="71" fill="#a693cd" font-size="11.5">new: inflation, fashion</text>
+
+    <rect x="150" y="102" width="300" height="40" rx="7" fill="rgba(121,166,210,0.12)" stroke="rgba(121,166,210,0.5)"/>
+    <text x="300" y="127" text-anchor="middle" fill="#c9c2b6" font-size="13">brain · individual</text>
+    <text x="470" y="127" fill="#79a6d2" font-size="11.5">new: memory, intent</text>
+
+    <rect x="150" y="158" width="300" height="40" rx="7" fill="rgba(99,179,166,0.12)" stroke="rgba(99,179,166,0.5)"/>
+    <text x="300" y="183" text-anchor="middle" fill="#c9c2b6" font-size="13">cell · tissue</text>
+    <text x="470" y="183" fill="#63b3a6" font-size="11.5">new: metabolism, heredity</text>
+
+    <rect x="150" y="214" width="300" height="40" rx="7" fill="rgba(217,180,95,0.12)" stroke="rgba(217,180,95,0.5)"/>
+    <text x="300" y="239" text-anchor="middle" fill="#c9c2b6" font-size="13">molecule · material</text>
+    <text x="470" y="239" fill="#d9b45f" font-size="11.5">new: temperature, phase</text>
+
+    <rect x="150" y="270" width="300" height="40" rx="7" fill="rgba(224,137,94,0.12)" stroke="rgba(224,137,94,0.5)"/>
+    <text x="300" y="295" text-anchor="middle" fill="#c9c2b6" font-size="13">atom · particle</text>
+    <text x="470" y="295" fill="#e0895e" font-size="11.5">base laws</text>
+  </g>
+
+  <line x1="108" y1="300" x2="100" y2="58" stroke="#9fbc7a" stroke-width="2.5" marker-end="url(#arT1up)"/>
+  <text x="70" y="180" fill="#9fbc7a" font-size="12" font-family="-apple-system,sans-serif" transform="rotate(-90 70 180)">emergence: new laws appear</text>
+
+  <line x1="640" y1="58" x2="648" y2="300" stroke="#8d867b" stroke-width="2" stroke-dasharray="5 4" marker-end="url(#arT1dn)"/>
+  <text x="672" y="180" fill="#8d867b" font-size="12" font-family="-apple-system,sans-serif" transform="rotate(90 672 180)">reduction: down yes, back up no</text>
+  <line x1="632" y1="150" x2="656" y2="176" stroke="#cd7f9b" stroke-width="2.5"/>
+  <line x1="656" y1="150" x2="632" y2="176" stroke="#cd7f9b" stroke-width="2.5"/>
+</svg>
+<figcaption>"Down yes" and "back up no" are two different claims. Reductionism is half right — it can reduce all the way down, but it cannot recompute each level up from the laws below.</figcaption>
+</figure>
+
+<p>Why does this matter? Because it turns "the whole is greater than the sum of its parts" from a platitude into an operational judgement: <b>when you're facing a complex system, the move "dig one level deeper" has a ceiling</b> — not because you didn't try hard enough, but because the law you're after simply isn't on the level below; it appears only on the level you're already looking at. To understand gridlock, taking apart each engine is useless; to understand inflation, brain-scanning every person is useless. You have to stay on the <em>right level</em> to find its laws.</p>
+
+<div class="decide">
+<span class="lb">🎯 DECISION LINE</span>
+<p>When a problem gets "more detailed yet less clear the more you look", treat that as a signal: you may be on the wrong level. Concrete move — ask yourself, "the law I'm after, is it on the level I'm looking at, or have I drilled down to a level where it doesn't exist?" If several rounds of added detail haven't sharpened the judgement, stop adding; jump up a level and find that level's own macro-variable (temperature for molecules, price for trades, tail latency for requests). <b>"One more level down" is sometimes not diligence — it's diligence in the wrong direction.</b></p>
+</div>
+
+<div class="crossx-inline">
+🌀 <b>Literature &amp; art · reducing a poem to a dictionary</b>　You can look up the dictionary meaning of every word in a poem and still not get the poem — the poetry lives in the <em>arrangement, sound and silence</em> of the words, a layer that emerges only when they sit together and exists in no single word. This is exactly "more is different" in language. <b>Corollary: word-for-word translation loses the essential thing not because the translator is lazy, but because it operates on the wrong level — it reduced the words and failed to preserve the layer that exists only in the whole.</b>
+</div>
+
+<h2><span class="n">04</span>Where this breaks down</h2>
+
+<p class="lead">Now the other side. "Complex ≠ complicated" is a useful cut, but it too gets abused, and you should know three soft spots before you use it.</p>
+
+<p><b>First, that axis has no sharp fence posts.</b> Ordered, complex and random aren't three drawers but a continuous transition with blurry, even gradual, boundaries. The same system, viewed at a different scale or asked a different question, can slide from "this category" into "that one". So "this is a complex system" is rarely a black-and-white fact; it's mostly a judgement <em>relative to the question you're asking right now</em>. Treat it as a permanent label pinned to the system and you've gone wrong.</p>
+
+<p><b>Second, "the edge of chaos" is the most romanticised of all.</b> "Poised between order and chaos is where creativity lives" is such an attractive sentence that it's been carried into countless management and innovation talks. But as a <em>testable scientific claim</em> it stands on shakier ground. Around 1990 it was proposed that computational power peaks near a certain critical parameter (later written as λ) — beautiful to hear. Yet in 1993 Mitchell, Crutchfield and Hraber re-examined it with evolutionary experiments and found the "optimum" did not appear as reliably as advertised. <b>The lesson: the moment someone reasons at you from "the edge of chaos", ask — this edge you speak of, what are its units, and how do you measure it?</b> If there's no answer, it's just a pretty metaphor.</p>
+
+<p><b>Third, and most abused: "complex" as a shield.</b> "The system is just too complex" is often used to explain why something didn't get done or why responsibility can't be pinned. But complexity is not a disclaimer. Admitting a system is complex and not fully predictable means precisely that you should switch to a different toolkit (find a macro-variable up a level, run small reversible experiments, watch the coupling) — not throw up your hands. And people make the opposite error too: taking a problem that is really <em>complicated but not complex</em>, solvable by decomposition and expertise, and romantically calling it "complex" to duck the dull analysis it actually needs. Both misuses are the same laziness wearing the word.</p>
+
+<div class="decide">
+<span class="lb">🎯 DECISION LINE</span>
+<p>Before you say "this is a complex system", run one self-check, the same ruler as the last section: <b>can you name the macro-variable it should be watched on right now, and how you'd measure it?</b> If yes — the judgement is operational, carry on. If not — you're probably just using "complex" to dodge the problem: either it's actually a complicated problem you should honestly take apart, or you haven't yet found the right level. <em>"Complex" with no units, like "edge of chaos" with no units, is just a word.</em></p>
+</div>
+
+<div class="crossx-inline">
+🌀 <b>Organizations &amp; management · misusing Cynefin</b>　The management scholar Dave Snowden's Cynefin framework sorts situations into "complicated" (experts, analyzable) and "complex" (probe and see), meant to stop people using the wrong method. On the ground it's often used backwards: a merely complicated problem that has a solution nobody wants to do gets the "complex" label, and "probe and see" becomes an excuse not to decide. <b>Corollary: the same taxonomy can help you pick the right method or license inaction — the difference is only whether you can say exactly what makes this one "complex" and what you'll probe next.</b>
+</div>
+
+<div class="bigcat">
+<h3>🎒 Scenarios · BigCat</h3>
+<ol>
+<li><span class="dm">ENGINEERING &amp; SYSTEMS</span>A production issue keeps recurring, and your instinct is to add monitoring: one more dashboard, one more log layer, one more component metric — this treats the system as <em>complicated</em>. The test is clear: <b>when you've added the Nth dashboard and the issue still isn't localised to a component, it's probably complex</b> — the knot is in the coupling and feedback between services, not inside any single part. Concrete move: stop "adding another component metric" and look at end-to-end macro quantities (the tail-latency distribution of the whole request path, queue depth over time), shifting attention from "which part broke" to "which loop is amplifying".</li>
+<li><span class="dm">HEALTH &amp; ENERGY</span>This one runs the same ruler in reverse. Chronic fatigue and low function are easily romanticised as "life is just complex, everything's connected" — turning what may be a <em>complicated-not-complex</em> problem with a single checkable cause (iron, thyroid, a sleep-breathing issue) into an un-decomposable complex system, so you forever adjust routines and mindset and skip the boring test you should have run. The test: if a specific measurement would confirm or rule it out in one go, then right now it's a complicated problem — go measure before escalating to "holistic rebalancing". <b>Treating complex as complicated backfires; treating complicated as complex delays — both costs are real money.</b></li>
+</ol>
+</div>
+
+<div class="crossx">
+<h3>🌀 Crossings</h3>
+<ul>
+<li><b>Philosophy of science · the funeral of vitalism</b>: nineteenth-century vitalism insisted living bodies held a non-material "life force" (élan vital), on exactly this reasoning — reduce an organism to chemicals and you can't reassemble "being alive". Half of that intuition is right: the whole really isn't derivable from the sum of the parts. The three mechanisms of this issue together supply a non-mystical stand-in: properties like temperature and life are new levels that <em>emerge</em> once great numbers of units aggregate (more is different) — no need to deny they're real, and no need to summon a special substance to explain them; attribute them to <em>organization</em>, not to an extra ingredient. So "anti-reductionist" can, for the first time, stop meaning "anti-science". <b>But it doesn't hold here</b>: vitalism posited an irreducible <em>substance</em>, emergence posits an irreducible <em>organization/relation</em> — alike in form, opposite in kind. Retelling emergence as "see, there really is a mysterious force" lets the life force back in through the door you just showed it out of. What you can borrow is its sensitivity to "parts don't make a whole", not its ontology.</li>
+<li><b>Architecture &amp; design · Alexander's "life"</b>: the architect Christopher Alexander spent a career trying to say why an old city (Venice) or a Gothic cathedral feels <em>alive</em>, while a failed new development feels merely <em>messy</em> and a Modernist grid feels merely <em>dead</em>. On this issue's axis it clicks: the grid sits at the ordered end (frozen), the failed development at the random end (scattered), and "alive" is exactly the middle layer — structure and variation together, across many scales at once. Alexander even tried to find a measurable quantity for this aliveness (he called it wholeness). <b>Corollary: the elusive "vitality" in aesthetics may not be mysticism but our eyes recognising that a system has landed in the complex middle band rather than at either "simple" extreme.</b> This is a direct answer to the issue's anchor (the plain-vs-ornate debate in design): the difference between richness that emerges and mere mess is whether the structure runs across scales.</li>
+<li><b>Biology &amp; medicine · from "one gene, one trait" to omics</b>: early genetics dreamed the reductionist dream — find "the gene for height", "the gene for intelligence". But genome-wide association studies (GWAS) revealed that most common traits are the joint work of thousands of tiny-effect variants; in 2017 Boyle, Li and Pritchard even proposed the "omnigenic" model: nearly every expressed gene nudges a trait a little. That is "more is different" at the molecular level: a trait emerges from the whole regulatory network and maps onto no decomposable "part-cause". <b>Corollary: the so-called "missing heritability" (the genetic contribution nobody can locate) is mostly not a shortage of data but a wrong choice of level — you're looking on the gene level for something that exists only on the network level.</b></li>
+</ul>
+</div>
+
+<div class="thinking">
+<h3>Going deeper</h3>
+<details><summary>If complex systems "die when split", can we still experiment on them?</summary><p>Yes, but the unit of experiment has to change. You can't isolate one species and expect the relations to hold, but you can perturb at the level of the whole system: change a parameter, add a connection, watch how the whole responds. Topic 27, "agent-based modeling", is exactly this route — instead of dissecting the real system, regrow it from local rules inside a computer and then abuse the copy freely. The honesty is in this: what you study is always the whole with its relations intact, never the shards.</p></details>
+<details><summary>Does "more is different" mean upper-level laws contradict the underlying physics?</summary><p>No. The new emergent laws never violate the base physics — water molecules always obey quantum mechanics, and temperature never breaks it. The new laws are what the base <em>permits</em> but does not <em>specify</em>: the underlying physics bounds the space of the possible, but doesn't dictate which macroscopic pattern a mass of units will settle into. So it's "added", not "opposed" — which is why anti-reductionism need not be anti-science.</p></details>
+<details><summary>Doesn't labelling a problem "complex" become an excuse not to try to understand it?</summary><p>It can, and that's the abuse to watch hardest this issue. The right consequence of judging something complex isn't surrender, it's <em>shifting gears</em>: from "look closer" to "find a macro-variable up a level, run small reversible experiments, watch the coupling and loops". If someone says "too complex" and then nothing changes and it's business as usual, the judgement wasn't made properly — it was supposed to bring a different set of actions.</p></details>
+<details><summary>If pure randomness carries the most information, why call it "simple"?</summary><p>"Simple" here means simple to <em>describe</em>, not low in information. A purely random string can't be compressed (in that sense its information is indeed maximal), but you also don't need to memorise it bit by bit — one statistical description ("each bit independent, fifty-fifty") captures everything <em>useful</em> about it, and the specific values don't matter. The complex thing loses on both counts: it won't compress to a sentence, and its specific detail can't be thrown away. Topic 41, on quantifying complexity, settles this tension formally.</p></details>
+</div>
+
+<div class="refs">
+<h3>Further reading</h3>
+<ul>
+<li>P. W. Anderson, <a href="https://www.science.org/doi/10.1126/science.177.4047.393">More Is Different</a> (Science, 1972 — the four-page founding essay)</li>
+<li>Warren Weaver, <a href="https://en.wikipedia.org/wiki/Warren_Weaver#Science_and_Complexity">Science and Complexity</a> (American Scientist, 1948 — the source of the "organized complexity" trichotomy)</li>
+<li>Christopher Langton, <a href="https://doi.org/10.1016/0167-2789(90)90064-V">Computation at the edge of chaos</a> (1990 — the original edge-of-chaos / λ proposal)</li>
+<li>Mitchell, Crutchfield &amp; Hraber, <a href="https://arxiv.org/abs/adap-org/9303003">Revisiting the Edge of Chaos</a> (1993 — a systematic re-examination of it)</li>
+<li>Boyle, Li &amp; Pritchard, <a href="https://doi.org/10.1016/j.cell.2017.05.038">An Expanded View of Complex Traits: From Polygenic to Omnigenic</a> (Cell, 2017)</li>
+<li>Christopher Alexander, <a href="https://en.wikipedia.org/wiki/The_Nature_of_Order">The Nature of Order</a> (on "life" and wholeness in architecture)</li>
+<li>Melanie Mitchell, <a href="https://global.oup.com/academic/product/complexity-9780199798100">Complexity: A Guided Tour</a> (a panoramic intro, and a survey of the rival definitions of "complex")</li>
+</ul>
+</div>
+
+<footer>BigCat · Complexity Science · <a href="index.en.html">← All topics</a></footer>
+</div>
+<script src="https://hub.cissychen.com/lightbox.js" defer></script>
+</body></html>
