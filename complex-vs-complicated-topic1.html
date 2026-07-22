@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html lang="zh-CN"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<html lang="zh-CN"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0" name="viewport"/>
 <title>复杂 ≠ 复杂化 — 零件多不叫复杂，纠缠才叫 · 复杂性科学 T1</title>
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
@@ -64,276 +65,219 @@ footer a{color:#79a6d2;text-decoration:none}
 @media(max-width:600px){h1{font-size:1.85rem}.wrap{padding:24px 16px 60px}h2{font-size:1.22rem}}
 </style></head><body>
 <div class="wrap">
-
 <header>
-  <span class="week-tag">TOPIC 1 · PHASE A</span>
-  <h1>复杂 ≠ 复杂化<span class="h1en">COMPLEX IS NOT COMPLICATED</span></h1>
-  <p class="sub">零件多不叫复杂，纠缠才叫<span class="he">（More parts isn't complexity — entanglement is）</span></p>
-  <p class="date">2026-07-21 · 什么算「复杂」</p>
+<span class="week-tag">TOPIC 1 · PHASE A</span>
+<h1 data-tts="b857afe2f3360f5c">复杂 ≠ 复杂化<span class="h1en">COMPLEX IS NOT COMPLICATED</span></h1>
+<p class="sub">零件多不叫复杂，纠缠才叫<span class="he">（More parts isn't complexity — entanglement is）</span></p>
+<p class="date">2026-07-21 · 什么算「复杂」</p>
 </header>
-
 <p class="pitch">一架波音有六百万个零件，它不复杂；一群椋鸟只靠三条规则，它复杂。我们几乎总是把这两个字用反了——而用反的代价，是你会对着一类根本不该拆的东西，一直拆下去。</p>
-
 <div class="intro">
 <p>飞机的维修手册厚得像砖头，但只要你肯读，每个零件都能查到：它是什么、连着谁、坏了怎么换。零件之间是几百万条<em>说明书里写好的</em>连接。这台机器再庞大，也是"可以一条一条查清"的。</p>
 <p>一座城市为什么会在某个平平无奇的周三下午凭空堵成一团，没有任何一本手册查得到。没有谁设计这场堵车，参与的每个人都只想早点回家，规则简单到不能再简单——可你把每辆车、每个司机的动机都摸清，仍然预测不了下一场堵在哪里。</p>
 <p>这就是本站要一路讲下去的那条分界：<b>"零件多、说明书厚"是一回事，"简单的东西纠缠出你算不出来的行为"是另一回事。</b>前者英文叫 complicated（繁），后者才叫 complex（复杂）。把它们分清楚，是所有后面内容的地基——因为对这两类东西，该用的办法正好相反。</p>
 </div>
-
-<h2><span class="n">01</span>有序、随机，和夹在中间的那层<span class="he">（Ordered, Random, and the Layer In Between）</span></h2>
-
+<h2 data-tts="a21c34950dbf1222"><span class="n">01</span>有序、随机，和夹在中间的那层<span class="he">（Ordered, Random, and the Layer In Between）</span></h2>
 <p class="lead">先把"复杂"放到一根轴上看。轴的左端是<b>完全有序</b>，右端是<b>完全随机</b>，复杂就住在中间——而且只住在中间。</p>
-
 <p>左端长什么样：一块盐晶体，原子排得横平竖直，你看一个角落就知道了全部，因为它只是同一个花样无限重复。一句话就能把它描述完："照这个格子无限铺开。"钟摆、行军的队列，都在这一端。它们看着规整，但<em>信息量极低</em>——没有意外，下一步永远猜得到。</p>
-
 <p>右端长什么样：电视雪花点、一杯气体里乱撞的分子、连续抛硬币的结果。这一端的每一处都和别处无关，你盯着看一万个点也猜不出第一万零一个。它<em>看着</em>信息量爆炸，可这些信息彼此不相干、拼不出任何结构——所以描述它其实也不难：给个统计参数（"一半正一半反"）就够了，剩下的细节无所谓。</p>
-
 <p>关键在这里：<b>两个极端其实都"简单"。</b>有序简单在它高度可压缩（一句话说完），随机简单在它没有结构可言（统计一下就完事）。真正难对付的东西，既不是纯重复、也不是纯噪声，而是<em>既有结构又有意外</em>的那一层——一个活细胞、一段语言、一座城市、一场生态。它压不成一句话，也统计不掉，你必须几乎原样地把它留着才能描述它。这层，就是复杂。</p>
-
 <figure>
-<svg viewBox="0 0 720 340" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="有序到随机的轴上，结构性复杂度在中间达到最高，形成一个倒U形">
-  <defs>
-    <marker id="arT1a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="10" markerHeight="10" markerUnits="userSpaceOnUse" orient="auto">
-      <path d="M0,1 L9,5 L0,9 z" fill="#8d867b"/>
-    </marker>
-  </defs>
-  <text x="360" y="26" text-anchor="middle" fill="#aba498" font-size="13" font-family="-apple-system,sans-serif">两端都「简单」——一句话或一个统计就说完了；难的只在中间</text>
-
-  <!-- inverted-U curve -->
-  <path d="M92,214 C240,214 300,86 360,86 C420,86 480,214 628,214" fill="none" stroke="#e0895e" stroke-width="2.5"/>
-  <text x="360" y="74" text-anchor="middle" fill="#e0895e" font-size="12.5" font-family="SF Mono,monospace">结构性复杂度</text>
-
-  <!-- baseline axis -->
-  <line x1="80" y1="214" x2="640" y2="214" stroke="rgba(255,255,255,0.16)" stroke-width="1.5" marker-end="url(#arT1a)"/>
-  <text x="92" y="300" text-anchor="middle" fill="#79a6d2" font-size="12" font-family="-apple-system,sans-serif">有序</text>
-  <text x="360" y="300" text-anchor="middle" fill="#e0895e" font-size="12" font-family="-apple-system,sans-serif">复杂</text>
-  <text x="628" y="300" text-anchor="middle" fill="#9fbc7a" font-size="12" font-family="-apple-system,sans-serif">随机</text>
-  <text x="360" y="324" text-anchor="middle" fill="#57524b" font-size="11" font-family="-apple-system,sans-serif">有序 ←　混乱程度　→ 随机</text>
-
-  <!-- three sample tiles under the axis -->
-  <!-- ordered: regular grid -->
-  <g transform="translate(56,228)">
-    <rect x="0" y="0" width="72" height="42" fill="none" stroke="rgba(121,166,210,0.35)"/>
-    <circle cx="12" cy="12" r="2.6" fill="#79a6d2"/><circle cx="30" cy="12" r="2.6" fill="#79a6d2"/><circle cx="48" cy="12" r="2.6" fill="#79a6d2"/><circle cx="66" cy="12" r="2.6" fill="#79a6d2"/>
-    <circle cx="12" cy="30" r="2.6" fill="#79a6d2"/><circle cx="30" cy="30" r="2.6" fill="#79a6d2"/><circle cx="48" cy="30" r="2.6" fill="#79a6d2"/><circle cx="66" cy="30" r="2.6" fill="#79a6d2"/>
-  </g>
-  <!-- complex: patterned but varied -->
-  <g transform="translate(324,228)">
-    <rect x="0" y="0" width="72" height="42" fill="none" stroke="rgba(224,137,94,0.4)"/>
-    <circle cx="10" cy="10" r="2.6" fill="#e0895e"/><circle cx="26" cy="14" r="2.6" fill="#e0895e"/><circle cx="30" cy="30" r="2.6" fill="#e0895e"/><circle cx="46" cy="9" r="2.6" fill="#e0895e"/><circle cx="52" cy="24" r="2.6" fill="#e0895e"/><circle cx="63" cy="33" r="2.6" fill="#e0895e"/>
-    <path d="M10,10 L26,14 L30,30 M26,14 L46,9 L52,24 L63,33" fill="none" stroke="rgba(224,137,94,0.55)" stroke-width="1.1"/>
-  </g>
-  <!-- random: scattered -->
-  <g transform="translate(592,228)">
-    <rect x="0" y="0" width="72" height="42" fill="none" stroke="rgba(159,188,122,0.35)"/>
-    <circle cx="9" cy="31" r="2.6" fill="#9fbc7a"/><circle cx="21" cy="8" r="2.6" fill="#9fbc7a"/><circle cx="35" cy="22" r="2.6" fill="#9fbc7a"/><circle cx="41" cy="36" r="2.6" fill="#9fbc7a"/><circle cx="55" cy="13" r="2.6" fill="#9fbc7a"/><circle cx="64" cy="28" r="2.6" fill="#9fbc7a"/><circle cx="15" cy="18" r="2.6" fill="#9fbc7a"/>
-  </g>
+<svg aria-label="有序到随机的轴上，结构性复杂度在中间达到最高，形成一个倒U形" role="img" viewbox="0 0 720 340" xmlns="http://www.w3.org/2000/svg">
+<defs>
+<marker id="arT1a" markerheight="10" markerunits="userSpaceOnUse" markerwidth="10" orient="auto" refx="9" refy="5" viewbox="0 0 10 10">
+<path d="M0,1 L9,5 L0,9 z" fill="#8d867b"></path>
+</marker>
+</defs>
+<text fill="#aba498" font-family="-apple-system,sans-serif" font-size="13" text-anchor="middle" x="360" y="26">两端都「简单」——一句话或一个统计就说完了；难的只在中间</text>
+<!-- inverted-U curve -->
+<path d="M92,214 C240,214 300,86 360,86 C420,86 480,214 628,214" fill="none" stroke="#e0895e" stroke-width="2.5"></path>
+<text fill="#e0895e" font-family="SF Mono,monospace" font-size="12.5" text-anchor="middle" x="360" y="74">结构性复杂度</text>
+<!-- baseline axis -->
+<line marker-end="url(#arT1a)" stroke="rgba(255,255,255,0.16)" stroke-width="1.5" x1="80" x2="640" y1="214" y2="214"></line>
+<text fill="#79a6d2" font-family="-apple-system,sans-serif" font-size="12" text-anchor="middle" x="92" y="300">有序</text>
+<text fill="#e0895e" font-family="-apple-system,sans-serif" font-size="12" text-anchor="middle" x="360" y="300">复杂</text>
+<text fill="#9fbc7a" font-family="-apple-system,sans-serif" font-size="12" text-anchor="middle" x="628" y="300">随机</text>
+<text fill="#57524b" font-family="-apple-system,sans-serif" font-size="11" text-anchor="middle" x="360" y="324">有序 ←　混乱程度　→ 随机</text>
+<!-- three sample tiles under the axis -->
+<!-- ordered: regular grid -->
+<g transform="translate(56,228)">
+<rect fill="none" height="42" stroke="rgba(121,166,210,0.35)" width="72" x="0" y="0"></rect>
+<circle cx="12" cy="12" fill="#79a6d2" r="2.6"></circle><circle cx="30" cy="12" fill="#79a6d2" r="2.6"></circle><circle cx="48" cy="12" fill="#79a6d2" r="2.6"></circle><circle cx="66" cy="12" fill="#79a6d2" r="2.6"></circle>
+<circle cx="12" cy="30" fill="#79a6d2" r="2.6"></circle><circle cx="30" cy="30" fill="#79a6d2" r="2.6"></circle><circle cx="48" cy="30" fill="#79a6d2" r="2.6"></circle><circle cx="66" cy="30" fill="#79a6d2" r="2.6"></circle>
+</g>
+<!-- complex: patterned but varied -->
+<g transform="translate(324,228)">
+<rect fill="none" height="42" stroke="rgba(224,137,94,0.4)" width="72" x="0" y="0"></rect>
+<circle cx="10" cy="10" fill="#e0895e" r="2.6"></circle><circle cx="26" cy="14" fill="#e0895e" r="2.6"></circle><circle cx="30" cy="30" fill="#e0895e" r="2.6"></circle><circle cx="46" cy="9" fill="#e0895e" r="2.6"></circle><circle cx="52" cy="24" fill="#e0895e" r="2.6"></circle><circle cx="63" cy="33" fill="#e0895e" r="2.6"></circle>
+<path d="M10,10 L26,14 L30,30 M26,14 L46,9 L52,24 L63,33" fill="none" stroke="rgba(224,137,94,0.55)" stroke-width="1.1"></path>
+</g>
+<!-- random: scattered -->
+<g transform="translate(592,228)">
+<rect fill="none" height="42" stroke="rgba(159,188,122,0.35)" width="72" x="0" y="0"></rect>
+<circle cx="9" cy="31" fill="#9fbc7a" r="2.6"></circle><circle cx="21" cy="8" fill="#9fbc7a" r="2.6"></circle><circle cx="35" cy="22" fill="#9fbc7a" r="2.6"></circle><circle cx="41" cy="36" fill="#9fbc7a" r="2.6"></circle><circle cx="55" cy="13" fill="#9fbc7a" r="2.6"></circle><circle cx="64" cy="28" fill="#9fbc7a" r="2.6"></circle><circle cx="15" cy="18" fill="#9fbc7a" r="2.6"></circle>
+</g>
 </svg>
 <figcaption>结构性复杂度在「有序」与「随机」之间达到最高。两端都能一句话说完，中间那层说不完——那才是本站要处理的东西。</figcaption>
 </figure>
-
 <p>这套三分法不是新说法。1948 年数学家<b>沃伦·韦弗</b>（Warren Weaver，信息论的推手之一）就把科学问题切成三块：<em>简单问题</em>（几个变量，牛顿力学那种）、<em>无组织的复杂</em>（海量随机变量，靠统计力学一网打尽，比如一缸气体），以及夹在中间、最棘手的<em>有组织的复杂</em>（organized complexity）——变量不多不少、又彼此纠缠，生命、经济、生态全在这里。他当年就点破：科学在两端都很成功，唯独中间这块几乎一片空白。复杂性科学，就是后来专门冲着这块空白去的。</p>
-
 <p>中间这层还有个更响的名字，叫<b>混沌边缘</b>（edge of chaos）：太有序则僵死、太随机则散架，只有卡在两者交界的窄带上，系统才能既保住结构、又不断产生新花样。这个词很好用，但也最容易被用滥——它的麻烦，留到最后一节再算账。</p>
-
 <div class="crossx-inline">
 🌀 <b>工程与技术 · 好的加密必须"看起来像噪声"</b>　一段密文的终极目标，是让它在统计上和纯随机不可区分——被推到轴的最右端。反过来，只要密文里还残留任何结构（某些字母偏多、某段周期性重复），那就是一道裂缝：破译者正是靠这些"没随机干净"的地方下手的。于是同一根轴给了密码学一个反直觉的判据：<b>在这里，"有结构"不是优点而是漏洞，安全等于成功抹掉结构。</b>
 </div>
-
 <p class="en-brief"><b>EN</b> Put complexity on an axis from fully ordered to fully random. Both ends are actually <em>simple</em>: order compresses to one sentence, randomness collapses to a statistic. The hard layer — structure <em>and</em> surprise at once — sits only in the middle. Warren Weaver named it "organized complexity" in 1948; it is also called the edge of chaos.</p>
-
-<h2><span class="n">02</span>「繁」和「杂」不是一回事<span class="he">（Complicated Is Not Complex）</span></h2>
-
+<h2 data-tts="0e18fda5a1d743f9"><span class="n">02</span>「繁」和「杂」不是一回事<span class="he">（Complicated Is Not Complex）</span></h2>
 <p class="lead">中文把 complicated 和 complex 都译成"复杂"，这其实吃了大亏。前者不妨叫<b>繁</b>，后者叫<b>杂</b>——它们是两种完全不同的东西，区别有四条，条条实用。</p>
-
 <p><b>第一，能不能拆。</b>繁的东西可以拆：把飞机发动机大卸八块，每块单独研究，再拼回去，你对整体的理解不会丢。杂的东西一拆就没了：你把一个生态系统里的物种一个个单独养在瓶子里研究，那些让它成为生态系统的关系——谁吃谁、谁给谁授粉——全被你在拆的那一刻剪断了。</p>
-
 <p><b>第二，有没有总设计师。</b>繁的东西通常是被设计出来的，有图纸、有人对整体负责。杂的东西往往没有中央设计者：没人设计过英语的语法，也没人设计过一座城市的通勤流量，它们是无数局部动作自己长出来的。</p>
-
 <p><b>第三，行为可不可预测。</b>繁但不杂的系统，只要不坏，行为是可重复的——同样的输入给同样的输出，这正是我们信任机器的原因。杂的系统充满回路和相互影响，同样的起点可能走向天差地别的结果（后面第 8 期的"混沌"会把这件事讲到底）。</p>
-
 <p><b>第四，也是最要命的——多出来的那部分从哪来。</b>把繁的系统零件加倍，你得到一台更大的机器。把杂的系统单元加倍，你常常得到一个<em>性质都变了</em>的新东西：十个人是个小组，一万个人是个市场，行为规律根本不在一个层面上。</p>
-
 <figure>
-<svg viewBox="0 0 720 300" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="左边是可自上而下拆解的树形结构，右边是彼此成环、无顶点的网络">
-  <defs>
-    <marker id="arT1b" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" markerUnits="userSpaceOnUse" orient="auto">
-      <path d="M0,1 L9,5 L0,9 z" fill="#79a6d2"/>
-    </marker>
-    <marker id="arT1c" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" markerUnits="userSpaceOnUse" orient="auto">
-      <path d="M0,1 L9,5 L0,9 z" fill="#cd7f9b"/>
-    </marker>
-  </defs>
-  <text x="180" y="28" text-anchor="middle" fill="#79a6d2" font-size="13" font-family="-apple-system,sans-serif">繁（complicated）· 可拆</text>
-  <text x="540" y="28" text-anchor="middle" fill="#cd7f9b" font-size="13" font-family="-apple-system,sans-serif">杂（complex）· 一拆就没</text>
-
-  <!-- left: tree, top-down arrows -->
-  <circle cx="180" cy="62" r="12" fill="#1a1b20" stroke="#79a6d2" stroke-width="1.6"/>
-  <circle cx="110" cy="140" r="12" fill="#1a1b20" stroke="#79a6d2" stroke-width="1.6"/>
-  <circle cx="180" cy="140" r="12" fill="#1a1b20" stroke="#79a6d2" stroke-width="1.6"/>
-  <circle cx="250" cy="140" r="12" fill="#1a1b20" stroke="#79a6d2" stroke-width="1.6"/>
-  <circle cx="82" cy="218" r="12" fill="#1a1b20" stroke="#79a6d2" stroke-width="1.6"/>
-  <circle cx="138" cy="218" r="12" fill="#1a1b20" stroke="#79a6d2" stroke-width="1.6"/>
-  <circle cx="222" cy="218" r="12" fill="#1a1b20" stroke="#79a6d2" stroke-width="1.6"/>
-  <circle cx="278" cy="218" r="12" fill="#1a1b20" stroke="#79a6d2" stroke-width="1.6"/>
-  <line x1="171" y1="72" x2="119" y2="130" stroke="#79a6d2" stroke-width="1.4" marker-end="url(#arT1b)"/>
-  <line x1="180" y1="76" x2="180" y2="126" stroke="#79a6d2" stroke-width="1.4" marker-end="url(#arT1b)"/>
-  <line x1="189" y1="72" x2="241" y2="130" stroke="#79a6d2" stroke-width="1.4" marker-end="url(#arT1b)"/>
-  <line x1="103" y1="150" x2="88" y2="205" stroke="#79a6d2" stroke-width="1.4" marker-end="url(#arT1b)"/>
-  <line x1="117" y1="150" x2="132" y2="205" stroke="#79a6d2" stroke-width="1.4" marker-end="url(#arT1b)"/>
-  <line x1="243" y1="150" x2="228" y2="205" stroke="#79a6d2" stroke-width="1.4" marker-end="url(#arT1b)"/>
-  <line x1="257" y1="150" x2="272" y2="205" stroke="#79a6d2" stroke-width="1.4" marker-end="url(#arT1b)"/>
-  <text x="180" y="268" text-anchor="middle" fill="#787268" font-size="11" font-family="-apple-system,sans-serif">有顶点、单向、每块可单独取下</text>
-
-  <!-- divider -->
-  <line x1="360" y1="50" x2="360" y2="250" stroke="rgba(255,255,255,0.08)" stroke-width="1"/>
-
-  <!-- right: tangled network, bidirectional loops -->
-  <circle cx="470" cy="80" r="12" fill="#1a1b20" stroke="#cd7f9b" stroke-width="1.6"/>
-  <circle cx="600" cy="72" r="12" fill="#1a1b20" stroke="#cd7f9b" stroke-width="1.6"/>
-  <circle cx="540" cy="140" r="12" fill="#1a1b20" stroke="#cd7f9b" stroke-width="1.6"/>
-  <circle cx="452" cy="200" r="12" fill="#1a1b20" stroke="#cd7f9b" stroke-width="1.6"/>
-  <circle cx="600" cy="196" r="12" fill="#1a1b20" stroke="#cd7f9b" stroke-width="1.6"/>
-  <line x1="481" y1="86" x2="529" y2="132" stroke="#cd7f9b" stroke-width="1.3" marker-end="url(#arT1c)"/>
-  <line x1="531" y1="132" x2="479" y2="88" stroke="#cd7f9b" stroke-width="1.3" marker-end="url(#arT1c)"/>
-  <line x1="589" y1="80" x2="551" y2="132" stroke="#cd7f9b" stroke-width="1.3" marker-end="url(#arT1c)"/>
-  <line x1="551" y1="149" x2="591" y2="188" stroke="#cd7f9b" stroke-width="1.3" marker-end="url(#arT1c)"/>
-  <line x1="592" y1="205" x2="464" y2="200" stroke="#cd7f9b" stroke-width="1.3" marker-end="url(#arT1c)"/>
-  <line x1="461" y1="190" x2="533" y2="150" stroke="#cd7f9b" stroke-width="1.3" marker-end="url(#arT1c)"/>
-  <line x1="482" y1="76" x2="588" y2="72" stroke="#cd7f9b" stroke-width="1.3" marker-end="url(#arT1c)"/>
-  <text x="536" y="268" text-anchor="middle" fill="#787268" font-size="11" font-family="-apple-system,sans-serif">无顶点、成环、剪一条关系就变了性质</text>
+<svg aria-label="左边是可自上而下拆解的树形结构，右边是彼此成环、无顶点的网络" role="img" viewbox="0 0 720 300" xmlns="http://www.w3.org/2000/svg">
+<defs>
+<marker id="arT1b" markerheight="8" markerunits="userSpaceOnUse" markerwidth="8" orient="auto" refx="9" refy="5" viewbox="0 0 10 10">
+<path d="M0,1 L9,5 L0,9 z" fill="#79a6d2"></path>
+</marker>
+<marker id="arT1c" markerheight="8" markerunits="userSpaceOnUse" markerwidth="8" orient="auto" refx="9" refy="5" viewbox="0 0 10 10">
+<path d="M0,1 L9,5 L0,9 z" fill="#cd7f9b"></path>
+</marker>
+</defs>
+<text fill="#79a6d2" font-family="-apple-system,sans-serif" font-size="13" text-anchor="middle" x="180" y="28">繁（complicated）· 可拆</text>
+<text fill="#cd7f9b" font-family="-apple-system,sans-serif" font-size="13" text-anchor="middle" x="540" y="28">杂（complex）· 一拆就没</text>
+<!-- left: tree, top-down arrows -->
+<circle cx="180" cy="62" fill="#1a1b20" r="12" stroke="#79a6d2" stroke-width="1.6"></circle>
+<circle cx="110" cy="140" fill="#1a1b20" r="12" stroke="#79a6d2" stroke-width="1.6"></circle>
+<circle cx="180" cy="140" fill="#1a1b20" r="12" stroke="#79a6d2" stroke-width="1.6"></circle>
+<circle cx="250" cy="140" fill="#1a1b20" r="12" stroke="#79a6d2" stroke-width="1.6"></circle>
+<circle cx="82" cy="218" fill="#1a1b20" r="12" stroke="#79a6d2" stroke-width="1.6"></circle>
+<circle cx="138" cy="218" fill="#1a1b20" r="12" stroke="#79a6d2" stroke-width="1.6"></circle>
+<circle cx="222" cy="218" fill="#1a1b20" r="12" stroke="#79a6d2" stroke-width="1.6"></circle>
+<circle cx="278" cy="218" fill="#1a1b20" r="12" stroke="#79a6d2" stroke-width="1.6"></circle>
+<line marker-end="url(#arT1b)" stroke="#79a6d2" stroke-width="1.4" x1="171" x2="119" y1="72" y2="130"></line>
+<line marker-end="url(#arT1b)" stroke="#79a6d2" stroke-width="1.4" x1="180" x2="180" y1="76" y2="126"></line>
+<line marker-end="url(#arT1b)" stroke="#79a6d2" stroke-width="1.4" x1="189" x2="241" y1="72" y2="130"></line>
+<line marker-end="url(#arT1b)" stroke="#79a6d2" stroke-width="1.4" x1="103" x2="88" y1="150" y2="205"></line>
+<line marker-end="url(#arT1b)" stroke="#79a6d2" stroke-width="1.4" x1="117" x2="132" y1="150" y2="205"></line>
+<line marker-end="url(#arT1b)" stroke="#79a6d2" stroke-width="1.4" x1="243" x2="228" y1="150" y2="205"></line>
+<line marker-end="url(#arT1b)" stroke="#79a6d2" stroke-width="1.4" x1="257" x2="272" y1="150" y2="205"></line>
+<text fill="#787268" font-family="-apple-system,sans-serif" font-size="11" text-anchor="middle" x="180" y="268">有顶点、单向、每块可单独取下</text>
+<!-- divider -->
+<line stroke="rgba(255,255,255,0.08)" stroke-width="1" x1="360" x2="360" y1="50" y2="250"></line>
+<!-- right: tangled network, bidirectional loops -->
+<circle cx="470" cy="80" fill="#1a1b20" r="12" stroke="#cd7f9b" stroke-width="1.6"></circle>
+<circle cx="600" cy="72" fill="#1a1b20" r="12" stroke="#cd7f9b" stroke-width="1.6"></circle>
+<circle cx="540" cy="140" fill="#1a1b20" r="12" stroke="#cd7f9b" stroke-width="1.6"></circle>
+<circle cx="452" cy="200" fill="#1a1b20" r="12" stroke="#cd7f9b" stroke-width="1.6"></circle>
+<circle cx="600" cy="196" fill="#1a1b20" r="12" stroke="#cd7f9b" stroke-width="1.6"></circle>
+<line marker-end="url(#arT1c)" stroke="#cd7f9b" stroke-width="1.3" x1="481" x2="529" y1="86" y2="132"></line>
+<line marker-end="url(#arT1c)" stroke="#cd7f9b" stroke-width="1.3" x1="531" x2="479" y1="132" y2="88"></line>
+<line marker-end="url(#arT1c)" stroke="#cd7f9b" stroke-width="1.3" x1="589" x2="551" y1="80" y2="132"></line>
+<line marker-end="url(#arT1c)" stroke="#cd7f9b" stroke-width="1.3" x1="551" x2="591" y1="149" y2="188"></line>
+<line marker-end="url(#arT1c)" stroke="#cd7f9b" stroke-width="1.3" x1="592" x2="464" y1="205" y2="200"></line>
+<line marker-end="url(#arT1c)" stroke="#cd7f9b" stroke-width="1.3" x1="461" x2="533" y1="190" y2="150"></line>
+<line marker-end="url(#arT1c)" stroke="#cd7f9b" stroke-width="1.3" x1="482" x2="588" y1="76" y2="72"></line>
+<text fill="#787268" font-family="-apple-system,sans-serif" font-size="11" text-anchor="middle" x="536" y="268">无顶点、成环、剪一条关系就变了性质</text>
 </svg>
 <figcaption>零件数量可以一样多。区别在结构：左边自上而下、可拆可拼；右边彼此成环、没有"总开关"，关系本身就是内容。</figcaption>
 </figure>
-
 <div class="decide">
 <span class="lb">🎯 决策线</span>
 <p>动手解决一个问题前，先花三十秒判断它是<b>繁</b>还是<b>杂</b>。判据是那四条里最快的一条：<b>你能不能把它拆开、分块解决、再拼回去而不丢东西？</b>能——那就正常拆解、找专家、上流程，越细越好。不能——停手，别再往模型里堆细节了；对杂的系统，"查得更细"不会让你更接近答案，你需要的是换一个更高的层去描述它（下一节讲这一步具体怎么走）。用错方法的代价不是白费力，是<em>反噬</em>：拿拆机器的手法去拆一个生态，你会亲手剪断那些让它工作的关系。</p>
 </div>
-
 <div class="crossx-inline">
 🌀 <b>生物与生态 · 澳洲的甘蔗蟾蜍</b>　1935 年，澳大利亚为了对付啃甘蔗的甲虫，引进了甘蔗蟾蜍——把生态当成了一台"缺个零件就补个零件"的机器。结果蟾蜍没怎么吃甲虫，倒是自己有毒、没天敌，一路泛滥成灾至今。这正是把<em>杂</em>误当成<em>繁</em>的经典下场：生态系统不可拆，你"加"进去的从来不是一个孤立零件，而是一整串你算不到的新关系。<b>推论：任何假设"各部分可分离"的干预，在复杂系统里都会顺着关系网跑出连锁后果——先问会连出什么，再动手。</b>
 </div>
-
 <p class="en-brief"><b>EN</b> Complicated and complex differ on four counts: decomposability (a jet engine survives being taken apart; an ecosystem does not), a central designer, repeatable behaviour, and what you get by scaling up (more parts vs a different kind of thing). The fastest test: can you split it, solve the pieces, and reassemble without losing anything? If not, stop adding detail.</p>
-
-<h2><span class="n">03</span>更多，就是不同<span class="he">（More Is Different）</span></h2>
-
+<h2 data-tts="0d12e0c6c53a5216"><span class="n">03</span>更多，就是不同<span class="he">（More Is Different）</span></h2>
 <p class="lead">1972 年，物理学家<b>菲利普·安德森</b>（Philip Anderson，后来的诺奖得主）写了一篇只有四页、却改写了整门学问自我认知的短文，标题就四个词：<em>More is Different</em>——更多，就是不同。</p>
-
 <p>他要反对的是一种当时几乎无人质疑的信念：还原论（reductionism）。还原论说，万物都由更基本的东西构成，所以只要搞懂最底层的粒子和规律，原则上就搞懂了一切，上面的化学、生物、心理都不过是物理的"应用题"。</p>
-
 <p>安德森承认前半句：是的，你可以把一切<em>拆</em>到基本粒子。但他一刀砍在后半句上：<b>能把它拆下去，不等于能把它拼回来。</b>每当大量单元聚到一起，会冒出一些在单个单元身上根本不存在、也无法从单元规律直接推出的新规律。一个水分子没有"温度"，也没有"液体""固体"；温度和相态是水分子成堆之后才出现的概念。一个神经元没有"记忆"；一个人没有"通货膨胀"。这些不是底层规律的应用题，它们是<em>新的一层</em>，有自己的词汇、自己的定律。</p>
-
 <figure>
-<svg viewBox="0 0 720 320" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="从粒子到社会的层级堆叠，向上涌现出新规律，向下的还原路径被切断">
-  <defs>
-    <marker id="arT1up" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="12" markerHeight="12" markerUnits="userSpaceOnUse" orient="auto">
-      <path d="M0,1 L9,5 L0,9 z" fill="#9fbc7a"/>
-    </marker>
-    <marker id="arT1dn" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="12" markerHeight="12" markerUnits="userSpaceOnUse" orient="auto">
-      <path d="M0,1 L9,5 L0,9 z" fill="#8d867b"/>
-    </marker>
-  </defs>
-  <text x="360" y="26" text-anchor="middle" fill="#aba498" font-size="13" font-family="-apple-system,sans-serif">每上一层，冒出下一层根本没有的新词——这些不是「应用题」</text>
-
-  <!-- five stacked bands -->
-  <g font-family="-apple-system,sans-serif">
-    <rect x="150" y="46" width="300" height="40" rx="7" fill="rgba(166,147,205,0.12)" stroke="rgba(166,147,205,0.5)"/>
-    <text x="300" y="71" text-anchor="middle" fill="#c9c2b6" font-size="13">社会 · 市场</text>
-    <text x="470" y="71" fill="#a693cd" font-size="11.5">新词：通胀、时尚、堵车</text>
-
-    <rect x="150" y="102" width="300" height="40" rx="7" fill="rgba(121,166,210,0.12)" stroke="rgba(121,166,210,0.5)"/>
-    <text x="300" y="127" text-anchor="middle" fill="#c9c2b6" font-size="13">大脑 · 个体</text>
-    <text x="470" y="127" fill="#79a6d2" font-size="11.5">新词：记忆、意图</text>
-
-    <rect x="150" y="158" width="300" height="40" rx="7" fill="rgba(99,179,166,0.12)" stroke="rgba(99,179,166,0.5)"/>
-    <text x="300" y="183" text-anchor="middle" fill="#c9c2b6" font-size="13">细胞 · 组织</text>
-    <text x="470" y="183" fill="#63b3a6" font-size="11.5">新词：代谢、遗传</text>
-
-    <rect x="150" y="214" width="300" height="40" rx="7" fill="rgba(217,180,95,0.12)" stroke="rgba(217,180,95,0.5)"/>
-    <text x="300" y="239" text-anchor="middle" fill="#c9c2b6" font-size="13">分子 · 材料</text>
-    <text x="470" y="239" fill="#d9b45f" font-size="11.5">新词：温度、相态</text>
-
-    <rect x="150" y="270" width="300" height="40" rx="7" fill="rgba(224,137,94,0.12)" stroke="rgba(224,137,94,0.5)"/>
-    <text x="300" y="295" text-anchor="middle" fill="#c9c2b6" font-size="13">原子 · 粒子</text>
-    <text x="470" y="295" fill="#e0895e" font-size="11.5">底层规律</text>
-  </g>
-
-  <!-- upward emergence arrow (slightly diagonal, plain stroke) -->
-  <line x1="104" y1="300" x2="104" y2="58" stroke="#9fbc7a" stroke-width="2.5" marker-end="url(#arT1up)"/>
-  <text x="70" y="180" fill="#9fbc7a" font-size="12" font-family="-apple-system,sans-serif" transform="rotate(-90 70 180)">涌现：上一层出现新规律</text>
-
-  <!-- downward reduction arrow, crossed out -->
-  <line x1="644" y1="58" x2="644" y2="300" stroke="#8d867b" stroke-width="2" stroke-dasharray="5 4" marker-end="url(#arT1dn)"/>
-  <text x="672" y="180" fill="#8d867b" font-size="12" font-family="-apple-system,sans-serif" transform="rotate(90 672 180)">还原：拆得下去，却推不上来</text>
-  <line x1="632" y1="150" x2="656" y2="176" stroke="#cd7f9b" stroke-width="2.5"/>
-  <line x1="656" y1="150" x2="632" y2="176" stroke="#cd7f9b" stroke-width="2.5"/>
+<svg aria-label="从粒子到社会的层级堆叠，向上涌现出新规律，向下的还原路径被切断" role="img" viewbox="0 0 720 320" xmlns="http://www.w3.org/2000/svg">
+<defs>
+<marker id="arT1up" markerheight="12" markerunits="userSpaceOnUse" markerwidth="12" orient="auto" refx="9" refy="5" viewbox="0 0 10 10">
+<path d="M0,1 L9,5 L0,9 z" fill="#9fbc7a"></path>
+</marker>
+<marker id="arT1dn" markerheight="12" markerunits="userSpaceOnUse" markerwidth="12" orient="auto" refx="9" refy="5" viewbox="0 0 10 10">
+<path d="M0,1 L9,5 L0,9 z" fill="#8d867b"></path>
+</marker>
+</defs>
+<text fill="#aba498" font-family="-apple-system,sans-serif" font-size="13" text-anchor="middle" x="360" y="26">每上一层，冒出下一层根本没有的新词——这些不是「应用题」</text>
+<!-- five stacked bands -->
+<g font-family="-apple-system,sans-serif">
+<rect fill="rgba(166,147,205,0.12)" height="40" rx="7" stroke="rgba(166,147,205,0.5)" width="300" x="150" y="46"></rect>
+<text fill="#c9c2b6" font-size="13" text-anchor="middle" x="300" y="71">社会 · 市场</text>
+<text fill="#a693cd" font-size="11.5" x="470" y="71">新词：通胀、时尚、堵车</text>
+<rect fill="rgba(121,166,210,0.12)" height="40" rx="7" stroke="rgba(121,166,210,0.5)" width="300" x="150" y="102"></rect>
+<text fill="#c9c2b6" font-size="13" text-anchor="middle" x="300" y="127">大脑 · 个体</text>
+<text fill="#79a6d2" font-size="11.5" x="470" y="127">新词：记忆、意图</text>
+<rect fill="rgba(99,179,166,0.12)" height="40" rx="7" stroke="rgba(99,179,166,0.5)" width="300" x="150" y="158"></rect>
+<text fill="#c9c2b6" font-size="13" text-anchor="middle" x="300" y="183">细胞 · 组织</text>
+<text fill="#63b3a6" font-size="11.5" x="470" y="183">新词：代谢、遗传</text>
+<rect fill="rgba(217,180,95,0.12)" height="40" rx="7" stroke="rgba(217,180,95,0.5)" width="300" x="150" y="214"></rect>
+<text fill="#c9c2b6" font-size="13" text-anchor="middle" x="300" y="239">分子 · 材料</text>
+<text fill="#d9b45f" font-size="11.5" x="470" y="239">新词：温度、相态</text>
+<rect fill="rgba(224,137,94,0.12)" height="40" rx="7" stroke="rgba(224,137,94,0.5)" width="300" x="150" y="270"></rect>
+<text fill="#c9c2b6" font-size="13" text-anchor="middle" x="300" y="295">原子 · 粒子</text>
+<text fill="#e0895e" font-size="11.5" x="470" y="295">底层规律</text>
+</g>
+<!-- upward emergence arrow (slightly diagonal, plain stroke) -->
+<line marker-end="url(#arT1up)" stroke="#9fbc7a" stroke-width="2.5" x1="104" x2="104" y1="300" y2="58"></line>
+<text fill="#9fbc7a" font-family="-apple-system,sans-serif" font-size="12" transform="rotate(-90 70 180)" x="70" y="180">涌现：上一层出现新规律</text>
+<!-- downward reduction arrow, crossed out -->
+<line marker-end="url(#arT1dn)" stroke="#8d867b" stroke-dasharray="5 4" stroke-width="2" x1="644" x2="644" y1="58" y2="300"></line>
+<text fill="#8d867b" font-family="-apple-system,sans-serif" font-size="12" transform="rotate(90 672 180)" x="672" y="180">还原：拆得下去，却推不上来</text>
+<line stroke="#cd7f9b" stroke-width="2.5" x1="632" x2="656" y1="150" y2="176"></line>
+<line stroke="#cd7f9b" stroke-width="2.5" x1="656" x2="632" y1="150" y2="176"></line>
 </svg>
 <figcaption>「拆得下去」和「推得上来」是两回事。还原论对了一半——它能一路拆到底，却没法从底层规律把上面每一层重新算出来。</figcaption>
 </figure>
-
 <p>这一步为什么重要？因为它把"整体大于部分之和"从一句鸡汤，变成了一个可操作的判断：<b>当你面对的是复杂系统，"再往下查一层细节"这个动作是有天花板的</b>——不是因为你不够努力，而是因为你要找的规律根本不在下面那一层，它只在你正看的这一层才出现。想理解堵车，把每个引擎拆开是没用的；想理解通胀，把每个人的脑扫描一遍也没用。你得待在<em>对的那一层</em>上找它的规律。</p>
-
 <div class="decide">
 <span class="lb">🎯 决策线</span>
 <p>当一个问题"越查越细却越不清楚"时，把它当成一个信号：你可能待错了层。具体动作——问自己一句"我要找的规律，是在我正看的这一层，还是被我一路拆到了它不存在的下一层？"如果连续几轮加细节都没让判断变准，别再加了，往上跳一层，去找这一层自己的宏观变量（温度之于分子、价格之于交易、尾延迟之于请求）。<b>"再拆一层"有时不是勤奋，是走错了方向的勤奋。</b></p>
 </div>
-
 <div class="crossx-inline">
 🌀 <b>文学与艺术 · 把一首诗还原成词典</b>　你可以查清一首诗里每一个字的字典释义，加起来却得不到那首诗——诗意住在字的<em>排列、声音和留白</em>里，是这些字凑在一起才涌现的一层，任何单个字身上都没有它。这正是"更多，就是不同"在语言里的样子。<b>推论：逐字直译之所以总丢掉最要紧的东西，不是译者偷懒，而是它在错误的层上操作——它还原了字，却没保住那个只在整体上存在的层。</b>
 </div>
-
 <p class="en-brief"><b>EN</b> Anderson's 1972 "More Is Different": you can reduce anything down to particles, but that does not mean you can build it back up. Each level of aggregation throws up new laws — temperature, memory, inflation — that don't exist one level below. So for a complex system, "look one level deeper" has a ceiling: the regularity you want lives only on the level you're already looking at.</p>
-
-<h2><span class="n">04</span>这套说法在哪儿不成立<span class="he">（Where This Breaks Down）</span></h2>
-
+<h2 data-tts="e39dcad209a0f059"><span class="n">04</span>这套说法在哪儿不成立<span class="he">（Where This Breaks Down）</span></h2>
 <p class="lead">现在说反面。"复杂 ≠ 复杂化"是个好用的切分，但它自己也会被用滥，用之前得知道三处松动。</p>
-
 <p><b>第一，那根轴上没有清晰的界桩。</b>有序、复杂、随机之间不是三个抽屉，而是一条连续过渡，边界是模糊的、甚至是渐变的。同一个系统，你换一个观察尺度、换一个问题，它可能就从"这一类"滑到"那一类"。所以"这是复杂系统"很少是一个非黑即白的事实，多半是一个<em>相对于你此刻的问题</em>的判断。把它当成给系统贴的永久标签，就错了。</p>
-
 <p><b>第二，"混沌边缘"被浪漫化得最狠。</b>"卡在有序与混沌之间最有创造力"这句话太动听，以至于被搬进了无数管理和创新的演讲里。但它作为一个<em>可检验的科学主张</em>，其实站得并不稳。1990 年前后有人提出，计算能力会在某个临界参数（后来记作 λ）附近达到最大——听起来很美。可 1993 年 Mitchell、Crutchfield 和 Hraber 用演化实验重新检验，发现这个"最佳点"并不像宣传的那样可靠地出现。<b>教训是：一旦有人用"混沌边缘"给你讲道理，先追问一句——你说的这个"边缘"，量纲是什么？怎么测？</b>说不出来，它就只是个好听的比喻。</p>
-
 <p><b>第三，也最容易被滥用：把"复杂"当挡箭牌。</b>"这个系统太复杂了"经常被用来解释为什么某件事没做成、某个责任说不清。但复杂性不是免责声明。承认一个系统杂、不可完全预测，恰恰意味着你该改用另一套办法（往上找宏观变量、做可逆的小实验、盯住耦合），而不是两手一摊。反过来，也有人犯相反的错：把一个其实<em>繁而不杂</em>、本可以靠拆解和专家解决的问题，浪漫地称作"复杂"，从而逃避那份本该做的、枯燥的分析。两个方向的误用，都是拿这个词偷懒。</p>
-
 <div class="decide">
 <span class="lb">🎯 决策线</span>
 <p>说"这是个复杂系统"之前，先过一道自检，跟上一节同一把尺子：<b>你能说出它此刻该看的那个宏观变量是什么、怎么测吗？</b>能——那这个判断是有操作性的，接着往下走。说不出来——那你多半只是在用"复杂"这个词回避问题，要么它其实是个繁问题该老实去拆，要么你还没找到对的层。<em>没有量纲的"复杂"，和没有量纲的"混沌边缘"一样，只是一个词。</em></p>
 </div>
-
 <div class="crossx-inline">
 🌀 <b>组织与管理 · Cynefin 的滥用</b>　管理学家 Dave Snowden 的 Cynefin 框架把处境分成"繁"（有专家、可分析）与"杂"（只能边试边看）几类，本意是提醒人别用错方法。但它一落地就常被反着用：把一个其实有解、只是没人愿意做的繁问题，贴上"复杂"的标签，于是"边试边看"成了不决策的借口。<b>推论：同一个分类，既能帮你选对方法，也能被用来给不作为背书——差别只在你说不说得出这个"杂"具体杂在哪、下一步试什么。</b>
 </div>
-
 <p class="en-brief"><b>EN</b> Three soft spots. The ordered–complex–random axis has fuzzy, scale-dependent boundaries, so "this is a complex system" is a judgement relative to your question, not a permanent label. "Edge of chaos" is romanticised — the sharp λ-optimum claim did not survive re-examination (Mitchell, Crutchfield &amp; Hraber 1993). And "it's too complex" is often an excuse, in both directions: dodging honest analysis of a merely complicated problem, or shrugging at a complex one instead of switching methods.</p>
-
 <div class="bigcat">
-<h3>🎒 场景 · BigCat</h3>
+<h3 data-tts="a11b5ea0eb3bf008">🎒 场景 · BigCat</h3>
 <ol>
 <li><span class="dm">工程与系统设计</span>一个线上问题反复发作，你的本能是加监控：再加一块仪表盘、再打一层日志、再采一个组件指标——这是在把系统当成<em>繁</em>的来查。判据很明确：<b>当你加到第 N 块仪表盘、问题依然没被定位到某个组件时，说明它多半是杂的</b>——症结在服务之间的耦合与反馈，不在任何单个零件里。具体动作：停掉"再加一个组件指标"，改看端到端的宏观量（整条请求链路的尾延迟分布、队列深度随时间的曲线），把注意力从"哪个零件坏了"挪到"哪条回路在放大"。</li>
 <li><span class="dm">健康与精力</span>这条反着用同一把尺子。长期的疲惫、状态低下，很容易被浪漫地归给"就是生活太复杂、什么都连着什么"——把一个可能<em>繁而不杂</em>、有单一可查病因（比如缺铁、甲状腺、睡眠呼吸问题）的问题，当成了不可拆的杂系统，于是永远在调作息、调心态，绕过了那个本该做的、无聊的检查。判据：如果某个具体指标一测就能证实或排除，那它此刻就是个繁问题——先去测，别急着上升到"整体调理"。<b>把杂问题当繁问题会反噬，把繁问题当杂问题会拖延，两头的成本都真金白银。</b></li>
 </ol>
 </div>
-
 <div class="crossx">
-<h3>🌀 越界 · 跨学科的联想<span class="he">（Crossings）</span></h3>
+<h3 data-tts="65d8a34f3a0623e2">🌀 越界 · 跨学科的联想<span class="he">（Crossings）</span></h3>
 <ul>
 <li><b>科学哲学 · 生机论的葬礼</b>：十九世纪的生机论（vitalism）坚信生命体内有一种非物质的"生命力"（élan vital），理由正是——把生物拆成化学物质，凑不出"活"。这个直觉里有对的一半：整体确实推不出于部分之和。本期三条机制合起来，给了它一个不带神秘色彩的替身：温度、生命这类性质是大量单元聚合后<em>涌现</em>的新层（更多即不同），既不必否认它们真实存在，也不必请一种特殊物质来解释——把它们归因于<em>组织方式</em>，而非某种额外成分。于是"反还原"第一次可以不等于"反科学"。<b>但这里不成立</b>：生机论主张的是一种不可还原的<em>物质/实体</em>，涌现主张的是一种不可还原的<em>组织/关系</em>——两者形似而实异。把涌现讲成"看，果然有种神秘力量"，等于把刚请走的生命力又从后门放进来。能借的是它对"部分凑不出整体"的敏感，不是它的本体论。</li>
 <li><b>建筑与设计 · 亚历山大的「活」</b>：建筑师 Christopher Alexander 穷其一生想说清，为什么一座老城（威尼斯）、一座哥特教堂让人觉得"活"，而一片规划失败的新区只让人觉得<em>乱</em>、一个现代主义的方格网又只让人觉得<em>死</em>。用本期的轴一看就通了：方格网在有序的一端（僵死），失败新区在随机的一端（散乱），而"活"恰恰是中间那层——多尺度上同时有结构又有变化。Alexander 甚至想给这种"活"找一个可测的量（他叫它 wholeness）。<b>推论：审美上那种说不清的"生气"，很可能不是玄学，而是我们的眼睛在识别系统落在了复杂的中间带、而非两个"简单"的极端。</b>这是对本期锚（设计与建筑的繁简之争）的一个正面回答：能涌现的"繁"和纯粹的"乱"，差别就是有没有跨尺度的结构。</li>
 <li><b>生物与医学 · 从"一个基因一个性状"到组学</b>：早期遗传学的还原论梦想是——找到"决定身高的基因""决定智力的基因"。可全基因组关联分析（genome-wide association study，缩写 GWAS）一做下来，发现绝大多数常见性状是成千上万个微效变异共同作用的结果，2017 年 Boyle、Li、Pritchard 甚至提出"全基因组模型"（omnigenic）：几乎每个表达的基因都对性状有一点点影响。这正是分子层面的"更多即不同"：性状是整张调控网络涌现出来的，不对应可拆的"部分-原因"。<b>推论：所谓"缺失的遗传力"（找不到的那部分遗传贡献）多半不是数据不够，而是层选错了——你在基因这一层找一个只在网络这一层才存在的东西。</b></li>
 </ul>
 </div>
-
 <div class="thinking">
-<h3>深入思考<span class="he">（Going Deeper）</span></h3>
+<h3 data-tts="c535226eb963635f">深入思考<span class="he">（Going Deeper）</span></h3>
 <details><summary>如果复杂系统"拆了就没"，那我们还能拿它们做实验吗？</summary><p>能，但实验的单位得换。你没法把一个物种孤立出来还指望关系照旧，但你可以在整个系统的层面上做扰动实验：改一个参数、加一个连接，看整体怎么响应。后面第 27 期的"基于主体建模"就是这条路——不去拆真实系统，而是在计算机里从局部规则把它重新长出来，然后随便折腾这个副本。诚实的关键是：你研究的始终是那个保留了关系的整体，不是它的碎片。</p></details>
 <details><summary>"更多即不同"是不是等于说上层规律和底层物理相矛盾？</summary><p>不。涌现出的新规律从不违反底层物理——水分子始终遵守量子力学，温度也从不违反它。新规律是底层<em>允许</em>但不<em>指定</em>的：底层物理框定了可能性的边界，却没规定大量单元聚起来后会稳定在哪种宏观模式上。所以它是"新增"而非"抵触"，这也是为什么反还原不必反科学。</p></details>
 <details><summary>把一个问题判成"复杂"，会不会成了不去努力理解它的借口？</summary><p>会，而且这是本期最需要警惕的滥用。判成复杂的正确后果不是放弃，而是<em>换挡</em>：从"拆得更细"换成"往上找宏观变量、做可逆的小实验、盯住耦合与回路"。如果一个人说"太复杂了"之后什么都没改变、还是老办法，那这个判断就没做对——它本该带来一套不同的动作。</p></details>
 <details><summary>纯随机的东西信息量最大，为什么还说它"简单"？</summary><p>这里"简单"指的是<em>描述</em>起来简单，不是信息量小。一串纯随机序列你没法压缩（这个意义上信息量确实最大），但你也不需要逐位记住它——给一句统计描述（"每位独立、五五开"）就抓住了关于它的一切<em>有用</em>的东西，剩下的具体取值无所谓。复杂的东西两头不占：既压不成一句话，具体细节又不能扔。这个"两难"后面第 41 期量化复杂度时会正式收账。</p></details>
 </div>
-
 <div class="refs">
-<h3>延伸阅读<span class="he">（Further Reading）</span></h3>
+<h3 data-tts="39924b88143bb01b">延伸阅读<span class="he">（Further Reading）</span></h3>
 <ul>
 <li>P. W. Anderson, <a href="https://www.science.org/doi/10.1126/science.177.4047.393">More Is Different</a>（Science, 1972，四页的奠基短文）</li>
 <li>Warren Weaver, <a href="https://en.wikipedia.org/wiki/Warren_Weaver#Science_and_Complexity">Science and Complexity</a>（American Scientist, 1948，"有组织的复杂"三分法的源头）</li>
@@ -344,12 +288,11 @@ footer a{color:#79a6d2;text-decoration:none}
 <li>Melanie Mitchell, <a href="https://global.oup.com/academic/product/complexity-9780199798100">Complexity: A Guided Tour</a>（全景导论，对"复杂"各种定义的梳理）</li>
 </ul>
 </div>
-
 <footer>BigCat · 复杂性科学 · <a href="index.html">← 全部 Topic</a></footer>
 </div>
-<script src="https://hub.cissychen.com/lightbox.js" defer></script>
-<script src="https://hub.cissychen.com/comments.js" defer></script>
-<script src="https://hub.cissychen.com/search.js" defer></script>
-<script src="https://hub.cissychen.com/index-button.js" defer></script>
-<script src="https://hub.cissychen.com/i18n-tts.js" defer></script>
+<script defer="" src="https://hub.cissychen.com/lightbox.js"></script>
+<script defer="" src="https://hub.cissychen.com/comments.js"></script>
+<script defer="" src="https://hub.cissychen.com/search.js"></script>
+<script defer="" src="https://hub.cissychen.com/index-button.js"></script>
+<script defer="" src="https://hub.cissychen.com/i18n-tts.js"></script>
 </body></html>
