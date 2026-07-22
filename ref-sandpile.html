@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html lang="zh-CN"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<html lang="zh-CN"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0" name="viewport"/>
 <title>沙堆模型 · 参考库 · 复杂性科学</title>
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
@@ -42,19 +43,16 @@ footer a{color:#79a6d2;text-decoration:none}
 @media(max-width:600px){h1{font-size:1.7rem}.wrap{padding:24px 16px 60px}}
 </style></head><body>
 <div class="wrap">
-
 <header>
-  <span class="rtag">REF · 经典模型</span>
-  <h1>沙堆模型<span class="h1en">THE SANDPILE MODEL</span></h1>
-  <p class="sub">Bak-Tang-Wiesenfeld，1987 — 自组织临界性（self-organized criticality, SOC）的原型</p>
-  <p class="meta">被引用于：Topic 18 自组织临界性</p>
+<span class="rtag">REF · 经典模型</span>
+<h1 data-tts="f30f99ddffd22945">沙堆模型<span class="h1en">THE SANDPILE MODEL</span></h1>
+<p class="sub">Bak-Tang-Wiesenfeld，1987 — 自组织临界性（self-organized criticality, SOC）的原型</p>
+<p class="meta">被引用于：Topic 18 自组织临界性</p>
 </header>
-
-<h2><span class="n">01</span>它问的是什么问题<span class="he">（The Question It Poses）</span></h2>
+<h2 data-tts="76dadd61f1a0914c"><span class="n">01</span>它问的是什么问题<span class="he">（The Question It Poses）</span></h2>
 <p>1980 年代的物理学里，临界态是个稀客：你必须把温度精确调到某一点，系统才会呈现出无标度的涨落。可是自然界里，无标度的东西俯拾皆是——地震大小、河流分叉、股价跳动、电子器件里的 1/f 噪声。</p>
 <p>Bak 他们要问的是：<b>有没有一类系统，不需要任何人调参数，就会自己跑到临界态去？</b>沙堆模型是他们给出的最小回答——一个能把这件事演示清楚的、尽可能笨的装置。</p>
-
-<h2><span class="n">02</span>规则本身<span class="he">（The Rules）</span></h2>
+<h2 data-tts="d04317f9b354ccec"><span class="n">02</span>规则本身<span class="he">（The Rules）</span></h2>
 <div class="rule">
 <ol>
 <li>一张 N×N 的方格，每格存一个整数 <em>z</em>（可以理解成"这格堆了几粒沙"）。</li>
@@ -66,71 +64,62 @@ footer a{color:#79a6d2;text-decoration:none}
 </ol>
 </div>
 <p>最后一条容易被忽略，但它是整个模型成立的关键：<b>加沙必须比雪崩慢得多。</b>这叫时间尺度分离（separation of timescales）——缓慢驱动、快速释放。现实系统不满足这一条时，模型的结论就不能照搬。</p>
-
 <figure>
-<svg viewBox="0 0 700 200" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="倾倒规则：中心格减4，四个邻格各加1">
-  <defs>
-    <marker id="rs1" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="10" markerHeight="10" markerUnits="userSpaceOnUse" orient="auto">
-      <path d="M0,1 L9,5 L0,9 z" fill="#63b3a6"/>
-    </marker>
-  </defs>
-  <text x="350" y="26" text-anchor="middle" fill="#aba498" font-size="13" font-family="-apple-system,sans-serif">一次倾倒：守恒的再分配</text>
-
-  <g transform="translate(148,54)">
-    <rect x="42" y="0" width="42" height="42" fill="#3a352c" stroke="rgba(255,255,255,0.12)"/><text x="63" y="27" text-anchor="middle" fill="#aba498" font-size="15" font-family="SF Mono,monospace">2</text>
-    <rect x="0" y="42" width="42" height="42" fill="#3a352c" stroke="rgba(255,255,255,0.12)"/><text x="21" y="69" text-anchor="middle" fill="#aba498" font-size="15" font-family="SF Mono,monospace">1</text>
-    <rect x="42" y="42" width="42" height="42" fill="#7a4a30" stroke="rgba(224,137,94,0.7)"/><text x="63" y="69" text-anchor="middle" fill="#f0d0bc" font-size="15" font-family="SF Mono,monospace">4</text>
-    <rect x="84" y="42" width="42" height="42" fill="#3a352c" stroke="rgba(255,255,255,0.12)"/><text x="105" y="69" text-anchor="middle" fill="#aba498" font-size="15" font-family="SF Mono,monospace">3</text>
-    <rect x="42" y="84" width="42" height="42" fill="#3a352c" stroke="rgba(255,255,255,0.12)"/><text x="63" y="111" text-anchor="middle" fill="#aba498" font-size="15" font-family="SF Mono,monospace">0</text>
-  </g>
-  <text x="211" y="196" text-anchor="middle" fill="#787268" font-size="11.5" font-family="-apple-system,sans-serif">中心格 z = 4 &gt; 3，必须倒</text>
-
-  <line x1="300" y1="117" x2="368" y2="117" stroke="#63b3a6" stroke-width="2" marker-end="url(#rs1)"/>
-
-  <g transform="translate(400,54)">
-    <rect x="42" y="0" width="42" height="42" fill="#4a4438" stroke="rgba(255,255,255,0.12)"/><text x="63" y="27" text-anchor="middle" fill="#9fbc7a" font-size="15" font-family="SF Mono,monospace">3</text>
-    <rect x="0" y="42" width="42" height="42" fill="#4a4438" stroke="rgba(255,255,255,0.12)"/><text x="21" y="69" text-anchor="middle" fill="#9fbc7a" font-size="15" font-family="SF Mono,monospace">2</text>
-    <rect x="42" y="42" width="42" height="42" fill="#26241f" stroke="rgba(255,255,255,0.12)"/><text x="63" y="69" text-anchor="middle" fill="#8d867b" font-size="15" font-family="SF Mono,monospace">0</text>
-    <rect x="84" y="42" width="42" height="42" fill="#7a4a30" stroke="rgba(224,137,94,0.7)"/><text x="105" y="69" text-anchor="middle" fill="#f0d0bc" font-size="15" font-family="SF Mono,monospace">4</text>
-    <rect x="42" y="84" width="42" height="42" fill="#4a4438" stroke="rgba(255,255,255,0.12)"/><text x="63" y="111" text-anchor="middle" fill="#9fbc7a" font-size="15" font-family="SF Mono,monospace">1</text>
-  </g>
-  <text x="463" y="196" text-anchor="middle" fill="#c0703f" font-size="11.5" font-family="-apple-system,sans-serif">右邻格现在也满了 → 接着倒</text>
-  <text x="622" y="112" text-anchor="middle" fill="#787268" font-size="11.5" font-family="-apple-system,sans-serif">连锁由此</text>
-  <text x="622" y="130" text-anchor="middle" fill="#787268" font-size="11.5" font-family="-apple-system,sans-serif">展开</text>
+<svg aria-label="倾倒规则：中心格减4，四个邻格各加1" role="img" viewbox="0 0 700 200" xmlns="http://www.w3.org/2000/svg">
+<defs>
+<marker id="rs1" markerheight="10" markerunits="userSpaceOnUse" markerwidth="10" orient="auto" refx="9" refy="5" viewbox="0 0 10 10">
+<path d="M0,1 L9,5 L0,9 z" fill="#63b3a6"></path>
+</marker>
+</defs>
+<text fill="#aba498" font-family="-apple-system,sans-serif" font-size="13" text-anchor="middle" x="350" y="26">一次倾倒：守恒的再分配</text>
+<g transform="translate(148,54)">
+<rect fill="#3a352c" height="42" stroke="rgba(255,255,255,0.12)" width="42" x="42" y="0"></rect><text fill="#aba498" font-family="SF Mono,monospace" font-size="15" text-anchor="middle" x="63" y="27">2</text>
+<rect fill="#3a352c" height="42" stroke="rgba(255,255,255,0.12)" width="42" x="0" y="42"></rect><text fill="#aba498" font-family="SF Mono,monospace" font-size="15" text-anchor="middle" x="21" y="69">1</text>
+<rect fill="#7a4a30" height="42" stroke="rgba(224,137,94,0.7)" width="42" x="42" y="42"></rect><text fill="#f0d0bc" font-family="SF Mono,monospace" font-size="15" text-anchor="middle" x="63" y="69">4</text>
+<rect fill="#3a352c" height="42" stroke="rgba(255,255,255,0.12)" width="42" x="84" y="42"></rect><text fill="#aba498" font-family="SF Mono,monospace" font-size="15" text-anchor="middle" x="105" y="69">3</text>
+<rect fill="#3a352c" height="42" stroke="rgba(255,255,255,0.12)" width="42" x="42" y="84"></rect><text fill="#aba498" font-family="SF Mono,monospace" font-size="15" text-anchor="middle" x="63" y="111">0</text>
+</g>
+<text fill="#787268" font-family="-apple-system,sans-serif" font-size="11.5" text-anchor="middle" x="211" y="196">中心格 z = 4 &gt; 3，必须倒</text>
+<line marker-end="url(#rs1)" stroke="#63b3a6" stroke-width="2" x1="300" x2="368" y1="117" y2="117"></line>
+<g transform="translate(400,54)">
+<rect fill="#4a4438" height="42" stroke="rgba(255,255,255,0.12)" width="42" x="42" y="0"></rect><text fill="#9fbc7a" font-family="SF Mono,monospace" font-size="15" text-anchor="middle" x="63" y="27">3</text>
+<rect fill="#4a4438" height="42" stroke="rgba(255,255,255,0.12)" width="42" x="0" y="42"></rect><text fill="#9fbc7a" font-family="SF Mono,monospace" font-size="15" text-anchor="middle" x="21" y="69">2</text>
+<rect fill="#26241f" height="42" stroke="rgba(255,255,255,0.12)" width="42" x="42" y="42"></rect><text fill="#8d867b" font-family="SF Mono,monospace" font-size="15" text-anchor="middle" x="63" y="69">0</text>
+<rect fill="#7a4a30" height="42" stroke="rgba(224,137,94,0.7)" width="42" x="84" y="42"></rect><text fill="#f0d0bc" font-family="SF Mono,monospace" font-size="15" text-anchor="middle" x="105" y="69">4</text>
+<rect fill="#4a4438" height="42" stroke="rgba(255,255,255,0.12)" width="42" x="42" y="84"></rect><text fill="#9fbc7a" font-family="SF Mono,monospace" font-size="15" text-anchor="middle" x="63" y="111">1</text>
+</g>
+<text fill="#c0703f" font-family="-apple-system,sans-serif" font-size="11.5" text-anchor="middle" x="463" y="196">右邻格现在也满了 → 接着倒</text>
+<text fill="#787268" font-family="-apple-system,sans-serif" font-size="11.5" text-anchor="middle" x="622" y="112">连锁由此</text>
+<text fill="#787268" font-family="-apple-system,sans-serif" font-size="11.5" text-anchor="middle" x="622" y="130">展开</text>
 </svg>
 <figcaption>倾倒是守恒的：中心格失去的 4 粒，一粒不少地进了四个邻居。沙只在边界上离开系统。</figcaption>
 </figure>
-
-<h2><span class="n">03</span>跑起来会看到什么<span class="he">（What You See When It Runs）</span></h2>
+<h2 data-tts="a6a80aa258c4f2b9"><span class="n">03</span>跑起来会看到什么<span class="he">（What You See When It Runs）</span></h2>
 <p>刚开始沙堆是空的，加进去的沙基本不引发任何事。随着格子普遍变满，雪崩开始出现，并且越来越大。最终系统停在一个<b>统计上稳定</b>的状态：平均密度不再变化，但雪崩仍在不断发生，且大小从 1 格到横跨全场都有。</p>
 <p>把每次雪崩的规模按时间画出来，是一条毫无规律的尖峰序列——没有周期，没有预兆，也看不出"大的要来了"。</p>
-
 <figure>
-<svg viewBox="0 0 700 220" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="雪崩规模随时间的尖峰序列，无周期无预兆">
-  <text x="350" y="24" text-anchor="middle" fill="#aba498" font-size="13" font-family="-apple-system,sans-serif">雪崩规模随时间 — 大的那次前面没有任何异样</text>
-  <line x1="60" y1="170" x2="660" y2="170" stroke="rgba(255,255,255,0.18)" stroke-width="1.5"/>
-  <line x1="60" y1="170" x2="60" y2="46" stroke="rgba(255,255,255,0.18)" stroke-width="1.5"/>
-  <text x="360" y="200" text-anchor="middle" fill="#8d867b" font-size="11.5" font-family="-apple-system,sans-serif">加入的沙粒数（时间）→</text>
-  <text x="30" y="112" fill="#8d867b" font-size="11.5" font-family="-apple-system,sans-serif" transform="rotate(-90 30 112)">规模</text>
-  <g stroke="#9fbc7a" stroke-width="2.5">
-    <line x1="80" y1="170" x2="80" y2="162"/><line x1="98" y1="170" x2="98" y2="158"/><line x1="116" y1="170" x2="116" y2="166"/><line x1="134" y1="170" x2="134" y2="140"/><line x1="152" y1="170" x2="152" y2="164"/><line x1="170" y1="170" x2="170" y2="152"/><line x1="188" y1="170" x2="188" y2="167"/><line x1="206" y1="170" x2="206" y2="128"/><line x1="224" y1="170" x2="224" y2="161"/><line x1="242" y1="170" x2="242" y2="166"/><line x1="260" y1="170" x2="260" y2="148"/><line x1="278" y1="170" x2="278" y2="163"/><line x1="296" y1="170" x2="296" y2="157"/><line x1="314" y1="170" x2="314" y2="167"/>
-    <line x1="350" y1="170" x2="350" y2="159"/><line x1="368" y1="170" x2="368" y2="165"/><line x1="386" y1="170" x2="386" y2="134"/><line x1="404" y1="170" x2="404" y2="162"/><line x1="422" y1="170" x2="422" y2="167"/><line x1="440" y1="170" x2="440" y2="150"/><line x1="458" y1="170" x2="458" y2="164"/><line x1="476" y1="170" x2="476" y2="120"/><line x1="494" y1="170" x2="494" y2="166"/><line x1="512" y1="170" x2="512" y2="156"/><line x1="530" y1="170" x2="530" y2="163"/><line x1="548" y1="170" x2="548" y2="167"/><line x1="566" y1="170" x2="566" y2="142"/><line x1="584" y1="170" x2="584" y2="165"/><line x1="602" y1="170" x2="602" y2="159"/><line x1="620" y1="170" x2="620" y2="166"/><line x1="638" y1="170" x2="638" y2="161"/>
-  </g>
-  <line x1="332" y1="170" x2="332" y2="54" stroke="#e0895e" stroke-width="3"/>
-  <text x="332" y="44" text-anchor="middle" fill="#e0895e" font-size="12" font-family="SF Mono,monospace">大雪崩</text>
-  <text x="332" y="188" text-anchor="middle" fill="#c0703f" font-size="11" font-family="-apple-system,sans-serif">和左边那些由同一个动作触发</text>
+<svg aria-label="雪崩规模随时间的尖峰序列，无周期无预兆" role="img" viewbox="0 0 700 220" xmlns="http://www.w3.org/2000/svg">
+<text fill="#aba498" font-family="-apple-system,sans-serif" font-size="13" text-anchor="middle" x="350" y="24">雪崩规模随时间 — 大的那次前面没有任何异样</text>
+<line stroke="rgba(255,255,255,0.18)" stroke-width="1.5" x1="60" x2="660" y1="170" y2="170"></line>
+<line stroke="rgba(255,255,255,0.18)" stroke-width="1.5" x1="60" x2="60" y1="170" y2="46"></line>
+<text fill="#8d867b" font-family="-apple-system,sans-serif" font-size="11.5" text-anchor="middle" x="360" y="200">加入的沙粒数（时间）→</text>
+<text fill="#8d867b" font-family="-apple-system,sans-serif" font-size="11.5" transform="rotate(-90 30 112)" x="30" y="112">规模</text>
+<g stroke="#9fbc7a" stroke-width="2.5">
+<line x1="80" x2="80" y1="170" y2="162"></line><line x1="98" x2="98" y1="170" y2="158"></line><line x1="116" x2="116" y1="170" y2="166"></line><line x1="134" x2="134" y1="170" y2="140"></line><line x1="152" x2="152" y1="170" y2="164"></line><line x1="170" x2="170" y1="170" y2="152"></line><line x1="188" x2="188" y1="170" y2="167"></line><line x1="206" x2="206" y1="170" y2="128"></line><line x1="224" x2="224" y1="170" y2="161"></line><line x1="242" x2="242" y1="170" y2="166"></line><line x1="260" x2="260" y1="170" y2="148"></line><line x1="278" x2="278" y1="170" y2="163"></line><line x1="296" x2="296" y1="170" y2="157"></line><line x1="314" x2="314" y1="170" y2="167"></line>
+<line x1="350" x2="350" y1="170" y2="159"></line><line x1="368" x2="368" y1="170" y2="165"></line><line x1="386" x2="386" y1="170" y2="134"></line><line x1="404" x2="404" y1="170" y2="162"></line><line x1="422" x2="422" y1="170" y2="167"></line><line x1="440" x2="440" y1="170" y2="150"></line><line x1="458" x2="458" y1="170" y2="164"></line><line x1="476" x2="476" y1="170" y2="120"></line><line x1="494" x2="494" y1="170" y2="166"></line><line x1="512" x2="512" y1="170" y2="156"></line><line x1="530" x2="530" y1="170" y2="163"></line><line x1="548" x2="548" y1="170" y2="167"></line><line x1="566" x2="566" y1="170" y2="142"></line><line x1="584" x2="584" y1="170" y2="165"></line><line x1="602" x2="602" y1="170" y2="159"></line><line x1="620" x2="620" y1="170" y2="166"></line><line x1="638" x2="638" y1="170" y2="161"></line>
+</g>
+<line stroke="#e0895e" stroke-width="3" x1="332" x2="332" y1="170" y2="54"></line>
+<text fill="#e0895e" font-family="SF Mono,monospace" font-size="12" text-anchor="middle" x="332" y="44">大雪崩</text>
+<text fill="#c0703f" font-family="-apple-system,sans-serif" font-size="11" text-anchor="middle" x="332" y="188">和左边那些由同一个动作触发</text>
 </svg>
 <figcaption>没有周期、没有前兆、没有"典型规模"。把这些高度做成直方图，就是一条幂律。</figcaption>
 </figure>
-
 <p>另有一个漂亮的性质：Deepak Dhar 1990 年证明这个模型是<b>阿贝尔的</b>（abelian）——一次雪崩里若有多格同时超标，无论你按什么顺序让它们倒，最终格局完全相同。过程可以乱序，结果唯一。</p>
-
-<h2><span class="n">04</span>它解释了现实中的什么<span class="he">（What It Explains）</span></h2>
+<h2 data-tts="5fb6c69f446aec0b"><span class="n">04</span>它解释了现实中的什么<span class="he">（What It Explains）</span></h2>
 <p>沙堆模型不是要预测某一次事件，而是解释<b>为什么一整类系统的事件规模没有典型值</b>。凡是具备"缓慢积累 + 到阈值就释放 + 释放会传给邻居"这三件事的系统，都可以拿它当第一近似：</p>
 <p>地壳应力与地震（古登堡-里希特定律 Gutenberg-Richter law 是这条思路最硬的现实对应）、森林可燃物与山火、电网负载重分配与停电规模、生态系统里的灭绝级联。它给出的核心预期只有一条：<b>规模分布应当是幂律（power law），而不是钟形。</b>这条预期是可以被数据否掉的——这也正是它作为科学模型的价值所在。</p>
-
 <div class="cant">
-<h3>它不能解释什么<span class="he">（What It Cannot Explain）</span></h3>
+<h3 data-tts="3b86fce5cb9368b1">它不能解释什么<span class="he">（What It Cannot Explain）</span></h3>
 <ul>
 <li><b>不能解释真沙堆。</b>这一点很尴尬但必须说：真实沙子的实验里，堆大到一定程度后出现的是周期性大崩塌，不是幂律。1996 年《自然》上的米堆实验给出了更细的条件——细长米粒服从，接近球形的不服从，差别在颗粒能否互相卡住并把应力传出去。模型抓住的是一类机制，不是沙子。</li>
 <li><b>不能预测任何一次雪崩。</b>它给的是分布，不是时刻表。用它去推断"下一次大事什么时候来""这次会有多大"，是在向一个只谈统计的模型索要它明确拒绝提供的东西。</li>
@@ -139,9 +128,8 @@ footer a{color:#79a6d2;text-decoration:none}
 <li><b>连指数都别轻易引用。</b>二维 BTW 模型的雪崩指数至今存在争议（涉及多重分形标度），不同定义下的数值不一致。要引具体数字，先说清你用的是哪个量、哪种定义。</li>
 </ul>
 </div>
-
 <div class="refs">
-<h3>延伸阅读<span class="he">（Further Reading）</span></h3>
+<h3 data-tts="8455d5c0a708b78a">延伸阅读<span class="he">（Further Reading）</span></h3>
 <ul>
 <li>Bak, Tang &amp; Wiesenfeld, <a href="https://doi.org/10.1103/PhysRevLett.59.381">Self-organized criticality: An explanation of 1/f noise</a>（1987）</li>
 <li>Dhar, <a href="https://doi.org/10.1103/PhysRevLett.64.1613">Self-organized critical state of sandpile automaton models</a>（1990，阿贝尔性质）</li>
@@ -149,12 +137,11 @@ footer a{color:#79a6d2;text-decoration:none}
 <li><a href="https://en.wikipedia.org/wiki/Abelian_sandpile_model">Abelian sandpile model</a>（含图样与数学性质）</li>
 </ul>
 </div>
-
 <footer>BigCat · 复杂性科学 · <a href="index.html">← 全部 Topic</a></footer>
 </div>
-<script src="https://hub.cissychen.com/comments.js" defer></script>
-<script src="https://hub.cissychen.com/search.js" defer></script>
-<script src="https://hub.cissychen.com/index-button.js" defer></script>
-<script src="https://hub.cissychen.com/lightbox.js" defer></script>
-<script src="https://hub.cissychen.com/i18n-tts.js" defer></script>
+<script defer="" src="https://hub.cissychen.com/comments.js"></script>
+<script defer="" src="https://hub.cissychen.com/search.js"></script>
+<script defer="" src="https://hub.cissychen.com/index-button.js"></script>
+<script defer="" src="https://hub.cissychen.com/lightbox.js"></script>
+<script defer="" src="https://hub.cissychen.com/i18n-tts.js"></script>
 </body></html>

@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html lang="zh-CN"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<html lang="zh-CN"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0" name="viewport"/>
 <title>层级与近可分解性 — 能活下来的复杂，都是搭起来的 · 复杂性科学 T3</title>
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
@@ -64,288 +65,240 @@ footer a{color:#79a6d2;text-decoration:none}
 @media(max-width:600px){h1{font-size:1.85rem}.wrap{padding:24px 16px 60px}h2{font-size:1.22rem}}
 </style></head><body>
 <div class="wrap">
-
 <header>
-  <span class="week-tag">TOPIC 3 · PHASE A</span>
-  <h1>层级与近可分解性<span class="h1en">HIERARCHY &amp; NEAR-DECOMPOSABILITY</span></h1>
-  <p class="sub">能活下来的复杂，都是搭起来的<span class="he">（Survivable complexity is assembled, not authored）</span></p>
-  <p class="date">2026-07-21 · 什么算「复杂」</p>
+<span class="week-tag">TOPIC 3 · PHASE A</span>
+<h1 data-tts="ef38d4998aac3bbf">层级与近可分解性<span class="h1en">HIERARCHY &amp; NEAR-DECOMPOSABILITY</span></h1>
+<p class="sub">能活下来的复杂，都是搭起来的<span class="he">（Survivable complexity is assembled, not authored）</span></p>
+<p class="date">2026-07-21 · 什么算「复杂」</p>
 </header>
-
 <p class="pitch">你以为「把一个系统拆开来分析」是分析者的自由——想拆得细就细、想拆得粗就粗。其实不是。一个系统<em>能不能</em>被干净地拆开，是它自己的性质，不是你的选择；而且正是这个性质，决定了它当初能不能被演化出来、以后能不能被改动而不整个崩掉。</p>
-
 <div class="intro">
 <p>钟表这东西有上千个零件。假设有两个钟表匠，做的表一样精密、一样值钱，但一个越做越富，一个最后破了产。区别不在手艺，在于他们<b>把零件拼起来的顺序</b>不一样。这个小故事——赫伯特·西蒙（Herbert Simon）1962 年讲的——是本期全部内容的种子。</p>
 <p>它要回答的问题很朴素：为什么你见到的复杂系统，从细胞到公司到操作系统，几乎<em>无一例外</em>是分层套盒的？是巧合，是审美，还是有个更硬的理由，逼得它们必须长成这样、不这样就活不下来？</p>
 <p class="dim">这一期和上一期（涌现）是一对：涌现说的是「整体有了部分没有的性质」，本期说的是「这些整体是怎么被一层层搭起来、并且拆得开的」。搭得起来、拆得开——这两件事其实是同一件事的两面，下文会说清。</p>
 </div>
-
-<h2><span class="n">01</span>两个钟表匠<span class="he">（The Two Watchmakers）</span></h2>
-
+<h2 data-tts="ea1bd04f6c6ae416"><span class="n">01</span>两个钟表匠<span class="he">（The Two Watchmakers）</span></h2>
 <p class="lead">西蒙的寓言是这样的。两个钟表匠，叫 Hora 和 Tempus，做的表都由一千个零件组成，两人的手艺一样好、生意一样兴隆——所以电话总是响个不停，老有客户打来订表。</p>
-
 <p>问题在于：手头这只表还没装完，电话一响，你就得放下它去接。而<b>放下一只没装完的表，它会散架</b>——只要它当前的这部分还不是一个能自己立住的整体，一松手就垮回一堆零件。</p>
-
 <p>Tempus 的做法是老老实实一个零件一个零件往上叠，装到第 999 个都还是一堆随时会散的东西。所以每次电话一响，他几乎都得从头再来。Hora 不一样：他把表设计成<em>先拼小总成</em>——每 10 个零件先扣成一个能自己立住的小模块，再拿 10 个小模块扣成一个中模块，10 个中模块才合成整只表。电话响了，他顶多损失<b>当前正在拼的那一个小模块</b>，已经扣好的那些一个都不散。</p>
-
 <figure>
-<svg viewBox="0 0 720 320" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="两个钟表匠：Tempus 平铺装配被打断即从头再来，Hora 分层装配只损失当前小模块">
-  <defs>
-    <marker id="arA" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="10" markerHeight="10" markerUnits="userSpaceOnUse" orient="auto">
-      <path d="M0,1 L9,5 L0,9 z" fill="#cd7f9b"/>
-    </marker>
-    <marker id="arB" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="10" markerHeight="10" markerUnits="userSpaceOnUse" orient="auto">
-      <path d="M0,1 L9,5 L0,9 z" fill="#9fbc7a"/>
-    </marker>
-  </defs>
-
-  <!-- Tempus -->
-  <text x="180" y="34" text-anchor="middle" fill="#cd7f9b" font-size="14" font-family="-apple-system,sans-serif" font-weight="700">Tempus · 平铺</text>
-  <text x="180" y="54" text-anchor="middle" fill="#8d867b" font-size="11" font-family="-apple-system,sans-serif">一个个往上叠，全程不成模块</text>
-  <g transform="translate(70,74)">
-    <rect x="0" y="0" width="220" height="70" rx="6" fill="none" stroke="rgba(205,127,155,0.35)"/>
-    <circle cx="18" cy="35" r="5" fill="#8a7a4f"/><circle cx="38" cy="35" r="5" fill="#8a7a4f"/><circle cx="58" cy="35" r="5" fill="#8a7a4f"/><circle cx="78" cy="35" r="5" fill="#8a7a4f"/><circle cx="98" cy="35" r="5" fill="#8a7a4f"/><circle cx="118" cy="35" r="5" fill="#8a7a4f"/><circle cx="138" cy="35" r="5" fill="#8a7a4f"/><circle cx="158" cy="35" r="5" fill="#8a7a4f"/><circle cx="178" cy="35" r="5" fill="#8a7a4f"/><circle cx="198" cy="35" r="5" fill="#e0895e"/>
-  </g>
-  <line x1="180" y1="152" x2="180" y2="184" stroke="#cd7f9b" stroke-width="1.5" marker-end="url(#arA)"/>
-  <text x="250" y="172" text-anchor="middle" fill="#cd7f9b" font-size="11" font-family="-apple-system,sans-serif">电话响</text>
-  <g transform="translate(70,196)">
-    <rect x="0" y="0" width="220" height="70" rx="6" fill="none" stroke="rgba(205,127,155,0.22)" stroke-dasharray="4 4"/>
-    <circle cx="24" cy="20" r="4" fill="#57524b"/><circle cx="66" cy="52" r="4" fill="#57524b"/><circle cx="110" cy="24" r="4" fill="#57524b"/><circle cx="150" cy="50" r="4" fill="#57524b"/><circle cx="190" cy="22" r="4" fill="#57524b"/><circle cx="44" cy="48" r="4" fill="#57524b"/><circle cx="92" cy="52" r="4" fill="#57524b"/><circle cx="170" cy="50" r="4" fill="#57524b"/><circle cx="132" cy="20" r="4" fill="#57524b"/>
-  </g>
-  <text x="180" y="292" text-anchor="middle" fill="#787268" font-size="11" font-family="-apple-system,sans-serif">散回一堆零件 · 几乎从头再来</text>
-
-  <line x1="330" y1="170" x2="368" y2="170" stroke="rgba(255,255,255,0.14)" stroke-width="1"/>
-
-  <!-- Hora -->
-  <text x="540" y="34" text-anchor="middle" fill="#9fbc7a" font-size="14" font-family="-apple-system,sans-serif" font-weight="700">Hora · 分层</text>
-  <text x="540" y="54" text-anchor="middle" fill="#8d867b" font-size="11" font-family="-apple-system,sans-serif">先扣成能自己立住的小模块</text>
-  <g transform="translate(410,74)">
-    <rect x="0" y="0" width="260" height="70" rx="6" fill="none" stroke="rgba(159,188,122,0.35)"/>
-    <rect x="14" y="18" width="58" height="34" rx="5" fill="rgba(159,188,122,0.12)" stroke="rgba(159,188,122,0.5)"/>
-    <circle cx="26" cy="35" r="4" fill="#9fbc7a"/><circle cx="43" cy="35" r="4" fill="#9fbc7a"/><circle cx="60" cy="35" r="4" fill="#9fbc7a"/>
-    <rect x="86" y="18" width="58" height="34" rx="5" fill="rgba(159,188,122,0.12)" stroke="rgba(159,188,122,0.5)"/>
-    <circle cx="98" cy="35" r="4" fill="#9fbc7a"/><circle cx="115" cy="35" r="4" fill="#9fbc7a"/><circle cx="132" cy="35" r="4" fill="#9fbc7a"/>
-    <rect x="158" y="18" width="58" height="34" rx="5" fill="rgba(224,137,94,0.14)" stroke="rgba(224,137,94,0.6)"/>
-    <circle cx="170" cy="35" r="4" fill="#e0895e"/><circle cx="187" cy="35" r="4" fill="#e0895e"/><circle cx="204" cy="35" r="4" fill="#8a7a4f"/>
-  </g>
-  <line x1="540" y1="152" x2="540" y2="184" stroke="#9fbc7a" stroke-width="1.5" marker-end="url(#arB)"/>
-  <text x="610" y="172" text-anchor="middle" fill="#9fbc7a" font-size="11" font-family="-apple-system,sans-serif">电话响</text>
-  <g transform="translate(410,196)">
-    <rect x="0" y="0" width="260" height="70" rx="6" fill="none" stroke="rgba(159,188,122,0.35)"/>
-    <rect x="14" y="18" width="58" height="34" rx="5" fill="rgba(159,188,122,0.12)" stroke="rgba(159,188,122,0.5)"/>
-    <circle cx="26" cy="35" r="4" fill="#9fbc7a"/><circle cx="43" cy="35" r="4" fill="#9fbc7a"/><circle cx="60" cy="35" r="4" fill="#9fbc7a"/>
-    <rect x="86" y="18" width="58" height="34" rx="5" fill="rgba(159,188,122,0.12)" stroke="rgba(159,188,122,0.5)"/>
-    <circle cx="98" cy="35" r="4" fill="#9fbc7a"/><circle cx="115" cy="35" r="4" fill="#9fbc7a"/><circle cx="132" cy="35" r="4" fill="#9fbc7a"/>
-    <rect x="158" y="18" width="58" height="34" rx="5" fill="none" stroke="rgba(205,127,155,0.3)" stroke-dasharray="3 3"/>
-    <circle cx="170" cy="24" r="4" fill="#57524b"/><circle cx="204" cy="46" r="4" fill="#57524b"/><circle cx="186" cy="30" r="4" fill="#57524b"/>
-  </g>
-  <text x="540" y="292" text-anchor="middle" fill="#787268" font-size="11" font-family="-apple-system,sans-serif">只散掉当前这个模块 · 其余都还在</text>
+<svg aria-label="两个钟表匠：Tempus 平铺装配被打断即从头再来，Hora 分层装配只损失当前小模块" role="img" viewbox="0 0 720 320" xmlns="http://www.w3.org/2000/svg">
+<defs>
+<marker id="arA" markerheight="10" markerunits="userSpaceOnUse" markerwidth="10" orient="auto" refx="9" refy="5" viewbox="0 0 10 10">
+<path d="M0,1 L9,5 L0,9 z" fill="#cd7f9b"></path>
+</marker>
+<marker id="arB" markerheight="10" markerunits="userSpaceOnUse" markerwidth="10" orient="auto" refx="9" refy="5" viewbox="0 0 10 10">
+<path d="M0,1 L9,5 L0,9 z" fill="#9fbc7a"></path>
+</marker>
+</defs>
+<!-- Tempus -->
+<text fill="#cd7f9b" font-family="-apple-system,sans-serif" font-size="14" font-weight="700" text-anchor="middle" x="180" y="34">Tempus · 平铺</text>
+<text fill="#8d867b" font-family="-apple-system,sans-serif" font-size="11" text-anchor="middle" x="180" y="54">一个个往上叠，全程不成模块</text>
+<g transform="translate(70,74)">
+<rect fill="none" height="70" rx="6" stroke="rgba(205,127,155,0.35)" width="220" x="0" y="0"></rect>
+<circle cx="18" cy="35" fill="#8a7a4f" r="5"></circle><circle cx="38" cy="35" fill="#8a7a4f" r="5"></circle><circle cx="58" cy="35" fill="#8a7a4f" r="5"></circle><circle cx="78" cy="35" fill="#8a7a4f" r="5"></circle><circle cx="98" cy="35" fill="#8a7a4f" r="5"></circle><circle cx="118" cy="35" fill="#8a7a4f" r="5"></circle><circle cx="138" cy="35" fill="#8a7a4f" r="5"></circle><circle cx="158" cy="35" fill="#8a7a4f" r="5"></circle><circle cx="178" cy="35" fill="#8a7a4f" r="5"></circle><circle cx="198" cy="35" fill="#e0895e" r="5"></circle>
+</g>
+<line marker-end="url(#arA)" stroke="#cd7f9b" stroke-width="1.5" x1="180" x2="180" y1="152" y2="184"></line>
+<text fill="#cd7f9b" font-family="-apple-system,sans-serif" font-size="11" text-anchor="middle" x="250" y="172">电话响</text>
+<g transform="translate(70,196)">
+<rect fill="none" height="70" rx="6" stroke="rgba(205,127,155,0.22)" stroke-dasharray="4 4" width="220" x="0" y="0"></rect>
+<circle cx="24" cy="20" fill="#57524b" r="4"></circle><circle cx="66" cy="52" fill="#57524b" r="4"></circle><circle cx="110" cy="24" fill="#57524b" r="4"></circle><circle cx="150" cy="50" fill="#57524b" r="4"></circle><circle cx="190" cy="22" fill="#57524b" r="4"></circle><circle cx="44" cy="48" fill="#57524b" r="4"></circle><circle cx="92" cy="52" fill="#57524b" r="4"></circle><circle cx="170" cy="50" fill="#57524b" r="4"></circle><circle cx="132" cy="20" fill="#57524b" r="4"></circle>
+</g>
+<text fill="#787268" font-family="-apple-system,sans-serif" font-size="11" text-anchor="middle" x="180" y="292">散回一堆零件 · 几乎从头再来</text>
+<line stroke="rgba(255,255,255,0.14)" stroke-width="1" x1="330" x2="368" y1="170" y2="170"></line>
+<!-- Hora -->
+<text fill="#9fbc7a" font-family="-apple-system,sans-serif" font-size="14" font-weight="700" text-anchor="middle" x="540" y="34">Hora · 分层</text>
+<text fill="#8d867b" font-family="-apple-system,sans-serif" font-size="11" text-anchor="middle" x="540" y="54">先扣成能自己立住的小模块</text>
+<g transform="translate(410,74)">
+<rect fill="none" height="70" rx="6" stroke="rgba(159,188,122,0.35)" width="260" x="0" y="0"></rect>
+<rect fill="rgba(159,188,122,0.12)" height="34" rx="5" stroke="rgba(159,188,122,0.5)" width="58" x="14" y="18"></rect>
+<circle cx="26" cy="35" fill="#9fbc7a" r="4"></circle><circle cx="43" cy="35" fill="#9fbc7a" r="4"></circle><circle cx="60" cy="35" fill="#9fbc7a" r="4"></circle>
+<rect fill="rgba(159,188,122,0.12)" height="34" rx="5" stroke="rgba(159,188,122,0.5)" width="58" x="86" y="18"></rect>
+<circle cx="98" cy="35" fill="#9fbc7a" r="4"></circle><circle cx="115" cy="35" fill="#9fbc7a" r="4"></circle><circle cx="132" cy="35" fill="#9fbc7a" r="4"></circle>
+<rect fill="rgba(224,137,94,0.14)" height="34" rx="5" stroke="rgba(224,137,94,0.6)" width="58" x="158" y="18"></rect>
+<circle cx="170" cy="35" fill="#e0895e" r="4"></circle><circle cx="187" cy="35" fill="#e0895e" r="4"></circle><circle cx="204" cy="35" fill="#8a7a4f" r="4"></circle>
+</g>
+<line marker-end="url(#arB)" stroke="#9fbc7a" stroke-width="1.5" x1="540" x2="540" y1="152" y2="184"></line>
+<text fill="#9fbc7a" font-family="-apple-system,sans-serif" font-size="11" text-anchor="middle" x="610" y="172">电话响</text>
+<g transform="translate(410,196)">
+<rect fill="none" height="70" rx="6" stroke="rgba(159,188,122,0.35)" width="260" x="0" y="0"></rect>
+<rect fill="rgba(159,188,122,0.12)" height="34" rx="5" stroke="rgba(159,188,122,0.5)" width="58" x="14" y="18"></rect>
+<circle cx="26" cy="35" fill="#9fbc7a" r="4"></circle><circle cx="43" cy="35" fill="#9fbc7a" r="4"></circle><circle cx="60" cy="35" fill="#9fbc7a" r="4"></circle>
+<rect fill="rgba(159,188,122,0.12)" height="34" rx="5" stroke="rgba(159,188,122,0.5)" width="58" x="86" y="18"></rect>
+<circle cx="98" cy="35" fill="#9fbc7a" r="4"></circle><circle cx="115" cy="35" fill="#9fbc7a" r="4"></circle><circle cx="132" cy="35" fill="#9fbc7a" r="4"></circle>
+<rect fill="none" height="34" rx="5" stroke="rgba(205,127,155,0.3)" stroke-dasharray="3 3" width="58" x="158" y="18"></rect>
+<circle cx="170" cy="24" fill="#57524b" r="4"></circle><circle cx="204" cy="46" fill="#57524b" r="4"></circle><circle cx="186" cy="30" fill="#57524b" r="4"></circle>
+</g>
+<text fill="#787268" font-family="-apple-system,sans-serif" font-size="11" text-anchor="middle" x="540" y="292">只散掉当前这个模块 · 其余都还在</text>
 </svg>
 <figcaption>同样一千个零件、同样被打断。Tempus 每次都退回原点，Hora 只退回上一个「安全点」。稳定的中间态就是一次次自动保存的存档。</figcaption>
 </figure>
-
 <p>西蒙算了一笔账：如果每装一个零件、被打断的概率哪怕只有百分之一，两人的效率也会差到<b>好几个数量级</b>——Hora 从容做完，Tempus 几乎永远做不完一只表。差别的全部来源，就是 Hora 的半成品在每个阶段都是一个<em>能自己立住的整体</em>。</p>
-
 <p>把这笔账倒过来读，就是本期的第一条硬结论：<b>凡是靠「一步步搭出来」的复杂系统——演化搭的、工程搭的都算——只有那些拥有稳定中间态的，才可能真的被搭出来。</b>没有稳定中间态的复杂系统不是被禁止存在，而是<em>几乎不可能被走到</em>：通往它的每条路径都太容易在半途散架。于是你环顾四周看到的全是分层套盒的东西，不是因为分层好看，是因为不分层的那些根本没能熬到你看见。</p>
-
 <div class="crossx-inline">
 🌀 <b>生物 · 「半只眼睛有什么用？」</b>　反进化论最爱的诘难是：眼睛这么精密，演化到一半的半只眼睛毫无用处，怎么可能被选择保留？这个诘难恰好踩在钟表匠寓言的反面。Nilsson 与 Pelger 1994 年逐级算过：从一小片感光皮肤，到能聚焦成像的眼，每一个中间形态<b>本身就是一个能用的模块</b>——稍微能感光比全盲强、稍微能定向比只感光强。演化能造出眼睛，<em>正因为</em>它的每个中间态都像 Hora 的小总成一样立得住；真正立不住的复杂器官，才是演化造不出来的那些。
 </div>
-
 <p class="en-brief"><b>EN</b> Simon's parable: two watchmakers, Hora and Tempus, each assembling 1000-part watches while the phone keeps interrupting them. Tempus builds flat, so any interruption scatters the whole thing; Hora builds stable ten-part sub-assemblies, so an interruption costs only the current module. With even a 1% chance of interruption per part, Hora finishes and Tempus effectively never does. Stable intermediate forms are autosaves — which is why every complex system you meet, having been built up step by step, is layered.</p>
-
-<h2><span class="n">02</span>拆得开，是系统自己的性质<span class="he">（Near-Decomposability）</span></h2>
-
+<h2 data-tts="a65250221e296e1d"><span class="n">02</span>拆得开，是系统自己的性质<span class="he">（Near-Decomposability）</span></h2>
 <p class="lead">现在把镜头从「怎么搭起来」转到「搭好之后长什么样」。西蒙给分层系统起了个更精确的名字：<em>近可分解</em>（near-decomposable，意思是「几乎、但不完全能拆开」）。</p>
-
 <p>它的定义只有两句话，但每句都要拿捏准：<b>模块<em>内部</em>的相互作用又强又快，模块<em>之间</em>的相互作用又弱又慢。</b>注意是「弱」不是「无」——完全没有连接那就是几个互不相干的系统，不叫一个系统了。近可分解的妙处全在那个「近」字上：连着，但连得松。</p>
-
 <p>这个强弱之差会带来一个非常实用的后果，西蒙把它讲得很干脆。用他自己举的例子：一栋楼，几个房间，房间之间隔着不太隔热的墙。你在其中一间点个炉子。会发生两件时标截然不同的事——<b>短时间里</b>，每个房间内部的空气很快各自匀成一个温度，房间和房间之间还来不及交换多少热，所以你可以把每个房间当成一个独立的小系统单独算；<b>长时间里</b>，热才慢慢透过墙渗匀，各房间最终趋于同一个温度。</p>
-
 <figure>
-<svg viewBox="0 0 720 300" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="近可分解的耦合矩阵：对角块内耦合强密，块之间耦合弱疏；配两级时标">
-  <text x="360" y="30" text-anchor="middle" fill="#aba498" font-size="13" font-family="-apple-system,sans-serif">谁和谁有强相互作用 —— 深=强，浅=弱</text>
-
-  <!-- coupling matrix -->
-  <g transform="translate(70,54)">
-    <rect x="0" y="0" width="216" height="216" fill="none" stroke="rgba(255,255,255,0.14)"/>
-    <!-- block 1 (top-left) strong -->
-    <rect x="0" y="0" width="72" height="72" fill="rgba(224,137,94,0.30)"/>
-    <rect x="0" y="0" width="24" height="24" fill="#c0703f"/><rect x="24" y="0" width="24" height="24" fill="#a8894a"/><rect x="48" y="0" width="24" height="24" fill="#c0703f"/>
-    <rect x="0" y="24" width="24" height="24" fill="#a8894a"/><rect x="24" y="24" width="24" height="24" fill="#c0703f"/><rect x="48" y="24" width="24" height="24" fill="#a8894a"/>
-    <rect x="0" y="48" width="24" height="24" fill="#c0703f"/><rect x="24" y="48" width="24" height="24" fill="#a8894a"/><rect x="48" y="48" width="24" height="24" fill="#c0703f"/>
-    <!-- block 2 (mid) strong -->
-    <rect x="72" y="72" width="72" height="72" fill="rgba(224,137,94,0.30)"/>
-    <rect x="72" y="72" width="24" height="24" fill="#c0703f"/><rect x="96" y="72" width="24" height="24" fill="#a8894a"/><rect x="120" y="72" width="24" height="24" fill="#c0703f"/>
-    <rect x="72" y="96" width="24" height="24" fill="#a8894a"/><rect x="96" y="96" width="24" height="24" fill="#c0703f"/><rect x="120" y="96" width="24" height="24" fill="#a8894a"/>
-    <rect x="72" y="120" width="24" height="24" fill="#c0703f"/><rect x="96" y="120" width="24" height="24" fill="#a8894a"/><rect x="120" y="120" width="24" height="24" fill="#c0703f"/>
-    <!-- block 3 (bottom) strong -->
-    <rect x="144" y="144" width="72" height="72" fill="rgba(224,137,94,0.30)"/>
-    <rect x="144" y="144" width="24" height="24" fill="#c0703f"/><rect x="168" y="144" width="24" height="24" fill="#a8894a"/><rect x="192" y="144" width="24" height="24" fill="#c0703f"/>
-    <rect x="144" y="168" width="24" height="24" fill="#a8894a"/><rect x="168" y="168" width="24" height="24" fill="#c0703f"/><rect x="192" y="168" width="24" height="24" fill="#a8894a"/>
-    <rect x="144" y="192" width="24" height="24" fill="#c0703f"/><rect x="168" y="192" width="24" height="24" fill="#a8894a"/><rect x="192" y="192" width="24" height="24" fill="#c0703f"/>
-    <!-- weak off-diagonal sparse -->
-    <rect x="96" y="24" width="10" height="10" fill="#4a4438"/><rect x="24" y="108" width="10" height="10" fill="#4a4438"/><rect x="168" y="96" width="10" height="10" fill="#4a4438"/><rect x="120" y="168" width="10" height="10" fill="#4a4438"/><rect x="192" y="48" width="10" height="10" fill="#3a352e"/><rect x="48" y="192" width="10" height="10" fill="#3a352e"/>
-    <text x="36" y="-8" text-anchor="middle" fill="#e0895e" font-size="10" font-family="SF Mono,monospace">模块1</text>
-    <text x="108" y="-8" text-anchor="middle" fill="#e0895e" font-size="10" font-family="SF Mono,monospace">模块2</text>
-    <text x="180" y="-8" text-anchor="middle" fill="#e0895e" font-size="10" font-family="SF Mono,monospace">模块3</text>
-  </g>
-  <text x="178" y="292" text-anchor="middle" fill="#787268" font-size="11" font-family="-apple-system,sans-serif">对角三块密而深（模块内强），块外零星浅点（模块间弱）</text>
-
-  <!-- two-timescale -->
-  <g transform="translate(360,60)">
-    <line x1="20" y1="180" x2="300" y2="180" stroke="rgba(255,255,255,0.16)" stroke-width="1.5"/>
-    <line x1="20" y1="180" x2="20" y2="20" stroke="rgba(255,255,255,0.16)" stroke-width="1.5"/>
-    <text x="160" y="204" text-anchor="middle" fill="#8d867b" font-size="11" font-family="-apple-system,sans-serif">时间 →</text>
-    <text x="8" y="14" fill="#8d867b" font-size="11" font-family="-apple-system,sans-serif">温度</text>
-    <!-- three modules converge internally fast -->
-    <path d="M20,150 C40,70 70,58 110,55" fill="none" stroke="#c0703f" stroke-width="2"/>
-    <path d="M20,60 C40,120 70,132 110,135" fill="none" stroke="#d9b45f" stroke-width="2"/>
-    <path d="M20,105 C45,96 75,94 110,95" fill="none" stroke="#9fbc7a" stroke-width="2"/>
-    <line x1="110" y1="20" x2="110" y2="180" stroke="rgba(255,255,255,0.14)" stroke-width="1" stroke-dasharray="3 3"/>
-    <text x="110" y="16" text-anchor="middle" fill="#aba498" font-size="9.5" font-family="-apple-system,sans-serif">各模块内部先各自匀好</text>
-    <!-- slow convergence together -->
-    <path d="M110,55 C180,70 240,88 290,96" fill="none" stroke="#c0703f" stroke-width="2"/>
-    <path d="M110,135 C180,120 240,104 290,98" fill="none" stroke="#d9b45f" stroke-width="2"/>
-    <path d="M110,95 C180,96 240,97 290,97" fill="none" stroke="#9fbc7a" stroke-width="2"/>
-    <text x="235" y="126" text-anchor="middle" fill="#8d867b" font-size="9.5" font-family="-apple-system,sans-serif">之后模块间才慢慢趋同</text>
-    <text x="150" y="176" fill="#57524b" font-size="9.5" font-family="-apple-system,sans-serif">短程：各算各的　·　长程：只剩总量在耦合</text>
-  </g>
+<svg aria-label="近可分解的耦合矩阵：对角块内耦合强密，块之间耦合弱疏；配两级时标" role="img" viewbox="0 0 720 300" xmlns="http://www.w3.org/2000/svg">
+<text fill="#aba498" font-family="-apple-system,sans-serif" font-size="13" text-anchor="middle" x="360" y="30">谁和谁有强相互作用 —— 深=强，浅=弱</text>
+<!-- coupling matrix -->
+<g transform="translate(70,54)">
+<rect fill="none" height="216" stroke="rgba(255,255,255,0.14)" width="216" x="0" y="0"></rect>
+<!-- block 1 (top-left) strong -->
+<rect fill="rgba(224,137,94,0.30)" height="72" width="72" x="0" y="0"></rect>
+<rect fill="#c0703f" height="24" width="24" x="0" y="0"></rect><rect fill="#a8894a" height="24" width="24" x="24" y="0"></rect><rect fill="#c0703f" height="24" width="24" x="48" y="0"></rect>
+<rect fill="#a8894a" height="24" width="24" x="0" y="24"></rect><rect fill="#c0703f" height="24" width="24" x="24" y="24"></rect><rect fill="#a8894a" height="24" width="24" x="48" y="24"></rect>
+<rect fill="#c0703f" height="24" width="24" x="0" y="48"></rect><rect fill="#a8894a" height="24" width="24" x="24" y="48"></rect><rect fill="#c0703f" height="24" width="24" x="48" y="48"></rect>
+<!-- block 2 (mid) strong -->
+<rect fill="rgba(224,137,94,0.30)" height="72" width="72" x="72" y="72"></rect>
+<rect fill="#c0703f" height="24" width="24" x="72" y="72"></rect><rect fill="#a8894a" height="24" width="24" x="96" y="72"></rect><rect fill="#c0703f" height="24" width="24" x="120" y="72"></rect>
+<rect fill="#a8894a" height="24" width="24" x="72" y="96"></rect><rect fill="#c0703f" height="24" width="24" x="96" y="96"></rect><rect fill="#a8894a" height="24" width="24" x="120" y="96"></rect>
+<rect fill="#c0703f" height="24" width="24" x="72" y="120"></rect><rect fill="#a8894a" height="24" width="24" x="96" y="120"></rect><rect fill="#c0703f" height="24" width="24" x="120" y="120"></rect>
+<!-- block 3 (bottom) strong -->
+<rect fill="rgba(224,137,94,0.30)" height="72" width="72" x="144" y="144"></rect>
+<rect fill="#c0703f" height="24" width="24" x="144" y="144"></rect><rect fill="#a8894a" height="24" width="24" x="168" y="144"></rect><rect fill="#c0703f" height="24" width="24" x="192" y="144"></rect>
+<rect fill="#a8894a" height="24" width="24" x="144" y="168"></rect><rect fill="#c0703f" height="24" width="24" x="168" y="168"></rect><rect fill="#a8894a" height="24" width="24" x="192" y="168"></rect>
+<rect fill="#c0703f" height="24" width="24" x="144" y="192"></rect><rect fill="#a8894a" height="24" width="24" x="168" y="192"></rect><rect fill="#c0703f" height="24" width="24" x="192" y="192"></rect>
+<!-- weak off-diagonal sparse -->
+<rect fill="#4a4438" height="10" width="10" x="96" y="24"></rect><rect fill="#4a4438" height="10" width="10" x="24" y="108"></rect><rect fill="#4a4438" height="10" width="10" x="168" y="96"></rect><rect fill="#4a4438" height="10" width="10" x="120" y="168"></rect><rect fill="#3a352e" height="10" width="10" x="192" y="48"></rect><rect fill="#3a352e" height="10" width="10" x="48" y="192"></rect>
+<text fill="#e0895e" font-family="SF Mono,monospace" font-size="10" text-anchor="middle" x="36" y="-8">模块1</text>
+<text fill="#e0895e" font-family="SF Mono,monospace" font-size="10" text-anchor="middle" x="108" y="-8">模块2</text>
+<text fill="#e0895e" font-family="SF Mono,monospace" font-size="10" text-anchor="middle" x="180" y="-8">模块3</text>
+</g>
+<text fill="#787268" font-family="-apple-system,sans-serif" font-size="11" text-anchor="middle" x="178" y="292">对角三块密而深（模块内强），块外零星浅点（模块间弱）</text>
+<!-- two-timescale -->
+<g transform="translate(360,60)">
+<line stroke="rgba(255,255,255,0.16)" stroke-width="1.5" x1="20" x2="300" y1="180" y2="180"></line>
+<line stroke="rgba(255,255,255,0.16)" stroke-width="1.5" x1="20" x2="20" y1="180" y2="20"></line>
+<text fill="#8d867b" font-family="-apple-system,sans-serif" font-size="11" text-anchor="middle" x="160" y="204">时间 →</text>
+<text fill="#8d867b" font-family="-apple-system,sans-serif" font-size="11" x="8" y="14">温度</text>
+<!-- three modules converge internally fast -->
+<path d="M20,150 C40,70 70,58 110,55" fill="none" stroke="#c0703f" stroke-width="2"></path>
+<path d="M20,60 C40,120 70,132 110,135" fill="none" stroke="#d9b45f" stroke-width="2"></path>
+<path d="M20,105 C45,96 75,94 110,95" fill="none" stroke="#9fbc7a" stroke-width="2"></path>
+<line stroke="rgba(255,255,255,0.14)" stroke-dasharray="3 3" stroke-width="1" x1="110" x2="110" y1="20" y2="180"></line>
+<text fill="#aba498" font-family="-apple-system,sans-serif" font-size="9.5" text-anchor="middle" x="110" y="16">各模块内部先各自匀好</text>
+<!-- slow convergence together -->
+<path d="M110,55 C180,70 240,88 290,96" fill="none" stroke="#c0703f" stroke-width="2"></path>
+<path d="M110,135 C180,120 240,104 290,98" fill="none" stroke="#d9b45f" stroke-width="2"></path>
+<path d="M110,95 C180,96 240,97 290,97" fill="none" stroke="#9fbc7a" stroke-width="2"></path>
+<text fill="#8d867b" font-family="-apple-system,sans-serif" font-size="9.5" text-anchor="middle" x="235" y="126">之后模块间才慢慢趋同</text>
+<text fill="#57524b" font-family="-apple-system,sans-serif" font-size="9.5" x="150" y="176">短程：各算各的　·　长程：只剩总量在耦合</text>
+</g>
 </svg>
 <figcaption>近可分解＝一张「块对角」的耦合图。它带来两级时标：短时间里模块各自独立、可以分开算；长时间里模块之间才通过总量互相影响。</figcaption>
 </figure>
-
 <p>这就是为什么你能<b>分开研究</b>一个复杂系统的各个部分而不至于全错：不是因为它们真的互不相干，而是因为在你关心的那段时间里，模块间的耦合慢到可以近似当成不变的背景。这也是上一期（涌现）里「有效自由度」的另一种说法——近可分解，正是那个「有效层」能被单独描述的物理前提。</p>
-
 <div class="decide">
 <span class="lb">🎯 决策线</span>
 <p>要不要把一个系统拆开分头处理，别凭直觉，去<b>量它的耦合时标</b>：模块内部匀好的速度，和模块之间渗匀的速度，差几个量级？差得越多，「分开算」越安全，也越可以放心地并行、外包、分工。两个速度接近甚至反过来（外部比内部还快），任何拆分都会骗你——这时该做的是先弄清耦合结构，而不是硬拆。</p>
 </div>
-
 <div class="crossx-inline">
 🌀 <b>天体力学 · 为什么能先算地月、再算它绕太阳</b>　天文学家算月球轨道时，通常先把「地球—月球」当成一个孤立的两体系统解出来，再把太阳的引力当作一个缓慢的微扰加进去。这套分而治之之所以合法，纯粹是因为<b>时标可分</b>：月绕地一圈约一个月，地月系统绕太阳一圈要一年，快慢差了十几倍。<em>换个时间尺度，接缝就消失</em>——在几亿年的尺度上太阳微扰累积起来足以改变整个轨道，那时「地月是一个独立模块」这句话就不再成立。可分解不是系统的铭牌，是绑在某段时标上的一句话。
 </div>
-
 <p class="en-brief"><b>EN</b> Near-decomposability, Simon's precise name for hierarchy: interactions <em>within</em> a module are strong and fast, interactions <em>between</em> modules are weak and slow — weak, not absent. His heated-rooms example: each room equilibrates internally fast (analyse each alone), then rooms slowly equalise through the walls (only aggregate heat couples them). That two-timescale gap is exactly why you can study parts of a complex system separately without being wholly wrong — and why "separable" is a claim bound to a timescale, not a permanent label.</p>
-
-<h2><span class="n">03</span>接缝在哪里，不由你画<span class="he">（Where the Seams Really Are）</span></h2>
-
+<h2 data-tts="20c512a860df8459"><span class="n">03</span>接缝在哪里，不由你画<span class="he">（Where the Seams Really Are）</span></h2>
 <p class="lead">既然模块之间连得松，你就能<b>只改一个模块而不惊动其它</b>——换掉厨房的炉子，不用重装整栋楼的电路。这件事听着平常，却是「可演化性」（evolvability）和「可维护性」的全部来源：一个近可分解的系统，改动的后果被<em>关</em>在模块内部，不会顺着强耦合乱窜出去。</p>
-
 <p>但这里藏着一个最常见、代价也最大的错误：<b>人往往按「功能」或「组织图」去画模块边界，而系统真正的接缝在耦合图上，两者常常不重合。</b>你以为的模块，未必是它实际的模块。</p>
-
 <p>1972 年，计算机科学家 David Parnas 把这件事讲穿了。当时主流是按「处理步骤」拆软件——先读输入、再排序、再输出，一步一个模块。Parnas 指出这是错的：该按「<em>哪些设计决定将来会一起改变</em>」来拆，把每个易变的决定藏进一个模块内部（他叫这个「信息隐藏」，information hiding），让接口稳定、内部可换。翻成本期的话就是：<b>接缝应该切在耦合弱的地方，而不是切在流程好画的地方。</b>切错了，你以为拆开了，其实每次改动照样牵一发动全身。</p>
-
 <figure>
-<svg viewBox="0 0 720 290" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="同一组节点两种切法：切过强耦合的错误接缝，与切在弱耦合桥上的正确接缝">
-  <defs>
-    <marker id="arC" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="10" markerHeight="10" markerUnits="userSpaceOnUse" orient="auto">
-      <path d="M0,1 L9,5 L0,9 z" fill="#cd7f9b"/>
-    </marker>
-  </defs>
-  <!-- shared node layout, two clusters + bridge -->
-  <!-- LEFT: wrong cut -->
-  <text x="180" y="28" text-anchor="middle" fill="#cd7f9b" font-size="13" font-family="-apple-system,sans-serif" font-weight="700">切错：横穿强耦合</text>
-  <g font-family="-apple-system,sans-serif">
-    <!-- cluster A -->
-    <line x1="70" y1="90" x2="130" y2="80" stroke="#8a7a4f" stroke-width="3"/>
-    <line x1="70" y1="90" x2="110" y2="140" stroke="#8a7a4f" stroke-width="3"/>
-    <line x1="130" y1="80" x2="110" y2="140" stroke="#8a7a4f" stroke-width="3"/>
-    <!-- cluster B -->
-    <line x1="250" y1="90" x2="290" y2="130" stroke="#8a7a4f" stroke-width="3"/>
-    <line x1="250" y1="90" x2="230" y2="150" stroke="#8a7a4f" stroke-width="3"/>
-    <line x1="290" y1="130" x2="230" y2="150" stroke="#8a7a4f" stroke-width="3"/>
-    <!-- weak bridge -->
-    <line x1="130" y1="80" x2="250" y2="90" stroke="#4a4438" stroke-width="1" stroke-dasharray="3 3"/>
-    <circle cx="70" cy="90" r="9" fill="#e0895e"/><circle cx="130" cy="80" r="9" fill="#e0895e"/><circle cx="110" cy="140" r="9" fill="#e0895e"/>
-    <circle cx="250" cy="90" r="9" fill="#63b3a6"/><circle cx="290" cy="130" r="9" fill="#63b3a6"/><circle cx="230" cy="150" r="9" fill="#63b3a6"/>
-    <!-- wrong cut: vertical through a strong edge -->
-    <line x1="170" y1="55" x2="140" y2="185" stroke="#cd7f9b" stroke-width="2.5" stroke-dasharray="7 5" marker-end="url(#arC)"/>
-    <text x="120" y="210" text-anchor="middle" fill="#cd7f9b" font-size="10.5">刀切在强连杆上</text>
-    <text x="180" y="234" text-anchor="middle" fill="#787268" font-size="10.5">→ 每次改动仍牵一发动全身</text>
-  </g>
-
-  <line x1="360" y1="70" x2="360" y2="200" stroke="rgba(255,255,255,0.12)" stroke-width="1"/>
-
-  <!-- RIGHT: right cut -->
-  <text x="540" y="28" text-anchor="middle" fill="#9fbc7a" font-size="13" font-family="-apple-system,sans-serif" font-weight="700">切对：沿弱桥下刀</text>
-  <g font-family="-apple-system,sans-serif">
-    <line x1="430" y1="90" x2="490" y2="80" stroke="#8a7a4f" stroke-width="3"/>
-    <line x1="430" y1="90" x2="470" y2="140" stroke="#8a7a4f" stroke-width="3"/>
-    <line x1="490" y1="80" x2="470" y2="140" stroke="#8a7a4f" stroke-width="3"/>
-    <line x1="610" y1="90" x2="650" y2="130" stroke="#8a7a4f" stroke-width="3"/>
-    <line x1="610" y1="90" x2="590" y2="150" stroke="#8a7a4f" stroke-width="3"/>
-    <line x1="650" y1="130" x2="590" y2="150" stroke="#8a7a4f" stroke-width="3"/>
-    <line x1="490" y1="80" x2="610" y2="90" stroke="#4a4438" stroke-width="1" stroke-dasharray="3 3"/>
-    <circle cx="430" cy="90" r="9" fill="#e0895e"/><circle cx="490" cy="80" r="9" fill="#e0895e"/><circle cx="470" cy="140" r="9" fill="#e0895e"/>
-    <circle cx="610" cy="90" r="9" fill="#63b3a6"/><circle cx="650" cy="130" r="9" fill="#63b3a6"/><circle cx="590" cy="150" r="9" fill="#63b3a6"/>
-    <line x1="550" y1="55" x2="550" y2="185" stroke="#9fbc7a" stroke-width="2.5" stroke-dasharray="7 5"/>
-    <text x="550" y="210" text-anchor="middle" fill="#9fbc7a" font-size="10.5">刀切在弱桥上</text>
-    <text x="540" y="234" text-anchor="middle" fill="#787268" font-size="10.5">→ 改一边不惊动另一边</text>
-  </g>
-  <text x="360" y="270" text-anchor="middle" fill="#57524b" font-size="11" font-family="-apple-system,sans-serif">粗线＝强耦合，虚线＝弱耦合。同一组节点，接缝的位置决定这个系统好不好改</text>
+<svg aria-label="同一组节点两种切法：切过强耦合的错误接缝，与切在弱耦合桥上的正确接缝" role="img" viewbox="0 0 720 290" xmlns="http://www.w3.org/2000/svg">
+<defs>
+<marker id="arC" markerheight="10" markerunits="userSpaceOnUse" markerwidth="10" orient="auto" refx="9" refy="5" viewbox="0 0 10 10">
+<path d="M0,1 L9,5 L0,9 z" fill="#cd7f9b"></path>
+</marker>
+</defs>
+<!-- shared node layout, two clusters + bridge -->
+<!-- LEFT: wrong cut -->
+<text fill="#cd7f9b" font-family="-apple-system,sans-serif" font-size="13" font-weight="700" text-anchor="middle" x="180" y="28">切错：横穿强耦合</text>
+<g font-family="-apple-system,sans-serif">
+<!-- cluster A -->
+<line stroke="#8a7a4f" stroke-width="3" x1="70" x2="130" y1="90" y2="80"></line>
+<line stroke="#8a7a4f" stroke-width="3" x1="70" x2="110" y1="90" y2="140"></line>
+<line stroke="#8a7a4f" stroke-width="3" x1="130" x2="110" y1="80" y2="140"></line>
+<!-- cluster B -->
+<line stroke="#8a7a4f" stroke-width="3" x1="250" x2="290" y1="90" y2="130"></line>
+<line stroke="#8a7a4f" stroke-width="3" x1="250" x2="230" y1="90" y2="150"></line>
+<line stroke="#8a7a4f" stroke-width="3" x1="290" x2="230" y1="130" y2="150"></line>
+<!-- weak bridge -->
+<line stroke="#4a4438" stroke-dasharray="3 3" stroke-width="1" x1="130" x2="250" y1="80" y2="90"></line>
+<circle cx="70" cy="90" fill="#e0895e" r="9"></circle><circle cx="130" cy="80" fill="#e0895e" r="9"></circle><circle cx="110" cy="140" fill="#e0895e" r="9"></circle>
+<circle cx="250" cy="90" fill="#63b3a6" r="9"></circle><circle cx="290" cy="130" fill="#63b3a6" r="9"></circle><circle cx="230" cy="150" fill="#63b3a6" r="9"></circle>
+<!-- wrong cut: vertical through a strong edge -->
+<line marker-end="url(#arC)" stroke="#cd7f9b" stroke-dasharray="7 5" stroke-width="2.5" x1="170" x2="140" y1="55" y2="185"></line>
+<text fill="#cd7f9b" font-size="10.5" text-anchor="middle" x="120" y="210">刀切在强连杆上</text>
+<text fill="#787268" font-size="10.5" text-anchor="middle" x="180" y="234">→ 每次改动仍牵一发动全身</text>
+</g>
+<line stroke="rgba(255,255,255,0.12)" stroke-width="1" x1="360" x2="360" y1="70" y2="200"></line>
+<!-- RIGHT: right cut -->
+<text fill="#9fbc7a" font-family="-apple-system,sans-serif" font-size="13" font-weight="700" text-anchor="middle" x="540" y="28">切对：沿弱桥下刀</text>
+<g font-family="-apple-system,sans-serif">
+<line stroke="#8a7a4f" stroke-width="3" x1="430" x2="490" y1="90" y2="80"></line>
+<line stroke="#8a7a4f" stroke-width="3" x1="430" x2="470" y1="90" y2="140"></line>
+<line stroke="#8a7a4f" stroke-width="3" x1="490" x2="470" y1="80" y2="140"></line>
+<line stroke="#8a7a4f" stroke-width="3" x1="610" x2="650" y1="90" y2="130"></line>
+<line stroke="#8a7a4f" stroke-width="3" x1="610" x2="590" y1="90" y2="150"></line>
+<line stroke="#8a7a4f" stroke-width="3" x1="650" x2="590" y1="130" y2="150"></line>
+<line stroke="#4a4438" stroke-dasharray="3 3" stroke-width="1" x1="490" x2="610" y1="80" y2="90"></line>
+<circle cx="430" cy="90" fill="#e0895e" r="9"></circle><circle cx="490" cy="80" fill="#e0895e" r="9"></circle><circle cx="470" cy="140" fill="#e0895e" r="9"></circle>
+<circle cx="610" cy="90" fill="#63b3a6" r="9"></circle><circle cx="650" cy="130" fill="#63b3a6" r="9"></circle><circle cx="590" cy="150" fill="#63b3a6" r="9"></circle>
+<line stroke="#9fbc7a" stroke-dasharray="7 5" stroke-width="2.5" x1="550" x2="550" y1="55" y2="185"></line>
+<text fill="#9fbc7a" font-size="10.5" text-anchor="middle" x="550" y="210">刀切在弱桥上</text>
+<text fill="#787268" font-size="10.5" text-anchor="middle" x="540" y="234">→ 改一边不惊动另一边</text>
+</g>
+<text fill="#57524b" font-family="-apple-system,sans-serif" font-size="11" text-anchor="middle" x="360" y="270">粗线＝强耦合，虚线＝弱耦合。同一组节点，接缝的位置决定这个系统好不好改</text>
 </svg>
 <figcaption>模块边界不是随便画的。切在强耦合上，拆分只是名义上的；切在弱耦合的桥上，才真能「改一处不动全身」。</figcaption>
 </figure>
-
 <p>所以「拆解一个系统」这个动作，正确的顺序不是先决定要几块、再硬切成几块，而是<b>先把耦合结构看清楚，找到那几条本来就细的桥，顺着它下刀</b>。天然的接缝是被发现的，不是被规定的。规定出来的边界，系统不认。</p>
-
 <div class="decide">
 <span class="lb">🎯 决策线</span>
 <p>拆一个系统（代码、组织、流程、计划）之前，先别问「分成几块」，先画出「谁改动会连累谁」这张图，把边界切在<b>连累最少</b>的地方。一个当场能用的检验：假想改动每一个候选模块，数一数会波及模块外多少东西——波及越少，说明你找到的是真接缝；每个都牵连一大片，说明这堆东西目前根本不近可分解，硬拆只会把强耦合藏进你看不见的地方。</p>
 </div>
-
 <div class="crossx-inline">
 🌀 <b>语言学 · 双重分节</b>　法国语言学家马丁内（André Martinet）指出人类语言有「双重分节」（double articulation）：底层是一小把<em>本身没有意义</em>的音素（几十个），它们组合成有意义的词与语素，词再组合成句。这正是一个两级近可分解结构——音素层内部的规则（发音）和意义层的规则（语义）弱耦合、可以分开研究。<b>推论</b>：层级在这里不是为了整洁，是为了<em>用有限件生成无限</em>——几十个音素撑起几十万个词。把这层拆掉、让每个意义都配一个不可再分的整体符号，语言的表达力会当场坍缩到只能说出你事先造过的那些词。分层是生成力的来源，不是它的装饰。
 </div>
-
 <p class="en-brief"><b>EN</b> Loose coupling between modules is what lets you change one without disturbing the rest — the entire source of evolvability and maintainability. But people draw module boundaries by <em>function</em> or by the <em>org chart</em>, while the real seams live in the coupling graph, and the two rarely coincide. Parnas (1972) said it first: modularise around the design decisions likely to change (information hiding), not around processing steps. Cut along the weak bridges, not where the flowchart is easy to draw — otherwise you have split the system in name only.</p>
-
-<h2><span class="n">04</span>这套说法在哪儿不成立<span class="he">（Where This Breaks Down）</span></h2>
-
+<h2 data-tts="ac1f936affa419dd"><span class="n">04</span>这套说法在哪儿不成立<span class="he">（Where This Breaks Down）</span></h2>
 <p class="lead">现在说反面。近可分解性是个极好用的透镜，但它有三处容易被用过头，用之前得把边界划清楚。</p>
-
 <p><b>第一，「复杂系统必然分层」这个「必然」是被幸存者偏差撑大的。</b>西蒙的论证严格说来只证明了：靠逐步搭建、且会被打断的过程，<em>造得出来的</em>复杂系统里分层的占压倒多数。它没有证明非分层的复杂系统在逻辑上不可能。有一整类系统就是没有干净接缝的——物理学里的<em>自旋玻璃</em>（spin glass）和各种「阻挫」（frustrated）系统，每个元素都同时强耦合到一大片别的元素，你怎么切都会切断一堆强连接。它们确实复杂，也确实存在，只是没法像钟表那样被一层层搭起来。所以准确的说法是：分层不是复杂的<em>定义</em>，是「可被逐步建造」的复杂所交的入场费。</p>
-
 <p><b>第二，接缝会漂移，尤其在压力下。</b>近可分解是个「好天气」性质。平时弱的那些跨模块连接，在系统受压时可能<em>一起变强</em>——上一节那张块对角矩阵，非对角的浅点会集体加深，三个模块糊成一个不可分的整块。金融里叫「相关性在危机中趋近于 1」，工程里叫「隐藏的公共依赖在高负载下暴露」。你依着平时的接缝做的所有分工、并行、隔离，恰恰在你最需要它们成立的那一刻失效。</p>
-
 <p><b>第三，模块化本身有代价，不是越多越好。</b>切开就要装接口，接口有开销、有信息损耗；切得过细，本可以联合优化的东西被人为隔开，反而做不出全局最优解。「近可分解」里那个「近」字是有分寸的——它说的是<em>存在</em>一个尺度让耦合足够弱，不是说你切得越碎越好。真正的手艺是找到那个恰好的粒度，而不是无脑拆分。</p>
-
 <div class="decide">
 <span class="lb">🎯 决策线</span>
 <p>用「近可分解」下判断前，先明确回答三件事：①你这个系统是「逐步搭出来的」那类吗（是，分层的先验才成立；不是，就别默认它有接缝）；②你依赖的那些弱耦合，在压力/危机下会不会一起变强（会，就不能拿平时的模块边界做应急预案）；③你切的粒度是不是切过了头，把该联合优化的东西也隔开了。三问过不了，就别用模块化给自己壮胆。</p>
 </div>
-
 <p class="en-brief"><b>EN</b> Three limits. First, "complex systems are necessarily hierarchical" is inflated by survivorship: Simon only shows hierarchy dominates among complex systems that can be <em>built up stepwise</em> — spin glasses and other frustrated systems are genuinely complex with no clean seams. Second, near-decomposability is a fair-weather property: weak cross-module links can strengthen together under stress (correlations →1 in a crisis, hidden shared dependencies surfacing under load), so the seams you planned around fail exactly when you need them. Third, modularity costs interface overhead and can block joint optimisation — the "near" has a right grain size; finer is not better.</p>
-
 <div class="bigcat">
-<h3>🎒 场景 · BigCat</h3>
+<h3 data-tts="9020a1ff7c264d7d">🎒 场景 · BigCat</h3>
 <ol>
 <li><span class="dm">工程与系统设计</span>你想拆分一个越来越难改的服务，开会时大家习惯按「业务功能」画边界——订单一块、用户一块、支付一块。先停一下：把最近半年的改动翻出来，看<b>哪些文件/模块总是被同一个提交一起改</b>。「总一起改」就是强耦合的铁证，不管它们在业务上属不属于同一块。按「一起改」重画边界，往往和按「业务功能」画出来的很不一样——后者是组织图，前者才是耦合图。具体动作：拆分方案定稿前，拿版本历史里的「共变更矩阵」核对一遍你的模块线，别让流程图替耦合图做主。</li>
 <li><span class="dm">育儿</span>孩子最近状态不对，你的本能是同时动一堆：调作息、改饮食、限制屏幕、多陪玩。这是把几个近可分解的因素当成一个不可分的整块在动——结果就算变好了，你也不知道是哪条起的作用，下次复发照样抓瞎。把它当近可分解系统处理：<b>一次只动一个模块，给它足够长的观察窗</b>（模块内部匀好的时间），再动下一个。具体动作：不是「全面调整」，而是选一个变量、定一个观察期、只看这一个变量对应的那个指标——把「什么都改了、说不清」换成「一次一条、看得清因果」。</li>
 <li><span class="dm">投资与仓位</span>你把仓位当成互不相干的模块来分散风险——不同行业、不同地区、不同资产，觉得它们是块对角矩阵、各跌各的。这在平时成立，在危机里恰恰失效：非对角的弱相关会一起变强，整个组合塌成一个模块（这正是第四节的第二条边界）。所以分散度不能只在风平浪静时量。具体动作：给组合做一次「压力下的相关性」检查——设想一次普跌，问哪些看似独立的仓位其实押在同一个隐藏因子上（同一种利率敏感、同一条供应链、同一批客户）；仓位规模按<b>危机相关性</b>而不是平时相关性来定。</li>
 </ol>
 </div>
-
 <div class="crossx">
-<h3>🌀 越界 · 跨学科的联想<span class="he">（Crossings）</span></h3>
+<h3 data-tts="d16b7c5777303785">🌀 越界 · 跨学科的联想<span class="he">（Crossings）</span></h3>
 <ul>
 <li><b>经济与制度 · 钱德勒与威廉姆森的「M 型企业」</b>：1962 年——和西蒙同一年——历史学家钱德勒（Alfred Chandler）记录了杜邦、通用汽车如何从一个大摊子改成「多事业部」结构；后来威廉姆森（Oliver Williamson）把它讲成一条硬命题：把公司拆成近可分解的事业部，让每个部内部自己快速调节（强耦合在部内），总部只管那件全公司唯一慢而共享的事——资本在部门间的分配（弱而慢的跨模块耦合）。本期三条机制在这里成套成立：分层让公司能被逐步搭大而不散（钟表匠）、部间弱耦合让一个部出问题不拖垮全体（近可分解）、按「谁的决策该一起变」划部而不是按老板的组织图（找接缝）。<b>但这里不成立</b>：近可分解假设相互作用随「距离」衰减，可公司里有些东西天然穿透所有部门——同一笔现金、同一个关键大客户、同一个共享平台团队。这类共享资源把名义上独立的事业部重新焊在一起，于是你在组织图上画的那条接缝，在真实的利益—信息图上根本不是接缝。所以 M 型不是「拆完就完」，是要持续盯住那几条穿透性的强耦合，别被漂亮的方框骗了。</li>
 <li><b>生物 · 内共生：把一个活模块整个吞进来</b>：真核细胞里的线粒体，曾经是一个独立生活的细菌，在演化史上某一刻被另一个细胞吞进去、却没被消化，反而变成了细胞内一个稳定的「能量模块」（马古利斯 Lynn Margulis 的内共生说）。这是钟表匠寓言在演化生物学里的字面版本：演化造真核细胞，不是从原子开始重搭，而是<em>把一个已经稳定运转的模块整个封装进来再组合</em>——正是 Hora 拿现成小总成往上扣的做法。由此能推出一个原本不明显的结论：<b>既然可复用的稳定模块是演化最省力的搭法，那么这种「吞进一个完整模块」的事件之所以极其罕见（真核化在地球生命史上近乎只成功过一次），恰恰因为难的不是拼装，是先得<em>有</em>一个能被整体封装、且封装后还不散架的模块</b>——稳定中间态的稀缺，才是复杂度跃升的真正瓶颈。</li>
 <li><b>科学哲学 · 还原论的适用域</b>：「还原论 vs 整体论」这场老争论，近可分解性把它从立场之争改判成了经验问题。还原论——把系统拆成部件、分别理解、再拼回去——<em>什么时候</em>对？答案精确得出人意料：<b>当且仅当系统近可分解</b>。模块间耦合足够弱，你分开研究各部分犯的错就足够小，还原论就管用（这也正是本期第二节「能分开算」的另一面）。而在自旋玻璃、深度纠缠的生态网络那种全局强耦合的系统里，拆开就丢掉了几乎全部信息，还原论当场失灵——这接上了第 1 期讲的「还原论在复杂系统里为何失灵」。<b>但这里不成立</b>：这把尺子只裁「拆开分析对不对」，不裁「高层现象是否真实存在」。就算一个系统完美近可分解、还原得干干净净，涌现出的高层性质（温度、价格）依然是实在的——可分解性谈的是<em>认识论</em>的可行性，不是<em>本体论</em>的存废，别用前者去否认后者。</li>
 </ul>
 </div>
-
 <div class="thinking">
-<h3>深入思考<span class="he">（Going Deeper）</span></h3>
+<h3 data-tts="8a137c401f04c7e1">深入思考<span class="he">（Going Deeper）</span></h3>
 <details><summary>如果一个系统现在不近可分解，能人为把它「模块化」吗？</summary><p>能，但要看你是在<em>发现</em>接缝还是在<em>制造</em>接缝。制造接缝＝主动切断一些原本的强耦合、代之以受控的窄接口（微服务、部门墙、法律实体的隔离都是）。代价是那些被切断的耦合曾经在做有用的事，切了之后要么用接口补回来（有开销），要么就真的损失掉了。所以模块化不是免费的整理，是一笔用「联合优化能力」换「可改动性」的交易，得看这笔汇率划不划算。</p></details>
 <details><summary>近可分解性和上一期的「涌现」「有效自由度」是什么关系？</summary><p>是同一件事的两面。涌现说高层有个能自成一套的描述（温度、价格）；近可分解性说的是<em>为什么</em>那个高层描述能自成一套——因为底层被打包进了弱耦合的模块，模块内部的细节在高层的时标上匀成了背景常数，于是高层只需跟踪少数几个总量。没有近可分解，就没有干净的「有效层」，涌现也就无从谈起。</p></details>
 <details><summary>为什么组织变革那么难，即使新结构明显更优？</summary><p>因为改的是模块<em>边界</em>，而边界处正是耦合最纠缠、历史包袱最重的地方。系统平时能近可分解运转，靠的是现有边界已经和实际耦合大致对齐了；一旦重画边界，你会短暂地制造出一大批横跨新边界的强耦合（原来在一个部门内部的协作，突然要跨部门了），系统在过渡期反而更不可分解、更容易散架——这和第 10 期要讲的「跃迁前必须先变差」是同构的。</p></details>
 <details><summary>「找到天然接缝」会不会只是事后诸葛？真有接缝，还是我们把切口叫成了接缝？</summary><p>这是个诚实的疑问，也是本期方法最容易自欺的地方。检验的办法是让「接缝」做出可证伪的预测：如果你声称某处是弱耦合的天然接缝，那么沿它切开之后，两边应当能<em>各自独立地</em>改动、且互不引发对方的返工。如果每次改一边都要回头修另一边，那你找到的就不是接缝，只是一道你希望它是接缝的切口。接缝的真伪，由改动的连带后果来裁决，不由图画得好不好看来裁决。</p></details>
 </div>
-
 <div class="refs">
-<h3>延伸阅读<span class="he">（Further Reading）</span></h3>
+<h3 data-tts="4ac0af3c5eb1b441">延伸阅读<span class="he">（Further Reading）</span></h3>
 <ul>
 <li>Herbert A. Simon, <a href="https://www.jstor.org/stable/985254">The Architecture of Complexity</a>（1962，钟表匠寓言与近可分解性的原始论文）</li>
 <li>Simon &amp; Ando, <a href="https://www.jstor.org/stable/1907631">Aggregation of Variables in Dynamic Systems</a>（1961，近可分解系统「短程独立、长程聚合」的数学）</li>
@@ -357,12 +310,11 @@ footer a{color:#79a6d2;text-decoration:none}
 <li><a href="https://plato.stanford.edu/entries/simon/">Herbert Simon（斯坦福哲学百科）</a>（有界理性与人工科学的总览）</li>
 </ul>
 </div>
-
 <footer>BigCat · 复杂性科学 · <a href="index.html">← 全部 Topic</a></footer>
 </div>
-<script src="https://hub.cissychen.com/comments.js" defer></script>
-<script src="https://hub.cissychen.com/search.js" defer></script>
-<script src="https://hub.cissychen.com/index-button.js" defer></script>
-<script src="https://hub.cissychen.com/lightbox.js" defer></script>
-<script src="https://hub.cissychen.com/i18n-tts.js" defer></script>
+<script defer="" src="https://hub.cissychen.com/comments.js"></script>
+<script defer="" src="https://hub.cissychen.com/search.js"></script>
+<script defer="" src="https://hub.cissychen.com/index-button.js"></script>
+<script defer="" src="https://hub.cissychen.com/lightbox.js"></script>
+<script defer="" src="https://hub.cissychen.com/i18n-tts.js"></script>
 </body></html>

@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html lang="zh-CN"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<html lang="zh-CN"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0" name="viewport"/>
 <title>自组织临界性 — 大事件不需要大原因 · 复杂性科学 T18</title>
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
@@ -64,244 +65,188 @@ footer a{color:#79a6d2;text-decoration:none}
 @media(max-width:600px){h1{font-size:1.85rem}.wrap{padding:24px 16px 60px}h2{font-size:1.22rem}}
 </style></head><body>
 <div class="wrap">
-
 <header>
-  <span class="week-tag">TOPIC 18 · PHASE C</span>
-  <h1>自组织临界性<span class="h1en">SELF-ORGANIZED CRITICALITY</span></h1>
-  <p class="sub">大事件不需要大原因<span class="he">（Big events need no big cause）</span></p>
-  <p class="date">2026-07-20 · 自组织与临界</p>
+<span class="week-tag">TOPIC 18 · PHASE C</span>
+<h1 data-tts="99729c3a8ebf947e">自组织临界性<span class="h1en">SELF-ORGANIZED CRITICALITY</span></h1>
+<p class="sub">大事件不需要大原因<span class="he">（Big events need no big cause）</span></p>
+<p class="date">2026-07-20 · 自组织与临界</p>
 </header>
-
 <p class="pitch">每次崩盘、每次事故之后，我们都要找出那个"罪魁"。而有一整类系统，它们最大的灾难恰恰是由最普通的一件小事引发的——找元凶这个动作本身，在这类系统里不提供任何信息。</p>
-
 <div class="intro">
 <p>一场 8 级地震和一场 3 级地震，起因是同一种事：某处岩石撑不住了，滑了一下。没有哪场大地震是由"更大的一次滑动"引起的。区别不在起因，在于滑动之后有多少地方跟着松开。</p>
 <p>这听起来像是在说"大事有小起因"，但真正反直觉的在后面：这类系统会<em>自己</em>爬到那个一碰就塌的状态去，并且待在那儿。不需要谁把参数调到临界点，也不需要外部有什么异常。稳定才是需要解释的，随时可能塌反倒是常态。</p>
 <p class="dim">本站讲"临界"的有五期，视角各不相同：第 10 期是分岔跃迁（bifurcation，系统跳到另一个稳态），第 16 期是相变与普适类（临界点上细节为何不重要），第 17 期是渗流（percolation，连通性突然贯通），第 36 期是临界慢化（critical slowing down，怎么监测）。<b>本期只问一件事：临界点是被谁调到的。</b>答案是——没有谁，系统自己走过去的。</p>
 </div>
-
-<h2><span class="n">01</span>一粒沙的故事<span class="he">（The Story of One Grain）</span></h2>
-
+<h2 data-tts="9b0c764e87e51e4b"><span class="n">01</span>一粒沙的故事<span class="he">（The Story of One Grain）</span></h2>
 <p class="lead">1987 年，三位物理学家 Per Bak、汤超、Kurt Wiesenfeld 写下了一组简单到近乎可笑的规则 <a class="reflink" href="ref-sandpile.html">→ 参考 · 沙堆模型</a>：</p>
-
 <p>想象一张方格纸，每格里放着几粒沙。你随机挑一格，往里加一粒。如果这一格的沙超过了 3 粒，它就"塌"——倒出 4 粒，四个邻格各分到 1 粒。而邻格拿到沙之后，可能自己也超过 3 粒，于是接着塌。塌到边缘的沙就掉出去、消失。</p>
-
 <p>规则就这么多。没有物理，没有摩擦系数，没有重力。但跑起来之后会发生一件事：<b>你加的那一粒沙，可能什么都不发生，也可能引发一场横扫大半张纸的连锁倾倒。</b>而你事先无法分辨这两种情况——因为你加的那一粒沙，两次是一模一样的。这一整串连锁倾倒，下文都叫一次<b>雪崩</b>（avalanche）。</p>
-
 <figure>
-<svg viewBox="0 0 720 300" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="沙堆模型的三帧：加一粒沙、单格倾倒、级联雪崩">
-  <defs>
-    <marker id="ar18a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="9" markerHeight="9" markerUnits="userSpaceOnUse" orient="auto">
-      <path d="M0,1 L9,5 L0,9 z" fill="#8d867b"/>
-    </marker>
-  </defs>
-  <text x="360" y="26" text-anchor="middle" fill="#aba498" font-size="13" font-family="-apple-system,sans-serif">同一条规则，同一粒沙 — 结果可以差三个数量级</text>
-
-  <!-- Frame 1 -->
-  <text x="112" y="58" text-anchor="middle" fill="#9fbc7a" font-size="12" font-family="SF Mono,monospace">① 加一粒</text>
-  <g transform="translate(40,70)">
-    <rect x="0" y="0" width="144" height="144" fill="none" stroke="rgba(255,255,255,0.10)"/>
-    <rect x="0" y="0" width="24" height="24" fill="#2a2a26"/><rect x="24" y="0" width="24" height="24" fill="#4a4438"/><rect x="48" y="0" width="24" height="24" fill="#6b5f45"/><rect x="72" y="0" width="24" height="24" fill="#4a4438"/><rect x="96" y="0" width="24" height="24" fill="#2a2a26"/><rect x="120" y="0" width="24" height="24" fill="#6b5f45"/>
-    <rect x="0" y="24" width="24" height="24" fill="#6b5f45"/><rect x="24" y="24" width="24" height="24" fill="#8a7a4f"/><rect x="48" y="24" width="24" height="24" fill="#4a4438"/><rect x="72" y="24" width="24" height="24" fill="#8a7a4f"/><rect x="96" y="24" width="24" height="24" fill="#6b5f45"/><rect x="120" y="24" width="24" height="24" fill="#4a4438"/>
-    <rect x="0" y="48" width="24" height="24" fill="#4a4438"/><rect x="24" y="48" width="24" height="24" fill="#6b5f45"/><rect x="48" y="48" width="24" height="24" fill="#8a7a4f"/><rect x="72" y="48" width="24" height="24" fill="#6b5f45"/><rect x="96" y="48" width="24" height="24" fill="#8a7a4f"/><rect x="120" y="48" width="24" height="24" fill="#6b5f45"/>
-    <rect x="0" y="72" width="24" height="24" fill="#8a7a4f"/><rect x="24" y="72" width="24" height="24" fill="#4a4438"/><rect x="48" y="72" width="24" height="24" fill="#6b5f45"/><rect x="72" y="72" width="24" height="24" fill="#8a7a4f"/><rect x="96" y="72" width="24" height="24" fill="#4a4438"/><rect x="120" y="72" width="24" height="24" fill="#8a7a4f"/>
-    <rect x="0" y="96" width="24" height="24" fill="#6b5f45"/><rect x="24" y="96" width="24" height="24" fill="#8a7a4f"/><rect x="48" y="96" width="24" height="24" fill="#4a4438"/><rect x="72" y="96" width="24" height="24" fill="#6b5f45"/><rect x="96" y="96" width="24" height="24" fill="#8a7a4f"/><rect x="120" y="96" width="24" height="24" fill="#2a2a26"/>
-    <rect x="0" y="120" width="24" height="24" fill="#2a2a26"/><rect x="24" y="120" width="24" height="24" fill="#6b5f45"/><rect x="48" y="120" width="24" height="24" fill="#8a7a4f"/><rect x="72" y="120" width="24" height="24" fill="#4a4438"/><rect x="96" y="120" width="24" height="24" fill="#6b5f45"/><rect x="120" y="120" width="24" height="24" fill="#8a7a4f"/>
-    <circle cx="60" cy="60" r="6" fill="#e0895e"/>
-  </g>
-  <text x="112" y="238" text-anchor="middle" fill="#787268" font-size="11" font-family="-apple-system,sans-serif">这一格满了</text>
-
-  <line x1="196" y1="142" x2="228" y2="142" stroke="#8d867b" stroke-width="1.5" marker-end="url(#ar18a)"/>
-
-  <!-- Frame 2 -->
-  <text x="308" y="58" text-anchor="middle" fill="#9fbc7a" font-size="12" font-family="SF Mono,monospace">② 一处倾倒</text>
-  <g transform="translate(236,70)">
-    <rect x="0" y="0" width="144" height="144" fill="none" stroke="rgba(255,255,255,0.10)"/>
-    <rect x="0" y="0" width="24" height="24" fill="#2a2a26"/><rect x="24" y="0" width="24" height="24" fill="#4a4438"/><rect x="48" y="0" width="24" height="24" fill="#6b5f45"/><rect x="72" y="0" width="24" height="24" fill="#4a4438"/><rect x="96" y="0" width="24" height="24" fill="#2a2a26"/><rect x="120" y="0" width="24" height="24" fill="#6b5f45"/>
-    <rect x="0" y="24" width="24" height="24" fill="#6b5f45"/><rect x="24" y="24" width="24" height="24" fill="#8a7a4f"/><rect x="48" y="24" width="24" height="24" fill="#a8894a"/><rect x="72" y="24" width="24" height="24" fill="#8a7a4f"/><rect x="96" y="24" width="24" height="24" fill="#6b5f45"/><rect x="120" y="24" width="24" height="24" fill="#4a4438"/>
-    <rect x="0" y="48" width="24" height="24" fill="#4a4438"/><rect x="24" y="48" width="24" height="24" fill="#a8894a"/><rect x="48" y="48" width="24" height="24" fill="#2a2a26"/><rect x="72" y="48" width="24" height="24" fill="#a8894a"/><rect x="96" y="48" width="24" height="24" fill="#8a7a4f"/><rect x="120" y="48" width="24" height="24" fill="#6b5f45"/>
-    <rect x="0" y="72" width="24" height="24" fill="#8a7a4f"/><rect x="24" y="72" width="24" height="24" fill="#4a4438"/><rect x="48" y="72" width="24" height="24" fill="#a8894a"/><rect x="72" y="72" width="24" height="24" fill="#8a7a4f"/><rect x="96" y="72" width="24" height="24" fill="#4a4438"/><rect x="120" y="72" width="24" height="24" fill="#8a7a4f"/>
-    <rect x="0" y="96" width="24" height="24" fill="#6b5f45"/><rect x="24" y="96" width="24" height="24" fill="#8a7a4f"/><rect x="48" y="96" width="24" height="24" fill="#4a4438"/><rect x="72" y="96" width="24" height="24" fill="#6b5f45"/><rect x="96" y="96" width="24" height="24" fill="#8a7a4f"/><rect x="120" y="96" width="24" height="24" fill="#2a2a26"/>
-    <rect x="0" y="120" width="24" height="24" fill="#2a2a26"/><rect x="24" y="120" width="24" height="24" fill="#6b5f45"/><rect x="48" y="120" width="24" height="24" fill="#8a7a4f"/><rect x="72" y="120" width="24" height="24" fill="#4a4438"/><rect x="96" y="120" width="24" height="24" fill="#6b5f45"/><rect x="120" y="120" width="24" height="24" fill="#8a7a4f"/>
-  </g>
-  <text x="308" y="238" text-anchor="middle" fill="#787268" font-size="11" font-family="-apple-system,sans-serif">倒给 4 个邻格</text>
-
-  <line x1="392" y1="142" x2="424" y2="142" stroke="#8d867b" stroke-width="1.5" marker-end="url(#ar18a)"/>
-
-  <!-- Frame 3 -->
-  <text x="504" y="58" text-anchor="middle" fill="#e0895e" font-size="12" font-family="SF Mono,monospace">③ 级联</text>
-  <g transform="translate(432,70)">
-    <rect x="0" y="0" width="144" height="144" fill="none" stroke="rgba(255,255,255,0.10)"/>
-    <rect x="0" y="0" width="24" height="24" fill="#2a2a26"/><rect x="24" y="0" width="24" height="24" fill="#c0703f"/><rect x="48" y="0" width="24" height="24" fill="#c0703f"/><rect x="72" y="0" width="24" height="24" fill="#c0703f"/><rect x="96" y="0" width="24" height="24" fill="#2a2a26"/><rect x="120" y="0" width="24" height="24" fill="#6b5f45"/>
-    <rect x="0" y="24" width="24" height="24" fill="#c0703f"/><rect x="24" y="24" width="24" height="24" fill="#c0703f"/><rect x="48" y="24" width="24" height="24" fill="#c0703f"/><rect x="72" y="24" width="24" height="24" fill="#c0703f"/><rect x="96" y="24" width="24" height="24" fill="#c0703f"/><rect x="120" y="24" width="24" height="24" fill="#4a4438"/>
-    <rect x="0" y="48" width="24" height="24" fill="#c0703f"/><rect x="24" y="48" width="24" height="24" fill="#c0703f"/><rect x="48" y="48" width="24" height="24" fill="#c0703f"/><rect x="72" y="48" width="24" height="24" fill="#c0703f"/><rect x="96" y="48" width="24" height="24" fill="#c0703f"/><rect x="120" y="48" width="24" height="24" fill="#6b5f45"/>
-    <rect x="0" y="72" width="24" height="24" fill="#c0703f"/><rect x="24" y="72" width="24" height="24" fill="#c0703f"/><rect x="48" y="72" width="24" height="24" fill="#c0703f"/><rect x="72" y="72" width="24" height="24" fill="#c0703f"/><rect x="96" y="72" width="24" height="24" fill="#4a4438"/><rect x="120" y="72" width="24" height="24" fill="#8a7a4f"/>
-    <rect x="0" y="96" width="24" height="24" fill="#6b5f45"/><rect x="24" y="96" width="24" height="24" fill="#c0703f"/><rect x="48" y="96" width="24" height="24" fill="#c0703f"/><rect x="72" y="96" width="24" height="24" fill="#6b5f45"/><rect x="96" y="96" width="24" height="24" fill="#8a7a4f"/><rect x="120" y="96" width="24" height="24" fill="#2a2a26"/>
-    <rect x="0" y="120" width="24" height="24" fill="#2a2a26"/><rect x="24" y="120" width="24" height="24" fill="#6b5f45"/><rect x="48" y="120" width="24" height="24" fill="#8a7a4f"/><rect x="72" y="120" width="24" height="24" fill="#4a4438"/><rect x="96" y="120" width="24" height="24" fill="#6b5f45"/><rect x="120" y="120" width="24" height="24" fill="#8a7a4f"/>
-  </g>
-  <text x="504" y="238" text-anchor="middle" fill="#c0703f" font-size="11" font-family="-apple-system,sans-serif">19 格被卷进来</text>
-
-  <text x="640" y="128" text-anchor="middle" fill="#787268" font-size="11" font-family="-apple-system,sans-serif">下一粒沙</text>
-  <text x="640" y="146" text-anchor="middle" fill="#787268" font-size="11" font-family="-apple-system,sans-serif">可能只动</text>
-  <text x="640" y="164" text-anchor="middle" fill="#9fbc7a" font-size="13" font-family="SF Mono,monospace">1 格</text>
-  <text x="360" y="278" text-anchor="middle" fill="#57524b" font-size="11" font-family="-apple-system,sans-serif">颜色深浅 = 该格沙粒数；橙色 = 本次雪崩中倾倒过的格子</text>
+<svg aria-label="沙堆模型的三帧：加一粒沙、单格倾倒、级联雪崩" role="img" viewbox="0 0 720 300" xmlns="http://www.w3.org/2000/svg">
+<defs>
+<marker id="ar18a" markerheight="9" markerunits="userSpaceOnUse" markerwidth="9" orient="auto" refx="9" refy="5" viewbox="0 0 10 10">
+<path d="M0,1 L9,5 L0,9 z" fill="#8d867b"></path>
+</marker>
+</defs>
+<text fill="#aba498" font-family="-apple-system,sans-serif" font-size="13" text-anchor="middle" x="360" y="26">同一条规则，同一粒沙 — 结果可以差三个数量级</text>
+<!-- Frame 1 -->
+<text fill="#9fbc7a" font-family="SF Mono,monospace" font-size="12" text-anchor="middle" x="112" y="58">① 加一粒</text>
+<g transform="translate(40,70)">
+<rect fill="none" height="144" stroke="rgba(255,255,255,0.10)" width="144" x="0" y="0"></rect>
+<rect fill="#2a2a26" height="24" width="24" x="0" y="0"></rect><rect fill="#4a4438" height="24" width="24" x="24" y="0"></rect><rect fill="#6b5f45" height="24" width="24" x="48" y="0"></rect><rect fill="#4a4438" height="24" width="24" x="72" y="0"></rect><rect fill="#2a2a26" height="24" width="24" x="96" y="0"></rect><rect fill="#6b5f45" height="24" width="24" x="120" y="0"></rect>
+<rect fill="#6b5f45" height="24" width="24" x="0" y="24"></rect><rect fill="#8a7a4f" height="24" width="24" x="24" y="24"></rect><rect fill="#4a4438" height="24" width="24" x="48" y="24"></rect><rect fill="#8a7a4f" height="24" width="24" x="72" y="24"></rect><rect fill="#6b5f45" height="24" width="24" x="96" y="24"></rect><rect fill="#4a4438" height="24" width="24" x="120" y="24"></rect>
+<rect fill="#4a4438" height="24" width="24" x="0" y="48"></rect><rect fill="#6b5f45" height="24" width="24" x="24" y="48"></rect><rect fill="#8a7a4f" height="24" width="24" x="48" y="48"></rect><rect fill="#6b5f45" height="24" width="24" x="72" y="48"></rect><rect fill="#8a7a4f" height="24" width="24" x="96" y="48"></rect><rect fill="#6b5f45" height="24" width="24" x="120" y="48"></rect>
+<rect fill="#8a7a4f" height="24" width="24" x="0" y="72"></rect><rect fill="#4a4438" height="24" width="24" x="24" y="72"></rect><rect fill="#6b5f45" height="24" width="24" x="48" y="72"></rect><rect fill="#8a7a4f" height="24" width="24" x="72" y="72"></rect><rect fill="#4a4438" height="24" width="24" x="96" y="72"></rect><rect fill="#8a7a4f" height="24" width="24" x="120" y="72"></rect>
+<rect fill="#6b5f45" height="24" width="24" x="0" y="96"></rect><rect fill="#8a7a4f" height="24" width="24" x="24" y="96"></rect><rect fill="#4a4438" height="24" width="24" x="48" y="96"></rect><rect fill="#6b5f45" height="24" width="24" x="72" y="96"></rect><rect fill="#8a7a4f" height="24" width="24" x="96" y="96"></rect><rect fill="#2a2a26" height="24" width="24" x="120" y="96"></rect>
+<rect fill="#2a2a26" height="24" width="24" x="0" y="120"></rect><rect fill="#6b5f45" height="24" width="24" x="24" y="120"></rect><rect fill="#8a7a4f" height="24" width="24" x="48" y="120"></rect><rect fill="#4a4438" height="24" width="24" x="72" y="120"></rect><rect fill="#6b5f45" height="24" width="24" x="96" y="120"></rect><rect fill="#8a7a4f" height="24" width="24" x="120" y="120"></rect>
+<circle cx="60" cy="60" fill="#e0895e" r="6"></circle>
+</g>
+<text fill="#787268" font-family="-apple-system,sans-serif" font-size="11" text-anchor="middle" x="112" y="238">这一格满了</text>
+<line marker-end="url(#ar18a)" stroke="#8d867b" stroke-width="1.5" x1="196" x2="228" y1="142" y2="142"></line>
+<!-- Frame 2 -->
+<text fill="#9fbc7a" font-family="SF Mono,monospace" font-size="12" text-anchor="middle" x="308" y="58">② 一处倾倒</text>
+<g transform="translate(236,70)">
+<rect fill="none" height="144" stroke="rgba(255,255,255,0.10)" width="144" x="0" y="0"></rect>
+<rect fill="#2a2a26" height="24" width="24" x="0" y="0"></rect><rect fill="#4a4438" height="24" width="24" x="24" y="0"></rect><rect fill="#6b5f45" height="24" width="24" x="48" y="0"></rect><rect fill="#4a4438" height="24" width="24" x="72" y="0"></rect><rect fill="#2a2a26" height="24" width="24" x="96" y="0"></rect><rect fill="#6b5f45" height="24" width="24" x="120" y="0"></rect>
+<rect fill="#6b5f45" height="24" width="24" x="0" y="24"></rect><rect fill="#8a7a4f" height="24" width="24" x="24" y="24"></rect><rect fill="#a8894a" height="24" width="24" x="48" y="24"></rect><rect fill="#8a7a4f" height="24" width="24" x="72" y="24"></rect><rect fill="#6b5f45" height="24" width="24" x="96" y="24"></rect><rect fill="#4a4438" height="24" width="24" x="120" y="24"></rect>
+<rect fill="#4a4438" height="24" width="24" x="0" y="48"></rect><rect fill="#a8894a" height="24" width="24" x="24" y="48"></rect><rect fill="#2a2a26" height="24" width="24" x="48" y="48"></rect><rect fill="#a8894a" height="24" width="24" x="72" y="48"></rect><rect fill="#8a7a4f" height="24" width="24" x="96" y="48"></rect><rect fill="#6b5f45" height="24" width="24" x="120" y="48"></rect>
+<rect fill="#8a7a4f" height="24" width="24" x="0" y="72"></rect><rect fill="#4a4438" height="24" width="24" x="24" y="72"></rect><rect fill="#a8894a" height="24" width="24" x="48" y="72"></rect><rect fill="#8a7a4f" height="24" width="24" x="72" y="72"></rect><rect fill="#4a4438" height="24" width="24" x="96" y="72"></rect><rect fill="#8a7a4f" height="24" width="24" x="120" y="72"></rect>
+<rect fill="#6b5f45" height="24" width="24" x="0" y="96"></rect><rect fill="#8a7a4f" height="24" width="24" x="24" y="96"></rect><rect fill="#4a4438" height="24" width="24" x="48" y="96"></rect><rect fill="#6b5f45" height="24" width="24" x="72" y="96"></rect><rect fill="#8a7a4f" height="24" width="24" x="96" y="96"></rect><rect fill="#2a2a26" height="24" width="24" x="120" y="96"></rect>
+<rect fill="#2a2a26" height="24" width="24" x="0" y="120"></rect><rect fill="#6b5f45" height="24" width="24" x="24" y="120"></rect><rect fill="#8a7a4f" height="24" width="24" x="48" y="120"></rect><rect fill="#4a4438" height="24" width="24" x="72" y="120"></rect><rect fill="#6b5f45" height="24" width="24" x="96" y="120"></rect><rect fill="#8a7a4f" height="24" width="24" x="120" y="120"></rect>
+</g>
+<text fill="#787268" font-family="-apple-system,sans-serif" font-size="11" text-anchor="middle" x="308" y="238">倒给 4 个邻格</text>
+<line marker-end="url(#ar18a)" stroke="#8d867b" stroke-width="1.5" x1="392" x2="424" y1="142" y2="142"></line>
+<!-- Frame 3 -->
+<text fill="#e0895e" font-family="SF Mono,monospace" font-size="12" text-anchor="middle" x="504" y="58">③ 级联</text>
+<g transform="translate(432,70)">
+<rect fill="none" height="144" stroke="rgba(255,255,255,0.10)" width="144" x="0" y="0"></rect>
+<rect fill="#2a2a26" height="24" width="24" x="0" y="0"></rect><rect fill="#c0703f" height="24" width="24" x="24" y="0"></rect><rect fill="#c0703f" height="24" width="24" x="48" y="0"></rect><rect fill="#c0703f" height="24" width="24" x="72" y="0"></rect><rect fill="#2a2a26" height="24" width="24" x="96" y="0"></rect><rect fill="#6b5f45" height="24" width="24" x="120" y="0"></rect>
+<rect fill="#c0703f" height="24" width="24" x="0" y="24"></rect><rect fill="#c0703f" height="24" width="24" x="24" y="24"></rect><rect fill="#c0703f" height="24" width="24" x="48" y="24"></rect><rect fill="#c0703f" height="24" width="24" x="72" y="24"></rect><rect fill="#c0703f" height="24" width="24" x="96" y="24"></rect><rect fill="#4a4438" height="24" width="24" x="120" y="24"></rect>
+<rect fill="#c0703f" height="24" width="24" x="0" y="48"></rect><rect fill="#c0703f" height="24" width="24" x="24" y="48"></rect><rect fill="#c0703f" height="24" width="24" x="48" y="48"></rect><rect fill="#c0703f" height="24" width="24" x="72" y="48"></rect><rect fill="#c0703f" height="24" width="24" x="96" y="48"></rect><rect fill="#6b5f45" height="24" width="24" x="120" y="48"></rect>
+<rect fill="#c0703f" height="24" width="24" x="0" y="72"></rect><rect fill="#c0703f" height="24" width="24" x="24" y="72"></rect><rect fill="#c0703f" height="24" width="24" x="48" y="72"></rect><rect fill="#c0703f" height="24" width="24" x="72" y="72"></rect><rect fill="#4a4438" height="24" width="24" x="96" y="72"></rect><rect fill="#8a7a4f" height="24" width="24" x="120" y="72"></rect>
+<rect fill="#6b5f45" height="24" width="24" x="0" y="96"></rect><rect fill="#c0703f" height="24" width="24" x="24" y="96"></rect><rect fill="#c0703f" height="24" width="24" x="48" y="96"></rect><rect fill="#6b5f45" height="24" width="24" x="72" y="96"></rect><rect fill="#8a7a4f" height="24" width="24" x="96" y="96"></rect><rect fill="#2a2a26" height="24" width="24" x="120" y="96"></rect>
+<rect fill="#2a2a26" height="24" width="24" x="0" y="120"></rect><rect fill="#6b5f45" height="24" width="24" x="24" y="120"></rect><rect fill="#8a7a4f" height="24" width="24" x="48" y="120"></rect><rect fill="#4a4438" height="24" width="24" x="72" y="120"></rect><rect fill="#6b5f45" height="24" width="24" x="96" y="120"></rect><rect fill="#8a7a4f" height="24" width="24" x="120" y="120"></rect>
+</g>
+<text fill="#c0703f" font-family="-apple-system,sans-serif" font-size="11" text-anchor="middle" x="504" y="238">19 格被卷进来</text>
+<text fill="#787268" font-family="-apple-system,sans-serif" font-size="11" text-anchor="middle" x="640" y="128">下一粒沙</text>
+<text fill="#787268" font-family="-apple-system,sans-serif" font-size="11" text-anchor="middle" x="640" y="146">可能只动</text>
+<text fill="#9fbc7a" font-family="SF Mono,monospace" font-size="13" text-anchor="middle" x="640" y="164">1 格</text>
+<text fill="#57524b" font-family="-apple-system,sans-serif" font-size="11" text-anchor="middle" x="360" y="278">颜色深浅 = 该格沙粒数；橙色 = 本次雪崩中倾倒过的格子</text>
 </svg>
 <figcaption>沙堆模型的一次雪崩。触发它的动作和什么都没发生时的动作，完全相同。</figcaption>
 </figure>
-
 <p>这里已经藏着本期最重要的那句话了：<b>在这类系统里，"触发事件"和"事件规模"之间没有对应关系。</b>所以当你追问"是什么导致了这场大雪崩"，答案永远是一粒普通的沙——这个答案是真的，但它什么也没解释。</p>
-
 <div class="crossx-inline">
 🌀 <b>工程 · 滑雪场的炸药</b>　雪崩防治的标准做法不是拦住雪，而是在雪层还薄的时候用炸药主动引爆一连串小雪崩。这套做法的逻辑正是上面那条规则的反向使用：既然触发不可控、也不携带信息，那就别管触发，去管<b>积累</b>——把系统按在离临界更远的地方。防灾于是从"预测哪一粒沙"变成了"别让沙堆到那个高度"。
 </div>
-
 <p class="en-brief"><b>EN</b> The Bak-Tang-Wiesenfeld sandpile: add one grain at a time; a cell holding more than three topples, handing one grain to each neighbour, which may topple in turn. Identical triggers produce avalanches spanning three orders of magnitude — so "what caused it" is answerable and uninformative at once.</p>
-
-<h2><span class="n">02</span>系统自己走到悬崖边<span class="he">（Criticality as an Attractor）</span></h2>
-
+<h2 data-tts="358f7f66d84ef1df"><span class="n">02</span>系统自己走到悬崖边<span class="he">（Criticality as an Attractor）</span></h2>
 <p class="lead">上一期讲相变时，临界点是被<em>调</em>出来的：你得把温度精确地降到某个值，磁体才在临界态。差一点都不行。这就是为什么临界在物理里长期被当成一种稀有、需要精心制备的状态。</p>
-
 <p>沙堆的诡异之处在于：<b>没人在调任何东西。</b>你只是一粒一粒地加沙。但堆到一定程度之后，系统会稳定在一个特定的坡度上——太平缓，沙就堆积、坡变陡；太陡，就发生大雪崩、坡变缓。两边都往中间收。</p>
-
 <p>换句话说，临界态在这里不是一个需要瞄准的点，而是一个<em>吸引子</em>（attractor）——系统被自己的动力学推着走过去，然后待在那儿不走了。这就是"自组织"三个字的全部含义：不是有人组织它到临界，是它自己去的。这整套机制的正式名字就叫<b>自组织临界性</b>（self-organized criticality），学界通常缩写成 <b>SOC</b>——下文也这么用。</p>
-
 <figure>
-<svg viewBox="0 0 720 240" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="临界坡度作为吸引子：过缓则堆积变陡，过陡则雪崩变缓">
-  <defs>
-    <marker id="ar18b" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="11" markerHeight="11" markerUnits="userSpaceOnUse" orient="auto">
-      <path d="M0,1 L9,5 L0,9 z" fill="#9fbc7a"/>
-    </marker>
-    <marker id="ar18c" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="11" markerHeight="11" markerUnits="userSpaceOnUse" orient="auto">
-      <path d="M0,1 L9,5 L0,9 z" fill="#e0895e"/>
-    </marker>
-  </defs>
-  <text x="360" y="28" text-anchor="middle" fill="#aba498" font-size="13" font-family="-apple-system,sans-serif">坡度轴上，两边都被推向同一个值</text>
-
-  <line x1="80" y1="150" x2="640" y2="150" stroke="rgba(255,255,255,0.16)" stroke-width="1.5"/>
-  <text x="80" y="176" text-anchor="middle" fill="#787268" font-size="11" font-family="-apple-system,sans-serif">平缓</text>
-  <text x="640" y="176" text-anchor="middle" fill="#787268" font-size="11" font-family="-apple-system,sans-serif">陡峭</text>
-  <text x="360" y="200" text-anchor="middle" fill="#57524b" font-size="11" font-family="-apple-system,sans-serif">堆的坡度 →</text>
-
-  <line x1="360" y1="106" x2="360" y2="150" stroke="#d9b45f" stroke-width="2"/>
-  <circle cx="360" cy="150" r="7" fill="#d9b45f"/>
-  <text x="360" y="96" text-anchor="middle" fill="#d9b45f" font-size="12.5" font-family="SF Mono,monospace">临界坡度 θc</text>
-
-  <line x1="150" y1="150" x2="330" y2="150" stroke="#9fbc7a" stroke-width="2.5" marker-end="url(#ar18b)"/>
-  <text x="228" y="136" text-anchor="middle" fill="#9fbc7a" font-size="12" font-family="-apple-system,sans-serif">加沙 → 堆积 → 变陡</text>
-
-  <line x1="570" y1="150" x2="390" y2="150" stroke="#e0895e" stroke-width="2.5" marker-end="url(#ar18c)"/>
-  <text x="490" y="136" text-anchor="middle" fill="#e0895e" font-size="12" font-family="-apple-system,sans-serif">雪崩 → 卸载 → 变缓</text>
-
-  <text x="360" y="228" text-anchor="middle" fill="#8d867b" font-size="11.5" font-family="-apple-system,sans-serif">没有谁把系统调到 θc — 它是唯一一个两边都不推开的位置</text>
+<svg aria-label="临界坡度作为吸引子：过缓则堆积变陡，过陡则雪崩变缓" role="img" viewbox="0 0 720 240" xmlns="http://www.w3.org/2000/svg">
+<defs>
+<marker id="ar18b" markerheight="11" markerunits="userSpaceOnUse" markerwidth="11" orient="auto" refx="9" refy="5" viewbox="0 0 10 10">
+<path d="M0,1 L9,5 L0,9 z" fill="#9fbc7a"></path>
+</marker>
+<marker id="ar18c" markerheight="11" markerunits="userSpaceOnUse" markerwidth="11" orient="auto" refx="9" refy="5" viewbox="0 0 10 10">
+<path d="M0,1 L9,5 L0,9 z" fill="#e0895e"></path>
+</marker>
+</defs>
+<text fill="#aba498" font-family="-apple-system,sans-serif" font-size="13" text-anchor="middle" x="360" y="28">坡度轴上，两边都被推向同一个值</text>
+<line stroke="rgba(255,255,255,0.16)" stroke-width="1.5" x1="80" x2="640" y1="150" y2="150"></line>
+<text fill="#787268" font-family="-apple-system,sans-serif" font-size="11" text-anchor="middle" x="80" y="176">平缓</text>
+<text fill="#787268" font-family="-apple-system,sans-serif" font-size="11" text-anchor="middle" x="640" y="176">陡峭</text>
+<text fill="#57524b" font-family="-apple-system,sans-serif" font-size="11" text-anchor="middle" x="360" y="200">堆的坡度 →</text>
+<line stroke="#d9b45f" stroke-width="2" x1="360" x2="360" y1="106" y2="150"></line>
+<circle cx="360" cy="150" fill="#d9b45f" r="7"></circle>
+<text fill="#d9b45f" font-family="SF Mono,monospace" font-size="12.5" text-anchor="middle" x="360" y="96">临界坡度 θc</text>
+<line marker-end="url(#ar18b)" stroke="#9fbc7a" stroke-width="2.5" x1="150" x2="330" y1="150" y2="150"></line>
+<text fill="#9fbc7a" font-family="-apple-system,sans-serif" font-size="12" text-anchor="middle" x="228" y="136">加沙 → 堆积 → 变陡</text>
+<line marker-end="url(#ar18c)" stroke="#e0895e" stroke-width="2.5" x1="570" x2="390" y1="150" y2="150"></line>
+<text fill="#e0895e" font-family="-apple-system,sans-serif" font-size="12" text-anchor="middle" x="490" y="136">雪崩 → 卸载 → 变缓</text>
+<text fill="#8d867b" font-family="-apple-system,sans-serif" font-size="11.5" text-anchor="middle" x="360" y="228">没有谁把系统调到 θc — 它是唯一一个两边都不推开的位置</text>
 </svg>
 <figcaption>临界不是一个被瞄准的点，是一个吸引子。这就是「自组织」临界性里"自组织"的意思。</figcaption>
 </figure>
-
 <p>这一步改变了整件事的性质。如果临界必须精心调制，那么现实世界里的临界系统应该极其罕见。但如果系统会自己爬过去，那么<b>任何有"缓慢积累 + 阈值释放"这个结构的东西，都会自动跑到随时可能出大事的状态</b>——地壳应力、森林的可燃物、金融体系的杠杆、组织里没人愿意提的技术债。</p>
-
 <div class="decide">
 <span class="lb">🎯 决策线</span>
 <p>停止问「是什么触发了它」，改问「它现在离临界有多远」。触发不可预测也不携带信息，但<b>积累量是可以测的</b>——雪层厚度、可燃物载量、杠杆倍数、未处理的变更队列。把监控预算从捕捉触发挪到度量积累。</p>
 </div>
-
 <div class="crossx-inline">
 🌀 <b>制度 · 森林火政策的反转</b>　美国林务局曾长期执行"见火就灭"，结果是林下可燃物几十年不清、一旦起火就是 1988 年黄石那种规模。政策后来反转为受控燃烧（controlled burn）——因为压制小事件恰恰在把系统<b>推向</b>临界。这条推论不显然：直觉认为减少事件次数就是变安全，而在自组织临界的系统里，被压住的小事件是以"未来大事件的规模"存起来的。
 </div>
-
 <p class="en-brief"><b>EN</b> Ordinary critical points must be tuned to. A sandpile is not tuned: too shallow and grains accumulate, too steep and an avalanche unloads it, so the critical slope is an attractor. Any system with slow accumulation and threshold release drifts there by itself — which is why criticality is common rather than rare.</p>
-
-<h2><span class="n">03</span>没有"典型规模"这回事<span class="he">（No Characteristic Scale）</span></h2>
-
+<h2 data-tts="3d68515f7a61feb9"><span class="n">03</span>没有"典型规模"这回事<span class="he">（No Characteristic Scale）</span></h2>
 <p class="lead">跑一万次沙堆，把每次雪崩波及了多少格记下来，画一张分布图，你会得到一条幂律（power law）：小雪崩极多，大雪崩极少，而两者之间没有断层，也<em>没有一个典型值</em>。</p>
-
 <p>对比一下人的身高。身高有典型值——1.7 米左右，绝大多数人挤在附近，你从没见过 3 米高的人，也永远不会见到。这叫钟形分布（正态分布，normal distribution），它有"尺度"。</p>
-
 <p>雪崩规模没有这个东西。你测得越久，见到的最大雪崩就越大，而且没有尽头。问"一次典型的雪崩有多大"就像问"一次典型的地震有多大"——这个问题在数学上没有答案。</p>
-
 <figure>
-<svg viewBox="0 0 720 300" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="双对数坐标下幂律是直线，正态分布迅速贴地">
-  <line x1="90" y1="240" x2="640" y2="240" stroke="rgba(255,255,255,0.18)" stroke-width="1.5"/>
-  <line x1="90" y1="240" x2="90" y2="50" stroke="rgba(255,255,255,0.18)" stroke-width="1.5"/>
-  <text x="365" y="272" text-anchor="middle" fill="#8d867b" font-size="12" font-family="-apple-system,sans-serif">雪崩规模（对数）→</text>
-  <text x="34" y="145" fill="#8d867b" font-size="12" font-family="-apple-system,sans-serif" transform="rotate(-90 34 145)">出现频率（对数）</text>
-
-  <line x1="110" y1="72" x2="620" y2="228" stroke="#e0895e" stroke-width="2.5"/>
-  <circle cx="140" cy="81" r="3.5" fill="#e0895e"/><circle cx="215" cy="104" r="3.5" fill="#e0895e"/><circle cx="290" cy="127" r="3.5" fill="#e0895e"/><circle cx="365" cy="150" r="3.5" fill="#e0895e"/><circle cx="440" cy="173" r="3.5" fill="#e0895e"/><circle cx="515" cy="196" r="3.5" fill="#e0895e"/><circle cx="590" cy="219" r="3.5" fill="#e0895e"/>
-  <text x="596" y="204" fill="#e0895e" font-size="12.5" font-family="SF Mono,monospace">幂律</text>
-  <text x="450" y="128" fill="#c0703f" font-size="11.5" font-family="-apple-system,sans-serif">直线 = 每放大 10 倍，频率降固定倍数</text>
-
-  <path d="M110,86 C170,88 210,96 245,124 C275,150 292,196 302,240" fill="none" stroke="#79a6d2" stroke-width="2.5"/>
-  <text x="250" y="212" fill="#79a6d2" font-size="12.5" font-family="SF Mono,monospace">正态</text>
-  <line x1="302" y1="240" x2="620" y2="240" stroke="#79a6d2" stroke-width="2.5" stroke-dasharray="4 4" opacity="0.5"/>
-  <text x="430" y="256" fill="#5c7f9e" font-size="11" font-family="-apple-system,sans-serif">这一整段：正态说「不可能发生」</text>
-
-  <text x="365" y="292" text-anchor="middle" fill="#57524b" font-size="11" font-family="-apple-system,sans-serif">同一张图。右半边那些事件，钟形分布预测的次数约等于零 — 而它们每年都在发生</text>
+<svg aria-label="双对数坐标下幂律是直线，正态分布迅速贴地" role="img" viewbox="0 0 720 300" xmlns="http://www.w3.org/2000/svg">
+<line stroke="rgba(255,255,255,0.18)" stroke-width="1.5" x1="90" x2="640" y1="240" y2="240"></line>
+<line stroke="rgba(255,255,255,0.18)" stroke-width="1.5" x1="90" x2="90" y1="240" y2="50"></line>
+<text fill="#8d867b" font-family="-apple-system,sans-serif" font-size="12" text-anchor="middle" x="365" y="272">雪崩规模（对数）→</text>
+<text fill="#8d867b" font-family="-apple-system,sans-serif" font-size="12" transform="rotate(-90 34 145)" x="34" y="145">出现频率（对数）</text>
+<line stroke="#e0895e" stroke-width="2.5" x1="110" x2="620" y1="72" y2="228"></line>
+<circle cx="140" cy="81" fill="#e0895e" r="3.5"></circle><circle cx="215" cy="104" fill="#e0895e" r="3.5"></circle><circle cx="290" cy="127" fill="#e0895e" r="3.5"></circle><circle cx="365" cy="150" fill="#e0895e" r="3.5"></circle><circle cx="440" cy="173" fill="#e0895e" r="3.5"></circle><circle cx="515" cy="196" fill="#e0895e" r="3.5"></circle><circle cx="590" cy="219" fill="#e0895e" r="3.5"></circle>
+<text fill="#e0895e" font-family="SF Mono,monospace" font-size="12.5" x="596" y="204">幂律</text>
+<text fill="#c0703f" font-family="-apple-system,sans-serif" font-size="11.5" x="450" y="128">直线 = 每放大 10 倍，频率降固定倍数</text>
+<path d="M110,86 C170,88 210,96 245,124 C275,150 292,196 302,240" fill="none" stroke="#79a6d2" stroke-width="2.5"></path>
+<text fill="#79a6d2" font-family="SF Mono,monospace" font-size="12.5" x="250" y="212">正态</text>
+<line opacity="0.5" stroke="#79a6d2" stroke-dasharray="4 4" stroke-width="2.5" x1="302" x2="620" y1="240" y2="240"></line>
+<text fill="#5c7f9e" font-family="-apple-system,sans-serif" font-size="11" x="430" y="256">这一整段：正态说「不可能发生」</text>
+<text fill="#57524b" font-family="-apple-system,sans-serif" font-size="11" text-anchor="middle" x="365" y="292">同一张图。右半边那些事件，钟形分布预测的次数约等于零 — 而它们每年都在发生</text>
 </svg>
 <figcaption>双对数坐标下幂律是一条直线：没有断点，也没有「典型规模」。</figcaption>
 </figure>
-
 <p>现实里这条直线到处都是。地震的<b>古登堡-里希特定律</b>（Gutenberg-Richter law）说得最干脆：震级每升 1 级，同等地震的次数大约降到十分之一，这条关系跨越了好几个数量级，一百年来没被推翻过。停电规模、森林火面积、金融市场的暴跌幅度，都能画出类似的直线。</p>
-
 <p>于是"大事件不需要大原因"这句话有了确切含义：<b>大事件和小事件是同一个过程的两端，不是两类事。</b>去为最大的那次寻找一个与之匹配的特殊原因，等于假设它属于另一个类别——而分布图上找不到那道分界线。</p>
-
 <div class="crossx-inline">
 🌀 <b>历史与军事 · Richardson 的战争统计</b>　气象学家 Lewis Fry Richardson 花了几十年统计"致命争斗"的死亡人数，发现从街头斗殴到世界大战，规模同样服从幂律，中间没有断层。这推出一个史学上很不受欢迎的结论：如果大战和小冲突落在同一条直线上，那么"是什么导致了第一次世界大战"这个问法——追问一个配得上其规模的独特原因——可能从一开始就问错了。斐迪南大公之死是那粒沙。
 </div>
-
 <div class="decide">
 <span class="lb">🎯 决策线</span>
 <p>别再为每次崩盘、事故、离职潮指认一个元凶。改做两件事：把同类事件的<b>规模分布</b>画出来，看它是不是一条直线；如果是，把资源从"防住下一个触发"转向"降低耦合与积累"。在幂律世界里，追责的信息量约等于零。</p>
 </div>
-
 <p class="en-brief"><b>EN</b> Avalanche sizes follow a power law: no characteristic scale, no gap between small and large. The Gutenberg-Richter law for earthquakes is the cleanest real-world instance. If the largest event sits on the same straight line as the smallest, then hunting for a cause proportionate to its size assumes a category boundary the data does not show.</p>
-
-<h2><span class="n">04</span>这套说法在哪儿不成立<span class="he">（Where This Breaks Down）</span></h2>
-
+<h2 data-tts="ba6819ecf0454150"><span class="n">04</span>这套说法在哪儿不成立<span class="he">（Where This Breaks Down）</span></h2>
 <p class="lead">现在说反面。自组织临界性是复杂性科学里被滥用得最厉害的概念之一，用之前必须知道它的边界在哪。</p>
-
 <p><b>第一，真沙子其实不太服从。</b>这有点尴尬——1990 年前后有人真的去做实验，堆真沙、测雪崩，结果发现堆大到一定程度后，出现的是<em>周期性</em>的大崩塌，而不是幂律。沙堆模型是个好模型，但它模拟的不是沙堆。</p>
-
 <p>后来芝加哥和奥斯陆的实验找到了更诚实的答案：1996 年《自然》上那篇米堆实验里，<b>细长的米粒堆出了幂律，接近球形的米粒没有。</b>差别在于颗粒之间能不能互相卡住、把应力传出去。这条件很具体，不是什么东西都满足。</p>
-
 <p><b>第二，"看起来像幂律"多半不是幂律。</b>对数坐标下人眼极易把一段弯曲判成直线，而对数正态分布、指数截断的分布画出来都很像。2009 年 Clauset、Shalizi 和 Newman 用统一的统计检验重新审了一批被广泛引用的幂律数据集，相当一部分没能通过。眼睛看着像直线，不算证据。</p>
-
 <p><b>第三，也是最要紧的：这不是免责声明。</b>"大事件不需要大原因"说的是<em>规模</em>不需要匹配的原因，不是说没有原因、也不是说无人负责。沙堆里每一次倾倒都有确切的因果链，你可以一格一格追。SOC 只主张一件事：<b>那条因果链的长度分布是无标度的（scale-free），因此链条起点的身份不解释结果的大小。</b>把它读成"所以怪不了谁"，是把一个关于统计的命题偷换成了一个关于责任的命题。</p>
-
 <div class="decide">
 <span class="lb">🎯 决策线</span>
 <p>拿幂律下结论之前先做检验（Clauset 那套方法有现成实现），并明确说出你的系统满足不满足"缓慢积累 + 阈值释放 + 局部耦合"这三个前提。三条缺一，就别用 SOC 讲故事——尤其别用它替谁开脱。</p>
 </div>
-
 <p class="en-brief"><b>EN</b> Three limits. Real sand does not obey the model — elongated rice grains produce power laws, near-spherical ones do not, so inter-grain locking is a real precondition. Most claimed power laws fail rigorous testing (Clauset, Shalizi &amp; Newman 2009). And "big events need no big cause" is a claim about the distribution of magnitudes, never a claim that no one is responsible.</p>
-
 <div class="bigcat">
-<h3>🎒 场景 · BigCat</h3>
+<h3 data-tts="676883cb9c037029">🎒 场景 · BigCat</h3>
 <ol>
 <li><span class="dm">带团队与组织</span>每次线上事故复盘，结论落到"某人某次操作没走评审"——这就是在为一场雪崩指认那粒沙。换个看法：把这个季度的<b>变更频率、评审排队长度、回滚率</b>拉出来看趋势线，如果这三条都在爬坡，那么换谁来做那次变更、结果都一样。具体动作：复盘模板里删掉"责任人"那一栏，加一行"本季度积累指标较上季度的变化"。</li>
 <li><span class="dm">投资与仓位</span>回撤之后复盘"是因为某某消息"，同样是在找沙粒。可测的是积累：<b>相关性上升（分散度失效）、杠杆水平、流动性深度变薄</b>——这些是雪层厚度。而真正的决策不在预测触发，在仓位规模能不能扛住分布的尾部：既然没有"典型跌幅"，就不能拿历史平均回撤来定杠杆。</li>
 <li><span class="dm">写作与这个学习站本身</span>别用"平均每期反响"评估选题方向。传播大概率是重尾的——总阅读量由极少数几期决定，均值几乎不携带信息。所以正确的目标不是让每期都达标，而是<b>保证尾部还有机会出现</b>：保持选题的多样性、不自我模仿上一期的成功配方。一个具体判据：如果最近十期的形式越来越像，尾部的机会已经被你自己掐掉了。</li>
 </ol>
 </div>
-
 <div class="crossx">
-<h3>🌀 越界 · 跨学科的联想<span class="he">（Crossings）</span></h3>
+<h3 data-tts="9f9384171810d11a">🌀 越界 · 跨学科的联想<span class="he">（Crossings）</span></h3>
 <ul>
 <li><b>文学与史学 · 托尔斯泰</b>：《战争与和平》的尾声里，托尔斯泰用整整两章反驳"伟人创造历史"——他说拿破仑不过是被历史的合力推着走，误以为自己在推。本期三条机制合起来正好给这个论断补上了机制：系统自发爬到临界（不需要伟人来制造条件）、触发与规模无关（拿破仑的决定不比别人的更"大"）、规模分布无标度（拿破仑战争和一场边境冲突在同一条直线上）。<b>但这里不成立</b>：托尔斯泰的论证是目的论的，他把历史的走向归给一种不可知的、近乎神意的必然；SOC 恰恰不承诺任何走向，它只描述规模的统计，对"往哪儿去"完全沉默。借他的修辞来支持 SOC，会顺手把宿命论一起夹带进来——能借的是他对"元凶叙事"的怀疑，不是他的历史观。</li>
 <li><b>工程与制度 · "根因"教条</b>：事故调查行业几十年建立在 root cause analysis 之上——一起事故，找到那个根因，修掉它。但在耦合紧密的系统里，安全科学界（Hollnagel 等人）早已指出根因往往是调查过程<em>构造</em>出来的，而不是发现的：沿因果链回溯时，你总能停在某个看起来"可修"的地方，而停在哪里取决于调查的预算和政治，不取决于系统。这与本期第三节同构——因果链真实存在，但链条的起点不解释结果的规模。于是"修掉根因"这个动作会系统性地低估下一次：你修掉的是那粒沙，沙堆的高度没动。</li>
 <li><b>心理学 · 基本归因错误（fundamental attribution error）</b>：人在解释他人行为时，系统性地高估性格、低估处境。放到本期的语境里，这个偏误有了一个更硬的版本：不只是"我们高估了人的作用"，而是<b>在无标度的系统里，"谁触发的"这个变量本身几乎不含解释方差</b>——不是权重估错了，是这一项接近于零。这也解释了为什么追责如此顽固地令人满意：一个幂律分布不提供任何叙事，而人脑需要的是叙事，不是分布。</li>
 </ul>
 </div>
-
 <div class="thinking">
-<h3>深入思考<span class="he">（Going Deeper）</span></h3>
+<h3 data-tts="8d7dfc864a26c24a">深入思考<span class="he">（Going Deeper）</span></h3>
 <details><summary>如果压制小事件会积累出大事件，那什么时候压制反而是对的？</summary><p>关键在于积累是否真的会转移。森林可燃物会积累，所以灭小火有代价；但传染病的早期病例被压住并不会"存起来"变成未来更大的疫情，因为易感人群不像可燃物那样只增不减。判据是：被你阻止的那个事件，它本该释放的东西，是留在系统里了，还是真的消失了？</p></details>
 <details><summary>为什么金融监管越严密，危机反而可能越大？</summary><p>一种解释正是 SOC 的：监管消除了小的、局部的失败，机构因此都朝同一个被允许的方向配置，相关性上升、耦合变紧——积累仍在，只是释放被推迟并同步化了。但这个解释很容易被滥用成"所以别监管"，注意它没有给出这个结论：另一种同样可能的读法是监管的对象错了（管住了触发，没管住耦合）。</p></details>
 <details><summary>「无标度」意味着灾难无法防范吗？</summary><p>不。无标度否定的是"预测下一次的大小"，不是"降低整体的风险水平"。改变系统的耦合强度、加入模块化的隔断，可以让整条幂律直线整体下移或者出现指数截断——这正是电网分区、金融防火墙在做的事。放弃的是点预测，不是干预。</p></details>
 <details><summary>一个组织能否有意地把自己维持在临界附近，以换取更强的适应力？</summary><p>「混沌边缘」的支持者会说能，且那是创新的最佳位置。但要小心：这个说法目前更多是隐喻而非可测的主张——你得先说清这个组织的"坡度"是什么、怎么量。说不出量纲的临界，就只是一个好听的词。</p></details>
 </div>
-
 <div class="refs">
-<h3>延伸阅读<span class="he">（Further Reading）</span></h3>
+<h3 data-tts="1f696788e7333b06">延伸阅读<span class="he">（Further Reading）</span></h3>
 <ul>
 <li>Bak, Tang &amp; Wiesenfeld, <a href="https://doi.org/10.1103/PhysRevLett.59.381">Self-organized criticality: An explanation of 1/f noise</a>（1987，原始论文）</li>
 <li>Per Bak, <a href="https://en.wikipedia.org/wiki/How_Nature_Works">《大自然如何运作》</a>（面向大众的完整论述，也是被批评最多的那本）</li>
@@ -312,12 +257,11 @@ footer a{color:#79a6d2;text-decoration:none}
 <li>Melanie Mitchell, <a href="https://global.oup.com/academic/product/complexity-9780199798100">Complexity: A Guided Tour</a>（对 SOC 的克制评述）</li>
 </ul>
 </div>
-
 <footer>BigCat · 复杂性科学 · <a href="index.html">← 全部 Topic</a></footer>
 </div>
-<script src="https://hub.cissychen.com/comments.js" defer></script>
-<script src="https://hub.cissychen.com/search.js" defer></script>
-<script src="https://hub.cissychen.com/index-button.js" defer></script>
-<script src="https://hub.cissychen.com/lightbox.js" defer></script>
-<script src="https://hub.cissychen.com/i18n-tts.js" defer></script>
+<script defer="" src="https://hub.cissychen.com/comments.js"></script>
+<script defer="" src="https://hub.cissychen.com/search.js"></script>
+<script defer="" src="https://hub.cissychen.com/index-button.js"></script>
+<script defer="" src="https://hub.cissychen.com/lightbox.js"></script>
+<script defer="" src="https://hub.cissychen.com/i18n-tts.js"></script>
 </body></html>
