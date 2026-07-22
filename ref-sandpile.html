@@ -45,14 +45,14 @@ footer a{color:#79a6d2;text-decoration:none}
 <div class="wrap">
 <header>
 <span class="rtag">REF · 经典模型</span>
-<h1 data-tts="f30f99ddffd22945">沙堆模型<span class="h1en">THE SANDPILE MODEL</span></h1>
+<h1 data-tts="4d17cb34b19608b9">沙堆模型<span class="h1en">THE SANDPILE MODEL</span></h1>
 <p class="sub">Bak-Tang-Wiesenfeld，1987 — 自组织临界性（self-organized criticality, SOC）的原型</p>
 <p class="meta">被引用于：Topic 18 自组织临界性</p>
 </header>
-<h2 data-tts="76dadd61f1a0914c"><span class="n">01</span>它问的是什么问题<span class="he">（The Question It Poses）</span></h2>
+<h2 data-tts="b8709b247667582d"><span class="n">01</span>它问的是什么问题<span class="he">（The Question It Poses）</span></h2>
 <p>1980 年代的物理学里，临界态是个稀客：你必须把温度精确调到某一点，系统才会呈现出无标度的涨落。可是自然界里，无标度的东西俯拾皆是——地震大小、河流分叉、股价跳动、电子器件里的 1/f 噪声。</p>
 <p>Bak 他们要问的是：<b>有没有一类系统，不需要任何人调参数，就会自己跑到临界态去？</b>沙堆模型是他们给出的最小回答——一个能把这件事演示清楚的、尽可能笨的装置。</p>
-<h2 data-tts="d04317f9b354ccec"><span class="n">02</span>规则本身<span class="he">（The Rules）</span></h2>
+<h2 data-tts="b4ff9c4e642b3e49"><span class="n">02</span>规则本身<span class="he">（The Rules）</span></h2>
 <div class="rule">
 <ol>
 <li>一张 N×N 的方格，每格存一个整数 <em>z</em>（可以理解成"这格堆了几粒沙"）。</li>
@@ -94,7 +94,7 @@ footer a{color:#79a6d2;text-decoration:none}
 </svg>
 <figcaption>倾倒是守恒的：中心格失去的 4 粒，一粒不少地进了四个邻居。沙只在边界上离开系统。</figcaption>
 </figure>
-<h2 data-tts="a6a80aa258c4f2b9"><span class="n">03</span>跑起来会看到什么<span class="he">（What You See When It Runs）</span></h2>
+<h2 data-tts="9c88777356dfcba1"><span class="n">03</span>跑起来会看到什么<span class="he">（What You See When It Runs）</span></h2>
 <p>刚开始沙堆是空的，加进去的沙基本不引发任何事。随着格子普遍变满，雪崩开始出现，并且越来越大。最终系统停在一个<b>统计上稳定</b>的状态：平均密度不再变化，但雪崩仍在不断发生，且大小从 1 格到横跨全场都有。</p>
 <p>把每次雪崩的规模按时间画出来，是一条毫无规律的尖峰序列——没有周期，没有预兆，也看不出"大的要来了"。</p>
 <figure>
@@ -115,11 +115,11 @@ footer a{color:#79a6d2;text-decoration:none}
 <figcaption>没有周期、没有前兆、没有"典型规模"。把这些高度做成直方图，就是一条幂律。</figcaption>
 </figure>
 <p>另有一个漂亮的性质：Deepak Dhar 1990 年证明这个模型是<b>阿贝尔的</b>（abelian）——一次雪崩里若有多格同时超标，无论你按什么顺序让它们倒，最终格局完全相同。过程可以乱序，结果唯一。</p>
-<h2 data-tts="5fb6c69f446aec0b"><span class="n">04</span>它解释了现实中的什么<span class="he">（What It Explains）</span></h2>
+<h2 data-tts="18686aad880ee844"><span class="n">04</span>它解释了现实中的什么<span class="he">（What It Explains）</span></h2>
 <p>沙堆模型不是要预测某一次事件，而是解释<b>为什么一整类系统的事件规模没有典型值</b>。凡是具备"缓慢积累 + 到阈值就释放 + 释放会传给邻居"这三件事的系统，都可以拿它当第一近似：</p>
 <p>地壳应力与地震（古登堡-里希特定律 Gutenberg-Richter law 是这条思路最硬的现实对应）、森林可燃物与山火、电网负载重分配与停电规模、生态系统里的灭绝级联。它给出的核心预期只有一条：<b>规模分布应当是幂律（power law），而不是钟形。</b>这条预期是可以被数据否掉的——这也正是它作为科学模型的价值所在。</p>
 <div class="cant">
-<h3 data-tts="3b86fce5cb9368b1">它不能解释什么<span class="he">（What It Cannot Explain）</span></h3>
+<h3 data-tts="384f28579d03fb38">它不能解释什么<span class="he">（What It Cannot Explain）</span></h3>
 <ul>
 <li><b>不能解释真沙堆。</b>这一点很尴尬但必须说：真实沙子的实验里，堆大到一定程度后出现的是周期性大崩塌，不是幂律。1996 年《自然》上的米堆实验给出了更细的条件——细长米粒服从，接近球形的不服从，差别在颗粒能否互相卡住并把应力传出去。模型抓住的是一类机制，不是沙子。</li>
 <li><b>不能预测任何一次雪崩。</b>它给的是分布，不是时刻表。用它去推断"下一次大事什么时候来""这次会有多大"，是在向一个只谈统计的模型索要它明确拒绝提供的东西。</li>
@@ -129,7 +129,7 @@ footer a{color:#79a6d2;text-decoration:none}
 </ul>
 </div>
 <div class="refs">
-<h3 data-tts="8455d5c0a708b78a">延伸阅读<span class="he">（Further Reading）</span></h3>
+<h3 data-tts="54587872f827e55d">延伸阅读<span class="he">（Further Reading）</span></h3>
 <ul>
 <li>Bak, Tang &amp; Wiesenfeld, <a href="https://doi.org/10.1103/PhysRevLett.59.381">Self-organized criticality: An explanation of 1/f noise</a>（1987）</li>
 <li>Dhar, <a href="https://doi.org/10.1103/PhysRevLett.64.1613">Self-organized critical state of sandpile automaton models</a>（1990，阿贝尔性质）</li>

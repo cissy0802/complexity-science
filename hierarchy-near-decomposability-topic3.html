@@ -67,7 +67,7 @@ footer a{color:#79a6d2;text-decoration:none}
 <div class="wrap">
 <header>
 <span class="week-tag">TOPIC 3 · PHASE A</span>
-<h1 data-tts="ef38d4998aac3bbf">层级与近可分解性<span class="h1en">HIERARCHY &amp; NEAR-DECOMPOSABILITY</span></h1>
+<h1 data-tts="4b4ab4943bd370e4">层级与近可分解性<span class="h1en">HIERARCHY &amp; NEAR-DECOMPOSABILITY</span></h1>
 <p class="sub">能活下来的复杂，都是搭起来的<span class="he">（Survivable complexity is assembled, not authored）</span></p>
 <p class="date">2026-07-21 · 什么算「复杂」</p>
 </header>
@@ -77,7 +77,7 @@ footer a{color:#79a6d2;text-decoration:none}
 <p>它要回答的问题很朴素：为什么你见到的复杂系统，从细胞到公司到操作系统，几乎<em>无一例外</em>是分层套盒的？是巧合，是审美，还是有个更硬的理由，逼得它们必须长成这样、不这样就活不下来？</p>
 <p class="dim">这一期和上一期（涌现）是一对：涌现说的是「整体有了部分没有的性质」，本期说的是「这些整体是怎么被一层层搭起来、并且拆得开的」。搭得起来、拆得开——这两件事其实是同一件事的两面，下文会说清。</p>
 </div>
-<h2 data-tts="ea1bd04f6c6ae416"><span class="n">01</span>两个钟表匠<span class="he">（The Two Watchmakers）</span></h2>
+<h2 data-tts="4caf2355a04c20b8"><span class="n">01</span>两个钟表匠<span class="he">（The Two Watchmakers）</span></h2>
 <p class="lead">西蒙的寓言是这样的。两个钟表匠，叫 Hora 和 Tempus，做的表都由一千个零件组成，两人的手艺一样好、生意一样兴隆——所以电话总是响个不停，老有客户打来订表。</p>
 <p>问题在于：手头这只表还没装完，电话一响，你就得放下它去接。而<b>放下一只没装完的表，它会散架</b>——只要它当前的这部分还不是一个能自己立住的整体，一松手就垮回一堆零件。</p>
 <p>Tempus 的做法是老老实实一个零件一个零件往上叠，装到第 999 个都还是一堆随时会散的东西。所以每次电话一响，他几乎都得从头再来。Hora 不一样：他把表设计成<em>先拼小总成</em>——每 10 个零件先扣成一个能自己立住的小模块，再拿 10 个小模块扣成一个中模块，10 个中模块才合成整只表。电话响了，他顶多损失<b>当前正在拼的那一个小模块</b>，已经扣好的那些一个都不散。</p>
@@ -139,7 +139,7 @@ footer a{color:#79a6d2;text-decoration:none}
 🌀 <b>生物 · 「半只眼睛有什么用？」</b>　反进化论最爱的诘难是：眼睛这么精密，演化到一半的半只眼睛毫无用处，怎么可能被选择保留？这个诘难恰好踩在钟表匠寓言的反面。Nilsson 与 Pelger 1994 年逐级算过：从一小片感光皮肤，到能聚焦成像的眼，每一个中间形态<b>本身就是一个能用的模块</b>——稍微能感光比全盲强、稍微能定向比只感光强。演化能造出眼睛，<em>正因为</em>它的每个中间态都像 Hora 的小总成一样立得住；真正立不住的复杂器官，才是演化造不出来的那些。
 </div>
 <p class="en-brief"><b>EN</b> Simon's parable: two watchmakers, Hora and Tempus, each assembling 1000-part watches while the phone keeps interrupting them. Tempus builds flat, so any interruption scatters the whole thing; Hora builds stable ten-part sub-assemblies, so an interruption costs only the current module. With even a 1% chance of interruption per part, Hora finishes and Tempus effectively never does. Stable intermediate forms are autosaves — which is why every complex system you meet, having been built up step by step, is layered.</p>
-<h2 data-tts="a65250221e296e1d"><span class="n">02</span>拆得开，是系统自己的性质<span class="he">（Near-Decomposability）</span></h2>
+<h2 data-tts="cbbe1d96a7dd32b1"><span class="n">02</span>拆得开，是系统自己的性质<span class="he">（Near-Decomposability）</span></h2>
 <p class="lead">现在把镜头从「怎么搭起来」转到「搭好之后长什么样」。西蒙给分层系统起了个更精确的名字：<em>近可分解</em>（near-decomposable，意思是「几乎、但不完全能拆开」）。</p>
 <p>它的定义只有两句话，但每句都要拿捏准：<b>模块<em>内部</em>的相互作用又强又快，模块<em>之间</em>的相互作用又弱又慢。</b>注意是「弱」不是「无」——完全没有连接那就是几个互不相干的系统，不叫一个系统了。近可分解的妙处全在那个「近」字上：连着，但连得松。</p>
 <p>这个强弱之差会带来一个非常实用的后果，西蒙把它讲得很干脆。用他自己举的例子：一栋楼，几个房间，房间之间隔着不太隔热的墙。你在其中一间点个炉子。会发生两件时标截然不同的事——<b>短时间里</b>，每个房间内部的空气很快各自匀成一个温度，房间和房间之间还来不及交换多少热，所以你可以把每个房间当成一个独立的小系统单独算；<b>长时间里</b>，热才慢慢透过墙渗匀，各房间最终趋于同一个温度。</p>
@@ -202,7 +202,7 @@ footer a{color:#79a6d2;text-decoration:none}
 🌀 <b>天体力学 · 为什么能先算地月、再算它绕太阳</b>　天文学家算月球轨道时，通常先把「地球—月球」当成一个孤立的两体系统解出来，再把太阳的引力当作一个缓慢的微扰加进去。这套分而治之之所以合法，纯粹是因为<b>时标可分</b>：月绕地一圈约一个月，地月系统绕太阳一圈要一年，快慢差了十几倍。<em>换个时间尺度，接缝就消失</em>——在几亿年的尺度上太阳微扰累积起来足以改变整个轨道，那时「地月是一个独立模块」这句话就不再成立。可分解不是系统的铭牌，是绑在某段时标上的一句话。
 </div>
 <p class="en-brief"><b>EN</b> Near-decomposability, Simon's precise name for hierarchy: interactions <em>within</em> a module are strong and fast, interactions <em>between</em> modules are weak and slow — weak, not absent. His heated-rooms example: each room equilibrates internally fast (analyse each alone), then rooms slowly equalise through the walls (only aggregate heat couples them). That two-timescale gap is exactly why you can study parts of a complex system separately without being wholly wrong — and why "separable" is a claim bound to a timescale, not a permanent label.</p>
-<h2 data-tts="20c512a860df8459"><span class="n">03</span>接缝在哪里，不由你画<span class="he">（Where the Seams Really Are）</span></h2>
+<h2 data-tts="658d980d528deea9"><span class="n">03</span>接缝在哪里，不由你画<span class="he">（Where the Seams Really Are）</span></h2>
 <p class="lead">既然模块之间连得松，你就能<b>只改一个模块而不惊动其它</b>——换掉厨房的炉子，不用重装整栋楼的电路。这件事听着平常，却是「可演化性」（evolvability）和「可维护性」的全部来源：一个近可分解的系统，改动的后果被<em>关</em>在模块内部，不会顺着强耦合乱窜出去。</p>
 <p>但这里藏着一个最常见、代价也最大的错误：<b>人往往按「功能」或「组织图」去画模块边界，而系统真正的接缝在耦合图上，两者常常不重合。</b>你以为的模块，未必是它实际的模块。</p>
 <p>1972 年，计算机科学家 David Parnas 把这件事讲穿了。当时主流是按「处理步骤」拆软件——先读输入、再排序、再输出，一步一个模块。Parnas 指出这是错的：该按「<em>哪些设计决定将来会一起改变</em>」来拆，把每个易变的决定藏进一个模块内部（他叫这个「信息隐藏」，information hiding），让接口稳定、内部可换。翻成本期的话就是：<b>接缝应该切在耦合弱的地方，而不是切在流程好画的地方。</b>切错了，你以为拆开了，其实每次改动照样牵一发动全身。</p>
@@ -264,7 +264,7 @@ footer a{color:#79a6d2;text-decoration:none}
 🌀 <b>语言学 · 双重分节</b>　法国语言学家马丁内（André Martinet）指出人类语言有「双重分节」（double articulation）：底层是一小把<em>本身没有意义</em>的音素（几十个），它们组合成有意义的词与语素，词再组合成句。这正是一个两级近可分解结构——音素层内部的规则（发音）和意义层的规则（语义）弱耦合、可以分开研究。<b>推论</b>：层级在这里不是为了整洁，是为了<em>用有限件生成无限</em>——几十个音素撑起几十万个词。把这层拆掉、让每个意义都配一个不可再分的整体符号，语言的表达力会当场坍缩到只能说出你事先造过的那些词。分层是生成力的来源，不是它的装饰。
 </div>
 <p class="en-brief"><b>EN</b> Loose coupling between modules is what lets you change one without disturbing the rest — the entire source of evolvability and maintainability. But people draw module boundaries by <em>function</em> or by the <em>org chart</em>, while the real seams live in the coupling graph, and the two rarely coincide. Parnas (1972) said it first: modularise around the design decisions likely to change (information hiding), not around processing steps. Cut along the weak bridges, not where the flowchart is easy to draw — otherwise you have split the system in name only.</p>
-<h2 data-tts="ac1f936affa419dd"><span class="n">04</span>这套说法在哪儿不成立<span class="he">（Where This Breaks Down）</span></h2>
+<h2 data-tts="474840b4f7fbfd5d"><span class="n">04</span>这套说法在哪儿不成立<span class="he">（Where This Breaks Down）</span></h2>
 <p class="lead">现在说反面。近可分解性是个极好用的透镜，但它有三处容易被用过头，用之前得把边界划清楚。</p>
 <p><b>第一，「复杂系统必然分层」这个「必然」是被幸存者偏差撑大的。</b>西蒙的论证严格说来只证明了：靠逐步搭建、且会被打断的过程，<em>造得出来的</em>复杂系统里分层的占压倒多数。它没有证明非分层的复杂系统在逻辑上不可能。有一整类系统就是没有干净接缝的——物理学里的<em>自旋玻璃</em>（spin glass）和各种「阻挫」（frustrated）系统，每个元素都同时强耦合到一大片别的元素，你怎么切都会切断一堆强连接。它们确实复杂，也确实存在，只是没法像钟表那样被一层层搭起来。所以准确的说法是：分层不是复杂的<em>定义</em>，是「可被逐步建造」的复杂所交的入场费。</p>
 <p><b>第二，接缝会漂移，尤其在压力下。</b>近可分解是个「好天气」性质。平时弱的那些跨模块连接，在系统受压时可能<em>一起变强</em>——上一节那张块对角矩阵，非对角的浅点会集体加深，三个模块糊成一个不可分的整块。金融里叫「相关性在危机中趋近于 1」，工程里叫「隐藏的公共依赖在高负载下暴露」。你依着平时的接缝做的所有分工、并行、隔离，恰恰在你最需要它们成立的那一刻失效。</p>
@@ -275,7 +275,7 @@ footer a{color:#79a6d2;text-decoration:none}
 </div>
 <p class="en-brief"><b>EN</b> Three limits. First, "complex systems are necessarily hierarchical" is inflated by survivorship: Simon only shows hierarchy dominates among complex systems that can be <em>built up stepwise</em> — spin glasses and other frustrated systems are genuinely complex with no clean seams. Second, near-decomposability is a fair-weather property: weak cross-module links can strengthen together under stress (correlations →1 in a crisis, hidden shared dependencies surfacing under load), so the seams you planned around fail exactly when you need them. Third, modularity costs interface overhead and can block joint optimisation — the "near" has a right grain size; finer is not better.</p>
 <div class="bigcat">
-<h3 data-tts="9020a1ff7c264d7d">🎒 场景 · BigCat</h3>
+<h3 data-tts="da2039ce72d99712">🎒 场景 · BigCat</h3>
 <ol>
 <li><span class="dm">工程与系统设计</span>你想拆分一个越来越难改的服务，开会时大家习惯按「业务功能」画边界——订单一块、用户一块、支付一块。先停一下：把最近半年的改动翻出来，看<b>哪些文件/模块总是被同一个提交一起改</b>。「总一起改」就是强耦合的铁证，不管它们在业务上属不属于同一块。按「一起改」重画边界，往往和按「业务功能」画出来的很不一样——后者是组织图，前者才是耦合图。具体动作：拆分方案定稿前，拿版本历史里的「共变更矩阵」核对一遍你的模块线，别让流程图替耦合图做主。</li>
 <li><span class="dm">育儿</span>孩子最近状态不对，你的本能是同时动一堆：调作息、改饮食、限制屏幕、多陪玩。这是把几个近可分解的因素当成一个不可分的整块在动——结果就算变好了，你也不知道是哪条起的作用，下次复发照样抓瞎。把它当近可分解系统处理：<b>一次只动一个模块，给它足够长的观察窗</b>（模块内部匀好的时间），再动下一个。具体动作：不是「全面调整」，而是选一个变量、定一个观察期、只看这一个变量对应的那个指标——把「什么都改了、说不清」换成「一次一条、看得清因果」。</li>
@@ -283,7 +283,7 @@ footer a{color:#79a6d2;text-decoration:none}
 </ol>
 </div>
 <div class="crossx">
-<h3 data-tts="d16b7c5777303785">🌀 越界 · 跨学科的联想<span class="he">（Crossings）</span></h3>
+<h3 data-tts="6d4099ce2633d073">🌀 越界 · 跨学科的联想<span class="he">（Crossings）</span></h3>
 <ul>
 <li><b>经济与制度 · 钱德勒与威廉姆森的「M 型企业」</b>：1962 年——和西蒙同一年——历史学家钱德勒（Alfred Chandler）记录了杜邦、通用汽车如何从一个大摊子改成「多事业部」结构；后来威廉姆森（Oliver Williamson）把它讲成一条硬命题：把公司拆成近可分解的事业部，让每个部内部自己快速调节（强耦合在部内），总部只管那件全公司唯一慢而共享的事——资本在部门间的分配（弱而慢的跨模块耦合）。本期三条机制在这里成套成立：分层让公司能被逐步搭大而不散（钟表匠）、部间弱耦合让一个部出问题不拖垮全体（近可分解）、按「谁的决策该一起变」划部而不是按老板的组织图（找接缝）。<b>但这里不成立</b>：近可分解假设相互作用随「距离」衰减，可公司里有些东西天然穿透所有部门——同一笔现金、同一个关键大客户、同一个共享平台团队。这类共享资源把名义上独立的事业部重新焊在一起，于是你在组织图上画的那条接缝，在真实的利益—信息图上根本不是接缝。所以 M 型不是「拆完就完」，是要持续盯住那几条穿透性的强耦合，别被漂亮的方框骗了。</li>
 <li><b>生物 · 内共生：把一个活模块整个吞进来</b>：真核细胞里的线粒体，曾经是一个独立生活的细菌，在演化史上某一刻被另一个细胞吞进去、却没被消化，反而变成了细胞内一个稳定的「能量模块」（马古利斯 Lynn Margulis 的内共生说）。这是钟表匠寓言在演化生物学里的字面版本：演化造真核细胞，不是从原子开始重搭，而是<em>把一个已经稳定运转的模块整个封装进来再组合</em>——正是 Hora 拿现成小总成往上扣的做法。由此能推出一个原本不明显的结论：<b>既然可复用的稳定模块是演化最省力的搭法，那么这种「吞进一个完整模块」的事件之所以极其罕见（真核化在地球生命史上近乎只成功过一次），恰恰因为难的不是拼装，是先得<em>有</em>一个能被整体封装、且封装后还不散架的模块</b>——稳定中间态的稀缺，才是复杂度跃升的真正瓶颈。</li>
@@ -291,14 +291,14 @@ footer a{color:#79a6d2;text-decoration:none}
 </ul>
 </div>
 <div class="thinking">
-<h3 data-tts="8a137c401f04c7e1">深入思考<span class="he">（Going Deeper）</span></h3>
+<h3 data-tts="f43b980fe34538a4">深入思考<span class="he">（Going Deeper）</span></h3>
 <details><summary>如果一个系统现在不近可分解，能人为把它「模块化」吗？</summary><p>能，但要看你是在<em>发现</em>接缝还是在<em>制造</em>接缝。制造接缝＝主动切断一些原本的强耦合、代之以受控的窄接口（微服务、部门墙、法律实体的隔离都是）。代价是那些被切断的耦合曾经在做有用的事，切了之后要么用接口补回来（有开销），要么就真的损失掉了。所以模块化不是免费的整理，是一笔用「联合优化能力」换「可改动性」的交易，得看这笔汇率划不划算。</p></details>
 <details><summary>近可分解性和上一期的「涌现」「有效自由度」是什么关系？</summary><p>是同一件事的两面。涌现说高层有个能自成一套的描述（温度、价格）；近可分解性说的是<em>为什么</em>那个高层描述能自成一套——因为底层被打包进了弱耦合的模块，模块内部的细节在高层的时标上匀成了背景常数，于是高层只需跟踪少数几个总量。没有近可分解，就没有干净的「有效层」，涌现也就无从谈起。</p></details>
 <details><summary>为什么组织变革那么难，即使新结构明显更优？</summary><p>因为改的是模块<em>边界</em>，而边界处正是耦合最纠缠、历史包袱最重的地方。系统平时能近可分解运转，靠的是现有边界已经和实际耦合大致对齐了；一旦重画边界，你会短暂地制造出一大批横跨新边界的强耦合（原来在一个部门内部的协作，突然要跨部门了），系统在过渡期反而更不可分解、更容易散架——这和第 10 期要讲的「跃迁前必须先变差」是同构的。</p></details>
 <details><summary>「找到天然接缝」会不会只是事后诸葛？真有接缝，还是我们把切口叫成了接缝？</summary><p>这是个诚实的疑问，也是本期方法最容易自欺的地方。检验的办法是让「接缝」做出可证伪的预测：如果你声称某处是弱耦合的天然接缝，那么沿它切开之后，两边应当能<em>各自独立地</em>改动、且互不引发对方的返工。如果每次改一边都要回头修另一边，那你找到的就不是接缝，只是一道你希望它是接缝的切口。接缝的真伪，由改动的连带后果来裁决，不由图画得好不好看来裁决。</p></details>
 </div>
 <div class="refs">
-<h3 data-tts="4ac0af3c5eb1b441">延伸阅读<span class="he">（Further Reading）</span></h3>
+<h3 data-tts="36f40b299f64433b">延伸阅读<span class="he">（Further Reading）</span></h3>
 <ul>
 <li>Herbert A. Simon, <a href="https://www.jstor.org/stable/985254">The Architecture of Complexity</a>（1962，钟表匠寓言与近可分解性的原始论文）</li>
 <li>Simon &amp; Ando, <a href="https://www.jstor.org/stable/1907631">Aggregation of Variables in Dynamic Systems</a>（1961，近可分解系统「短程独立、长程聚合」的数学）</li>

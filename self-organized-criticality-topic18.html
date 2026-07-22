@@ -67,7 +67,7 @@ footer a{color:#79a6d2;text-decoration:none}
 <div class="wrap">
 <header>
 <span class="week-tag">TOPIC 18 · PHASE C</span>
-<h1 data-tts="99729c3a8ebf947e">自组织临界性<span class="h1en">SELF-ORGANIZED CRITICALITY</span></h1>
+<h1 data-tts="09c27c2ef9973066">自组织临界性<span class="h1en">SELF-ORGANIZED CRITICALITY</span></h1>
 <p class="sub">大事件不需要大原因<span class="he">（Big events need no big cause）</span></p>
 <p class="date">2026-07-20 · 自组织与临界</p>
 </header>
@@ -77,7 +77,7 @@ footer a{color:#79a6d2;text-decoration:none}
 <p>这听起来像是在说"大事有小起因"，但真正反直觉的在后面：这类系统会<em>自己</em>爬到那个一碰就塌的状态去，并且待在那儿。不需要谁把参数调到临界点，也不需要外部有什么异常。稳定才是需要解释的，随时可能塌反倒是常态。</p>
 <p class="dim">本站讲"临界"的有五期，视角各不相同：第 10 期是分岔跃迁（bifurcation，系统跳到另一个稳态），第 16 期是相变与普适类（临界点上细节为何不重要），第 17 期是渗流（percolation，连通性突然贯通），第 36 期是临界慢化（critical slowing down，怎么监测）。<b>本期只问一件事：临界点是被谁调到的。</b>答案是——没有谁，系统自己走过去的。</p>
 </div>
-<h2 data-tts="9b0c764e87e51e4b"><span class="n">01</span>一粒沙的故事<span class="he">（The Story of One Grain）</span></h2>
+<h2 data-tts="f117b041eee168d5"><span class="n">01</span>一粒沙的故事<span class="he">（The Story of One Grain）</span></h2>
 <p class="lead">1987 年，三位物理学家 Per Bak、汤超、Kurt Wiesenfeld 写下了一组简单到近乎可笑的规则 <a class="reflink" href="ref-sandpile.html">→ 参考 · 沙堆模型</a>：</p>
 <p>想象一张方格纸，每格里放着几粒沙。你随机挑一格，往里加一粒。如果这一格的沙超过了 3 粒，它就"塌"——倒出 4 粒，四个邻格各分到 1 粒。而邻格拿到沙之后，可能自己也超过 3 粒，于是接着塌。塌到边缘的沙就掉出去、消失。</p>
 <p>规则就这么多。没有物理，没有摩擦系数，没有重力。但跑起来之后会发生一件事：<b>你加的那一粒沙，可能什么都不发生，也可能引发一场横扫大半张纸的连锁倾倒。</b>而你事先无法分辨这两种情况——因为你加的那一粒沙，两次是一模一样的。这一整串连锁倾倒，下文都叫一次<b>雪崩</b>（avalanche）。</p>
@@ -140,7 +140,7 @@ footer a{color:#79a6d2;text-decoration:none}
 🌀 <b>工程 · 滑雪场的炸药</b>　雪崩防治的标准做法不是拦住雪，而是在雪层还薄的时候用炸药主动引爆一连串小雪崩。这套做法的逻辑正是上面那条规则的反向使用：既然触发不可控、也不携带信息，那就别管触发，去管<b>积累</b>——把系统按在离临界更远的地方。防灾于是从"预测哪一粒沙"变成了"别让沙堆到那个高度"。
 </div>
 <p class="en-brief"><b>EN</b> The Bak-Tang-Wiesenfeld sandpile: add one grain at a time; a cell holding more than three topples, handing one grain to each neighbour, which may topple in turn. Identical triggers produce avalanches spanning three orders of magnitude — so "what caused it" is answerable and uninformative at once.</p>
-<h2 data-tts="358f7f66d84ef1df"><span class="n">02</span>系统自己走到悬崖边<span class="he">（Criticality as an Attractor）</span></h2>
+<h2 data-tts="b074b46abb207b08"><span class="n">02</span>系统自己走到悬崖边<span class="he">（Criticality as an Attractor）</span></h2>
 <p class="lead">上一期讲相变时，临界点是被<em>调</em>出来的：你得把温度精确地降到某个值，磁体才在临界态。差一点都不行。这就是为什么临界在物理里长期被当成一种稀有、需要精心制备的状态。</p>
 <p>沙堆的诡异之处在于：<b>没人在调任何东西。</b>你只是一粒一粒地加沙。但堆到一定程度之后，系统会稳定在一个特定的坡度上——太平缓，沙就堆积、坡变陡；太陡，就发生大雪崩、坡变缓。两边都往中间收。</p>
 <p>换句话说，临界态在这里不是一个需要瞄准的点，而是一个<em>吸引子</em>（attractor）——系统被自己的动力学推着走过去，然后待在那儿不走了。这就是"自组织"三个字的全部含义：不是有人组织它到临界，是它自己去的。这整套机制的正式名字就叫<b>自组织临界性</b>（self-organized criticality），学界通常缩写成 <b>SOC</b>——下文也这么用。</p>
@@ -179,7 +179,7 @@ footer a{color:#79a6d2;text-decoration:none}
 🌀 <b>制度 · 森林火政策的反转</b>　美国林务局曾长期执行"见火就灭"，结果是林下可燃物几十年不清、一旦起火就是 1988 年黄石那种规模。政策后来反转为受控燃烧（controlled burn）——因为压制小事件恰恰在把系统<b>推向</b>临界。这条推论不显然：直觉认为减少事件次数就是变安全，而在自组织临界的系统里，被压住的小事件是以"未来大事件的规模"存起来的。
 </div>
 <p class="en-brief"><b>EN</b> Ordinary critical points must be tuned to. A sandpile is not tuned: too shallow and grains accumulate, too steep and an avalanche unloads it, so the critical slope is an attractor. Any system with slow accumulation and threshold release drifts there by itself — which is why criticality is common rather than rare.</p>
-<h2 data-tts="3d68515f7a61feb9"><span class="n">03</span>没有"典型规模"这回事<span class="he">（No Characteristic Scale）</span></h2>
+<h2 data-tts="3967f5a2589abccc"><span class="n">03</span>没有"典型规模"这回事<span class="he">（No Characteristic Scale）</span></h2>
 <p class="lead">跑一万次沙堆，把每次雪崩波及了多少格记下来，画一张分布图，你会得到一条幂律（power law）：小雪崩极多，大雪崩极少，而两者之间没有断层，也<em>没有一个典型值</em>。</p>
 <p>对比一下人的身高。身高有典型值——1.7 米左右，绝大多数人挤在附近，你从没见过 3 米高的人，也永远不会见到。这叫钟形分布（正态分布，normal distribution），它有"尺度"。</p>
 <p>雪崩规模没有这个东西。你测得越久，见到的最大雪崩就越大，而且没有尽头。问"一次典型的雪崩有多大"就像问"一次典型的地震有多大"——这个问题在数学上没有答案。</p>
@@ -211,7 +211,7 @@ footer a{color:#79a6d2;text-decoration:none}
 <p>别再为每次崩盘、事故、离职潮指认一个元凶。改做两件事：把同类事件的<b>规模分布</b>画出来，看它是不是一条直线；如果是，把资源从"防住下一个触发"转向"降低耦合与积累"。在幂律世界里，追责的信息量约等于零。</p>
 </div>
 <p class="en-brief"><b>EN</b> Avalanche sizes follow a power law: no characteristic scale, no gap between small and large. The Gutenberg-Richter law for earthquakes is the cleanest real-world instance. If the largest event sits on the same straight line as the smallest, then hunting for a cause proportionate to its size assumes a category boundary the data does not show.</p>
-<h2 data-tts="ba6819ecf0454150"><span class="n">04</span>这套说法在哪儿不成立<span class="he">（Where This Breaks Down）</span></h2>
+<h2 data-tts="193c861bed608805"><span class="n">04</span>这套说法在哪儿不成立<span class="he">（Where This Breaks Down）</span></h2>
 <p class="lead">现在说反面。自组织临界性是复杂性科学里被滥用得最厉害的概念之一，用之前必须知道它的边界在哪。</p>
 <p><b>第一，真沙子其实不太服从。</b>这有点尴尬——1990 年前后有人真的去做实验，堆真沙、测雪崩，结果发现堆大到一定程度后，出现的是<em>周期性</em>的大崩塌，而不是幂律。沙堆模型是个好模型，但它模拟的不是沙堆。</p>
 <p>后来芝加哥和奥斯陆的实验找到了更诚实的答案：1996 年《自然》上那篇米堆实验里，<b>细长的米粒堆出了幂律，接近球形的米粒没有。</b>差别在于颗粒之间能不能互相卡住、把应力传出去。这条件很具体，不是什么东西都满足。</p>
@@ -223,7 +223,7 @@ footer a{color:#79a6d2;text-decoration:none}
 </div>
 <p class="en-brief"><b>EN</b> Three limits. Real sand does not obey the model — elongated rice grains produce power laws, near-spherical ones do not, so inter-grain locking is a real precondition. Most claimed power laws fail rigorous testing (Clauset, Shalizi &amp; Newman 2009). And "big events need no big cause" is a claim about the distribution of magnitudes, never a claim that no one is responsible.</p>
 <div class="bigcat">
-<h3 data-tts="676883cb9c037029">🎒 场景 · BigCat</h3>
+<h3 data-tts="1c6c0687583856c8">🎒 场景 · BigCat</h3>
 <ol>
 <li><span class="dm">带团队与组织</span>每次线上事故复盘，结论落到"某人某次操作没走评审"——这就是在为一场雪崩指认那粒沙。换个看法：把这个季度的<b>变更频率、评审排队长度、回滚率</b>拉出来看趋势线，如果这三条都在爬坡，那么换谁来做那次变更、结果都一样。具体动作：复盘模板里删掉"责任人"那一栏，加一行"本季度积累指标较上季度的变化"。</li>
 <li><span class="dm">投资与仓位</span>回撤之后复盘"是因为某某消息"，同样是在找沙粒。可测的是积累：<b>相关性上升（分散度失效）、杠杆水平、流动性深度变薄</b>——这些是雪层厚度。而真正的决策不在预测触发，在仓位规模能不能扛住分布的尾部：既然没有"典型跌幅"，就不能拿历史平均回撤来定杠杆。</li>
@@ -231,7 +231,7 @@ footer a{color:#79a6d2;text-decoration:none}
 </ol>
 </div>
 <div class="crossx">
-<h3 data-tts="9f9384171810d11a">🌀 越界 · 跨学科的联想<span class="he">（Crossings）</span></h3>
+<h3 data-tts="40b5f2e7ddb9b554">🌀 越界 · 跨学科的联想<span class="he">（Crossings）</span></h3>
 <ul>
 <li><b>文学与史学 · 托尔斯泰</b>：《战争与和平》的尾声里，托尔斯泰用整整两章反驳"伟人创造历史"——他说拿破仑不过是被历史的合力推着走，误以为自己在推。本期三条机制合起来正好给这个论断补上了机制：系统自发爬到临界（不需要伟人来制造条件）、触发与规模无关（拿破仑的决定不比别人的更"大"）、规模分布无标度（拿破仑战争和一场边境冲突在同一条直线上）。<b>但这里不成立</b>：托尔斯泰的论证是目的论的，他把历史的走向归给一种不可知的、近乎神意的必然；SOC 恰恰不承诺任何走向，它只描述规模的统计，对"往哪儿去"完全沉默。借他的修辞来支持 SOC，会顺手把宿命论一起夹带进来——能借的是他对"元凶叙事"的怀疑，不是他的历史观。</li>
 <li><b>工程与制度 · "根因"教条</b>：事故调查行业几十年建立在 root cause analysis 之上——一起事故，找到那个根因，修掉它。但在耦合紧密的系统里，安全科学界（Hollnagel 等人）早已指出根因往往是调查过程<em>构造</em>出来的，而不是发现的：沿因果链回溯时，你总能停在某个看起来"可修"的地方，而停在哪里取决于调查的预算和政治，不取决于系统。这与本期第三节同构——因果链真实存在，但链条的起点不解释结果的规模。于是"修掉根因"这个动作会系统性地低估下一次：你修掉的是那粒沙，沙堆的高度没动。</li>
@@ -239,14 +239,14 @@ footer a{color:#79a6d2;text-decoration:none}
 </ul>
 </div>
 <div class="thinking">
-<h3 data-tts="8d7dfc864a26c24a">深入思考<span class="he">（Going Deeper）</span></h3>
+<h3 data-tts="dfbad26f6c4ee13a">深入思考<span class="he">（Going Deeper）</span></h3>
 <details><summary>如果压制小事件会积累出大事件，那什么时候压制反而是对的？</summary><p>关键在于积累是否真的会转移。森林可燃物会积累，所以灭小火有代价；但传染病的早期病例被压住并不会"存起来"变成未来更大的疫情，因为易感人群不像可燃物那样只增不减。判据是：被你阻止的那个事件，它本该释放的东西，是留在系统里了，还是真的消失了？</p></details>
 <details><summary>为什么金融监管越严密，危机反而可能越大？</summary><p>一种解释正是 SOC 的：监管消除了小的、局部的失败，机构因此都朝同一个被允许的方向配置，相关性上升、耦合变紧——积累仍在，只是释放被推迟并同步化了。但这个解释很容易被滥用成"所以别监管"，注意它没有给出这个结论：另一种同样可能的读法是监管的对象错了（管住了触发，没管住耦合）。</p></details>
 <details><summary>「无标度」意味着灾难无法防范吗？</summary><p>不。无标度否定的是"预测下一次的大小"，不是"降低整体的风险水平"。改变系统的耦合强度、加入模块化的隔断，可以让整条幂律直线整体下移或者出现指数截断——这正是电网分区、金融防火墙在做的事。放弃的是点预测，不是干预。</p></details>
 <details><summary>一个组织能否有意地把自己维持在临界附近，以换取更强的适应力？</summary><p>「混沌边缘」的支持者会说能，且那是创新的最佳位置。但要小心：这个说法目前更多是隐喻而非可测的主张——你得先说清这个组织的"坡度"是什么、怎么量。说不出量纲的临界，就只是一个好听的词。</p></details>
 </div>
 <div class="refs">
-<h3 data-tts="1f696788e7333b06">延伸阅读<span class="he">（Further Reading）</span></h3>
+<h3 data-tts="1268081fbac826c5">延伸阅读<span class="he">（Further Reading）</span></h3>
 <ul>
 <li>Bak, Tang &amp; Wiesenfeld, <a href="https://doi.org/10.1103/PhysRevLett.59.381">Self-organized criticality: An explanation of 1/f noise</a>（1987，原始论文）</li>
 <li>Per Bak, <a href="https://en.wikipedia.org/wiki/How_Nature_Works">《大自然如何运作》</a>（面向大众的完整论述，也是被批评最多的那本）</li>
