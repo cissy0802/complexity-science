@@ -67,7 +67,7 @@ footer a{color:#79a6d2;text-decoration:none}
 <div class="wrap">
 <header>
 <span class="week-tag">TOPIC 5 · PHASE A</span>
-<h1>非线性<span class="h1en">NONLINEARITY</span></h1>
+<h1 data-tts="eb4d9042e1890e3c">非线性<span class="h1en">NONLINEARITY</span></h1>
 <p class="sub">两倍的原因，未必两倍的结果<span class="he">（Twice the cause, seldom twice the effect）</span></p>
 <p class="date">2026-07-23 · 什么算「复杂」</p>
 </header>
@@ -77,7 +77,7 @@ footer a{color:#79a6d2;text-decoration:none}
 <p>这就是<em>非线性</em>（nonlinearity）：输出不跟着输入按比例走。听上去像句废话，后果却极重——它意味着你不能靠「小样本推大局」，不能靠「按当前速度外推」，也不能靠「把原因和结果配对」来理解一个系统。我们脑子里那台默认的线性外推机，在这类关系面前会系统性地、朝一个可预测的方向犯错。</p>
 <p class="dim">本期只讲一件最基础的事：「不成比例」到底会带来什么，为什么它让预测变得这么难。后面几期的混沌、临界、幂律，全都是非线性的不同面孔——这一期是它们共同的地基。</p>
 </div>
-<h2><span class="n">01</span>加倍的原因，不给你加倍的结果<span class="he">（Superposition Fails）</span></h2>
+<h2 data-tts="6efc824cbd540afc"><span class="n">01</span>加倍的原因，不给你加倍的结果<span class="he">（Superposition Fails）</span></h2>
 <p class="lead">先说清楚什么叫「线性」，才好说它怎么破。线性关系有两条老实的性质。一是<b>成比例</b>：投入翻倍，产出翻倍。二是<b>可叠加</b>（叠加原理，superposition principle）：两件事一起做的结果，等于各自单独做的结果加起来。桌上放两盏一样的台灯，总亮度就是一盏的两倍——世界上真有一批这样规规矩矩的关系。</p>
 <p>非线性就是这两条至少破了一条。破了之后，关系会长成几种典型形状：<b>① 边际递减</b>（先陡后平）——健身头三个月突飞猛进，之后同样的训练量换来的进步越来越小；<b>② 加速</b>（先平后陡）——存钱吃复利、口碑破圈、技术债的利息，越往后同样一步迈得越大；<b>③ S 型</b>（先平、中间陡、再平）——很多真实过程都是这样：起步毫无动静，到某一段突然剧烈响应，再往后又饱和下来。</p>
 <p>关键就在这里：在一条非线性曲线上，「同样多加一个单位」的效果，<b>取决于你此刻站在曲线的哪一段</b>。在平缓段，你使多大劲都几乎没动静；在陡峭段，轻轻一推就是一大跳。所以「投入产出比」根本不是一个固定的数字，它是你所在位置的函数。</p>
@@ -125,7 +125,7 @@ footer a{color:#79a6d2;text-decoration:none}
 🌀 <b>经济学 · 边际效用递减</b>　第一杯水能救命，第十杯水只能拿来洗手——同一杯水，价值随你已有的量一路衰减。这条两百年前就写进经济学的规律，正是「饱和型非线性」。它推翻的是一句我们天天在用的线性假设：「多多益善」。多未必益善，益的斜率一路在掉，掉到某一点甚至转负（水喝到中毒）。所以「再多给一点」值不值，从来不能脱离「现在已经有多少」单独回答。
 </div>
 <p class="en-brief"><b>EN</b> Linearity means two things: proportionality (double the input, double the output) and superposition (the effect of two things together equals the sum of each alone). Nonlinearity breaks at least one. On a nonlinear curve the return on one more unit of input depends entirely on where you already sit — flat on the toe, huge on the steep part. Small input, big reward and small slip, big disaster are the same fact: you happen to be on the steep segment.</p>
-<h2><span class="n">02</span>什么都没发生，直到全都发生<span class="he">（Thresholds）</span></h2>
+<h2 data-tts="f29a95e7251f5f69"><span class="n">02</span>什么都没发生，直到全都发生<span class="he">（Thresholds）</span></h2>
 <p class="lead">有一类非线性特别爱骗人：<em>阈值</em>（threshold）。在到达某个点之前，你怎么加力，系统都纹丝不动，好像根本没在听；一旦越过那个点，它整个翻过去，而且常常回不了头。</p>
 <p>最干净的例子是水。你从 99℃ 一路加热到 99.9℃，水还是水，看不出要沸的样子；越过 100℃，它就成了蒸汽。温度是被你一度一度、平滑地推上去的（<b>连续的因</b>），相态却是「啪」地跳过去的（<b>不连续的果</b>）。因是连续的，果是断裂的——这是阈值最刺眼的地方。</p>
 <p>更极端的是过冷水：干净的水可以被小心地降到 0℃ 以下还不结冰。这时候你往里丢一粒小冰晶，或者敲一下杯子，整杯水会在一两秒里哗地冻成冰。触发它的动作小得可笑，结果却是整杯相变——因为系统早被推到了阈值边上，只差有人碰一下。</p>
@@ -159,7 +159,7 @@ footer a{color:#79a6d2;text-decoration:none}
 🌀 <b>材料工程 · 屈服点</b>　金属被拉伸时，一开始是弹性的：松手能弹回原样，拉力和形变成正比——一段标准的线性。可一旦越过「屈服点」，它转入塑性，开始永久变形，很快就断。工程师设计时留的「安全系数」，本质就是让工作应力离屈服点足够远。推论：<b>「它一直好好的」不构成安全的证据</b>——弹性段那份乖顺，恰恰掩盖了你离断裂点还有多近；线性的表现一路持续，直到它不再持续的那一瞬。
 </div>
 <p class="en-brief"><b>EN</b> Thresholds are the most deceptive nonlinearity: nothing responds until a point, then everything flips, often irreversibly. Water heated smoothly stays water until 100°C; supercooled water flash-freezes on one seed crystal. The continuous cause maps to a discontinuous effect, so the "last straw" that crosses the threshold is identical to every straw before it — blaming it mistakes slow accumulation for a sudden cause.</p>
-<h2><span class="n">03</span>你的脑子是一台线性外推机<span class="he">（Why Intuition Fails）</span></h2>
+<h2 data-tts="a33a764c48e2a675"><span class="n">03</span>你的脑子是一台线性外推机<span class="he">（Why Intuition Fails）</span></h2>
 <p class="lead">现在说说我们自己。人脑处理「趋势」有个根深蒂固的默认设置：<em>线性外推</em>（linear extrapolation）。看到一个量在涨，我们本能地问「照这个速度，X 时间后到哪」——而「照这个速度」这五个字，已经偷偷假设了增速不变，也就是假设了线性。</p>
 <p>一张普通的纸对折 42 次，厚度就能够到月球。几乎没人猜得到，大多数人会猜一栋楼那么高。原因是每折一次厚度翻倍，这是<b>指数</b>（exponential），而我们的直觉在做加法。麦粒摆棋盘是同一个故事：第一格一粒、往后每格翻倍，摆到第 64 格所需的麦子，比人类有史以来种出来的全部还多。</p>
 <p>而且这个错误是有方向、可预测的：对复利型的增长，我们习惯性<b>低估</b>（总觉得「还早」）；对阈值型的突变，我们习惯性<b>错愕</b>（「怎么突然就……」）。两种错源自同一个默认——用一条直线去接一条不是直线的曲线，一开始贴得很近，越往后偏得越离谱。</p>
@@ -196,7 +196,7 @@ footer a{color:#79a6d2;text-decoration:none}
 🌀 <b>流行病学 · 早期指数的错觉</b>　一场传染病或一条谣言在早期，「现在才几百个」给人的安全感，全靠拿当前的绝对数做线性外推。可一个指数增长的量，唯一携带信息的是它的<b>倍增时间</b>，不是它此刻的大小——倍增时间两天，就意味着今天几百、两周后几万。推论：在指数段，「数量还少」不是安全的证据，恰恰是「你还来得及、但窗口正在飞快关上」的信号；等到绝对数吓人了，可干预的时机早已溜走。
 </div>
 <p class="en-brief"><b>EN</b> The human default for trends is linear extrapolation — "at this rate…" already assumes a constant rate. Fold paper 42 times and it reaches the Moon; almost no one guesses that, because doubling is exponential and intuition adds. The error has a direction: we underestimate compounding ("still early") and are blindsided by thresholds ("how did it suddenly…"). A straight line fits a curve well at first and diverges catastrophically later.</p>
-<h2><span class="n">04</span>这套说法在哪儿不成立<span class="he">（Where This Breaks Down）</span></h2>
+<h2 data-tts="db4dd0eeabe77e0b"><span class="n">04</span>这套说法在哪儿不成立<span class="he">（Where This Breaks Down）</span></h2>
 <p class="lead">「非线性」是复杂性科学里被当成万能咒语用得最凶的词之一。光说一个系统「非线性」，几乎不含任何信息——因为严格线性的系统在自然界才是稀有品。真正要紧的，是知道它在哪些地方不给你你想要的东西。</p>
 <p><b>第一，非线性不等于不可预测。</b>一颗炮弹的弹道是非线性的（空气阻力大致随速度平方变化），我们照样把它算得极准；行星绕太阳是非线性的，天文学家能报出几千年后的日食。非线性只是「不成比例」，它本身完全不排斥精确预测。把「非线性」直接读成「测不准、看天意」，是把它和后面要讲的<b>混沌</b>（chaos，对初始条件的敏感依赖）搞混了。不成比例 ≠ 不可测。</p>
 <p><b>第二，局部几乎总是线性的——这不是漏洞，是我们能活下去的原因。</b>任何一条光滑的曲线，你凑得足够近看，都近似是一条直线。这正是「线性近似」为什么这么好用：短期、小范围内，把非线性当线性来处理，误差小到可以忽略，工程、经济、日常决策大量地、正当地这么干。错从来不在「用了线性近似」，而在「把它外推到近似早已失效的范围之外」还浑然不觉。危险的不是那条直线，是不知道它的有效期。</p>
@@ -207,14 +207,14 @@ footer a{color:#79a6d2;text-decoration:none}
 </div>
 <p class="en-brief"><b>EN</b> Three limits. Nonlinear does not mean unpredictable — a shell's trajectory and planetary orbits are nonlinear yet forecast precisely; conflating nonlinearity with chaos is a category error. Locally almost everything is linear, which is why linear approximation is legitimate and useful — the mistake is extrapolating it past its valid range. And "it's just nonlinear" is often an excuse: nonlinearity blurs the exact timing, not usually the direction or the order of magnitude, so it rarely licenses being unprepared.</p>
 <div class="bigcat">
-<h3>🎒 场景 · BigCat</h3>
+<h3 data-tts="e472a90803408c50">🎒 场景 · BigCat</h3>
 <ol>
 <li><span class="dm">健康与精力</span>你把「多练 = 多进步」当成一条直线，于是状态好就加量、进步慢就再加量——直到某天突然拉伤，或连着几周怎么睡都缓不过来。训练和恢复的关系其实是倒 U（先陡、到顶、再转负）：同样多加一组，落在曲线不同段，效果的符号都不一样。可改的东西：别把「本周总训练量」当唯一仪表盘，加一个能反映你在曲线哪一段的读数——晨起心率，或心率变异性（heart rate variability，缩写 HRV，多数睡眠手环都能测）。它掉头向下，就是身体在说你已经过了顶点。动作很简单：那个读数一转坏就减量，而不是「再咬牙加一把」。</li>
 <li><span class="dm">修行与心性</span>你默认打坐是线性的：每天坐 20 分钟，平静就该一天天线性长出来。于是坐了两周没「感觉」，就开始盘算「投入产出比划不划算」，动了放弃的念头。可很多内在变化是阈值型的——长时间毫无动静，然后某一次忽然松了一下。问题不在方法，在你拿一把线性的尺子去量一个阈值型的过程：用「单次有没有回报」来核算，必然在跨过阈值之前就把自己劝退。可改的东西：把评估单位从「这一座值不值」换成「有没有守住一段足够长的连续窗口」——跨阈值靠的是积累的总量，不是任何单独一座的强度。具体判据：如果你正在用「今天没什么感觉」给「明天还坐不坐」投票，你量错了东西。</li>
 </ol>
 </div>
 <div class="crossx">
-<h3>🌀 越界 · 跨学科的联想<span class="he">（Crossings）</span></h3>
+<h3 data-tts="485c93cf5d28af34">🌀 越界 · 跨学科的联想<span class="he">（Crossings）</span></h3>
 <ul>
 <li><b>历史与军事 · 孙子的「势」</b>：《孙子兵法·兵势篇》说「激水之疾，至于漂石者，势也」——湍急的水能冲走石头，靠的不是水多，是水被地形逼到了陡处；又说「转圆石于千仞之山者，势也」「善战者求之于势，不责于人」。本期两条机制在这里一起跑：<em>不成比例</em>（同样的兵，摆在「势」上战力翻几番）＋<em>阈值</em>（圆石在山顶纹丝不动，越过某个坡度就再也停不住）。于是「势」不是玄乎的士气，是把有限的力量放到响应曲线的陡峭段和阈值边上。它推出的结论，正是本期决策线的两千年前版本：打不好，别先问「哪个兵不行」（那是线性地把结果摊到每个人头上），要问「我们处在曲线的哪一段」——「求之于势，不责于人」。</li>
 <li><b>生物与医学 · 帕拉塞尔苏斯的剂量</b>：16 世纪的帕拉塞尔苏斯（Paracelsus）留下毒理学的地基——「万物皆毒，唯剂量定毒」：没有绝对的毒物，只有致毒的剂量。这正是剂量-反应关系的非线性：同一种物质，低、中、高剂量的效果可以完全不同，甚至变号；有些还是非单调的（毒物兴奋效应，hormesis）——极低剂量刺激、稍高就抑制、再高才致命。本期机制合起来给出一个反直觉的结论：「天然=安全、越少越好」这类判断，骨子里都是线性的（假设风险随剂量成比例、单调上升），而真实的剂量-反应常常先平、带阈值、甚至先降后升。<b>但这里不成立</b>：hormesis 这条「低剂量有益」的曲线本身证据参差、争议很大，绝不能反过来拿它替任何有害暴露开脱——「剂量决定毒性」说的是别做线性外推，不是说「少量就无所谓」。非线性砍掉的是「越少越好」那条简单直线，可它同样砍掉「一点点没关系」的另一条直线。</li>
@@ -222,7 +222,7 @@ footer a{color:#79a6d2;text-decoration:none}
 </ul>
 </div>
 <div class="thinking">
-<h3>深入思考<span class="he">（Going Deeper）</span></h3>
+<h3 data-tts="c244b501724d6ccf">深入思考<span class="he">（Going Deeper）</span></h3>
 <details><summary>如果局部总能用线性近似，怎么知道自己什么时候踩出了近似的有效范围？</summary><p>看二阶信息。线性近似的误差随偏离基准点的距离大致平方增长，所以只要盯住「同样的动作，效果是不是和上次不一样了」——效果一旦开始变化，就是曲率在提醒你已经离开了直线段。真正的难点不在有没有信号，在我们太容易把「效果变了」解释成外部噪声，而不是「我离开了线性区」。</p></details>
 <details><summary>「小投入大回报」和「小疏忽大灾难」既然同源，为什么我们对前者趋之若鹜、对后者视而不见？</summary><p>因为凸性（获益端）和凹性（受损端）在心理上并不对称：损失厌恶让我们高估近处的小损失、低估远处的大灾难，而复利型的收益又总被低估。结果是同一条陡峭曲线，我们只盯着它朝上的那一半。真要对称地看，得强迫自己把「万一在这段逆着走」也画出来。</p></details>
 <details><summary>阈值系统里，「早期毫无反应」既可能是「离阈值还远、很安全」，也可能是「马上要跨过去、最危险」，表面完全一样，怎么区分？</summary><p>这正是后面 Topic 36「临界慢化」要处理的：逼近阈值时，系统被扰动后的恢复会变慢、涨落会变大。所以区分二者，看的不是「反应大小」，是「反应之后多久平复」。这也提醒：阈值前的平静本身不携带距离信息，你得去测别的量。</p></details>
@@ -230,7 +230,7 @@ footer a{color:#79a6d2;text-decoration:none}
 <details><summary>「用线性近似」在道德与政策判断里也成立吗？把复杂的社会后果当成「各项独立、可加」来评估，什么时候会出大错？</summary><p>叠加原理在人的系统里最先失效：两项政策各自温和，合在一起可能触发一个谁都没单独制造的阈值（挤兑、踩踏、舆论翻转）。「分项评估、各自达标、加起来就没问题」正是一个线性假设，而它恰恰在交互最强、最要紧的地方最不成立。</p></details>
 </div>
 <div class="refs">
-<h3>延伸阅读<span class="he">（Further Reading）</span></h3>
+<h3 data-tts="9648af42836658b6">延伸阅读<span class="he">（Further Reading）</span></h3>
 <ul>
 <li><a href="https://en.wikipedia.org/wiki/Nonlinear_system">Nonlinear system</a>（非线性系统总览）</li>
 <li><a href="https://en.wikipedia.org/wiki/Superposition_principle">Superposition principle</a>（叠加原理——线性的判据）</li>
