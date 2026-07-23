@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+
+<html lang="en"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Nonlinearity — Twice the cause, seldom twice the effect · Complexity Science T5</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,"SF Pro Display","Noto Sans SC",sans-serif;color:#e4ded5;line-height:1.85;min-height:100vh;
+  background:radial-gradient(1100px 620px at 12% -6%,rgba(224,137,94,0.10),transparent 62%),radial-gradient(950px 700px at 100% 2%,rgba(166,147,205,0.09),transparent 58%),linear-gradient(168deg,#100f0d 0%,#15161b 48%,#0a0a0c 100%);background-attachment:fixed}
+.wrap{max-width:760px;margin:0 auto;padding:30px 22px 90px}
+header{padding:52px 0 8px;border-bottom:1px solid rgba(255,255,255,0.07);margin-bottom:34px}
+.week-tag{font-family:"SF Mono",Menlo,monospace;font-size:0.72rem;font-weight:700;letter-spacing:2px;color:#e0895e;border:1px solid rgba(224,137,94,0.4);background:rgba(224,137,94,0.07);padding:3px 11px;border-radius:20px}
+h1{font-size:2.5rem;font-weight:800;letter-spacing:0.5px;line-height:1.2;margin:20px 0 0;background:linear-gradient(106deg,#e0895e 0%,#d9b45f 34%,#9fbc7a 68%,#63b3a6 100%);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+h1 .h1en{display:block;font-size:0.40em;font-weight:600;letter-spacing:2.5px;color:#847d72;-webkit-text-fill-color:#847d72;background:none;margin-top:13px}
+.sub{font-size:1.05rem;color:#aba498;margin-top:14px;font-weight:500}
+.date{font-family:"SF Mono",Menlo,monospace;font-size:0.75rem;color:#57524b;margin-top:18px;letter-spacing:1px}
+.pitch{margin:22px 0 30px;font-size:0.97rem;color:#cd7f9b;border-left:2px solid rgba(205,127,155,0.5);padding-left:16px;font-style:italic}
+.intro{font-size:1.02rem;color:#cfc8bc;margin-bottom:14px}
+.intro p{margin-bottom:16px}
+h2{font-size:1.42rem;font-weight:700;color:#e9e3d9;margin:56px 0 8px;letter-spacing:0.3px}
+h2 .n{font-family:"SF Mono",Menlo,monospace;font-size:0.85rem;color:#9fbc7a;display:block;margin-bottom:6px;letter-spacing:2px}
+.he{font-size:0.68em;color:#8d867b;font-weight:500;letter-spacing:0}
+p{margin-bottom:17px}
+.lead{color:#cfc8bc}
+b,strong{color:#f0eae0;font-weight:600}
+em{color:#d9b45f;font-style:normal;font-weight:500}
+.dim{color:#8d867b}
+a.reflink{display:inline-block;font-size:0.82rem;font-family:"SF Mono",Menlo,monospace;color:#63b3a6;border:1px solid rgba(99,179,166,0.38);background:rgba(99,179,166,0.07);padding:1px 9px;border-radius:20px;text-decoration:none;transition:all 0.15s;white-space:nowrap}
+a.reflink:hover{background:rgba(99,179,166,0.16);border-color:rgba(99,179,166,0.7)}
+figure{margin:30px 0}
+figure svg{display:block;width:100%;height:auto;border-radius:12px;background:rgba(255,255,255,0.018);border:1px solid rgba(255,255,255,0.06)}
+figcaption{font-size:0.82rem;color:#787268;margin-top:11px;text-align:center;line-height:1.6}
+.decide{margin:24px 0;border:1px solid rgba(224,137,94,0.36);background:rgba(224,137,94,0.055);border-radius:12px;padding:15px 19px}
+.decide .lb{font-family:"SF Mono",Menlo,monospace;font-size:0.73rem;letter-spacing:1.5px;color:#e0895e;font-weight:700;display:block;margin-bottom:7px}
+.decide p{margin:0;font-size:0.95rem;color:#ddd5c9}
+.crossx-inline{margin:20px 0 22px;border-left:2px solid rgba(205,127,155,0.55);padding:2px 0 2px 15px;font-size:0.89rem;color:#a9a096;line-height:1.72}
+.crossx-inline b{color:#cd7f9b;font-weight:600}
+.bigcat{margin:46px 0 10px;border:1px solid rgba(217,180,95,0.38);background:rgba(217,180,95,0.05);border-radius:14px;padding:20px 22px}
+.bigcat h3{font-size:1.02rem;color:#d9b45f;margin-bottom:14px;letter-spacing:0.5px}
+.bigcat ol{list-style:none;padding:0}
+.bigcat li{margin-bottom:15px;font-size:0.94rem;color:#d5cdc1;line-height:1.78}
+.bigcat li:last-child{margin-bottom:0}
+.bigcat .dm{font-family:"SF Mono",Menlo,monospace;font-size:0.73rem;color:#d9b45f;border:1px solid rgba(217,180,95,0.32);border-radius:4px;padding:1px 7px;margin-right:8px;white-space:nowrap}
+.crossx{margin:46px 0 10px;border:1px solid rgba(205,127,155,0.38);background:rgba(205,127,155,0.05);border-radius:14px;padding:20px 22px}
+.crossx h3{font-size:1.02rem;color:#cd7f9b;margin-bottom:14px;letter-spacing:0.5px}
+.crossx ul{list-style:none;padding:0}
+.crossx li{margin-bottom:16px;font-size:0.94rem;color:#d5cdc1;line-height:1.78}
+.crossx li:last-child{margin-bottom:0}
+.crossx li b{color:#cd7f9b;font-weight:600}
+.thinking{margin:46px 0 10px}
+.thinking h3{font-size:1.02rem;color:#a693cd;margin-bottom:14px;letter-spacing:0.5px}
+details{border:1px solid rgba(166,147,205,0.22);border-radius:10px;padding:12px 16px;margin-bottom:10px;background:rgba(166,147,205,0.035)}
+summary{cursor:pointer;font-size:0.93rem;color:#c9c2b6;font-weight:500}
+summary::marker{color:#a693cd}
+details p{margin:12px 0 0;font-size:0.9rem;color:#a9a096;line-height:1.75}
+.refs{margin:46px 0 10px}
+.refs h3{font-size:1.02rem;color:#79a6d2;margin-bottom:14px;letter-spacing:0.5px}
+.refs ul{list-style:none;padding:0}
+.refs li{margin-bottom:10px;font-size:0.9rem;color:#8d867b;line-height:1.7}
+.refs a{color:#79a6d2;text-decoration:none;border-bottom:1px solid rgba(121,166,210,0.3)}
+.refs a:hover{color:#a6c4e2;border-bottom-color:rgba(121,166,210,0.7)}
+footer{text-align:center;padding:56px 0 10px;font-size:0.78rem;color:#57524b;font-family:"SF Mono",Menlo,monospace;border-top:1px solid rgba(255,255,255,0.06);margin-top:50px}
+footer a{color:#79a6d2;text-decoration:none}
+@media(max-width:600px){h1{font-size:1.85rem}.wrap{padding:24px 16px 60px}h2{font-size:1.22rem}}
+</style></head><body>
+<div class="wrap">
+<header>
+<span class="week-tag">TOPIC 5 · PHASE A</span>
+<h1>Nonlinearity</h1>
+<p class="sub">Twice the cause, seldom twice the effect</p>
+<p class="date">2026-07-23 · What Counts as "Complex"</p>
+</header>
+<p class="pitch">We are trained from childhood to be linear animals: spend twice the effort, expect twice the reward; when something big happens, go hunt for a proportionately big cause. But most relationships that matter in the real world are not shaped like that — disproportion is the rule, and the straight line we trust most is the rare exception.</p>
+<div class="intro">
+<p>Stir sugar into coffee: the first spoon is distinctly sweet, the fifth is barely noticeable. Now oversalt a pot of soup by a pinch and you ruin the whole thing. Both are "a little bit more," yet one barely responds and the other flips everything — and the difference isn't how much you add, it's where you started.</p>
+<p>This is <em>nonlinearity</em>: output does not track input in proportion. It sounds like a truism, but the consequences are heavy — it means you cannot infer the whole from a small sample, cannot project "at the current rate," and cannot understand a system by pairing causes with effects. The linear-extrapolation machine that runs by default in our heads fails these relationships systematically, and in a predictable direction.</p>
+<p class="dim">This issue covers just one basic thing: what "not proportional" actually buys you, and why it makes prediction so hard. Later topics — chaos, criticality, power laws — are all different faces of nonlinearity. This one is the ground they stand on.</p>
+</div>
+<h2><span class="n">01</span>Double the Cause, Not Double the Effect</h2>
+<p class="lead">First, what "linear" means, so we can see how it breaks. A linear relationship has two well-behaved properties. One is <b>proportionality</b>: double the input, double the output. The other is <b>superposition</b>: the result of doing two things together equals the sum of doing each alone. Put two identical lamps on a desk and the total brightness is exactly twice one — the world really does hold a stock of relationships this obedient.</p>
+<p>Nonlinearity breaks at least one of these. Once broken, the relationship takes on a few typical shapes: <b>① diminishing returns</b> (steep then flat) — the first three months of training bring dramatic gains, and afterward the same workload buys less and less; <b>② accelerating</b> (flat then steep) — compound interest, word-of-mouth crossing over, the interest on technical debt: each later step covers more ground; <b>③ the S-curve</b> (flat, then steep, then flat) — many real processes look like this: nothing at the start, a sudden violent response in some band, then saturation.</p>
+<p>Here is the crux: on a nonlinear curve, the effect of "one more unit of input" <b>depends on where you currently sit on the curve</b>. On the flat part you can push as hard as you like with almost nothing to show; on the steep part a light nudge is a big jump. So "return on investment" is not a fixed number — it is a function of your position.</p>
+<figure>
+<svg aria-label="On one nonlinear curve, an identical input increment barely moves the output on the flat toe but causes a large jump on the steep part" role="img" viewbox="0 0 720 330" xmlns="http://www.w3.org/2000/svg">
+<defs>
+<marker id="ax5a" markerheight="10" markerunits="userSpaceOnUse" markerwidth="10" orient="auto" refx="8" refy="5" viewbox="0 0 10 10"><path d="M0,1 L9,5 L0,9 z" fill="#8d867b"></path></marker>
+<marker id="ax5b" markerheight="11" markerunits="userSpaceOnUse" markerwidth="11" orient="auto" refx="9" refy="5" viewbox="0 0 10 10"><path d="M0,1 L9,5 L0,9 z" fill="#63b3a6"></path></marker>
+<marker id="ax5c" markerheight="11" markerunits="userSpaceOnUse" markerwidth="11" orient="auto" refx="9" refy="5" viewbox="0 0 10 10"><path d="M0,1 L9,5 L0,9 z" fill="#e0895e"></path></marker>
+</defs>
+<text fill="#aba498" font-family="-apple-system,sans-serif" font-size="13" text-anchor="middle" x="360" y="26">The same +Δ of input differs by an order of magnitude — just from where it lands</text>
+<line marker-end="url(#ax5a)" stroke="rgba(255,255,255,0.28)" stroke-width="1.5" x1="90" x2="90" y1="285" y2="46"></line>
+<line marker-end="url(#ax5a)" stroke="rgba(255,255,255,0.28)" stroke-width="1.5" x1="90" x2="660" y1="285" y2="285"></line>
+<text fill="#8d867b" font-family="-apple-system,sans-serif" font-size="12" text-anchor="middle" x="375" y="312">input →</text>
+<text fill="#8d867b" font-family="-apple-system,sans-serif" font-size="12" transform="rotate(-90 40 175)" x="40" y="175">output</text>
+<line stroke="rgba(121,166,210,0.5)" stroke-dasharray="5 5" stroke-width="1.8" x1="90" x2="600" y1="285" y2="70"></line>
+<text fill="#5c7f9e" font-family="SF Mono,monospace" font-size="11.5" x="496" y="66">linear (proportional)</text>
+<path d="M90,278 C210,274 250,268 320,196 C388,126 470,96 620,88" fill="none" stroke="#e0895e" stroke-width="3"></path>
+<text fill="#e0895e" font-family="SF Mono,monospace" font-size="12.5" x="628" y="86">S-curve</text>
+<rect fill="rgba(99,179,166,0.10)" height="228" width="40" x="150" y="52"></rect>
+<line stroke="rgba(99,179,166,0.5)" stroke-dasharray="3 3" stroke-width="1.3" x1="150" x2="150" y1="285" y2="272"></line>
+<line stroke="rgba(99,179,166,0.5)" stroke-dasharray="3 3" stroke-width="1.3" x1="190" x2="190" y1="285" y2="270"></line>
+<line marker-end="url(#ax5b)" stroke="#63b3a6" stroke-width="2.5" x1="210" x2="210" y1="272" y2="264"></line>
+<text fill="#63b3a6" font-family="-apple-system,sans-serif" font-size="11.5" x="150" y="252">same +Δ</text>
+<text fill="#63b3a6" font-family="-apple-system,sans-serif" font-size="11.5" x="152" y="234">≈ nothing</text>
+<rect fill="rgba(224,137,94,0.10)" height="228" width="40" x="320" y="52"></rect>
+<line stroke="rgba(224,137,94,0.55)" stroke-dasharray="3 3" stroke-width="1.3" x1="320" x2="320" y1="285" y2="196"></line>
+<line stroke="rgba(224,137,94,0.55)" stroke-dasharray="3 3" stroke-width="1.3" x1="360" x2="360" y1="285" y2="150"></line>
+<line marker-end="url(#ax5c)" stroke="#e0895e" stroke-width="2.5" x1="384" x2="384" y1="196" y2="150"></line>
+<text fill="#e0895e" font-family="-apple-system,sans-serif" font-size="11.5" x="396" y="182">same +Δ</text>
+<text fill="#e0895e" font-family="-apple-system,sans-serif" font-size="11.5" x="396" y="164">big jump</text>
+<text fill="#787268" font-family="-apple-system,sans-serif" font-size="11" text-anchor="middle" x="170" y="300">flat toe</text>
+<text fill="#787268" font-family="-apple-system,sans-serif" font-size="11" text-anchor="middle" x="340" y="300">steep part</text>
+</svg>
+<figcaption>Same curve, same-sized input increment: on the flat toe almost nothing happens; on the steep part it is a big jump. "Return on investment" is a function of position, not a constant.</figcaption>
+</figure>
+<p>So a counterintuitive line holds here: <b>a small input levering a big reward and a small slip triggering a big disaster are two faces of the same thing.</b> Both say "you happen to be standing on the steep part" — the only difference is whether that jump goes your way or against you. If you want the upside, you have to accept the downside that comes with the same slope.</p>
+<div class="decide">
+<span class="lb">🎯 DECISION LINE</span>
+<p>Before any push, judge which part of the curve you are on. <b>Flat part</b>: piling on more is waste — change the arena, don't double the effort. <b>Steep part</b>: this is leverage and minefield at once — same spot, push with it for outsized gain, push against it for outsized loss — so the right move on the steep part isn't "harder," it's controlling direction and step size. Replace the default reflex "I need to try harder" with the question "which part of the curve am I on?"</p>
+</div>
+<div class="crossx-inline">
+🌀 <b>Economics · Diminishing marginal utility</b>  The first glass of water saves your life; the tenth is for washing your hands — the same glass loses value as you already hold more. This two-hundred-year-old law of economics is exactly a saturating nonlinearity. What it overturns is a linear assumption we use daily: "more is always better." More isn't always better; the slope of "better" keeps falling, and past some point it turns negative (drink water to the point of poisoning). Whether "a bit more" is worth it can never be answered apart from "how much do you already have."
+</div>
+<h2><span class="n">02</span>Nothing Happens, Until Everything Does</h2>
+<p class="lead">One kind of nonlinearity is especially deceptive: the <em>threshold</em>. Before you reach a certain point, no matter how you push, the system doesn't budge, as if it isn't listening at all; the moment you cross that point it flips over entirely — and often cannot go back.</p>
+<p>The cleanest example is water. Heat it from 99°C up to 99.9°C and it is still water, with no sign of boiling; cross 100°C and it becomes vapor. The temperature was pushed up smoothly, one degree at a time (the <b>continuous cause</b>), but the phase snaps across (the <b>discontinuous effect</b>). Continuous cause, broken effect — that is the sharpest feature of a threshold.</p>
+<p>More extreme: supercooled water can be carefully cooled below 0°C and still not freeze. Drop in a tiny ice crystal, or tap the glass, and the whole thing freezes solid in a second or two. The trigger is laughably small, the result is a full phase change — because the system had already been pushed to the edge of the threshold, needing only for someone to touch it.</p>
+<figure>
+<svg aria-label="Top panel a continuous smoothly rising cause, bottom panel an effect that stays flat then jumps, aligned at the threshold" role="img" viewbox="0 0 720 340" xmlns="http://www.w3.org/2000/svg">
+<defs>
+<marker id="tx5a" markerheight="10" markerunits="userSpaceOnUse" markerwidth="10" orient="auto" refx="8" refy="5" viewbox="0 0 10 10"><path d="M0,1 L9,5 L0,9 z" fill="#8d867b"></path></marker>
+<marker id="tx5b" markerheight="10" markerunits="userSpaceOnUse" markerwidth="10" orient="auto" refx="8" refy="5" viewbox="0 0 10 10"><path d="M0,1 L9,5 L0,9 z" fill="#d9b45f"></path></marker>
+</defs>
+<line stroke="rgba(205,127,155,0.55)" stroke-dasharray="6 5" stroke-width="1.6" x1="430" x2="430" y1="42" y2="300"></line>
+<text fill="#cd7f9b" font-family="SF Mono,monospace" font-size="12" text-anchor="middle" x="430" y="322">threshold</text>
+<text fill="#aba498" font-family="-apple-system,sans-serif" font-size="12.5" x="70" y="34">Cause: rising smoothly, one degree at a time</text>
+<line marker-end="url(#tx5a)" stroke="rgba(255,255,255,0.28)" stroke-width="1.4" x1="70" x2="70" y1="150" y2="46"></line>
+<line marker-end="url(#tx5a)" stroke="rgba(255,255,255,0.28)" stroke-width="1.4" x1="70" x2="660" y1="150" y2="150"></line>
+<line marker-end="url(#tx5b)" stroke="#d9b45f" stroke-width="2.6" x1="80" x2="632" y1="145" y2="62"></line>
+<text fill="#787268" font-family="-apple-system,sans-serif" font-size="11" x="600" y="166">time →</text>
+<text fill="#aba498" font-family="-apple-system,sans-serif" font-size="12.5" x="70" y="204">Effect: no response, then it all flips over</text>
+<line marker-end="url(#tx5a)" stroke="rgba(255,255,255,0.28)" stroke-width="1.4" x1="70" x2="70" y1="300" y2="216"></line>
+<line marker-end="url(#tx5a)" stroke="rgba(255,255,255,0.28)" stroke-width="1.4" x1="70" x2="660" y1="300" y2="300"></line>
+<polyline fill="none" points="80,292 430,292 430,232 632,232" stroke="#e0895e" stroke-width="3"></polyline>
+<text fill="#787268" font-family="-apple-system,sans-serif" font-size="11" text-anchor="middle" x="245" y="284">nothing happens</text>
+<text fill="#e0895e" font-family="-apple-system,sans-serif" font-size="11.5" text-anchor="middle" x="540" y="224">everything does</text>
+<text fill="#787268" font-family="-apple-system,sans-serif" font-size="11" x="600" y="316">time →</text>
+</svg>
+<figcaption>Drive a cause up continuously and smoothly (top); the effect jumps discontinuously at the threshold (bottom). The "last push" that crosses the threshold is no different from every push before it.</figcaption>
+</figure>
+<p>Thresholds break cause-and-effect pairing entirely. The "last push" that crosses looks like the culprit, but it is identical to every push before it. <b>The straw that breaks the camel's back weighs the same as the first straw</b> — pinning the blame on it mistakes a process of continuous accumulation for a cause that suddenly appeared.</p>
+<div class="crossx-inline">
+🌀 <b>Materials engineering · The yield point</b>  When a metal is stretched, it is elastic at first: let go and it springs back, and force is proportional to deformation — a stretch of clean linearity. But once past the "yield point" it turns plastic, deforms permanently, and soon fractures. The "safety factor" engineers build in is essentially keeping the working stress well away from the yield point. The upshot: <b>"it's been fine all along" is not evidence of safety</b> — the obedience of the elastic stretch is exactly what hides how close you are to the breaking point; linear behavior holds all the way up to the instant it doesn't.
+</div>
+<h2><span class="n">03</span>Your Brain Is a Linear-Extrapolation Machine</h2>
+<p class="lead">Now about us. The human brain has a deeply ingrained default for handling trends: <em>linear extrapolation</em>. See a quantity rising and we instinctively ask, "at this rate, where is it in X time?" — and "at this rate" has quietly assumed a constant rate of increase, i.e., linearity.</p>
+<p>Fold an ordinary sheet of paper 42 times and it reaches the Moon. Almost no one guesses this; most people guess something the height of a building. The reason is that each fold doubles the thickness — that is <b>exponential</b> — while our intuition adds. Grains on a chessboard tell the same story: one grain on the first square, doubling each square after, and by the 64th square the wheat required exceeds everything humanity has ever grown.</p>
+<p>And the error has a direction, a predictable one: for compound growth we habitually <b>underestimate</b> ("still early"); for threshold jumps we are habitually <b>blindsided</b> ("how did it suddenly…"). Both errors come from the same default — fitting a straight line to a curve that isn't straight, close at the start and wildly off later.</p>
+<figure>
+<svg aria-label="An actual exponential curve versus the brain's linear extrapolation: nearly identical early, diverging enormously later" role="img" viewbox="0 0 720 320" xmlns="http://www.w3.org/2000/svg">
+<defs>
+<marker id="lx5a" markerheight="10" markerunits="userSpaceOnUse" markerwidth="10" orient="auto" refx="8" refy="5" viewbox="0 0 10 10"><path d="M0,1 L9,5 L0,9 z" fill="#8d867b"></path></marker>
+<marker id="lx5b" markerheight="12" markerunits="userSpaceOnUse" markerwidth="12" orient="auto" refx="6" refy="5" viewbox="0 0 10 10"><path d="M0,1 L9,5 L0,9 z" fill="#cd7f9b"></path></marker>
+<marker id="lx5c" markerheight="12" markerunits="userSpaceOnUse" markerwidth="12" orient="auto" refx="4" refy="5" viewbox="0 0 10 10"><path d="M0,1 L9,5 L0,9 z" fill="#cd7f9b"></path></marker>
+</defs>
+<text fill="#aba498" font-family="-apple-system,sans-serif" font-size="13" text-anchor="middle" x="360" y="26">Same data, two continuations — indistinguishable early, worlds apart later</text>
+<line marker-end="url(#lx5a)" stroke="rgba(255,255,255,0.28)" stroke-width="1.5" x1="90" x2="90" y1="272" y2="46"></line>
+<line marker-end="url(#lx5a)" stroke="rgba(255,255,255,0.28)" stroke-width="1.5" x1="90" x2="662" y1="272" y2="272"></line>
+<text fill="#8d867b" font-family="-apple-system,sans-serif" font-size="12" text-anchor="middle" x="375" y="300">time →</text>
+<text fill="#8d867b" font-family="-apple-system,sans-serif" font-size="12" transform="rotate(-90 40 165)" x="40" y="165">amount</text>
+<path d="M90,266 C260,262 360,250 450,206 C520,170 565,120 620,60" fill="none" stroke="#e0895e" stroke-width="3"></path>
+<text fill="#e0895e" font-family="SF Mono,monospace" font-size="12.5" text-anchor="end" x="574" y="82">actual (exponential)</text>
+<line stroke="#79a6d2" stroke-dasharray="6 5" stroke-width="2" x1="120" x2="640" y1="264" y2="214"></line>
+<text fill="#79a6d2" font-family="SF Mono,monospace" font-size="12" x="452" y="238">your linear guess</text>
+<rect fill="rgba(159,188,122,0.10)" height="220" width="70" x="120" y="50"></rect>
+<text fill="#9fbc7a" font-family="-apple-system,sans-serif" font-size="11" text-anchor="middle" x="155" y="292">early: nearly identical</text>
+<line marker-end="url(#lx5b)" marker-start="url(#lx5c)" stroke="#cd7f9b" stroke-width="2" x1="628" x2="628" y1="214" y2="66"></line>
+<text fill="#cd7f9b" font-family="-apple-system,sans-serif" font-size="11.5" text-anchor="end" x="612" y="150">off by more</text>
+<text fill="#cd7f9b" font-family="-apple-system,sans-serif" font-size="11.5" text-anchor="end" x="612" y="166">and more later</text>
+</svg>
+<figcaption>Early on, the exponential curve and the linear guess almost coincide — you can't tell them apart. The gap opens with time; by the time it's visible to the eye, the window to act has usually closed.</figcaption>
+</figure>
+<p>This is why "the numbers are still small" is the most dangerous reassurance early in an epidemic, and why "only down 5%" looks utterly harmless the day before a leveraged account is wiped out — a linear eye is always half a step behind in an exponential, threshold-laden world, and it errs hardest exactly when it matters most.</p>
+<div class="decide">
+<span class="lb">🎯 DECISION LINE</span>
+<p>Whenever you catch yourself saying "at this rate…", stop — that phrase assumes linearity. Ask two questions instead: is this quantity growing by <b>addition</b> or by <b>multiplication</b> (doubling)? Is there a threshold ahead of it? If it's multiplicative or has a threshold, your gut estimate is guaranteed to be too low and too late — so draw the warning line where it "still feels too early." By the time it "feels about right to act," it usually already is late.</p>
+</div>
+<div class="crossx-inline">
+🌀 <b>Epidemiology · The illusion of early exponentials</b>  Early in an epidemic or a rumor, the comfort of "only a few hundred so far" rides entirely on linear extrapolation of the current absolute number. But the only informative property of an exponentially growing quantity is its <b>doubling time</b>, not its present size — a two-day doubling time means a few hundred today, tens of thousands in two weeks. The upshot: on the exponential stretch, "the numbers are still small" is not evidence of safety; it is precisely the signal that "you still have time, but the window is slamming shut fast." By the time the absolute number is frightening, the moment to intervene is long gone.
+</div>
+<h2><span class="n">04</span>Where This Breaks Down</h2>
+<p class="lead">"Nonlinear" is one of the most heavily abused incantations in complexity science. Merely saying a system is "nonlinear" carries almost no information — because strictly linear systems are the rarities in nature. What matters is knowing where the idea fails to give you what you want.</p>
+<p><b>First, nonlinear does not mean unpredictable.</b> A shell's trajectory is nonlinear (air resistance goes roughly as the square of speed), and we still compute it with great precision; planetary orbits are nonlinear, and astronomers can announce an eclipse thousands of years out. Nonlinear only means "not proportional" — it does not rule out precise prediction at all. Reading "nonlinear" as "can't be measured, up to fate" confuses it with <b>chaos</b> (sensitive dependence on initial conditions, a later topic). Not proportional ≠ not predictable.</p>
+<p><b>Second, locally almost everything is linear — this is not a loophole, it is why we survive.</b> Any smooth curve, viewed close enough, is approximately a straight line. That is exactly why "linear approximation" is so useful: over the short term and small ranges, treating the nonlinear as linear gives errors small enough to ignore, and engineering, economics, and everyday decisions do this constantly and legitimately. The mistake was never "using a linear approximation," but extrapolating it far past the range where the approximation still holds — and not noticing. The danger isn't the straight line; it is not knowing its expiry date.</p>
+<p><b>Third, and most important: "nonlinear" is not a fig leaf.</b> Saying after the fact that "the system was too nonlinear to foresee" is often just a dodge. Many so-called black swans, seen in hindsight, were standing on a steep segment or a threshold that should have been known — nonlinearity makes precise <em>point</em> prediction hard, yet it often makes the direction and order of magnitude clearer, not murkier: you know full well you are on the steep part, you know there is a threshold ahead, you just don't know which exact day. Swapping "can't predict which day" for "utterly unforeseeable" uses genuine uncertainty to cover for preparation you could have made.</p>
+<div class="decide">
+<span class="lb">🎯 DECISION LINE</span>
+<p>Before saying "this can't be predicted," finish the sentence: is it "I don't know the direction or the magnitude," or "I just don't know the exact timing"? The former is rare, the latter is common. The latter can be prepared for — you don't need to predict the exact moment of a blowout to decide to carry a spare tire. Don't let the word "nonlinear" help you turn "wasn't prepared" into "couldn't be prepared for."</p>
+</div>
+<div class="bigcat">
+<h3>🎒 Scenarios · BigCat</h3>
+<ol>
+<li><span class="dm">Health &amp; energy</span>You treat "more training = more progress" as a straight line, so you add volume when you feel good and add more when progress slows — until one day you suddenly strain something, or no amount of sleep brings you back for weeks. Training and recovery is actually an inverted U (steep, then a peak, then negative): the same extra set has a different sign of effect depending on which part of the curve it lands. What to change: don't make "weekly total volume" your only dashboard — add a readout that reflects which part of the curve you're on, such as resting morning heart rate or heart rate variability (HRV, which most sleep wearables can measure). When it turns down, that's your body telling you you're past the peak. The move is simple: cut volume the moment that readout worsens, rather than "gritting through one more push."</li>
+<li><span class="dm">Contemplative practice</span>You assume meditation is linear: sit 20 minutes a day and calm should grow linearly, day by day. So after two weeks with "no feeling," you start tallying whether the "return on investment" is worth it and toy with quitting. But many inner changes are threshold-shaped — a long stretch of nothing, then one session where something suddenly loosens. The problem isn't the method; it's measuring a threshold process with a linear ruler: settling accounts on "did this single sit pay off" is guaranteed to talk you out of it before you ever cross the threshold. What to change: switch the unit of evaluation from "was this one sit worth it" to "did I hold a long enough unbroken window" — crossing a threshold rides on accumulated total, not the intensity of any single sit. A concrete test: if you're using "didn't feel much today" to vote on "sit again tomorrow or not," you're measuring the wrong thing.</li>
+</ol>
+</div>
+<div class="crossx">
+<h3>🌀 Crossings · Across Disciplines</h3>
+<ul>
+<li><b>History &amp; the military · Sun Tzu's shi (勢)</b>: The Art of War's chapter on shi (energy/momentum) says, "the rush of torrential water tossing boulders is a matter of shi" — the water moves boulders not by volume but because the terrain has forced it onto a steep drop; and "one who sets men fighting rolls round rocks down a thousand-fathom mountain," "the skilled seek victory in shi, not in blaming individuals." Two of this issue's mechanisms run here at once: <em>disproportion</em> (the same troops, placed on the shi, fight several times harder) and the <em>threshold</em> (the round rock sits motionless at the summit, and past a certain slope can never be stopped). So shi isn't mystical morale; it is placing limited force on the steep part of the response curve and at the edge of a threshold. Its conclusion is the two-thousand-year-old version of this issue's decision line: when things go badly, don't first ask "which soldier failed" (that spreads the result linearly over each person), ask "which part of the curve are we on" — "seek it in shi, not in the individual."</li>
+<li><b>Biology &amp; medicine · Paracelsus and the dose</b>: The 16th-century Paracelsus left toxicology its foundation — "all things are poison; only the dose makes it not a poison": there is no absolute poison, only a poisoning dose. This is exactly the nonlinearity of the dose-response relationship: for the same substance, low, medium, and high doses can have completely different effects, even changing sign; some are non-monotonic (hormesis) — stimulating at very low doses, suppressing a bit higher, lethal higher still. Put this issue's mechanisms together and you get a counterintuitive conclusion: judgments like "natural = safe, the less the better" are linear at heart (assuming risk rises proportionally and monotonically with dose), whereas real dose-response is often flat first, threshold-gated, even down-then-up. <b>But here it does not hold</b>: the "beneficial at low dose" curve of hormesis is itself patchily evidenced and hotly disputed, and must never be turned around to excuse any harmful exposure — "the dose makes the poison" says don't extrapolate linearly, not "a little bit is fine." Nonlinearity cuts the simple straight line of "less is always better," but it equally cuts the other straight line of "a little doesn't matter."</li>
+<li><b>Cognitive science · The Weber–Fechner law</b>: In the 19th century Weber and Fechner found that our sensation of a stimulus doesn't grow in proportion to its intensity, but roughly with its logarithm — the smallest change you can detect is proportional to the current baseline. Light one candle in a dark room and it's blazing; add one more at noon and you feel nothing. The same candle (the same input), a world of difference in felt output. This reveals something easily missed: the very organs by which we perceive the world are a nonlinear compressor. So the fact that "intuition always errs in the face of nonlinearity" is half a hardware problem — not that we're too lazy to compute, but that our senses squash a multiplicative world into an additive one. From which: a $10 price increase "hurts" on a $100 item and is "imperceptible" on a $10,000 one, yet their linear impact on your wallet is identical. Everywhere you "go with your gut," you're using a logarithmic ruler to measure a linear consequence.</li>
+</ul>
+</div>
+<div class="thinking">
+<h3>Going Deeper</h3>
+<details><summary>If the local is always approximately linear, how do you know when you've stepped outside the range where the approximation holds?</summary><p>Watch the second-order information. The error of a linear approximation grows roughly with the square of the distance from the base point, so just track "is the same action having a different effect than last time?" — the moment the effect starts changing, curvature is telling you you've left the straight segment. The real difficulty isn't whether there's a signal, it's that we too readily explain "the effect changed" as external noise rather than "I've left the linear zone."</p></details>
+<details><summary>If "small input, big reward" and "small slip, big disaster" share the same origin, why do we chase the former and ignore the latter?</summary><p>Because convexity (the gain side) and concavity (the loss side) aren't psychologically symmetric: loss aversion makes us overweight the nearby small loss and underweight the distant large disaster, while compound gains are chronically underestimated. The result is that on the same steep curve we stare only at the upside half. To see it symmetrically, you have to force yourself to draw "what if, on this segment, I'm pushing against it" too.</p></details>
+<details><summary>Under a threshold, "no early response" could mean "far from the threshold, safe" or "about to cross, most dangerous," and they look identical. How do you tell them apart?</summary><p>This is exactly what the later Topic 36, "critical slowing down," addresses: as a threshold nears, the system recovers more slowly from a disturbance and its fluctuations grow. So to tell the two apart, don't look at the size of the response — look at how long it takes to settle afterward. Which also warns: the calm before a threshold carries no distance information by itself; you have to measure something else.</p></details>
+<details><summary>If nonlinear doesn't mean unpredictable, what actually pushes a system from "nonlinear but computable" into "unpredictable in principle"?</summary><p>The key step is sensitive dependence on initial conditions — a hair's difference in starting values, a thousand-mile divergence in trajectory, with error amplified exponentially. That's what Topic 8, chaos, will cover. Nonlinearity is a necessary condition for it (a linear system can't be chaotic), but far from sufficient: the vast majority of nonlinear systems aren't chaotic at all.</p></details>
+<details><summary>Does "use a linear approximation" hold in moral and policy judgment too? When does treating complex social consequences as "independent, additive" go badly wrong?</summary><p>Superposition fails earliest in human systems: two policies each mild on their own can jointly trip a threshold that neither created alone (a bank run, a stampede, an opinion cascade). "Evaluate each item separately, each clears the bar, so the sum is fine" is precisely a linear assumption — and it fails hardest exactly where interaction is strongest and matters most.</p></details>
+</div>
+<div class="refs">
+<h3>Further Reading</h3>
+<ul>
+<li><a href="https://en.wikipedia.org/wiki/Nonlinear_system">Nonlinear system</a> (overview)</li>
+<li><a href="https://en.wikipedia.org/wiki/Superposition_principle">Superposition principle</a> (the test for linearity)</li>
+<li>Steven Strogatz, <a href="https://www.stevenstrogatz.com/books/nonlinear-dynamics-and-chaos-with-applications-to-physics-biology-chemistry-and-engineering">Nonlinear Dynamics and Chaos</a> (the standard introduction)</li>
+<li><a href="https://en.wikipedia.org/wiki/Weber%E2%80%93Fechner_law">Weber–Fechner law</a> (perception grows with the logarithm)</li>
+<li><a href="https://en.wikipedia.org/wiki/Paracelsus#Toxicology">Paracelsus and "the dose makes the poison"</a> (the foundation of toxicology)</li>
+<li><a href="https://en.wikipedia.org/wiki/Hormesis">Hormesis</a> (low-dose effects — and their controversy)</li>
+<li><a href="https://en.wikipedia.org/wiki/Wheat_and_chessboard_problem">Wheat and chessboard problem</a> (the classic parable of exponential growth)</li>
+<li><a href="https://ctext.org/art-of-war/energy">The Art of War, "Energy" (Shi) chapter</a> ("seek victory in shi, not in the individual")</li>
+</ul>
+</div>
+<footer>BigCat · Complexity Science · <a href="index.en.html">← All Topics</a></footer>
+</div>
+</body></html>

@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+
+<html lang="zh-CN"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>非线性 — 两倍的原因，未必两倍的结果 · 复杂性科学 T5</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,"SF Pro Display","Noto Sans SC",sans-serif;color:#e4ded5;line-height:1.85;min-height:100vh;
+  background:radial-gradient(1100px 620px at 12% -6%,rgba(224,137,94,0.10),transparent 62%),radial-gradient(950px 700px at 100% 2%,rgba(166,147,205,0.09),transparent 58%),linear-gradient(168deg,#100f0d 0%,#15161b 48%,#0a0a0c 100%);background-attachment:fixed}
+.wrap{max-width:760px;margin:0 auto;padding:30px 22px 90px}
+header{padding:52px 0 8px;border-bottom:1px solid rgba(255,255,255,0.07);margin-bottom:34px}
+.week-tag{font-family:"SF Mono",Menlo,monospace;font-size:0.72rem;font-weight:700;letter-spacing:2px;color:#e0895e;border:1px solid rgba(224,137,94,0.4);background:rgba(224,137,94,0.07);padding:3px 11px;border-radius:20px}
+h1{font-size:2.5rem;font-weight:800;letter-spacing:0.5px;line-height:1.2;margin:20px 0 0;background:linear-gradient(106deg,#e0895e 0%,#d9b45f 34%,#9fbc7a 68%,#63b3a6 100%);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+h1 .h1en{display:block;font-size:0.40em;font-weight:600;letter-spacing:2.5px;color:#847d72;-webkit-text-fill-color:#847d72;background:none;margin-top:13px}
+.sub{font-size:1.05rem;color:#aba498;margin-top:14px;font-weight:500}
+.date{font-family:"SF Mono",Menlo,monospace;font-size:0.75rem;color:#57524b;margin-top:18px;letter-spacing:1px}
+.pitch{margin:22px 0 30px;font-size:0.97rem;color:#cd7f9b;border-left:2px solid rgba(205,127,155,0.5);padding-left:16px;font-style:italic}
+.intro{font-size:1.02rem;color:#cfc8bc;margin-bottom:14px}
+.intro p{margin-bottom:16px}
+h2{font-size:1.42rem;font-weight:700;color:#e9e3d9;margin:56px 0 8px;letter-spacing:0.3px}
+h2 .n{font-family:"SF Mono",Menlo,monospace;font-size:0.85rem;color:#9fbc7a;display:block;margin-bottom:6px;letter-spacing:2px}
+.he{font-size:0.68em;color:#8d867b;font-weight:500;letter-spacing:0}
+p{margin-bottom:17px}
+.lead{color:#cfc8bc}
+b,strong{color:#f0eae0;font-weight:600}
+em{color:#d9b45f;font-style:normal;font-weight:500}
+.dim{color:#8d867b}
+a.reflink{display:inline-block;font-size:0.82rem;font-family:"SF Mono",Menlo,monospace;color:#63b3a6;border:1px solid rgba(99,179,166,0.38);background:rgba(99,179,166,0.07);padding:1px 9px;border-radius:20px;text-decoration:none;transition:all 0.15s;white-space:nowrap}
+a.reflink:hover{background:rgba(99,179,166,0.16);border-color:rgba(99,179,166,0.7)}
+figure{margin:30px 0}
+figure svg{display:block;width:100%;height:auto;border-radius:12px;background:rgba(255,255,255,0.018);border:1px solid rgba(255,255,255,0.06)}
+figcaption{font-size:0.82rem;color:#787268;margin-top:11px;text-align:center;line-height:1.6}
+.en-brief{font-size:0.85rem;color:#847d72;border-top:1px dashed rgba(255,255,255,0.09);padding-top:12px;margin-top:22px;line-height:1.65}
+.en-brief b{font-family:"SF Mono",Menlo,monospace;font-size:0.72rem;color:#63b3a6;letter-spacing:1px;margin-right:7px}
+.decide{margin:24px 0;border:1px solid rgba(224,137,94,0.36);background:rgba(224,137,94,0.055);border-radius:12px;padding:15px 19px}
+.decide .lb{font-family:"SF Mono",Menlo,monospace;font-size:0.73rem;letter-spacing:1.5px;color:#e0895e;font-weight:700;display:block;margin-bottom:7px}
+.decide p{margin:0;font-size:0.95rem;color:#ddd5c9}
+.crossx-inline{margin:20px 0 22px;border-left:2px solid rgba(205,127,155,0.55);padding:2px 0 2px 15px;font-size:0.89rem;color:#a9a096;line-height:1.72}
+.crossx-inline b{color:#cd7f9b;font-weight:600}
+.bigcat{margin:46px 0 10px;border:1px solid rgba(217,180,95,0.38);background:rgba(217,180,95,0.05);border-radius:14px;padding:20px 22px}
+.bigcat h3{font-size:1.02rem;color:#d9b45f;margin-bottom:14px;letter-spacing:0.5px}
+.bigcat ol{list-style:none;padding:0}
+.bigcat li{margin-bottom:15px;font-size:0.94rem;color:#d5cdc1;line-height:1.78}
+.bigcat li:last-child{margin-bottom:0}
+.bigcat .dm{font-family:"SF Mono",Menlo,monospace;font-size:0.73rem;color:#d9b45f;border:1px solid rgba(217,180,95,0.32);border-radius:4px;padding:1px 7px;margin-right:8px;white-space:nowrap}
+.crossx{margin:46px 0 10px;border:1px solid rgba(205,127,155,0.38);background:rgba(205,127,155,0.05);border-radius:14px;padding:20px 22px}
+.crossx h3{font-size:1.02rem;color:#cd7f9b;margin-bottom:14px;letter-spacing:0.5px}
+.crossx ul{list-style:none;padding:0}
+.crossx li{margin-bottom:16px;font-size:0.94rem;color:#d5cdc1;line-height:1.78}
+.crossx li:last-child{margin-bottom:0}
+.crossx li b{color:#cd7f9b;font-weight:600}
+.thinking{margin:46px 0 10px}
+.thinking h3{font-size:1.02rem;color:#a693cd;margin-bottom:14px;letter-spacing:0.5px}
+details{border:1px solid rgba(166,147,205,0.22);border-radius:10px;padding:12px 16px;margin-bottom:10px;background:rgba(166,147,205,0.035)}
+summary{cursor:pointer;font-size:0.93rem;color:#c9c2b6;font-weight:500}
+summary::marker{color:#a693cd}
+details p{margin:12px 0 0;font-size:0.9rem;color:#a9a096;line-height:1.75}
+.refs{margin:46px 0 10px}
+.refs h3{font-size:1.02rem;color:#79a6d2;margin-bottom:14px;letter-spacing:0.5px}
+.refs ul{list-style:none;padding:0}
+.refs li{margin-bottom:10px;font-size:0.9rem;color:#8d867b;line-height:1.7}
+.refs a{color:#79a6d2;text-decoration:none;border-bottom:1px solid rgba(121,166,210,0.3)}
+.refs a:hover{color:#a6c4e2;border-bottom-color:rgba(121,166,210,0.7)}
+footer{text-align:center;padding:56px 0 10px;font-size:0.78rem;color:#57524b;font-family:"SF Mono",Menlo,monospace;border-top:1px solid rgba(255,255,255,0.06);margin-top:50px}
+footer a{color:#79a6d2;text-decoration:none}
+@media(max-width:600px){h1{font-size:1.85rem}.wrap{padding:24px 16px 60px}h2{font-size:1.22rem}}
+</style></head><body>
+<div class="wrap">
+<header>
+<span class="week-tag">TOPIC 5 · PHASE A</span>
+<h1>非线性<span class="h1en">NONLINEARITY</span></h1>
+<p class="sub">两倍的原因，未必两倍的结果<span class="he">（Twice the cause, seldom twice the effect）</span></p>
+<p class="date">2026-07-23 · 什么算「复杂」</p>
+</header>
+<p class="pitch">我们从小被训练成线性动物：多花一倍力气，就期待多一倍回报；出了一倍大的事，就去找一个一倍大的原因。可真实世界里绝大多数要紧的关系都不长这样——不成比例才是常态，那条我们最信赖的直线，反倒是稀有的例外。</p>
+<div class="intro">
+<p>往咖啡里加糖：第一勺甜得明显，第五勺几乎尝不出区别。可往一锅汤里放盐，多放那么一点点，整锅就毁了。同样是「多加一点」，一个几乎没反应，一个天翻地覆——差别不在你加了多少，在你从哪儿开始加。</p>
+<p>这就是<em>非线性</em>（nonlinearity）：输出不跟着输入按比例走。听上去像句废话，后果却极重——它意味着你不能靠「小样本推大局」，不能靠「按当前速度外推」，也不能靠「把原因和结果配对」来理解一个系统。我们脑子里那台默认的线性外推机，在这类关系面前会系统性地、朝一个可预测的方向犯错。</p>
+<p class="dim">本期只讲一件最基础的事：「不成比例」到底会带来什么，为什么它让预测变得这么难。后面几期的混沌、临界、幂律，全都是非线性的不同面孔——这一期是它们共同的地基。</p>
+</div>
+<h2><span class="n">01</span>加倍的原因，不给你加倍的结果<span class="he">（Superposition Fails）</span></h2>
+<p class="lead">先说清楚什么叫「线性」，才好说它怎么破。线性关系有两条老实的性质。一是<b>成比例</b>：投入翻倍，产出翻倍。二是<b>可叠加</b>（叠加原理，superposition principle）：两件事一起做的结果，等于各自单独做的结果加起来。桌上放两盏一样的台灯，总亮度就是一盏的两倍——世界上真有一批这样规规矩矩的关系。</p>
+<p>非线性就是这两条至少破了一条。破了之后，关系会长成几种典型形状：<b>① 边际递减</b>（先陡后平）——健身头三个月突飞猛进，之后同样的训练量换来的进步越来越小；<b>② 加速</b>（先平后陡）——存钱吃复利、口碑破圈、技术债的利息，越往后同样一步迈得越大；<b>③ S 型</b>（先平、中间陡、再平）——很多真实过程都是这样：起步毫无动静，到某一段突然剧烈响应，再往后又饱和下来。</p>
+<p>关键就在这里：在一条非线性曲线上，「同样多加一个单位」的效果，<b>取决于你此刻站在曲线的哪一段</b>。在平缓段，你使多大劲都几乎没动静；在陡峭段，轻轻一推就是一大跳。所以「投入产出比」根本不是一个固定的数字，它是你所在位置的函数。</p>
+<figure>
+<svg aria-label="同一条非线性曲线上，相同的输入增量在平缓段几乎无变化、在陡峭段引发大跳" role="img" viewbox="0 0 720 330" xmlns="http://www.w3.org/2000/svg">
+<defs>
+<marker id="ax5a" markerheight="10" markerunits="userSpaceOnUse" markerwidth="10" orient="auto" refx="8" refy="5" viewbox="0 0 10 10"><path d="M0,1 L9,5 L0,9 z" fill="#8d867b"></path></marker>
+<marker id="ax5b" markerheight="11" markerunits="userSpaceOnUse" markerwidth="11" orient="auto" refx="9" refy="5" viewbox="0 0 10 10"><path d="M0,1 L9,5 L0,9 z" fill="#63b3a6"></path></marker>
+<marker id="ax5c" markerheight="11" markerunits="userSpaceOnUse" markerwidth="11" orient="auto" refx="9" refy="5" viewbox="0 0 10 10"><path d="M0,1 L9,5 L0,9 z" fill="#e0895e"></path></marker>
+</defs>
+<text fill="#aba498" font-family="-apple-system,sans-serif" font-size="13" text-anchor="middle" x="360" y="26">同样 +Δ 的投入，效果差一个数量级 — 只因为落在曲线的不同段</text>
+<line marker-end="url(#ax5a)" stroke="rgba(255,255,255,0.28)" stroke-width="1.5" x1="90" x2="90" y1="285" y2="46"></line>
+<line marker-end="url(#ax5a)" stroke="rgba(255,255,255,0.28)" stroke-width="1.5" x1="90" x2="660" y1="285" y2="285"></line>
+<text fill="#8d867b" font-family="-apple-system,sans-serif" font-size="12" text-anchor="middle" x="375" y="312">投入 →</text>
+<text fill="#8d867b" font-family="-apple-system,sans-serif" font-size="12" transform="rotate(-90 40 165)" x="40" y="165">产出</text>
+<line stroke="rgba(121,166,210,0.5)" stroke-dasharray="5 5" stroke-width="1.8" x1="90" x2="600" y1="285" y2="70"></line>
+<text fill="#5c7f9e" font-family="SF Mono,monospace" font-size="11.5" x="516" y="66">线性（成比例）</text>
+<path d="M90,278 C210,274 250,268 320,196 C388,126 470,96 620,88" fill="none" stroke="#e0895e" stroke-width="3"></path>
+<text fill="#e0895e" font-family="SF Mono,monospace" font-size="12.5" x="628" y="86">S 型</text>
+<!-- toe increment -->
+<rect fill="rgba(99,179,166,0.10)" height="228" width="40" x="150" y="52"></rect>
+<line stroke="rgba(99,179,166,0.5)" stroke-dasharray="3 3" stroke-width="1.3" x1="150" x2="150" y1="285" y2="272"></line>
+<line stroke="rgba(99,179,166,0.5)" stroke-dasharray="3 3" stroke-width="1.3" x1="190" x2="190" y1="285" y2="270"></line>
+<line marker-end="url(#ax5b)" stroke="#63b3a6" stroke-width="2.5" x1="210" x2="210" y1="272" y2="264"></line>
+<text fill="#63b3a6" font-family="-apple-system,sans-serif" font-size="11.5" x="150" y="252">同样 +Δ</text>
+<text fill="#63b3a6" font-family="-apple-system,sans-serif" font-size="11.5" x="152" y="234">≈ 没动静</text>
+<!-- steep increment -->
+<rect fill="rgba(224,137,94,0.10)" height="228" width="40" x="320" y="52"></rect>
+<line stroke="rgba(224,137,94,0.55)" stroke-dasharray="3 3" stroke-width="1.3" x1="320" x2="320" y1="285" y2="196"></line>
+<line stroke="rgba(224,137,94,0.55)" stroke-dasharray="3 3" stroke-width="1.3" x1="360" x2="360" y1="285" y2="150"></line>
+<line marker-end="url(#ax5c)" stroke="#e0895e" stroke-width="2.5" x1="384" x2="384" y1="196" y2="150"></line>
+<text fill="#e0895e" font-family="-apple-system,sans-serif" font-size="11.5" x="396" y="182">同样 +Δ</text>
+<text fill="#e0895e" font-family="-apple-system,sans-serif" font-size="11.5" x="396" y="164">一大跳</text>
+<text fill="#787268" font-family="-apple-system,sans-serif" font-size="11" text-anchor="middle" x="170" y="300">平缓段</text>
+<text fill="#787268" font-family="-apple-system,sans-serif" font-size="11" text-anchor="middle" x="340" y="300">陡峭段</text>
+</svg>
+<figcaption>同一条曲线、同样大小的投入增量：落在平缓段几乎没反应，落在陡峭段就是一大跳。「投入产出比」是位置的函数，不是常数。</figcaption>
+</figure>
+<p>于是有一句反直觉的话在这里成立：<b>小投入撬动大回报，和小疏忽酿成大灾难，是同一件事的两面。</b>它们说的都是「你正好站在陡峭段」——区别只在于那一跳是朝你想要的方向，还是朝相反的方向。想占前者的便宜，就得连后者的风险一起认。</p>
+<div class="decide">
+<span class="lb">🎯 决策线</span>
+<p>动手投入之前，先判断自己站在曲线哪一段。<b>平缓段</b>：加码是浪费，该换战场，而不是加倍努力。<b>陡峭段</b>：这里既是杠杆也是雷区——同一个位置，顺着推是暴利，逆着来是暴亏，所以陡峭段的正确动作不是「用力」，是控制方向和步长。把「我要更努力」这个默认反应，换成一句「我现在在曲线的哪一段」。</p>
+</div>
+<div class="crossx-inline">
+🌀 <b>经济学 · 边际效用递减</b>　第一杯水能救命，第十杯水只能拿来洗手——同一杯水，价值随你已有的量一路衰减。这条两百年前就写进经济学的规律，正是「饱和型非线性」。它推翻的是一句我们天天在用的线性假设：「多多益善」。多未必益善，益的斜率一路在掉，掉到某一点甚至转负（水喝到中毒）。所以「再多给一点」值不值，从来不能脱离「现在已经有多少」单独回答。
+</div>
+<p class="en-brief"><b>EN</b> Linearity means two things: proportionality (double the input, double the output) and superposition (the effect of two things together equals the sum of each alone). Nonlinearity breaks at least one. On a nonlinear curve the return on one more unit of input depends entirely on where you already sit — flat on the toe, huge on the steep part. Small input, big reward and small slip, big disaster are the same fact: you happen to be on the steep segment.</p>
+<h2><span class="n">02</span>什么都没发生，直到全都发生<span class="he">（Thresholds）</span></h2>
+<p class="lead">有一类非线性特别爱骗人：<em>阈值</em>（threshold）。在到达某个点之前，你怎么加力，系统都纹丝不动，好像根本没在听；一旦越过那个点，它整个翻过去，而且常常回不了头。</p>
+<p>最干净的例子是水。你从 99℃ 一路加热到 99.9℃，水还是水，看不出要沸的样子；越过 100℃，它就成了蒸汽。温度是被你一度一度、平滑地推上去的（<b>连续的因</b>），相态却是「啪」地跳过去的（<b>不连续的果</b>）。因是连续的，果是断裂的——这是阈值最刺眼的地方。</p>
+<p>更极端的是过冷水：干净的水可以被小心地降到 0℃ 以下还不结冰。这时候你往里丢一粒小冰晶，或者敲一下杯子，整杯水会在一两秒里哗地冻成冰。触发它的动作小得可笑，结果却是整杯相变——因为系统早被推到了阈值边上，只差有人碰一下。</p>
+<figure>
+<svg aria-label="上图连续平滑上升的因，下图先平后突然跳变的果，二者在阈值处对齐" role="img" viewbox="0 0 720 340" xmlns="http://www.w3.org/2000/svg">
+<defs>
+<marker id="tx5a" markerheight="10" markerunits="userSpaceOnUse" markerwidth="10" orient="auto" refx="8" refy="5" viewbox="0 0 10 10"><path d="M0,1 L9,5 L0,9 z" fill="#8d867b"></path></marker>
+<marker id="tx5b" markerheight="10" markerunits="userSpaceOnUse" markerwidth="10" orient="auto" refx="8" refy="5" viewbox="0 0 10 10"><path d="M0,1 L9,5 L0,9 z" fill="#d9b45f"></path></marker>
+</defs>
+<line stroke="rgba(205,127,155,0.55)" stroke-dasharray="6 5" stroke-width="1.6" x1="430" x2="430" y1="42" y2="300"></line>
+<text fill="#cd7f9b" font-family="SF Mono,monospace" font-size="12" text-anchor="middle" x="430" y="322">阈值</text>
+<!-- top panel: cause -->
+<text fill="#aba498" font-family="-apple-system,sans-serif" font-size="12.5" x="70" y="34">因：一度一度、平滑地增加</text>
+<line marker-end="url(#tx5a)" stroke="rgba(255,255,255,0.28)" stroke-width="1.4" x1="70" x2="70" y1="150" y2="46"></line>
+<line marker-end="url(#tx5a)" stroke="rgba(255,255,255,0.28)" stroke-width="1.4" x1="70" x2="660" y1="150" y2="150"></line>
+<line marker-end="url(#tx5b)" stroke="#d9b45f" stroke-width="2.6" x1="80" x2="632" y1="145" y2="62"></line>
+<text fill="#787268" font-family="-apple-system,sans-serif" font-size="11" x="600" y="166">时间 →</text>
+<!-- bottom panel: effect -->
+<text fill="#aba498" font-family="-apple-system,sans-serif" font-size="12.5" x="70" y="204">果：一直没反应，然后突然全翻过去</text>
+<line marker-end="url(#tx5a)" stroke="rgba(255,255,255,0.28)" stroke-width="1.4" x1="70" x2="70" y1="300" y2="216"></line>
+<line marker-end="url(#tx5a)" stroke="rgba(255,255,255,0.28)" stroke-width="1.4" x1="70" x2="660" y1="300" y2="300"></line>
+<polyline fill="none" points="80,292 430,292 430,232 632,232" stroke="#e0895e" stroke-width="3"></polyline>
+<text fill="#787268" font-family="-apple-system,sans-serif" font-size="11" text-anchor="middle" x="245" y="284">什么都没发生</text>
+<text fill="#e0895e" font-family="-apple-system,sans-serif" font-size="11.5" text-anchor="middle" x="540" y="224">全都发生</text>
+<text fill="#787268" font-family="-apple-system,sans-serif" font-size="11" x="600" y="316">时间 →</text>
+</svg>
+<figcaption>连续平滑地推动一个因（上），结果却在阈值处不连续地跳变（下）。越过阈值的「最后一下」，和之前每一下并无不同。</figcaption>
+</figure>
+<p>阈值让「因果配对」彻底失效。越过阈值的那「最后一下」，看上去像元凶，其实它和之前每一下一模一样。<b>压垮骆驼的最后一根稻草，和第一根一样重</b>——把责任算在它头上，是把一个连续积累的过程，误读成了一个突然冒出来的原因。</p>
+<div class="crossx-inline">
+🌀 <b>材料工程 · 屈服点</b>　金属被拉伸时，一开始是弹性的：松手能弹回原样，拉力和形变成正比——一段标准的线性。可一旦越过「屈服点」，它转入塑性，开始永久变形，很快就断。工程师设计时留的「安全系数」，本质就是让工作应力离屈服点足够远。推论：<b>「它一直好好的」不构成安全的证据</b>——弹性段那份乖顺，恰恰掩盖了你离断裂点还有多近；线性的表现一路持续，直到它不再持续的那一瞬。
+</div>
+<p class="en-brief"><b>EN</b> Thresholds are the most deceptive nonlinearity: nothing responds until a point, then everything flips, often irreversibly. Water heated smoothly stays water until 100°C; supercooled water flash-freezes on one seed crystal. The continuous cause maps to a discontinuous effect, so the "last straw" that crosses the threshold is identical to every straw before it — blaming it mistakes slow accumulation for a sudden cause.</p>
+<h2><span class="n">03</span>你的脑子是一台线性外推机<span class="he">（Why Intuition Fails）</span></h2>
+<p class="lead">现在说说我们自己。人脑处理「趋势」有个根深蒂固的默认设置：<em>线性外推</em>（linear extrapolation）。看到一个量在涨，我们本能地问「照这个速度，X 时间后到哪」——而「照这个速度」这五个字，已经偷偷假设了增速不变，也就是假设了线性。</p>
+<p>一张普通的纸对折 42 次，厚度就能够到月球。几乎没人猜得到，大多数人会猜一栋楼那么高。原因是每折一次厚度翻倍，这是<b>指数</b>（exponential），而我们的直觉在做加法。麦粒摆棋盘是同一个故事：第一格一粒、往后每格翻倍，摆到第 64 格所需的麦子，比人类有史以来种出来的全部还多。</p>
+<p>而且这个错误是有方向、可预测的：对复利型的增长，我们习惯性<b>低估</b>（总觉得「还早」）；对阈值型的突变，我们习惯性<b>错愕</b>（「怎么突然就……」）。两种错源自同一个默认——用一条直线去接一条不是直线的曲线，一开始贴得很近，越往后偏得越离谱。</p>
+<figure>
+<svg aria-label="实际指数曲线与人脑的线性外推：早期几乎重合，越到后面差距越大" role="img" viewbox="0 0 720 320" xmlns="http://www.w3.org/2000/svg">
+<defs>
+<marker id="lx5a" markerheight="10" markerunits="userSpaceOnUse" markerwidth="10" orient="auto" refx="8" refy="5" viewbox="0 0 10 10"><path d="M0,1 L9,5 L0,9 z" fill="#8d867b"></path></marker>
+<marker id="lx5b" markerheight="12" markerunits="userSpaceOnUse" markerwidth="12" orient="auto" refx="6" refy="5" viewbox="0 0 10 10"><path d="M0,1 L9,5 L0,9 z" fill="#cd7f9b"></path></marker>
+<marker id="lx5c" markerheight="12" markerunits="userSpaceOnUse" markerwidth="12" orient="auto" refx="4" refy="5" viewbox="0 0 10 10"><path d="M0,1 L9,5 L0,9 z" fill="#cd7f9b"></path></marker>
+</defs>
+<text fill="#aba498" font-family="-apple-system,sans-serif" font-size="13" text-anchor="middle" x="360" y="26">同一段数据，两种续法 — 早期分不出，后期天差地别</text>
+<line marker-end="url(#lx5a)" stroke="rgba(255,255,255,0.28)" stroke-width="1.5" x1="90" x2="90" y1="272" y2="46"></line>
+<line marker-end="url(#lx5a)" stroke="rgba(255,255,255,0.28)" stroke-width="1.5" x1="90" x2="662" y1="272" y2="272"></line>
+<text fill="#8d867b" font-family="-apple-system,sans-serif" font-size="12" text-anchor="middle" x="375" y="300">时间 →</text>
+<text fill="#8d867b" font-family="-apple-system,sans-serif" font-size="12" transform="rotate(-90 40 160)" x="40" y="160">量</text>
+<path d="M90,266 C260,262 360,250 450,206 C520,170 565,120 620,60" fill="none" stroke="#e0895e" stroke-width="3"></path>
+<text fill="#e0895e" font-family="SF Mono,monospace" font-size="12.5" text-anchor="end" x="574" y="82">实际（指数）</text>
+<line stroke="#79a6d2" stroke-dasharray="6 5" stroke-width="2" x1="120" x2="640" y1="264" y2="214"></line>
+<text fill="#79a6d2" font-family="SF Mono,monospace" font-size="12" x="470" y="238">你的线性外推</text>
+<rect fill="rgba(159,188,122,0.10)" height="220" width="70" x="120" y="50"></rect>
+<text fill="#9fbc7a" font-family="-apple-system,sans-serif" font-size="11" text-anchor="middle" x="155" y="292">早期：几乎重合</text>
+<line marker-end="url(#lx5b)" marker-start="url(#lx5c)" stroke="#cd7f9b" stroke-width="2" x1="628" x2="628" y1="214" y2="66"></line>
+<text fill="#cd7f9b" font-family="-apple-system,sans-serif" font-size="11.5" text-anchor="end" x="612" y="150">越到后面</text>
+<text fill="#cd7f9b" font-family="-apple-system,sans-serif" font-size="11.5" text-anchor="end" x="612" y="166">偏得越离谱</text>
+</svg>
+<figcaption>早期，指数曲线和线性外推几乎贴合，你分不出来。差距随时间张开——等到肉眼可见，可干预的窗口往往已经过去。</figcaption>
+</figure>
+<p>这就是为什么「现在人数还少」在疫情早期是最危险的安心，为什么「才亏了 5%」在杠杆爆仓的前一天看着毫无威胁——线性的眼睛在指数的、有阈值的世界里永远慢半拍，而且越到关键时刻，错得越狠。</p>
+<div class="decide">
+<span class="lb">🎯 决策线</span>
+<p>每当你听见自己说「照这个速度……」，停一下——这句话默认了线性。改问两个问题：这个量是<b>加法</b>涨的，还是<b>乘法</b>（翻倍）涨的？它前面有没有一个阈值？只要是乘法或有阈值，你的直觉估计一定偏低、偏晚，请把预警线画到「感觉还太早」的地方；等到「感觉差不多该动了」，通常已经晚了。</p>
+</div>
+<div class="crossx-inline">
+🌀 <b>流行病学 · 早期指数的错觉</b>　一场传染病或一条谣言在早期，「现在才几百个」给人的安全感，全靠拿当前的绝对数做线性外推。可一个指数增长的量，唯一携带信息的是它的<b>倍增时间</b>，不是它此刻的大小——倍增时间两天，就意味着今天几百、两周后几万。推论：在指数段，「数量还少」不是安全的证据，恰恰是「你还来得及、但窗口正在飞快关上」的信号；等到绝对数吓人了，可干预的时机早已溜走。
+</div>
+<p class="en-brief"><b>EN</b> The human default for trends is linear extrapolation — "at this rate…" already assumes a constant rate. Fold paper 42 times and it reaches the Moon; almost no one guesses that, because doubling is exponential and intuition adds. The error has a direction: we underestimate compounding ("still early") and are blindsided by thresholds ("how did it suddenly…"). A straight line fits a curve well at first and diverges catastrophically later.</p>
+<h2><span class="n">04</span>这套说法在哪儿不成立<span class="he">（Where This Breaks Down）</span></h2>
+<p class="lead">「非线性」是复杂性科学里被当成万能咒语用得最凶的词之一。光说一个系统「非线性」，几乎不含任何信息——因为严格线性的系统在自然界才是稀有品。真正要紧的，是知道它在哪些地方不给你你想要的东西。</p>
+<p><b>第一，非线性不等于不可预测。</b>一颗炮弹的弹道是非线性的（空气阻力大致随速度平方变化），我们照样把它算得极准；行星绕太阳是非线性的，天文学家能报出几千年后的日食。非线性只是「不成比例」，它本身完全不排斥精确预测。把「非线性」直接读成「测不准、看天意」，是把它和后面要讲的<b>混沌</b>（chaos，对初始条件的敏感依赖）搞混了。不成比例 ≠ 不可测。</p>
+<p><b>第二，局部几乎总是线性的——这不是漏洞，是我们能活下去的原因。</b>任何一条光滑的曲线，你凑得足够近看，都近似是一条直线。这正是「线性近似」为什么这么好用：短期、小范围内，把非线性当线性来处理，误差小到可以忽略，工程、经济、日常决策大量地、正当地这么干。错从来不在「用了线性近似」，而在「把它外推到近似早已失效的范围之外」还浑然不觉。危险的不是那条直线，是不知道它的有效期。</p>
+<p><b>第三，也是最要紧的：「非线性」不是一块遮羞布。</b>出了事说「系统太非线性了、没法预料」，往往只是一句推卸。很多所谓「黑天鹅」，事后看是踩在一段本就该知道的陡峭曲线或阈值上——非线性使精确的<em>点</em>预测很难，却常常让「方向」和「量级」变得更清楚而非更模糊：你明知自己在陡峭段、明知前头有阈值，只是不知道具体哪一天。把「测不准哪一天」偷换成「完全无法预料」，是拿真实的不确定性，去掩盖本可以做的准备。</p>
+<div class="decide">
+<span class="lb">🎯 决策线</span>
+<p>说「这事没法预测」之前，先把话说全：是「连方向和量级都不知道」，还是「只是不知道精确的时点」？前者极少，后者极多。后者是可以准备的——你不需要预测爆胎的确切时刻，就能决定备一条备胎。别让「非线性」这个词，帮你把「没准备」说成「没法准备」。</p>
+</div>
+<p class="en-brief"><b>EN</b> Three limits. Nonlinear does not mean unpredictable — a shell's trajectory and planetary orbits are nonlinear yet forecast precisely; conflating nonlinearity with chaos is a category error. Locally almost everything is linear, which is why linear approximation is legitimate and useful — the mistake is extrapolating it past its valid range. And "it's just nonlinear" is often an excuse: nonlinearity blurs the exact timing, not usually the direction or the order of magnitude, so it rarely licenses being unprepared.</p>
+<div class="bigcat">
+<h3>🎒 场景 · BigCat</h3>
+<ol>
+<li><span class="dm">健康与精力</span>你把「多练 = 多进步」当成一条直线，于是状态好就加量、进步慢就再加量——直到某天突然拉伤，或连着几周怎么睡都缓不过来。训练和恢复的关系其实是倒 U（先陡、到顶、再转负）：同样多加一组，落在曲线不同段，效果的符号都不一样。可改的东西：别把「本周总训练量」当唯一仪表盘，加一个能反映你在曲线哪一段的读数——晨起心率，或心率变异性（heart rate variability，缩写 HRV，多数睡眠手环都能测）。它掉头向下，就是身体在说你已经过了顶点。动作很简单：那个读数一转坏就减量，而不是「再咬牙加一把」。</li>
+<li><span class="dm">修行与心性</span>你默认打坐是线性的：每天坐 20 分钟，平静就该一天天线性长出来。于是坐了两周没「感觉」，就开始盘算「投入产出比划不划算」，动了放弃的念头。可很多内在变化是阈值型的——长时间毫无动静，然后某一次忽然松了一下。问题不在方法，在你拿一把线性的尺子去量一个阈值型的过程：用「单次有没有回报」来核算，必然在跨过阈值之前就把自己劝退。可改的东西：把评估单位从「这一座值不值」换成「有没有守住一段足够长的连续窗口」——跨阈值靠的是积累的总量，不是任何单独一座的强度。具体判据：如果你正在用「今天没什么感觉」给「明天还坐不坐」投票，你量错了东西。</li>
+</ol>
+</div>
+<div class="crossx">
+<h3>🌀 越界 · 跨学科的联想<span class="he">（Crossings）</span></h3>
+<ul>
+<li><b>历史与军事 · 孙子的「势」</b>：《孙子兵法·兵势篇》说「激水之疾，至于漂石者，势也」——湍急的水能冲走石头，靠的不是水多，是水被地形逼到了陡处；又说「转圆石于千仞之山者，势也」「善战者求之于势，不责于人」。本期两条机制在这里一起跑：<em>不成比例</em>（同样的兵，摆在「势」上战力翻几番）＋<em>阈值</em>（圆石在山顶纹丝不动，越过某个坡度就再也停不住）。于是「势」不是玄乎的士气，是把有限的力量放到响应曲线的陡峭段和阈值边上。它推出的结论，正是本期决策线的两千年前版本：打不好，别先问「哪个兵不行」（那是线性地把结果摊到每个人头上），要问「我们处在曲线的哪一段」——「求之于势，不责于人」。</li>
+<li><b>生物与医学 · 帕拉塞尔苏斯的剂量</b>：16 世纪的帕拉塞尔苏斯（Paracelsus）留下毒理学的地基——「万物皆毒，唯剂量定毒」：没有绝对的毒物，只有致毒的剂量。这正是剂量-反应关系的非线性：同一种物质，低、中、高剂量的效果可以完全不同，甚至变号；有些还是非单调的（毒物兴奋效应，hormesis）——极低剂量刺激、稍高就抑制、再高才致命。本期机制合起来给出一个反直觉的结论：「天然=安全、越少越好」这类判断，骨子里都是线性的（假设风险随剂量成比例、单调上升），而真实的剂量-反应常常先平、带阈值、甚至先降后升。<b>但这里不成立</b>：hormesis 这条「低剂量有益」的曲线本身证据参差、争议很大，绝不能反过来拿它替任何有害暴露开脱——「剂量决定毒性」说的是别做线性外推，不是说「少量就无所谓」。非线性砍掉的是「越少越好」那条简单直线，可它同样砍掉「一点点没关系」的另一条直线。</li>
+<li><b>认知科学 · 韦伯-费希纳定律</b>：19 世纪的韦伯（Weber）与费希纳（Fechner）发现，我们对刺激的感觉不随刺激强度成比例增长，而大致随它的对数增长——你能觉察的最小变化，正比于当前的基准。黑屋里点一根蜡烛，亮如白昼；正午再加一根，毫无感觉。同一根蜡烛（同样的输入），感觉上的输出天差地别。这说明一件容易被漏掉的事：我们感知世界的器官，本身就是个非线性的压缩器。于是本期「直觉总在非线性面前犯错」有一半是硬件问题——不是我们懒得算，是感官在把乘法世界压成加法世界。由此能推出：涨价 10 元，在 100 元的东西上「肉疼」、在 10000 元的东西上「无感」，可它们对你钱包的线性冲击一模一样。凡是「跟着感觉走」的地方，你都在用一把对数的尺子去量一个线性的后果。</li>
+</ul>
+</div>
+<div class="thinking">
+<h3>深入思考<span class="he">（Going Deeper）</span></h3>
+<details><summary>如果局部总能用线性近似，怎么知道自己什么时候踩出了近似的有效范围？</summary><p>看二阶信息。线性近似的误差随偏离基准点的距离大致平方增长，所以只要盯住「同样的动作，效果是不是和上次不一样了」——效果一旦开始变化，就是曲率在提醒你已经离开了直线段。真正的难点不在有没有信号，在我们太容易把「效果变了」解释成外部噪声，而不是「我离开了线性区」。</p></details>
+<details><summary>「小投入大回报」和「小疏忽大灾难」既然同源，为什么我们对前者趋之若鹜、对后者视而不见？</summary><p>因为凸性（获益端）和凹性（受损端）在心理上并不对称：损失厌恶让我们高估近处的小损失、低估远处的大灾难，而复利型的收益又总被低估。结果是同一条陡峭曲线，我们只盯着它朝上的那一半。真要对称地看，得强迫自己把「万一在这段逆着走」也画出来。</p></details>
+<details><summary>阈值系统里，「早期毫无反应」既可能是「离阈值还远、很安全」，也可能是「马上要跨过去、最危险」，表面完全一样，怎么区分？</summary><p>这正是后面 Topic 36「临界慢化」要处理的：逼近阈值时，系统被扰动后的恢复会变慢、涨落会变大。所以区分二者，看的不是「反应大小」，是「反应之后多久平复」。这也提醒：阈值前的平静本身不携带距离信息，你得去测别的量。</p></details>
+<details><summary>非线性不等于不可预测，那到底是什么把一个系统从「非线性但可算」推进「原理上算不准」？</summary><p>关键的一步是对初始条件的敏感依赖——初值差之毫厘，轨迹谬以千里，误差以指数速度放大。这就是 Topic 8 混沌要讲的东西。非线性是它的必要条件（线性系统不会混沌），但远不是充分条件：绝大多数非线性系统一点都不混沌。</p></details>
+<details><summary>「用线性近似」在道德与政策判断里也成立吗？把复杂的社会后果当成「各项独立、可加」来评估，什么时候会出大错？</summary><p>叠加原理在人的系统里最先失效：两项政策各自温和，合在一起可能触发一个谁都没单独制造的阈值（挤兑、踩踏、舆论翻转）。「分项评估、各自达标、加起来就没问题」正是一个线性假设，而它恰恰在交互最强、最要紧的地方最不成立。</p></details>
+</div>
+<div class="refs">
+<h3>延伸阅读<span class="he">（Further Reading）</span></h3>
+<ul>
+<li><a href="https://en.wikipedia.org/wiki/Nonlinear_system">Nonlinear system</a>（非线性系统总览）</li>
+<li><a href="https://en.wikipedia.org/wiki/Superposition_principle">Superposition principle</a>（叠加原理——线性的判据）</li>
+<li>Steven Strogatz, <a href="https://www.stevenstrogatz.com/books/nonlinear-dynamics-and-chaos-with-applications-to-physics-biology-chemistry-and-engineering">Nonlinear Dynamics and Chaos</a>（非线性动力学的标准入门）</li>
+<li><a href="https://en.wikipedia.org/wiki/Weber%E2%80%93Fechner_law">Weber–Fechner law</a>（感知随对数增长）</li>
+<li><a href="https://en.wikipedia.org/wiki/Paracelsus#Toxicology">帕拉塞尔苏斯与「剂量定毒」</a>（毒理学的地基）</li>
+<li><a href="https://en.wikipedia.org/wiki/Hormesis">Hormesis</a>（低剂量效应——及其争议）</li>
+<li><a href="https://en.wikipedia.org/wiki/Wheat_and_chessboard_problem">Wheat and chessboard problem</a>（指数增长的经典寓言）</li>
+<li><a href="https://ctext.org/art-of-war/energy/zh">《孙子兵法·兵势篇》</a>（「求之于势，不责于人」原文）</li>
+</ul>
+</div>
+<footer>BigCat · 复杂性科学 · <a href="index.html">← 全部 Topic</a></footer>
+</div>
+</body></html>
