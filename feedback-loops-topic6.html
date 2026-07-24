@@ -67,7 +67,7 @@ footer a{color:#79a6d2;text-decoration:none}
 <div class="wrap">
 <header>
 <span class="week-tag">TOPIC 6 · PHASE A</span>
-<h1 data-tts="a1b6f0c2d3e40651">反馈回路<span class="h1en">FEEDBACK LOOPS</span></h1>
+<h1 data-tts="4d342dc86567a505">反馈回路<span class="h1en">FEEDBACK LOOPS</span></h1>
 <p class="sub">决定行为的是结构，不是意图（Structure, not intent, drives behaviour）</p>
 <p class="date">2026-07-24 · 什么算「复杂」</p>
 </header>
@@ -77,8 +77,7 @@ footer a{color:#79a6d2;text-decoration:none}
 <p>这一期讲的就是这段"你的动作绕一圈又回到你身上"的结构——反馈回路（feedback loop）。它是本站"局部规则长出整体行为"这条主线里最朴素、也最容易被低估的一环：<b>一个系统会怎么动，往往不取决于外面推了它什么，而取决于它内部这些圈是怎么接的。</b>接法定了，行为就定了——增长、崩溃、来回振荡，都是特定接法的必然产物，跟坐在里面的是谁关系不大。</p>
 <p class="dim">这条结论有点冒犯人：它意味着很多时候"骂人没用"。你换掉那个"办砸了"的人，接上来的人多半会以同样的方式办砸——因为砸事的是回路，不是人。要改结果，得去改那圈线。</p>
 </div>
-
-<h2 data-tts="b2c7016d3e5147a2"><span class="n">01</span>两种回路：滚雪球与恒温器<span class="he">（Two Kinds of Loops）</span></h2>
+<h2 data-tts="e2e132c2a74c036b"><span class="n">01</span>两种回路：滚雪球与恒温器<span class="he">（Two Kinds of Loops）</span></h2>
 <p class="lead">反馈只有两种，认全了就够用一辈子。</p>
 <p><b>一种是"越怎样就越怎样"，叫正反馈（positive feedback），也叫增强回路。</b>银行账户的利息：钱越多，生的利息越多，利息又变成本金，于是生更多利息。麦克风离音箱太近发出的啸叫：音箱放大了麦克风收的声，这声又被麦克风收进去再放大，零点几秒里冲到刺耳。正反馈不管好坏，它只管<em>放大</em>——把小差异滚成大差异，把偏离越推越远。它给出的典型行为是爆炸式增长，或者一泻千里的崩溃。</p>
 <p><b>另一种是"越怎样就越不怎样"，叫负反馈（negative feedback），也叫平衡回路。</b>家里的恒温器：屋里冷了就烧，烧到设定温度就停，热过头了又停得更久。它的作用是<em>纠偏</em>——把系统往一个目标值上拽，偏高就压、偏低就抬。负反馈给出的典型行为是稳定：绕着目标小幅波动，不跑远。你身体里几乎所有东西都是负反馈在管——体温、血糖、血压，全靠一堆看不见的恒温器把你摁在活得下去的窄窄一段里。</p>
@@ -135,8 +134,7 @@ footer a{color:#79a6d2;text-decoration:none}
 🌀 <b>工程与技术史 · 瓦特的调速器</b>　1788 年瓦特给蒸汽机装了个离心调速器（centrifugal governor）：转速快了，两个飞球被甩高，连杆就关小进气阀，转速于是降下来——一个纯机械的负反馈，让蒸汽机第一次能自己稳住转速。妙的是它<em>不需要理解</em>什么叫转速，接法本身就是"智能"。1868 年麦克斯韦（James Clerk Maxwell）为它写下第一篇稳定性数学分析《论调速器》，控制论的地基就是从这只飞球摆上长出来的。这条推论不显然：调节能力可以完全不来自哪个聪明的控制中枢，而只来自那圈线接对了方向——组织里那些"自动纠偏"的好机制，也往往是结构接对了，不是因为管的人特别英明。
 </div>
 <p class="en-brief"><b>EN</b> Feedback comes in two flavours: positive (self-amplifying — compound interest, audio squeal, bank runs) and negative (self-correcting — thermostats, body temperature). The sign names the wiring, not the benefit. Behaviour's shape is set by loop structure, not by anyone's effort or intent — which is why replacing the person rarely changes the outcome.</p>
-
-<h2 data-tts="c3d812e64f6258b3"><span class="n">02</span>浴缸里的水：存量与流量<span class="he">（Stocks and Flows）</span></h2>
+<h2 data-tts="3deb247e2b9ccecb"><span class="n">02</span>浴缸里的水：存量与流量<span class="he">（Stocks and Flows）</span></h2>
 <p class="lead">回路要动起来，得有个东西<em>攒着</em>——攒着的量，就是让"过去"能影响"现在"的记忆。</p>
 <p>系统动力学（system dynamics）里把它分成两样东西 <a class="reflink" href="ref-system-dynamics.html">→ 参考 · 系统动力学</a>：<b>存量（stock）是攒在那里的量，流量（flow）是单位时间进出的速度。</b>浴缸里的水是存量，水龙头进水和下水口出水是流量。银行余额是存量，收入和支出是流量。一个国家的人口是存量，出生和死亡是流量。存量是照片，流量是这张照片正在怎么变。</p>
 <p>听起来是废话，但人脑在这件事上会<em>系统性地</em>出错，错得离谱。麻省理工的 Sterman 做过一个著名实验：给一群受过高等教育的人看一张图——某个水池的进水速度和出水速度随时间变化，问他们水位怎么变。多数人答不对。最常见的错是把<b>流量的方向当成了存量的方向</b>：一看到"进水速度在下降"，就以为"水位在下降"。可只要进水还比出水快，哪怕进水一直在减速，水位照样在<em>涨</em>。人天生倾向于把"变化的速度"和"量本身"混为一谈。</p>
@@ -190,8 +188,7 @@ footer a{color:#79a6d2;text-decoration:none}
 🌀 <b>气候与公共政策 · 排放是流量，浓度才是存量</b>　Sterman 把上面那个浴缸实验直接搬到了气候上（2008 年发表于《科学》）：他发现连 MIT 的学生都普遍以为"只要把每年的碳排放稳住，大气里的二氧化碳浓度就稳住了"。错。排放是<em>进水</em>，浓度是<em>水位</em>——只要排放还高于自然吸收，浓度就继续涨。要让浓度<b>不再上升</b>，排放得砍到跟吸收一样低，而不是"稳定在当前水平"。这个存量-流量的错觉直接支撑了"再等等看"的心态——它在数学上就是把减速的进水误读成下降的水位。
 </div>
 <p class="en-brief"><b>EN</b> A stock is what accumulates; a flow is the rate in or out. People systematically confuse the two — reading a falling inflow rate as a falling stock (Sterman's bathtub studies). But as long as inflow exceeds outflow, the stock keeps rising. You usually act on flows while caring about a stock, separated by accumulation — which is why one adjustment rarely moves the level you watch.</p>
-
-<h2 data-tts="d4e91a075b7369c4"><span class="n">03</span>时滞：为什么淋浴不是太冷就是太烫<span class="he">（Delays and Oscillation）</span></h2>
+<h2 data-tts="fce9569f61bba488"><span class="n">03</span>时滞：为什么淋浴不是太冷就是太烫<span class="he">（Delays and Oscillation）</span></h2>
 <p class="lead">给一个负反馈回路加上一段延迟，稳定的纠偏就会变成来回的振荡——这是本期最有实用价值的一条。</p>
 <p>回到开头的淋浴。恒温器不振荡，因为它几乎瞬间就知道屋里冷了。可淋浴的水管有一段路：你拧了阀门，热水要几秒钟才到花洒。于是你根据<em>几秒钟前</em>的水温在做<em>现在</em>的调整。凉——猛拧热水——还凉（因为热水在路上）——继续拧——突然烫得跳起来——猛回拧——过一会又冰。<b>你每一步都在正确地纠偏，但你纠的是一个已经过时的偏差，所以总是过头。</b>延迟把一个本该收敛到"刚好"的负反馈，变成了绕着"刚好"来回甩的振荡。</p>
 <p>这不是手笨的特例，是带时滞的负反馈的通用宿命。库存管理里它有个专门的名字叫<b>牛鞭效应</b>（bullwhip effect）：终端销量只轻轻抖一下，零售商为保险多订一点，批发商见零售订单涨了再多备一点，工厂见批发订单涨了就大幅扩产——一层层放大加一层层延迟，等最上游反应过来，需求早回落了，于是全链条一起积压。麻省理工那个著名的"啤酒游戏"（Beer Game）里，一屋子聪明人只要坐在这条链上，几乎无一例外地制造出剧烈的库存振荡——<b>不是他们蠢，是这个结构逼着他们蠢。</b></p>
@@ -233,8 +230,7 @@ footer a{color:#79a6d2;text-decoration:none}
 🌀 <b>生态学 · 猞猁与雪兔的十年循环</b>　加拿大猞猁和雪兔的数量，一百多年来在哈德逊湾公司的毛皮记录里画出一条惊人规整的、大约十年一轮的起落。这正是带时滞的负反馈：兔多→猞猁跟着变多（但要一两代才繁殖出来，<em>延迟</em>）→猞猁多到把兔吃垮→兔崩了猞猁才跟着饿死（又一个延迟）→兔又开始恢复。Lotka 和 Volterra 在 1920 年代用两个方程就复现了这种振荡。<b>推论：这种周期性的暴涨暴跌不需要任何外部原因（气候、疫病都不必），光是"捕食"这一条带延迟的回路自己就够了</b>——所以看到规律的循环，先别急着找周期性的外因，很可能它内生于回路本身。
 </div>
 <p class="en-brief"><b>EN</b> Add a delay to a negative loop and steady correction turns into oscillation — you keep correcting an already-stale error, so you always overshoot (the shower; the bullwhip effect; MIT's Beer Game). Oscillation is the product of delay length and correction strength, never a single bad actor. Shorten the delay or soften the hand; increasing force is the one guaranteed mistake.</p>
-
-<h2 data-tts="e5f0a1b62c74815d"><span class="n">04</span>这套说法在哪儿不成立<span class="he">（Where This Breaks Down）</span></h2>
+<h2 data-tts="cf11fa300a86f44c"><span class="n">04</span>这套说法在哪儿不成立<span class="he">（Where This Breaks Down）</span></h2>
 <p class="lead">"结构决定行为"是个强命题，也正因为强，很容易被用过头。说说它的边界。</p>
 <p><b>第一，"结构决定行为"不等于"人和意图完全不重要"。</b>它的准确版本是：<em>在一个既定结构里</em>，个体的差异往往被回路抹平——换谁上都差不多。但结构本身是人搭的，也是人能改的。回路把"在系统里努力"的作用压得很小，却把"改系统"的作用放得很大。把这句话读成"反正都是结构的错、个人无能为力"，是把一个关于<em>杠杆位置</em>的判断，错当成了宿命论——恰恰相反，它是在告诉你劲该往哪儿使：别在回路里死磕，去改那圈线。</p>
 <p><b>第二，画得出回路，不等于量得准。</b>正反馈、负反馈、时滞这套语言给你的是<em>定性</em>的直觉——会增长还是会稳住、会不会振荡。但一个真系统里几十上百条回路缠在一起，哪条此刻占主导、翻盘的临界点在哪，光靠"数箭头"答不出来，得靠真实数据和仿真。<b>回路图是好用的地图，但地图不是地形。</b>把一张漂亮的因果箭头图当成"我已经理解并能预测这个系统了"，是系统动力学最常见的自欺。</p>
@@ -243,35 +239,31 @@ footer a{color:#79a6d2;text-decoration:none}
 <span class="lb">🎯 决策线</span>
 <p>用回路解释一个系统之前，先过三关：①它的行为主要是内生的吗（关掉外部输入还会动吗）？②我说的是定性形状（增长/稳定/振荡），还是在冒充定量预测？③我承认这结构是可改的、没把"结构决定"偷换成"无人负责"吗？三关有一关过不去，就先别急着拿回路下结论。</p>
 </div>
-
 <div class="bigcat">
-<h3 data-tts="f6a1b2c73d85916e">🎒 场景 · BigCat</h3>
+<h3 data-tts="62ad3b2d78ea3c57">🎒 场景 · BigCat</h3>
 <ol>
 <li><span class="dm">育儿</span>反复上演的那一幕：你越催"快点写作业"，孩子越磨蹭，你于是催得更凶。你以为自己在纠偏，其实你的催促已经是这个增强回路里的一环——你的焦虑喂养他的拖延，他的拖延又喂养你的焦虑。改看的不是"他今天磨蹭了没有"，而是<b>问自己：我这次开口，是让这圈转得更快还是更慢？</b>一个能打断回路的具体动作：把"再不写就……"这类会拉高对抗的话停掉，换成把选择权和后果交还给他（几点写、写不完自己面对老师）——你退出回路，回路才可能松。这跟"你该更耐心"没关系，是把你自己从那圈线上摘下来。</li>
 <li><span class="dm">带团队与组织</span>季度中盘那件反复发生的事：你追问进度越紧，下面越报喜不报忧，坏消息越往后压，等它藏不住时已经晚了——于是你下次追问得更紧。这是一条活生生的牛鞭：压力放大了信息失真，延迟放大了暴露的滞后。别在"谁又瞒报了"上找人，去<b>缩短那个延迟</b>：把季度大复盘拆成每周十五分钟的小同步，指标从"完成了没有"换成"这周离目标近了还是远了、卡在哪"。反馈绕回来越快，需要瞒报的空间越小——你改的是链条长度，不是人的诚实度。</li>
 <li><span class="dm">健康与精力</span>那个熟悉的下坡：这周为赶事熬了几个晚上，白天精力差、效率低，于是晚上又得熬夜补进度。睡眠债是个<em>存量</em>，它记得住你欠的每一笔，不会因为你今天"感觉还行"就一笔勾销。别用"今天扛不扛得住"（当下的流量感觉）来决定要不要熬——那正是把减速的进水误读成下降的水位。改盯一个存量指标：<b>连续几天的睡眠总时长</b>。只要这个数在往下走，无论今天多精神，都已经在借明天的钱——先还债，再谈进度。</li>
 </ol>
 </div>
-
 <div class="crossx">
-<h3 data-tts="a7b2c3d84e96a05f">🌀 越界 · 跨学科的联想<span class="he">（Crossings）</span></h3>
+<h3 data-tts="57bd78da9529360f">🌀 越界 · 跨学科的联想<span class="he">（Crossings）</span></h3>
 <ul>
 <li><b>心理治疗 · 症状维持的循环</b>：帕洛阿尔托学派（Watzlawick 等，《改变》1974）有个反常识的核心命题——<b>让问题持续下去的，往往正是你为解决它所做的努力</b>。失眠的人越<em>努力</em>入睡越睡不着（想睡是清醒的动作）；惊恐发作的人越害怕心悸，恐惧本身把心悸推得更猛（"怕自己怕"）。本期三条机制在这里成套跑：那个本意是负反馈的动作（我要压下症状），接错了方向变成正反馈（我的用力在喂养症状）；症状是个攒起来的<em>存量</em>（焦虑水位），不会因你一次用力就清零；而"努力—更糟"之间还隔着<em>时滞</em>，让你看不清是自己的手在加柴。<b>于是有效的干预不是更用力地对抗症状（那是在回路里较劲），而是改回路本身</b>——悖论处方让你"故意保持清醒"，恰恰是把那只自我放大的手拿开。这正是本期决策线在临床上的样子：骂症状没用，改回路才行。</li>
 <li><b>经济与制度 · 明斯基的"稳定孕育不稳定"</b>：经济学家明斯基（Hyman Minsky）提出金融不稳定假说——一段长时间的平稳本身就是危机的温床。日子太平→大家胆子变大、加杠杆→杠杆推高资产价格→更太平的假象→加更多杠杆。这是个不折不扣的正反馈；而债务是个只增不减的<em>存量</em>，利息和到期日带着<em>时滞</em>，于是繁荣可以维持很久，直到某天现金流接不上，"明斯基时刻"骤然到来。<b>推论：金融体系最危险的时候，表面上看正是它最平静的时候</b>——低波动不是安全，是积累。<b>但这里不成立</b>：浴缸里的水不知道自己在被放掉，可市场里的人会<em>读懂</em>这条回路并抢先行动（索罗斯的"反身性"）。一旦足够多人预期到"平静=危险"，他们的提前撤离就改写了回路本身、让崩盘提前或变形。反馈框架默认结构是相对稳定的机械管道；而由会预判管道的人组成的系统，管道会随预期而变——这是把机械反馈直接套到金融上时会崩掉的那一环。</li>
 <li><b>历史与军事 · 保罗·肯尼迪的"帝国过度扩张"</b>：历史学家保罗·肯尼迪（Paul Kennedy，《大国的兴衰》1987）观察到一个反复出现的模式：一个强国靠征服获取资源，资源又供养更多征服——一条正反馈把疆域越滚越大；但每一块新地盘都变成需要长期驻守的<em>存量</em>负担，军事开销的账单带着几十年的<em>时滞</em>才压垮财政。<b>推论：帝国的衰落多半不是某个"昏君"的道德失败（那是在回路里找人），而是这条扩张回路走到了它数学上的必然拐点</b>——扩张的收益递减、维持的存量成本递增，两条线一交叉就开始下坡，换谁在位都一样。这与第一节同构：结果由回路的接法决定，不由台上那个人的贤愚决定。找"是谁弄丢了帝国"，问错了问题。</li>
 </ul>
 </div>
-
 <div class="thinking">
-<h3 data-tts="b8c3d4e95fa716a0">深入思考<span class="he">（Going Deeper）</span></h3>
+<h3 data-tts="06a90574eb56710e">深入思考<span class="he">（Going Deeper）</span></h3>
 <details><summary>正反馈总是坏、负反馈总是好吗？</summary><p>都不是。你想要的一切增长——学习、复利、网络效应、能力的复利——都靠正反馈起步；没有它，什么都长不起来。而负反馈可以是舒适的稳态，也可以是让你无论怎么努力都突破不了的天花板（"内卷"很多时候就是一堆负反馈把所有人摁在原地）。健康的系统往往是"正反馈负责生长、负反馈负责刹车"的组合，问题几乎总出在<em>缺了哪一半</em>：只有正反馈没有刹车 → 泡沫或癌变；只有负反馈没有增长引擎 → 死水。</p></details>
 <details><summary>既然延迟会制造振荡，那"消除一切延迟"是好事吗？</summary><p>不必然。有些延迟是有用的缓冲——库存、储蓄、水库、组织里的中间层，都在用"暂存"来吸收上游的抖动，反而<em>抑制</em>振荡。真正制造麻烦的是<b>信息</b>延迟（你太晚知道真相），而不是<b>物质</b>缓冲延迟（东西暂时存着）。所以精确的目标不是"砍掉所有延迟"，是"缩短信息绕回来的时间，同时保留能吸收冲击的缓冲"。一刀切地追求"零库存零冗余"，往往是把抑振的缓冲和致振的滞后一起砍了。</p></details>
 <details><summary>"改回路而不是改人"会不会变成给失职者开脱？</summary><p>会——如果你停在一半。完整的命题是两句话：在<em>既定</em>结构里，个人差异被抹平（所以别只怪人）；但结构是人搭的、也是人能改的（所以有人得为"不去改结构"负责）。真正的问责因此从"谁按错了按钮"上移到"谁有权改这圈线却没改"。反馈视角不是取消责任，是把责任放到正确的层——从操作者移到设计者。</p></details>
 <details><summary>一个人能不能"看见"自己正身处哪条回路里？</summary><p>很难，因为时滞会切断因果的直觉联系——你的动作要绕很久才回来，回来时你早已不把它和当初那一下联系起来（这正是所有"症状维持循环"最顽固的地方）。有个笨办法有效：把一件反复发生、让你困惑的事，硬画成一圈箭头，逼自己回答"我这个动作，最后有没有绕回来加强了我想消除的东西"。很多个人和组织的死结，画出来的第一眼就松了——因为你第一次看见自己是回路的一部分，而不是回路外的受害者。</p></details>
 </div>
-
 <div class="refs">
-<h3 data-tts="c9d4e5f06ab827b1">延伸阅读<span class="he">（Further Reading）</span></h3>
+<h3 data-tts="041a6e2335f57a8d">延伸阅读<span class="he">（Further Reading）</span></h3>
 <ul>
 <li>Donella Meadows, <a href="https://www.chelseagreen.com/product/thinking-in-systems/">Thinking in Systems: A Primer</a>（2008，反馈、存量流量、时滞的最佳入门）</li>
 <li>Jay Forrester, <a href="https://en.wikipedia.org/wiki/Industrial_Dynamics">Industrial Dynamics</a>（1961，系统动力学奠基之作）</li>
