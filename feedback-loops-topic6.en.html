@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+
+<html lang="en"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Feedback Loops — Structure Beats Intent · Complexity Science T6</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,"SF Pro Display","Noto Sans SC",sans-serif;color:#e4ded5;line-height:1.85;min-height:100vh;
+  background:radial-gradient(1100px 620px at 12% -6%,rgba(224,137,94,0.10),transparent 62%),radial-gradient(950px 700px at 100% 2%,rgba(166,147,205,0.09),transparent 58%),linear-gradient(168deg,#100f0d 0%,#15161b 48%,#0a0a0c 100%);background-attachment:fixed}
+.wrap{max-width:760px;margin:0 auto;padding:30px 22px 90px}
+header{padding:52px 0 8px;border-bottom:1px solid rgba(255,255,255,0.07);margin-bottom:34px}
+.week-tag{font-family:"SF Mono",Menlo,monospace;font-size:0.72rem;font-weight:700;letter-spacing:2px;color:#e0895e;border:1px solid rgba(224,137,94,0.4);background:rgba(224,137,94,0.07);padding:3px 11px;border-radius:20px}
+h1{font-size:2.5rem;font-weight:800;letter-spacing:0.5px;line-height:1.2;margin:20px 0 0;background:linear-gradient(106deg,#e0895e 0%,#d9b45f 34%,#9fbc7a 68%,#63b3a6 100%);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+h1 .h1en{display:block;font-size:0.40em;font-weight:600;letter-spacing:2.5px;color:#847d72;-webkit-text-fill-color:#847d72;background:none;margin-top:13px}
+.sub{font-size:1.05rem;color:#aba498;margin-top:14px;font-weight:500}
+.date{font-family:"SF Mono",Menlo,monospace;font-size:0.75rem;color:#57524b;margin-top:18px;letter-spacing:1px}
+.pitch{margin:22px 0 30px;font-size:0.97rem;color:#cd7f9b;border-left:2px solid rgba(205,127,155,0.5);padding-left:16px;font-style:italic}
+.intro{font-size:1.02rem;color:#cfc8bc;margin-bottom:14px}
+.intro p{margin-bottom:16px}
+h2{font-size:1.42rem;font-weight:700;color:#e9e3d9;margin:56px 0 8px;letter-spacing:0.3px}
+h2 .n{font-family:"SF Mono",Menlo,monospace;font-size:0.85rem;color:#9fbc7a;display:block;margin-bottom:6px;letter-spacing:2px}
+.he{font-size:0.68em;color:#8d867b;font-weight:500;letter-spacing:0}
+p{margin-bottom:17px}
+.lead{color:#cfc8bc}
+b,strong{color:#f0eae0;font-weight:600}
+em{color:#d9b45f;font-style:normal;font-weight:500}
+.dim{color:#8d867b}
+a.reflink{display:inline-block;font-size:0.82rem;font-family:"SF Mono",Menlo,monospace;color:#63b3a6;border:1px solid rgba(99,179,166,0.38);background:rgba(99,179,166,0.07);padding:1px 9px;border-radius:20px;text-decoration:none;transition:all 0.15s;white-space:nowrap}
+a.reflink:hover{background:rgba(99,179,166,0.16);border-color:rgba(99,179,166,0.7)}
+figure{margin:30px 0}
+figure svg{display:block;width:100%;height:auto;border-radius:12px;background:rgba(255,255,255,0.018);border:1px solid rgba(255,255,255,0.06)}
+figcaption{font-size:0.82rem;color:#787268;margin-top:11px;text-align:center;line-height:1.6}
+.decide{margin:24px 0;border:1px solid rgba(224,137,94,0.36);background:rgba(224,137,94,0.055);border-radius:12px;padding:15px 19px}
+.decide .lb{font-family:"SF Mono",Menlo,monospace;font-size:0.73rem;letter-spacing:1.5px;color:#e0895e;font-weight:700;display:block;margin-bottom:7px}
+.decide p{margin:0;font-size:0.95rem;color:#ddd5c9}
+.crossx-inline{margin:20px 0 22px;border-left:2px solid rgba(205,127,155,0.55);padding:2px 0 2px 15px;font-size:0.89rem;color:#a9a096;line-height:1.72}
+.crossx-inline b{color:#cd7f9b;font-weight:600}
+.bigcat{margin:46px 0 10px;border:1px solid rgba(217,180,95,0.38);background:rgba(217,180,95,0.05);border-radius:14px;padding:20px 22px}
+.bigcat h3{font-size:1.02rem;color:#d9b45f;margin-bottom:14px;letter-spacing:0.5px}
+.bigcat ol{list-style:none;padding:0}
+.bigcat li{margin-bottom:15px;font-size:0.94rem;color:#d5cdc1;line-height:1.78}
+.bigcat li:last-child{margin-bottom:0}
+.bigcat .dm{font-family:"SF Mono",Menlo,monospace;font-size:0.73rem;color:#d9b45f;border:1px solid rgba(217,180,95,0.32);border-radius:4px;padding:1px 7px;margin-right:8px;white-space:nowrap}
+.crossx{margin:46px 0 10px;border:1px solid rgba(205,127,155,0.38);background:rgba(205,127,155,0.05);border-radius:14px;padding:20px 22px}
+.crossx h3{font-size:1.02rem;color:#cd7f9b;margin-bottom:14px;letter-spacing:0.5px}
+.crossx ul{list-style:none;padding:0}
+.crossx li{margin-bottom:16px;font-size:0.94rem;color:#d5cdc1;line-height:1.78}
+.crossx li:last-child{margin-bottom:0}
+.crossx li b{color:#cd7f9b;font-weight:600}
+.thinking{margin:46px 0 10px}
+.thinking h3{font-size:1.02rem;color:#a693cd;margin-bottom:14px;letter-spacing:0.5px}
+details{border:1px solid rgba(166,147,205,0.22);border-radius:10px;padding:12px 16px;margin-bottom:10px;background:rgba(166,147,205,0.035)}
+summary{cursor:pointer;font-size:0.93rem;color:#c9c2b6;font-weight:500}
+summary::marker{color:#a693cd}
+details p{margin:12px 0 0;font-size:0.9rem;color:#a9a096;line-height:1.75}
+.refs{margin:46px 0 10px}
+.refs h3{font-size:1.02rem;color:#79a6d2;margin-bottom:14px;letter-spacing:0.5px}
+.refs ul{list-style:none;padding:0}
+.refs li{margin-bottom:10px;font-size:0.9rem;color:#8d867b;line-height:1.7}
+.refs a{color:#79a6d2;text-decoration:none;border-bottom:1px solid rgba(121,166,210,0.3)}
+.refs a:hover{color:#a6c4e2;border-bottom-color:rgba(121,166,210,0.7)}
+footer{text-align:center;padding:56px 0 10px;font-size:0.78rem;color:#57524b;font-family:"SF Mono",Menlo,monospace;border-top:1px solid rgba(255,255,255,0.06);margin-top:50px}
+footer a{color:#79a6d2;text-decoration:none}
+@media(max-width:600px){h1{font-size:1.85rem}.wrap{padding:24px 16px 60px}h2{font-size:1.22rem}}
+</style></head><body>
+<div class="wrap">
+<header>
+<span class="week-tag">TOPIC 6 · PHASE A</span>
+<h1 data-tts="a1b6f0c2d3e40651en">Feedback Loops<span class="h1en">FEEDBACK LOOPS</span></h1>
+<p class="sub">Structure, not intent, drives behaviour</p>
+<p class="date">2026-07-24 · What Counts as Complex</p>
+</header>
+<p class="pitch">The same person becomes someone else in a new role; the same team grows a new temperament when you rewire one reporting path. We're used to blaming behaviour on <em>who</em> and <em>what they want</em> — yet for a whole class of problems, no matter who you put in and how badly they want to do well, the outcome is the same. Because what decides it isn't the person on stage, it's how the wires backstage are hooked up.</p>
+<div class="intro">
+<p>You turn the hot tap in the shower; the water's still cold, so you turn it more; still cold — and just as you've got it about right, scalding water arrives, you crank it back, overshoot, and now it's freezing. Every single move was toward "just right," yet you keep flip-flopping between cold and hot. You're not clumsy: there's a <em>delay</em> in the pipe, and you're wrestling a system that answers you late.</p>
+<p>This topic is about exactly that structure — where your action loops around and comes back to you: the feedback loop. It's the plainest, and most underrated, link in this site's throughline of "local rules growing into whole-system behaviour": <b>how a system will move often depends not on what pushes it from outside, but on how these internal loops are wired.</b> Fix the wiring and you fix the behaviour — growth, collapse, endless oscillation are all the inevitable output of a particular way of hooking things up, and have little to do with who's sitting inside.</p>
+<p class="dim">The conclusion is faintly offensive: much of the time, scolding is useless. Swap out the person who "messed it up" and their replacement will mostly mess it up the same way — because it's the loop that fails, not the person. To change the outcome, you have to change the wiring.</p>
+</div>
+
+<h2 data-tts="b2c7016d3e5147a2en"><span class="n">01</span>Two Kinds of Loops</h2>
+<p class="lead">There are only two kinds of feedback. Learn both and you're set for life.</p>
+<p><b>One says "the more, the more" — positive feedback, also called a reinforcing loop.</b> Interest on a bank balance: more money makes more interest, the interest becomes principal, which makes still more interest. The squeal when a microphone gets too close to a speaker: the speaker amplifies what the mic picks up, the mic picks that up and amplifies it again, screaming within a fraction of a second. Positive feedback doesn't care about good or bad — it only <em>amplifies</em>: rolling small differences into large ones, pushing a deviation ever further out. Its signature behaviour is explosive growth, or headlong collapse.</p>
+<p><b>The other says "the more, the less" — negative feedback, also called a balancing loop.</b> A home thermostat: cold, so it heats; reaches the setpoint, so it stops; overshoots, so it stays off longer. Its job is to <em>correct</em> — to drag the system toward a target, damping what's too high, lifting what's too low. Its signature behaviour is stability: small wobbles around a target, never wandering far. Almost everything inside your body is run by negative feedback — temperature, blood sugar, blood pressure — a crowd of invisible thermostats pinning you into the narrow band where you can stay alive.</p>
+<p>Note that "positive/negative" has nothing to do with good or bad. Positive feedback can be enriching compound interest or a bank run; negative feedback can be life-saving thermoregulation or a ceiling you can't break through however hard you try. <b>The name describes the wiring — self-amplifying or self-correcting — not whether it's good for you.</b></p>
+<figure>
+<svg aria-label="Two feedback loops: positive amplifies itself, negative corrects itself" role="img" viewbox="0 0 720 300" xmlns="http://www.w3.org/2000/svg">
+<defs>
+<marker id="fa1p" markerheight="10" markerunits="userSpaceOnUse" markerwidth="10" orient="auto" refx="8.5" refy="5" viewbox="0 0 10 10">
+<path d="M0,1 L9,5 L0,9 z" fill="#e0895e"></path>
+</marker>
+<marker id="fa1n" markerheight="10" markerunits="userSpaceOnUse" markerwidth="10" orient="auto" refx="8.5" refy="5" viewbox="0 0 10 10">
+<path d="M0,1 L9,5 L0,9 z" fill="#63b3a6"></path>
+</marker>
+</defs>
+<text fill="#aba498" font-family="-apple-system,sans-serif" font-size="13" text-anchor="middle" x="360" y="28">Same "loop back to yourself" — opposite fates, depending on the wiring</text>
+<!-- positive -->
+<text fill="#e0895e" font-family="SF Mono,monospace" font-size="12.5" text-anchor="middle" x="180" y="62">Positive · reinforcing</text>
+<circle cx="120" cy="130" fill="rgba(224,137,94,0.10)" r="30" stroke="rgba(224,137,94,0.5)"></circle>
+<text fill="#e4ded5" font-family="-apple-system,sans-serif" font-size="12" text-anchor="middle" x="120" y="134">Savings</text>
+<circle cx="248" cy="130" fill="rgba(224,137,94,0.10)" r="30" stroke="rgba(224,137,94,0.5)"></circle>
+<text fill="#e4ded5" font-family="-apple-system,sans-serif" font-size="12" text-anchor="middle" x="248" y="134">Interest</text>
+<path d="M148,116 C180,98 216,98 240,112" fill="none" marker-end="url(#fa1p)" stroke="#e0895e" stroke-width="2"></path>
+<path d="M220,146 C188,164 152,164 128,150" fill="none" marker-end="url(#fa1p)" stroke="#e0895e" stroke-width="2"></path>
+<text fill="#c0703f" font-family="-apple-system,sans-serif" font-size="11" text-anchor="middle" x="184" y="92">more →</text>
+<text fill="#c0703f" font-family="-apple-system,sans-serif" font-size="11" text-anchor="middle" x="184" y="182">→ more</text>
+<text fill="#e0895e" font-family="SF Mono,monospace" font-size="22" text-anchor="middle" x="184" y="138">↻</text>
+<text fill="#8d867b" font-family="-apple-system,sans-serif" font-size="11" text-anchor="middle" x="184" y="222">same-direction loop → amplifies</text>
+<text fill="#c0703f" font-family="-apple-system,sans-serif" font-size="11.5" text-anchor="middle" x="184" y="244">explosive growth / collapse</text>
+<!-- negative -->
+<text fill="#63b3a6" font-family="SF Mono,monospace" font-size="12.5" text-anchor="middle" x="540" y="62">Negative · balancing</text>
+<circle cx="480" cy="130" fill="rgba(99,179,166,0.10)" r="30" stroke="rgba(99,179,166,0.5)"></circle>
+<text fill="#e4ded5" font-family="-apple-system,sans-serif" font-size="12" text-anchor="middle" x="480" y="134">Room T</text>
+<circle cx="608" cy="130" fill="rgba(99,179,166,0.10)" r="30" stroke="rgba(99,179,166,0.5)"></circle>
+<text fill="#e4ded5" font-family="-apple-system,sans-serif" font-size="11" text-anchor="middle" x="608" y="127">Heat</text>
+<text fill="#e4ded5" font-family="-apple-system,sans-serif" font-size="11" text-anchor="middle" x="608" y="141">output</text>
+<path d="M508,116 C540,98 576,98 600,112" fill="none" marker-end="url(#fa1n)" stroke="#63b3a6" stroke-width="2"></path>
+<path d="M580,146 C548,164 512,164 488,150" fill="none" marker-end="url(#fa1n)" stroke="#63b3a6" stroke-width="2"></path>
+<text fill="#7fc9bc" font-family="-apple-system,sans-serif" font-size="11" text-anchor="middle" x="544" y="92">higher →</text>
+<text fill="#7fc9bc" font-family="-apple-system,sans-serif" font-size="11" text-anchor="middle" x="544" y="182">→ less</text>
+<text fill="#63b3a6" font-family="SF Mono,monospace" font-size="22" text-anchor="middle" x="544" y="138">↺</text>
+<text fill="#8d867b" font-family="-apple-system,sans-serif" font-size="11" text-anchor="middle" x="544" y="222">opposite-direction loop → corrects</text>
+<text fill="#63b3a6" font-family="-apple-system,sans-serif" font-size="11.5" text-anchor="middle" x="544" y="244">holds near a target</text>
+<line stroke="rgba(255,255,255,0.12)" stroke-dasharray="3 5" x1="360" x2="360" y1="70" y2="250"></line>
+<text fill="#57524b" font-family="-apple-system,sans-serif" font-size="11" text-anchor="middle" x="360" y="284">An odd number of "reversing" links in the loop = negative; otherwise = positive. Count them to know: stable or runaway.</text>
+</svg>
+<figcaption>Feedback has only two types: same-direction loops that self-amplify (positive), opposite-direction loops that self-correct (negative). Whether a system settles or runs away, look at the loop first.</figcaption>
+</figure>
+<p>This already gives us the topic's most important sentence: <b>the shape of behaviour is set by how the loop is wired, not by anyone's effort or intent.</b> A system full of positive feedback can't be stabilized by wanting harder; a system locked by negative feedback just pushes back harder when you push it. So before you reach for "try harder," ask: <em>which kind of loop am I standing in?</em></p>
+<div class="decide">
+<span class="lb">🎯 DECISION</span>
+<p>When a result keeps recurring and doesn't improve no matter who you swap in, don't rush to ask "who failed." First draw it as a ring of arrows: does A raise B, and does B come back to raise A or damp it? Same-direction (positive) → what you need is <b>how to break the loop before it snowballs</b>, not to push harder with it; opposite-direction (negative) → either <b>move the setpoint</b> or accept it will just wobble nearby, and stop expecting it to travel. <b>Scolding won't rewire a loop; changing the wiring will.</b></p>
+</div>
+<div class="crossx-inline">
+🌀 <b>Engineering &amp; the history of technology · Watt's governor</b>　In 1788 Watt fitted his steam engine with a centrifugal governor: run too fast and two flyballs swing outward, the linkage closes the steam valve, and the speed drops — a purely mechanical negative loop that let an engine hold its own speed for the first time. The lovely part: it <em>understands</em> nothing about "speed"; the wiring itself is the intelligence. In 1868 James Clerk Maxwell wrote the first mathematical stability analysis of it, "On Governors," and the foundations of control theory grew from that flyball pendulum. The non-obvious upshot: regulating ability need not come from any clever central controller — only from a loop hooked up in the right direction. The "self-correcting" mechanisms you admire in an organization are usually right structure, not an unusually wise manager.
+</div>
+
+<h2 data-tts="c3d812e64f6258b3en"><span class="n">02</span>Water in the Bathtub: Stocks and Flows</h2>
+<p class="lead">For a loop to move, something has to <em>accumulate</em> — and what accumulates is the memory that lets the past shape the present.</p>
+<p>System dynamics splits this into two things <a class="reflink" href="ref-system-dynamics.en.html">→ ref · System Dynamics</a>: <b>a stock is the amount sitting there; a flow is the rate going in or out per unit of time.</b> The water in a bathtub is a stock; the tap and the drain are flows. A bank balance is a stock; income and spending are flows. A country's population is a stock; births and deaths are flows. The stock is the photograph; the flow is how the photograph is changing right now.</p>
+<p>It sounds trivial, but the human brain fails at this <em>systematically</em>, and badly. Sterman at MIT ran a famous experiment: show a group of highly educated people a chart of a tank's inflow and outflow rates over time, and ask how the water level changes. Most get it wrong. The commonest error is to take the <b>direction of the flow as the direction of the stock</b>: seeing "the inflow rate is falling," they conclude "the level is falling." But as long as inflow still beats outflow, the level keeps <em>rising</em>, even while the inflow decelerates the whole time. People are wired to conflate "the rate of change" with "the amount itself."</p>
+<figure>
+<svg aria-label="Bathtub model: as long as inflow beats outflow, the level keeps rising even while inflow decelerates" role="img" viewbox="0 0 720 320" xmlns="http://www.w3.org/2000/svg">
+<defs>
+<marker id="fa2i" markerheight="10" markerunits="userSpaceOnUse" markerwidth="10" orient="auto" refx="8.5" refy="5" viewbox="0 0 10 10">
+<path d="M0,1 L9,5 L0,9 z" fill="#79a6d2"></path>
+</marker>
+<marker id="fa2o" markerheight="10" markerunits="userSpaceOnUse" markerwidth="10" orient="auto" refx="8.5" refy="5" viewbox="0 0 10 10">
+<path d="M0,1 L9,5 L0,9 z" fill="#8d867b"></path>
+</marker>
+</defs>
+<text fill="#aba498" font-family="-apple-system,sans-serif" font-size="13" text-anchor="middle" x="360" y="26">Inflow (a flow) is slowing, yet the level (a stock) is still rising</text>
+<!-- bathtub -->
+<g transform="translate(60,70)">
+<path d="M0,40 L0,150 Q0,168 18,168 L200,168 Q218,168 218,150 L218,40" fill="none" stroke="rgba(255,255,255,0.28)" stroke-width="2.5"></path>
+<rect fill="rgba(121,166,210,0.28)" height="96" width="214" x="2" y="70"></rect>
+<rect fill="rgba(121,166,210,0.16)" height="26" width="214" x="2" y="44"></rect>
+<line stroke="#79a6d2" stroke-dasharray="5 4" stroke-width="1.5" x1="2" x2="216" y1="70" y2="70"></line>
+<text fill="#79a6d2" font-family="-apple-system,sans-serif" font-size="12" x="56" y="120">stock = level</text>
+<!-- inflow -->
+<line marker-end="url(#fa2i)" stroke="#79a6d2" stroke-width="6" x1="40" x2="40" y1="-2" y2="40"></line>
+<text fill="#79a6d2" font-family="-apple-system,sans-serif" font-size="11.5" text-anchor="middle" x="40" y="-10">inflow ↓ slowing</text>
+<!-- outflow -->
+<line marker-end="url(#fa2o)" stroke="#8d867b" stroke-width="4" x1="190" x2="190" y1="168" y2="204"></line>
+<text fill="#8d867b" font-family="-apple-system,sans-serif" font-size="11.5" text-anchor="middle" x="190" y="220">outflow (small)</text>
+</g>
+<!-- curves -->
+<g transform="translate(340,54)">
+<line stroke="rgba(255,255,255,0.18)" stroke-width="1.5" x1="40" x2="330" y1="180" y2="180"></line>
+<line stroke="rgba(255,255,255,0.18)" stroke-width="1.5" x1="40" x2="40" y1="180" y2="20"></line>
+<text fill="#8d867b" font-family="-apple-system,sans-serif" font-size="11" text-anchor="middle" x="190" y="202">time →</text>
+<path d="M40,52 C120,72 230,96 330,104" fill="none" stroke="#79a6d2" stroke-width="2.5"></path>
+<text fill="#79a6d2" font-family="SF Mono,monospace" font-size="11.5" x="248" y="86">inflow rate ↓</text>
+<path d="M40,150 C140,148 240,146 330,146" fill="none" stroke="#8d867b" stroke-width="2"></path>
+<text fill="#8d867b" font-family="SF Mono,monospace" font-size="11" x="250" y="140">outflow rate</text>
+<path d="M40,172 C130,150 240,96 330,40" fill="none" stroke="#e0895e" stroke-width="3"></path>
+<text fill="#e0895e" font-family="SF Mono,monospace" font-size="12" x="150" y="70">level (stock) ↑</text>
+<text fill="#c0703f" font-family="-apple-system,sans-serif" font-size="10.5" x="52" y="176">rises the whole time inflow &gt; outflow</text>
+</g>
+<text fill="#57524b" font-family="-apple-system,sans-serif" font-size="11" text-anchor="middle" x="360" y="306">"inflow is slowing" ≠ "level is falling." To halt the stock, inflow must fall all the way to outflow — not merely dip.</text>
+</svg>
+<figcaption>A stock's direction is set by which of the two flows is larger, not by whether one flow is rising or falling. This is the step most often botched.</figcaption>
+</figure>
+<p>Why is the distinction worth money? Because <b>what you can act on directly is usually a flow, while what you care about is a stock, and between them sits a process of accumulation.</b> Losing weight cares about body weight (a stock) but changes daily intake and burn (flows); paying off debt cares about the balance (a stock) but changes the monthly payment (a flow). Fix a flow once and expect the stock to follow instantly, and you will almost surely be disappointed — a stock has inertia; it remembers every past entry.</p>
+<div class="crossx-inline">
+🌀 <b>Climate &amp; public policy · emissions are a flow, concentration is the stock</b>　Sterman took that bathtub experiment straight to climate (published in <em>Science</em>, 2008): even MIT students widely believed "just stabilize annual carbon emissions and atmospheric CO₂ stabilizes too." Wrong. Emissions are the <em>inflow</em>, concentration is the <em>level</em> — as long as emissions exceed natural uptake, concentration keeps rising. To stop concentration <b>from rising</b>, emissions must be cut to match uptake, not "held at today's level." This stock-flow illusion directly underwrites the "wait and see" instinct — mathematically, it's reading a decelerating inflow as a falling level.
+</div>
+
+<h2 data-tts="d4e91a075b7369c4en"><span class="n">03</span>Delays: Why the Shower Is Either Freezing or Scalding</h2>
+<p class="lead">Add a delay to a negative loop and steady correction becomes oscillation — the most practically useful thing in this topic.</p>
+<p>Back to the shower. A thermostat doesn't oscillate because it knows almost instantly that the room's gone cold. But the shower pipe has a length: turn the valve and the hot water takes a few seconds to reach the head. So you're making a <em>now</em> adjustment based on the temperature of <em>a few seconds ago</em>. Cold — crank the hot — still cold (the hot's on its way) — keep cranking — suddenly leap back scalded — crank it back — freezing again in a moment. <b>Every step was a correct correction, but you were correcting an already-stale error, so you always overshoot.</b> The delay turns a negative loop that should converge to "just right" into an oscillation swinging around "just right."</p>
+<p>This isn't a quirk of clumsy hands; it's the generic fate of a delayed negative loop. In inventory management it has its own name — the <b>bullwhip effect</b>: end-customer demand twitches a little, the retailer orders a bit extra to be safe, the wholesaler sees retail orders rise and stocks a bit more, the factory sees wholesale orders rise and ramps up hard — amplification layered on delay layered on delay, and by the time the top of the chain reacts, demand has long since fallen back, so the whole chain ends up drowning in stock at once. In MIT's famous "Beer Game," a room full of smart people, merely by sitting on this chain, produce violent inventory swings almost without exception — <b>not because they're stupid, but because the structure forces them to be.</b></p>
+<figure>
+<svg aria-label="A delayed negative loop oscillates: temperature overshoots the target back and forth, wider with more lag" role="img" viewbox="0 0 720 300" xmlns="http://www.w3.org/2000/svg">
+<defs>
+<marker id="fa3a" markerheight="9" markerunits="userSpaceOnUse" markerwidth="9" orient="auto" refx="8" refy="5" viewbox="0 0 10 10">
+<path d="M0,1 L9,5 L0,9 z" fill="#8d867b"></path>
+</marker>
+</defs>
+<text fill="#aba498" font-family="-apple-system,sans-serif" font-size="13" text-anchor="middle" x="360" y="26">The same "correct toward target" move becomes back-and-forth overshoot once delayed</text>
+<line stroke="rgba(255,255,255,0.18)" stroke-width="1.5" x1="70" x2="660" y1="160" y2="160"></line>
+<line stroke="rgba(255,255,255,0.18)" stroke-width="1.5" x1="70" x2="70" y1="250" y2="60"></line>
+<text fill="#8d867b" font-family="-apple-system,sans-serif" font-size="11.5" text-anchor="middle" x="365" y="272">time →</text>
+<line stroke="#d9b45f" stroke-dasharray="6 5" stroke-width="1.8" x1="70" x2="660" y1="160" y2="160"></line>
+<text fill="#d9b45f" font-family="SF Mono,monospace" font-size="11.5" x="596" y="154">target temp</text>
+<path d="M70,244 C150,180 240,164 660,161" fill="none" stroke="#63b3a6" stroke-width="2.5"></path>
+<text fill="#63b3a6" font-family="-apple-system,sans-serif" font-size="11.5" x="286" y="150">no delay → smooth convergence</text>
+<path d="M70,244 C120,220 150,70 210,74 C270,78 300,238 360,232 C415,226 440,96 500,100 C560,104 585,214 645,206" fill="none" stroke="#e0895e" stroke-width="2.5"></path>
+<text fill="#e0895e" font-family="-apple-system,sans-serif" font-size="11.5" x="120" y="60">with delay → scalding</text>
+<text fill="#e0895e" font-family="-apple-system,sans-serif" font-size="11.5" text-anchor="middle" x="300" y="252">freezing</text>
+<line marker-end="url(#fa3a)" stroke="#8d867b" stroke-width="1.5" x1="150" x2="205" y1="120" y2="120"></line>
+<text fill="#8d867b" font-family="-apple-system,sans-serif" font-size="10.5" x="140" y="112">your action</text>
+<text fill="#8d867b" font-family="-apple-system,sans-serif" font-size="10.5" x="140" y="134">shows up seconds later</text>
+<text fill="#57524b" font-family="-apple-system,sans-serif" font-size="11" text-anchor="middle" x="365" y="292">Harder corrections and longer delays widen the swing — slow your hand, or shorten the delay, beats "adjust more carefully."</text>
+</svg>
+<figcaption>Negative feedback + delay = oscillation. Showers, inventories, monetary policy, animal populations — anywhere the response loops back after a lag, you'll see this swinging curve.</figcaption>
+</figure>
+<p>Once you know this, the whole approach to oscillation changes. Oscillation isn't because some link was "poorly tuned"; it's the combination of <em>delay</em> and <em>aggressiveness</em>. So the real fix is one of two things: <b>shorten the delay</b> (let feedback return faster — small batches, frequent restocking, shorter reporting chains), <b>or slow your correcting hand</b> (don't fix it all at once; leave time to observe). Conversely, the most tempting option — "it hasn't come back yet, so push harder" — is precisely the hand that keeps widening the swing.</p>
+<div class="decide">
+<span class="lb">🎯 DECISION</span>
+<p>When a system swings between extremes (orders lurching up and down, moods high then low, policy loose then tight), don't first ask "who overreacted this time." Measure two things: <b>how long feedback takes to return (delay)</b>, and <b>how heavy a hand each correction lays down (gain)</b>. Oscillation is almost always the product of "delay too long × hand too heavy." Change whichever you can — shorten the delay, or lower the strength of a single correction — both beat "be more careful next time." Pushing harder is the one guaranteed-wrong option.</p>
+</div>
+<div class="crossx-inline">
+🌀 <b>Ecology · the ten-year cycle of lynx and hare</b>　The numbers of Canada lynx and snowshoe hare have traced a strikingly regular roughly-decade-long boom and bust for over a century in the Hudson's Bay Company's fur records. This is a delayed negative loop: hares abundant → lynx grow in number (but only after a generation or two of breeding — a <em>delay</em>) → lynx eat the hares out → hares crash and only then do the lynx starve (another delay) → hares begin to recover. Lotka and Volterra reproduced the oscillation with two equations in the 1920s. <b>Upshot: this periodic boom-bust needs no external cause (no climate, no epidemic required) — the single delayed loop of predation is enough by itself</b> — so when you see a regular cycle, don't rush to hunt for a periodic outside force; it may well be endogenous to the loop.
+</div>
+
+<h2 data-tts="e5f0a1b62c74815den"><span class="n">04</span>Where This Breaks Down</h2>
+<p class="lead">"Structure determines behaviour" is a strong claim, and precisely because it's strong it's easily overused. Here are its edges.</p>
+<p><b>First, "structure determines behaviour" is not "people and intent don't matter at all."</b> The precise version is: <em>within a given structure</em>, individual differences tend to be flattened by the loop — swap anyone in and it's much the same. But the structure itself is built by people, and can be changed by people. The loop shrinks the payoff of "trying hard inside the system" and magnifies the payoff of "changing the system." Reading it as "it's all the structure's fault, individuals are powerless" mistakes a judgment about <em>where the leverage is</em> for fatalism — on the contrary, it's telling you where to push: stop grinding inside the loop, go change the wiring.</p>
+<p><b>Second, being able to draw the loops isn't being able to quantify them.</b> The language of positive/negative feedback and delay gives you <em>qualitative</em> intuition — will it grow or settle, will it oscillate. But in a real system, dozens or hundreds of loops are tangled together, and which one dominates right now, and where the tipping point is, can't be answered by "counting arrows"; it needs real data and simulation. <b>A loop diagram is a useful map, but the map is not the terrain.</b> Taking a pretty causal-arrow diagram for "I now understand and can predict this system" is system dynamics' most common self-deception.</p>
+<p><b>Third, and most easily missed: some systems' behaviour comes mainly not from internal loops but from external shocks.</b> The feedback frame excels at explaining <em>endogenous</em> dynamics — how a system amplifies or damps its own perturbations. But if a thing's ups and downs are mostly driven by unrelated random events crashing in from outside (pure external news, disasters, abrupt policy changes), then laboring to draw its internal loops may be beside the point — you should build a different model. The test is simple: <b>turn off the external inputs — does the system still move on its own?</b> If yes, then feedback loops take the stage; if no, the main act is outside.</p>
+<div class="decide">
+<span class="lb">🎯 DECISION</span>
+<p>Before explaining a system with loops, clear three gates: ① Is its behaviour mainly endogenous (does it still move with external inputs off)? ② Am I talking qualitative shape (growth / stability / oscillation), or masquerading as quantitative prediction? ③ Do I admit the structure is changeable, and haven't swapped "structure determines" for "no one is responsible"? Fail any gate and hold off on drawing conclusions from the loop.</p>
+</div>
+
+<div class="bigcat">
+<h3 data-tts="f6a1b2c73d85916e">🎒 Scenario · BigCat</h3>
+<ol>
+<li><span class="dm">Parenting</span>The scene on repeat: the more you nag "get to your homework," the more the child dawdles, so you nag harder. You think you're correcting, but your nagging is already a link in a reinforcing loop — your anxiety feeds their dawdling, their dawdling feeds your anxiety. What to watch isn't "did they dawdle today," but <b>ask yourself: does this thing I'm about to say make the loop spin faster or slower?</b> A concrete loop-breaking move: drop the "if you don't start you'll…" lines that raise the standoff, and hand back the choice and the consequence (when to start, and facing the teacher if it's unfinished) — you step out of the loop, and only then can the loop slacken. This has nothing to do with "be more patient"; it's about lifting yourself off the wiring.</li>
+<li><span class="dm">Teams &amp; org</span>The recurring mid-quarter thing: the harder you press for progress, the more people report good news and bury the bad, the later the bad news surfaces — and by the time it can't be hidden it's too late, so next time you press harder. This is a living bullwhip: pressure amplifies the information distortion, delay amplifies the lag before exposure. Don't hunt for "who hid it this time"; <b>shorten the delay</b>: break the big quarterly review into weekly fifteen-minute syncs, and swap the metric from "is it done" to "did we get closer or further this week, and where's it stuck." The faster feedback returns, the less room there is to hide — you're changing chain length, not people's honesty.</li>
+<li><span class="dm">Health &amp; energy</span>The familiar slide: this week you burned a few nights to hit a deadline, days are low-energy and unproductive, so at night you stay up again to catch up. Sleep debt is a <em>stock</em>; it remembers every entry you owe and won't clear itself just because you "feel okay today." Don't decide whether to stay up by "can I take it today" (the current felt flow) — that's exactly reading a decelerating inflow as a falling level. Watch a stock instead: <b>total sleep over the last several days</b>. As long as that number is trending down, however alert you feel today, you're already borrowing from tomorrow — repay the debt first, then talk about the deadline.</li>
+</ol>
+</div>
+
+<div class="crossx">
+<h3 data-tts="a7b2c3d84e96a05f">🌀 Crossings</h3>
+<ul>
+<li><b>Psychotherapy · the symptom-maintaining loop</b>: The Palo Alto school (Watzlawick et al., <em>Change</em>, 1974) has a counterintuitive core claim — <b>what keeps a problem going is often exactly your effort to solve it</b>. The insomniac who <em>tries</em> harder to sleep stays more awake (wanting to sleep is an act of wakefulness); the person in panic who fears their palpitations more pushes the palpitations harder ("fear of fear"). This topic's three mechanisms run as a set here: the move meant as negative feedback (I'll damp the symptom) is wired the wrong way and becomes positive feedback (my effort feeds the symptom); the symptom is an accumulated <em>stock</em> (the anxiety level) that one push won't zero out; and between "effort" and "worse" sits a <em>delay</em> that hides your own hand adding fuel. <b>So effective intervention isn't fighting the symptom harder (that's grinding inside the loop) but changing the loop itself</b> — the paradoxical prescription to "deliberately stay awake" simply lifts off the self-amplifying hand. This is exactly the topic's decision line in clinical form: scolding the symptom is useless; rewiring the loop works.</li>
+<li><b>Economics &amp; institutions · Minsky's "stability breeds instability"</b>: The economist Hyman Minsky's financial instability hypothesis holds that a long calm is itself the breeding ground for crisis. Calm times → people grow bolder and add leverage → leverage pushes up asset prices → an illusion of more calm → still more leverage. This is an outright positive loop; and debt is a stock that only ratchets up, with interest and maturities carrying a <em>delay</em>, so a boom can run a long time — until one day the cash flow won't close and the "Minsky moment" arrives abruptly. <b>Upshot: a financial system is most dangerous precisely when it looks calmest</b> — low volatility isn't safety, it's accumulation. <b>But it doesn't hold here</b>: bathtub water doesn't know it's being drained, yet people in a market can <em>read</em> this loop and act ahead of it (Soros's "reflexivity"). Once enough people expect "calm = danger," their early exit rewrites the loop itself, bringing the collapse forward or reshaping it. The feedback frame assumes structure is a relatively fixed mechanical pipe; a system made of people who anticipate the pipe has a pipe that shifts with expectations — that's the link that snaps when you drop mechanical feedback straight onto finance.</li>
+<li><b>History &amp; the military · Paul Kennedy's "imperial overstretch"</b>: The historian Paul Kennedy (<em>The Rise and Fall of the Great Powers</em>, 1987) noticed a recurring pattern: a great power gains resources by conquest, and the resources fund still more conquest — a positive loop rolling the borders ever wider; but each new territory becomes a <em>stock</em> of garrison burden to hold for the long run, and the military bill, carrying a decades-long <em>delay</em>, only later crushes the treasury. <b>Upshot: an empire's decline is mostly not the moral failure of some "bad emperor" (that's hunting for a person inside the loop) but the expansion loop reaching its mathematically inevitable turn</b> — as the returns to expansion fall and the stock cost of holding it rises, the crossing of those two lines starts the descent, whoever is on the throne. This mirrors section 1: the outcome is set by the loop's wiring, not by the wisdom or folly of the person on stage. "Who lost the empire" is the wrong question.</li>
+</ul>
+</div>
+
+<div class="thinking">
+<h3 data-tts="b8c3d4e95fa716a0">Going Deeper</h3>
+<details><summary>Is positive feedback always bad and negative always good?</summary><p>Neither. Everything you want to grow — learning, compound interest, network effects, the compounding of skill — starts on positive feedback; without it nothing gets off the ground. And negative feedback can be a comfortable steady state or a ceiling you can't break through however hard you try (much of what feels like a rat race is a pile of negative loops pinning everyone in place). Healthy systems are usually a mix — positive feedback for growth, negative for brakes — and the trouble almost always is <em>which half is missing</em>: positive without a brake → bubble or cancer; negative without a growth engine → stagnation.</p></details>
+<details><summary>Since delay causes oscillation, is "eliminate all delay" a good thing?</summary><p>Not necessarily. Some delays are useful buffers — inventory, savings, reservoirs, the middle layers of an organization all use "temporary holding" to absorb upstream jitter, and actually <em>dampen</em> oscillation. What really makes trouble is <b>information</b> delay (you learn the truth too late), not <b>material</b> buffering delay (things held in store). So the precise target isn't "cut every delay" but "shorten the time for information to loop back while keeping the buffers that absorb shocks." A blanket drive for "zero inventory, zero redundancy" often cuts the damping buffer and the oscillation-causing lag together.</p></details>
+<details><summary>Doesn't "change the loop, not the person" become an excuse for the negligent?</summary><p>It does — if you stop halfway. The full claim is two sentences: within a <em>given</em> structure, individual differences are flattened (so don't just blame the person); but the structure is built by people and can be changed by people (so someone is responsible for <em>not changing</em> it). Real accountability therefore moves up from "who pressed the wrong button" to "who had the power to rewire this loop and didn't." The feedback view doesn't abolish responsibility; it puts it at the right layer — from operator to designer.</p></details>
+<details><summary>Can a person "see" which loop they're inside?</summary><p>It's hard, because the delay severs the intuitive link between cause and effect — your action loops back only much later, and by then you no longer connect it to that first move (this is exactly what makes every "symptom-maintaining loop" so stubborn). One clumsy method works: take a recurring, baffling event and force it into a ring of arrows, making yourself answer "did this action of mine, in the end, loop back to strengthen the very thing I wanted to remove." Many personal and organizational knots loosen at first sight of the drawing — because you see, for the first time, that you're part of the loop, not a victim outside it.</p></details>
+</div>
+
+<div class="refs">
+<h3 data-tts="c9d4e5f06ab827b1">Further Reading</h3>
+<ul>
+<li>Donella Meadows, <a href="https://www.chelseagreen.com/product/thinking-in-systems/">Thinking in Systems: A Primer</a> (2008, the best introduction to feedback, stocks and flows, and delays)</li>
+<li>Jay Forrester, <a href="https://en.wikipedia.org/wiki/Industrial_Dynamics">Industrial Dynamics</a> (1961, the founding work of system dynamics)</li>
+<li>Lee, Padmanabhan &amp; Whang, <a href="https://sloanreview.mit.edu/article/the-bullwhip-effect-in-supply-chains/">The Bullwhip Effect in Supply Chains</a> (1997)</li>
+<li>Sterman, <a href="https://www.science.org/doi/10.1126/science.1141304">Risk Communication on Climate: Mental Models and Mass Balance</a> (2008, the emissions-vs-concentration stock-flow illusion)</li>
+<li>Booth Sweeney &amp; Sterman, <a href="https://onlinelibrary.wiley.com/doi/10.1002/sdr.198">Bathtub Dynamics</a> (2000, why people systematically misjudge stocks)</li>
+<li>James Clerk Maxwell, <a href="https://en.wikipedia.org/wiki/Centrifugal_governor">On Governors</a> (1868, the first mathematical analysis of the negative-feedback governor)</li>
+<li><a href="https://en.wikipedia.org/wiki/Lotka%E2%80%93Volterra_equations">Lotka–Volterra equations</a> (predator-prey oscillation)</li>
+<li>Watzlawick, Weakland &amp; Fisch, <a href="https://wwnorton.com/books/9780393707069">Change: Principles of Problem Formation and Problem Resolution</a> (1974, symptom-maintaining loops and paradoxical intervention)</li>
+</ul>
+</div>
+<footer>BigCat · Complexity Science · <a href="index.en.html">← All Topics</a></footer>
+</div>
+</body></html>

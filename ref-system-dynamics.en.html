@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+
+<html lang="en"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>System Dynamics (Stocks &amp; Flows) · Reference · Complexity Science</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,"SF Pro Display","Noto Sans SC",sans-serif;color:#e4ded5;line-height:1.85;min-height:100vh;
+  background:radial-gradient(1100px 620px at 12% -6%,rgba(99,179,166,0.09),transparent 62%),radial-gradient(950px 700px at 100% 2%,rgba(166,147,205,0.08),transparent 58%),linear-gradient(168deg,#100f0d 0%,#15161b 48%,#0a0a0c 100%);background-attachment:fixed}
+.wrap{max-width:720px;margin:0 auto;padding:30px 22px 90px}
+header{padding:52px 0 8px;border-bottom:1px solid rgba(255,255,255,0.07);margin-bottom:32px}
+.rtag{font-family:"SF Mono",Menlo,monospace;font-size:0.72rem;font-weight:700;letter-spacing:2px;color:#63b3a6;border:1px solid rgba(99,179,166,0.4);background:rgba(99,179,166,0.07);padding:3px 11px;border-radius:20px}
+h1{font-size:2.15rem;font-weight:800;line-height:1.2;margin:20px 0 0;color:#f0eae0}
+h1 .h1en{display:block;font-size:0.42em;font-weight:600;letter-spacing:2.5px;color:#847d72;margin-top:11px}
+.sub{font-size:0.98rem;color:#aba498;margin-top:12px}
+.meta{font-family:"SF Mono",Menlo,monospace;font-size:0.75rem;color:#57524b;margin-top:16px;letter-spacing:1px}
+h2{font-size:1.25rem;font-weight:700;color:#e9e3d9;margin:44px 0 10px}
+h2 .n{font-family:"SF Mono",Menlo,monospace;font-size:0.8rem;color:#63b3a6;display:block;margin-bottom:5px;letter-spacing:2px}
+.he{font-size:0.68em;color:#8d867b;font-weight:500;letter-spacing:0}
+p{margin-bottom:16px}
+b,strong{color:#f0eae0;font-weight:600}
+em{color:#d9b45f;font-style:normal;font-weight:500}
+.rule{border:1px solid rgba(99,179,166,0.3);background:rgba(99,179,166,0.05);border-radius:12px;padding:16px 20px;margin:22px 0;font-size:0.94rem;color:#d5cdc1}
+.rule ol{padding-left:20px;margin:0}
+.rule li{margin-bottom:7px}
+.rule li:last-child{margin-bottom:0}
+figure{margin:28px 0}
+figure svg{display:block;width:100%;height:auto;border-radius:12px;background:rgba(255,255,255,0.018);border:1px solid rgba(255,255,255,0.06)}
+figcaption{font-size:0.82rem;color:#787268;margin-top:10px;text-align:center;line-height:1.6}
+.cant{border:1px solid rgba(205,127,155,0.36);background:rgba(205,127,155,0.05);border-radius:12px;padding:18px 21px;margin:26px 0 10px}
+.cant h3{font-size:1rem;color:#cd7f9b;margin-bottom:12px}
+.cant ul{list-style:none;padding:0}
+.cant li{margin-bottom:13px;font-size:0.93rem;color:#d5cdc1;line-height:1.76}
+.cant li:last-child{margin-bottom:0}
+.cant li b{color:#cd7f9b}
+.refs{margin:40px 0 10px}
+.refs h3{font-size:1rem;color:#79a6d2;margin-bottom:12px}
+.refs ul{list-style:none;padding:0}
+.refs li{margin-bottom:9px;font-size:0.89rem;color:#8d867b;line-height:1.7}
+.refs a{color:#79a6d2;text-decoration:none;border-bottom:1px solid rgba(121,166,210,0.3)}
+.refs a:hover{color:#a6c4e2}
+footer{text-align:center;padding:52px 0 10px;font-size:0.78rem;color:#57524b;font-family:"SF Mono",Menlo,monospace;border-top:1px solid rgba(255,255,255,0.06);margin-top:46px}
+footer a{color:#79a6d2;text-decoration:none}
+@media(max-width:600px){h1{font-size:1.7rem}.wrap{padding:24px 16px 60px}}
+</style></head><body>
+<div class="wrap">
+<header>
+<span class="rtag">REF · Classic Model</span>
+<h1 data-tts="d1a2b3c4e5f60718en">System Dynamics<span class="h1en">STOCKS, FLOWS, FEEDBACK, DELAY</span></h1>
+<p class="sub">Jay Forrester, 1950s — computing a system's behaviour from four parts: stock, flow, feedback, delay</p>
+<p class="meta">Referenced by: Topic 6 Feedback Loops</p>
+</header>
+<h2 data-tts="e2b3c4d5f6a70819en"><span class="n">01</span>The Question It Poses</h2>
+<p>In the 1950s, Jay Forrester at MIT crossed from engineering control into the study of firms and hit a recurring oddity: a company's orders, inventory, and headcount would boom and bust periodically, while management could always find a "cause" for each swing (some customer, some promotion, some decision) — yet swap the people, hold the meeting, and the swings kept coming.</p>
+<p>Forrester's question was: <b>is there a way to skip chasing the "who and why" behind each swing and instead write down how a few internal loops are wired, then compute directly how the system <em>must</em> move?</b> System dynamics is his answer — a language that translates "structure" into equations and runs out "behaviour." Its bet: most persistent dynamics (growth, collapse, oscillation) come not from outside but are endogenous to structure.</p>
+<h2 data-tts="f3c4d5e6a7b8091aen"><span class="n">02</span>The Rules</h2>
+<p>The whole language has just four basic parts; every complex model is built from them:</p>
+<div class="rule">
+<ol>
+<li><b>Stock</b>: the amount that accumulates — the system's "memory." Water in a tank, money in an account, staff on the payroll. Drawn as a box.</li>
+<li><b>Flow</b>: the rate that changes a stock per unit time — the only thing that can change a stock <em>directly</em>. Inflow/outflow, income/spending. Drawn as a pipe with a valve.</li>
+<li><b>Feedback</b>: the stock's current value loops back to affect a flow. Level high, so release less (negative/balancing); more money, so more interest (positive/reinforcing). Drawn as an arrow with a sign.</li>
+<li><b>Delay</b>: feedback takes time to loop back. Information delay (you learn late) or material delay (things in transit). Drawn as a hash across the arrow.</li>
+</ol>
+</div>
+<p>The core mathematical fact is dead simple: <b>a stock's rate of change at any instant = inflow − outflow</b>. The stock itself is that difference accumulated over time (an integral, mathematically). That one rule, plus "flows are in turn shaped by stocks through feedback loops," closes the four parts into a ring, and the behaviour is locked in.</p>
+<figure>
+<svg aria-label="System dynamics notation: box for stock, valve for flow, signed arrow for feedback" role="img" viewbox="0 0 700 240" xmlns="http://www.w3.org/2000/svg">
+<defs>
+<marker id="sd1a" markerheight="10" markerunits="userSpaceOnUse" markerwidth="10" orient="auto" refx="8.5" refy="5" viewbox="0 0 10 10">
+<path d="M0,1 L9,5 L0,9 z" fill="#63b3a6"></path>
+</marker>
+<marker id="sd1b" markerheight="9" markerunits="userSpaceOnUse" markerwidth="9" orient="auto" refx="8" refy="5" viewbox="0 0 10 10">
+<path d="M0,1 L9,5 L0,9 z" fill="#cd7f9b"></path>
+</marker>
+</defs>
+<text fill="#aba498" font-family="-apple-system,sans-serif" font-size="13" text-anchor="middle" x="350" y="28">Four parts: stock box · flow valve · feedback arrow · delay hash</text>
+<!-- stock box -->
+<rect fill="rgba(99,179,166,0.10)" height="60" rx="4" stroke="#63b3a6" stroke-width="2" width="120" x="290" y="96"></rect>
+<text fill="#e4ded5" font-family="-apple-system,sans-serif" font-size="14" text-anchor="middle" x="350" y="122">Stock</text>
+<text fill="#8d867b" font-family="SF Mono,monospace" font-size="11" text-anchor="middle" x="350" y="142">level</text>
+<!-- inflow -->
+<line marker-end="url(#sd1a)" stroke="#63b3a6" stroke-width="3" x1="150" x2="286" y1="126" y2="126"></line>
+<rect fill="#15161b" height="20" stroke="#63b3a6" width="14" x="205" y="116"></rect>
+<text fill="#63b3a6" font-family="-apple-system,sans-serif" font-size="11.5" text-anchor="middle" x="200" y="108">inflow (valve)</text>
+<text fill="#57524b" font-family="-apple-system,sans-serif" font-size="18" text-anchor="middle" x="140" y="132">☁</text>
+<!-- outflow -->
+<line marker-end="url(#sd1a)" stroke="#63b3a6" stroke-width="3" x1="414" x2="550" y1="126" y2="126"></line>
+<rect fill="#15161b" height="20" stroke="#63b3a6" width="14" x="493" y="116"></rect>
+<text fill="#63b3a6" font-family="-apple-system,sans-serif" font-size="11.5" text-anchor="middle" x="500" y="108">outflow (valve)</text>
+<text fill="#57524b" font-family="-apple-system,sans-serif" font-size="18" text-anchor="middle" x="560" y="132">☁</text>
+<!-- feedback: stock -> outflow, negative -->
+<path d="M380,156 C420,196 470,190 500,140" fill="none" marker-end="url(#sd1b)" stroke="#cd7f9b" stroke-width="1.8"></path>
+<text fill="#cd7f9b" font-family="SF Mono,monospace" font-size="15" text-anchor="middle" x="455" y="200">−</text>
+<text fill="#a9a096" font-family="-apple-system,sans-serif" font-size="10.5" text-anchor="middle" x="455" y="216">higher stock → releases more (negative)</text>
+<!-- delay hash -->
+<line stroke="#d9b45f" stroke-width="2" x1="474" x2="474" y1="172" y2="186"></line>
+<line stroke="#d9b45f" stroke-width="2" x1="480" x2="480" y1="172" y2="186"></line>
+<text fill="#d9b45f" font-family="-apple-system,sans-serif" font-size="10" text-anchor="middle" x="477" y="168">delay</text>
+<text fill="#57524b" font-family="-apple-system,sans-serif" font-size="11" text-anchor="middle" x="350" y="70">stock rate = inflow − outflow; the arrow's sign decides whether the loop amplifies or corrects</text>
+</svg>
+<figcaption>The standard notation of system dynamics. Any complex model — a company, a city, a forest — is these four parts assembled over and over.</figcaption>
+</figure>
+<h2 data-tts="a4d5e6f7b8c9091ben"><span class="n">03</span>What You See When It Runs</h2>
+<p>Strikingly, there are only a handful of ways to wire loops, so there's only a handful of behaviour "curve families." Learn these few shapes and you can almost read structure back off behaviour at a glance:</p>
+<figure>
+<svg aria-label="Four basic behaviour modes: exponential growth, goal-seeking, S-curve, delayed oscillation" role="img" viewbox="0 0 700 260" xmlns="http://www.w3.org/2000/svg">
+<text fill="#aba498" font-family="-apple-system,sans-serif" font-size="13" text-anchor="middle" x="350" y="24">loop wiring → shape of behaviour (time along the x-axis)</text>
+<!-- 1 exponential growth -->
+<g transform="translate(20,44)">
+<line stroke="rgba(255,255,255,0.16)" stroke-width="1.3" x1="20" x2="150" y1="150" y2="150"></line>
+<line stroke="rgba(255,255,255,0.16)" stroke-width="1.3" x1="20" x2="20" y1="150" y2="30"></line>
+<path d="M20,148 C80,144 120,120 145,36" fill="none" stroke="#e0895e" stroke-width="2.5"></path>
+<text fill="#e0895e" font-family="-apple-system,sans-serif" font-size="11.5" text-anchor="middle" x="85" y="176">exponential growth</text>
+<text fill="#8d867b" font-family="-apple-system,sans-serif" font-size="10" text-anchor="middle" x="85" y="192">pure positive</text>
+</g>
+<!-- 2 goal-seeking -->
+<g transform="translate(190,44)">
+<line stroke="rgba(255,255,255,0.16)" stroke-width="1.3" x1="20" x2="150" y1="150" y2="150"></line>
+<line stroke="rgba(255,255,255,0.16)" stroke-width="1.3" x1="20" x2="20" y1="150" y2="30"></line>
+<line stroke="#d9b45f" stroke-dasharray="4 4" stroke-width="1.3" x1="20" x2="150" y1="48" y2="48"></line>
+<path d="M20,146 C60,80 100,54 148,50" fill="none" stroke="#63b3a6" stroke-width="2.5"></path>
+<text fill="#63b3a6" font-family="-apple-system,sans-serif" font-size="11.5" text-anchor="middle" x="85" y="176">goal-seeking</text>
+<text fill="#8d867b" font-family="-apple-system,sans-serif" font-size="10" text-anchor="middle" x="85" y="192">pure negative</text>
+</g>
+<!-- 3 S-curve -->
+<g transform="translate(360,44)">
+<line stroke="rgba(255,255,255,0.16)" stroke-width="1.3" x1="20" x2="150" y1="150" y2="150"></line>
+<line stroke="rgba(255,255,255,0.16)" stroke-width="1.3" x1="20" x2="20" y1="150" y2="30"></line>
+<line stroke="#d9b45f" stroke-dasharray="4 4" stroke-width="1.3" x1="20" x2="150" y1="46" y2="46"></line>
+<path d="M20,144 C55,140 70,60 85,54 C100,48 125,48 148,47" fill="none" stroke="#9fbc7a" stroke-width="2.5"></path>
+<text fill="#9fbc7a" font-family="-apple-system,sans-serif" font-size="11.5" text-anchor="middle" x="85" y="176">S-curve</text>
+<text fill="#8d867b" font-family="-apple-system,sans-serif" font-size="10" text-anchor="middle" x="85" y="192">positive then negative</text>
+</g>
+<!-- 4 oscillation -->
+<g transform="translate(530,44)">
+<line stroke="rgba(255,255,255,0.16)" stroke-width="1.3" x1="20" x2="150" y1="150" y2="150"></line>
+<line stroke="rgba(255,255,255,0.16)" stroke-width="1.3" x1="20" x2="20" y1="150" y2="30"></line>
+<line stroke="#d9b45f" stroke-dasharray="4 4" stroke-width="1.3" x1="20" x2="150" y1="90" y2="90"></line>
+<path d="M20,140 C40,60 60,58 78,120 C96,182 116,60 134,96 C142,112 146,96 150,92" fill="none" stroke="#cd7f9b" stroke-width="2.5"></path>
+<text fill="#cd7f9b" font-family="-apple-system,sans-serif" font-size="11.5" text-anchor="middle" x="85" y="176">oscillation</text>
+<text fill="#8d867b" font-family="-apple-system,sans-serif" font-size="10" text-anchor="middle" x="85" y="192">negative + delay</text>
+</g>
+</svg>
+<figcaption>The four basic behaviour curves. Growth points to positive feedback, stability to negative, an S-curve is "positive first, negative second" handing off, and oscillation always hides a delay.</figcaption>
+</figure>
+<p>Memorize these four and many real curves become "structure you can read": an S-curve tells you a positive-feedback engine hit some negative-feedback ceiling (market saturation, resource exhaustion); a sustained oscillation tells you the loop must hide an unnoticed delay. <b>The shape of behaviour betrays the wiring of structure</b> — which is system dynamics' most practical gift: inferring the invisible loop from the visible behaviour.</p>
+<h2 data-tts="b5e6f7a8c9d0091cen"><span class="n">04</span>What It Explains</h2>
+<p>System dynamics doesn't predict a specific number on a given day; it explains <b>why a whole class of systems shows a certain typical dynamic shape</b>, and lets you test in a model — before you act — <em>which lever actually changes the behaviour</em>. Its classic arenas:</p>
+<p>the supply chain's bullwhip effect (a small twitch at the end → big swings upstream), Forrester's "Urban Dynamics" (why some aid policies actually speed decay), the Meadows team's globally-debated 1972 <em>Limits to Growth</em> (population, resources, and pollution wired into one global loop), and the growth-investment-capacity cycle inside firms. Its core insight is one sentence, but a hard one: <b>counterintuitive behaviour is usually the inevitable product of a perfectly understandable structure</b> — you need not assume anyone is stupid or malicious; wire the loop that way and the outcome is fated.</p>
+<div class="cant">
+<h3 data-tts="c6f7a8b9d0e1091den">What It Cannot Explain</h3>
+<ul>
+<li><b>It can't fix your parameters for you.</b> A loop diagram is qualitative — it tells you "it will oscillate," but how large, what period, where the tipping point sits, all depend on numbers you often can't measure well. A pretty causal diagram gives the illusion of "I get it," but without reliable parameters it's far from predictive.</li>
+<li><b>It can't handle systems whose agents learn and game.</b> Classic system dynamics treats loops as relatively fixed mechanical pipes. But when a system is made of people who <em>anticipate the loop and act ahead of it</em> (financial markets, arms races), the pipe itself shifts with expectations — game theory or agent-based modelling fits better there.</li>
+<li><b>It can't explain systems driven mainly by external shocks.</b> Its strength is endogenous dynamics. If a thing's ups and downs come mostly from unrelated random events crashing in from outside, drawing its internal loops is beside the point. Test: turn off the external inputs — does it still move on its own?</li>
+<li><b>It can't substitute for spatial and network structure.</b> Standard stocks and flows treat everything in a stock as one uniform pot. But an epidemic spreading over a human network, or resources distributed across geography, behave in ways that depend strongly on "who's connected to whom" — that needs a network model, not one well-mixed tank.</li>
+<li><b>Where you draw the boundary is where the conclusion skews.</b> A model must fence in "which loops count and which don't." That boundary is drawn by the modeller, and once an important external loop is left outside, the model will confidently give a systematically wrong conclusion — and it won't tell you what it left out.</li>
+</ul>
+</div>
+<div class="refs">
+<h3 data-tts="d7a8b9c0e1f2091een">Further Reading</h3>
+<ul>
+<li>Donella Meadows, <a href="https://www.chelseagreen.com/product/thinking-in-systems/">Thinking in Systems: A Primer</a> (2008, the best introduction)</li>
+<li>Jay Forrester, <a href="https://en.wikipedia.org/wiki/System_dynamics">System Dynamics</a> (field overview and history)</li>
+<li>John Sterman, <a href="https://en.wikipedia.org/wiki/Business_Dynamics">Business Dynamics</a> (2000, the authoritative textbook)</li>
+<li>Meadows et al., <a href="https://en.wikipedia.org/wiki/The_Limits_to_Growth">The Limits to Growth</a> (1972, the most famous and most contested application)</li>
+<li><a href="https://en.wikipedia.org/wiki/Stock_and_flow">Stock and flow</a> (definitions and notation)</li>
+</ul>
+</div>
+<footer>BigCat · Complexity Science · <a href="index.en.html">← All Topics</a></footer>
+</div>
+</body></html>
