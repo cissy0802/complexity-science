@@ -67,7 +67,7 @@ footer a{color:#79a6d2;text-decoration:none}
 <div class="wrap">
 <header>
 <span class="week-tag">TOPIC 7 · PHASE B</span>
-<h1>状态空间的语言<span class="h1en">THE LANGUAGE OF STATE SPACE</span></h1>
+<h1 data-tts="5e7f48afaf33fc96">状态空间的语言<span class="h1en">THE LANGUAGE OF STATE SPACE</span></h1>
 <p class="sub">别问「现在怎样」，问「往哪儿走」<span class="he">（Ask where it is heading, not where it is）</span></p>
 <p class="date">2026-07-25 · 动力学与不可预测性</p>
 </header>
@@ -77,15 +77,15 @@ footer a{color:#79a6d2;text-decoration:none}
 <p>我们描述事情，习惯用当前值：这个月营收多少、体重多少、团队还剩几个人、心情如何。这套描述的问题不在于不准，而在于它答不了唯一要紧的那个问题——<b>接下来会怎样。</b></p>
 <p>这一期换一种记法。把系统的每个关键变量当成一根坐标轴，一整个系统在某一刻就缩成一个点；它随时间移动，就画出一条线。奇怪的事发生了：<em>在这张图上，很多原本要靠算才能知道的事，变成看一眼就知道的事。</em>「它会稳下来还是会一直摆？」「它会回到原来那个状态吗？」——这些问题在图上有形状。</p>
 </div>
-<h2><span class="n">01</span>一张图上的两个信息：你在哪儿，你往哪儿走<span class="he">（State Space and Trajectories）</span></h2>
+<h2 data-tts="b48325598cbe26b6"><span class="n">01</span>一张图上的两个信息：你在哪儿，你往哪儿走<span class="he">（State Space and Trajectories）</span></h2>
 <p class="lead">先拿一个最笨的东西开刀：一个来回晃的摆——挂钟里那种，或者你手里晃的钥匙串。</p>
 <p>要描述它此刻的处境，光说角度是不够的。角度 30 度，可能是它正荡出去、越荡越远，也可能是它正荡回来。<b>同一个角度，两个完全不同的未来。</b>补上一个数就够了：角速度（它此刻转得多快、朝哪边转）。角度加角速度，这两个数一给，摆接下来的一切就定了。</p>
 <p>这两个数就叫这个系统的<b>状态</b>（state）。状态不是"关于它的所有信息"，而是<em>足以定下未来的最小一组信息</em>——摆的颜色、挂在谁家、昨天摆过几次，都不进这一组。</p>
 <p>接下来是这一期真正的动作：把这两个数当成一张图的横轴和纵轴。横轴角度，纵轴角速度。于是这个摆在任何一刻，就是这张图上的<b>一个点</b>；它动起来，这个点就爬出一条线，叫<b>轨迹</b>（trajectory）。这张图叫<b>状态空间</b>（state space，物理里习惯叫相空间 phase space），画上若干条代表性轨迹之后的整张图，叫<b>相图</b>（phase portrait）。<a class="reflink" href="ref-phase-space.html">→ 参考 · 相空间与吸引子</a></p>
 <figure>
-<svg aria-label="同一段摆动的两种画法：左边角度随时间，右边画在角度-角速度平面上成为螺旋" role="img" viewBox="0 0 720 300" xmlns="http://www.w3.org/2000/svg">
+<svg aria-label="同一段摆动的两种画法：左边角度随时间，右边画在角度-角速度平面上成为螺旋" role="img" viewbox="0 0 720 300" xmlns="http://www.w3.org/2000/svg">
 <defs>
-<marker id="t7a" markerHeight="10" markerUnits="userSpaceOnUse" markerWidth="10" orient="auto" refX="9" refY="5" viewBox="0 0 10 10">
+<marker id="t7a" markerheight="10" markerunits="userSpaceOnUse" markerwidth="10" orient="auto" refx="9" refy="5" viewbox="0 0 10 10">
 <path d="M0,1 L9,5 L0,9 z" fill="#d9b45f"></path>
 </marker>
 </defs>
@@ -121,17 +121,17 @@ footer a{color:#79a6d2;text-decoration:none}
 🌀 <b>科学哲学 · 亚里士多德漏掉了速度</b>　亚里士多德的物理学里，描述一个物体只需要它在哪儿、以及它"本该"待在哪儿；运动需要有人一直推着，不推就停。伽利略和牛顿的那次翻转，本质上是把<b>速度</b>提拔进了状态——一旦速度算作系统当前状态的一部分，"为什么它还在动"就不再是个问题，问题变成"什么在改变它的速度"。推得出一个可以直接拿去用的判断：一门学问能问出什么问题，取决于它把哪几个量算进了「状态」。你在会上争论"士气怎么还在掉"而百思不解，多半是因为你的状态里只有位置、没有速度。
 </div>
 <p class="en-brief"><b>EN</b> A pendulum needs two numbers — angle and angular velocity — before its future is fixed; that pair is its state. Plot the pair as a point and motion becomes a curve. Damping turns the curve into an inward spiral, no friction into a closed loop. Deterministic trajectories never cross, which is why unrepeating wandering needs at least three dimensions.</p>
-<h2><span class="n">02</span>静止有两种：一种是真的停了，一种是还没被推<span class="he">（Fixed Points and Stability）</span></h2>
+<h2 data-tts="ba3073c8b3871923"><span class="n">02</span>静止有两种：一种是真的停了，一种是还没被推<span class="he">（Fixed Points and Stability）</span></h2>
 <p class="lead">状态空间里最特别的地方，是那些"流速为零"的点：系统一旦落在那儿，就不再移动。这种点叫<b>不动点</b>（fixed point，也叫平衡点 equilibrium）。摆垂下来不动，是一个不动点。</p>
 <p>但摆还有另一个不动点：<b>倒立</b>——头朝上完美竖直地立着。理论上它确实可以不动。你当然知道它立不住，可"立不住"这件事，值得说清楚是什么意思：它不是"不是不动点"，它是<em>不稳定</em>的不动点。</p>
 <p>分界线只有一条：<b>推一下，它自己回不回来。</b>回来的叫稳定不动点（stable，附近的轨迹都朝它去），不回来的叫不稳定不动点（unstable，附近的轨迹都往外跑）。还有一种夹在中间的：一边推回得来，另一边推就一去不返，叫半稳定。</p>
 <figure>
-<svg aria-label="三种不动点：碗底的稳定、山顶的不稳定、台阶上的半稳定" role="img" viewBox="0 0 720 260" xmlns="http://www.w3.org/2000/svg">
+<svg aria-label="三种不动点：碗底的稳定、山顶的不稳定、台阶上的半稳定" role="img" viewbox="0 0 720 260" xmlns="http://www.w3.org/2000/svg">
 <defs>
-<marker id="t7b" markerHeight="9" markerUnits="userSpaceOnUse" markerWidth="9" orient="auto" refX="8.5" refY="5" viewBox="0 0 10 10">
+<marker id="t7b" markerheight="9" markerunits="userSpaceOnUse" markerwidth="9" orient="auto" refx="8.5" refy="5" viewbox="0 0 10 10">
 <path d="M0,1 L9,5 L0,9 z" fill="#63b3a6"></path>
 </marker>
-<marker id="t7c" markerHeight="9" markerUnits="userSpaceOnUse" markerWidth="9" orient="auto" refX="8.5" refY="5" viewBox="0 0 10 10">
+<marker id="t7c" markerheight="9" markerunits="userSpaceOnUse" markerwidth="9" orient="auto" refx="8.5" refy="5" viewbox="0 0 10 10">
 <path d="M0,1 L9,5 L0,9 z" fill="#e0895e"></path>
 </marker>
 </defs>
@@ -176,13 +176,13 @@ footer a{color:#79a6d2;text-decoration:none}
 🌀 <b>工程与技术史 · 故意造得不稳定的战斗机</b>　早期飞机都被设计成气动上稳定的：受扰后自己改平。而 F-16 这一代战斗机反过来，刻意采用<b>放宽静稳定度</b>（relaxed static stability）——把飞机放在一个不稳定的不动点上，靠电传飞控每秒纠正几十次才飞得住。代价是巨大的：飞控一断电，飞机不是"变难飞"，是立刻发散。推论对任何系统都成立：不稳定不动点换来的是机动性，而它的稳定是<em>租来的</em>。所以判断一套系统的真实处境，要问的是——把控制器关掉，它自己落到哪儿去。
 </div>
 <p class="en-brief"><b>EN</b> A fixed point is where the flow is zero. The pendulum hanging down and the pendulum balanced upright are both fixed points; only the perturbation response tells them apart. Stable means nearby trajectories come back, unstable means they run away. "Nothing has gone wrong yet" is not evidence of stability — it is the absence of an experiment.</p>
-<h2><span class="n">03</span>系统的四种归宿<span class="he">（The Four Kinds of Attractor）</span></h2>
+<h2 data-tts="11aeac95965ef62d"><span class="n">03</span>系统的四种归宿<span class="he">（The Four Kinds of Attractor）</span></h2>
 <p class="lead">不动点只是最简单的一种终局。把镜头拉远，看一个系统长时间之后到底安顿在哪里——这个"安顿处"叫<b>吸引子</b>（attractor）：附近的轨迹都被吸过去，进去之后就不再出来。</p>
 <p>吸引子一共就那么几类，看图比看定义快。</p>
 <figure>
-<svg aria-label="四种吸引子：不动点、极限环、环面（准周期）、奇异吸引子" role="img" viewBox="0 0 720 300" xmlns="http://www.w3.org/2000/svg">
+<svg aria-label="四种吸引子：不动点、极限环、环面（准周期）、奇异吸引子" role="img" viewbox="0 0 720 300" xmlns="http://www.w3.org/2000/svg">
 <defs>
-<marker id="t7d" markerHeight="9" markerUnits="userSpaceOnUse" markerWidth="9" orient="auto" refX="8.5" refY="5" viewBox="0 0 10 10">
+<marker id="t7d" markerheight="9" markerunits="userSpaceOnUse" markerwidth="9" orient="auto" refx="8.5" refy="5" viewbox="0 0 10 10">
 <path d="M0,1 L9,5 L0,9 z" fill="#8d867b"></path>
 </marker>
 </defs>
@@ -226,19 +226,19 @@ footer a{color:#79a6d2;text-decoration:none}
 🌀 <b>生理学 · 移植后的心脏照样跳</b>　心跳的节律来自窦房结（sinoatrial node）里一小撮细胞的自持振荡——一个不折不扣的极限环。最硬的证据是心脏移植：供体心脏的神经连接被切断，没有任何来自大脑的节律信号，它照样自己跳，只是内在频率偏快（去神经的心脏静息心率明显高于常人）。推论：对一个由极限环驱动的系统，问"是什么让它跳"是问错了——它不需要什么让它跳。该问的是什么<b>设定了周期</b>，答案在那些决定振荡快慢的参数里，不在外部的刺激事件里。
 </div>
 <p class="en-brief"><b>EN</b> Four kinds of long-run destination: fixed point (it stops), limit cycle (self-sustained oscillation whose amplitude and period the system sets itself), torus (two incommensurate rhythms, never exactly repeating yet fully predictable), and strange attractor (bounded, never repeating, sensitive to initial conditions). Identify the type before choosing a forecasting method.</p>
-<h2><span class="n">04</span>分水岭：同一个系统有好几个未来<span class="he">（Basins and the Separatrix）</span></h2>
+<h2 data-tts="b64d649ab3a9ba42"><span class="n">04</span>分水岭：同一个系统有好几个未来<span class="he">（Basins and the Separatrix）</span></h2>
 <p class="lead">一个系统常常不止一个吸引子。那么问题来了：从哪儿出发，会落进哪一个？</p>
 <p>把所有"最终会落进吸引子 A"的起点收集起来，这一片区域就叫 A 的<b>吸引域</b>（basin of attraction）。两个吸引域之间那条界线，叫<b>分水岭</b>（separatrix）。这条线上的每一点，都是"往左一点点和往右一点点通向两个完全不同的结局"。</p>
 <figure>
-<svg aria-label="双阱系统的相平面：两个吸引子、中间的鞍点与分水岭，两个几乎相同的起点走向不同结局" role="img" viewBox="0 0 720 300" xmlns="http://www.w3.org/2000/svg">
+<svg aria-label="双阱系统的相平面：两个吸引子、中间的鞍点与分水岭，两个几乎相同的起点走向不同结局" role="img" viewbox="0 0 720 300" xmlns="http://www.w3.org/2000/svg">
 <defs>
-<marker id="t7e" markerHeight="10" markerUnits="userSpaceOnUse" markerWidth="10" orient="auto" refX="9" refY="5" viewBox="0 0 10 10">
+<marker id="t7e" markerheight="10" markerunits="userSpaceOnUse" markerwidth="10" orient="auto" refx="9" refy="5" viewbox="0 0 10 10">
 <path d="M0,1 L9,5 L0,9 z" fill="#63b3a6"></path>
 </marker>
-<marker id="t7f" markerHeight="10" markerUnits="userSpaceOnUse" markerWidth="10" orient="auto" refX="9" refY="5" viewBox="0 0 10 10">
+<marker id="t7f" markerheight="10" markerunits="userSpaceOnUse" markerwidth="10" orient="auto" refx="9" refy="5" viewbox="0 0 10 10">
 <path d="M0,1 L9,5 L0,9 z" fill="#e0895e"></path>
 </marker>
-<marker id="t7g" markerHeight="8" markerUnits="userSpaceOnUse" markerWidth="8" orient="auto" refX="7.5" refY="5" viewBox="0 0 10 10">
+<marker id="t7g" markerheight="8" markerunits="userSpaceOnUse" markerwidth="8" orient="auto" refx="7.5" refy="5" viewbox="0 0 10 10">
 <path d="M0,1 L9,5 L0,9 z" fill="#57524b"></path>
 </marker>
 </defs>
@@ -279,7 +279,7 @@ footer a{color:#79a6d2;text-decoration:none}
 🌀 <b>东方思想 · 佛教戒律里的「遮戒」</b>　佛教把戒条分成两类：性戒（杀、盗这类本身就是恶的）和<b>遮戒</b>——那件事本身不是恶，禁止它是因为它容易引出别的破戒，最常被举的例子是饮酒。用本节的机制看，这个分类正是按"离分水岭多远"来划的：遮戒管的不是终点，是<em>位置</em>。由此推出一条一般性的定规原则：<b>一条规矩该多严，取决于它把你放在离边界多近的地方，而不取决于这件事本身多严重。</b>所以"就这一次没关系"这句话的真假，完全取决于说它的时候你站在哪儿——同一句话在吸引域深处是对的，在边界附近是灾难性的。
 </div>
 <p class="en-brief"><b>EN</b> Systems often have several attractors. The set of starting points that end up in one of them is its basin; the line between basins is the separatrix. Two nearly identical states can sit on opposite sides of it. Distance to the endpoint and distance to the boundary are unrelated quantities — and the same effort buys wildly different results depending on which one you are near.</p>
-<h2><span class="n">05</span>这套说法在哪儿不成立<span class="he">（Where This Breaks Down）</span></h2>
+<h2 data-tts="9e181f8df0ec9d29"><span class="n">05</span>这套说法在哪儿不成立<span class="he">（Where This Breaks Down）</span></h2>
 <p class="lead">状态空间是二十世纪最好用的思想工具之一，也因此是被滥用得最舒服的一个——因为它的词汇（吸引子、分水岭、稳态）听上去像解释，实际上什么也没承诺。用之前先把边界划清楚。</p>
 <p><b>第一，你得先知道坐标轴是什么。</b>摆之所以好画，是因为我们确切知道它只需要两个数。一个团队、一个人的情绪、一个市场需要几个数？没人知道。变量选错或者少选，画出来的"相图"就是一张自我安慰的图。有个技术上的补救叫延迟嵌入（delay embedding，Takens 1981）——用一条时间序列自己的延迟值当坐标轴，重建出吸引子的形状。但它的前提相当苛刻：系统得是确定性的、维数不高、序列足够长、噪声足够小。真实的社会与经济数据几乎没有一条满足。</p>
 <p><b>第二，相图只在参数不变时成立。</b>整张图（哪儿有不动点、分水岭在哪）是由系统的参数决定的。参数一变，图本身就变形：吸引子会移动，会分裂，也会干脆消失——这正是第 10 期分岔要讲的事。所以"等它回到常态"这句话有个隐含前提：那个常态还在。很多时候你等的那个吸引子已经不存在了，而当前值看不出这件事。</p>
@@ -291,7 +291,7 @@ footer a{color:#79a6d2;text-decoration:none}
 </div>
 <p class="en-brief"><b>EN</b> Four limits. You must know the axes first, and for social systems nobody does — delay embedding (Takens 1981) needs determinism, low dimension, long clean series. Phase portraits hold only at fixed parameters; the attractor you are waiting to return to may no longer exist. Noise makes shallow basins leaky. And attractor-talk without stated axes, timescale and an observable proxy for the boundary is just a fancy word for inertia.</p>
 <div class="bigcat">
-<h3>🎒 场景 · BigCat</h3>
+<h3 data-tts="a2597ad75c6b462a">🎒 场景 · BigCat</h3>
 <ol>
 <li><span class="dm">工程与系统设计</span>那件每隔几周就上演一次的事：服务出问题，重启一下就好了，于是记一句"已恢复"。可重启不是系统自己回来的，是你把状态硬掰回了初值——这恰恰说明那个工作点可能根本不是稳定不动点，只是你一直在当飞控。具体动作：在事故记录里加一栏，只填两个值——<b>自愈</b>（无人工介入，多久恢复）或<b>人工复位</b>。半年之后看这一栏的比例。如果一次自愈都没有，那么你们的可用性数字度量的是响应速度，不是系统的稳定性。</li>
 <li><span class="dm">育儿</span>那个熟悉的循环：临考前你盯紧了，成绩就上来；一放手，几周内滑回原样。这不是"不够努力"，是你把点推高了，但没越过分水岭——外力一撤，轨迹沿原路滑回原来那个吸引域。可改的东西是<b>怎么判断有没有越过去</b>：每学期安排一到两次"撤手观察窗"，七到十天里只记录方向（作业是自己开始的还是被提醒的、卡住时是问还是放弃），不纠正、不提醒。看的是方向，不是分数。分数是位置，方向才是速度。</li>
@@ -299,7 +299,7 @@ footer a{color:#79a6d2;text-decoration:none}
 </ol>
 </div>
 <div class="crossx">
-<h3>🌀 越界 · 跨学科的联想<span class="he">（Crossings）</span></h3>
+<h3 data-tts="786752b824802aec">🌀 越界 · 跨学科的联想<span class="he">（Crossings）</span></h3>
 <ul>
 <li><b>心理学 · 人格研究的动力系统转向</b>：1968 年 Walter Mischel 在《Personality and Assessment》里捅了一刀：人格特质对具体行为的预测力，跨情境相关系数普遍只有 0.3 上下——后来被叫做"人格系数"。特质派与情境派吵了二十年，直到 Mischel 与 Yuichi Shoda 1995 年提出认知-情感处理系统（Cognitive-Affective Processing System，缩写 CAPS）：一个人稳定的不是行为的<em>平均值</em>，而是"如果…那么…"的模式——在什么情境下出现什么反应。用本期的三条机制读，这个转向就一句话：<b>他们把人从一个坐标点，换成了一整张相图。</b>状态得挑对变量（只测平均行为=只测位置不测流向）；同一个人可以有多个稳定不动点（社交场合的他和独处的他是两个吸引子，都不是"真实的他"）；情境的作用是决定你落在哪个吸引域里。因此推出一个和"改变自己"直觉相反的结论：改人不如改吸引域边界——改的是触发线索、场所、同伴，而不是意志力的大小。<b>但这里不成立</b>：真正的相图要求状态变量可测、维数已知、动力学不随时间变；人这三条一条都不满足，而且人会读到关于自己的模型并因此改变（第 26 期的正题）。所以这里借走的是<em>提问方式</em>——问吸引域而不是问特质分数——不是那些定量结论。谁要是拿李雅普诺夫指数来算性格，那是在拿隐喻冒充测量。</li>
 <li><b>控制论史 · Ashby 的稳态机</b>：1948 年，W. Ross Ashby 用四个互相耦合的电磁单元造了一台叫 homeostat（稳态机）的机器。它没有目标、不知道"正确"是什么：任何一个单元的输出超出容许范围，就随机换一组内部参数，然后看看会怎样；不行就再换。跑上一阵，它总能安顿在一个稳定状态——你拔掉一根线、反接一次极性，它折腾一会儿又找回稳定。本期几条机制在这里成套跑：状态空间（每个单元的电流是一根轴）、稳定与不稳定不动点、以及"随机换参数"其实是在<b>换一整张相图</b>，直到抽中一张里面有稳定不动点、而且当前位置正好在它的吸引域里。由此推出一个很不舒服的结论：<b>适应看上去像是在追求稳定，其实只是不稳定的配置留不下来。</b>这里没有任何目标、任何智能、任何意图——稳定是幸存的结果，不是被追求的对象。凡是看见一个系统"在维持自己"就断定它有目的，都该先想想这台 1948 年的机器。</li>
@@ -307,14 +307,14 @@ footer a{color:#79a6d2;text-decoration:none}
 </ul>
 </div>
 <div class="thinking">
-<h3>深入思考<span class="he">（Going Deeper）</span></h3>
+<h3 data-tts="e30d81a252f5c3ed">深入思考<span class="he">（Going Deeper）</span></h3>
 <details><summary>如果状态是"决定未来的最小信息集"，那么记忆算不算状态的一部分？</summary><p>算，而且这正是麻烦所在。一个带记忆的系统（今天的行为取决于过去一周），要把它写成标准的状态空间，就得把过去一周的值全都当成额外的坐标轴——维数一下子涨上去。真实的人和组织都带着长记忆，这是"给社会系统画相图"最硬的技术障碍之一，也是延迟嵌入这类方法被发明出来的原因。</p></details>
 <details><summary>「稳定」和「韧性」是同一件事吗？</summary><p>不是，而且用本期的语言能说清差别。稳定说的是<em>不动点</em>的性质：推一下回不回来。韧性关心的是<em>吸引域</em>的大小：多大的一推还留在里面。一个系统可以极其稳定（小扰动恢复得很快）同时极其脆弱（吸引域很窄，稍大的扰动就翻过去）。第 38 期会专门讲这个区分。</p></details>
 <details><summary>把一个人的状态定义清楚，会不会本身就改变这个人？</summary><p>会。这是复杂适应系统与物理系统的分水岭：摆不知道自己被画在哪张图上，人知道。一旦"我处在哪个吸引域"成为公开的说法，它就变成新的输入——指标一旦成为目标就失效（第 26 期）。所以对人用状态空间，最好当成事后的描述工具，而不是事前公布的坐标。</p></details>
 <details><summary>为什么二维平面上不可能有混沌，多一根轴就可以？</summary><p>因为轨迹不能相交。在平面上，一条不断往前走又不能穿过自己的曲线，会被自己围出的区域困住，最后只能收进一点或者绕成环（这是庞加莱-本迪克松定理的直观说法）。加一根轴之后，曲线可以从"上方"绕过自己，于是能在有限的空间里永远折叠下去而不重复。混沌需要的正是这种折叠。</p></details>
 </div>
 <div class="refs">
-<h3>延伸阅读<span class="he">（Further Reading）</span></h3>
+<h3 data-tts="36ce68926a163301">延伸阅读<span class="he">（Further Reading）</span></h3>
 <ul>
 <li>Steven Strogatz, <a href="https://www.stevenstrogatz.com/books/nonlinear-dynamics-and-chaos-with-applications-to-physics-biology-chemistry-and-engineering">Nonlinear Dynamics and Chaos</a>（相图、不动点、吸引子的标准入门，前四章几乎就是本期）</li>
 <li><a href="https://en.wikipedia.org/wiki/Phase_space">Phase space</a> / <a href="https://en.wikipedia.org/wiki/Attractor">Attractor</a>（词条，含四类吸引子的图示）</li>

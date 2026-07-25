@@ -45,15 +45,15 @@ footer a{color:#79a6d2;text-decoration:none}
 <div class="wrap">
 <header>
 <span class="rtag">REF · 经典方法</span>
-<h1>相空间与吸引子<span class="h1en">PHASE SPACE &amp; ATTRACTORS</span></h1>
+<h1 data-tts="e0c899ea1c55c391">相空间与吸引子<span class="h1en">PHASE SPACE &amp; ATTRACTORS</span></h1>
 <p class="sub">庞加莱（Henri Poincaré），1880 年代 — 不解方程也能说出长期行为的那套画法</p>
 <p class="meta">被引用于：Topic 7 状态空间的语言</p>
 </header>
-<h2><span class="n">01</span>它问的是什么问题<span class="he">（The Question It Poses）</span></h2>
+<h2 data-tts="9c06d515f4d8f8cc"><span class="n">01</span>它问的是什么问题<span class="he">（The Question It Poses）</span></h2>
 <p>19 世纪末，庞加莱在三体问题上卡住了：太阳、地球、月亮三个天体互相拉扯，运动方程写得出来，解<b>写不出来</b>。当时（现在也一样）没有公式能给出它们任意时刻的位置。</p>
 <p>他的转身改变了整个学科：<b>如果解不出来，那就换个问法。</b>不问"第 500 年时地球在哪儿"，改问"这几个天体会不会有一个跑掉""轨道会不会一直有界""会不会周期性地回到差不多的排布"。这些问题不需要公式解，只需要看清楚运动<em>大致往哪儿走</em>。</p>
 <p>为了看清"往哪儿走"，他发明了这套画法。它要解决的核心问题只有一个：<b>在解不出方程的情况下，怎么说出一个系统的长期行为？</b></p>
-<h2><span class="n">02</span>规则本身<span class="he">（The Rules）</span></h2>
+<h2 data-tts="0d73bf3819775ec5"><span class="n">02</span>规则本身<span class="he">（The Rules）</span></h2>
 <div class="rule">
 <ol>
 <li>挑出一组<b>状态变量</b>：足以定下未来的最小一组数。（摆：角度 + 角速度。捕食者-猎物：两个种群数量。）</li>
@@ -64,18 +64,18 @@ footer a{color:#79a6d2;text-decoration:none}
 </ol>
 </div>
 <p>整套东西只有一个要求：状态变量选对。选错或选少了，画出来的图会自洽、好看、并且和真实系统没关系。</p>
-<h2><span class="n">03</span>跑起来会看到什么<span class="he">（What You See When It Runs）</span></h2>
+<h2 data-tts="47b129c0006e5053"><span class="n">03</span>跑起来会看到什么<span class="he">（What You See When It Runs）</span></h2>
 <p>下图是一个带摩擦的摆的完整相图。灰色小箭头是向量场——每个箭头说"在这个状态下，接下来往这边动"。彩色曲线是两条轨迹：从不同状态放手，顺着箭头走出来的两条路。</p>
 <figure>
-<svg aria-label="带摩擦的摆的相图：向量场、两条轨迹、稳定与不稳定不动点" role="img" viewBox="0 0 720 340" xmlns="http://www.w3.org/2000/svg">
+<svg aria-label="带摩擦的摆的相图：向量场、两条轨迹、稳定与不稳定不动点" role="img" viewbox="0 0 720 340" xmlns="http://www.w3.org/2000/svg">
 <defs>
-<marker id="rp1" markerHeight="8" markerUnits="userSpaceOnUse" markerWidth="8" orient="auto" refX="7" refY="5" viewBox="0 0 10 10">
+<marker id="rp1" markerheight="8" markerunits="userSpaceOnUse" markerwidth="8" orient="auto" refx="7" refy="5" viewbox="0 0 10 10">
 <path d="M0,1.5 L9,5 L0,8.5 z" fill="#6b665e"></path>
 </marker>
-<marker id="rp2" markerHeight="10" markerUnits="userSpaceOnUse" markerWidth="10" orient="auto" refX="9" refY="5" viewBox="0 0 10 10">
+<marker id="rp2" markerheight="10" markerunits="userSpaceOnUse" markerwidth="10" orient="auto" refx="9" refy="5" viewbox="0 0 10 10">
 <path d="M0,1 L9,5 L0,9 z" fill="#d9b45f"></path>
 </marker>
-<marker id="rp3" markerHeight="10" markerUnits="userSpaceOnUse" markerWidth="10" orient="auto" refX="9" refY="5" viewBox="0 0 10 10">
+<marker id="rp3" markerheight="10" markerunits="userSpaceOnUse" markerwidth="10" orient="auto" refx="9" refy="5" viewbox="0 0 10 10">
 <path d="M0,1 L9,5 L0,9 z" fill="#63b3a6"></path>
 </marker>
 </defs>
@@ -140,9 +140,9 @@ footer a{color:#79a6d2;text-decoration:none}
 <p>青色那条值得多看两眼：它差一点就翻过了右边的倒立点，在那附近走得非常慢（箭头在那里很短），最后还是滑了回来。<b>越靠近不稳定不动点，系统走得越慢</b>——这个现象后来被做成了一整套预警方法（临界慢化，Topic 36）。</p>
 <p>把镜头拉近到某一个不动点附近，箭头的图案只有有限几种。这几种图案决定了系统在这个点附近的全部行为：</p>
 <figure>
-<svg aria-label="不动点附近的四种典型图案：结点、焦点、鞍点、中心" role="img" viewBox="0 0 730 262" xmlns="http://www.w3.org/2000/svg">
+<svg aria-label="不动点附近的四种典型图案：结点、焦点、鞍点、中心" role="img" viewbox="0 0 730 262" xmlns="http://www.w3.org/2000/svg">
 <defs>
-<marker id="rp4" markerHeight="9" markerUnits="userSpaceOnUse" markerWidth="9" orient="auto" refX="8" refY="5" viewBox="0 0 10 10">
+<marker id="rp4" markerheight="9" markerunits="userSpaceOnUse" markerwidth="9" orient="auto" refx="8" refy="5" viewbox="0 0 10 10">
 <path d="M0,1 L9,5 L0,9 z" fill="#63b3a6"></path>
 </marker>
 </defs>
@@ -162,14 +162,14 @@ footer a{color:#79a6d2;text-decoration:none}
 <path d="M673.0,150.0 L672.4,156.0 L670.8,161.9 L668.1,167.3 L664.5,172.2 L660.0,176.3 L654.9,179.5 L649.2,181.7 L643.3,182.8 L637.2,182.9 L631.2,181.8 L625.6,179.7 L620.4,176.5 L615.8,172.5 L612.1,167.7 L609.4,162.3 L607.6,156.5 L607.0,150.4 L607.5,144.4 L609.1,138.5 L611.7,133.1 L615.2,128.2 L619.7,124.0 L624.7,120.7 L630.4,118.4 L636.3,117.2 L642.4,117.1 L648.3,118.1 L654.0,120.1 L659.3,123.2 L663.8,127.2 L667.6,131.9 L670.5,137.3 L672.3,143.1 L673.0,149.1 L672.6,155.2 L671.1,161.0 L668.6,166.5"></path><path d="M703.8,150.0 L702.7,161.7 L699.5,173.0 L694.3,183.5 L687.3,192.8 L678.7,200.8 L668.7,207.0 L657.8,211.3 L646.3,213.5 L634.6,213.6 L623.0,211.5 L612.1,207.4 L602.0,201.3 L593.3,193.5 L586.1,184.2 L580.8,173.8 L577.4,162.5 L576.2,150.9 L577.1,139.2 L580.2,127.9 L585.2,117.3 L592.1,107.8 L600.7,99.8 L610.5,93.4 L621.4,89.0 L632.8,86.6 L644.6,86.4 L656.1,88.3 L667.2,92.3 L677.3,98.2 L686.1,105.9 L693.4,115.1 L698.9,125.4 L702.4,136.6 L703.8,148.3 L703.0,160.0 L700.1,171.3 L695.2,182.0"></path>
 </g>
 <g stroke="#63b3a6" stroke-width="2">
-<line marker-end="url(#rp4)" x1="104.9" y1="149.9" x2="104.0" y2="149.9"></line>
-<line marker-end="url(#rp4)" x1="104.6" y1="150.1" x2="103.7" y2="150.1"></line>
-<line marker-end="url(#rp4)" x1="265.9" y1="149.6" x2="271.4" y2="141.0"></line>
-<line marker-end="url(#rp4)" x1="290.2" y1="155.9" x2="282.7" y2="160.0"></line>
-<line marker-end="url(#rp4)" x1="480.9" y1="128.6" x2="482.6" y2="130.2"></line>
-<line marker-end="url(#rp4)" x1="480.9" y1="171.4" x2="482.6" y2="169.8"></line>
-<line marker-end="url(#rp4)" x1="608.6" y1="140.0" x2="612.5" y2="131.8"></line>
-<line marker-end="url(#rp4)" x1="579.2" y1="130.6" x2="586.8" y2="114.8"></line>
+<line marker-end="url(#rp4)" x1="104.9" x2="104.0" y1="149.9" y2="149.9"></line>
+<line marker-end="url(#rp4)" x1="104.6" x2="103.7" y1="150.1" y2="150.1"></line>
+<line marker-end="url(#rp4)" x1="265.9" x2="271.4" y1="149.6" y2="141.0"></line>
+<line marker-end="url(#rp4)" x1="290.2" x2="282.7" y1="155.9" y2="160.0"></line>
+<line marker-end="url(#rp4)" x1="480.9" x2="482.6" y1="128.6" y2="130.2"></line>
+<line marker-end="url(#rp4)" x1="480.9" x2="482.6" y1="171.4" y2="169.8"></line>
+<line marker-end="url(#rp4)" x1="608.6" x2="612.5" y1="140.0" y2="131.8"></line>
+<line marker-end="url(#rp4)" x1="579.2" x2="586.8" y1="130.6" y2="114.8"></line>
 </g>
 <circle cx="100" cy="150" fill="#63b3a6" r="4.5"></circle>
 <circle cx="280" cy="150" fill="#63b3a6" r="4.5"></circle>
@@ -184,14 +184,14 @@ footer a{color:#79a6d2;text-decoration:none}
 </figure>
 <p>判断属于哪一种，靠的是在不动点附近把规则线性化——大白话说，就是问两件事：偏离一点点之后，<b>回复力把你拉回来还是推更远</b>；以及这个偏离<b>会不会同时被带着转</b>。拉回来 + 不转 = 结点；拉回来 + 带着转 = 焦点；一个方向拉回、另一个方向推开 = 鞍点；只转不拉 = 中心。数学上这四种对应雅可比矩阵特征值的四种情形，但要用它，记住上面这四句话就够。</p>
 <p>鞍点值得多看一眼：它是<b>分水岭</b>（separatrix）的源头。恰好沿着"被拉回"那个方向进来的轨迹，会一直走向鞍点；差之毫厘的轨迹，则会被另一个方向甩开，甩向左边还是右边取决于差在哪一侧。两个不同结局的分界线，就是这样长出来的。</p>
-<h2><span class="n">04</span>它解释了现实中的什么<span class="he">（What It Explains）</span></h2>
+<h2 data-tts="a92748ef3babe40b"><span class="n">04</span>它解释了现实中的什么<span class="he">（What It Explains）</span></h2>
 <p>这套画法本身不是一个关于世界的理论，它是一门<b>语言</b>——但正因为是语言，它把一堆看起来无关的现象翻译成了同一句话：</p>
 <p><b>为什么有些系统会自己回到原样，有些一去不返。</b>前者是稳定不动点，后者附近有鞍点或者干脆没有吸引子。生态学里"湖泊变浑之后为什么清不回来"、心理学里"为什么状态一崩就滑得很快"，说的都是同一件事：不是力气不够，是位置到了分水岭另一侧。</p>
 <p><b>为什么有些波动不需要外部原因。</b>如果相图里有一个吸引的闭合环（极限环 limit cycle），系统就会自己周期性地起落。心脏的窦房结、捕食者与猎物的数量、某些商业周期的模型，都属于这一类。找外因的习惯在这类系统上会一直落空。</p>
 <p><b>为什么"确定"和"可预测"不是一回事。</b>混沌的定义本身就是用这套语言写的：轨迹被关在一个有界的集合（奇异吸引子）里，永不重复，且相邻轨迹指数分开。没有相空间这套词汇，这句话根本说不出来。</p>
 <p>工程上它也是干活的工具：控制理论里的相平面法直接拿它设计，判断一个控制回路会不会振荡、会不会发散；而"状态机"这个每个程序员都在用的概念，正是它在离散世界里的表亲。</p>
 <div class="cant">
-<h3>它不能解释什么<span class="he">（What It Cannot Explain）</span></h3>
+<h3 data-tts="a6a50b88e578ee2e">它不能解释什么<span class="he">（What It Cannot Explain）</span></h3>
 <ul>
 <li><b>不能替你挑变量。</b>整套方法的第一步——"选出足以定下未来的最小一组数"——它自己不提供。物理系统里这一步是白送的，社会系统里这一步就是全部难点。变量选错，后面画得再漂亮也是虚构。</li>
 <li><b>不能处理会自己变形的图。</b>相图由参数决定，参数一变，不动点会移动、分裂、消失（分岔，见 Topic 10）。真实系统的参数很少静止不动，所以一张相图的有效期是有限的，而图上看不出这个期限。</li>
@@ -202,7 +202,7 @@ footer a{color:#79a6d2;text-decoration:none}
 </ul>
 </div>
 <div class="refs">
-<h3>延伸阅读<span class="he">（Further Reading）</span></h3>
+<h3 data-tts="d4d42da6a0b017f1">延伸阅读<span class="he">（Further Reading）</span></h3>
 <ul>
 <li>Steven Strogatz, <a href="https://www.stevenstrogatz.com/books/nonlinear-dynamics-and-chaos-with-applications-to-physics-biology-chemistry-and-engineering">Nonlinear Dynamics and Chaos</a>（第 2–6 章就是这套画法的标准教程）</li>
 <li><a href="https://en.wikipedia.org/wiki/Phase_space">Phase space</a> · <a href="https://en.wikipedia.org/wiki/Attractor">Attractor</a> · <a href="https://en.wikipedia.org/wiki/Basin_of_attraction">Basin of attraction</a>（词条）</li>
