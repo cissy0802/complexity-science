@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+
+<html lang="en"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>The Logistic Map · Reference Library · Complexity Science</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,"SF Pro Display","Noto Sans SC",sans-serif;color:#e4ded5;line-height:1.85;min-height:100vh;
+  background:radial-gradient(1100px 620px at 12% -6%,rgba(99,179,166,0.09),transparent 62%),radial-gradient(950px 700px at 100% 2%,rgba(166,147,205,0.08),transparent 58%),linear-gradient(168deg,#100f0d 0%,#15161b 48%,#0a0a0c 100%);background-attachment:fixed}
+.wrap{max-width:720px;margin:0 auto;padding:30px 22px 90px}
+header{padding:52px 0 8px;border-bottom:1px solid rgba(255,255,255,0.07);margin-bottom:32px}
+.rtag{font-family:"SF Mono",Menlo,monospace;font-size:0.72rem;font-weight:700;letter-spacing:2px;color:#63b3a6;border:1px solid rgba(99,179,166,0.4);background:rgba(99,179,166,0.07);padding:3px 11px;border-radius:20px}
+h1{font-size:2.15rem;font-weight:800;line-height:1.2;margin:20px 0 0;color:#f0eae0}
+h1 .h1en{display:block;font-size:0.42em;font-weight:600;letter-spacing:2.5px;color:#847d72;margin-top:11px}
+.sub{font-size:0.98rem;color:#aba498;margin-top:12px}
+.meta{font-family:"SF Mono",Menlo,monospace;font-size:0.75rem;color:#57524b;margin-top:16px;letter-spacing:1px}
+h2{font-size:1.25rem;font-weight:700;color:#e9e3d9;margin:44px 0 10px}
+h2 .n{font-family:"SF Mono",Menlo,monospace;font-size:0.8rem;color:#63b3a6;display:block;margin-bottom:5px;letter-spacing:2px}
+.he{font-size:0.68em;color:#8d867b;font-weight:500;letter-spacing:0}
+p{margin-bottom:16px}
+b,strong{color:#f0eae0;font-weight:600}
+em{color:#d9b45f;font-style:normal;font-weight:500}
+.rule{border:1px solid rgba(99,179,166,0.3);background:rgba(99,179,166,0.05);border-radius:12px;padding:16px 20px;margin:22px 0;font-size:0.94rem;color:#d5cdc1}
+.rule ol{padding-left:20px;margin:0}
+.rule li{margin-bottom:7px}
+.rule li:last-child{margin-bottom:0}
+figure{margin:28px 0}
+figure svg{display:block;width:100%;height:auto;border-radius:12px;background:rgba(255,255,255,0.018);border:1px solid rgba(255,255,255,0.06)}
+figcaption{font-size:0.82rem;color:#787268;margin-top:10px;text-align:center;line-height:1.6}
+.cant{border:1px solid rgba(205,127,155,0.36);background:rgba(205,127,155,0.05);border-radius:12px;padding:18px 21px;margin:26px 0 10px}
+.cant h3{font-size:1rem;color:#cd7f9b;margin-bottom:12px}
+.cant ul{list-style:none;padding:0}
+.cant li{margin-bottom:13px;font-size:0.93rem;color:#d5cdc1;line-height:1.76}
+.cant li:last-child{margin-bottom:0}
+.cant li b{color:#cd7f9b}
+.refs{margin:40px 0 10px}
+.refs h3{font-size:1rem;color:#79a6d2;margin-bottom:12px}
+.refs ul{list-style:none;padding:0}
+.refs li{margin-bottom:9px;font-size:0.89rem;color:#8d867b;line-height:1.7}
+.refs a{color:#79a6d2;text-decoration:none;border-bottom:1px solid rgba(121,166,210,0.3)}
+.refs a:hover{color:#a6c4e2}
+footer{text-align:center;padding:52px 0 10px;font-size:0.78rem;color:#57524b;font-family:"SF Mono",Menlo,monospace;border-top:1px solid rgba(255,255,255,0.06);margin-top:46px}
+footer a{color:#79a6d2;text-decoration:none}
+@media(max-width:600px){h1{font-size:1.7rem}.wrap{padding:24px 16px 60px}}
+</style></head><body>
+<div class="wrap">
+<header>
+<span class="rtag">REF · CLASSIC MODEL</span>
+<h1>The Logistic Map</h1>
+<p class="sub">Robert May, 1976 — one line of arithmetic covering the whole road from stability to chaos</p>
+<p class="meta">Cited by: Topic 9 The Road to Chaos</p>
+</header>
+
+<h2><span class="n">01</span>The Question It Poses</h2>
+<p>Before the 1970s there was a default correspondence in the sciences: simple equations give simple behaviour, and complicated behaviour must come from complicated causes or from outside random shocks. Population ecology worked exactly this way — violent fluctuations in the data were assigned to weather, disease, predators.</p>
+<p>Robert May's question was: <b>can a rule with one parameter, simple enough for a schoolchild to compute, generate behaviour that looks entirely random all by itself?</b> The logistic map is his answer, and a counterexample prepared specifically for the intuition that complexity must come from complexity.</p>
+
+<h2><span class="n">02</span>The Rules</h2>
+<div class="rule">
+<ol>
+<li>Let <em>x</em> be the current quantity, between 0 and 1 — read it as "fraction of maximum capacity" (in ecology, the <b>carrying capacity</b>).</li>
+<li>The next value: <em>x</em> ← <em>r</em> × <em>x</em> × (1 − <em>x</em>).</li>
+<li><em>r</em> is the only parameter, between 0 and 4 (above 4 the arithmetic produces negative numbers and the model stops meaning anything).</li>
+<li>Feed the new <em>x</em> back into step 2 and iterate, step after step.</li>
+<li>Time is <b>discrete</b>: this step settles before the next exists. That corresponds to organisms with one non-overlapping generation per year, or to anything settled in cycles.</li>
+</ol>
+</div>
+<p>The two factors each do one job: <em>r</em> × <em>x</em> is growth (more now, more next step), and (1 − <em>x</em>) is the crowding discount (the closer to full, the harsher). Multiply them and you get a downward parabola — a single maximum, what mathematicians call <b>unimodal</b>. That single hump is not decoration; it is the precondition for everything that follows.</p>
+
+<h2><span class="n">03</span>What You See When It Runs</h2>
+<p>The cheapest way to see it is one picture: this year's <em>x</em> on the horizontal axis, next year's on the vertical. The rule itself is the parabola. Add a 45° line, which stands for "next year equals this year" — where the two curves cross is a <b>fixed point</b>, the candidate stable value.</p>
+<p>The iteration can be walked directly on this picture: go up from the axis to the parabola (that is next year's value), across to the 45° line (which turns next year into this year), then up again. The resulting zig-zag is a <b>cobweb diagram</b>.</p>
+<figure>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 330" role="img" aria-label="Cobweb diagram"><text x="360" y="24" text-anchor="middle" fill="#aba498" font-family="-apple-system,sans-serif" font-size="13">Same parabola, two values of r: one settles, one starts to loop</text><rect x="52" y="56" width="210" height="210" fill="rgba(255,255,255,0.02)" stroke="rgba(255,255,255,0.08)"/><line x1="52.0" y1="266.0" x2="262.0" y2="56.0" stroke="rgba(255,255,255,0.25)" stroke-width="1.2" stroke-dasharray="4 3"/><polyline points="52.0,266.0 54.6,259.0 57.2,252.2 59.9,245.5 62.5,239.1 65.1,232.8 67.8,226.7 70.4,220.7 73.0,215.0 75.6,209.4 78.2,204.0 80.9,198.8 83.5,193.7 86.1,188.8 88.8,184.1 91.4,179.6 94.0,175.3 96.6,171.1 99.2,167.1 101.9,163.3 104.5,159.7 107.1,156.2 109.8,153.0 112.4,149.9 115.0,146.9 117.6,144.2 120.2,141.6 122.9,139.2 125.5,137.0 128.1,135.0 130.8,133.1 133.4,131.4 136.0,129.9 138.6,128.6 141.2,127.4 143.9,126.5 146.5,125.7 149.1,125.0 151.8,124.6 154.4,124.3 157.0,124.2 159.6,124.3 162.2,124.6 164.9,125.0 167.5,125.7 170.1,126.5 172.8,127.4 175.4,128.6 178.0,129.9 180.6,131.4 183.2,133.1 185.9,135.0 188.5,137.0 191.1,139.2 193.8,141.6 196.4,144.2 199.0,146.9 201.6,149.9 204.2,153.0 206.9,156.2 209.5,159.7 212.1,163.3 214.8,167.1 217.4,171.1 220.0,175.3 222.6,179.6 225.2,184.1 227.9,188.8 230.5,193.7 233.1,198.8 235.8,204.0 238.4,209.4 241.0,215.0 243.6,220.7 246.2,226.7 248.9,232.8 251.5,239.1 254.1,245.5 256.8,252.2 259.4,259.0 262.0,266.0" fill="none" stroke="#63b3a6" stroke-width="1.8"/><path d="M64.6 266.0 L64.6 234.0 L84.0 234.0 L84.0 192.8 L125.2 192.8 L125.2 137.3 L180.7 137.3 L180.7 131.5 L186.5 131.5 L186.5 135.4 L182.6 135.4 L182.6 132.6 L185.4 132.6 L185.4 134.6 L183.4 134.6 L183.4 133.2 L184.8 133.2 L184.8 134.2 L183.8 134.2 L183.8 133.5 L184.5 133.5 L184.5 134.0 L184.0 134.0 L184.0 133.6 L184.4 133.6 L184.4 133.9 L184.1 133.9 L184.1 133.7 L184.3 133.7 L184.3 133.8 L184.2 133.8 L184.2 133.7 L184.3 133.7 L184.3 133.8 L184.2 133.8 L184.2 133.8 L184.2 133.8 L184.2 133.8 L184.2 133.8 L184.2 133.8 L184.2 133.8 L184.2 133.8 L184.2 133.8 L184.2 133.8 L184.2 133.8 L184.2 133.8 L184.2 133.8 L184.2 133.8 L184.2 133.8 L184.2 133.8 L184.2 133.8 L184.2 133.8 L184.2 133.8" fill="none" stroke="#9fbc7a" stroke-width="1.2" opacity="0.85"/><text x="157" y="288" text-anchor="middle" fill="#9fbc7a" font-family="-apple-system,sans-serif" font-size="12">r = 2.7 — spirals into a point</text><text x="258" y="48" text-anchor="end" fill="#63b3a6" font-family="-apple-system,sans-serif" font-size="11">teal curve = the rule itself</text><rect x="400" y="56" width="210" height="210" fill="rgba(255,255,255,0.02)" stroke="rgba(255,255,255,0.08)"/><line x1="400.0" y1="266.0" x2="610.0" y2="56.0" stroke="rgba(255,255,255,0.25)" stroke-width="1.2" stroke-dasharray="4 3"/><polyline points="400.0,266.0 402.6,257.7 405.2,249.6 407.9,241.7 410.5,234.1 413.1,226.6 415.8,219.4 418.4,212.3 421.0,205.5 423.6,198.9 426.2,192.5 428.9,186.3 431.5,180.3 434.1,174.5 436.8,169.0 439.4,163.6 442.0,158.5 444.6,153.5 447.2,148.8 449.9,144.3 452.5,140.0 455.1,135.9 457.8,132.0 460.4,128.3 463.0,124.9 465.6,121.6 468.2,118.6 470.9,115.7 473.5,113.1 476.1,110.7 478.8,108.5 481.4,106.5 484.0,104.7 486.6,103.1 489.2,101.8 491.9,100.6 494.5,99.7 497.1,98.9 499.8,98.4 502.4,98.1 505.0,98.0 507.6,98.1 510.2,98.4 512.9,98.9 515.5,99.7 518.1,100.6 520.8,101.8 523.4,103.1 526.0,104.7 528.6,106.5 531.2,108.5 533.9,110.7 536.5,113.1 539.1,115.7 541.8,118.6 544.4,121.6 547.0,124.9 549.6,128.3 552.2,132.0 554.9,135.9 557.5,140.0 560.1,144.3 562.8,148.8 565.4,153.5 568.0,158.5 570.6,163.6 573.2,169.0 575.9,174.5 578.5,180.3 581.1,186.3 583.8,192.5 586.4,198.9 589.0,205.5 591.6,212.3 594.2,219.4 596.9,226.6 599.5,234.1 602.1,241.7 604.8,249.6 607.4,257.7 610.0,266.0" fill="none" stroke="#63b3a6" stroke-width="1.8"/><path d="M412.6 266.0 L412.6 228.1 L437.9 228.1 L437.9 166.6 L499.4 166.6 L499.4 98.5 L567.5 98.5 L567.5 157.6 L508.4 157.6 L508.4 98.2 L567.8 98.2 L567.8 158.1 L507.9 158.1 L507.9 98.1 L567.9 98.1 L567.9 158.2 L507.8 158.2 L507.8 98.1 L567.9 98.1 L567.9 158.3 L507.7 158.3 L507.7 98.1 L567.9 98.1 L567.9 158.3 L507.7 158.3 L507.7 98.1 L567.9 98.1 L567.9 158.3 L507.7 158.3 L507.7 98.1 L567.9 98.1 L567.9 158.3 L507.7 158.3 L507.7 98.1 L567.9 98.1 L567.9 158.3 L507.7 158.3 L507.7 98.1 L567.9 98.1 L567.9 158.3 L507.7 158.3 L507.7 98.1 L567.9 98.1 L567.9 158.3 L507.7 158.3 L507.7 98.1 L567.9 98.1 L567.9 158.3 L507.7 158.3 L507.7 98.1 L567.9 98.1 L567.9 158.3 L507.7 158.3" fill="none" stroke="#e0895e" stroke-width="1.2" opacity="0.85"/><text x="505" y="288" text-anchor="middle" fill="#e0895e" font-family="-apple-system,sans-serif" font-size="12">r = 3.2 — cannot settle, locks into a box</text><text x="606" y="48" text-anchor="end" fill="#8d867b" font-family="-apple-system,sans-serif" font-size="11">dashed grey = next year equals this year</text><text x="360" y="318" text-anchor="middle" fill="#57524b" font-family="-apple-system,sans-serif" font-size="11">horizontal = this year’s x, vertical = next year’s x; the zig-zag is the year-by-year walk</text></svg>
+<figcaption>On the left the zig-zag tightens and closes into the crossing point. On the right it cannot close and locks into a box — those are the two alternating values.</figcaption>
+</figure>
+<p>Sweep <em>r</em> from small to large and four regimes appear in order:</p>
+<p><b>r &lt; 1</b>: everything goes to 0 whatever the start — extinction.<br/>
+<b>1 &lt; r &lt; 3</b>: it settles on a nonzero stable value, (r−1)/r, the same every year.<br/>
+<b>3 &lt; r &lt; 3.5699</b>: the stable value loses stability; behaviour becomes 2 alternating values, then 4, 8, 16… These <b>period-doubling bifurcations</b> arrive at intervals shrinking by a factor of about 4.669, so infinitely many of them complete before r∞ ≈ 3.5699.<br/>
+<b>r &gt; 3.5699</b>: over most of the range no period is visible at all, shot through with infinitely many narrow periodic windows (the most conspicuous being the period-3 window opening at r = 1+√8 ≈ 3.8284).</p>
+<p>The most famous property of the chaotic region is <b>sensitive dependence on initial conditions</b>: two starting points differing by a hair separate into unrelated trajectories within a handful of steps.</p>
+<figure>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 268" role="img" aria-label="Sensitive dependence"><text x="360" y="24" text-anchor="middle" fill="#aba498" font-family="-apple-system,sans-serif" font-size="13">r = 3.9: two starting points differing by 0.0001</text><rect x="66" y="62" width="600" height="150" fill="rgba(255,255,255,0.015)" stroke="rgba(255,255,255,0.07)"/><polyline points="66.0,150.4 80.6,78.6 95.3,172.7 109.9,110.4 124.5,93.9 139.2,127.4 153.8,76.0 168.4,181.6 183.1,131.2 197.7,74.3 212.3,187.7 227.0,148.1 241.6,76.9 256.2,178.4 270.9,123.1 285.5,79.0 300.1,171.4 314.8,107.8 329.4,98.1 344.0,117.3 358.7,84.6 373.3,153.1 388.0,80.9 402.6,164.9 417.2,96.0 431.9,122.4 446.5,79.6 461.1,169.3 475.8,103.7 490.4,105.6 505.0,102.0 519.7,109.1 534.3,96.1 548.9,122.1 563.6,79.8 578.2,168.5 592.8,102.3 607.5,108.4 622.1,97.2 636.7,119.5 651.4,82.3 666.0,160.4" fill="none" stroke="#63b3a6" stroke-width="1.6"/><polyline points="66.0,150.4 80.6,78.6 95.3,172.7 109.9,110.5 124.5,93.8 139.2,127.7 153.8,75.9 168.4,182.1 183.1,132.7 197.7,73.9 212.3,189.3 227.0,152.8 241.6,80.6 256.2,165.8 270.9,97.6 285.5,118.6 300.1,83.2 314.8,157.6 329.4,85.7 344.0,149.9 358.7,78.2 373.3,174.1 388.0,113.4 402.6,89.5 417.2,138.9 431.9,73.5 446.5,190.9 461.1,157.8 475.8,85.9 490.4,149.3 505.0,77.7 519.7,175.6 534.3,116.7 548.9,85.3 563.6,151.2 578.2,79.2 592.8,170.6 607.5,106.1 622.1,101.1 636.7,111.0 651.4,93.1 666.0,129.4" fill="none" stroke="#cd7f9b" stroke-width="1.6"/><text x="74" y="232" fill="#63b3a6" font-family="SF Mono,monospace" font-size="11">x₀ = 0.4000</text><text x="196" y="232" fill="#cd7f9b" font-family="SF Mono,monospace" font-size="11">x₀ = 0.4001</text><line x1="300.1" y1="62" x2="300.1" y2="212" stroke="rgba(255,255,255,0.28)" stroke-dasharray="4 3"/><text x="308.1" y="54" fill="#aba498" font-family="-apple-system,sans-serif" font-size="11.5">after ~16 generations they are unrecognisable</text><text x="360" y="256" text-anchor="middle" fill="#57524b" font-family="-apple-system,sans-serif" font-size="11">generation →</text></svg>
+<figcaption>Same r, same rule, starting points one part in ten thousand apart. A dozen steps later nothing reveals that they began almost identical.</figcaption>
+</figure>
+<p>One counterintuitive detail is worth keeping: <b>at r = 4 the rule can be solved exactly</b> — substitute x = sin²(πθ) and the iteration becomes "double θ each step and keep the fractional part." So the chaos here is both fully determined and expressible in closed form. Chaos and "unsolvable" are two different things.</p>
+
+<h2><span class="n">04</span>What It Explains</h2>
+<p>The logistic map is almost never used to forecast a specific system. Its value is that it retires a whole class of inference: <b>irregular fluctuation is not evidence of an irregular external cause.</b> A fixed rule with no random component at all is enough to produce sequences that are hard even to distinguish from noise.</p>
+<p>Where it lands is the family of structures with lagged self-regulation: population and fishery quotas set from last period's count, agricultural supply set from last year's price, production and delivery load set from last cycle's shortfall. What these share is a shape — <b>the stronger the response, the easier it is to cross the boundary of stability, and past that boundary, responding harder makes it worse.</b></p>
+<p>More important is the universality result it carries: any unimodal map with a smooth peak takes the quantitatively identical road to chaos, with the Feigenbaum constant δ = 4.6692 independent of the equation. That has been measured in convecting liquid helium, in nonlinear circuits and in chemical reactions. Which means you can extrapolate the critical point from the first two or three bifurcations without ever knowing the equation.</p>
+
+<div class="cant">
+<h3>What It Cannot Explain</h3>
+<ul>
+<li><b>It cannot be applied to one-dimensional continuous-time systems.</b> The discrete generations are not a simplification, they are a precondition. A system with continuous time and a single variable cannot oscillate at all, let alone go chaotic — it can only climb monotonically toward some value. Chaos in continuous systems needs at least three dimensions.</li>
+<li><b>It cannot forecast any specific number.</b> In the chaotic region errors grow exponentially, so any finite-precision starting value stops meaning anything after finitely many steps. It gives you the <em>type</em> of behaviour, not a timetable.</li>
+<li><b>It cannot tell you where real population fluctuations come from.</b> It proves that internal dynamics <em>suffice</em> to produce irregular swings; it does not prove that the swings in any real dataset arose that way. Nearly every ecological time series contains both internal dynamics and external noise, and separating them is hard. "This population is chaotic" remains a claim that requires its own test, not a conclusion.</li>
+<li><b>δ = 4.669 does not apply to maps with a differently shaped peak.</b> It belongs to the class of unimodal maps with a quadratic maximum. Sharpen the peak into a corner, or make it higher-order, and the constant changes; drop unimodality and the cascade need not occur at all.</li>
+<li><b>It does not imply that chaos means collapse.</b> At r = 3.9 the population persists throughout; only its size is unpredictable. Reading "entering chaos" as "heading for extinction" merges two different pieces of bad news into one.</li>
+</ul>
+</div>
+
+<div class="refs">
+<h3>Further Reading</h3>
+<ul>
+<li>Robert May, <a href="https://www.nature.com/articles/261459a0">Simple mathematical models with very complicated dynamics</a> (1976)</li>
+<li>Mitchell Feigenbaum, <a href="https://doi.org/10.1007/BF01020332">Quantitative universality for a class of nonlinear transformations</a> (1978)</li>
+<li>Li &amp; Yorke, <a href="https://www.jstor.org/stable/2318254">Period Three Implies Chaos</a> (1975)</li>
+<li><a href="https://en.wikipedia.org/wiki/Logistic_map">Logistic map</a> (including the closed form at r = 4 and numerical bifurcation points)</li>
+<li>Steven Strogatz, <a href="https://www.taylorfrancis.com/books/mono/10.1201/9780429492563/nonlinear-dynamics-chaos-steven-strogatz">Nonlinear Dynamics and Chaos</a> (chapter 10)</li>
+</ul>
+</div>
+<footer>BigCat · Complexity Science · <a href="index.en.html">← All topics</a></footer>
+</div>
+</body></html>
