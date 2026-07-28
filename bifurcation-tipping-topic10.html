@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html lang="zh-CN"><head><meta charset="utf-8"><meta content="width=device-width, initial-scale=1.0" name="viewport">
+
+<html lang="zh-CN"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0" name="viewport"/>
 <title>分岔与临界转变 — 有些门只朝一个方向开 · 复杂性科学 T10</title>
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
@@ -66,7 +67,7 @@ footer a{color:#79a6d2;text-decoration:none}
 <div class="wrap">
 <header>
 <span class="week-tag">TOPIC 10 · PHASE B</span>
-<h1>分岔与临界转变<span class="h1en">BIFURCATION &amp; TIPPING POINTS</span></h1>
+<h1 data-tts="0f4cc90bdbb99059">分岔与临界转变<span class="h1en">BIFURCATION &amp; TIPPING POINTS</span></h1>
 <p class="sub">有些门只朝一个方向开<span class="he">（Some doors only open one way）</span></p>
 <p class="date">2026-07-28 · 动力学与不可预测性</p>
 </header>
@@ -77,47 +78,46 @@ footer a{color:#79a6d2;text-decoration:none}
 <p class="dim">上一期讲的也是"参数缓慢推进"，但推出来的东西不一样。第 9 期是<b>倍周期分岔</b>（period-doubling bifurcation）：节奏一次次翻倍，最后变成永不重复的混沌——那是<b>同一个吸引子越变越复杂</b>。本期是<b>鞍结分岔</b>（saddle-node bifurcation，也叫折分岔 fold bifurcation）：参数推到某处，系统正待着的那个稳态<b>整个消失</b>，它只能跳到别处去。前者的关键词是"变得不可预测"，本期的关键词是<b>跃迁与不可逆</b>。<a class="reflink" href="ref-logistic-map.html">→ 参考 · 逻辑斯蒂映射</a></p>
 <p class="dim">另外，本站讲"临界"的一共五期，别读成同一件事写了五遍：本期是<b>动力系统视角</b>（稳态消失导致跃迁）；第 16 期是统计力学视角（临界点上细节为什么不重要）；第 17 期是拓扑视角（连通性突然贯通）；第 18 期讲系统自己爬到临界；第 36 期讲怎么<em>监测</em>它。</p>
 </div>
-
-<h2><span class="n">01</span>谷不是被跨过去的，是被抹掉的<span class="he">（How a Stable State Disappears）</span></h2>
+<h2 data-tts="8bb4426e5e8d1632"><span class="n">01</span>谷不是被跨过去的，是被抹掉的<span class="he">（How a Stable State Disappears）</span></h2>
 <p class="lead">先要一个能拿在手里的图像。把系统此刻的状态想成一个小球，它待在一道山谷的谷底。谷底就是<b>稳定平衡</b>（stable equilibrium）：踢它一脚，它晃两下，滚回原处。这正是"稳定"这个词在动力学里的全部意思——不是不动，是被扰动之后自己回来。<a class="reflink" href="ref-phase-space.html">→ 参考 · 相空间与吸引子</a></p>
 <p>现在关键的一步：<b>这道山谷本身的形状，会随着外部条件慢慢改变。</b>湖的例子里，那个"外部条件"是每年流进来的营养盐总量；桥的例子里是荷载；一个人的例子里可能是连续几个月的睡眠债。这类被单调推进的量，下文统称<b>驱动量</b>（driver）。</p>
 <p>驱动量一点点增大，山谷就一点点变浅。小球还在谷底，看上去和五年前没有区别——它没有偏离，也没有开始摇晃，你从"当前状态"里读不出任何东西。然后到某一个值，谷和它旁边的那道坎<em>合并、抵消、消失</em>。这一刻叫<b>折点</b>（fold point，或临界点 tipping point）。小球没有被推出去，是它站的那块地面不存在了，于是它顺着坡一路滚到另一道谷里。</p>
 <figure>
-<svg viewBox="0 0 720 320" role="img" aria-label="三帧势能景观：驱动量增大使左边的谷变浅、消失，小球被迫滚到右谷" xmlns="http://www.w3.org/2000/svg">
+<svg aria-label="三帧势能景观：驱动量增大使左边的谷变浅、消失，小球被迫滚到右谷" role="img" viewbox="0 0 720 320" xmlns="http://www.w3.org/2000/svg">
 <defs>
-<marker id="t10a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="9" markerHeight="9" markerUnits="userSpaceOnUse" orient="auto"><path d="M0,1 L9,5 L0,9 z" fill="#8d867b"></path></marker>
-<marker id="t10b" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="11" markerHeight="11" markerUnits="userSpaceOnUse" orient="auto"><path d="M0,1 L9,5 L0,9 z" fill="#e0895e"></path></marker>
+<marker id="t10a" markerheight="9" markerunits="userSpaceOnUse" markerwidth="9" orient="auto" refx="9" refy="5" viewbox="0 0 10 10"><path d="M0,1 L9,5 L0,9 z" fill="#8d867b"></path></marker>
+<marker id="t10b" markerheight="11" markerunits="userSpaceOnUse" markerwidth="11" orient="auto" refx="9" refy="5" viewbox="0 0 10 10"><path d="M0,1 L9,5 L0,9 z" fill="#e0895e"></path></marker>
 </defs>
-<text x="360" y="24" fill="#aba498" font-family="-apple-system,sans-serif" font-size="13" text-anchor="middle">同一个小球，同样的稳定 — 直到它脚下的谷被抹掉</text>
-<text x="120" y="52" fill="#9fbc7a" font-family="SF Mono,monospace" font-size="12" text-anchor="middle">① 两个谷并存</text>
+<text fill="#aba498" font-family="-apple-system,sans-serif" font-size="13" text-anchor="middle" x="360" y="24">同一个小球，同样的稳定 — 直到它脚下的谷被抹掉</text>
+<text fill="#9fbc7a" font-family="SF Mono,monospace" font-size="12" text-anchor="middle" x="120" y="52">① 两个谷并存</text>
 <g transform="translate(25,64)">
 <path d="M0,12 C20,68 34,98 50,98 C66,98 80,50 95,50 C110,50 124,98 140,98 C156,98 170,68 190,12" fill="none" stroke="#8d867b" stroke-width="2.2"></path>
-<circle cx="50" cy="90" r="7.5" fill="#63b3a6"></circle>
-<text x="50" y="122" fill="#63b3a6" font-family="-apple-system,sans-serif" font-size="11" text-anchor="middle">清</text>
-<text x="140" y="122" fill="#787268" font-family="-apple-system,sans-serif" font-size="11" text-anchor="middle">浊</text>
+<circle cx="50" cy="90" fill="#63b3a6" r="7.5"></circle>
+<text fill="#63b3a6" font-family="-apple-system,sans-serif" font-size="11" text-anchor="middle" x="50" y="122">清</text>
+<text fill="#787268" font-family="-apple-system,sans-serif" font-size="11" text-anchor="middle" x="140" y="122">浊</text>
 </g>
-<line x1="222" y1="130" x2="256" y2="130" stroke="#8d867b" stroke-width="1.5" marker-end="url(#t10a)"></line>
-<text x="360" y="52" fill="#d9b45f" font-family="SF Mono,monospace" font-size="12" text-anchor="middle">② 左谷变浅（球没动）</text>
+<line marker-end="url(#t10a)" stroke="#8d867b" stroke-width="1.5" x1="222" x2="256" y1="130" y2="130"></line>
+<text fill="#d9b45f" font-family="SF Mono,monospace" font-size="12" text-anchor="middle" x="360" y="52">② 左谷变浅（球没动）</text>
 <g transform="translate(265,64)">
 <path d="M0,8 C20,58 36,84 52,84 C68,84 80,70 94,70 C108,70 124,112 140,112 C156,112 172,56 190,6" fill="none" stroke="#8d867b" stroke-width="2.2"></path>
-<circle cx="52" cy="76" r="7.5" fill="#63b3a6"></circle>
-<text x="118" y="42" fill="#d9b45f" font-family="-apple-system,sans-serif" font-size="11" text-anchor="middle">坎只剩这么高</text>
+<circle cx="52" cy="76" fill="#63b3a6" r="7.5"></circle>
+<text fill="#d9b45f" font-family="-apple-system,sans-serif" font-size="11" text-anchor="middle" x="118" y="42">坎只剩这么高</text>
 <path d="M110,48 L97,64" fill="none" stroke="rgba(217,180,95,0.45)" stroke-width="1"></path>
 </g>
-<line x1="462" y1="130" x2="496" y2="130" stroke="#8d867b" stroke-width="1.5" marker-end="url(#t10a)"></line>
-<text x="600" y="52" fill="#e0895e" font-family="SF Mono,monospace" font-size="12" text-anchor="middle">③ 左谷消失 · 被迫跃迁</text>
+<line marker-end="url(#t10a)" stroke="#8d867b" stroke-width="1.5" x1="462" x2="496" y1="130" y2="130"></line>
+<text fill="#e0895e" font-family="SF Mono,monospace" font-size="12" text-anchor="middle" x="600" y="52">③ 左谷消失 · 被迫跃迁</text>
 <g transform="translate(505,64)">
 <path d="M0,6 C20,48 40,68 62,76 C82,84 92,88 104,94 C118,101 126,118 140,118 C156,118 172,56 190,6" fill="none" stroke="#8d867b" stroke-width="2.2"></path>
-<path d="M60,66 C82,76 102,90 122,104" fill="none" stroke="#e0895e" stroke-width="2.2" stroke-dasharray="5 4" marker-end="url(#t10b)"></path>
-<circle cx="140" cy="110" r="7.5" fill="#e0895e"></circle>
-<text x="46" y="112" fill="#e0895e" font-family="-apple-system,sans-serif" font-size="11" text-anchor="middle">原来的谷没了</text>
+<path d="M60,66 C82,76 102,90 122,104" fill="none" marker-end="url(#t10b)" stroke="#e0895e" stroke-dasharray="5 4" stroke-width="2.2"></path>
+<circle cx="140" cy="110" fill="#e0895e" r="7.5"></circle>
+<text fill="#e0895e" font-family="-apple-system,sans-serif" font-size="11" text-anchor="middle" x="46" y="112">原来的谷没了</text>
 </g>
-<text x="120" y="216" fill="#787268" font-family="-apple-system,sans-serif" font-size="11" text-anchor="middle">看起来很稳</text>
-<text x="360" y="216" fill="#787268" font-family="-apple-system,sans-serif" font-size="11" text-anchor="middle">看起来还是很稳</text>
-<text x="600" y="216" fill="#c0703f" font-family="-apple-system,sans-serif" font-size="11" text-anchor="middle">一步跨过去，没有中间态</text>
-<line x1="120" y1="252" x2="600" y2="252" stroke="#57524b" stroke-width="1.5" marker-end="url(#t10a)"></line>
-<text x="360" y="276" fill="#8d867b" font-family="-apple-system,sans-serif" font-size="12" text-anchor="middle">驱动量（营养盐 / 荷载 / 杠杆 / 睡眠债）匀速增大 →</text>
-<text x="360" y="302" fill="#57524b" font-family="-apple-system,sans-serif" font-size="11" text-anchor="middle">示意图：谷的深浅按可读性画。要点是拓扑 — 前两帧的小球位置几乎一样，信息全在谷的形状里</text>
+<text fill="#787268" font-family="-apple-system,sans-serif" font-size="11" text-anchor="middle" x="120" y="216">看起来很稳</text>
+<text fill="#787268" font-family="-apple-system,sans-serif" font-size="11" text-anchor="middle" x="360" y="216">看起来还是很稳</text>
+<text fill="#c0703f" font-family="-apple-system,sans-serif" font-size="11" text-anchor="middle" x="600" y="216">一步跨过去，没有中间态</text>
+<line marker-end="url(#t10a)" stroke="#57524b" stroke-width="1.5" x1="120" x2="600" y1="252" y2="252"></line>
+<text fill="#8d867b" font-family="-apple-system,sans-serif" font-size="12" text-anchor="middle" x="360" y="276">驱动量（营养盐 / 荷载 / 杠杆 / 睡眠债）匀速增大 →</text>
+<text fill="#57524b" font-family="-apple-system,sans-serif" font-size="11" text-anchor="middle" x="360" y="302">示意图：谷的深浅按可读性画。要点是拓扑 — 前两帧的小球位置几乎一样，信息全在谷的形状里</text>
 </svg>
 <figcaption>驱动量匀速推进，状态却是一步跳过去的。跃迁的剧烈程度，和当时驱动量变化的大小完全无关。</figcaption>
 </figure>
@@ -131,32 +131,31 @@ footer a{color:#79a6d2;text-decoration:none}
 🌀 <b>工程与技术史 · 跳跃屈曲</b>　一个浅拱形的薄壳（罐头盖、青蛙式的金属响片、某些穹顶结构）在载荷加到某个值时会"啪"地整个翻过去，这叫跳跃屈曲（snap-through buckling）。它不是材料被压坏了——翻过去之后壳还是好的，只是原来那个平衡形状不存在了。于是结构规范里对这类构件不看应力余量，只看<b>临界载荷</b>：因为强度再富余也不改变谷什么时候消失。这条推论对非工程的场合同样刺耳：加固"当前状态"和推迟折点是两件事，做前者可以做到很好看，而折点纹丝不动。
 </div>
 <p class="en-brief"><b>EN</b> Picture the current state as a ball resting in a valley. A slowly rising driver reshapes the landscape: the valley grows shallower while the ball stays put, then valley and barrier annihilate at the fold point and the ball is forced elsewhere. Nothing special happens to the driver at that instant — what changed is how the system responds to it.</p>
-
-<h2><span class="n">02</span>同一个环境，两个可能的世界<span class="he">（Bistability and Basins）</span></h2>
+<h2 data-tts="4f37dfb570be9d1e"><span class="n">02</span>同一个环境，两个可能的世界<span class="he">（Bistability and Basins）</span></h2>
 <p class="lead">上一节的图里其实藏着一件更奇怪的事：在折点之前，<b>两道谷是同时存在的</b>。也就是说，在完全相同的外部条件下，这个湖既可以是清的，也可以是浑的——取决于它当初落进了哪一道谷。这叫<b>双稳态</b>（bistability），两个状态都叫<b>交替稳态</b>（alternative stable states）。</p>
 <p>为什么一个状态能"自己稳住自己"？因为它内部跑着一条正反馈回路 <a class="reflink" href="ref-system-dynamics.html">→ 参考 · 系统动力学</a>。浑水态的回路是这样的：藻类多 → 水下光照少 → 沉水植物死掉 → 没有根系固定底泥 → 风一吹底泥就悬起来 → 水更浑 → 藻类更占优。这条回路不需要外面继续加化肥，它自己就能养活自己。清水态也有自己的回路（水草固定底泥、和藻类抢营养、给食藻的浮游动物提供藏身处），方向相反、同样自洽。</p>
 <p>双稳态一旦成立，就多出<b>第二条跃迁路径</b>。第一条是上一节说的：驱动量推过折点，谷消失了，非跳不可。第二条是——驱动量根本没到折点，但来了一次<em>足够大的扰动</em>，把小球直接掀过中间那道坎。那道坎在动力学里是一个<b>不稳定平衡</b>（unstable equilibrium）：它也是一个"平衡点"，但球放上去待不住，往哪边偏就往哪边滚。它是两个吸引域（basin of attraction，即"最终会滚进哪道谷"的初始状态集合）的分界线。</p>
 <figure>
-<svg viewBox="0 0 720 320" role="img" aria-label="双稳态景观：小扰动滚回原谷，大扰动越过分水岭落入另一个谷" xmlns="http://www.w3.org/2000/svg">
+<svg aria-label="双稳态景观：小扰动滚回原谷，大扰动越过分水岭落入另一个谷" role="img" viewbox="0 0 720 320" xmlns="http://www.w3.org/2000/svg">
 <defs>
-<marker id="t10c" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="10" markerHeight="10" markerUnits="userSpaceOnUse" orient="auto"><path d="M0,1 L9,5 L0,9 z" fill="#63b3a6"></path></marker>
-<marker id="t10d" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="11" markerHeight="11" markerUnits="userSpaceOnUse" orient="auto"><path d="M0,1 L9,5 L0,9 z" fill="#cd7f9b"></path></marker>
+<marker id="t10c" markerheight="10" markerunits="userSpaceOnUse" markerwidth="10" orient="auto" refx="9" refy="5" viewbox="0 0 10 10"><path d="M0,1 L9,5 L0,9 z" fill="#63b3a6"></path></marker>
+<marker id="t10d" markerheight="11" markerunits="userSpaceOnUse" markerwidth="11" orient="auto" refx="9" refy="5" viewbox="0 0 10 10"><path d="M0,1 L9,5 L0,9 z" fill="#cd7f9b"></path></marker>
 </defs>
-<text x="360" y="26" fill="#aba498" font-family="-apple-system,sans-serif" font-size="13" text-anchor="middle">驱动量一动不动 — 决定结局的是扰动有多大</text>
+<text fill="#aba498" font-family="-apple-system,sans-serif" font-size="13" text-anchor="middle" x="360" y="26">驱动量一动不动 — 决定结局的是扰动有多大</text>
 <path d="M90,66 C140,170 190,208 250,208 C300,208 340,96 380,96 C420,96 460,208 510,208 C570,208 610,150 645,66" fill="none" stroke="#8d867b" stroke-width="2.4"></path>
-<line x1="380" y1="100" x2="380" y2="252" stroke="rgba(255,255,255,0.16)" stroke-width="1.4" stroke-dasharray="5 5"></line>
-<text x="380" y="246" fill="#a8a49c" font-family="-apple-system,sans-serif" font-size="11.5" text-anchor="middle">分水岭 = 不稳定平衡</text>
-<path d="M252,198 C280,188 310,164 328,142" fill="none" stroke="#63b3a6" stroke-width="2.2" marker-end="url(#t10c)"></path>
-<path d="M340,158 C324,184 298,200 270,206" fill="none" stroke="#63b3a6" stroke-width="1.6" stroke-dasharray="4 4" marker-end="url(#t10c)"></path>
-<text x="232" y="138" fill="#63b3a6" font-family="-apple-system,sans-serif" font-size="11.5" text-anchor="middle">小扰动：爬不过去，滚回来</text>
-<path d="M252,192 C296,116 342,66 388,74 C424,82 452,150 500,198" fill="none" stroke="#cd7f9b" stroke-width="2.2" marker-end="url(#t10d)"></path>
-<text x="556" y="116" fill="#cd7f9b" font-family="-apple-system,sans-serif" font-size="11.5" text-anchor="middle">大扰动：越过去就回不来了</text>
-<circle cx="250" cy="200" r="8" fill="#63b3a6"></circle>
-<rect x="90" y="262" width="290" height="9" fill="rgba(99,179,166,0.35)"></rect>
-<rect x="380" y="262" width="265" height="9" fill="rgba(205,127,155,0.35)"></rect>
-<text x="235" y="290" fill="#63b3a6" font-family="-apple-system,sans-serif" font-size="11.5" text-anchor="middle">吸引域 A（清水态）</text>
-<text x="512" y="290" fill="#cd7f9b" font-family="-apple-system,sans-serif" font-size="11.5" text-anchor="middle">吸引域 B（浊水态）</text>
-<text x="360" y="312" fill="#57524b" font-family="-apple-system,sans-serif" font-size="11" text-anchor="middle">同一张景观图上两个稳态并存 — 所以「现在很稳」既不等于「不会翻」，也不告诉你还剩多少缓冲</text>
+<line stroke="rgba(255,255,255,0.16)" stroke-dasharray="5 5" stroke-width="1.4" x1="380" x2="380" y1="100" y2="252"></line>
+<text fill="#a8a49c" font-family="-apple-system,sans-serif" font-size="11.5" text-anchor="middle" x="380" y="246">分水岭 = 不稳定平衡</text>
+<path d="M252,198 C280,188 310,164 328,142" fill="none" marker-end="url(#t10c)" stroke="#63b3a6" stroke-width="2.2"></path>
+<path d="M340,158 C324,184 298,200 270,206" fill="none" marker-end="url(#t10c)" stroke="#63b3a6" stroke-dasharray="4 4" stroke-width="1.6"></path>
+<text fill="#63b3a6" font-family="-apple-system,sans-serif" font-size="11.5" text-anchor="middle" x="232" y="138">小扰动：爬不过去，滚回来</text>
+<path d="M252,192 C296,116 342,66 388,74 C424,82 452,150 500,198" fill="none" marker-end="url(#t10d)" stroke="#cd7f9b" stroke-width="2.2"></path>
+<text fill="#cd7f9b" font-family="-apple-system,sans-serif" font-size="11.5" text-anchor="middle" x="556" y="116">大扰动：越过去就回不来了</text>
+<circle cx="250" cy="200" fill="#63b3a6" r="8"></circle>
+<rect fill="rgba(99,179,166,0.35)" height="9" width="290" x="90" y="262"></rect>
+<rect fill="rgba(205,127,155,0.35)" height="9" width="265" x="380" y="262"></rect>
+<text fill="#63b3a6" font-family="-apple-system,sans-serif" font-size="11.5" text-anchor="middle" x="235" y="290">吸引域 A（清水态）</text>
+<text fill="#cd7f9b" font-family="-apple-system,sans-serif" font-size="11.5" text-anchor="middle" x="512" y="290">吸引域 B（浊水态）</text>
+<text fill="#57524b" font-family="-apple-system,sans-serif" font-size="11" text-anchor="middle" x="360" y="312">同一张景观图上两个稳态并存 — 所以「现在很稳」既不等于「不会翻」，也不告诉你还剩多少缓冲</text>
 </svg>
 <figcaption>双稳态下的两条跃迁路径：谷被抹掉（驱动量），或者球被掀过分水岭（扰动）。两条路径要分别防。</figcaption>
 </figure>
@@ -169,40 +168,39 @@ footer a{color:#79a6d2;text-decoration:none}
 🌀 <b>经济与制度 · 存款保险为什么管用</b>　Diamond 与 Dybvig 1983 年的模型把银行挤兑刻画成一个双稳系统：同样的基本面下有两个均衡——大家都不取钱（银行活着）和大家都去取钱（银行倒闭），谁也不比谁更"真实"，取决于落进了哪个吸引域。由此推出的结论在当时并不显然：存款保险起作用<b>不是因为它准备了足够的钱</b>，而是因为它把"挤兑"那个均衡整个消掉了——所以它常常不需要真的赔付。这给一切救助措施一把尺子：先问它改的是资源量，还是均衡结构；只补资源的救助，得一直补下去。
 </div>
 <p class="en-brief"><b>EN</b> Before the fold, two valleys coexist: the same external conditions admit two self-sustaining states, each held by its own positive feedback loop. That opens a second route to transition — not a drifting driver, but a single shock large enough to push the system across the unstable equilibrium separating the two basins. Jamaica's reefs took both routes at once.</p>
-
-<h2><span class="n">03</span>滞后：门只朝一个方向开<span class="he">（Hysteresis）</span></h2>
+<h2 data-tts="8d417fc159bf9300"><span class="n">03</span>滞后：门只朝一个方向开<span class="he">（Hysteresis）</span></h2>
 <p class="lead">把前两节拼起来，就能回答开头那个荷兰湖的问题了。折点不止一个：往上推有一个，往下退还有另一个，而且它们<b>不在同一个位置</b>。</p>
 <p>把驱动量画成横轴、系统状态画成纵轴，稳态随驱动量的变化就是一条 S 形的曲线：上面一段是清水态，下面一段是浑水态，中间那段（虚线）是不稳定平衡——它真实存在，但系统永远待不住，所以你在现实中观测不到它。上支的右端点是折点 F₁（清 → 浊），下支的左端点是折点 F₂（浊 → 清）。<b>F₂ 在 F₁ 的左边，往往远得多。</b></p>
 <p>于是路径变成这样：营养盐一路增加，越过 F₁，水掉到浑水态；你把营养盐减回 F₁ 左边一点——没用，因为浑水态在这个区间里照样稳定；一直减到 F₂ 以左，浑水态的谷才消失，水才自己清回来。这种"走过的路径决定当前状态"的现象叫<b>滞后</b>（hysteresis，这个词本来是描述磁铁被磁化后的剩磁的）。</p>
 <figure>
-<svg viewBox="0 0 720 340" role="img" aria-label="滞后回线：上支清水态、下支浑水态、中间虚线为不稳定分支，两个折点位置不同" xmlns="http://www.w3.org/2000/svg">
+<svg aria-label="滞后回线：上支清水态、下支浑水态、中间虚线为不稳定分支，两个折点位置不同" role="img" viewbox="0 0 720 340" xmlns="http://www.w3.org/2000/svg">
 <defs>
-<marker id="t10e" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="10" markerHeight="10" markerUnits="userSpaceOnUse" orient="auto"><path d="M0,1 L9,5 L0,9 z" fill="#cd7f9b"></path></marker>
-<marker id="t10f" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="10" markerHeight="10" markerUnits="userSpaceOnUse" orient="auto"><path d="M0,1 L9,5 L0,9 z" fill="#63b3a6"></path></marker>
-<marker id="t10g" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="10" markerHeight="10" markerUnits="userSpaceOnUse" orient="auto"><path d="M0,1 L9,5 L0,9 z" fill="#d9b45f"></path></marker>
+<marker id="t10e" markerheight="10" markerunits="userSpaceOnUse" markerwidth="10" orient="auto" refx="9" refy="5" viewbox="0 0 10 10"><path d="M0,1 L9,5 L0,9 z" fill="#cd7f9b"></path></marker>
+<marker id="t10f" markerheight="10" markerunits="userSpaceOnUse" markerwidth="10" orient="auto" refx="9" refy="5" viewbox="0 0 10 10"><path d="M0,1 L9,5 L0,9 z" fill="#63b3a6"></path></marker>
+<marker id="t10g" markerheight="10" markerunits="userSpaceOnUse" markerwidth="10" orient="auto" refx="9" refy="5" viewbox="0 0 10 10"><path d="M0,1 L9,5 L0,9 z" fill="#d9b45f"></path></marker>
 </defs>
-<rect x="262" y="58" width="208" height="210" fill="rgba(217,180,95,0.055)"></rect>
-<line x1="262" y1="58" x2="262" y2="268" stroke="rgba(255,255,255,0.12)" stroke-width="1" stroke-dasharray="4 4"></line>
-<line x1="470" y1="58" x2="470" y2="268" stroke="rgba(255,255,255,0.12)" stroke-width="1" stroke-dasharray="4 4"></line>
-<text x="366" y="74" fill="#d9b45f" font-family="-apple-system,sans-serif" font-size="11.5" text-anchor="middle">双稳区间：两种湖都稳得住</text>
-<line x1="100" y1="268" x2="660" y2="268" stroke="rgba(255,255,255,0.18)" stroke-width="1.5"></line>
-<line x1="100" y1="268" x2="100" y2="52" stroke="rgba(255,255,255,0.18)" stroke-width="1.5"></line>
-<text x="40" y="164" fill="#8d867b" font-family="-apple-system,sans-serif" font-size="12" transform="rotate(-90 40 164)" text-anchor="middle">水的清澈度</text>
+<rect fill="rgba(217,180,95,0.055)" height="210" width="208" x="262" y="58"></rect>
+<line stroke="rgba(255,255,255,0.12)" stroke-dasharray="4 4" stroke-width="1" x1="262" x2="262" y1="58" y2="268"></line>
+<line stroke="rgba(255,255,255,0.12)" stroke-dasharray="4 4" stroke-width="1" x1="470" x2="470" y1="58" y2="268"></line>
+<text fill="#d9b45f" font-family="-apple-system,sans-serif" font-size="11.5" text-anchor="middle" x="366" y="74">双稳区间：两种湖都稳得住</text>
+<line stroke="rgba(255,255,255,0.18)" stroke-width="1.5" x1="100" x2="660" y1="268" y2="268"></line>
+<line stroke="rgba(255,255,255,0.18)" stroke-width="1.5" x1="100" x2="100" y1="268" y2="52"></line>
+<text fill="#8d867b" font-family="-apple-system,sans-serif" font-size="12" text-anchor="middle" transform="rotate(-90 40 164)" x="40" y="164">水的清澈度</text>
 <path d="M135,90 C240,98 360,112 470,146" fill="none" stroke="#63b3a6" stroke-width="3"></path>
-<path d="M470,146 C400,176 320,196 262,206" fill="none" stroke="#a8a49c" stroke-width="2" stroke-dasharray="6 5"></path>
+<path d="M470,146 C400,176 320,196 262,206" fill="none" stroke="#a8a49c" stroke-dasharray="6 5" stroke-width="2"></path>
 <path d="M262,206 C350,214 500,224 640,232" fill="none" stroke="#cd7f9b" stroke-width="3"></path>
-<line x1="470" y1="154" x2="470" y2="218" stroke="#cd7f9b" stroke-width="2.4" marker-end="url(#t10e)"></line>
-<line x1="262" y1="198" x2="262" y2="108" stroke="#63b3a6" stroke-width="2.4" marker-end="url(#t10f)"></line>
-<circle cx="470" cy="146" r="5.5" fill="#e0895e"></circle>
-<circle cx="262" cy="206" r="5.5" fill="#e0895e"></circle>
-<text x="497" y="140" fill="#e0895e" font-family="SF Mono,monospace" font-size="12">折点 F₁</text>
-<text x="205" y="222" fill="#e0895e" font-family="SF Mono,monospace" font-size="12">折点 F₂</text>
-<text x="168" y="82" fill="#63b3a6" font-family="-apple-system,sans-serif" font-size="12">清水态（稳定）</text>
-<text x="560" y="252" fill="#cd7f9b" font-family="-apple-system,sans-serif" font-size="12">浑水态（稳定）</text>
-<text x="340" y="164" fill="#8d867b" font-family="-apple-system,sans-serif" font-size="11" text-anchor="middle">不稳定分支（观测不到）</text>
-<line x1="470" y1="298" x2="262" y2="298" stroke="#d9b45f" stroke-width="2" marker-end="url(#t10g)"></line>
-<text x="366" y="318" fill="#d9b45f" font-family="-apple-system,sans-serif" font-size="11.5" text-anchor="middle">要清回来，驱动量必须退到 F₂ — 退回 F₁ 是不够的</text>
-<text x="600" y="292" fill="#8d867b" font-family="-apple-system,sans-serif" font-size="12" text-anchor="middle">营养盐负荷 →</text>
+<line marker-end="url(#t10e)" stroke="#cd7f9b" stroke-width="2.4" x1="470" x2="470" y1="154" y2="218"></line>
+<line marker-end="url(#t10f)" stroke="#63b3a6" stroke-width="2.4" x1="262" x2="262" y1="198" y2="108"></line>
+<circle cx="470" cy="146" fill="#e0895e" r="5.5"></circle>
+<circle cx="262" cy="206" fill="#e0895e" r="5.5"></circle>
+<text fill="#e0895e" font-family="SF Mono,monospace" font-size="12" x="497" y="140">折点 F₁</text>
+<text fill="#e0895e" font-family="SF Mono,monospace" font-size="12" x="205" y="222">折点 F₂</text>
+<text fill="#63b3a6" font-family="-apple-system,sans-serif" font-size="12" x="168" y="82">清水态（稳定）</text>
+<text fill="#cd7f9b" font-family="-apple-system,sans-serif" font-size="12" x="560" y="252">浑水态（稳定）</text>
+<text fill="#8d867b" font-family="-apple-system,sans-serif" font-size="11" text-anchor="middle" x="340" y="164">不稳定分支（观测不到）</text>
+<line marker-end="url(#t10g)" stroke="#d9b45f" stroke-width="2" x1="470" x2="262" y1="298" y2="298"></line>
+<text fill="#d9b45f" font-family="-apple-system,sans-serif" font-size="11.5" text-anchor="middle" x="366" y="318">要清回来，驱动量必须退到 F₂ — 退回 F₁ 是不够的</text>
+<text fill="#8d867b" font-family="-apple-system,sans-serif" font-size="12" text-anchor="middle" x="600" y="292">营养盐负荷 →</text>
 </svg>
 <figcaption>滞后回线。同一个驱动量值对应两种状态，究竟是哪一种，取决于你是从左边来的还是从右边来的。</figcaption>
 </figure>
@@ -216,32 +214,31 @@ footer a{color:#79a6d2;text-decoration:none}
 🌀 <b>神经与知觉 · 你看到什么取决于你从哪边来</b>　给人看一列从"男人的脸"渐变到"跪着的女人"的图片，从左往右看，翻转发生在很靠后的一张；从右往左看，翻转发生在很靠前的一张——两个方向测出的翻转点不一样。这是知觉的滞后：当前的解读会通过反馈稳住自己，正是本节那条机制。由此推出一条方法上的硬要求：<b>任何单向扫描测出的"阈值"都是有偏的</b>，心理物理学因此规定上行、下行各测一遍取平均。这把要求可以直接借走——凡是"从某个值开始就会发生 X"的说法，先问它是不是只从一个方向试过。
 </div>
 <p class="en-brief"><b>EN</b> Plot equilibria against the driver and you get an S-curve: two folds at different positions, with an unobservable unstable branch between them. Crossing F₁ flips the lake to turbid; restoring clarity requires pushing the driver back past F₂, far below where it broke. Dutch lake managers also use biomanipulation — kicking the system across the separatrix rather than moving the driver.</p>
-
-<h2><span class="n">04</span>这套说法在哪儿不成立<span class="he">（Where This Breaks Down）</span></h2>
+<h2 data-tts="845d14013d01893e"><span class="n">04</span>这套说法在哪儿不成立<span class="he">（Where This Breaks Down）</span></h2>
 <p class="lead">"临界点"是近十年被消费得最厉害的一个词。它已经被用来卖过气候、卖增长、卖减肥、卖组织变革。所以这一节必须说清楚：上面那三条机制在什么条件下才成立，以及怎么判断你手上的这件事到底属不属于。</p>
 <p><b>第一，一次突变不等于一个折点。</b>这是最要命的混淆。时间序列上出现一次陡峭的跳变，至少有三种同样自洽的解释：真的跨过了折点；系统只是对驱动量有很陡但完全平滑的响应（比如某个反应到了饱和）；或者驱动量本身突然跳了一下。只有第一种蕴含双稳与不可逆，后两种把驱动量调回去就恢复了。<b>光看一段单向的历史数据，这三者长得一模一样。</b></p>
 <figure>
-<svg viewBox="0 0 720 300" role="img" aria-label="同一批数据点的两种拟合：阶跃式折点与平滑非线性响应" xmlns="http://www.w3.org/2000/svg">
-<text x="360" y="26" fill="#aba498" font-family="-apple-system,sans-serif" font-size="13" text-anchor="middle">同一批观测点 — 两种解释，两种完全不同的干预方案</text>
+<svg aria-label="同一批数据点的两种拟合：阶跃式折点与平滑非线性响应" role="img" viewbox="0 0 720 300" xmlns="http://www.w3.org/2000/svg">
+<text fill="#aba498" font-family="-apple-system,sans-serif" font-size="13" text-anchor="middle" x="360" y="26">同一批观测点 — 两种解释，两种完全不同的干预方案</text>
 <g transform="translate(45,52)">
-<line x1="0" y1="160" x2="278" y2="160" stroke="rgba(255,255,255,0.18)" stroke-width="1.3"></line>
-<line x1="0" y1="160" x2="0" y2="18" stroke="rgba(255,255,255,0.18)" stroke-width="1.3"></line>
+<line stroke="rgba(255,255,255,0.18)" stroke-width="1.3" x1="0" x2="278" y1="160" y2="160"></line>
+<line stroke="rgba(255,255,255,0.18)" stroke-width="1.3" x1="0" x2="0" y1="160" y2="18"></line>
 <path d="M6,132 L140,126 L147,50 L272,48" fill="none" stroke="#e0895e" stroke-width="2.6"></path>
-<circle cx="14" cy="136" r="3.2" fill="#aba498"></circle><circle cx="32" cy="130" r="3.2" fill="#aba498"></circle><circle cx="50" cy="138" r="3.2" fill="#aba498"></circle><circle cx="68" cy="126" r="3.2" fill="#aba498"></circle><circle cx="86" cy="133" r="3.2" fill="#aba498"></circle><circle cx="104" cy="124" r="3.2" fill="#aba498"></circle><circle cx="122" cy="130" r="3.2" fill="#aba498"></circle><circle cx="140" cy="119" r="3.2" fill="#aba498"></circle>
-<circle cx="158" cy="54" r="3.2" fill="#aba498"></circle><circle cx="176" cy="46" r="3.2" fill="#aba498"></circle><circle cx="194" cy="57" r="3.2" fill="#aba498"></circle><circle cx="212" cy="44" r="3.2" fill="#aba498"></circle><circle cx="230" cy="51" r="3.2" fill="#aba498"></circle><circle cx="248" cy="42" r="3.2" fill="#aba498"></circle><circle cx="266" cy="49" r="3.2" fill="#aba498"></circle>
-<text x="139" y="184" fill="#e0895e" font-family="-apple-system,sans-serif" font-size="12" text-anchor="middle">解释一：跨过了折点</text>
-<text x="139" y="202" fill="#8d867b" font-family="-apple-system,sans-serif" font-size="11" text-anchor="middle">→ 减回原值没用，得减到 F₂</text>
+<circle cx="14" cy="136" fill="#aba498" r="3.2"></circle><circle cx="32" cy="130" fill="#aba498" r="3.2"></circle><circle cx="50" cy="138" fill="#aba498" r="3.2"></circle><circle cx="68" cy="126" fill="#aba498" r="3.2"></circle><circle cx="86" cy="133" fill="#aba498" r="3.2"></circle><circle cx="104" cy="124" fill="#aba498" r="3.2"></circle><circle cx="122" cy="130" fill="#aba498" r="3.2"></circle><circle cx="140" cy="119" fill="#aba498" r="3.2"></circle>
+<circle cx="158" cy="54" fill="#aba498" r="3.2"></circle><circle cx="176" cy="46" fill="#aba498" r="3.2"></circle><circle cx="194" cy="57" fill="#aba498" r="3.2"></circle><circle cx="212" cy="44" fill="#aba498" r="3.2"></circle><circle cx="230" cy="51" fill="#aba498" r="3.2"></circle><circle cx="248" cy="42" fill="#aba498" r="3.2"></circle><circle cx="266" cy="49" fill="#aba498" r="3.2"></circle>
+<text fill="#e0895e" font-family="-apple-system,sans-serif" font-size="12" text-anchor="middle" x="139" y="184">解释一：跨过了折点</text>
+<text fill="#8d867b" font-family="-apple-system,sans-serif" font-size="11" text-anchor="middle" x="139" y="202">→ 减回原值没用，得减到 F₂</text>
 </g>
 <g transform="translate(397,52)">
-<line x1="0" y1="160" x2="278" y2="160" stroke="rgba(255,255,255,0.18)" stroke-width="1.3"></line>
-<line x1="0" y1="160" x2="0" y2="18" stroke="rgba(255,255,255,0.18)" stroke-width="1.3"></line>
+<line stroke="rgba(255,255,255,0.18)" stroke-width="1.3" x1="0" x2="278" y1="160" y2="160"></line>
+<line stroke="rgba(255,255,255,0.18)" stroke-width="1.3" x1="0" x2="0" y1="160" y2="18"></line>
 <path d="M6,133 C66,130 112,128 138,122 C146,119 150,62 158,55 C186,46 230,48 272,47" fill="none" stroke="#79a6d2" stroke-width="2.6"></path>
-<circle cx="14" cy="136" r="3.2" fill="#aba498"></circle><circle cx="32" cy="130" r="3.2" fill="#aba498"></circle><circle cx="50" cy="138" r="3.2" fill="#aba498"></circle><circle cx="68" cy="126" r="3.2" fill="#aba498"></circle><circle cx="86" cy="133" r="3.2" fill="#aba498"></circle><circle cx="104" cy="124" r="3.2" fill="#aba498"></circle><circle cx="122" cy="130" r="3.2" fill="#aba498"></circle><circle cx="140" cy="119" r="3.2" fill="#aba498"></circle>
-<circle cx="158" cy="54" r="3.2" fill="#aba498"></circle><circle cx="176" cy="46" r="3.2" fill="#aba498"></circle><circle cx="194" cy="57" r="3.2" fill="#aba498"></circle><circle cx="212" cy="44" r="3.2" fill="#aba498"></circle><circle cx="230" cy="51" r="3.2" fill="#aba498"></circle><circle cx="248" cy="42" r="3.2" fill="#aba498"></circle><circle cx="266" cy="49" r="3.2" fill="#aba498"></circle>
-<text x="139" y="184" fill="#79a6d2" font-family="-apple-system,sans-serif" font-size="12" text-anchor="middle">解释二：陡峭但平滑的响应</text>
-<text x="139" y="202" fill="#8d867b" font-family="-apple-system,sans-serif" font-size="11" text-anchor="middle">→ 减回原值就恢复了</text>
+<circle cx="14" cy="136" fill="#aba498" r="3.2"></circle><circle cx="32" cy="130" fill="#aba498" r="3.2"></circle><circle cx="50" cy="138" fill="#aba498" r="3.2"></circle><circle cx="68" cy="126" fill="#aba498" r="3.2"></circle><circle cx="86" cy="133" fill="#aba498" r="3.2"></circle><circle cx="104" cy="124" fill="#aba498" r="3.2"></circle><circle cx="122" cy="130" fill="#aba498" r="3.2"></circle><circle cx="140" cy="119" fill="#aba498" r="3.2"></circle>
+<circle cx="158" cy="54" fill="#aba498" r="3.2"></circle><circle cx="176" cy="46" fill="#aba498" r="3.2"></circle><circle cx="194" cy="57" fill="#aba498" r="3.2"></circle><circle cx="212" cy="44" fill="#aba498" r="3.2"></circle><circle cx="230" cy="51" fill="#aba498" r="3.2"></circle><circle cx="248" cy="42" fill="#aba498" r="3.2"></circle><circle cx="266" cy="49" fill="#aba498" r="3.2"></circle>
+<text fill="#79a6d2" font-family="-apple-system,sans-serif" font-size="12" text-anchor="middle" x="139" y="184">解释二：陡峭但平滑的响应</text>
+<text fill="#8d867b" font-family="-apple-system,sans-serif" font-size="11" text-anchor="middle" x="139" y="202">→ 减回原值就恢复了</text>
 </g>
-<text x="360" y="288" fill="#57524b" font-family="-apple-system,sans-serif" font-size="11" text-anchor="middle">要分清，得有额外证据：驱动量回退时状态回不回来 · 两个状态是否曾长期并存 · 扰动后恢复有没有变慢</text>
+<text fill="#57524b" font-family="-apple-system,sans-serif" font-size="11" text-anchor="middle" x="360" y="288">要分清，得有额外证据：驱动量回退时状态回不回来 · 两个状态是否曾长期并存 · 扰动后恢复有没有变慢</text>
 </svg>
 <figcaption>拟合得一样好的两条曲线，导出的行动完全相反。这就是为什么"看起来有个临界点"不能当结论用。</figcaption>
 </figure>
@@ -254,36 +251,32 @@ footer a{color:#79a6d2;text-decoration:none}
 <p>说"临界点"之前，先当众回答三个问题：<b>①</b> 驱动量是什么、单位是什么；<b>②</b> 两个稳态各自的自维持回路是什么，有没有观测到它们在同一条件下并存过；<b>③</b> 有没有<b>双向</b>的观测（驱动量退回去时，状态回来了吗）。三样缺一，就把话改成"一个很陡的非线性响应"——这句话弱得多，但它不会骗你去做那种"反正回不去了"的决定。</p>
 </div>
 <p class="en-brief"><b>EN</b> Four limits. An abrupt jump in a one-way time series is equally consistent with a fold, a steep-but-smooth response, or a jump in the driver itself. Broad ecological syntheses (Hillebrand et al. 2020) fail to find general thresholds, so gradual response should be the default and bistability the claim requiring evidence. "Irreversible" is meaningless without a timescale. And applied catastrophe theory collapsed in 1977 for borrowing the shape without naming the variables.</p>
-
 <div class="bigcat">
-<h3>🎒 场景 · BigCat</h3>
+<h3 data-tts="92f2da48da11a20e">🎒 场景 · BigCat</h3>
 <ol>
 <li><span class="dm">工程与系统设计</span>服务在一次流量高峰里进入重试风暴之后，把流量降回高峰前的水平往往还是不恢复——因为"超时 → 重试 → 负载更高 → 更多超时"这条回路已经在自己养自己了，和外面来了多少请求关系不大。可改的东西有两处：<b>把熔断阈值和恢复阈值拆成两个数</b>（恢复阈值显著更低，别用同一个），并在预案里给每一条降级策略补一栏"回退到多低"。还有一个该停掉的动作：把恢复判据写成"错误率回到正常"——错误率是状态，它回到正常时那条回路可能还在跑；该看的是<b>在制请求数与重试占比</b>。</li>
 <li><span class="dm">育儿</span>孩子在某件事上连着几次受挫之后，进入"一提就炸、干脆不碰"的状态。这时把任务难度调回他上次做得动的水平，通常没用——这是滞后，不是态度问题。有两个具体动作：把重启的难度设到<b>明显低于</b>他崩掉时的水平（低到你自己觉得太容易了那个程度，那才是 F₂ 的位置）；同时停掉"你看这明明很简单"这句话——它是浑水态那条自维持回路的一部分，每说一次就把"我不行"再确认一次。</li>
 <li><span class="dm">健康与精力</span>连着几个晚上睡不好之后，"周末补一觉"很少能真的翻回去，因为已经长出了新的回路：担心睡不着 → 早早上床躺着 → 清醒地躺得更久 → 更确信自己睡不着。可改的是看哪个指标：把<b>睡眠时长换成睡眠效率</b>（真正睡着的时间 ÷ 躺在床上的时间）。这个换法会直接推出一个反直觉的动作——<b>缩短</b>卧床时间而不是延长，这正是失眠的认知行为治疗里"睡眠限制"那一招的逻辑：它不去补量，它去切断那条回路。</li>
 </ol>
 </div>
-
 <div class="crossx">
-<h3>🌀 越界 · 跨学科的联想<span class="he">（Crossings）</span></h3>
+<h3 data-tts="d69ffec289f19f8a">🌀 越界 · 跨学科的联想<span class="he">（Crossings）</span></h3>
 <ul>
 <li><b>东方思想 · 孟子的牛山</b>：《孟子·告子上》里有一段常被当成劝学的话，其实是一个标准的交替稳态故事。牛山原本林木茂美，因为靠近都城被斧斤砍伐；孟子接着说的那句才是关键——"是其日夜之所息，雨露之所润，非无萌蘖之生焉，<b>牛羊又从而牧之</b>，是以若彼濯濯也"。砍伐是最初的驱动量，但把秃山钉在秃山状态上的是<em>另一条</em>回路：新芽一冒出来就被牛羊啃掉。本期三条机制在这里同时成立：驱动量把系统推过折点、退化态由自己的正反馈维持、停掉最初的驱动量不足以恢复。于是推出一个孟子自己没说、但他的例子直接蕴含的结论：<b>恢复的第一步不是"别再砍了"，是先把牛羊赶走</b>——也就是先解除维持退化态的那条回路，这恰好就是荷兰人捞鱼的动作。而孟子随后由此论证"人性本善、只要养之则复"，那一步反而是他这个例子撑不住的：牛山的例子只说明退化态可以被维持，说不出原初状态在道德上更"本然"。</li>
 <li><b>历史与政治学 · 关键节点</b>：史学和比较政治学里有一对搭配使用的概念——关键节点（critical juncture）与路径依赖（path dependence）：某些短暂的时刻，很小的差别会把一个国家锁进此后几十年的制度轨道。本期的三条机制合起来，能把这个概念从修辞变成一份判据：所谓关键节点应当是①处在折点附近（同样的力气效果剧增）、②存在双稳（两种结果都能长期自我维持，而不是一种必然）、③具备滞后（把当时的条件恢复原样，制度不会跟着回去）。按这份判据，<b>关键节点应该由"后来回不去"来定义，而不是由当时的戏剧性来定义</b>——很多被写进教科书的高光时刻其实处在单稳区间，热闹但不锁定。<b>但这里不成立</b>：历史没有可以反复推的参数轴，也没有能独立测量的驱动量，双稳在史学里几乎无法证伪——上面那三条在生态学里是可以做实验检验的命题，搬到史学就只剩一个整理叙事的框架。能借走的是那份判据的<em>结构</em>（尤其是"用不可逆性来筛选，而不是用戏剧性"），不是它的检验力。</li>
 <li><b>医学 · 复发为什么不需要新的打击</b>：抑郁的临床图景长期困扰研究者——诱发的事件早已过去，症状却维持数月；而恢复期的人可能被一件小事整个打回去。把它当作双稳系统来看，这两件事变成同一件事的两面：抑郁态有自己的维持回路（睡眠紊乱、反刍、退缩、正反馈减少，彼此喂养），所以不需要持续的打击；而恢复期的人是刚刚越过分水岭、还站在浅谷里，所以小扰动就够把他推回去。van de Leemput 等人 2014 年在人的情绪时间序列里找到了临界慢化的迹象，为这个框架提供了间接证据。由此推出的临床含义相当具体：<b>维持期治疗的目标不是"消除症状"（那是状态量），而是把系统按在离折点更远的地方</b>——这解释了为什么症状消失后过早停药，复发率会显著上升。需要说明的是，抑郁是不是真的双稳仍有争议，证据是间接的，而且把它读成"要么病要么好的两个开关"会低估连续谱和共病；这个框架的价值在于它解释了滞后，不在于它给出了分类。</li>
 </ul>
 </div>
-
 <div class="thinking">
-<h3>深入思考<span class="he">（Going Deeper）</span></h3>
+<h3 data-tts="cee1fb960a9b9376">深入思考<span class="he">（Going Deeper）</span></h3>
 <details><summary>如果折点之前从状态本身读不出预警，那"提前发现"到底还有没有可能？</summary><p>有，但要换测量对象。状态的<em>位置</em>不含信息，状态被扰动后的<em>恢复速度</em>含信息——谷越浅，恢复越慢，波动的方差和自相关随之上升。这是第 36 期的主题。代价是：这类信号要求你有高频的数据、并且系统真的在被反复扰动；许多现实系统两条都不满足，所以它是一个有用的仪表，不是一份保险。</p></details>
 <details><summary>能不能主动把一个系统推过折点？"破而后立"是不是这件事？</summary><p>机制上可以——生物操纵、休克疗法、组织重组都属于这类动作。但滞后是对称的：把系统踢进新状态之后，你同样很难再把它踢回来。所以这类动作的判据不是"新状态是不是更好"，而是<b>"如果新状态比预期差，我还退得回来吗"</b>。答案是不能的时候，它就不是一个可以试错的动作，而是一次下注。</p></details>
 <details><summary>为什么很多组织的衰败看起来是"突然的"，事后却总能找到十年的伏笔？</summary><p>两件事都是真的，而且不矛盾：驱动量（人才流失率、技术债、决策链长度）确实积累了十年，而状态量（营收、士气、交付速度）在折点前几乎不动。所以"伏笔"是从驱动量里回溯出来的，"突然"是从状态量里体验到的。真正的教训不是"早该看出来"，而是<b>当时看的那些指标本来就不会提前动</b>。</p></details>
 <details><summary>滞后是坏事吗？</summary><p>不必然。滞后同时意味着"不容易被推回去"——好状态一旦进入也会自我维持，这正是习惯、口碑、生态修复成功后的稳固感的来源。它是一把双刃：让坏状态难以退出的同一个机制，也让好状态难以被一次意外摧毁。所以设计上真正的问题不是"要不要滞后"，而是<b>你希望哪一侧的谷更深</b>。</p></details>
 <details><summary>一个系统可能有两个以上的稳态吗？</summary><p>可以，而且很常见——草原、灌丛、荒漠可以是同一片土地的三个稳态。多稳态会带来一个新麻烦：从 A 退回去，未必回到你出发的那一个。这时"恢复"这个词本身就需要重新定义：你能指定的是驱动量的值，不是终点。</p></details>
 </div>
-
 <div class="refs">
-<h3>延伸阅读<span class="he">（Further Reading）</span></h3>
+<h3 data-tts="99c4b5ffa8d177c7">延伸阅读<span class="he">（Further Reading）</span></h3>
 <ul>
 <li>Scheffer, Carpenter, Foley, Folke &amp; Walker, <a href="https://www.nature.com/articles/35098000">Catastrophic shifts in ecosystems</a>（2001，《自然》，这一整套框架最常被引的综述）</li>
 <li>Marten Scheffer, <a href="https://press.princeton.edu/books/paperback/9780691122045/critical-transitions-in-nature-and-society">Critical Transitions in Nature and Society</a>（专著，浅湖案例的完整来龙去脉）</li>
