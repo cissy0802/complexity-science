@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8"><meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>Bifurcation &amp; Tipping Points — Some Doors Only Open One Way · Complexity Science T10</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,"SF Pro Display","Noto Sans SC",sans-serif;color:#e4ded5;line-height:1.85;min-height:100vh;
+  background:radial-gradient(1100px 620px at 12% -6%,rgba(224,137,94,0.10),transparent 62%),radial-gradient(950px 700px at 100% 2%,rgba(166,147,205,0.09),transparent 58%),linear-gradient(168deg,#100f0d 0%,#15161b 48%,#0a0a0c 100%);background-attachment:fixed}
+.wrap{max-width:760px;margin:0 auto;padding:30px 22px 90px}
+header{padding:52px 0 8px;border-bottom:1px solid rgba(255,255,255,0.07);margin-bottom:34px}
+.week-tag{font-family:"SF Mono",Menlo,monospace;font-size:0.72rem;font-weight:700;letter-spacing:2px;color:#d9b45f;border:1px solid rgba(217,180,95,0.4);background:rgba(217,180,95,0.07);padding:3px 11px;border-radius:20px}
+h1{font-size:2.5rem;font-weight:800;letter-spacing:0.5px;line-height:1.2;margin:20px 0 0;background:linear-gradient(106deg,#e0895e 0%,#d9b45f 34%,#9fbc7a 68%,#63b3a6 100%);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+h1 .h1en{display:block;font-size:0.40em;font-weight:600;letter-spacing:2.5px;color:#847d72;-webkit-text-fill-color:#847d72;background:none;margin-top:13px}
+.sub{font-size:1.05rem;color:#aba498;margin-top:14px;font-weight:500}
+.date{font-family:"SF Mono",Menlo,monospace;font-size:0.75rem;color:#57524b;margin-top:18px;letter-spacing:1px}
+.pitch{margin:22px 0 30px;font-size:0.97rem;color:#cd7f9b;border-left:2px solid rgba(205,127,155,0.5);padding-left:16px;font-style:italic}
+.intro{font-size:1.02rem;color:#cfc8bc;margin-bottom:14px}
+.intro p{margin-bottom:16px}
+h2{font-size:1.42rem;font-weight:700;color:#e9e3d9;margin:56px 0 8px;letter-spacing:0.3px}
+h2 .n{font-family:"SF Mono",Menlo,monospace;font-size:0.85rem;color:#d9b45f;display:block;margin-bottom:6px;letter-spacing:2px}
+.he{font-size:0.68em;color:#8d867b;font-weight:500;letter-spacing:0}
+p{margin-bottom:17px}
+.lead{color:#cfc8bc}
+b,strong{color:#f0eae0;font-weight:600}
+em{color:#d9b45f;font-style:normal;font-weight:500}
+.dim{color:#8d867b}
+a.reflink{display:inline-block;font-size:0.82rem;font-family:"SF Mono",Menlo,monospace;color:#63b3a6;border:1px solid rgba(99,179,166,0.38);background:rgba(99,179,166,0.07);padding:1px 9px;border-radius:20px;text-decoration:none;transition:all 0.15s;white-space:nowrap}
+a.reflink:hover{background:rgba(99,179,166,0.16);border-color:rgba(99,179,166,0.7)}
+figure{margin:30px 0}
+figure svg{display:block;width:100%;height:auto;border-radius:12px;background:rgba(255,255,255,0.018);border:1px solid rgba(255,255,255,0.06)}
+figcaption{font-size:0.82rem;color:#787268;margin-top:11px;text-align:center;line-height:1.6}
+.decide{margin:24px 0;border:1px solid rgba(224,137,94,0.36);background:rgba(224,137,94,0.055);border-radius:12px;padding:15px 19px}
+.decide .lb{font-family:"SF Mono",Menlo,monospace;font-size:0.73rem;letter-spacing:1.5px;color:#e0895e;font-weight:700;display:block;margin-bottom:7px}
+.decide p{margin:0;font-size:0.95rem;color:#ddd5c9}
+.crossx-inline{margin:20px 0 22px;border-left:2px solid rgba(205,127,155,0.55);padding:2px 0 2px 15px;font-size:0.89rem;color:#a9a096;line-height:1.72}
+.crossx-inline b{color:#cd7f9b;font-weight:600}
+.bigcat{margin:46px 0 10px;border:1px solid rgba(217,180,95,0.38);background:rgba(217,180,95,0.05);border-radius:14px;padding:20px 22px}
+.bigcat h3{font-size:1.02rem;color:#d9b45f;margin-bottom:14px;letter-spacing:0.5px}
+.bigcat ol{list-style:none;padding:0}
+.bigcat li{margin-bottom:15px;font-size:0.94rem;color:#d5cdc1;line-height:1.78}
+.bigcat li:last-child{margin-bottom:0}
+.bigcat .dm{font-family:"SF Mono",Menlo,monospace;font-size:0.73rem;color:#d9b45f;border:1px solid rgba(217,180,95,0.32);border-radius:4px;padding:1px 7px;margin-right:8px;white-space:nowrap}
+.crossx{margin:46px 0 10px;border:1px solid rgba(205,127,155,0.38);background:rgba(205,127,155,0.05);border-radius:14px;padding:20px 22px}
+.crossx h3{font-size:1.02rem;color:#cd7f9b;margin-bottom:14px;letter-spacing:0.5px}
+.crossx ul{list-style:none;padding:0}
+.crossx li{margin-bottom:16px;font-size:0.94rem;color:#d5cdc1;line-height:1.78}
+.crossx li:last-child{margin-bottom:0}
+.crossx li b{color:#cd7f9b;font-weight:600}
+.thinking{margin:46px 0 10px}
+.thinking h3{font-size:1.02rem;color:#a693cd;margin-bottom:14px;letter-spacing:0.5px}
+details{border:1px solid rgba(166,147,205,0.22);border-radius:10px;padding:12px 16px;margin-bottom:10px;background:rgba(166,147,205,0.035)}
+summary{cursor:pointer;font-size:0.93rem;color:#c9c2b6;font-weight:500}
+summary::marker{color:#a693cd}
+details p{margin:12px 0 0;font-size:0.9rem;color:#a9a096;line-height:1.75}
+.refs{margin:46px 0 10px}
+.refs h3{font-size:1.02rem;color:#79a6d2;margin-bottom:14px;letter-spacing:0.5px}
+.refs ul{list-style:none;padding:0}
+.refs li{margin-bottom:10px;font-size:0.9rem;color:#8d867b;line-height:1.7}
+.refs a{color:#79a6d2;text-decoration:none;border-bottom:1px solid rgba(121,166,210,0.3)}
+.refs a:hover{color:#a6c4e2;border-bottom-color:rgba(121,166,210,0.7)}
+footer{text-align:center;padding:56px 0 10px;font-size:0.78rem;color:#57524b;font-family:"SF Mono",Menlo,monospace;border-top:1px solid rgba(255,255,255,0.06);margin-top:50px}
+footer a{color:#79a6d2;text-decoration:none}
+@media(max-width:600px){h1{font-size:1.85rem}.wrap{padding:24px 16px 60px}h2{font-size:1.22rem}}
+</style></head><body>
+<div class="wrap">
+<header>
+<span class="week-tag">TOPIC 10 · PHASE B</span>
+<h1>Bifurcation &amp; Tipping Points<span class="h1en">BIFURCATION &amp; TIPPING POINTS</span></h1>
+<p class="sub">Some doors only open one way</p>
+<p class="date">2026-07-28 · Dynamics &amp; Unpredictability</p>
+</header>
+<p class="pitch">A system can lose the stable state it is currently sitting in without you noticing a thing — not pushed out of it, but standing where the ground itself has vanished. And when you set the external conditions back to what they were, it does not come back.</p>
+<div class="intro">
+<p>The Netherlands has a great many shallow lakes. For decades, fertiliser ran off the fields into them a little at a time. The water stayed clear, plants grew on the bottom, nothing seemed to change. Then one summer a lake turned green and murky, the plants died off, and it never cleared again. The authorities did the obvious thing: they cut the nutrient inflow back to what it had been twenty years earlier. The lake stayed murky.</p>
+<p>The strange part is not that pollution makes water murky — that is not strange. The strange part is the <em>asymmetry</em>: going in was a single step across, and retracing the same path does not bring you back. The system somehow remembers which side it came from.</p>
+<p class="dim">Topic 9 was also about a slowly advancing parameter, but what came out of it was different. That was <b>period-doubling bifurcation</b>: the rhythm doubles again and again until it becomes chaos that never repeats — the <b>same attractor growing more complicated</b>. This issue is about <b>saddle-node bifurcation</b> (also called fold bifurcation): push the parameter past a certain point and the stable state the system currently occupies <b>disappears entirely</b>, so it has nowhere to go but somewhere else. The keyword there was "becoming unpredictable"; here it is <b>transition and irreversibility</b>. <a class="reflink" href="ref-logistic-map.en.html">→ ref · Logistic Map</a></p>
+<p class="dim">This site covers "criticality" across five issues, and they are not the same thing written five times. This one takes the <b>dynamical-systems view</b> (a stable state vanishes, forcing a jump); Topic 16 takes the statistical-mechanics view (why details stop mattering at a critical point); Topic 17 the topological view (connectivity suddenly spanning the whole system); Topic 18 is about systems climbing to criticality on their own; Topic 36 is about how to <em>monitor</em> it.</p>
+</div>
+
+<h2><span class="n">01</span>The Valley Is Not Crossed — It Is Erased</h2>
+<p class="lead">Start with an image you can hold. Think of the system's current state as a ball resting at the bottom of a valley. The bottom is a <b>stable equilibrium</b>: kick it and it wobbles, then rolls back. That is all "stable" means in dynamics — not motionless, but self-restoring after a disturbance. <a class="reflink" href="ref-phase-space.en.html">→ ref · Phase Space &amp; Attractors</a></p>
+<p>Now the crucial step: <b>the shape of the valley itself changes as external conditions change.</b> For the lake, that external condition is the annual nutrient load; for a structure it is the load; for a person it might be months of accumulated sleep debt. Any such quantity being pushed steadily in one direction we will call the <b>driver</b>.</p>
+<p>As the driver rises, the valley grows shallower. The ball is still at the bottom, looking no different from five years ago — it has not drifted, it has not started to wobble, and you can read nothing off its current position. Then at some value, the valley and the ridge beside it <em>merge, cancel and vanish</em>. That moment is the <b>fold point</b> (or tipping point). The ball was not pushed out; the ground it stood on ceased to exist, and it rolls all the way down into another valley.</p>
+<figure>
+<svg viewBox="0 0 720 320" role="img" aria-label="Three frames of a potential landscape: a rising driver flattens the left valley until it vanishes and the ball is forced across" xmlns="http://www.w3.org/2000/svg">
+<defs>
+<marker id="t10a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="9" markerHeight="9" markerUnits="userSpaceOnUse" orient="auto"><path d="M0,1 L9,5 L0,9 z" fill="#8d867b"></path></marker>
+<marker id="t10b" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="11" markerHeight="11" markerUnits="userSpaceOnUse" orient="auto"><path d="M0,1 L9,5 L0,9 z" fill="#e0895e"></path></marker>
+</defs>
+<text x="360" y="24" fill="#aba498" font-family="-apple-system,sans-serif" font-size="13" text-anchor="middle">Same ball, same stability — until the valley under it is erased</text>
+<text x="120" y="52" fill="#9fbc7a" font-family="SF Mono,monospace" font-size="11.5" text-anchor="middle">1. TWO VALLEYS</text>
+<g transform="translate(25,64)">
+<path d="M0,12 C20,68 34,98 50,98 C66,98 80,50 95,50 C110,50 124,98 140,98 C156,98 170,68 190,12" fill="none" stroke="#8d867b" stroke-width="2.2"></path>
+<circle cx="50" cy="90" r="7.5" fill="#63b3a6"></circle>
+<text x="50" y="122" fill="#63b3a6" font-family="-apple-system,sans-serif" font-size="11" text-anchor="middle">clear</text>
+<text x="140" y="122" fill="#787268" font-family="-apple-system,sans-serif" font-size="11" text-anchor="middle">turbid</text>
+</g>
+<line x1="222" y1="130" x2="256" y2="130" stroke="#8d867b" stroke-width="1.5" marker-end="url(#t10a)"></line>
+<text x="360" y="52" fill="#d9b45f" font-family="SF Mono,monospace" font-size="11.5" text-anchor="middle">2. LEFT VALLEY SHALLOWER</text>
+<g transform="translate(265,64)">
+<path d="M0,8 C20,58 36,84 52,84 C68,84 80,70 94,70 C108,70 124,112 140,112 C156,112 172,56 190,6" fill="none" stroke="#8d867b" stroke-width="2.2"></path>
+<circle cx="52" cy="76" r="7.5" fill="#63b3a6"></circle>
+<text x="112" y="42" fill="#d9b45f" font-family="-apple-system,sans-serif" font-size="11" text-anchor="middle">this much ridge left</text>
+<path d="M104,48 L96,64" fill="none" stroke="rgba(217,180,95,0.45)" stroke-width="1"></path>
+</g>
+<line x1="462" y1="130" x2="496" y2="130" stroke="#8d867b" stroke-width="1.5" marker-end="url(#t10a)"></line>
+<text x="600" y="52" fill="#e0895e" font-family="SF Mono,monospace" font-size="11.5" text-anchor="middle">3. VALLEY GONE</text>
+<g transform="translate(505,64)">
+<path d="M0,6 C20,48 40,68 62,76 C82,84 92,88 104,94 C118,101 126,118 140,118 C156,118 172,56 190,6" fill="none" stroke="#8d867b" stroke-width="2.2"></path>
+<path d="M60,66 C82,76 102,90 122,104" fill="none" stroke="#e0895e" stroke-width="2.2" stroke-dasharray="5 4" marker-end="url(#t10b)"></path>
+<circle cx="140" cy="110" r="7.5" fill="#e0895e"></circle>
+<text x="50" y="112" fill="#e0895e" font-family="-apple-system,sans-serif" font-size="11" text-anchor="middle">old valley gone</text>
+</g>
+<text x="120" y="216" fill="#787268" font-family="-apple-system,sans-serif" font-size="11" text-anchor="middle">looks stable</text>
+<text x="360" y="216" fill="#787268" font-family="-apple-system,sans-serif" font-size="11" text-anchor="middle">still looks stable — the ball has not moved</text>
+<text x="600" y="216" fill="#c0703f" font-family="-apple-system,sans-serif" font-size="11" text-anchor="middle">one step across, no intermediate state</text>
+<line x1="120" y1="252" x2="600" y2="252" stroke="#57524b" stroke-width="1.5" marker-end="url(#t10a)"></line>
+<text x="360" y="276" fill="#8d867b" font-family="-apple-system,sans-serif" font-size="12" text-anchor="middle">driver (nutrients / load / leverage / sleep debt) rising at a constant rate →</text>
+<text x="360" y="302" fill="#57524b" font-family="-apple-system,sans-serif" font-size="11" text-anchor="middle">Schematic: depths drawn for legibility. The point is topological — in the first two frames the ball barely moves; all the information is in the shape</text>
+</svg>
+<figcaption>The driver advances smoothly, yet the state jumps in a single step. How violent the transition is has nothing to do with how much the driver moved at that moment.</figcaption>
+</figure>
+<p>There is an easily missed corollary here: <b>at the moment the fold is crossed, nothing special happens to the driver.</b> It rose by the same amount that year as the year before. So looking back for "what was unusual that year" usually turns up nothing — what changed was not the driver but the way the system responds to it.</p>
+<p>Something else matters just as much: <em>before</em> the fold, the state itself carries no warning. The ball sits at the bottom, barely moving. The one way to see it coming is to watch how fast it returns <em>after</em> a disturbance — the shallower the valley, the slower the return. That is <b>critical slowing down</b>, the subject of Topic 36. For now, remember one line: the depth of a stable state and the position of a stable state are different things, and routine monitoring measures only position.</p>
+<div class="decide">
+<span class="lb">🎯 DECISION</span>
+<p>Replace "how much headroom is left" with "how far are we from the fold". Concretely: name the quantity being pushed monotonically (not the output metric that fluctuates) — annual nutrient load, peak load, portfolio leverage, the backlog of unhandled alerts — then write down your <b>estimate of where its fold sits, with an uncertainty range</b>, however crude. If you cannot produce that estimate, you are talking about safety with a percentage that has no denominator. And "current value ÷ historical maximum" is the least meaningful denominator of all.</p>
+</div>
+<div class="crossx-inline">
+🌀 <b>Engineering &amp; the history of technology · Snap-through buckling</b>　A shallow arched shell — a tin lid, a metal clicker, some dome structures — flips over with an audible snap once the load reaches a certain value. Nothing has been crushed: the shell is intact afterwards, it is just that the original equilibrium shape no longer exists. So design codes for such members do not track stress margin, they track the <b>critical load</b>: extra strength does not change when the valley disappears. That corollary stings outside engineering too — hardening the current state and postponing the fold are two different projects, and the first can be done very impressively while the fold does not move at all.
+</div>
+
+<h2><span class="n">02</span>One Environment, Two Possible Worlds</h2>
+<p class="lead">The previous figure hides something stranger: before the fold, <b>both valleys exist at once</b>. Under exactly the same external conditions the lake can be clear or murky, depending on which valley it happened to fall into. This is <b>bistability</b>, and the two states are called <b>alternative stable states</b>.</p>
+<p>Why can a state hold itself in place? Because a positive feedback loop is running inside it. <a class="reflink" href="ref-system-dynamics.en.html">→ ref · System Dynamics</a> The murky state's loop goes: more algae → less light underwater → submerged plants die → no roots to hold the sediment → wind stirs the bottom up → murkier water → algae do even better. That loop needs no further fertiliser from outside; it feeds itself. The clear state has its own loop running the other way (plants anchor the sediment, outcompete algae for nutrients, and shelter the zooplankton that graze on algae) — equally self-consistent.</p>
+<p>Once bistability holds, there is a <b>second route to transition</b>. The first is the one above: the driver crosses the fold, the valley is gone, the jump is compulsory. The second is that the driver never gets near the fold, but a single <em>large enough shock</em> knocks the ball over the ridge in the middle. In dynamics that ridge is an <b>unstable equilibrium</b>: it is a genuine equilibrium, but a ball placed there will not stay — tip it either way and it rolls. It is the boundary between two <b>basins of attraction</b> (the sets of starting states that end up in each valley).</p>
+<figure>
+<svg viewBox="0 0 720 320" role="img" aria-label="Bistable landscape: a small shock rolls back, a large shock crosses the separatrix into the other valley" xmlns="http://www.w3.org/2000/svg">
+<defs>
+<marker id="t10c" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="10" markerHeight="10" markerUnits="userSpaceOnUse" orient="auto"><path d="M0,1 L9,5 L0,9 z" fill="#63b3a6"></path></marker>
+<marker id="t10d" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="11" markerHeight="11" markerUnits="userSpaceOnUse" orient="auto"><path d="M0,1 L9,5 L0,9 z" fill="#cd7f9b"></path></marker>
+</defs>
+<text x="360" y="26" fill="#aba498" font-family="-apple-system,sans-serif" font-size="13" text-anchor="middle">The driver never moves — what decides the outcome is the size of the shock</text>
+<path d="M90,66 C140,170 190,208 250,208 C300,208 340,96 380,96 C420,96 460,208 510,208 C570,208 610,150 645,66" fill="none" stroke="#8d867b" stroke-width="2.4"></path>
+<line x1="380" y1="100" x2="380" y2="252" stroke="rgba(255,255,255,0.16)" stroke-width="1.4" stroke-dasharray="5 5"></line>
+<text x="380" y="246" fill="#a8a49c" font-family="-apple-system,sans-serif" font-size="11.5" text-anchor="middle">separatrix = unstable equilibrium</text>
+<path d="M252,198 C280,188 310,164 328,142" fill="none" stroke="#63b3a6" stroke-width="2.2" marker-end="url(#t10c)"></path>
+<path d="M340,158 C324,184 298,200 270,206" fill="none" stroke="#63b3a6" stroke-width="1.6" stroke-dasharray="4 4" marker-end="url(#t10c)"></path>
+<text x="238" y="140" fill="#63b3a6" font-family="-apple-system,sans-serif" font-size="11.5" text-anchor="middle">small shock: falls back</text>
+<path d="M252,192 C296,116 342,66 388,74 C424,82 452,150 500,198" fill="none" stroke="#cd7f9b" stroke-width="2.2" marker-end="url(#t10d)"></path>
+<text x="556" y="116" fill="#cd7f9b" font-family="-apple-system,sans-serif" font-size="11.5" text-anchor="middle">large shock: no way back</text>
+<circle cx="250" cy="200" r="8" fill="#63b3a6"></circle>
+<rect x="90" y="262" width="290" height="9" fill="rgba(99,179,166,0.35)"></rect>
+<rect x="380" y="262" width="265" height="9" fill="rgba(205,127,155,0.35)"></rect>
+<text x="235" y="290" fill="#63b3a6" font-family="-apple-system,sans-serif" font-size="11.5" text-anchor="middle">basin A (clear state)</text>
+<text x="512" y="290" fill="#cd7f9b" font-family="-apple-system,sans-serif" font-size="11.5" text-anchor="middle">basin B (turbid state)</text>
+<text x="360" y="312" fill="#57524b" font-family="-apple-system,sans-serif" font-size="11" text-anchor="middle">Two stable states on one landscape — so "it looks stable" neither rules out a flip nor tells you how much buffer is left</text>
+</svg>
+<figcaption>Two routes to transition under bistability: the valley is erased (driver), or the ball is knocked over the separatrix (shock). Each needs its own defence.</figcaption>
+</figure>
+<p>In the real world the two routes often conspire. The reefs off the north coast of Jamaica are the most-cited case: decades of overfishing removed the algae-grazing fish (a slow driver, the valley growing shallower), and then a hurricane in 1980 and the mass die-off of the sea urchin <em>Diadema</em> in 1983 delivered two large shocks (knocking the ball across). Coral cover fell from roughly half to single digits, the reef became an algal field, and it has not recovered in decades. <b>The hurricane alone does not explain it</b> — comparable hurricanes had swept the same reefs before and they grew back quickly. The difference is that back then the valley was still deep.</p>
+<div class="decide">
+<span class="lb">🎯 DECISION</span>
+<p>A bistable system has two entrances for risk; track them separately, with separate indicators. One asks "where is the driver heading, and how fast"; the other asks "how big is the largest credible shock, and where is the separatrix". <b>The magnitude of your stress test should not be set by historical volatility</b> — historical volatility was measured while the valley was still deep; it describes past shocks, not the present valley. A workable version: in every scenario exercise, record the shock size and the current buffer as two separate numbers, and count risk as rising only when their ratio worsens.</p>
+</div>
+<div class="crossx-inline">
+🌀 <b>Economics &amp; institutions · Why deposit insurance works</b>　Diamond and Dybvig's 1983 model casts a bank run as a bistable system: on identical fundamentals there are two equilibria — nobody withdraws (the bank lives) and everybody withdraws (it fails) — neither more "real" than the other, the outcome depending on which basin you land in. The conclusion that follows was not obvious at the time: deposit insurance works <b>not because it sets aside enough money</b> but because it deletes the run equilibrium altogether — which is why it so often never has to pay out. That gives every rescue measure a yardstick: ask whether it changes the quantity of resources or the structure of equilibria. Rescues that only add resources have to keep adding them.
+</div>
+
+<h2><span class="n">03</span>Hysteresis: The Door Opens One Way</h2>
+<p class="lead">Put the last two sections together and the Dutch lake makes sense. There is more than one fold point: one going up, another coming down — and they are <b>not in the same place</b>.</p>
+<p>Plot the driver on the horizontal axis and the system's state on the vertical, and the equilibria trace an S-shaped curve: the upper arm is the clear state, the lower arm the turbid state, and the dashed middle arm is the unstable equilibrium — perfectly real, but the system can never sit there, so you never observe it. The right end of the upper arm is fold F₁ (clear → turbid); the left end of the lower arm is fold F₂ (turbid → clear). <b>F₂ lies to the left of F₁, often far to the left.</b></p>
+<p>So the path goes like this: nutrients rise, cross F₁, the water drops to the turbid state; you cut nutrients back to just left of F₁ — no effect, because the turbid state is perfectly stable throughout that range; only when you get below F₂ does the turbid valley vanish and the water clear on its own. This dependence of the present state on the path taken is called <b>hysteresis</b> (a word originally coined for the magnetism left behind in iron).</p>
+<figure>
+<svg viewBox="0 0 720 340" role="img" aria-label="Hysteresis loop: upper clear branch, lower turbid branch, dashed unstable branch, two folds at different positions" xmlns="http://www.w3.org/2000/svg">
+<defs>
+<marker id="t10e" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="10" markerHeight="10" markerUnits="userSpaceOnUse" orient="auto"><path d="M0,1 L9,5 L0,9 z" fill="#cd7f9b"></path></marker>
+<marker id="t10f" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="10" markerHeight="10" markerUnits="userSpaceOnUse" orient="auto"><path d="M0,1 L9,5 L0,9 z" fill="#63b3a6"></path></marker>
+<marker id="t10g" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="10" markerHeight="10" markerUnits="userSpaceOnUse" orient="auto"><path d="M0,1 L9,5 L0,9 z" fill="#d9b45f"></path></marker>
+</defs>
+<rect x="262" y="58" width="208" height="210" fill="rgba(217,180,95,0.055)"></rect>
+<line x1="262" y1="58" x2="262" y2="268" stroke="rgba(255,255,255,0.12)" stroke-width="1" stroke-dasharray="4 4"></line>
+<line x1="470" y1="58" x2="470" y2="268" stroke="rgba(255,255,255,0.12)" stroke-width="1" stroke-dasharray="4 4"></line>
+<text x="366" y="74" fill="#d9b45f" font-family="-apple-system,sans-serif" font-size="11.5" text-anchor="middle">bistable range: both lakes are stable here</text>
+<line x1="100" y1="268" x2="660" y2="268" stroke="rgba(255,255,255,0.18)" stroke-width="1.5"></line>
+<line x1="100" y1="268" x2="100" y2="52" stroke="rgba(255,255,255,0.18)" stroke-width="1.5"></line>
+<text x="40" y="164" fill="#8d867b" font-family="-apple-system,sans-serif" font-size="12" transform="rotate(-90 40 164)" text-anchor="middle">water clarity</text>
+<path d="M135,90 C240,98 360,112 470,146" fill="none" stroke="#63b3a6" stroke-width="3"></path>
+<path d="M470,146 C400,176 320,196 262,206" fill="none" stroke="#a8a49c" stroke-width="2" stroke-dasharray="6 5"></path>
+<path d="M262,206 C350,214 500,224 640,232" fill="none" stroke="#cd7f9b" stroke-width="3"></path>
+<line x1="470" y1="154" x2="470" y2="218" stroke="#cd7f9b" stroke-width="2.4" marker-end="url(#t10e)"></line>
+<line x1="262" y1="198" x2="262" y2="108" stroke="#63b3a6" stroke-width="2.4" marker-end="url(#t10f)"></line>
+<circle cx="470" cy="146" r="5.5" fill="#e0895e"></circle>
+<circle cx="262" cy="206" r="5.5" fill="#e0895e"></circle>
+<text x="497" y="140" fill="#e0895e" font-family="SF Mono,monospace" font-size="12">fold F₁</text>
+<text x="200" y="222" fill="#e0895e" font-family="SF Mono,monospace" font-size="12">fold F₂</text>
+<text x="150" y="82" fill="#63b3a6" font-family="-apple-system,sans-serif" font-size="12">clear state (stable)</text>
+<text x="548" y="252" fill="#cd7f9b" font-family="-apple-system,sans-serif" font-size="12">turbid state (stable)</text>
+<text x="358" y="164" fill="#8d867b" font-family="-apple-system,sans-serif" font-size="11" text-anchor="middle">unstable branch (never observed)</text>
+<line x1="470" y1="298" x2="262" y2="298" stroke="#d9b45f" stroke-width="2" marker-end="url(#t10g)"></line>
+<text x="366" y="318" fill="#d9b45f" font-family="-apple-system,sans-serif" font-size="11.5" text-anchor="middle">to get clear water back the driver must fall to F₂ — back to F₁ is not enough</text>
+<text x="596" y="292" fill="#8d867b" font-family="-apple-system,sans-serif" font-size="12" text-anchor="middle">nutrient load →</text>
+</svg>
+<figcaption>The hysteresis loop. One value of the driver, two possible states; which one you get depends on whether you arrived from the left or from the right.</figcaption>
+</figure>
+<p>So what Dutch lake managers eventually did was not "cut emissions a bit more". They did two things at once: push nutrients far below the level at which the lake flipped, and carry out <b>biomanipulation</b> — netting out large numbers of the fish that eat zooplankton, letting the zooplankton boom and graze the algae down, physically <em>kicking</em> the lake back across the separatrix. On paper the second move makes no sense (what have fish got to do with phosphorus?), but in a bistable framework it is exactly right: it does not change the driver, it changes which basin the ball is in.</p>
+<p>This also dissolves a common puzzle: "the trigger is long gone, why hasn't it recovered?" In a system with hysteresis that sentence is not a contradiction — it is the definition. Removing the trigger only brings you back near F₁, while recovery requires getting past F₂.</p>
+<div class="decide">
+<span class="lb">🎯 DECISION</span>
+<p>For any system that might cross a one-way door, your plan needs an extra column: <b>"back down to what level"</b> — and the default answer should be markedly lower than the level at which things broke, not equal to it. Engineering has a trick worth copying wholesale: <b>set the trip threshold and the recovery threshold to different numbers</b> (in circuits this is a Schmitt trigger; autoscalers and circuit breakers use the same idea). A system using one number for both will chatter around the threshold — and in a system that genuinely has hysteresis, using one number means your recovery action was never going to be enough.</p>
+</div>
+<div class="crossx-inline">
+🌀 <b>Neuroscience &amp; perception · What you see depends on where you came from</b>　Show someone a series of images morphing from a man's face into a kneeling woman. Going left to right, the flip happens late in the series; going right to left, it happens early — the two directions give different switch points. That is perceptual hysteresis: the current interpretation stabilises itself through feedback, which is precisely this section's mechanism. It implies a hard methodological requirement: <b>any threshold measured by scanning in one direction is biased</b>, which is why psychophysics insists on running both ascending and descending series and averaging. Borrow the requirement directly — whenever someone says "past value X, Y starts happening", ask whether they ever approached X from the other side.
+</div>
+
+<h2><span class="n">04</span>Where This Breaks Down</h2>
+<p class="lead">"Tipping point" is the most heavily consumed phrase of the last decade. It has been used to sell climate, growth, weight loss and organisational change. So this section has to be explicit about the conditions under which the three mechanisms above hold, and how to tell whether the thing in front of you qualifies.</p>
+<p><b>First, an abrupt jump is not the same as a fold.</b> This is the fatal confusion. A steep jump in a time series has at least three equally self-consistent explanations: a fold was genuinely crossed; the system has a very steep but perfectly smooth response to the driver (some reaction saturating, say); or the driver itself jumped. Only the first implies bistability and irreversibility — in the other two, putting the driver back restores the state. <b>From a single one-way stretch of history, all three look identical.</b></p>
+<figure>
+<svg viewBox="0 0 720 300" role="img" aria-label="The same data points fitted two ways: an abrupt fold versus a smooth nonlinear response" xmlns="http://www.w3.org/2000/svg">
+<text x="360" y="26" fill="#aba498" font-family="-apple-system,sans-serif" font-size="13" text-anchor="middle">One set of observations — two readings, two opposite interventions</text>
+<g transform="translate(45,52)">
+<line x1="0" y1="160" x2="278" y2="160" stroke="rgba(255,255,255,0.18)" stroke-width="1.3"></line>
+<line x1="0" y1="160" x2="0" y2="18" stroke="rgba(255,255,255,0.18)" stroke-width="1.3"></line>
+<path d="M6,132 L140,126 L147,50 L272,48" fill="none" stroke="#e0895e" stroke-width="2.6"></path>
+<circle cx="14" cy="136" r="3.2" fill="#aba498"></circle><circle cx="32" cy="130" r="3.2" fill="#aba498"></circle><circle cx="50" cy="138" r="3.2" fill="#aba498"></circle><circle cx="68" cy="126" r="3.2" fill="#aba498"></circle><circle cx="86" cy="133" r="3.2" fill="#aba498"></circle><circle cx="104" cy="124" r="3.2" fill="#aba498"></circle><circle cx="122" cy="130" r="3.2" fill="#aba498"></circle><circle cx="140" cy="119" r="3.2" fill="#aba498"></circle>
+<circle cx="158" cy="54" r="3.2" fill="#aba498"></circle><circle cx="176" cy="46" r="3.2" fill="#aba498"></circle><circle cx="194" cy="57" r="3.2" fill="#aba498"></circle><circle cx="212" cy="44" r="3.2" fill="#aba498"></circle><circle cx="230" cy="51" r="3.2" fill="#aba498"></circle><circle cx="248" cy="42" r="3.2" fill="#aba498"></circle><circle cx="266" cy="49" r="3.2" fill="#aba498"></circle>
+<text x="139" y="184" fill="#e0895e" font-family="-apple-system,sans-serif" font-size="12" text-anchor="middle">reading 1: a fold was crossed</text>
+<text x="139" y="202" fill="#8d867b" font-family="-apple-system,sans-serif" font-size="11" text-anchor="middle">→ restoring the old value fails; go to F₂</text>
+</g>
+<g transform="translate(397,52)">
+<line x1="0" y1="160" x2="278" y2="160" stroke="rgba(255,255,255,0.18)" stroke-width="1.3"></line>
+<line x1="0" y1="160" x2="0" y2="18" stroke="rgba(255,255,255,0.18)" stroke-width="1.3"></line>
+<path d="M6,133 C66,130 112,128 138,122 C146,119 150,62 158,55 C186,46 230,48 272,47" fill="none" stroke="#79a6d2" stroke-width="2.6"></path>
+<circle cx="14" cy="136" r="3.2" fill="#aba498"></circle><circle cx="32" cy="130" r="3.2" fill="#aba498"></circle><circle cx="50" cy="138" r="3.2" fill="#aba498"></circle><circle cx="68" cy="126" r="3.2" fill="#aba498"></circle><circle cx="86" cy="133" r="3.2" fill="#aba498"></circle><circle cx="104" cy="124" r="3.2" fill="#aba498"></circle><circle cx="122" cy="130" r="3.2" fill="#aba498"></circle><circle cx="140" cy="119" r="3.2" fill="#aba498"></circle>
+<circle cx="158" cy="54" r="3.2" fill="#aba498"></circle><circle cx="176" cy="46" r="3.2" fill="#aba498"></circle><circle cx="194" cy="57" r="3.2" fill="#aba498"></circle><circle cx="212" cy="44" r="3.2" fill="#aba498"></circle><circle cx="230" cy="51" r="3.2" fill="#aba498"></circle><circle cx="248" cy="42" r="3.2" fill="#aba498"></circle><circle cx="266" cy="49" r="3.2" fill="#aba498"></circle>
+<text x="139" y="184" fill="#79a6d2" font-family="-apple-system,sans-serif" font-size="12" text-anchor="middle">reading 2: steep but smooth response</text>
+<text x="139" y="202" fill="#8d867b" font-family="-apple-system,sans-serif" font-size="11" text-anchor="middle">→ restoring the old value works</text>
+</g>
+<text x="360" y="288" fill="#57524b" font-family="-apple-system,sans-serif" font-size="11" text-anchor="middle">Extra evidence needed: does the state return when the driver does · have both states persisted · is recovery slowing</text>
+</svg>
+<figcaption>Two curves that fit equally well and imply opposite actions. This is why "it looks like there is a tipping point" cannot be used as a conclusion.</figcaption>
+</figure>
+<p><b>Second, the empirical evidence is much weaker than the marketing.</b> In 2020 Hillebrand and colleagues pooled a large body of ecological response data and searched systematically for thresholds. Their conclusion: at the community and ecosystem level, general transferable abrupt thresholds <em>do not</em> emerge from the data — most responses are gradual. This does not undo the well-documented individual cases like shallow lakes and coral reefs, but it does undo the default assumption that tipping points are everywhere. The default should be the other way round: <b>gradual response is the null, bistability is the claim that carries the burden of proof.</b></p>
+<p><b>Third, "irreversible" is meaningless without a timescale.</b> Strictly speaking nothing is irreversible; things are only unrecoverable on the timescale you care about. Shallow-lake hysteresis runs on decades, forests on centuries, ice sheets on millennia. "It can't come back", unqualified, is either a warning or a rhetorical flourish. Insisting that anyone saying "irreversible" complete the sentence with "within how long" filters out a good half of these claims.</p>
+<p><b>Fourth, this business has collapsed once before.</b> The 1970s saw a wave of <b>catastrophe theory</b>: Thom's mathematics was sound, but Zeeman and others applied it wholesale to prison riots, stock market crashes and nervous breakdowns, each with a handsome folded surface. Zahler and Sussmann's 1977 critique in <em>Nature</em> essentially ended that wave — and the problem was never the mathematics. It was that those applications <b>borrowed the shape without naming a driver, without a measurable state variable, without a falsifiable prediction</b>. Today's tipping-point narratives stand on the same floorboards, and the test is unchanged: can you state the units of the driver and of the state? If not, you have a picture.</p>
+<p>But a boundary is not a disclaimer; it exists to make the surviving part harder. So one last line: <b>the direction in which the burden of proof runs should itself depend on reversibility.</b> For a reversible system, "insufficient evidence" is a reason to wait. For a system with genuine hysteresis, "insufficient evidence" means you cannot fix it afterwards — which makes it a reason to act early, not to postpone. That is not an attitude about caution; it follows directly from the three mechanisms above.</p>
+<div class="decide">
+<span class="lb">🎯 DECISION</span>
+<p>Before saying "tipping point", answer three questions out loud: <b>(1)</b> what is the driver and what are its units; <b>(2)</b> what is the self-sustaining loop inside each of the two stable states, and have they been observed coexisting under the same conditions; <b>(3)</b> is there any <b>two-directional</b> observation — when the driver came back down, did the state return? Missing any of the three, downgrade the phrase to "a very steep nonlinear response". Much weaker — but it will not talk you into the kind of decision that starts with "it's gone anyway".</p>
+</div>
+
+<div class="bigcat">
+<h3>🎒 Scenarios · BigCat</h3>
+<ol>
+<li><span class="dm">Engineering &amp; systems</span>After a service falls into a retry storm during a traffic spike, cutting traffic back to pre-spike levels often fails to restore it — the loop "timeout → retry → higher load → more timeouts" is now feeding itself, largely independent of how many requests arrive from outside. Two things to change: <b>split the trip threshold and the recovery threshold into two numbers</b> (recovery markedly lower; never the same one), and add a "back down to what level" column to every degradation playbook. One thing to stop: writing the recovery criterion as "error rate back to normal" — error rate is a state variable, and it can look normal while the loop is still running. Watch <b>in-flight request count and the share of traffic that is retries</b> instead.</li>
+<li><span class="dm">Parenting</span>After a few failures in a row at some particular thing, a child slides into the "won't touch it, explodes if you mention it" state. Dialling the difficulty back to what they managed last time usually does nothing — that is hysteresis, not attitude. Two concrete moves: set the restart difficulty <b>well below</b> the level at which they broke (low enough that it feels absurdly easy to you — that is where F₂ actually sits); and stop saying "look, this is obviously easy" — that sentence is part of the turbid state's self-sustaining loop, confirming "I can't do this" once more each time it is said.</li>
+<li><span class="dm">Health &amp; energy</span>After a few bad nights, "catching up at the weekend" rarely flips things back, because a new loop has grown: worry about not sleeping → go to bed early → lie awake longer → become more certain you can't sleep. What to change is which number you watch: <b>swap sleep duration for sleep efficiency</b> (time actually asleep ÷ time in bed). That swap immediately implies a counter-intuitive action — <b>shorten</b> time in bed rather than extend it, which is exactly the logic of sleep restriction in cognitive behavioural therapy for insomnia: it does not top up the quantity, it cuts the loop.</li>
+</ol>
+</div>
+
+<div class="crossx">
+<h3>🌀 Crossings</h3>
+<ul>
+<li><b>Eastern thought · Mencius and Ox Mountain</b>: There is a passage in the <em>Mencius</em> (Book 6A) usually quoted as an exhortation to study, which is in fact a textbook account of alternative stable states. Ox Mountain was once beautifully wooded, and the axes cut it bare because it lay near a great city — but the decisive sentence comes next: shoots did sprout again, watered by dew and rain, "<b>and then cattle and sheep were pastured upon it</b>, which is why it is so bald." The felling was the original driver, but what pins the bare mountain in its bare state is <em>a different</em> loop: every new shoot is eaten as it appears. All three of this issue's mechanisms hold at once here — a driver pushed the system past a fold, the degraded state is maintained by its own positive feedback, and stopping the original driver is not enough to recover. Which yields a conclusion Mencius does not state but his example directly entails: <b>the first step in restoration is not "stop cutting", it is getting the livestock off</b> — dismantling the loop that maintains the degraded state, which is precisely what the Dutch fish-netting does. Mencius then uses the story to argue that human nature is originally good and will return if nourished; that step is the one his own example cannot carry. Ox Mountain shows that a degraded state can be self-maintaining; it says nothing about which state is morally prior.</li>
+<li><b>History &amp; political science · Critical junctures</b>: Historians and comparative political scientists pair two concepts — the critical juncture and path dependence: brief moments in which small differences lock a country into an institutional track for decades. This issue's three mechanisms together can turn that from rhetoric into a test: a genuine critical juncture should (1) sit near a fold, where the same effort produces a much larger effect, (2) exhibit bistability, with both outcomes capable of sustaining themselves rather than one being inevitable, and (3) show hysteresis, so that restoring the conditions of the time would not restore the institutions. On that test, <b>critical junctures should be defined by what turned out to be unrecoverable, not by how dramatic they felt at the time</b> — plenty of textbook high points sit squarely in a monostable range: loud, but not locking. <b>Where this does not hold</b>: history has no parameter axis you can push twice and no independently measurable driver, so bistability is essentially unfalsifiable there. The three conditions are testable propositions in lake ecology; carried into history they become a framework for organising narrative and nothing more. What transfers is the <em>structure</em> of the test — especially "filter by irreversibility rather than by drama" — not its evidential force.</li>
+<li><b>Medicine · Why relapse needs no new blow</b>: The clinical picture of depression has long puzzled researchers — the precipitating event is long past yet symptoms persist for months, while someone in recovery can be knocked all the way back by something small. Read as a bistable system, those two facts become one fact seen from either side: the depressed state has its own maintaining loop (disrupted sleep, rumination, withdrawal, fewer sources of reward, each feeding the next), so it needs no continuing blow; and someone in recovery has just crossed the separatrix and is standing in a shallow valley, so a small shock suffices to push them back. Van de Leemput and colleagues found signs of critical slowing down in human mood time series in 2014, offering indirect support. The clinical implication is quite specific: <b>the target of maintenance treatment is not "no symptoms" (a state variable) but holding the system further from the fold</b> — which is why stopping treatment as soon as symptoms clear raises relapse rates markedly. It should be said that whether depression is truly bistable remains contested, the evidence is indirect, and reading it as two on/off states understates both the continuum and comorbidity. The framework earns its keep by explaining hysteresis, not by classifying anyone.</li>
+</ul>
+</div>
+
+<div class="thinking">
+<h3>Going Deeper</h3>
+<details><summary>If the state carries no warning before the fold, is early detection possible at all?</summary><p>Yes, but you have to change what you measure. The <em>position</em> of the state carries no information; its <em>recovery speed</em> after a disturbance does — a shallower valley means slower return, and variance and autocorrelation rise accordingly. That is Topic 36. The cost: such signals need high-frequency data and a system that is actually being disturbed repeatedly. Many real systems satisfy neither, which makes this a useful instrument, not an insurance policy.</p></details>
+<details><summary>Can you deliberately push a system over a fold? Is "break it to remake it" this?</summary><p>Mechanically, yes — biomanipulation, shock therapy and corporate reorganisation all belong to this family. But hysteresis is symmetric: having kicked the system into a new state, you will find it just as hard to kick back. So the test for such moves is not "is the new state better" but <b>"if the new state turns out worse than expected, can I still return?"</b> When the answer is no, it is not an experiment. It is a bet.</p></details>
+<details><summary>Why does organisational decline look sudden, while afterwards everyone can point to a decade of warning signs?</summary><p>Both are true and not contradictory: the drivers (attrition, technical debt, decision-chain length) really did accumulate for a decade, while the state variables (revenue, morale, delivery speed) barely moved until the fold. So the "warning signs" are reconstructed from the drivers and the "suddenness" was experienced through the states. The lesson is not "we should have seen it" but <b>the indicators being watched were never going to move early</b>.</p></details>
+<details><summary>Is hysteresis a bad thing?</summary><p>Not necessarily. Hysteresis also means "hard to push back out" — a good state, once entered, sustains itself too, which is where the solidity of habits, reputations and successfully restored ecosystems comes from. It cuts both ways: the same mechanism that makes a bad state hard to leave makes a good one hard to destroy by accident. The real design question is therefore not whether to have hysteresis but <b>which of the two valleys you want deeper</b>.</p></details>
+<details><summary>Can a system have more than two stable states?</summary><p>It can, and often does — grassland, shrubland and desert can be three states of the same piece of land. Multistability brings a new problem: coming back from A need not return you to the state you started in. At that point "restoration" itself needs redefining: what you get to set is the value of the driver, not the destination.</p></details>
+</div>
+
+<div class="refs">
+<h3>Further Reading</h3>
+<ul>
+<li>Scheffer, Carpenter, Foley, Folke &amp; Walker, <a href="https://www.nature.com/articles/35098000">Catastrophic shifts in ecosystems</a> (2001, <em>Nature</em> — the most-cited statement of the whole framework)</li>
+<li>Marten Scheffer, <a href="https://press.princeton.edu/books/paperback/9780691122045/critical-transitions-in-nature-and-society">Critical Transitions in Nature and Society</a> (the shallow-lake case in full)</li>
+<li>Terence Hughes, <a href="https://www.science.org/doi/10.1126/science.265.5178.1547">Catastrophic phase shifts and large-scale degradation of a Caribbean coral reef</a> (1994, the Jamaican reefs)</li>
+<li>Hillebrand et al., <a href="https://www.nature.com/articles/s41559-020-1256-9">Thresholds for ecological responses to global change do not emerge from empirical data</a> (2020, the most important cold shower)</li>
+<li>Diamond &amp; Dybvig, <a href="https://www.journals.uchicago.edu/doi/10.1086/261155">Bank Runs, Deposit Insurance, and Liquidity</a> (1983, the two-equilibrium model of runs)</li>
+<li>van de Leemput et al., <a href="https://www.pnas.org/doi/10.1073/pnas.1312114110">Critical slowing down as early warning for the onset and termination of depression</a> (2014)</li>
+<li><a href="https://en.wikipedia.org/wiki/Saddle-node_bifurcation">Saddle-node bifurcation</a> · <a href="https://en.wikipedia.org/wiki/Hysteresis">Hysteresis</a> · <a href="https://en.wikipedia.org/wiki/Catastrophe_theory">Catastrophe theory</a> (including the 1977 controversy)</li>
+<li>Steven Strogatz, <a href="https://www.stevenstrogatz.com/books/nonlinear-dynamics-and-chaos-with-applications-to-physics-biology-chemistry-and-engineering">Nonlinear Dynamics and Chaos</a> (chapter 3 is bifurcations — still the clearest introduction)</li>
+</ul>
+</div>
+<footer>BigCat · Complexity Science · <a href="index.en.html">← All Topics</a></footer>
+</div>
+</body></html>
