@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+
+<html lang="zh-CN"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Boids 鸟群模型 · 参考库 · 复杂性科学</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,"SF Pro Display","Noto Sans SC",sans-serif;color:#e4ded5;line-height:1.85;min-height:100vh;
+  background:radial-gradient(1100px 620px at 12% -6%,rgba(99,179,166,0.09),transparent 62%),radial-gradient(950px 700px at 100% 2%,rgba(166,147,205,0.08),transparent 58%),linear-gradient(168deg,#100f0d 0%,#15161b 48%,#0a0a0c 100%);background-attachment:fixed}
+.wrap{max-width:720px;margin:0 auto;padding:30px 22px 90px}
+header{padding:52px 0 8px;border-bottom:1px solid rgba(255,255,255,0.07);margin-bottom:32px}
+.rtag{font-family:"SF Mono",Menlo,monospace;font-size:0.72rem;font-weight:700;letter-spacing:2px;color:#63b3a6;border:1px solid rgba(99,179,166,0.4);background:rgba(99,179,166,0.07);padding:3px 11px;border-radius:20px}
+h1{font-size:2.15rem;font-weight:800;line-height:1.2;margin:20px 0 0;color:#f0eae0}
+h1 .h1en{display:block;font-size:0.42em;font-weight:600;letter-spacing:2.5px;color:#847d72;margin-top:11px}
+.sub{font-size:0.98rem;color:#aba498;margin-top:12px}
+.meta{font-family:"SF Mono",Menlo,monospace;font-size:0.75rem;color:#57524b;margin-top:16px;letter-spacing:1px}
+h2{font-size:1.25rem;font-weight:700;color:#e9e3d9;margin:44px 0 10px}
+h2 .n{font-family:"SF Mono",Menlo,monospace;font-size:0.8rem;color:#63b3a6;display:block;margin-bottom:5px;letter-spacing:2px}
+.he{font-size:0.68em;color:#8d867b;font-weight:500;letter-spacing:0}
+p{margin-bottom:16px}
+b,strong{color:#f0eae0;font-weight:600}
+em{color:#d9b45f;font-style:normal;font-weight:500}
+.rule{border:1px solid rgba(99,179,166,0.3);background:rgba(99,179,166,0.05);border-radius:12px;padding:16px 20px;margin:22px 0;font-size:0.94rem;color:#d5cdc1}
+.rule ol{padding-left:20px;margin:0}
+.rule li{margin-bottom:7px}
+.rule li:last-child{margin-bottom:0}
+figure{margin:28px 0}
+figure svg{display:block;width:100%;height:auto;border-radius:12px;background:rgba(255,255,255,0.018);border:1px solid rgba(255,255,255,0.06)}
+figcaption{font-size:0.82rem;color:#787268;margin-top:10px;text-align:center;line-height:1.6}
+.cant{border:1px solid rgba(205,127,155,0.36);background:rgba(205,127,155,0.05);border-radius:12px;padding:18px 21px;margin:26px 0 10px}
+.cant h3{font-size:1rem;color:#cd7f9b;margin-bottom:12px}
+.cant ul{list-style:none;padding:0}
+.cant li{margin-bottom:13px;font-size:0.93rem;color:#d5cdc1;line-height:1.76}
+.cant li:last-child{margin-bottom:0}
+.cant li b{color:#cd7f9b}
+.refs{margin:40px 0 10px}
+.refs h3{font-size:1rem;color:#79a6d2;margin-bottom:12px}
+.refs ul{list-style:none;padding:0}
+.refs li{margin-bottom:9px;font-size:0.89rem;color:#8d867b;line-height:1.7}
+.refs a{color:#79a6d2;text-decoration:none;border-bottom:1px solid rgba(121,166,210,0.3)}
+.refs a:hover{color:#a6c4e2}
+footer{text-align:center;padding:52px 0 10px;font-size:0.78rem;color:#57524b;font-family:"SF Mono",Menlo,monospace;border-top:1px solid rgba(255,255,255,0.06);margin-top:46px}
+footer a{color:#79a6d2;text-decoration:none}
+@media(max-width:600px){h1{font-size:1.7rem}.wrap{padding:24px 16px 60px}}
+</style></head><body>
+<div class="wrap">
+<header>
+<span class="rtag">REF · 经典模型</span>
+<h1>Boids 鸟群模型<span class="h1en">THE BOIDS MODEL</span></h1>
+<p class="sub">Craig Reynolds，1986 — 三条只看邻居的规则，长出一整群的运动</p>
+<p class="meta">被引用于：Topic 13 自组织</p>
+</header>
+
+<h2><span class="n">01</span>它问的是什么问题<span class="he">（The Question It Poses）</span></h2>
+<p>一群椋鸟转弯时整齐得不像话，一群沙丁鱼受惊时像一块布被抖了一下。最省事的两个解释是：有一只领头的；或者它们之间有某种"感应"。前者早被高速摄影否掉了——转向可以从群体的<em>任何</em>一侧发起，而且同一群鸟在同一分钟里发起的位置不固定。</p>
+<p>1986 年 Craig Reynolds 要解决的其实是个动画问题：做电影时，怎么才能不逐帧手画一群鸟。他要的不是解释，是一套能跑出这种画面的最小规则。结果这套规则顺带回答了生物学的问题——<b>这种整齐不需要任何全局信息。</b></p>
+
+<h2><span class="n">02</span>规则本身<span class="he">（The Rules）</span></h2>
+<div class="rule">
+<ol>
+<li>每个个体叫一只 <em>boid</em>，有位置和速度。它只能"看见"自己附近一小片区域里的邻居。</li>
+<li><b>分离</b>（separation）：离邻居太近，就往反方向推一下。</li>
+<li><b>对齐</b>（alignment）：把自己的速度调向邻居速度的平均值。</li>
+<li><b>凝聚</b>（cohesion）：朝邻居位置的平均值（重心）靠一点。</li>
+<li>三条各配一个权重，加起来当作这一帧的加速度；再加上最大速度和最大转向率两个限制。</li>
+<li>就这些。没有全局变量、没有领头、没有任何一只 boid 知道整群长什么样。</li>
+</ol>
+</div>
+<p>第 1 条值得多看一眼：<b>"邻居是谁"本身就是一个建模选择，而不是一个中立的技术细节。</b>Reynolds 用的是"半径 r 以内、且不在身后盲区里"，这叫<b>度量式邻域</b>（metric neighbourhood）。第 4 节会看到，真鸟用的可能不是这个。</p>
+<figure>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 700 286" role="img" aria-label="一只 boid 的邻域，以及三条规则合成加速度"><defs><marker id="rb1a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="9" markerHeight="9" markerUnits="userSpaceOnUse" orient="auto"><path d="M0,1 L9,5 L0,9 z" fill="#cd7f9b"/></marker><marker id="rb1b" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="9" markerHeight="9" markerUnits="userSpaceOnUse" orient="auto"><path d="M0,1 L9,5 L0,9 z" fill="#9fbc7a"/></marker><marker id="rb1c" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="9" markerHeight="9" markerUnits="userSpaceOnUse" orient="auto"><path d="M0,1 L9,5 L0,9 z" fill="#d9b45f"/></marker><marker id="rb1d" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="11" markerHeight="11" markerUnits="userSpaceOnUse" orient="auto"><path d="M0,1 L9,5 L0,9 z" fill="#e0895e"/></marker><marker id="rb1e" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="9" markerHeight="9" markerUnits="userSpaceOnUse" orient="auto"><path d="M0,1 L9,5 L0,9 z" fill="#8d867b"/></marker></defs><text x="350" y="24" fill="#aba498" font-family="-apple-system,sans-serif" font-size="13" text-anchor="middle">一只 boid 只知道两件事：谁算它的邻居，以及三条规则各要它往哪儿走</text><path d="M170,152 L102,191 A78,78 0 0 1 102,113 Z" fill="rgba(255,255,255,0.035)" stroke="rgba(255,255,255,0.10)" stroke-dasharray="3 3"/><circle cx="170" cy="152" r="78" fill="rgba(99,179,166,0.045)" stroke="rgba(99,179,166,0.5)" stroke-width="1.3" stroke-dasharray="5 4"/><line x1="170" y1="152" x2="248" y2="152" stroke="rgba(99,179,166,0.6)" stroke-width="1.1"/><text x="210" y="144" fill="#63b3a6" font-family="SF Mono,monospace" font-size="11" text-anchor="middle">r</text><path d="M7.0,0 L-5.0,4.0 L-5.0,-4.0 Z" fill="#9fbc7a" transform="translate(138,108) rotate(20)"/><path d="M7.0,0 L-5.0,4.0 L-5.0,-4.0 Z" fill="#9fbc7a" transform="translate(198,100) rotate(20)"/><path d="M7.0,0 L-5.0,4.0 L-5.0,-4.0 Z" fill="#9fbc7a" transform="translate(216,178) rotate(20)"/><path d="M7.0,0 L-5.0,4.0 L-5.0,-4.0 Z" fill="#9fbc7a" transform="translate(156,204) rotate(20)"/><path d="M7.0,0 L-5.0,4.0 L-5.0,-4.0 Z" fill="#9fbc7a" transform="translate(124,96) rotate(20)"/><path d="M7.0,0 L-5.0,4.0 L-5.0,-4.0 Z" fill="#4f4a43" transform="translate(114,158) rotate(20)"/><path d="M7.0,0 L-5.0,4.0 L-5.0,-4.0 Z" fill="#4f4a43" transform="translate(66,82) rotate(20)"/><path d="M7.0,0 L-5.0,4.0 L-5.0,-4.0 Z" fill="#4f4a43" transform="translate(266,68) rotate(20)"/><path d="M7.0,0 L-5.0,4.0 L-5.0,-4.0 Z" fill="#4f4a43" transform="translate(282,214) rotate(20)"/><path d="M7.0,0 L-5.0,4.0 L-5.0,-4.0 Z" fill="#4f4a43" transform="translate(74,236) rotate(20)"/><path d="M10.5,0 L-7.5,6.0 L-7.5,-6.0 Z" fill="#e0895e" transform="translate(170,152) rotate(0)"/><text x="170" y="258" fill="#787268" font-family="-apple-system,sans-serif" font-size="11" text-anchor="middle">邻域里的算（苔绿）· 邻域外和盲区里的不算（暗）</text><text x="112" y="154" fill="#6b665e" font-family="-apple-system,sans-serif" font-size="10.5" text-anchor="middle">盲区</text><line x1="382" y1="46" x2="382" y2="250" stroke="rgba(255,255,255,0.08)"/><line x1="470" y1="150" x2="435" y2="92" stroke="#cd7f9b" stroke-width="2" marker-end="url(#rb1a)"/><text x="422.600040770774" y="78.87624677868787" fill="#cd7f9b" font-family="-apple-system,sans-serif" font-size="11.5" text-anchor="middle">分离</text><line x1="470" y1="150" x2="548" y2="158" stroke="#9fbc7a" stroke-width="2" marker-end="url(#rb1b)"/><text x="571.8747545266652" y="164.04057730997138" fill="#9fbc7a" font-family="-apple-system,sans-serif" font-size="11.5" text-anchor="middle">对齐</text><line x1="470" y1="150" x2="440" y2="212" stroke="#d9b45f" stroke-width="2" marker-end="url(#rb1c)"/><text x="429.5465377254973" y="234.00318502831027" fill="#d9b45f" font-family="-apple-system,sans-serif" font-size="11.5" text-anchor="middle">凝聚</text><line x1="470" y1="150" x2="504" y2="181" stroke="#e0895e" stroke-width="3.4" marker-end="url(#rb1d)"/><circle cx="470" cy="150" r="4" fill="#e4ded5"/><text x="514" y="203.2" fill="#e0895e" font-family="-apple-system,sans-serif" font-size="11.5" text-anchor="start">三者的加权和</text><text x="514" y="219.2" fill="#e0895e" font-family="-apple-system,sans-serif" font-size="11.5" text-anchor="start">= 这一帧的加速度</text><text x="540" y="258" fill="#787268" font-family="-apple-system,sans-serif" font-size="11" text-anchor="middle">三条各有权重 — 改权重就改了整群的形态</text><text x="350" y="278" fill="#57524b" font-family="-apple-system,sans-serif" font-size="11" text-anchor="middle">代码里没有「群」这个对象 — 每只 boid 每帧只做上面这一次加法</text></svg>
+<figcaption>一只 boid 的全部世界：邻域里的几只鸟，三个方向的诉求，加权求和成这一帧的加速度。</figcaption>
+</figure>
+
+<h2><span class="n">03</span>跑起来会看到什么<span class="he">（What You See When It Runs）</span></h2>
+<p>随机撒一把 boid，几秒钟内它们聚成群。碰到障碍物，群分成两股绕过去，过去之后再合上——代码里没有"分开"和"合上"这两个动作，它们是那三条规则的后果。</p>
+<p>更值得看的是转向：一只 boid 先动，邻居跟着调，再传给下一圈。<b>转向像波一样扫过整群</b>，而且波速比"每只鸟看见领头再反应"要快得多，因为它是接力，不是广播。</p>
+<p>把三个权重当旋钮拧，同一套代码会给出三种完全不同的宏观形态：分离权重大，群松散得像气体；凝聚权重大，团成一个球；对齐权重大，拉成一条整齐的迁徙带。<b>宏观形态是参数的函数，不是被指定的目标。</b></p>
+<figure>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 700 254" role="img" aria-label="三种权重比例下的宏观形态：松散、团球、带状"><text x="350" y="24" fill="#aba498" font-family="-apple-system,sans-serif" font-size="13" text-anchor="middle">同一套规则，只改三个权重的比例</text><rect x="20" y="52" width="200" height="140" fill="rgba(255,255,255,0.02)" stroke="rgba(255,255,255,0.07)" rx="8"/><text x="120" y="44" fill="#63b3a6" font-family="SF Mono,monospace" font-size="12" text-anchor="middle">① 分离权重大</text><text x="120" y="212" fill="#787268" font-family="-apple-system,sans-serif" font-size="11.5" text-anchor="middle">松散得像气体</text><path d="M7.0,0 L-5.0,4.0 L-5.0,-4.0 Z" fill="#aba498" transform="translate(44,80) rotate(141)"/><path d="M7.0,0 L-5.0,4.0 L-5.0,-4.0 Z" fill="#aba498" transform="translate(149,83) rotate(40)"/><path d="M7.0,0 L-5.0,4.0 L-5.0,-4.0 Z" fill="#aba498" transform="translate(78,150) rotate(53)"/><path d="M7.0,0 L-5.0,4.0 L-5.0,-4.0 Z" fill="#aba498" transform="translate(158,140) rotate(49)"/><path d="M7.0,0 L-5.0,4.0 L-5.0,-4.0 Z" fill="#aba498" transform="translate(126,116) rotate(149)"/><path d="M7.0,0 L-5.0,4.0 L-5.0,-4.0 Z" fill="#aba498" transform="translate(197,78) rotate(7)"/><path d="M7.0,0 L-5.0,4.0 L-5.0,-4.0 Z" fill="#aba498" transform="translate(189,112) rotate(71)"/><path d="M7.0,0 L-5.0,4.0 L-5.0,-4.0 Z" fill="#aba498" transform="translate(94,107) rotate(344)"/><path d="M7.0,0 L-5.0,4.0 L-5.0,-4.0 Z" fill="#aba498" transform="translate(75,91) rotate(211)"/><path d="M7.0,0 L-5.0,4.0 L-5.0,-4.0 Z" fill="#aba498" transform="translate(127,171) rotate(302)"/><path d="M7.0,0 L-5.0,4.0 L-5.0,-4.0 Z" fill="#aba498" transform="translate(97,90) rotate(301)"/><path d="M7.0,0 L-5.0,4.0 L-5.0,-4.0 Z" fill="#aba498" transform="translate(196,71) rotate(265)"/><path d="M7.0,0 L-5.0,4.0 L-5.0,-4.0 Z" fill="#aba498" transform="translate(177,138) rotate(79)"/><path d="M7.0,0 L-5.0,4.0 L-5.0,-4.0 Z" fill="#aba498" transform="translate(166,147) rotate(70)"/><path d="M7.0,0 L-5.0,4.0 L-5.0,-4.0 Z" fill="#aba498" transform="translate(142,92) rotate(15)"/><rect x="250" y="52" width="200" height="140" fill="rgba(255,255,255,0.02)" stroke="rgba(255,255,255,0.07)" rx="8"/><text x="350" y="44" fill="#63b3a6" font-family="SF Mono,monospace" font-size="12" text-anchor="middle">② 凝聚权重大</text><text x="350" y="212" fill="#787268" font-family="-apple-system,sans-serif" font-size="11.5" text-anchor="middle">团成一个球</text><path d="M7.0,0 L-5.0,4.0 L-5.0,-4.0 Z" fill="#aba498" transform="translate(340,139) rotate(-74)"/><path d="M7.0,0 L-5.0,4.0 L-5.0,-4.0 Z" fill="#aba498" transform="translate(364,99) rotate(186)"/><path d="M7.0,0 L-5.0,4.0 L-5.0,-4.0 Z" fill="#aba498" transform="translate(384,121) rotate(218)"/><path d="M7.0,0 L-5.0,4.0 L-5.0,-4.0 Z" fill="#aba498" transform="translate(358,139) rotate(-99)"/><path d="M7.0,0 L-5.0,4.0 L-5.0,-4.0 Z" fill="#aba498" transform="translate(339,100) rotate(6)"/><path d="M7.0,0 L-5.0,4.0 L-5.0,-4.0 Z" fill="#aba498" transform="translate(363,115) rotate(166)"/><path d="M7.0,0 L-5.0,4.0 L-5.0,-4.0 Z" fill="#aba498" transform="translate(373,138) rotate(-160)"/><path d="M7.0,0 L-5.0,4.0 L-5.0,-4.0 Z" fill="#aba498" transform="translate(331,96) rotate(123)"/><path d="M7.0,0 L-5.0,4.0 L-5.0,-4.0 Z" fill="#aba498" transform="translate(336,126) rotate(26)"/><path d="M7.0,0 L-5.0,4.0 L-5.0,-4.0 Z" fill="#aba498" transform="translate(355,100) rotate(113)"/><path d="M7.0,0 L-5.0,4.0 L-5.0,-4.0 Z" fill="#aba498" transform="translate(359,129) rotate(-77)"/><path d="M7.0,0 L-5.0,4.0 L-5.0,-4.0 Z" fill="#aba498" transform="translate(354,133) rotate(-133)"/><path d="M7.0,0 L-5.0,4.0 L-5.0,-4.0 Z" fill="#aba498" transform="translate(367,99) rotate(124)"/><path d="M7.0,0 L-5.0,4.0 L-5.0,-4.0 Z" fill="#aba498" transform="translate(356,99) rotate(73)"/><path d="M7.0,0 L-5.0,4.0 L-5.0,-4.0 Z" fill="#aba498" transform="translate(334,109) rotate(60)"/><path d="M7.0,0 L-5.0,4.0 L-5.0,-4.0 Z" fill="#aba498" transform="translate(355,126) rotate(-190)"/><path d="M7.0,0 L-5.0,4.0 L-5.0,-4.0 Z" fill="#aba498" transform="translate(340,95) rotate(136)"/><circle cx="350" cy="122" r="44" fill="none" stroke="rgba(217,180,95,0.28)" stroke-dasharray="4 4"/><rect x="480" y="52" width="200" height="140" fill="rgba(255,255,255,0.02)" stroke="rgba(255,255,255,0.07)" rx="8"/><text x="580" y="44" fill="#63b3a6" font-family="SF Mono,monospace" font-size="12" text-anchor="middle">③ 对齐权重大</text><text x="580" y="212" fill="#787268" font-family="-apple-system,sans-serif" font-size="11.5" text-anchor="middle">拉成整齐的迁徙带</text><path d="M7.0,0 L-5.0,4.0 L-5.0,-4.0 Z" fill="#aba498" transform="translate(621,93) rotate(5)"/><path d="M7.0,0 L-5.0,4.0 L-5.0,-4.0 Z" fill="#aba498" transform="translate(654,97) rotate(-9)"/><path d="M7.0,0 L-5.0,4.0 L-5.0,-4.0 Z" fill="#aba498" transform="translate(561,94) rotate(-6)"/><path d="M7.0,0 L-5.0,4.0 L-5.0,-4.0 Z" fill="#aba498" transform="translate(511,87) rotate(7)"/><path d="M7.0,0 L-5.0,4.0 L-5.0,-4.0 Z" fill="#aba498" transform="translate(512,109) rotate(-5)"/><path d="M7.0,0 L-5.0,4.0 L-5.0,-4.0 Z" fill="#aba498" transform="translate(533,118) rotate(-4)"/><path d="M7.0,0 L-5.0,4.0 L-5.0,-4.0 Z" fill="#aba498" transform="translate(532,102) rotate(4)"/><path d="M7.0,0 L-5.0,4.0 L-5.0,-4.0 Z" fill="#aba498" transform="translate(584,120) rotate(-2)"/><path d="M7.0,0 L-5.0,4.0 L-5.0,-4.0 Z" fill="#aba498" transform="translate(584,114) rotate(-1)"/><path d="M7.0,0 L-5.0,4.0 L-5.0,-4.0 Z" fill="#aba498" transform="translate(613,103) rotate(-7)"/><path d="M7.0,0 L-5.0,4.0 L-5.0,-4.0 Z" fill="#aba498" transform="translate(523,116) rotate(4)"/><path d="M7.0,0 L-5.0,4.0 L-5.0,-4.0 Z" fill="#aba498" transform="translate(647,112) rotate(1)"/><path d="M7.0,0 L-5.0,4.0 L-5.0,-4.0 Z" fill="#aba498" transform="translate(529,120) rotate(-7)"/><path d="M7.0,0 L-5.0,4.0 L-5.0,-4.0 Z" fill="#aba498" transform="translate(569,88) rotate(-2)"/><path d="M7.0,0 L-5.0,4.0 L-5.0,-4.0 Z" fill="#aba498" transform="translate(551,101) rotate(4)"/><path d="M7.0,0 L-5.0,4.0 L-5.0,-4.0 Z" fill="#aba498" transform="translate(586,93) rotate(5)"/><path d="M7.0,0 L-5.0,4.0 L-5.0,-4.0 Z" fill="#aba498" transform="translate(616,118) rotate(-8)"/><text x="350" y="240" fill="#57524b" font-family="-apple-system,sans-serif" font-size="11" text-anchor="middle">宏观形态是参数的函数 — 没有一处代码在描述「气体」「球」「带」</text></svg>
+<figcaption>同一套规则，只改三个权重的比例。没有一处代码在描述"气体""球""带"这些形状。</figcaption>
+</figure>
+
+<h2><span class="n">04</span>它解释了现实中的什么<span class="he">（What It Explains）</span></h2>
+<p>最重要的一条是<b>否定式</b>的：它把"必须有领头、必须有全局感知"从必要条件里划掉了。在这之前，群体的整齐被默认需要某种集中的东西；boids 之后，需要解释的反而是"如果不需要集中，为什么有些群体还是有领头"。</p>
+<p>正面用途在工程上很直接：无人机编队、人群疏散仿真、游戏与电影里的群体动画（1992 年《蝙蝠侠归来》的蝙蝠群是最早的大规模应用之一）。</p>
+<p>它还给出了一个能测的量。如果个体只看邻居，那么信息在群里的传播就应该是波，而波速可测。Attanasi 等人 2014 年对椋鸟群的实测确实看到了这种转向波，并且发现它衰减得极慢——这正是"只看邻居"该有的样子，而不是"每只各自反应"该有的样子。</p>
+
+<div class="cant">
+<h3>它不能解释什么<span class="he">（What It Cannot Explain）</span></h3>
+<ul>
+<li><b>不能当成"鸟就是这么飞的"。</b>Boids 是一个存在性证明：这样的规则<em>足以</em>产生这种行为。真鸟用的规则得从数据反推，而反推的结果和 Reynolds 的设定并不相同——Ballerini 等人 2008 年的三维重建显示，椋鸟对齐的对象是<b>最近的 6–7 只</b>（拓扑式），不是半径以内的所有（度量式）。</li>
+<li><b>不能拿"看起来像"当证据。</b>同一种宏观形态可以由好几组不同规则产生。要区分它们，必须去比对能区分它们的量——比如把群拉稀疏，度量式规则的凝聚力会掉，拓扑式不会。跑出一个像鸟群的画面，什么也没证明。</li>
+<li><b>不解释鸟为什么要成群。</b>捕食稀释、信息共享、省体力——这些是演化生态学的问题（"这个行为有什么好处"），boids 回答的是动力学问题（"这个行为怎么产生"）。两个问题都合法，但它只答后一个。</li>
+<li><b>不含物理与代价。</b>真鸟有翼载、有尾流、有疲劳。大雁的 V 字队形是空气动力学的省力结构，来自尾涡的上洗气流，不是那三条规则的产物。把 V 字阵当成 boids 的成果，是把两套完全不同的机制混在了一起。</li>
+<li><b>不预测群的统计性质。</b>群多大、活多久、多久分裂一次合并一次——这些它都不给。它是一台演示装置，不是一个可以拿去拟合数据的模型。想做后者，得先把邻域规则、噪声、边界都按实测定下来，那已经是另一个模型了。</li>
+</ul>
+</div>
+
+<div class="refs">
+<h3>延伸阅读<span class="he">（Further Reading）</span></h3>
+<ul>
+<li>Craig Reynolds, <a href="https://dl.acm.org/doi/10.1145/37401.37406">Flocks, Herds, and Schools: A Distributed Behavioral Model</a>（1987，原始论文）</li>
+<li>Reynolds 自己维护的 <a href="https://www.red3d.com/cwr/boids/">Boids 页面</a>（含伪码与历史）</li>
+<li>Ballerini et al., <a href="https://www.pnas.org/doi/10.1073/pnas.0711437105">Interaction ruling animal collective behavior depends on topological rather than metric distance</a>（2008）</li>
+<li>Attanasi et al., <a href="https://www.nature.com/articles/nphys3035">Information transfer and behavioural inertia in starling flocks</a>（2014，转向波的实测）</li>
+<li>Vicsek et al., <a href="https://doi.org/10.1103/PhysRevLett.75.1226">Novel type of phase transition in a system of self-driven particles</a>（1995，把对齐规则抽成一个最小物理模型）</li>
+<li>Couzin et al., <a href="https://doi.org/10.1006/jtbi.2002.3065">Collective memory and spatial sorting in animal groups</a>（2002，权重如何决定宏观形态）</li>
+</ul>
+</div>
+<footer>BigCat · 复杂性科学 · <a href="index.html">← 全部 Topic</a></footer>
+</div>
+</body></html>

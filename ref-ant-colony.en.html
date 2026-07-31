@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+
+<html lang="en"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Ant Colonies &amp; Decentralized Consensus · Reference · Complexity Science</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,"SF Pro Display","Noto Sans SC",sans-serif;color:#e4ded5;line-height:1.85;min-height:100vh;
+  background:radial-gradient(1100px 620px at 12% -6%,rgba(99,179,166,0.09),transparent 62%),radial-gradient(950px 700px at 100% 2%,rgba(166,147,205,0.08),transparent 58%),linear-gradient(168deg,#100f0d 0%,#15161b 48%,#0a0a0c 100%);background-attachment:fixed}
+.wrap{max-width:720px;margin:0 auto;padding:30px 22px 90px}
+header{padding:52px 0 8px;border-bottom:1px solid rgba(255,255,255,0.07);margin-bottom:32px}
+.rtag{font-family:"SF Mono",Menlo,monospace;font-size:0.72rem;font-weight:700;letter-spacing:2px;color:#63b3a6;border:1px solid rgba(99,179,166,0.4);background:rgba(99,179,166,0.07);padding:3px 11px;border-radius:20px}
+h1{font-size:2.15rem;font-weight:800;line-height:1.2;margin:20px 0 0;color:#f0eae0}
+h1 .h1en{display:block;font-size:0.42em;font-weight:600;letter-spacing:2.5px;color:#847d72;margin-top:11px}
+.sub{font-size:0.98rem;color:#aba498;margin-top:12px}
+.meta{font-family:"SF Mono",Menlo,monospace;font-size:0.75rem;color:#57524b;margin-top:16px;letter-spacing:1px}
+h2{font-size:1.25rem;font-weight:700;color:#e9e3d9;margin:44px 0 10px}
+h2 .n{font-family:"SF Mono",Menlo,monospace;font-size:0.8rem;color:#63b3a6;display:block;margin-bottom:5px;letter-spacing:2px}
+.he{font-size:0.68em;color:#8d867b;font-weight:500;letter-spacing:0}
+p{margin-bottom:16px}
+b,strong{color:#f0eae0;font-weight:600}
+em{color:#d9b45f;font-style:normal;font-weight:500}
+.rule{border:1px solid rgba(99,179,166,0.3);background:rgba(99,179,166,0.05);border-radius:12px;padding:16px 20px;margin:22px 0;font-size:0.94rem;color:#d5cdc1}
+.rule ol{padding-left:20px;margin:0}
+.rule li{margin-bottom:7px}
+.rule li:last-child{margin-bottom:0}
+figure{margin:28px 0}
+figure svg{display:block;width:100%;height:auto;border-radius:12px;background:rgba(255,255,255,0.018);border:1px solid rgba(255,255,255,0.06)}
+figcaption{font-size:0.82rem;color:#787268;margin-top:10px;text-align:center;line-height:1.6}
+.cant{border:1px solid rgba(205,127,155,0.36);background:rgba(205,127,155,0.05);border-radius:12px;padding:18px 21px;margin:26px 0 10px}
+.cant h3{font-size:1rem;color:#cd7f9b;margin-bottom:12px}
+.cant ul{list-style:none;padding:0}
+.cant li{margin-bottom:13px;font-size:0.93rem;color:#d5cdc1;line-height:1.76}
+.cant li:last-child{margin-bottom:0}
+.cant li b{color:#cd7f9b}
+.refs{margin:40px 0 10px}
+.refs h3{font-size:1rem;color:#79a6d2;margin-bottom:12px}
+.refs ul{list-style:none;padding:0}
+.refs li{margin-bottom:9px;font-size:0.89rem;color:#8d867b;line-height:1.7}
+.refs a{color:#79a6d2;text-decoration:none;border-bottom:1px solid rgba(121,166,210,0.3)}
+.refs a:hover{color:#a6c4e2}
+footer{text-align:center;padding:52px 0 10px;font-size:0.78rem;color:#57524b;font-family:"SF Mono",Menlo,monospace;border-top:1px solid rgba(255,255,255,0.06);margin-top:46px}
+footer a{color:#79a6d2;text-decoration:none}
+@media(max-width:600px){h1{font-size:1.7rem}.wrap{padding:24px 16px 60px}}
+</style></head><body>
+<div class="wrap">
+<header>
+<span class="rtag">REF · CLASSIC MODEL</span>
+<h1>Ant Colonies &amp; Decentralized Consensus<span class="h1en">PHEROMONE, EVAPORATION, QUORUM</span></h1>
+<p class="sub">How a crowd of nearly blind individuals arrives at a collective decision</p>
+<p class="meta">Cited in: Topic 13 Self-Organization</p>
+</header>
+
+<h2><span class="n">01</span>The Question It Poses</h2>
+<p>The queen gives no orders; her job is laying eggs. A single ant is nearly blind, holds no global picture, and has no idea how many tens of thousands of nestmates it has. And yet the colony finds the shortest route between nest and food, scales the number of workers on a task up and down with demand, and reaches agreement on where to move when it has to move.</p>
+<p>Which makes the question sharp: <b>where is the decision actually made?</b> If not one of them knows the whole picture, what performs the thing that looks like a choice.</p>
+
+<h2><span class="n">02</span>The Rules</h2>
+<p>The foraging branch needs only three:</p>
+<div class="rule">
+<ol>
+<li>A forager wanders at random. Having found food, it walks back and lays <b>pheromone</b> (a volatile chemical trail) along the way.</li>
+<li>On meeting a trail with pheromone on it, follow with higher probability. That probability rises with concentration but <em>saturates</em> — it is not linear.</li>
+<li>Pheromone continuously <b>evaporates</b>.</li>
+</ol>
+</div>
+<p>The house-moving branch adds one independent rule, the <b>quorum</b>: once a scout meets more than a threshold number of nestmates at a candidate site, it switches from "keep evaluating" to "start carrying".</p>
+<p>Notice what these rules do <em>not</em> contain: no comparison, no voting, no aggregation, nobody holding the two route lengths side by side.</p>
+<figure>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 700 296" role="img" aria-label="Pheromone concentration on the two double-bridge routes diverging over time"><defs><marker id="ra1a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="9" markerHeight="9" markerUnits="userSpaceOnUse" orient="auto"><path d="M0,1 L9,5 L0,9 z" fill="#8d867b"/></marker></defs><text x="350" y="24" fill="#aba498" font-family="-apple-system,sans-serif" font-size="13" text-anchor="middle">Double bridge: pheromone concentration on the two routes</text><line x1="70" y1="246" x2="658" y2="246" stroke="rgba(255,255,255,0.20)" stroke-width="1.5" marker-end="url(#ra1a)"/><line x1="70" y1="246" x2="70" y2="44" stroke="rgba(255,255,255,0.20)" stroke-width="1.5" marker-end="url(#ra1a)"/><text x="646" y="266" fill="#8d867b" font-family="-apple-system,sans-serif" font-size="11.5" text-anchor="end">time →</text><text x="34" y="152" fill="#8d867b" font-family="-apple-system,sans-serif" font-size="11.5" transform="rotate(-90 34 152)" text-anchor="middle">pheromone concentration</text><polyline points="70.0,238.6 75.7,238.1 81.4,237.5 87.1,236.7 92.8,235.7 98.5,234.6 104.2,233.2 109.9,231.5 115.6,229.6 121.3,227.4 127.0,224.8 132.7,222.0 138.4,218.8 144.1,215.3 149.8,211.5 155.5,207.4 161.2,203.0 166.9,198.5 172.6,193.9 178.3,189.2 184.0,184.6 189.7,180.1 195.4,175.8 201.1,171.9 206.8,168.4 212.5,165.4 218.2,163.0 223.9,161.2 229.6,160.1 235.3,159.8 241.0,160.2 246.7,161.4 252.4,163.2 258.1,165.7 263.8,168.7 269.5,172.3 275.2,176.3 280.9,180.6 286.6,185.1 292.3,189.7 298.0,194.4 303.7,199.0 309.4,203.6 315.1,207.9 320.8,211.9 326.5,215.7 332.2,219.2 337.9,222.4 343.6,225.2 349.3,227.7 355.0,229.9 360.7,231.8 366.4,233.4 372.1,234.7 377.8,235.9 383.5,236.8 389.2,237.6 394.9,238.2 400.6,238.7 406.3,239.1 412.0,239.4 417.7,239.6 423.4,239.8 429.1,240.0 434.8,240.1 440.5,240.2 446.2,240.2 451.9,240.3 457.6,240.3 463.3,240.3 469.0,240.3 474.7,240.3 480.4,240.3 486.1,240.3 491.8,240.4 497.5,240.4 503.2,240.4 508.9,240.4 514.6,240.4 520.3,240.4 526.0,240.4 531.7,240.4 537.4,240.4 543.1,240.4 548.8,240.4 554.5,240.4 560.2,240.4 565.9,240.4 571.6,240.4 577.3,240.4 583.0,240.4 588.7,240.4 594.4,240.4 600.1,240.4 605.8,240.4 611.5,240.4 617.2,240.4 622.9,240.4 628.6,240.4 634.3,240.4 640.0,240.4" fill="none" stroke="#8d867b" stroke-width="2.4"/><polyline points="70.0,238.7 75.7,238.5 81.4,238.3 87.1,238.0 92.8,237.6 98.5,237.3 104.2,236.9 109.9,236.4 115.6,235.8 121.3,235.2 127.0,234.5 132.7,233.8 138.4,232.9 144.1,231.9 149.8,230.8 155.5,229.5 161.2,228.1 166.9,226.6 172.6,224.8 178.3,222.9 184.0,220.7 189.7,218.3 195.4,215.7 201.1,212.8 206.8,209.7 212.5,206.2 218.2,202.5 223.9,198.5 229.6,194.2 235.3,189.6 241.0,184.8 246.7,179.7 252.4,174.5 258.1,169.0 263.8,163.4 269.5,157.7 275.2,152.0 280.9,146.3 286.6,140.6 292.3,135.0 298.0,129.5 303.7,124.3 309.4,119.2 315.1,114.4 320.8,109.8 326.5,105.5 332.2,101.5 337.9,97.8 343.6,94.3 349.3,91.2 355.0,88.3 360.7,85.7 366.4,83.3 372.1,81.1 377.8,79.2 383.5,77.4 389.2,75.9 394.9,74.5 400.6,73.2 406.3,72.1 412.0,71.1 417.7,70.2 423.4,69.5 429.1,68.8 434.8,68.2 440.5,67.6 446.2,67.1 451.9,66.7 457.6,66.4 463.3,66.0 469.0,65.7 474.7,65.5 480.4,65.3 486.1,65.1 491.8,64.9 497.5,64.7 503.2,64.6 508.9,64.5 514.6,64.4 520.3,64.3 526.0,64.2 531.7,64.1 537.4,64.1 543.1,64.0 548.8,64.0 554.5,63.9 560.2,63.9 565.9,63.9 571.6,63.8 577.3,63.8 583.0,63.8 588.7,63.8 594.4,63.8 600.1,63.7 605.8,63.7 611.5,63.7 617.2,63.7 622.9,63.7 628.6,63.7 634.3,63.7 640.0,63.7" fill="none" stroke="#9fbc7a" stroke-width="2.8"/><text x="560.2" y="51.640000000000015" fill="#9fbc7a" font-family="SF Mono,monospace" font-size="12.5" text-anchor="middle">short</text><text x="560.2" y="217.2" fill="#8d867b" font-family="SF Mono,monospace" font-size="12.5" text-anchor="middle">long</text><line x1="275" y1="246" x2="275" y2="143" stroke="rgba(224,137,94,0.5)" stroke-width="1.2" stroke-dasharray="4 4"/><text x="241" y="96" fill="#e0895e" font-family="-apple-system,sans-serif" font-size="11" text-anchor="middle">divergence</text><text x="480.4" y="142.6" fill="#c0703f" font-family="-apple-system,sans-serif" font-size="11" text-anchor="middle">feedback widens the gap</text><text x="350" y="288" fill="#aba498" font-family="-apple-system,sans-serif" font-size="11.5" text-anchor="middle">Faster round trip ⇒ more laid per unit time ⇒ later ants more likely to choose it</text></svg>
+<figcaption>Pheromone concentration on the two routes of a double bridge. The divergence is not decided by anyone; it is two positive feedbacks squeezing each other.</figcaption>
+</figure>
+
+<h2><span class="n">03</span>What You See When It Runs</h2>
+<p>The classic <b>double-bridge experiment</b> (Deneubourg, Goss and colleagues, 1989–1990): two routes of unequal length between nest and food.</p>
+<p>At first the ants split at random. The ones on the short route complete a round trip faster, so they lay more pheromone per unit time, so concentration on the short route rises faster, so later ants are more likely to take it — feedback that widens the gap. Within tens of minutes almost everyone is on the short route. <b>No ant compared the two.</b> The comparison was done for them by the physical fact that a faster round trip deposits faster.</p>
+<p>Change the experiment and you see the cost. Open only the long route, let the colony lock onto it, then open the short one. The colony often <b>does not switch</b> — concentration on the long route is already too high for a thin new trail to compete. That is not a defect in the model; it is the built-in price of this mechanism: positive feedback buys convergence and sells the ability to turn back.</p>
+<p>What recovers part of it is rule 3. <b>The evaporation rate is the knob</b>: fast evaporation makes the colony responsive to change but prone to dithering between routes and losing efficiency; slow evaporation gives clean convergence but no capacity to change its mind. Neither end is "better" — they are two ends of one trade-off.</p>
+<figure>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 700 286" role="img" aria-label="How fast and slow evaporation end up differently after the environment changes"><defs><marker id="ra2a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" markerUnits="userSpaceOnUse" orient="auto"><path d="M0,1 L9,5 L0,9 z" fill="#8d867b"/></marker></defs><text x="350" y="24" fill="#aba498" font-family="-apple-system,sans-serif" font-size="13" text-anchor="middle">Open a shorter route midway — whether the colony switches depends on the evaporation rate</text><rect x="40" y="52" width="290" height="176" fill="rgba(255,255,255,0.02)" stroke="rgba(255,255,255,0.07)" rx="8"/><text x="185" y="44" fill="#cd7f9b" font-family="SF Mono,monospace" font-size="12.5" text-anchor="middle">slow evaporation</text><line x1="90" y1="206" x2="324" y2="206" stroke="rgba(255,255,255,0.20)" stroke-width="1.4" marker-end="url(#ra2a)"/><line x1="90" y1="206" x2="90" y2="62" stroke="rgba(255,255,255,0.20)" stroke-width="1.4"/><text x="74" y="76" fill="#57524b" font-family="-apple-system,sans-serif" font-size="10" text-anchor="middle">1</text><text x="74" y="210" fill="#57524b" font-family="-apple-system,sans-serif" font-size="10" text-anchor="middle">0</text><text x="62" y="140" fill="#8d867b" font-family="-apple-system,sans-serif" font-size="10.5" transform="rotate(-90 62 140)" text-anchor="middle">share on the short route</text><line x1="178" y1="206" x2="178" y2="68" stroke="rgba(224,137,94,0.55)" stroke-width="1.3" stroke-dasharray="4 4"/><text x="178.0" y="60" fill="#e0895e" font-family="-apple-system,sans-serif" font-size="10.5" text-anchor="middle">short route opens</text><polyline points="90.0,206.0 91.8,206.0 93.7,206.0 95.5,206.0 97.3,206.0 99.2,206.0 101.0,206.0 102.8,206.0 104.7,206.0 106.5,206.0 108.3,206.0 110.2,206.0 112.0,206.0 113.8,206.0 115.7,206.0 117.5,206.0 119.3,206.0 121.2,206.0 123.0,206.0 124.8,206.0 126.7,206.0 128.5,206.0 130.3,206.0 132.2,206.0 134.0,206.0 135.8,206.0 137.7,206.0 139.5,206.0 141.3,206.0 143.2,206.0 145.0,206.0 146.8,206.0 148.7,206.0 150.5,206.0 152.3,206.0 154.2,206.0 156.0,206.0 157.8,206.0 159.7,206.0 161.5,206.0 163.3,206.0 165.2,206.0 167.0,206.0 168.8,206.0 170.7,206.0 172.5,206.0 174.3,206.0 176.2,206.0 178.0,206.0 179.8,204.7 181.7,203.5 183.5,202.4 185.3,201.5 187.2,200.7 189.0,199.9 190.8,199.3 192.7,198.7 194.5,198.2 196.3,197.7 198.2,197.3 200.0,196.9 201.8,196.6 203.7,196.3 205.5,196.0 207.3,195.8 209.2,195.6 211.0,195.4 212.8,195.3 214.7,195.1 216.5,195.0 218.3,194.9 220.2,194.8 222.0,194.7 223.8,194.6 225.7,194.5 227.5,194.5 229.3,194.4 231.2,194.3 233.0,194.3 234.8,194.3 236.7,194.2 238.5,194.2 240.3,194.2 242.2,194.1 244.0,194.1 245.8,194.1 247.7,194.1 249.5,194.1 251.3,194.1 253.2,194.0 255.0,194.0 256.8,194.0 258.7,194.0 260.5,194.0 262.3,194.0 264.2,194.0 266.0,194.0 267.8,194.0 269.7,194.0 271.5,194.0 273.3,194.0 275.2,194.0 277.0,194.0 278.8,194.0 280.7,194.0 282.5,194.0 284.3,194.0 286.2,194.0 288.0,194.0 289.8,193.9 291.7,193.9 293.5,193.9 295.3,193.9 297.2,193.9 299.0,193.9 300.8,193.9 302.7,193.9 304.5,193.9 306.3,193.9 308.2,193.9 310.0,193.9" fill="none" stroke="#cd7f9b" stroke-width="2.6"/><text x="185" y="248" fill="#cd7f9b" font-family="-apple-system,sans-serif" font-size="11.5" text-anchor="middle">locked in: clean, but can't switch</text><text x="185" y="220" fill="#57524b" font-family="-apple-system,sans-serif" font-size="10.5" text-anchor="middle">time →</text><rect x="370" y="52" width="290" height="176" fill="rgba(255,255,255,0.02)" stroke="rgba(255,255,255,0.07)" rx="8"/><text x="515" y="44" fill="#63b3a6" font-family="SF Mono,monospace" font-size="12.5" text-anchor="middle">fast evaporation</text><line x1="420" y1="206" x2="654" y2="206" stroke="rgba(255,255,255,0.20)" stroke-width="1.4" marker-end="url(#ra2a)"/><line x1="420" y1="206" x2="420" y2="62" stroke="rgba(255,255,255,0.20)" stroke-width="1.4"/><text x="404" y="76" fill="#57524b" font-family="-apple-system,sans-serif" font-size="10" text-anchor="middle">1</text><text x="404" y="210" fill="#57524b" font-family="-apple-system,sans-serif" font-size="10" text-anchor="middle">0</text><text x="392" y="140" fill="#8d867b" font-family="-apple-system,sans-serif" font-size="10.5" transform="rotate(-90 392 140)" text-anchor="middle">share on the short route</text><line x1="508" y1="206" x2="508" y2="68" stroke="rgba(224,137,94,0.55)" stroke-width="1.3" stroke-dasharray="4 4"/><text x="508.0" y="60" fill="#e0895e" font-family="-apple-system,sans-serif" font-size="10.5" text-anchor="middle">short route opens</text><polyline points="420.0,206.0 421.8,206.0 423.7,206.0 425.5,206.0 427.3,206.0 429.2,206.0 431.0,206.0 432.8,206.0 434.7,206.0 436.5,206.0 438.3,206.0 440.2,206.0 442.0,206.0 443.8,206.0 445.7,206.0 447.5,206.0 449.3,206.0 451.2,206.0 453.0,206.0 454.8,206.0 456.7,206.0 458.5,206.0 460.3,206.0 462.2,206.0 464.0,206.0 465.8,206.0 467.7,206.0 469.5,206.0 471.3,206.0 473.2,206.0 475.0,206.0 476.8,206.0 478.7,206.0 480.5,206.0 482.3,206.0 484.2,206.0 486.0,206.0 487.8,206.0 489.7,206.0 491.5,206.0 493.3,206.0 495.2,206.0 497.0,206.0 498.8,206.0 500.7,206.0 502.5,206.0 504.3,206.0 506.2,206.0 508.0,202.1 509.8,195.6 511.7,194.4 513.5,192.0 515.3,190.4 517.2,176.7 519.0,174.7 520.8,166.6 522.7,167.7 524.5,158.6 526.3,161.7 528.2,151.2 530.0,149.0 531.8,150.2 533.7,145.7 535.5,141.0 537.3,145.1 539.2,137.8 541.0,132.2 542.8,137.3 544.7,128.1 546.5,127.8 548.3,123.9 550.2,129.0 552.0,130.7 553.8,119.7 555.7,118.2 557.5,121.7 559.3,125.2 561.2,122.6 563.0,115.6 564.8,119.2 566.7,109.3 568.5,113.3 570.3,117.6 572.2,110.6 574.0,113.8 575.8,105.4 577.7,105.0 579.5,109.6 581.3,107.3 583.2,106.0 585.0,104.0 586.8,101.1 588.7,113.4 590.5,108.4 592.3,104.8 594.2,108.3 596.0,104.1 597.8,110.4 599.7,99.5 601.5,103.9 603.3,109.1 605.2,101.5 607.0,105.9 608.8,107.2 610.7,103.1 612.5,107.5 614.3,106.3 616.2,97.3 618.0,99.4 619.8,108.4 621.7,98.0 623.5,108.0 625.3,103.6 627.2,95.8 629.0,99.5 630.8,103.5 632.7,102.5 634.5,102.2 636.3,105.6 638.2,93.8 640.0,106.4" fill="none" stroke="#63b3a6" stroke-width="2.6"/><text x="515" y="248" fill="#63b3a6" font-family="-apple-system,sans-serif" font-size="11.5" text-anchor="middle">can switch: but wobbles all the time</text><text x="515" y="220" fill="#57524b" font-family="-apple-system,sans-serif" font-size="10.5" text-anchor="middle">time →</text><text x="350" y="276" fill="#57524b" font-family="-apple-system,sans-serif" font-size="11" text-anchor="middle">Neither end is 'better' — two ends of one trade-off</text></svg>
+<figcaption>The same environmental change (a shorter route opening midway) gives completely different outcomes for fast and slow evaporation.</figcaption>
+</figure>
+
+<h2><span class="n">04</span>What It Explains</h2>
+<p><b>In engineering</b> the mechanism was lifted wholesale: <b>Ant Colony Optimization (ACO)</b>, from Marco Dorigo's 1992 doctoral thesis, uses artificial pheromone plus artificial evaporation to attack routing, scheduling and travelling-salesman-type combinatorial problems. Its strength is not that it finds the best answer, but that it doesn't need restarting when the problem <em>changes while it runs</em>.</p>
+<p><b>In collective decision-making</b>, ants of the genus <em>Temnothorax</em> use a quorum to choose a new nest. The interesting part is that the threshold is adjustable: experiments by Franks and colleagues in 2003 showed that when the old nest has been destroyed and the colony must move immediately, it <b>lowers</b> the quorum — trading accuracy for speed. That turns "the speed–accuracy trade-off" from a slogan into a parameter you can manipulate experimentally.</p>
+<p><b>In division of labour</b>, the response-threshold model gives an equally plain account: each ant has its own threshold for a class of stimulus (hungry larvae, a breach in the nest wall) and gets to work once the stimulus exceeds it. As more ants work, the stimulus falls, and the high-threshold ones stay put. <b>No scheduler, and worker numbers still track demand.</b></p>
+
+<div class="cant">
+<h3>What It Cannot Explain</h3>
+<ul>
+<li><b>It guarantees nothing optimal.</b> Locking onto a suboptimal route is normal, especially after the environment has changed. ACO controls this in practice with extra machinery (elitist strategies, upper and lower bounds on concentration) — machinery with no counterpart in real ants. Engineers added it.</li>
+<li><b>It doesn't represent all ants.</b> A great many species lay no pheromone at all: the Saharan <em>Cataglyphis</em> navigates by path integration (keeping a running vector sum of where it has walked) and visual landmarks, and can run straight home from hundreds of metres out. "Ant colony = pheromone" takes a handful of species as the whole taxon.</li>
+<li><b>It doesn't explain colony-level change.</b> Decades of field work by Deborah Gordon on red harvester ants show colony behaviour shifting with <b>colony age</b> — older colonies are steadier and overreact less to disturbance. Individual workers live about a year. That memory is in no individual ant, and it is not in the pheromone model.</li>
+<li><b>Working well in engineering is not biological validation.</b> ACO solving problems well says nothing about how ants behave. All the two share is the skeleton of positive feedback plus forgetting; most of the details that make the algorithm actually good have no biological counterpart.</li>
+<li><b>It does not transfer to people.</b> Pheromone is a costless, intentionless trace: an ant cannot forge it, cannot hide it, and cannot lay extra to send a nestmate the wrong way. Every trace people leave — ratings, likes, citations, résumés, transaction prices — can be manufactured strategically. So the first question when applying this mechanism to a human system is: <b>can the trace be forged?</b> If it can, what feedback amplifies is not quality but the ability to forge.</li>
+</ul>
+</div>
+
+<div class="refs">
+<h3>Further Reading</h3>
+<ul>
+<li>Goss et al., <a href="https://link.springer.com/article/10.1007/BF00462870">Self-organized shortcuts in the Argentine ant</a> (1989, the double bridge)</li>
+<li>Deneubourg et al., <a href="https://link.springer.com/article/10.1007/BF01417909">The self-organizing exploratory pattern of the Argentine ant</a> (1990)</li>
+<li>Franks et al., <a href="https://royalsocietypublishing.org/doi/10.1098/rspb.2003.2527">Speed versus accuracy in collective decision making</a> (2003, the adjustable quorum)</li>
+<li>Dorigo &amp; Stützle, <a href="https://mitpress.mit.edu/9780262042192/ant-colony-optimization/">Ant Colony Optimization</a> (MIT Press, the standard reference for the algorithmic branch)</li>
+<li>Bonabeau, Dorigo &amp; Theraulaz, <a href="https://global.oup.com/academic/product/swarm-intelligence-9780195131581">Swarm Intelligence: From Natural to Artificial Systems</a> (1999, includes the response-threshold model)</li>
+<li>Deborah Gordon, <a href="https://press.princeton.edu/books/paperback/9780691158389/ant-encounters">Ant Encounters: Interaction Networks and Colony Behavior</a> (field work, and the weightiest correction to the pheromone story)</li>
+<li><a href="https://en.wikipedia.org/wiki/Cataglyphis">Cataglyphis</a> (desert ants that navigate by path integration, without pheromone)</li>
+</ul>
+</div>
+<footer>BigCat · Complexity Science · <a href="index.en.html">← All topics</a></footer>
+</div>
+</body></html>
