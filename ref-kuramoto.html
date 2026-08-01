@@ -47,15 +47,15 @@ footer a{color:#79a6d2;text-decoration:none}
 <div class="wrap">
 <header>
 <span class="rtag">REF · 经典模型</span>
-<h1>Kuramoto 同步模型<span class="h1en">THE KURAMOTO MODEL</span></h1>
+<h1 data-tts="b7573b5095030fad">Kuramoto 同步模型<span class="h1en">THE KURAMOTO MODEL</span></h1>
 <p class="sub">藏本由纪（Kuramoto Yoshiki），1975 — 一群各有节奏的振子如何突然走到同一拍上</p>
 <p class="meta">被引用于：Topic 14 同步</p>
 </header>
-<h2><span class="n">01</span>它问的是什么问题<span class="he">（The Question It Poses）</span></h2>
+<h2 data-tts="2d493995911d1b94"><span class="n">01</span>它问的是什么问题<span class="he">（The Question It Poses）</span></h2>
 <p>自然界里有太多"一群东西自己走齐了"的例子：东南亚红树林里整片同时明灭的萤火虫、心脏窦房结里数千个自发放电的起搏细胞、并网运行的成千上万台发电机。这些系统里没有指挥，也没有任何一个个体知道全局。</p>
 <p>而且它们有一个共同的怪癖：<b>同步不是逐渐建立的，是过了某个点突然出现的。</b>联系弱一点就完全没有，稍微强一点就整片对齐。藏本要问的正是这件事：<b>一群固有节奏各不相同的振子，在什么条件下会自发对齐，为什么这个转变是突然的？</b></p>
 <p>他给出的答案是一个把所有细节都扔掉、只保留两个量的模型：每个振子转多快（固有频率），以及它们互相拉扯的力度（耦合强度）。这个模型能被<em>解析地</em>解出来——这在非线性系统里非常罕见，也是它成为标准范式的原因。</p>
-<h2><span class="n">02</span>规则本身<span class="he">（The Rules）</span></h2>
+<h2 data-tts="1b345a78463199c5"><span class="n">02</span>规则本身<span class="he">（The Rules）</span></h2>
 <div class="rule">
 <ol>
 <li>准备 N 个<b>振子</b>（oscillator，指无人推动也自己周期性循环的东西）。第 i 个振子的状态只用一个数描述：它此刻转到了圆周上的哪个位置，叫<b>相位</b>（phase）θ<sub>i</sub>。</li>
@@ -108,7 +108,7 @@ footer a{color:#79a6d2;text-decoration:none}
 </svg>
 <figcaption>模型的全部内容：自己的固有频率想让它走开，K·r 的拉力想把它按住。谁赢由这两个数的大小直接决定。</figcaption>
 </figure>
-<h2><span class="n">03</span>跑起来会看到什么<span class="he">（What You See When It Runs）</span></h2>
+<h2 data-tts="a2c3790a9e166102"><span class="n">03</span>跑起来会看到什么<span class="he">（What You See When It Runs）</span></h2>
 <p>把 <em>K</em> 从 0 开始慢慢调大，长时间什么都不会发生——r 在 0 附近抖动（有限的 N 会留下大约 1/√N 的残值，那是抽样噪声不是同步）。然后越过某个值，r 突然从 0 抬起来，并随 <em>K</em> 继续增长，趋近但永远达不到 1：<b>总有一批固有频率太偏的振子被甩在外面，永远不参加。</b></p>
 <p>那个门槛叫<b>临界耦合强度</b>（critical coupling）<em>K</em><sub>c</sub>。对称单峰分布下它有个干净的表达式：<em>K</em><sub>c</sub> = 2 / (π·g(0))，其中 g(0) 是频率分布在中心处的高度。这个式子说的事很直白：<b>分布越尖（大家节奏越接近），g(0) 越大，门槛越低。</b>反过来，把一群频率差异很大的东西同步起来，需要的耦合会高得离谱。</p>
 <p>取洛伦兹分布（半宽 γ）时结果更利落：<em>K</em><sub>c</sub> = 2γ，且在 <em>K</em> &gt; <em>K</em><sub>c</sub> 时 r = √(1 − <em>K</em><sub>c</sub>/<em>K</em>)。这条平方根曲线就是下图那个"起飞"的形状。</p>
@@ -133,12 +133,12 @@ footer a{color:#79a6d2;text-decoration:none}
 <figcaption>无穷多个振子时这是一个干净的转变点；有限 N 下这个拐角是糊的，r 一直在涨落。</figcaption>
 </figure>
 <p>看单个振子的话，画面是这样的：<em>K</em> 越过门槛后，频率靠近中心的那一批先被锁住，锁住的意思是它们彼此的相位差<b>不再变化</b>（注意不是不动——整团仍在以公共转速 Ω 一起转）。而频率偏离太远的那些继续漂移，一圈圈地从锁住的那团上碾过去。<em>K</em> 再调大，K·r 变大，锁住的频率窗口跟着变宽，更多振子被吸进来。</p>
-<h2><span class="n">04</span>它解释了现实中的什么<span class="he">（What It Explains）</span></h2>
+<h2 data-tts="8ed046a0e6a100bd"><span class="n">04</span>它解释了现实中的什么<span class="he">（What It Explains）</span></h2>
 <p>凡是满足"一群自持振子 + 一条能互相感知的通道"的系统，这个模型都能给出第一近似，而且给的是可以被数据否掉的具体预期：<b>同步程度对耦合强度应当有一个门槛，而这个门槛应当随固有频率的分散度上升。</b></p>
 <p>已经被这样处理过的现实系统包括：心脏窦房结的起搏细胞群、东南亚萤火虫的整片齐闪、并网发电机组的频率锁定、约瑟夫森结阵列（超导器件里一堆微观振子的集体行为，是这个模型最干净的物理实现之一）、剧场里从乱鼓掌变成齐拍的过程，以及伦敦千禧桥上行人与桥体的横向锁步。</p>
 <p>它最有用的地方往往不是算出 <em>K</em><sub>c</sub> 的数值——现实里那些量常常测不准——而是它给出的<b>两个旋钮</b>：想改变一群东西的同步程度，你要么动耦合强度，要么动固有频率的分散度。这两个之外没有第三个入口，而"号令"根本不在这张清单上。</p>
 <div class="cant">
-<h3>它不能解释什么<span class="he">（What It Cannot Explain）</span></h3>
+<h3 data-tts="ee52bef113010559">它不能解释什么<span class="he">（What It Cannot Explain）</span></h3>
 <ul>
 <li><b>不能用在不是振子的东西上。</b>模型要求每个单元自持振荡——没人推它也照转，且周期可测。心肌细胞是，发电机是。而"团队""市场情绪""舆论"多数是事件驱动的，说不出周期，也说不出相位怎么量。把它们套进这个模型，得到的是一个比喻，不是一个预测。这是本模型被滥用得最严重的一条。</li>
 <li><b>不能描述空间。</b>原始模型是全连接的：任意两个振子的关系完全相同，没有远近。所以它对"斑图""波前""局部同步区块"这类空间现象一句话都说不出来——那需要另一套工具。</li>
@@ -149,7 +149,7 @@ footer a{color:#79a6d2;text-decoration:none}
 </ul>
 </div>
 <div class="refs">
-<h3>延伸阅读<span class="he">（Further Reading）</span></h3>
+<h3 data-tts="507164046758055b">延伸阅读<span class="he">（Further Reading）</span></h3>
 <ul>
 <li>Acebrón, Bonilla, Pérez Vicente, Ritort &amp; Spigler, <a href="https://doi.org/10.1103/RevModPhys.77.137">The Kuramoto model: A simple paradigm for synchronization phenomena</a>（2005，标准综述）</li>
 <li>Strogatz, <a href="https://doi.org/10.1016/S0167-2789(00)00094-4">From Kuramoto to Crawford: exploring the onset of synchronization</a>（2000，转变本身的数学史）</li>
