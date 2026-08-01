@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+
+<html lang="en"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>The Kuramoto Model · Reference · Complexity Science</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,"SF Pro Display","Noto Sans SC",sans-serif;color:#e4ded5;line-height:1.85;min-height:100vh;
+  background:radial-gradient(1100px 620px at 12% -6%,rgba(99,179,166,0.09),transparent 62%),radial-gradient(950px 700px at 100% 2%,rgba(166,147,205,0.08),transparent 58%),linear-gradient(168deg,#100f0d 0%,#15161b 48%,#0a0a0c 100%);background-attachment:fixed}
+.wrap{max-width:720px;margin:0 auto;padding:30px 22px 90px}
+header{padding:52px 0 8px;border-bottom:1px solid rgba(255,255,255,0.07);margin-bottom:32px}
+.rtag{font-family:"SF Mono",Menlo,monospace;font-size:0.72rem;font-weight:700;letter-spacing:2px;color:#63b3a6;border:1px solid rgba(99,179,166,0.4);background:rgba(99,179,166,0.07);padding:3px 11px;border-radius:20px}
+h1{font-size:2.15rem;font-weight:800;line-height:1.2;margin:20px 0 0;color:#f0eae0}
+h1 .h1en{display:block;font-size:0.42em;font-weight:600;letter-spacing:2.5px;color:#847d72;margin-top:11px}
+.sub{font-size:0.98rem;color:#aba498;margin-top:12px}
+.meta{font-family:"SF Mono",Menlo,monospace;font-size:0.75rem;color:#57524b;margin-top:16px;letter-spacing:1px}
+h2{font-size:1.25rem;font-weight:700;color:#e9e3d9;margin:44px 0 10px}
+h2 .n{font-family:"SF Mono",Menlo,monospace;font-size:0.8rem;color:#63b3a6;display:block;margin-bottom:5px;letter-spacing:2px}
+.he{font-size:0.68em;color:#8d867b;font-weight:500;letter-spacing:0}
+p{margin-bottom:16px}
+b,strong{color:#f0eae0;font-weight:600}
+em{color:#d9b45f;font-style:normal;font-weight:500}
+a.reflink{display:inline-block;font-size:0.82rem;font-family:"SF Mono",Menlo,monospace;color:#63b3a6;border:1px solid rgba(99,179,166,0.38);background:rgba(99,179,166,0.07);padding:1px 9px;border-radius:20px;text-decoration:none;transition:all 0.15s;white-space:nowrap}
+a.reflink:hover{background:rgba(99,179,166,0.16);border-color:rgba(99,179,166,0.7)}
+.rule{border:1px solid rgba(99,179,166,0.3);background:rgba(99,179,166,0.05);border-radius:12px;padding:16px 20px;margin:22px 0;font-size:0.94rem;color:#d5cdc1}
+.rule ol{padding-left:20px;margin:0}
+.rule li{margin-bottom:7px}
+.rule li:last-child{margin-bottom:0}
+figure{margin:28px 0}
+figure svg{display:block;width:100%;height:auto;border-radius:12px;background:rgba(255,255,255,0.018);border:1px solid rgba(255,255,255,0.06)}
+figcaption{font-size:0.82rem;color:#787268;margin-top:10px;text-align:center;line-height:1.6}
+.cant{border:1px solid rgba(205,127,155,0.36);background:rgba(205,127,155,0.05);border-radius:12px;padding:18px 21px;margin:26px 0 10px}
+.cant h3{font-size:1rem;color:#cd7f9b;margin-bottom:12px}
+.cant ul{list-style:none;padding:0}
+.cant li{margin-bottom:13px;font-size:0.93rem;color:#d5cdc1;line-height:1.76}
+.cant li:last-child{margin-bottom:0}
+.cant li b{color:#cd7f9b}
+.refs{margin:40px 0 10px}
+.refs h3{font-size:1rem;color:#79a6d2;margin-bottom:12px}
+.refs ul{list-style:none;padding:0}
+.refs li{margin-bottom:9px;font-size:0.89rem;color:#8d867b;line-height:1.7}
+.refs a{color:#79a6d2;text-decoration:none;border-bottom:1px solid rgba(121,166,210,0.3)}
+.refs a:hover{color:#a6c4e2}
+footer{text-align:center;padding:52px 0 10px;font-size:0.78rem;color:#57524b;font-family:"SF Mono",Menlo,monospace;border-top:1px solid rgba(255,255,255,0.06);margin-top:46px}
+footer a{color:#79a6d2;text-decoration:none}
+@media(max-width:600px){h1{font-size:1.7rem}.wrap{padding:24px 16px 60px}}
+</style></head><body>
+<div class="wrap">
+<header>
+<span class="rtag">REF · CLASSIC MODEL</span>
+<h1>The Kuramoto Model<span class="h1en">COUPLED PHASE OSCILLATORS</span></h1>
+<p class="sub">Yoshiki Kuramoto, 1975 — how a population of differently-paced oscillators suddenly finds one beat</p>
+<p class="meta">Cited in: Topic 14 Synchronization</p>
+</header>
+<h2><span class="n">01</span>The Question It Poses<span class="he">（Why the Model Exists）</span></h2>
+<p>Nature is full of populations that fall into step without being told to: whole mangrove stands of Southeast Asian fireflies flashing together, the thousands of self-firing pacemaker cells in a heart's sinoatrial node, the tens of thousands of generators locked onto one frequency across a grid. No conductor anywhere, and no individual with a view of the whole.</p>
+<p>They also share one peculiarity: <b>synchrony does not build up gradually, it appears past a point.</b> Slightly weaker interaction and there is none at all; slightly stronger and the whole population aligns. That is what Kuramoto set out to explain: <b>under what conditions does a population of oscillators with differing natural rhythms align on its own, and why is the transition abrupt?</b></p>
+<p>His answer discards every detail but two quantities: how fast each unit cycles, and how hard they tug on one another. The resulting model can be solved <em>analytically</em> — vanishingly rare among nonlinear systems, and the reason it became the standard paradigm.</p>
+<h2><span class="n">02</span>The Rules<span class="he">（The Model Itself）</span></h2>
+<div class="rule">
+<ol>
+<li>Take N <b>oscillators</b> — things that keep cycling with nobody pushing them. Oscillator i is described by a single number: where on its cycle it currently sits, its <b>phase</b> θ<sub>i</sub>.</li>
+<li>Oscillator i has its own <b>natural frequency</b> ω<sub>i</sub>, the rate it would run at in isolation. The ω<sub>i</sub> are drawn from a distribution g(ω), conventionally symmetric and single-peaked — most units near the middle, few at the edges.</li>
+<li>The evolution rule is one line: <b>rate of change of θ<sub>i</sub> = ω<sub>i</sub> + (K/N)·Σ<sub>j</sub> sin(θ<sub>j</sub> − θ<sub>i</sub>)</b>. In plain words: run at your own pace, while everyone else tugs you a little toward theirs. Get ahead and you are slowed; fall behind and you are sped up.</li>
+<li>Treat each phase as a unit arrow on a circle and add them all tip to tail. The direction of the resultant is the <b>mean phase</b> Ψ; its length is the <b>order parameter</b> r, running from 0 to 1 — scattered gives r≈0, bunched gives r≈1.</li>
+<li>The sum in rule 3 can be rewritten exactly as <b>K·r·sin(Ψ − θ<sub>i</sub>)</b>. This step is why the model is solvable: no oscillator needs to know who the other N−1 are, only the pair (Ψ, r).</li>
+<li>The whole model has one adjustable parameter: the coupling strength <em>K</em>.</li>
+</ol>
+</div>
+<p>Rule 5 deserves a second look, because all the drama is hidden in it: <b>the actual pull is not K but K times r</b> — and r is itself the result of the pulling. The more aligned the population, the harder it pulls; the more scattered, the less it can move anyone. That self-reinforcing loop is the entire source of the sudden transition below.</p>
+<p>Note also that the model tracks phase only and discards amplitude entirely — it assumes every oscillator is sitting stably on its own <b>limit cycle</b>, differing only in where along it they are. <a class="reflink" href="ref-phase-space.en.html">→ ref · Phase Space &amp; Attractors</a></p>
+<figure>
+<svg aria-label="The two forces on a single oscillator: its own natural frequency and the coupling pull toward the mean phase" role="img" viewbox="0 0 700 290" xmlns="http://www.w3.org/2000/svg">
+<defs>
+<marker id="ku1" markerheight="10" markerunits="userSpaceOnUse" markerwidth="10" orient="auto" refx="9" refy="5" viewbox="0 0 10 10">
+<path d="M0,1 L9,5 L0,9 z" fill="#d9b45f"></path>
+</marker>
+<marker id="ku2" markerheight="10" markerunits="userSpaceOnUse" markerwidth="10" orient="auto" refx="9" refy="5" viewbox="0 0 10 10">
+<path d="M0,1 L9,5 L0,9 z" fill="#79a6d2"></path>
+</marker>
+<marker id="ku3" markerheight="10" markerunits="userSpaceOnUse" markerwidth="10" orient="auto" refx="9" refy="5" viewbox="0 0 10 10">
+<path d="M0,1 L9,5 L0,9 z" fill="#63b3a6"></path>
+</marker>
+</defs>
+<text fill="#aba498" font-family="-apple-system,sans-serif" font-size="13" text-anchor="middle" x="350" y="26">Every oscillator deals only with the mean field</text>
+<circle cx="220" cy="152" fill="none" r="80" stroke="rgba(255,255,255,0.13)" stroke-width="1.5"></circle>
+<g fill="#79a6d2">
+<circle cx="288.0" cy="112.0" r="5"></circle><circle cx="296.3" cy="139.2" r="5"></circle><circle cx="264.5" cy="83.7" r="5"></circle><circle cx="232.4" cy="72.9" r="5"></circle><circle cx="163.5" cy="95.8" r="5"></circle><circle cx="145.6" cy="196.0" r="5"></circle><circle cx="199.3" cy="231.3" r="5"></circle><circle cx="277.2" cy="199.4" r="5"></circle>
+</g>
+<circle cx="170.7" cy="112.0" fill="#e0895e" r="7"></circle>
+<line marker-end="url(#ku1)" stroke="#d9b45f" stroke-width="2.5" x1="220" x2="245" y1="152" y2="108.7"></line>
+<text fill="#d9b45f" font-family="SF Mono,monospace" font-size="12" x="250" y="102">Ψ · length = r</text>
+<line marker-end="url(#ku2)" stroke="#79a6d2" stroke-width="2.2" x1="167.7" x2="146.7" y1="117.2" y2="153.6"></line>
+<text fill="#79a6d2" font-family="-apple-system,sans-serif" font-size="11.5" text-anchor="end" x="140" y="172">its own ωi</text>
+<line marker-end="url(#ku3)" stroke="#63b3a6" stroke-width="2.2" x1="173.7" x2="190.7" y1="106.8" y2="77.4"></line>
+<text fill="#63b3a6" font-family="-apple-system,sans-serif" font-size="11.5" text-anchor="middle" x="176" y="66">coupling pull K·r</text>
+<text fill="#e0895e" font-family="-apple-system,sans-serif" font-size="11" text-anchor="end" x="150" y="112">unit i</text>
+<line stroke="rgba(255,255,255,0.09)" stroke-width="1" x1="368" x2="368" y1="52" y2="256"></line>
+<text fill="#aba498" font-family="-apple-system,sans-serif" font-size="12.5" x="398" y="86">Which force wins decides its fate:</text>
+<circle cx="410" cy="128" fill="#63b3a6" r="5"></circle>
+<text fill="#d5cdc1" font-family="SF Mono,monospace" font-size="12.5" x="426" y="133">| ωi − Ω | &lt; K·r</text>
+<text fill="#63b3a6" font-family="-apple-system,sans-serif" font-size="11.5" x="426" y="153">locked: turns with the pack,</text>
+<text fill="#63b3a6" font-family="-apple-system,sans-serif" font-size="11.5" x="426" y="171">its phase gap frozen</text>
+<circle cx="410" cy="203" fill="#cd7f9b" r="5"></circle>
+<text fill="#d5cdc1" font-family="SF Mono,monospace" font-size="12.5" x="426" y="208">| ωi − Ω | &gt; K·r</text>
+<text fill="#cd7f9b" font-family="-apple-system,sans-serif" font-size="11.5" x="426" y="228">escapes: keeps its own pace and</text>
+<text fill="#cd7f9b" font-family="-apple-system,sans-serif" font-size="11.5" x="426" y="246">drifts round past the pack</text>
+<text fill="#57524b" font-family="-apple-system,sans-serif" font-size="11" text-anchor="middle" x="350" y="278">Ω is the pack's common rotation rate. The larger K·r, the wider the band of frequencies it can capture.</text>
+</svg>
+<figcaption>The whole model in one picture: its own frequency wants it gone, the K·r pull wants it held. Which wins follows directly from comparing the two numbers.</figcaption>
+</figure>
+<h2><span class="n">03</span>What You See When It Runs<span class="he">（The Transition）</span></h2>
+<p>Raise <em>K</em> from zero and for a long while nothing happens — r jitters near 0 (a finite N leaves a residue of about 1/√N, which is sampling noise, not synchrony). Then past a certain value r lifts off, and grows with <em>K</em> toward, but never reaching, 1: <b>some oscillators are always too far off-frequency to join, and never do.</b></p>
+<p>That threshold is the <b>critical coupling</b> <em>K</em><sub>c</sub>. For a symmetric single-peaked distribution it has a clean expression: <em>K</em><sub>c</sub> = 2 / (π·g(0)), where g(0) is the height of the frequency distribution at its centre. The statement is blunt: <b>the sharper the peak — the closer everyone's pace already is — the larger g(0) and the lower the threshold.</b> Conversely, synchronizing a population with widely varying frequencies takes an absurd amount of coupling.</p>
+<p>For a Lorentzian distribution of half-width γ it gets tidier still: <em>K</em><sub>c</sub> = 2γ, and above threshold r = √(1 − <em>K</em><sub>c</sub>/<em>K</em>). That square root is the shape of the lift-off in the figure below.</p>
+<figure>
+<svg aria-label="Bifurcation of the order parameter r against coupling strength K" role="img" viewbox="0 0 700 260" xmlns="http://www.w3.org/2000/svg">
+<text fill="#aba498" font-family="-apple-system,sans-serif" font-size="13" text-anchor="middle" x="350" y="26">The bifurcation: a square-root curve growing out of Kc</text>
+<line stroke="rgba(255,255,255,0.18)" stroke-width="1.5" x1="80" x2="640" y1="206" y2="206"></line>
+<line stroke="rgba(255,255,255,0.18)" stroke-width="1.5" x1="80" x2="80" y1="206" y2="52"></line>
+<text fill="#8d867b" font-family="-apple-system,sans-serif" font-size="11.5" text-anchor="middle" x="360" y="234">coupling strength K →</text>
+<text fill="#8d867b" font-family="-apple-system,sans-serif" font-size="11.5" transform="rotate(-90 28 148)" x="28" y="148">order parameter r</text>
+<text fill="#57524b" font-family="SF Mono,monospace" font-size="11" text-anchor="end" x="72" y="210">0</text>
+<text fill="#57524b" font-family="SF Mono,monospace" font-size="11" text-anchor="end" x="72" y="68">1</text>
+<line stroke="rgba(255,255,255,0.13)" stroke-dasharray="3 5" stroke-width="1.2" x1="80" x2="640" y1="64" y2="64"></line>
+<path d="M90,204 L240,204 C268,166 300,138 340,120 C400,94 500,76 630,66" fill="none" stroke="#63b3a6" stroke-width="2.8"></path>
+<line stroke="#d9b45f" stroke-dasharray="4 4" stroke-width="1.6" x1="240" x2="240" y1="206" y2="100"></line>
+<text fill="#d9b45f" font-family="SF Mono,monospace" font-size="12.5" text-anchor="middle" x="240" y="90">Kc = 2/(π·g(0))</text>
+<text fill="#8d867b" font-family="-apple-system,sans-serif" font-size="11.5" x="96" y="186">r ≈ 0 (residue ~1/√N)</text>
+<text fill="#63b3a6" font-family="-apple-system,sans-serif" font-size="11.5" x="430" y="128">r = √(1 − Kc/K)</text>
+<text fill="#787268" font-family="-apple-system,sans-serif" font-size="11" x="430" y="148">approaches 1, never arrives</text>
+<text fill="#57524b" font-family="-apple-system,sans-serif" font-size="11" text-anchor="middle" x="350" y="252">Sharper peak → larger g(0) → lower Kc. Narrowing the spread beats forcing the coupling up.</text>
+</svg>
+<figcaption>With infinitely many oscillators this is a clean transition point. At finite N the corner is smeared and r fluctuates continuously.</figcaption>
+</figure>
+<p>Watched one unit at a time, the picture is this. Past the threshold, the oscillators nearest the centre frequency lock first — meaning their mutual phase gaps <b>stop changing</b> (not that they stop moving: the whole pack still turns together at a common rate Ω). Those too far off-frequency keep drifting, sliding round past the locked cluster again and again. Raise <em>K</em> further, K·r grows, the captured frequency window widens, and more units get pulled in.</p>
+<h2><span class="n">04</span>What It Explains<span class="he">（Where It Earns Its Keep）</span></h2>
+<p>Any system with a population of self-sustaining oscillators plus a channel through which they sense one another gets a first approximation here — and a falsifiable prediction: <b>synchrony should show a threshold in coupling strength, and that threshold should rise with the spread of natural frequencies.</b></p>
+<p>Real systems treated this way include the pacemaker cells of the sinoatrial node, the mass flashing of Southeast Asian fireflies, frequency locking across grid generators, Josephson junction arrays (a crowd of microscopic oscillators in a superconducting device, and one of the cleanest physical realizations of the model), the transition from ragged to unison applause in a concert hall, and the lateral lockstep of pedestrians on the Millennium Bridge.</p>
+<p>Its usefulness usually lies less in computing a number for <em>K</em><sub>c</sub> — the real quantities are often unmeasurable — than in the <b>two knobs</b> it identifies: to change how synchronized a population is, you move the coupling strength or you move the spread of natural frequencies. There is no third entry point, and "giving orders" is not on the list at all.</p>
+<div class="cant">
+<h3>What It Cannot Explain<span class="he">（The Hard Limits）</span></h3>
+<ul>
+<li><b>It cannot be used on things that are not oscillators.</b> The model requires each unit to cycle on its own, with nobody pushing it, at a measurable period. Heart cells qualify; generators qualify. "The team", "market sentiment", "public opinion" are mostly event-driven, with no statable period and no way to measure phase. Fitting them to this model yields a metaphor, not a prediction. This is by far its most abused failure mode.</li>
+<li><b>It has no space.</b> The original model is all-to-all: every pair of oscillators stands in exactly the same relation, with no near and far. It therefore has nothing whatsoever to say about spatial patterns, wavefronts, or locally synchronized patches — those need different tools.</li>
+<li><b>It cannot predict what happens on a network.</b> Replace all-to-all coupling with real network structure and states appear that the model itself does not anticipate, most famously the <b>chimera state</b>: a population of identical oscillators in which some lock rigidly while others drift freely, stably coexisting. A single global r flattens two utterly different regimes into one number.</li>
+<li><b>The abruptness is not exact at finite N.</b> The sharpness of the transition is a result in the N→∞ limit. Real populations show fluctuations of order 1/√N, a smeared corner, and a threshold position that drifts with size. Claiming a few dozen units "crossed the critical coupling" is essentially always over-reading.</li>
+<li><b>It keeps only the first term of the coupling.</b> That sine is the lowest-order approximation to the phase response. Real oscillators rarely have a purely sinusoidal response curve, and adding higher harmonics can turn the continuous transition into a discontinuous first-order one, produce hysteresis, or yield several coexisting synchronized clusters — none of which the original model can give you.</li>
+<li><b>It throws away amplitude completely.</b> Tracking phase alone is an approximation called phase reduction, legitimate only when coupling is weak enough that every oscillator stays firmly on its limit cycle. Strengthen the coupling and amplitudes start moving too, up to oscillation death, where the cycling stops entirely — and the model no longer applies. Which is awkward, because strong coupling is exactly the regime people most want explained.</li>
+</ul>
+</div>
+<div class="refs">
+<h3>Further Reading</h3>
+<ul>
+<li>Acebrón, Bonilla, Pérez Vicente, Ritort &amp; Spigler, <a href="https://doi.org/10.1103/RevModPhys.77.137">The Kuramoto model: A simple paradigm for synchronization phenomena</a> (2005, the standard review)</li>
+<li>Strogatz, <a href="https://doi.org/10.1016/S0167-2789(00)00094-4">From Kuramoto to Crawford: exploring the onset of synchronization</a> (2000, the mathematical history of the transition)</li>
+<li>Abrams &amp; Strogatz, <a href="https://arxiv.org/abs/cond-mat/0407045">Chimera states for coupled oscillators</a> (2004)</li>
+<li>Néda et al., <a href="https://www.nature.com/articles/35002660">The sound of many hands clapping</a> (2000, one clean measurement in the wild)</li>
+<li><a href="https://en.wikipedia.org/wiki/Kuramoto_model">Kuramoto model</a> (derivation and variants)</li>
+</ul>
+</div>
+<footer>BigCat · Complexity Science · <a href="index.en.html">← All Topics</a></footer>
+</div>
+</body></html>

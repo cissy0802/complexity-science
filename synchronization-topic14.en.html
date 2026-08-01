@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+
+<html lang="en"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Synchronization — No Conductor Required · Complexity Science T14</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,"SF Pro Display","Noto Sans SC",sans-serif;color:#e4ded5;line-height:1.85;min-height:100vh;
+  background:radial-gradient(1100px 620px at 12% -6%,rgba(224,137,94,0.10),transparent 62%),radial-gradient(950px 700px at 100% 2%,rgba(166,147,205,0.09),transparent 58%),linear-gradient(168deg,#100f0d 0%,#15161b 48%,#0a0a0c 100%);background-attachment:fixed}
+.wrap{max-width:760px;margin:0 auto;padding:30px 22px 90px}
+header{padding:52px 0 8px;border-bottom:1px solid rgba(255,255,255,0.07);margin-bottom:34px}
+.week-tag{font-family:"SF Mono",Menlo,monospace;font-size:0.72rem;font-weight:700;letter-spacing:2px;color:#9fbc7a;border:1px solid rgba(159,188,122,0.4);background:rgba(159,188,122,0.07);padding:3px 11px;border-radius:20px}
+h1{font-size:2.5rem;font-weight:800;letter-spacing:0.5px;line-height:1.2;margin:20px 0 0;background:linear-gradient(106deg,#e0895e 0%,#d9b45f 34%,#9fbc7a 68%,#63b3a6 100%);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+h1 .h1en{display:block;font-size:0.40em;font-weight:600;letter-spacing:2.5px;color:#847d72;-webkit-text-fill-color:#847d72;background:none;margin-top:13px}
+.sub{font-size:1.05rem;color:#aba498;margin-top:14px;font-weight:500}
+.date{font-family:"SF Mono",Menlo,monospace;font-size:0.75rem;color:#57524b;margin-top:18px;letter-spacing:1px}
+.pitch{margin:22px 0 30px;font-size:0.97rem;color:#cd7f9b;border-left:2px solid rgba(205,127,155,0.5);padding-left:16px;font-style:italic}
+.intro{font-size:1.02rem;color:#cfc8bc;margin-bottom:14px}
+.intro p{margin-bottom:16px}
+h2{font-size:1.42rem;font-weight:700;color:#e9e3d9;margin:56px 0 8px;letter-spacing:0.3px}
+h2 .n{font-family:"SF Mono",Menlo,monospace;font-size:0.85rem;color:#9fbc7a;display:block;margin-bottom:6px;letter-spacing:2px}
+.he{font-size:0.68em;color:#8d867b;font-weight:500;letter-spacing:0}
+p{margin-bottom:17px}
+.lead{color:#cfc8bc}
+b,strong{color:#f0eae0;font-weight:600}
+em{color:#d9b45f;font-style:normal;font-weight:500}
+.dim{color:#8d867b}
+a.reflink{display:inline-block;font-size:0.82rem;font-family:"SF Mono",Menlo,monospace;color:#63b3a6;border:1px solid rgba(99,179,166,0.38);background:rgba(99,179,166,0.07);padding:1px 9px;border-radius:20px;text-decoration:none;transition:all 0.15s;white-space:nowrap}
+a.reflink:hover{background:rgba(99,179,166,0.16);border-color:rgba(99,179,166,0.7)}
+figure{margin:30px 0}
+figure svg{display:block;width:100%;height:auto;border-radius:12px;background:rgba(255,255,255,0.018);border:1px solid rgba(255,255,255,0.06)}
+figcaption{font-size:0.82rem;color:#787268;margin-top:11px;text-align:center;line-height:1.6}
+.decide{margin:24px 0;border:1px solid rgba(224,137,94,0.36);background:rgba(224,137,94,0.055);border-radius:12px;padding:15px 19px}
+.decide .lb{font-family:"SF Mono",Menlo,monospace;font-size:0.73rem;letter-spacing:1.5px;color:#e0895e;font-weight:700;display:block;margin-bottom:7px}
+.decide p{margin:0;font-size:0.95rem;color:#ddd5c9}
+.crossx-inline{margin:20px 0 22px;border-left:2px solid rgba(205,127,155,0.55);padding:2px 0 2px 15px;font-size:0.89rem;color:#a9a096;line-height:1.72}
+.crossx-inline b{color:#cd7f9b;font-weight:600}
+.bigcat{margin:46px 0 10px;border:1px solid rgba(217,180,95,0.38);background:rgba(217,180,95,0.05);border-radius:14px;padding:20px 22px}
+.bigcat h3{font-size:1.02rem;color:#d9b45f;margin-bottom:14px;letter-spacing:0.5px}
+.bigcat ol{list-style:none;padding:0}
+.bigcat li{margin-bottom:15px;font-size:0.94rem;color:#d5cdc1;line-height:1.78}
+.bigcat li:last-child{margin-bottom:0}
+.bigcat .dm{font-family:"SF Mono",Menlo,monospace;font-size:0.73rem;color:#d9b45f;border:1px solid rgba(217,180,95,0.32);border-radius:4px;padding:1px 7px;margin-right:8px;white-space:nowrap}
+.crossx{margin:46px 0 10px;border:1px solid rgba(205,127,155,0.38);background:rgba(205,127,155,0.05);border-radius:14px;padding:20px 22px}
+.crossx h3{font-size:1.02rem;color:#cd7f9b;margin-bottom:14px;letter-spacing:0.5px}
+.crossx ul{list-style:none;padding:0}
+.crossx li{margin-bottom:16px;font-size:0.94rem;color:#d5cdc1;line-height:1.78}
+.crossx li:last-child{margin-bottom:0}
+.crossx li b{color:#cd7f9b;font-weight:600}
+.thinking{margin:46px 0 10px}
+.thinking h3{font-size:1.02rem;color:#a693cd;margin-bottom:14px;letter-spacing:0.5px}
+details{border:1px solid rgba(166,147,205,0.22);border-radius:10px;padding:12px 16px;margin-bottom:10px;background:rgba(166,147,205,0.035)}
+summary{cursor:pointer;font-size:0.93rem;color:#c9c2b6;font-weight:500}
+summary::marker{color:#a693cd}
+details p{margin:12px 0 0;font-size:0.9rem;color:#a9a096;line-height:1.75}
+.refs{margin:46px 0 10px}
+.refs h3{font-size:1.02rem;color:#79a6d2;margin-bottom:14px;letter-spacing:0.5px}
+.refs ul{list-style:none;padding:0}
+.refs li{margin-bottom:10px;font-size:0.9rem;color:#8d867b;line-height:1.7}
+.refs a{color:#79a6d2;text-decoration:none;border-bottom:1px solid rgba(121,166,210,0.3)}
+.refs a:hover{color:#a6c4e2;border-bottom-color:rgba(121,166,210,0.7)}
+footer{text-align:center;padding:56px 0 10px;font-size:0.78rem;color:#57524b;font-family:"SF Mono",Menlo,monospace;border-top:1px solid rgba(255,255,255,0.06);margin-top:50px}
+footer a{color:#79a6d2;text-decoration:none}
+@media(max-width:600px){h1{font-size:1.85rem}.wrap{padding:24px 16px 60px}h2{font-size:1.22rem}}
+</style></head><body>
+<div class="wrap">
+<header>
+<span class="week-tag">TOPIC 14 · PHASE C</span>
+<h1>Synchronization<span class="h1en">NO CONDUCTOR REQUIRED</span></h1>
+<p class="sub">How a crowd falls into step with nobody calling the beat</p>
+<p class="date">2026-08-01 · Self-Organization &amp; Criticality</p>
+</header>
+<p class="pitch">On 10 June 2000, London's Millennium Bridge began swaying sideways the day it opened. Not one person on it was trying to walk in time with anyone else — and two thousand people ended up walking in time anyway. What is more, the effect has a hard headcount threshold: below a certain number of people, nothing happens at all.</p>
+<div class="intro">
+<p>The first guess was resonance: pedestrians happening to step at the bridge's natural frequency. The truth was stranger. People were not shaking the bridge into motion so much as the bridge was marching the people into line. When the deck drifts left, you shift your weight to stay balanced. Two thousand people each make that tiny correction, all of them in the same direction, so the deck swings harder, so you correct more.</p>
+<p>The counterintuitive part is the headcount. You would expect more people to mean more sway, smoothly. Measurements and the later models agree on something else: <b>below roughly 160 people on the span, the sway is essentially zero; past that number, sway and lockstep appear together.</b> It does not get gradually worse. It does not exist until it does.</p>
+<p class="dim">The previous topic covered self-organization in <em>space</em> — the hexagons of convection, the spots on an animal's coat. This one is about alignment in <em>time</em>: how a population of units, each with its own rhythm, arrives at a shared beat with no one conducting. The two are mirror problems, and the machinery does not transfer: spatial patterns run on local activation with longer-range inhibition, while synchrony runs on the tug-of-war between the two quantities below. <b>This topic asks one question: what makes things with different rhythms line up, and why does it happen all at once.</b></p>
+</div>
+<h2><span class="n">01</span>What Kind of Thing Falls Into Step<span class="he">（The Ingredients）</span></h2>
+<p class="lead">Synchronization needs a precondition that is easy to skip past: each participant has to <b>already be cycling on its own</b>. A heart muscle cell does not need anything to prod it; it beats by itself. A firefly runs an internal chemical cycle and keeps flashing in a dark box. Anything that keeps going round with nobody pushing is an <b>oscillator</b>.</p>
+<p>Two numbers describe one. How long it takes to go round once — inverted, its <b>natural frequency</b>. Every oscillator's natural frequency is slightly different from its neighbours', and that "slightly" turns out to be the protagonist of the whole story. And where on the cycle it currently sits: its <b>phase</b>. Picture each oscillator as a hand sweeping round a clock face. Frequency is how fast it sweeps; phase is what o'clock it reads right now.</p>
+<p>Then add the third ingredient: <b>coupling</b> — the oscillators can sense one another and adjust accordingly. A firefly sees a neighbour flash and pulls its own next flash slightly earlier; a heart cell swept by a neighbour's electrical pulse fires ahead of schedule. <a class="reflink" href="ref-kuramoto.en.html">→ ref · The Kuramoto Model</a></p>
+<p>Draw all those clock hands on one face and the answer is visible at a glance: <b>spread out means everyone for themselves; bunched up means synchronized.</b> Physicists compress this into a single number between 0 and 1, the <b>order parameter</b>, written <em>r</em>. Treat every phase as an arrow of equal length, add them tip to tail, and measure how long the resultant is. Scattered arrows cancel and <em>r</em> sits near 0; a tight bundle gives <em>r</em> near 1.</p>
+<figure>
+<svg aria-label="Three frames of the phase circle: scattered, clustering, locked" role="img" viewbox="0 0 720 320" xmlns="http://www.w3.org/2000/svg">
+<defs>
+<marker id="k14a" markerheight="10" markerunits="userSpaceOnUse" markerwidth="10" orient="auto" refx="9" refy="5" viewbox="0 0 10 10">
+<path d="M0,1 L9,5 L0,9 z" fill="#d9b45f"></path>
+</marker>
+</defs>
+<text fill="#aba498" font-family="-apple-system,sans-serif" font-size="13" text-anchor="middle" x="360" y="26">Each dot is one oscillator's current phase — the gold arrow is their resultant, r</text>
+<text fill="#9fbc7a" font-family="SF Mono,monospace" font-size="12" text-anchor="middle" x="150" y="64">① scattered</text>
+<circle cx="150" cy="175" fill="none" r="72" stroke="rgba(255,255,255,0.13)" stroke-width="1.5"></circle>
+<g fill="#79a6d2">
+<circle cx="220.9" cy="162.5" r="5"></circle><circle cx="203.5" cy="126.8" r="5"></circle><circle cx="168.6" cy="105.4" r="5"></circle><circle cx="116.2" cy="111.4" r="5"></circle><circle cx="84.7" cy="144.6" r="5"></circle><circle cx="79.1" cy="187.5" r="5"></circle><circle cx="88.9" cy="213.2" r="5"></circle><circle cx="125.4" cy="242.7" r="5"></circle><circle cx="168.6" cy="244.6" r="5"></circle><circle cx="191.3" cy="234.0" r="5"></circle><circle cx="212.4" cy="211.0" r="5"></circle><circle cx="221.7" cy="181.3" r="5"></circle>
+</g>
+<circle cx="150" cy="175" fill="#d9b45f" r="3.5"></circle>
+<text fill="#d9b45f" font-family="SF Mono,monospace" font-size="12.5" text-anchor="middle" x="150" y="272">r ≈ 0.1</text>
+<text fill="#787268" font-family="-apple-system,sans-serif" font-size="11" text-anchor="middle" x="150" y="292">the arrows cancel out</text>
+<text fill="#9fbc7a" font-family="SF Mono,monospace" font-size="12" text-anchor="middle" x="360" y="64">② clustering</text>
+<circle cx="360" cy="175" fill="none" r="72" stroke="rgba(255,255,255,0.13)" stroke-width="1.5"></circle>
+<g fill="#79a6d2">
+<circle cx="427.7" cy="150.4" r="5"></circle><circle cx="419.0" cy="133.7" r="5"></circle><circle cx="408.2" cy="121.5" r="5"></circle><circle cx="393.8" cy="111.4" r="5"></circle><circle cx="375.0" cy="104.6" r="5"></circle><circle cx="353.7" cy="103.3" r="5"></circle><circle cx="431.3" cy="165.0" r="5"></circle><circle cx="431.7" cy="181.3" r="5"></circle><circle cx="313.7" cy="119.8" r="5"></circle><circle cx="290.5" cy="156.4" r="5"></circle><circle cx="335.4" cy="242.7" r="5"></circle><circle cx="396.0" cy="237.4" r="5"></circle>
+</g>
+<line marker-end="url(#k14a)" stroke="#d9b45f" stroke-width="2.5" x1="360" x2="381.3" y1="175" y2="152.2"></line>
+<text fill="#d9b45f" font-family="SF Mono,monospace" font-size="12.5" text-anchor="middle" x="360" y="272">r ≈ 0.43</text>
+<text fill="#787268" font-family="-apple-system,sans-serif" font-size="11" text-anchor="middle" x="360" y="292">most have gathered, stragglers remain</text>
+<text fill="#e0895e" font-family="SF Mono,monospace" font-size="12" text-anchor="middle" x="570" y="64">③ phase-locked</text>
+<circle cx="570" cy="175" fill="none" r="72" stroke="rgba(255,255,255,0.13)" stroke-width="1.5"></circle>
+<g fill="#e0895e">
+<circle cx="625.2" cy="128.7" r="5"></circle><circle cx="620.0" cy="123.2" r="5"></circle><circle cx="616.3" cy="119.8" r="5"></circle><circle cx="612.3" cy="116.8" r="5"></circle><circle cx="609.2" cy="114.6" r="5"></circle><circle cx="606.0" cy="112.6" r="5"></circle><circle cx="602.7" cy="110.9" r="5"></circle><circle cx="599.3" cy="109.2" r="5"></circle><circle cx="594.6" cy="107.3" r="5"></circle><circle cx="588.6" cy="105.4" r="5"></circle><circle cx="629.0" cy="133.7" r="5"></circle><circle cx="572.5" cy="103.1" r="5"></circle>
+</g>
+<line marker-end="url(#k14a)" stroke="#d9b45f" stroke-width="2.5" x1="570" x2="602.7" y1="175" y2="121.4"></line>
+<text fill="#d9b45f" font-family="SF Mono,monospace" font-size="12.5" text-anchor="middle" x="570" y="272">r ≈ 0.97</text>
+<text fill="#787268" font-family="-apple-system,sans-serif" font-size="11" text-anchor="middle" x="570" y="292">the bundle turns as one; phase gaps stop changing</text>
+<text fill="#57524b" font-family="-apple-system,sans-serif" font-size="11" text-anchor="middle" x="360" y="312">Note: in ③ the bundle is still rotating. Synchrony is not stopping — it is the differences ceasing to change.</text>
+</svg>
+<figcaption>How synchronized a population is = how long the resultant of all its phase arrows is. That number is the order parameter r, used throughout below.</figcaption>
+</figure>
+<div class="crossx-inline">
+🌀 <b>Engineering history · Huygens's "odd kind of sympathy"</b>　In February 1665, Huygens lay ill in bed watching two pendulum clocks hung from the same wooden beam, and noticed they always drifted into exact antiphase — one swinging left whenever the other swung right. Disturb one and within half an hour the arrangement returned. He called it a strange sympathy but could not say through what. The channel was only pinned down two centuries later: the barely perceptible flexing of that shared beam. The inference still earns its keep: <b>whenever a population mysteriously aligns, the first thing to look for is not a shared cause but a shared medium</b> — hang the two clocks on separate walls and the sympathy vanishes.
+</div>
+<h2><span class="n">02</span>Why It Happens All At Once<span class="he">（The Critical Coupling）</span></h2>
+<p class="lead">In 1975 the Japanese physicist Yoshiki Kuramoto wrote down a stripped-to-the-bone model: a population of oscillators, each with its own natural frequency, each pulled slightly toward the population's average phase, with the strength of that pull set by one parameter, <em>K</em>. That is the coupling strength.</p>
+<p>What happens inside the model is a tug-of-war with exactly two contestants.</p>
+<p><b>The spread of natural frequencies</b> tears the population apart. Everyone runs at a slightly different rate, the fast ones pull away from the slow ones, phase gaps widen. The wider the spread, the stronger the tearing.</p>
+<p><b>The coupling strength</b> pulls it together. And here is the twist that makes everything else follow: the pull is not <em>K</em>, it is <em>K</em>×<em>r</em>. The more aligned the population already is, the sharper the "average phase" is and the harder it pulls; the more scattered it is, the more the pull cancels out to nothing.</p>
+<p>That product is what makes the onset abrupt. While <em>K</em> is small, <em>r</em> sits near 0, so the pull is near 0, so nobody gets gathered, so <em>r</em> stays near 0 — a stable, self-sustaining deadlock. Raise <em>K</em> a little at a time and nothing whatsoever happens. Then <em>K</em> crosses a certain value and the deadlock breaks: a handful of oscillators with similar frequencies lock together, their combined arrow lifts <em>r</em> a little, the stronger pull drags in more, <em>r</em> rises further. That threshold is the <b>critical coupling</b>, written <em>K</em><sub>c</sub>.</p>
+<figure>
+<svg aria-label="Order parameter r against coupling strength K: nothing until the critical coupling" role="img" viewbox="0 0 720 300" xmlns="http://www.w3.org/2000/svg">
+<text fill="#aba498" font-family="-apple-system,sans-serif" font-size="13" text-anchor="middle" x="360" y="26">Raise the coupling: nothing, nothing, nothing — then the whole population aligns</text>
+<line stroke="rgba(255,255,255,0.18)" stroke-width="1.5" x1="90" x2="660" y1="242" y2="242"></line>
+<line stroke="rgba(255,255,255,0.18)" stroke-width="1.5" x1="90" x2="90" y1="242" y2="56"></line>
+<text fill="#8d867b" font-family="-apple-system,sans-serif" font-size="12" text-anchor="middle" x="380" y="272">coupling strength K →</text>
+<text fill="#8d867b" font-family="-apple-system,sans-serif" font-size="12" transform="rotate(-90 32 168)" x="32" y="168">synchrony r</text>
+<text fill="#57524b" font-family="SF Mono,monospace" font-size="11" text-anchor="end" x="82" y="246">0</text>
+<text fill="#57524b" font-family="SF Mono,monospace" font-size="11" text-anchor="end" x="82" y="72">1</text>
+<path d="M100,240 L280,240 C330,192 400,142 480,112 C540,90 585,78 640,70" fill="none" stroke="#e0895e" stroke-width="2.8"></path>
+<path d="M100,240 L430,240 C480,204 535,168 640,130" fill="none" stroke="#79a6d2" stroke-dasharray="6 5" stroke-width="2.2"></path>
+<line stroke="#d9b45f" stroke-dasharray="4 4" stroke-width="1.6" x1="280" x2="280" y1="242" y2="96"></line>
+<text fill="#d9b45f" font-family="SF Mono,monospace" font-size="12.5" text-anchor="middle" x="280" y="86">Kc</text>
+<line stroke="#79a6d2" stroke-dasharray="4 4" stroke-width="1.6" x1="430" x2="430" y1="242" y2="176"></line>
+<text fill="#79a6d2" font-family="SF Mono,monospace" font-size="12" text-anchor="middle" x="430" y="166">Kc′</text>
+<text fill="#8d867b" font-family="-apple-system,sans-serif" font-size="11.5" text-anchor="middle" x="182" y="228">more coupling, no effect</text>
+<text fill="#e0895e" font-family="-apple-system,sans-serif" font-size="11.5" x="330" y="92">narrow spread → low Kc</text>
+<text fill="#79a6d2" font-family="-apple-system,sans-serif" font-size="11.5" text-anchor="end" x="650" y="214">wide spread → higher Kc</text>
+<text fill="#57524b" font-family="-apple-system,sans-serif" font-size="11" text-anchor="middle" x="360" y="292">Two knobs: push K to the right, or drag Kc to the left by narrowing the spread of natural frequencies</text>
+</svg>
+<figcaption>The threshold is not fixed. The wider the frequency spread, the higher Kc — and narrowing that spread is usually far cheaper than forcing the coupling up.</figcaption>
+</figure>
+<p>This is what the bridge's headcount threshold was. More people means each footfall's push on the deck adds to a larger total — that is, <em>the coupling strength rises with the crowd</em>. Below the threshold the deck barely moves and everyone walks their own way. Past roughly 160, the sway and the lockstep appear together — not one then the other, but two faces of the same instability. And the eventual fix was not to stiffen the deck but to bolt on dozens of dampers that swallow its lateral response: <b>never mind the people, cut the coupling channel.</b></p>
+<div class="decide">
+<span class="lb">🎯 DECISION LINE</span>
+<p>To change how a population keeps time, do not issue orders — orders act on individuals, and synchrony is a property of the coupling. You have exactly two knobs: <b>coupling strength</b> and <b>the spread of natural frequencies</b>. To synchronize, narrow the spread first (a common beat, a slower tempo) rather than cranking the coupling. To desynchronize, manufacture differences first (stagger the timing, inject randomness) rather than severing connections — severing usually costs far more and kills the information flow you needed along with it.</p>
+</div>
+<div class="crossx-inline">
+🌀 <b>Theatre · the sound of many hands clapping</b>　European curtain calls often run the same arc: a roar of ragged applause that abruptly resolves into a unison clap-clap-clap. Néda and colleagues measured this in <em>Nature</em> in 2000 and found that on entering the rhythmic mode, each person's clapping frequency <b>roughly halves</b>. That is the second knob in action: clap slower and the differences between people shrink too, the spread narrows, and Kc drops below the coupling already available in the room. The price is measurable — unison clapping is audibly quieter than the ragged kind, so the enthusiastic start clapping faster, the spread widens again, and the unison falls apart before reassembling a minute later. <b>The inference: synchrony can be bought by voluntarily cutting your own diversity rather than by adding coupling — and that purchase has a running cost which eventually breaks the synchrony it bought.</b>
+</div>
+<h2><span class="n">03</span>Synchrony Has a Bill<span class="he">（The Price of Being in Step）</span></h2>
+<p class="lead">"In step" is almost purely complimentary in everyday speech. Mechanically it is something quite specific and quite expensive: <b>it collapses many independent degrees of freedom into one.</b> N oscillators can carry N unrelated pieces of information. Once they lock, knowing one tells you all of them — the other N−1 pieces are not compressed, they are gone.</p>
+<p>Some systems live on exactly this. Thousands of generators on a power grid must stay locked to one frequency or enormous circulating currents appear. An orchestra must align. A settlement system must align. For these, alignment <em>is</em> the function, and more of it is better.</p>
+<p>Others are the reverse: their function rests on staying staggered, and for them synchrony is the disease. Electrophysiologically, an epileptic seizure very nearly <em>is</em> excessive neuronal synchrony — cells that normally fire independently lock into one sheet, the macroscopic trace grows into a huge monotonous wave, and cognition disappears at the same moment. That is not a coincidence but two descriptions of one event: <b>the macroscopic signal is large precisely because the microscopic information is gone.</b> Parkinson's disease shows a related picture, with abnormally strong synchronized oscillations in the basal ganglia, and part of what deep brain stimulation does is break that excess synchrony up.</p>
+<figure>
+<svg aria-label="Spike raster comparison: asynchronous firing gives a flat population signal, locked firing gives a huge one" role="img" viewbox="0 0 720 320" xmlns="http://www.w3.org/2000/svg">
+<text fill="#aba498" font-family="-apple-system,sans-serif" font-size="13" text-anchor="middle" x="360" y="26">Same population — each row is one unit's firing times</text>
+<text fill="#9fbc7a" font-family="SF Mono,monospace" font-size="12" text-anchor="middle" x="200" y="60">asynchronous (healthy)</text>
+<text fill="#cd7f9b" font-family="SF Mono,monospace" font-size="12" text-anchor="middle" x="542" y="60">phase-locked (seizure)</text>
+<g stroke="#9fbc7a" stroke-width="2">
+<line x1="78" x2="78" y1="79" y2="87"></line><line x1="112" x2="112" y1="79" y2="87"></line><line x1="149" x2="149" y1="79" y2="87"></line><line x1="187" x2="187" y1="79" y2="87"></line><line x1="214" x2="214" y1="79" y2="87"></line><line x1="258" x2="258" y1="79" y2="87"></line><line x1="291" x2="291" y1="79" y2="87"></line><line x1="322" x2="322" y1="79" y2="87"></line>
+<line x1="88" x2="88" y1="91" y2="99"></line><line x1="126" x2="126" y1="91" y2="99"></line><line x1="141" x2="141" y1="91" y2="99"></line><line x1="176" x2="176" y1="91" y2="99"></line><line x1="209" x2="209" y1="91" y2="99"></line><line x1="247" x2="247" y1="91" y2="99"></line><line x1="284" x2="284" y1="91" y2="99"></line><line x1="315" x2="315" y1="91" y2="99"></line>
+<line x1="71" x2="71" y1="103" y2="111"></line><line x1="105" x2="105" y1="103" y2="111"></line><line x1="138" x2="138" y1="103" y2="111"></line><line x1="163" x2="163" y1="103" y2="111"></line><line x1="198" x2="198" y1="103" y2="111"></line><line x1="239" x2="239" y1="103" y2="111"></line><line x1="270" x2="270" y1="103" y2="111"></line><line x1="309" x2="309" y1="103" y2="111"></line>
+<line x1="95" x2="95" y1="115" y2="123"></line><line x1="118" x2="118" y1="115" y2="123"></line><line x1="155" x2="155" y1="115" y2="123"></line><line x1="192" x2="192" y1="115" y2="123"></line><line x1="221" x2="221" y1="115" y2="123"></line><line x1="252" x2="252" y1="115" y2="123"></line><line x1="296" x2="296" y1="115" y2="123"></line><line x1="328" x2="328" y1="115" y2="123"></line>
+<line x1="82" x2="82" y1="127" y2="135"></line><line x1="130" x2="130" y1="127" y2="135"></line><line x1="168" x2="168" y1="127" y2="135"></line><line x1="183" x2="183" y1="127" y2="135"></line><line x1="226" x2="226" y1="127" y2="135"></line><line x1="261" x2="261" y1="127" y2="135"></line><line x1="288" x2="288" y1="127" y2="135"></line><line x1="318" x2="318" y1="127" y2="135"></line>
+<line x1="74" x2="74" y1="139" y2="147"></line><line x1="109" x2="109" y1="139" y2="147"></line><line x1="146" x2="146" y1="139" y2="147"></line><line x1="179" x2="179" y1="139" y2="147"></line><line x1="205" x2="205" y1="139" y2="147"></line><line x1="244" x2="244" y1="139" y2="147"></line><line x1="279" x2="279" y1="139" y2="147"></line><line x1="311" x2="311" y1="139" y2="147"></line>
+<line x1="91" x2="91" y1="151" y2="159"></line><line x1="123" x2="123" y1="151" y2="159"></line><line x1="159" x2="159" y1="151" y2="159"></line><line x1="196" x2="196" y1="151" y2="159"></line><line x1="218" x2="218" y1="151" y2="159"></line><line x1="256" x2="256" y1="151" y2="159"></line><line x1="293" x2="293" y1="151" y2="159"></line><line x1="325" x2="325" y1="151" y2="159"></line>
+<line x1="86" x2="86" y1="163" y2="171"></line><line x1="115" x2="115" y1="163" y2="171"></line><line x1="152" x2="152" y1="163" y2="171"></line><line x1="174" x2="174" y1="163" y2="171"></line><line x1="212" x2="212" y1="163" y2="171"></line><line x1="249" x2="249" y1="163" y2="171"></line><line x1="275" x2="275" y1="163" y2="171"></line><line x1="303" x2="303" y1="163" y2="171"></line>
+<line x1="79" x2="79" y1="175" y2="183"></line><line x1="133" x2="133" y1="175" y2="183"></line><line x1="165" x2="165" y1="175" y2="183"></line><line x1="189" x2="189" y1="175" y2="183"></line><line x1="230" x2="230" y1="175" y2="183"></line><line x1="265" x2="265" y1="175" y2="183"></line><line x1="287" x2="287" y1="175" y2="183"></line><line x1="320" x2="320" y1="175" y2="183"></line>
+<line x1="97" x2="97" y1="187" y2="195"></line><line x1="121" x2="121" y1="187" y2="195"></line><line x1="143" x2="143" y1="187" y2="195"></line><line x1="181" x2="181" y1="187" y2="195"></line><line x1="216" x2="216" y1="187" y2="195"></line><line x1="254" x2="254" y1="187" y2="195"></line><line x1="282" x2="282" y1="187" y2="195"></line><line x1="314" x2="314" y1="187" y2="195"></line>
+<line x1="76" x2="76" y1="199" y2="207"></line><line x1="107" x2="107" y1="199" y2="207"></line><line x1="157" x2="157" y1="199" y2="207"></line><line x1="185" x2="185" y1="199" y2="207"></line><line x1="223" x2="223" y1="199" y2="207"></line><line x1="242" x2="242" y1="199" y2="207"></line><line x1="297" x2="297" y1="199" y2="207"></line><line x1="327" x2="327" y1="199" y2="207"></line>
+<line x1="93" x2="93" y1="211" y2="219"></line><line x1="128" x2="128" y1="211" y2="219"></line><line x1="161" x2="161" y1="211" y2="219"></line><line x1="194" x2="194" y1="211" y2="219"></line><line x1="207" x2="207" y1="211" y2="219"></line><line x1="268" x2="268" y1="211" y2="219"></line><line x1="291" x2="291" y1="211" y2="219"></line><line x1="308" x2="308" y1="211" y2="219"></line>
+</g>
+<g stroke="#cd7f9b" stroke-width="2">
+<line x1="426" x2="426" y1="79" y2="87"></line><line x1="479" x2="479" y1="79" y2="87"></line><line x1="530" x2="530" y1="79" y2="87"></line><line x1="576" x2="576" y1="79" y2="87"></line><line x1="630" x2="630" y1="79" y2="87"></line>
+<line x1="430" x2="430" y1="91" y2="99"></line><line x1="476" x2="476" y1="91" y2="99"></line><line x1="527" x2="527" y1="91" y2="99"></line><line x1="580" x2="580" y1="91" y2="99"></line><line x1="626" x2="626" y1="91" y2="99"></line>
+<line x1="427" x2="427" y1="103" y2="111"></line><line x1="481" x2="481" y1="103" y2="111"></line><line x1="525" x2="525" y1="103" y2="111"></line><line x1="579" x2="579" y1="103" y2="111"></line><line x1="631" x2="631" y1="103" y2="111"></line>
+<line x1="431" x2="431" y1="115" y2="123"></line><line x1="455" x2="455" y1="115" y2="123"></line><line x1="475" x2="475" y1="115" y2="123"></line><line x1="531" x2="531" y1="115" y2="123"></line><line x1="577" x2="577" y1="115" y2="123"></line><line x1="625" x2="625" y1="115" y2="123"></line>
+<line x1="425" x2="425" y1="127" y2="135"></line><line x1="480" x2="480" y1="127" y2="135"></line><line x1="528" x2="528" y1="127" y2="135"></line><line x1="581" x2="581" y1="127" y2="135"></line><line x1="629" x2="629" y1="127" y2="135"></line>
+<line x1="429" x2="429" y1="139" y2="147"></line><line x1="477" x2="477" y1="139" y2="147"></line><line x1="526" x2="526" y1="139" y2="147"></line><line x1="575" x2="575" y1="139" y2="147"></line><line x1="632" x2="632" y1="139" y2="147"></line>
+<line x1="428" x2="428" y1="151" y2="159"></line><line x1="482" x2="482" y1="151" y2="159"></line><line x1="529" x2="529" y1="151" y2="159"></line><line x1="578" x2="578" y1="151" y2="159"></line><line x1="627" x2="627" y1="151" y2="159"></line>
+<line x1="432" x2="432" y1="163" y2="171"></line><line x1="478" x2="478" y1="163" y2="171"></line><line x1="524" x2="524" y1="163" y2="171"></line><line x1="582" x2="582" y1="163" y2="171"></line><line x1="628" x2="628" y1="163" y2="171"></line>
+<line x1="426" x2="426" y1="175" y2="183"></line><line x1="476" x2="476" y1="175" y2="183"></line><line x1="530" x2="530" y1="175" y2="183"></line><line x1="576" x2="576" y1="175" y2="183"></line><line x1="605" x2="605" y1="175" y2="183"></line><line x1="630" x2="630" y1="175" y2="183"></line>
+<line x1="430" x2="430" y1="187" y2="195"></line><line x1="481" x2="481" y1="187" y2="195"></line><line x1="527" x2="527" y1="187" y2="195"></line><line x1="580" x2="580" y1="187" y2="195"></line><line x1="626" x2="626" y1="187" y2="195"></line>
+<line x1="427" x2="427" y1="199" y2="207"></line><line x1="479" x2="479" y1="199" y2="207"></line><line x1="528" x2="528" y1="199" y2="207"></line><line x1="577" x2="577" y1="199" y2="207"></line><line x1="631" x2="631" y1="199" y2="207"></line>
+<line x1="431" x2="431" y1="211" y2="219"></line><line x1="477" x2="477" y1="211" y2="219"></line><line x1="525" x2="525" y1="211" y2="219"></line><line x1="579" x2="579" y1="211" y2="219"></line><line x1="625" x2="625" y1="211" y2="219"></line>
+</g>
+<text fill="#787268" font-family="-apple-system,sans-serif" font-size="11" text-anchor="middle" x="200" y="240">sum them ↓</text>
+<text fill="#787268" font-family="-apple-system,sans-serif" font-size="11" text-anchor="middle" x="542" y="240">sum them ↓</text>
+<path d="M70,272 C90,269 100,275 118,271 C140,268 152,275 172,271 C196,274 208,268 228,272 C250,269 262,275 282,271 C304,268 316,274 334,272" fill="none" stroke="#9fbc7a" stroke-width="2.2"></path>
+<path d="M404,274 C416,274 420,246 428,246 C436,246 440,274 453,274 C466,274 470,246 478,246 C486,246 490,274 503,274 C516,274 520,246 528,246 C536,246 540,274 553,274 C566,274 570,246 578,246 C586,246 590,274 603,274 C616,274 620,246 628,246 C636,246 640,274 652,274" fill="none" stroke="#cd7f9b" stroke-width="2.2"></path>
+<text fill="#9fbc7a" font-family="-apple-system,sans-serif" font-size="11" text-anchor="middle" x="200" y="300">flat population signal = N pieces of information still down there</text>
+<text fill="#cd7f9b" font-family="-apple-system,sans-serif" font-size="11" text-anchor="middle" x="542" y="300">huge population signal = only 1 piece left</text>
+</svg>
+<figcaption>Macroscopic amplitude and microscopic information are two sides of one coin. A big, clean population signal is not automatically good news.</figcaption>
+</figure>
+<div class="decide">
+<span class="lb">🎯 DECISION LINE</span>
+<p>Before making "everyone in step" a goal, classify the system: does it work by <b>aligning</b> (grids, orchestras, settlement, release trains) or by <b>staggering</b> (brains, research teams, inventory across a supply chain, redundant paths)? For the second kind, the degree of synchrony belongs on the dashboard as a metric you want to keep <em>low</em> — not as something you explain after it has already caused an incident. The crude test: take two units and watch the gap between their behaviour. Is it steady (already locked) or does it keep drifting (still independent)?</p>
+</div>
+<div class="crossx-inline">
+🌀 <b>Eastern thought · the division of labour in the <em>Book of Rites</em></b>　The "Record of Music" chapter states: music makes people the same, ritual makes them different; sameness brings affection, difference brings respect. It reads as parallel rhetoric, but against this section's mechanism it is a rather precise configuration note — music supplies the coupling that pulls a room onto one phase, ritual protects the spread so it never reaches zero. <b>The inference: an organizational culture that talks only about cohesion and alignment has turned one knob to its stop and dismantled the other — what it gets is not unity but the right-hand panel of the figure above.</b> In the pre-Qin design the two are held <em>side by side</em>, not in sequence.
+</div>
+<h2><span class="n">04</span>Where This Breaks Down<span class="he">（The Limits）</span></h2>
+<p class="lead">Synchronization is among the mathematically soundest corners of complexity science, and precisely because it is elegant it gets applied with abandon. Four checks before you use it.</p>
+<p><b>First and most important: correlation is not synchronization.</b> A population moving together may be mutually coupled, or it may just be pushed by one external thing. The sun goes down and every light in the city comes on; the bulbs are not consulting each other. The macroscopic signature can be identical while the meaning is opposite — and so is the remedy: common drive means fixing the driver, mutual coupling means fixing the channel between units. The way to tell is in the figure.</p>
+<figure>
+<svg aria-label="Common drive versus mutual coupling" role="img" viewbox="0 0 720 296" xmlns="http://www.w3.org/2000/svg">
+<defs>
+<marker id="k14b" markerheight="9" markerunits="userSpaceOnUse" markerwidth="9" orient="auto" refx="8.5" refy="5" viewbox="0 0 10 10">
+<path d="M0,1 L9,5 L0,9 z" fill="#79a6d2"></path>
+</marker>
+<marker id="k14c" markerheight="9" markerunits="userSpaceOnUse" markerwidth="9" orient="auto" refx="8.5" refy="5" viewbox="0 0 10 10">
+<path d="M0,1 L9,5 L0,9 z" fill="#9fbc7a"></path>
+</marker>
+</defs>
+<text fill="#aba498" font-family="-apple-system,sans-serif" font-size="13" text-anchor="middle" x="360" y="26">Both produce the identical macroscopic effect: everything moves together</text>
+<text fill="#79a6d2" font-family="SF Mono,monospace" font-size="12" text-anchor="middle" x="180" y="54">common drive</text>
+<circle cx="180" cy="80" fill="rgba(121,166,210,0.16)" r="20" stroke="#79a6d2" stroke-width="1.6"></circle>
+<text fill="#79a6d2" font-family="-apple-system,sans-serif" font-size="11" text-anchor="middle" x="180" y="84">driver</text>
+<line marker-end="url(#k14b)" stroke="#79a6d2" stroke-width="1.8" x1="168.5" x2="106.3" y1="96.4" y2="185.3"></line>
+<line marker-end="url(#k14b)" stroke="#79a6d2" stroke-width="1.8" x1="175.5" x2="156.1" y1="99.5" y2="182.5"></line>
+<line marker-end="url(#k14b)" stroke="#79a6d2" stroke-width="1.8" x1="184.5" x2="203.9" y1="99.5" y2="182.5"></line>
+<line marker-end="url(#k14b)" stroke="#79a6d2" stroke-width="1.8" x1="191.5" x2="253.7" y1="96.4" y2="185.3"></line>
+<circle cx="96" cy="200" fill="rgba(255,255,255,0.05)" r="18" stroke="rgba(255,255,255,0.28)" stroke-width="1.4"></circle>
+<circle cx="152" cy="200" fill="rgba(255,255,255,0.05)" r="18" stroke="rgba(255,255,255,0.28)" stroke-width="1.4"></circle>
+<circle cx="208" cy="200" fill="rgba(255,255,255,0.05)" r="18" stroke="rgba(255,255,255,0.28)" stroke-width="1.4"></circle>
+<circle cx="264" cy="200" fill="rgba(255,255,255,0.05)" r="18" stroke="rgba(255,255,255,0.28)" stroke-width="1.4"></circle>
+<text fill="#787268" font-family="-apple-system,sans-serif" font-size="11.5" text-anchor="middle" x="180" y="252">no links whatsoever between them</text>
+<line stroke="rgba(255,255,255,0.09)" stroke-width="1" x1="342" x2="342" y1="48" y2="262"></line>
+<text fill="#9fbc7a" font-family="SF Mono,monospace" font-size="12" text-anchor="middle" x="540" y="54">mutual coupling</text>
+<line marker-end="url(#k14c)" stroke="#9fbc7a" stroke-width="1.8" x1="494" x2="586" y1="94" y2="94"></line>
+<line marker-end="url(#k14c)" stroke="#9fbc7a" stroke-width="1.8" x1="586" x2="494" y1="106" y2="106"></line>
+<line marker-end="url(#k14c)" stroke="#9fbc7a" stroke-width="1.8" x1="494" x2="586" y1="204" y2="204"></line>
+<line marker-end="url(#k14c)" stroke="#9fbc7a" stroke-width="1.8" x1="586" x2="494" y1="216" y2="216"></line>
+<line marker-end="url(#k14c)" stroke="#9fbc7a" stroke-width="1.8" x1="464" x2="464" y1="124" y2="186"></line>
+<line marker-end="url(#k14c)" stroke="#9fbc7a" stroke-width="1.8" x1="476" x2="476" y1="186" y2="124"></line>
+<line marker-end="url(#k14c)" stroke="#9fbc7a" stroke-width="1.8" x1="604" x2="604" y1="124" y2="186"></line>
+<line marker-end="url(#k14c)" stroke="#9fbc7a" stroke-width="1.8" x1="616" x2="616" y1="186" y2="124"></line>
+<circle cx="470" cy="100" fill="rgba(255,255,255,0.05)" r="20" stroke="rgba(255,255,255,0.28)" stroke-width="1.4"></circle>
+<circle cx="610" cy="100" fill="rgba(255,255,255,0.05)" r="20" stroke="rgba(255,255,255,0.28)" stroke-width="1.4"></circle>
+<circle cx="470" cy="210" fill="rgba(255,255,255,0.05)" r="20" stroke="rgba(255,255,255,0.28)" stroke-width="1.4"></circle>
+<circle cx="610" cy="210" fill="rgba(255,255,255,0.05)" r="20" stroke="rgba(255,255,255,0.28)" stroke-width="1.4"></circle>
+<text fill="#787268" font-family="-apple-system,sans-serif" font-size="11.5" text-anchor="middle" x="540" y="252">aligns with no external driver at all</text>
+<text fill="#57524b" font-family="-apple-system,sans-serif" font-size="11.5" text-anchor="middle" x="360" y="282">The test: remove the external driver. The left panel falls apart at once; the right stays locked.</text>
+</svg>
+<figcaption>Identical phenomenon, opposite mechanism, opposite remedy. Talking about synchrony without separating these two figures is talking about nothing.</figcaption>
+</figure>
+<p><b>Second, the Kuramoto model assumes everything is coupled to everything.</b> Real systems have network structure, and putting one in changes what the model can produce. The most famous surprise is the <b>chimera state</b>: a population of identical oscillators in which one part locks rigidly while the other drifts freely, and the two coexist stably for as long as you care to watch. This is not a badly chosen initial condition; it is a genuine steady state. The warning it issues is concrete — <b>a single global <em>r</em> can flatten two utterly different situations into one number</b>: half the population locked solid and half free can read exactly the same as the whole population being half-hearted.</p>
+<p><b>Third, that abruptness is exact only in the limit of infinitely many oscillators.</b> Real populations are finite, <em>r</em> fluctuates continuously, the transition is smeared, and the apparent threshold drifts with system size. Announcing that a few dozen units "crossed the critical coupling" is almost certainly over-reading a curve whose kink is blurry at that scale in the first place.</p>
+<p><b>Fourth, and the most heavily abused: confirm the oscillators exist.</b> The model requires each unit to be self-sustaining — to keep cycling with nobody pushing it. Heart cells qualify. Fireflies qualify. Generators qualify. Whereas claims that "the team synchronized" or "market sentiment synchronized" usually cannot name who is oscillating, at what period, or how phase would be measured. If you cannot name it, you are using a metaphor, not this mechanism. Most organizational phenomena are event-driven rather than self-sustaining, and the mathematics of the two has nothing in common.</p>
+<div class="decide">
+<span class="lb">🎯 DECISION LINE</span>
+<p>Before saying "this is synchronization", answer three questions: <b>who is the oscillator (what is its period with nobody intervening) · how is phase measured · which channel does the coupling run through</b>. Miss any one and you are probably looking at common drive — in which case the correct move is to change the external driver, not the relationships between the units. Intervention aimed at the wrong layer does not work no matter how diligently it is executed.</p>
+</div>
+<div class="crossx-inline">
+🌀 <b>Economics · "no contagion, only interdependence"</b>　After the 1997 Asian crisis, contagion became the standard account: one country breaks, the coupling between markets carries it to the next. Forbes and Rigobon argued in 2002 that the correlation coefficients used to support that story are systematically inflated during high-volatility periods, and that once the bias is corrected, most alleged contagion episodes reduce to the interdependence that was there all along — that is, countries being pushed simultaneously by one shock. This is the figure's test applied to real money, and the policy implication flips completely: genuine contagion argues for severing cross-market channels, while common drive makes severing them useless and puts the exposure to the shock itself back at the centre.
+</div>
+<div class="bigcat">
+<h3>🎒 Scenarios · BigCat</h3>
+<ol>
+<li><span class="dm">Engineering &amp; systems design</span>The class of outage a service inflicts on itself — caches all expiring together, clients all retrying in the same second, cron jobs all written on the hour — is a population of independent clients that got phase-locked by a shared clock. <b>The concrete change</b>: multiply every retry backoff and cache TTL by a random factor (engineers call it jitter), which is literally widening the spread of natural frequencies again. <b>The change in what you look at</b>: set the request-rate chart to second-level resolution and look once. Evenly spaced comb-like spikes mean you are already locked — and that signal is completely invisible at minute-level resolution, which is what almost every dashboard defaults to.</li>
+<li><span class="dm">Health &amp; energy</span>Sleeping in at the weekend to make up for a bad week repays <em>duration</em>, while the circadian system runs on <em>phase</em> — and the lie-in does not repair phase, it pushes Sunday's light signal later. <b>The concrete change</b>: swap the intervention from "get to bed earlier tonight" to "get into bright light within half an hour of waking, and get bright light out of the way two hours before bed", because the coupling is built out of the <em>timing</em> of light, not the total hours of sleep. <b>The metric to change</b>: stop logging hours slept and log <em>wake time</em> for two straight weeks, then look at how much it varies — phase stability is the only quantity in this system you can measure directly.</li>
+<li><span class="dm">Parenting</span>Most households have one or two fixed windows — after school, just before bed — in which one person's impatience raises everybody's temperature within three minutes. Repeatedly telling people to calm down operates on individuals, whereas what is actually cranked to maximum here is the coupling: same room, same moment, everyone fully visible to everyone else, every mood transmitted directly. <b>The concrete change</b>: don't adjust the people, cut the channel — stagger the two colliding tasks in that window by ten minutes, or have one party physically leave for ten minutes. <b>The test</b>: if the same scene repeats more than three times a week, it is not anyone's temperament, it is that window's coupling structure — swap in a different person and you get the same result.</li>
+</ol>
+</div>
+<div class="crossx">
+<h3>🌀 Crossings<span class="he">（Interdisciplinary）</span></h3>
+<ul>
+<li><b>Biomedicine · circadian rhythm and the zeitgeber</b>: Czeisler and colleagues, using a forced-desynchrony protocol, measured the intrinsic human circadian period in 1999 at an average of about 24.18 hours, distributed remarkably tightly across the population. That is a naked frequency mismatch — every day it runs a quarter of an hour off the planet, and every day the coupling supplied by light, the <b>zeitgeber</b> (literally "time-giver"), drags it back. All three of this topic's mechanisms run here as a set: a natural frequency that differs from the environment's, a coupling strength that decides whether it can be held, and a standing phase offset as the price of being held — which is why people with longer intrinsic periods sleep late by construction rather than by weakness of will. That yields a conclusion you would not otherwise reach: <b>a substantial share of insomnia is not a deficit in the ability to sleep but a coupling too weak to hold — daytime light too dim, night-time light too bright, <em>K</em> pushed below what it takes.</b> Sedatives at that point are operating one layer below the fault. <b>But this does not hold here</b>: the relationship is a master clock entraining a slave, not the symmetric mutual coupling this topic describes. So there is no sudden emergence at a critical coupling, only a phase offset that varies continuously with the mismatch until it exceeds the range of entrainment and the whole thing breaks loose and free-runs. What transfers is the ruler — mismatch versus coupling strength — not the <em>K</em><sub>c</sub> jump.</li>
+<li><b>Military history · Broughton Bridge, 1831, and the order to break step</b>: a column of soldiers marched in cadence across the Broughton suspension bridge near Manchester and it collapsed. The British Army's standing rule dates from there: troops crossing a bridge break step and walk out of time. That two-hundred-year-old order is a complete implementation of this topic's mechanism, and it turns both knobs at once — it removes the common drive (the cadence call) and widens the frequency spread (everyone at their own pace). But set it beside the Millennium Bridge and you get a conclusion the order itself cannot give you: <b>the rule only cures the common-drive kind of synchrony.</b> Nobody was calling cadence on the Millennium Bridge; those two thousand people were coupled to each other <em>through the bridge</em>. You cannot order someone to stop adjusting their balance against a moving deck, because that adjustment is what staying upright is. Two kinds of synchrony therefore need two entirely separate remedies — one yields to discipline, the other only to structural change, and the Millennium Bridge was in the end fixed with dampers rather than with rules about people. <b>Aiming discipline at the second kind is the most common misallocation this topic exposes.</b></li>
+<li><b>Economics &amp; institutions · globalization and business-cycle synchronization</b>: deepening trade and capital flows amount to pushing <em>K</em> between national economies steadily upward. Applying this topic's mechanisms as a set gives something sharper than the familiar "risk spreads": a claim about <em>variance structure</em>. While national cycles are independent, bad years and good years cancel and world output is smoothed for free. Once the coupling crosses threshold, independent degrees of freedom collapse into one common factor, the cancellation disappears, and global volatility jumps. The operational payload is in the last step: <b>the effectiveness of "diversify across countries" does not erode gradually as coupling rises — it falls off a cliff near <em>K</em><sub>c</sub>.</b> A cross-border diversification scheme validated on twenty years of data can therefore lose most of its value in the first year after the crossing, with nothing in the backtest hinting that it was coming, because the backtest sample sits almost entirely on the near side of the line.</li>
+</ul>
+</div>
+<div class="thinking">
+<h3>Going Deeper</h3>
+<details><summary>If synchrony eats diversity, why has evolution kept so many mechanisms for producing it?</summary><p>Because some functions are only achievable by alignment: a heart has to contract as a whole to pump, and synchronous firefly flashing is thought to make a stand of trees signal strongly enough for females to find it at a distance. The key is that in these systems synchrony is <em>bounded</em> — to one organ, one window, one frequency band. What is dangerous is synchrony escaping the boundary it belongs in; atrial fibrillation is coupling inside the heart going out of control. So the question is never whether to synchronize, but which layer should and which must stay independent.</p></details>
+<details><summary>Why does "improve cohesion" so often fail as a management move?</summary><p>Possibly because it is aimed at the wrong knob and the wrong layer at once. Cohesion exercises add coupling, but if the real problem is a wide spread of natural rhythms — sales on quarters, engineering on releases, finance on months — then aligning the rhythms beats adding coupling by a wide margin. Worse, if the units were never self-sustaining oscillators to begin with (most are event-driven), then "synchrony" here is only a metaphor and the entire chain of reasoning built on it collapses. That is exactly what the three questions in section 4 are for.</p></details>
+<details><summary>Can you get the benefits of synchrony without paying in diversity?</summary><p>Partly, by confining the synchrony to one dimension. An orchestra locks phase on the beat while staying completely different in pitch and timbre; a distributed system aligns clocks while deliberately staggering work. The design principle is to split "what must align" and "what must stay spread" into separate, non-interfering channels. Where that separation is impossible the bill cannot be dodged — the right-hand panel of the third figure is what it looks like when every dimension has been swallowed by one coupling channel.</p></details>
+<details><summary>If a field has no identifiable oscillators, what is left of this language?</summary><p>Quite a lot, but stated differently: drop phase and frequency, and talk about the share of total variance explained by a common factor. That is precisely what finance does — never mind who is oscillating, just ask how much of the variance one common factor accounts for. That quantity is measurable, trackable, usable as a warning signal, and requires no assumption of self-sustaining oscillation. When you find yourself insisting on calling something synchronization, it usually means it is time to change languages.</p></details>
+</div>
+<div class="refs">
+<h3>Further Reading</h3>
+<ul>
+<li>Strogatz, Abrams, McRobie, Eckhardt &amp; Ott, <a href="https://www.nature.com/articles/438043a">Crowd synchrony on the Millennium Bridge</a> (2005, the headcount threshold model)</li>
+<li>Steven Strogatz, <a href="https://en.wikipedia.org/wiki/Sync_(book)">Sync: The Emerging Science of Spontaneous Order</a> (the full popular treatment)</li>
+<li>Néda, Ravasz, Brechet, Vicsek &amp; Barabási, <a href="https://www.nature.com/articles/35002660">The sound of many hands clapping</a> (2000, rhythmic applause and the halved frequency)</li>
+<li>Czeisler et al., <a href="https://www.science.org/doi/10.1126/science.284.5423.2177">Stability, precision, and near-24-hour period of the human circadian pacemaker</a> (1999, the 24.18 hours)</li>
+<li>Abrams &amp; Strogatz, <a href="https://arxiv.org/abs/cond-mat/0407045">Chimera states for coupled oscillators</a> (2004, naming and analysis)</li>
+<li>Forbes &amp; Rigobon, <a href="https://doi.org/10.1111/0022-1082.00494">No Contagion, Only Interdependence</a> (2002, correcting the correlation bias)</li>
+<li>Acebrón et al., <a href="https://doi.org/10.1103/RevModPhys.77.137">The Kuramoto model: A simple paradigm for synchronization phenomena</a> (2005, review)</li>
+<li><a href="https://en.wikipedia.org/wiki/Christiaan_Huygens#Pendulum_clock">Huygens and the "odd kind of sympathy" of two pendulum clocks</a> (1665)</li>
+</ul>
+</div>
+<footer>BigCat · Complexity Science · <a href="index.en.html">← All Topics</a></footer>
+</div>
+</body></html>

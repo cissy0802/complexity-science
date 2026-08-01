@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+
+<html lang="zh-CN"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Kuramoto 同步模型 · 参考库 · 复杂性科学</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,"SF Pro Display","Noto Sans SC",sans-serif;color:#e4ded5;line-height:1.85;min-height:100vh;
+  background:radial-gradient(1100px 620px at 12% -6%,rgba(99,179,166,0.09),transparent 62%),radial-gradient(950px 700px at 100% 2%,rgba(166,147,205,0.08),transparent 58%),linear-gradient(168deg,#100f0d 0%,#15161b 48%,#0a0a0c 100%);background-attachment:fixed}
+.wrap{max-width:720px;margin:0 auto;padding:30px 22px 90px}
+header{padding:52px 0 8px;border-bottom:1px solid rgba(255,255,255,0.07);margin-bottom:32px}
+.rtag{font-family:"SF Mono",Menlo,monospace;font-size:0.72rem;font-weight:700;letter-spacing:2px;color:#63b3a6;border:1px solid rgba(99,179,166,0.4);background:rgba(99,179,166,0.07);padding:3px 11px;border-radius:20px}
+h1{font-size:2.15rem;font-weight:800;line-height:1.2;margin:20px 0 0;color:#f0eae0}
+h1 .h1en{display:block;font-size:0.42em;font-weight:600;letter-spacing:2.5px;color:#847d72;margin-top:11px}
+.sub{font-size:0.98rem;color:#aba498;margin-top:12px}
+.meta{font-family:"SF Mono",Menlo,monospace;font-size:0.75rem;color:#57524b;margin-top:16px;letter-spacing:1px}
+h2{font-size:1.25rem;font-weight:700;color:#e9e3d9;margin:44px 0 10px}
+h2 .n{font-family:"SF Mono",Menlo,monospace;font-size:0.8rem;color:#63b3a6;display:block;margin-bottom:5px;letter-spacing:2px}
+.he{font-size:0.68em;color:#8d867b;font-weight:500;letter-spacing:0}
+p{margin-bottom:16px}
+b,strong{color:#f0eae0;font-weight:600}
+em{color:#d9b45f;font-style:normal;font-weight:500}
+a.reflink{display:inline-block;font-size:0.82rem;font-family:"SF Mono",Menlo,monospace;color:#63b3a6;border:1px solid rgba(99,179,166,0.38);background:rgba(99,179,166,0.07);padding:1px 9px;border-radius:20px;text-decoration:none;transition:all 0.15s;white-space:nowrap}
+a.reflink:hover{background:rgba(99,179,166,0.16);border-color:rgba(99,179,166,0.7)}
+.rule{border:1px solid rgba(99,179,166,0.3);background:rgba(99,179,166,0.05);border-radius:12px;padding:16px 20px;margin:22px 0;font-size:0.94rem;color:#d5cdc1}
+.rule ol{padding-left:20px;margin:0}
+.rule li{margin-bottom:7px}
+.rule li:last-child{margin-bottom:0}
+figure{margin:28px 0}
+figure svg{display:block;width:100%;height:auto;border-radius:12px;background:rgba(255,255,255,0.018);border:1px solid rgba(255,255,255,0.06)}
+figcaption{font-size:0.82rem;color:#787268;margin-top:10px;text-align:center;line-height:1.6}
+.cant{border:1px solid rgba(205,127,155,0.36);background:rgba(205,127,155,0.05);border-radius:12px;padding:18px 21px;margin:26px 0 10px}
+.cant h3{font-size:1rem;color:#cd7f9b;margin-bottom:12px}
+.cant ul{list-style:none;padding:0}
+.cant li{margin-bottom:13px;font-size:0.93rem;color:#d5cdc1;line-height:1.76}
+.cant li:last-child{margin-bottom:0}
+.cant li b{color:#cd7f9b}
+.refs{margin:40px 0 10px}
+.refs h3{font-size:1rem;color:#79a6d2;margin-bottom:12px}
+.refs ul{list-style:none;padding:0}
+.refs li{margin-bottom:9px;font-size:0.89rem;color:#8d867b;line-height:1.7}
+.refs a{color:#79a6d2;text-decoration:none;border-bottom:1px solid rgba(121,166,210,0.3)}
+.refs a:hover{color:#a6c4e2}
+footer{text-align:center;padding:52px 0 10px;font-size:0.78rem;color:#57524b;font-family:"SF Mono",Menlo,monospace;border-top:1px solid rgba(255,255,255,0.06);margin-top:46px}
+footer a{color:#79a6d2;text-decoration:none}
+@media(max-width:600px){h1{font-size:1.7rem}.wrap{padding:24px 16px 60px}}
+</style></head><body>
+<div class="wrap">
+<header>
+<span class="rtag">REF · 经典模型</span>
+<h1>Kuramoto 同步模型<span class="h1en">THE KURAMOTO MODEL</span></h1>
+<p class="sub">藏本由纪（Kuramoto Yoshiki），1975 — 一群各有节奏的振子如何突然走到同一拍上</p>
+<p class="meta">被引用于：Topic 14 同步</p>
+</header>
+<h2><span class="n">01</span>它问的是什么问题<span class="he">（The Question It Poses）</span></h2>
+<p>自然界里有太多"一群东西自己走齐了"的例子：东南亚红树林里整片同时明灭的萤火虫、心脏窦房结里数千个自发放电的起搏细胞、并网运行的成千上万台发电机。这些系统里没有指挥，也没有任何一个个体知道全局。</p>
+<p>而且它们有一个共同的怪癖：<b>同步不是逐渐建立的，是过了某个点突然出现的。</b>联系弱一点就完全没有，稍微强一点就整片对齐。藏本要问的正是这件事：<b>一群固有节奏各不相同的振子，在什么条件下会自发对齐，为什么这个转变是突然的？</b></p>
+<p>他给出的答案是一个把所有细节都扔掉、只保留两个量的模型：每个振子转多快（固有频率），以及它们互相拉扯的力度（耦合强度）。这个模型能被<em>解析地</em>解出来——这在非线性系统里非常罕见，也是它成为标准范式的原因。</p>
+<h2><span class="n">02</span>规则本身<span class="he">（The Rules）</span></h2>
+<div class="rule">
+<ol>
+<li>准备 N 个<b>振子</b>（oscillator，指无人推动也自己周期性循环的东西）。第 i 个振子的状态只用一个数描述：它此刻转到了圆周上的哪个位置，叫<b>相位</b>（phase）θ<sub>i</sub>。</li>
+<li>第 i 个振子有自己的<b>固有频率</b>（natural frequency）ω<sub>i</sub>——独处时它就以这个速度转。所有 ω<sub>i</sub> 从一个分布 g(ω) 中抽出，通常取对称单峰的（中间多、两边少）。</li>
+<li>演化规则只有一行：<b>θ<sub>i</sub> 的转速 = ω<sub>i</sub> + (K/N)·Σ<sub>j</sub> sin(θ<sub>j</sub> − θ<sub>i</sub>)</b>。翻译成大白话：按自己的节奏转，同时被"所有别人"往它们那边拉一点。走在别人前面就被拖慢，落在后面就被拉快。</li>
+<li>把每个相位当成单位圆上的一支箭头，全部首尾相加，得到一支合力箭头。它的方向叫<b>平均相位</b> Ψ，它的长度叫<b>序参量</b>（order parameter）r，取值 0 到 1：全散开时 r≈0，全挤在一起时 r≈1。</li>
+<li>第 3 条的求和可以精确改写成 <b>K·r·sin(Ψ − θ<sub>i</sub>)</b>。这一步是整个模型能解出来的关键：每个振子不再需要知道其他 N−1 个是谁，只跟 (Ψ, r) 这一对数打交道。</li>
+<li>整个模型只有一个可调参数：耦合强度 <em>K</em>。</li>
+</ol>
+</div>
+<p>第 5 条那个改写值得多看一眼，因为它藏着全部的戏剧性：<b>实际拉力不是 K，是 K 乘以 r</b>——而 r 又是拉的结果。越齐就拉得越紧，越散就越拉不动。这条自我强化的回路，就是下面那个突变的全部来源。</p>
+<p>另外，这个模型只描述相位、完全丢掉了振幅——它默认每个振子都稳定地跑在自己的<b>极限环</b>（limit cycle）上，只是转到哪儿有差别。<a class="reflink" href="ref-phase-space.html">→ 参考 · 相空间与吸引子</a></p>
+<figure>
+<svg aria-label="单个振子受到的两股力：自己的固有频率与朝平均相位的耦合拉力" role="img" viewbox="0 0 700 290" xmlns="http://www.w3.org/2000/svg">
+<defs>
+<marker id="ku1" markerheight="10" markerunits="userSpaceOnUse" markerwidth="10" orient="auto" refx="9" refy="5" viewbox="0 0 10 10">
+<path d="M0,1 L9,5 L0,9 z" fill="#d9b45f"></path>
+</marker>
+<marker id="ku2" markerheight="10" markerunits="userSpaceOnUse" markerwidth="10" orient="auto" refx="9" refy="5" viewbox="0 0 10 10">
+<path d="M0,1 L9,5 L0,9 z" fill="#79a6d2"></path>
+</marker>
+<marker id="ku3" markerheight="10" markerunits="userSpaceOnUse" markerwidth="10" orient="auto" refx="9" refy="5" viewbox="0 0 10 10">
+<path d="M0,1 L9,5 L0,9 z" fill="#63b3a6"></path>
+</marker>
+</defs>
+<text fill="#aba498" font-family="-apple-system,sans-serif" font-size="13" text-anchor="middle" x="350" y="26">每个振子只跟「平均场」打交道</text>
+<circle cx="220" cy="152" fill="none" r="80" stroke="rgba(255,255,255,0.13)" stroke-width="1.5"></circle>
+<g fill="#79a6d2">
+<circle cx="288.0" cy="112.0" r="5"></circle><circle cx="296.3" cy="139.2" r="5"></circle><circle cx="264.5" cy="83.7" r="5"></circle><circle cx="232.4" cy="72.9" r="5"></circle><circle cx="163.5" cy="95.8" r="5"></circle><circle cx="145.6" cy="196.0" r="5"></circle><circle cx="199.3" cy="231.3" r="5"></circle><circle cx="277.2" cy="199.4" r="5"></circle>
+</g>
+<circle cx="170.7" cy="112.0" fill="#e0895e" r="7"></circle>
+<line marker-end="url(#ku1)" stroke="#d9b45f" stroke-width="2.5" x1="220" x2="245" y1="152" y2="108.7"></line>
+<text fill="#d9b45f" font-family="SF Mono,monospace" font-size="12" x="250" y="102">Ψ · 长度 = r</text>
+<line marker-end="url(#ku2)" stroke="#79a6d2" stroke-width="2.2" x1="167.7" x2="146.7" y1="117.2" y2="153.6"></line>
+<text fill="#79a6d2" font-family="-apple-system,sans-serif" font-size="11.5" text-anchor="end" x="140" y="172">它自己的 ωi</text>
+<line marker-end="url(#ku3)" stroke="#63b3a6" stroke-width="2.2" x1="173.7" x2="190.7" y1="106.8" y2="77.4"></line>
+<text fill="#63b3a6" font-family="-apple-system,sans-serif" font-size="11.5" text-anchor="middle" x="176" y="66">耦合拉力 K·r</text>
+<text fill="#e0895e" font-family="-apple-system,sans-serif" font-size="11" text-anchor="end" x="150" y="112">第 i 个</text>
+<line stroke="rgba(255,255,255,0.09)" stroke-width="1" x1="368" x2="368" y1="52" y2="256"></line>
+<text fill="#aba498" font-family="-apple-system,sans-serif" font-size="12.5" x="398" y="86">两股力谁大，决定这个振子的命运：</text>
+<circle cx="410" cy="128" fill="#63b3a6" r="5"></circle>
+<text fill="#d5cdc1" font-family="SF Mono,monospace" font-size="12.5" x="426" y="133">| ωi − Ω | &lt; K·r</text>
+<text fill="#63b3a6" font-family="-apple-system,sans-serif" font-size="11.5" x="426" y="153">被锁住：跟着大部队一起转，</text>
+<text fill="#63b3a6" font-family="-apple-system,sans-serif" font-size="11.5" x="426" y="171">相位差固定不再变化</text>
+<circle cx="410" cy="203" fill="#cd7f9b" r="5"></circle>
+<text fill="#d5cdc1" font-family="SF Mono,monospace" font-size="12.5" x="426" y="208">| ωi − Ω | &gt; K·r</text>
+<text fill="#cd7f9b" font-family="-apple-system,sans-serif" font-size="11.5" x="426" y="228">甩开：继续按自己的节奏漂移，</text>
+<text fill="#cd7f9b" font-family="-apple-system,sans-serif" font-size="11.5" x="426" y="246">一圈圈从大部队身上碾过去</text>
+<text fill="#57524b" font-family="-apple-system,sans-serif" font-size="11" text-anchor="middle" x="350" y="278">Ω 是整团的公共转速。K·r 越大，能被拉进来的频率范围越宽。</text>
+</svg>
+<figcaption>模型的全部内容：自己的固有频率想让它走开，K·r 的拉力想把它按住。谁赢由这两个数的大小直接决定。</figcaption>
+</figure>
+<h2><span class="n">03</span>跑起来会看到什么<span class="he">（What You See When It Runs）</span></h2>
+<p>把 <em>K</em> 从 0 开始慢慢调大，长时间什么都不会发生——r 在 0 附近抖动（有限的 N 会留下大约 1/√N 的残值，那是抽样噪声不是同步）。然后越过某个值，r 突然从 0 抬起来，并随 <em>K</em> 继续增长，趋近但永远达不到 1：<b>总有一批固有频率太偏的振子被甩在外面，永远不参加。</b></p>
+<p>那个门槛叫<b>临界耦合强度</b>（critical coupling）<em>K</em><sub>c</sub>。对称单峰分布下它有个干净的表达式：<em>K</em><sub>c</sub> = 2 / (π·g(0))，其中 g(0) 是频率分布在中心处的高度。这个式子说的事很直白：<b>分布越尖（大家节奏越接近），g(0) 越大，门槛越低。</b>反过来，把一群频率差异很大的东西同步起来，需要的耦合会高得离谱。</p>
+<p>取洛伦兹分布（半宽 γ）时结果更利落：<em>K</em><sub>c</sub> = 2γ，且在 <em>K</em> &gt; <em>K</em><sub>c</sub> 时 r = √(1 − <em>K</em><sub>c</sub>/<em>K</em>)。这条平方根曲线就是下图那个"起飞"的形状。</p>
+<figure>
+<svg aria-label="序参量 r 随耦合强度 K 的分岔曲线" role="img" viewbox="0 0 700 260" xmlns="http://www.w3.org/2000/svg">
+<text fill="#aba498" font-family="-apple-system,sans-serif" font-size="13" text-anchor="middle" x="350" y="26">r 对 K 的分岔：一条平方根曲线从 Kc 处长出来</text>
+<line stroke="rgba(255,255,255,0.18)" stroke-width="1.5" x1="80" x2="640" y1="206" y2="206"></line>
+<line stroke="rgba(255,255,255,0.18)" stroke-width="1.5" x1="80" x2="80" y1="206" y2="52"></line>
+<text fill="#8d867b" font-family="-apple-system,sans-serif" font-size="11.5" text-anchor="middle" x="360" y="234">耦合强度 K →</text>
+<text fill="#8d867b" font-family="-apple-system,sans-serif" font-size="11.5" transform="rotate(-90 28 132)" x="28" y="132">序参量 r</text>
+<text fill="#57524b" font-family="SF Mono,monospace" font-size="11" text-anchor="end" x="72" y="210">0</text>
+<text fill="#57524b" font-family="SF Mono,monospace" font-size="11" text-anchor="end" x="72" y="68">1</text>
+<line stroke="rgba(255,255,255,0.13)" stroke-dasharray="3 5" stroke-width="1.2" x1="80" x2="640" y1="64" y2="64"></line>
+<path d="M90,204 L240,204 C268,166 300,138 340,120 C400,94 500,76 630,66" fill="none" stroke="#63b3a6" stroke-width="2.8"></path>
+<line stroke="#d9b45f" stroke-dasharray="4 4" stroke-width="1.6" x1="240" x2="240" y1="206" y2="100"></line>
+<text fill="#d9b45f" font-family="SF Mono,monospace" font-size="12.5" text-anchor="middle" x="240" y="90">Kc = 2/(π·g(0))</text>
+<text fill="#8d867b" font-family="-apple-system,sans-serif" font-size="11.5" x="96" y="186">r ≈ 0（残值 ~1/√N）</text>
+<text fill="#63b3a6" font-family="-apple-system,sans-serif" font-size="11.5" x="430" y="128">r = √(1 − Kc/K)</text>
+<text fill="#787268" font-family="-apple-system,sans-serif" font-size="11" x="430" y="148">趋近 1 但永远到不了</text>
+<text fill="#57524b" font-family="-apple-system,sans-serif" font-size="11" text-anchor="middle" x="350" y="252">分布越尖 g(0) 越大 → Kc 越低。收窄频率分散度，比加大耦合便宜。</text>
+</svg>
+<figcaption>无穷多个振子时这是一个干净的转变点；有限 N 下这个拐角是糊的，r 一直在涨落。</figcaption>
+</figure>
+<p>看单个振子的话，画面是这样的：<em>K</em> 越过门槛后，频率靠近中心的那一批先被锁住，锁住的意思是它们彼此的相位差<b>不再变化</b>（注意不是不动——整团仍在以公共转速 Ω 一起转）。而频率偏离太远的那些继续漂移，一圈圈地从锁住的那团上碾过去。<em>K</em> 再调大，K·r 变大，锁住的频率窗口跟着变宽，更多振子被吸进来。</p>
+<h2><span class="n">04</span>它解释了现实中的什么<span class="he">（What It Explains）</span></h2>
+<p>凡是满足"一群自持振子 + 一条能互相感知的通道"的系统，这个模型都能给出第一近似，而且给的是可以被数据否掉的具体预期：<b>同步程度对耦合强度应当有一个门槛，而这个门槛应当随固有频率的分散度上升。</b></p>
+<p>已经被这样处理过的现实系统包括：心脏窦房结的起搏细胞群、东南亚萤火虫的整片齐闪、并网发电机组的频率锁定、约瑟夫森结阵列（超导器件里一堆微观振子的集体行为，是这个模型最干净的物理实现之一）、剧场里从乱鼓掌变成齐拍的过程，以及伦敦千禧桥上行人与桥体的横向锁步。</p>
+<p>它最有用的地方往往不是算出 <em>K</em><sub>c</sub> 的数值——现实里那些量常常测不准——而是它给出的<b>两个旋钮</b>：想改变一群东西的同步程度，你要么动耦合强度，要么动固有频率的分散度。这两个之外没有第三个入口，而"号令"根本不在这张清单上。</p>
+<div class="cant">
+<h3>它不能解释什么<span class="he">（What It Cannot Explain）</span></h3>
+<ul>
+<li><b>不能用在不是振子的东西上。</b>模型要求每个单元自持振荡——没人推它也照转，且周期可测。心肌细胞是，发电机是。而"团队""市场情绪""舆论"多数是事件驱动的，说不出周期，也说不出相位怎么量。把它们套进这个模型，得到的是一个比喻，不是一个预测。这是本模型被滥用得最严重的一条。</li>
+<li><b>不能描述空间。</b>原始模型是全连接的：任意两个振子的关系完全相同，没有远近。所以它对"斑图""波前""局部同步区块"这类空间现象一句话都说不出来——那需要另一套工具。</li>
+<li><b>不能预言网络上会发生什么。</b>把全连接换成真实网络后，会冒出模型自身预料不到的状态，最著名的是<b>嵌合态</b>（chimera state）：一群完全相同的振子，一部分严格锁相、另一部分自由漂移，两者长期稳定共存。此时全局的 r 会把两种截然不同的局面压成同一个数。</li>
+<li><b>那个"突然"在有限 N 下不严格。</b>转变点的锐利是 N→∞ 的极限结果。真实群体里 r 有 ~1/√N 的涨落，拐角是糊的，位置还随规模漂移。用几十个个体宣称"越过了临界耦合"，基本是过度解读。</li>
+<li><b>它只保留了耦合的第一项。</b>那个 sin 是相位响应的最低阶近似。真实振子的相位响应曲线通常不是纯正弦，加入高次谐波之后，连续的转变可能变成不连续的一阶转变、出现滞后回线，甚至出现多个稳定的同步簇——全都是原模型给不出的行为。</li>
+<li><b>它把振幅整个丢掉了。</b>只描述相位是一种叫「相位约化」的近似，仅在耦合足够弱、每个振子都稳稳待在自己的极限环上时才合法。耦合一强，振幅也开始被拽动，甚至出现振荡整个被压死的现象（振荡淬灭），那时这个模型不再适用——而现实中人们最想解释的往往正是强耦合的场合。</li>
+</ul>
+</div>
+<div class="refs">
+<h3>延伸阅读<span class="he">（Further Reading）</span></h3>
+<ul>
+<li>Acebrón, Bonilla, Pérez Vicente, Ritort &amp; Spigler, <a href="https://doi.org/10.1103/RevModPhys.77.137">The Kuramoto model: A simple paradigm for synchronization phenomena</a>（2005，标准综述）</li>
+<li>Strogatz, <a href="https://doi.org/10.1016/S0167-2789(00)00094-4">From Kuramoto to Crawford: exploring the onset of synchronization</a>（2000，转变本身的数学史）</li>
+<li>Abrams &amp; Strogatz, <a href="https://arxiv.org/abs/cond-mat/0407045">Chimera states for coupled oscillators</a>（2004）</li>
+<li>Néda et al., <a href="https://www.nature.com/articles/35002660">The sound of many hands clapping</a>（2000，一次干净的现实测量）</li>
+<li><a href="https://en.wikipedia.org/wiki/Kuramoto_model">Kuramoto model</a>（含推导与变体）</li>
+</ul>
+</div>
+<footer>BigCat · 复杂性科学 · <a href="index.html">← 全部 Topic</a></footer>
+</div>
+</body></html>
