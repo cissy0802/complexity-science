@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+
+<html lang="zh-CN"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>耗散结构 — 任何秩序都在花钱维持 · 复杂性科学 T15</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,"SF Pro Display","Noto Sans SC",sans-serif;color:#e4ded5;line-height:1.85;min-height:100vh;
+  background:radial-gradient(1100px 620px at 12% -6%,rgba(224,137,94,0.10),transparent 62%),radial-gradient(950px 700px at 100% 2%,rgba(166,147,205,0.09),transparent 58%),linear-gradient(168deg,#100f0d 0%,#15161b 48%,#0a0a0c 100%);background-attachment:fixed}
+.wrap{max-width:760px;margin:0 auto;padding:30px 22px 90px}
+header{padding:52px 0 8px;border-bottom:1px solid rgba(255,255,255,0.07);margin-bottom:34px}
+.week-tag{font-family:"SF Mono",Menlo,monospace;font-size:0.72rem;font-weight:700;letter-spacing:2px;color:#9fbc7a;border:1px solid rgba(159,188,122,0.4);background:rgba(159,188,122,0.07);padding:3px 11px;border-radius:20px}
+h1{font-size:2.5rem;font-weight:800;letter-spacing:0.5px;line-height:1.2;margin:20px 0 0;background:linear-gradient(106deg,#e0895e 0%,#d9b45f 34%,#9fbc7a 68%,#63b3a6 100%);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+h1 .h1en{display:block;font-size:0.40em;font-weight:600;letter-spacing:2.5px;color:#847d72;-webkit-text-fill-color:#847d72;background:none;margin-top:13px}
+.sub{font-size:1.05rem;color:#aba498;margin-top:14px;font-weight:500}
+.date{font-family:"SF Mono",Menlo,monospace;font-size:0.75rem;color:#57524b;margin-top:18px;letter-spacing:1px}
+.pitch{margin:22px 0 30px;font-size:0.97rem;color:#cd7f9b;border-left:2px solid rgba(205,127,155,0.5);padding-left:16px;font-style:italic}
+.intro{font-size:1.02rem;color:#cfc8bc;margin-bottom:14px}
+.intro p{margin-bottom:16px}
+h2{font-size:1.42rem;font-weight:700;color:#e9e3d9;margin:56px 0 8px;letter-spacing:0.3px}
+h2 .n{font-family:"SF Mono",Menlo,monospace;font-size:0.85rem;color:#9fbc7a;display:block;margin-bottom:6px;letter-spacing:2px}
+.he{font-size:0.68em;color:#8d867b;font-weight:500;letter-spacing:0}
+p{margin-bottom:17px}
+.lead{color:#cfc8bc}
+b,strong{color:#f0eae0;font-weight:600}
+em{color:#d9b45f;font-style:normal;font-weight:500}
+.dim{color:#8d867b}
+a.reflink{display:inline-block;font-size:0.82rem;font-family:"SF Mono",Menlo,monospace;color:#63b3a6;border:1px solid rgba(99,179,166,0.38);background:rgba(99,179,166,0.07);padding:1px 9px;border-radius:20px;text-decoration:none;transition:all 0.15s;white-space:nowrap}
+a.reflink:hover{background:rgba(99,179,166,0.16);border-color:rgba(99,179,166,0.7)}
+figure{margin:30px 0}
+figure svg{display:block;width:100%;height:auto;border-radius:12px;background:rgba(255,255,255,0.018);border:1px solid rgba(255,255,255,0.06)}
+figcaption{font-size:0.82rem;color:#787268;margin-top:11px;text-align:center;line-height:1.6}
+.en-brief{font-size:0.85rem;color:#847d72;border-top:1px dashed rgba(255,255,255,0.09);padding-top:12px;margin-top:22px;line-height:1.65}
+.en-brief b{font-family:"SF Mono",Menlo,monospace;font-size:0.72rem;color:#63b3a6;letter-spacing:1px;margin-right:7px}
+.decide{margin:24px 0;border:1px solid rgba(224,137,94,0.36);background:rgba(224,137,94,0.055);border-radius:12px;padding:15px 19px}
+.decide .lb{font-family:"SF Mono",Menlo,monospace;font-size:0.73rem;letter-spacing:1.5px;color:#e0895e;font-weight:700;display:block;margin-bottom:7px}
+.decide p{margin:0;font-size:0.95rem;color:#ddd5c9}
+.crossx-inline{margin:20px 0 22px;border-left:2px solid rgba(205,127,155,0.55);padding:2px 0 2px 15px;font-size:0.89rem;color:#a9a096;line-height:1.72}
+.crossx-inline b{color:#cd7f9b;font-weight:600}
+.bigcat{margin:46px 0 10px;border:1px solid rgba(217,180,95,0.38);background:rgba(217,180,95,0.05);border-radius:14px;padding:20px 22px}
+.bigcat h3{font-size:1.02rem;color:#d9b45f;margin-bottom:14px;letter-spacing:0.5px}
+.bigcat ol{list-style:none;padding:0}
+.bigcat li{margin-bottom:15px;font-size:0.94rem;color:#d5cdc1;line-height:1.78}
+.bigcat li:last-child{margin-bottom:0}
+.bigcat .dm{font-family:"SF Mono",Menlo,monospace;font-size:0.73rem;color:#d9b45f;border:1px solid rgba(217,180,95,0.32);border-radius:4px;padding:1px 7px;margin-right:8px;white-space:nowrap}
+.crossx{margin:46px 0 10px;border:1px solid rgba(205,127,155,0.38);background:rgba(205,127,155,0.05);border-radius:14px;padding:20px 22px}
+.crossx h3{font-size:1.02rem;color:#cd7f9b;margin-bottom:14px;letter-spacing:0.5px}
+.crossx ul{list-style:none;padding:0}
+.crossx li{margin-bottom:16px;font-size:0.94rem;color:#d5cdc1;line-height:1.78}
+.crossx li:last-child{margin-bottom:0}
+.crossx li b{color:#cd7f9b;font-weight:600}
+.thinking{margin:46px 0 10px}
+.thinking h3{font-size:1.02rem;color:#a693cd;margin-bottom:14px;letter-spacing:0.5px}
+details{border:1px solid rgba(166,147,205,0.22);border-radius:10px;padding:12px 16px;margin-bottom:10px;background:rgba(166,147,205,0.035)}
+summary{cursor:pointer;font-size:0.93rem;color:#c9c2b6;font-weight:500}
+summary::marker{color:#a693cd}
+details p{margin:12px 0 0;font-size:0.9rem;color:#a9a096;line-height:1.75}
+.refs{margin:46px 0 10px}
+.refs h3{font-size:1.02rem;color:#79a6d2;margin-bottom:14px;letter-spacing:0.5px}
+.refs ul{list-style:none;padding:0}
+.refs li{margin-bottom:10px;font-size:0.9rem;color:#8d867b;line-height:1.7}
+.refs a{color:#79a6d2;text-decoration:none;border-bottom:1px solid rgba(121,166,210,0.3)}
+.refs a:hover{color:#a6c4e2;border-bottom-color:rgba(121,166,210,0.7)}
+footer{text-align:center;padding:56px 0 10px;font-size:0.78rem;color:#57524b;font-family:"SF Mono",Menlo,monospace;border-top:1px solid rgba(255,255,255,0.06);margin-top:50px}
+footer a{color:#79a6d2;text-decoration:none}
+@media(max-width:600px){h1{font-size:1.85rem}.wrap{padding:24px 16px 60px}h2{font-size:1.22rem}}
+</style></head><body>
+<div class="wrap">
+<header>
+<span class="week-tag">TOPIC 15 · PHASE C</span>
+<h1>耗散结构<span class="h1en">DISSIPATIVE STRUCTURES</span></h1>
+<p class="sub">任何秩序都在花钱维持<span class="he">（Every order is running up a bill）</span></p>
+<p class="date">2026-08-02 · 自组织与临界</p>
+</header>
+<p class="pitch">一支蜡烛的火焰是有形状的，而且几个小时都保持着那个形状。但它不是一个东西——它是一个持续进行的过程留下的样子。停掉那个过程，形状不会"坏掉"，它只是不再存在。</p>
+<div class="intro">
+<p>把一杯热水放进封闭的保温箱，过几个小时，杯里杯外一样温、一样匀，什么也不会再发生。这是物理学里最没有悬念的结局：一个与外界不交换任何东西的系统，最后一定停在<em>什么都不再发生</em>的状态。</p>
+<p>可是你环顾四周，到处都是不肯这样停下来的东西——龙卷风、火焰、城市、你自己。它们全都有清晰的结构，而且这些结构维持了很久。反直觉的地方在于：它们能维持，恰恰不是因为它们"稳固"，而是因为它们<b>每一秒都在被重做一遍</b>。断掉供给，它们不是慢慢老化，是几乎立刻消失。</p>
+<p class="dim">本 Phase 有五期都在讲"临界"，视角各不相同：第 10 期是分岔跃迁、第 16 期是相变与普适类、第 17 期是渗流、第 18 期是自组织临界性、第 36 期是临界慢化。<b>本期不在这五期里。</b>第 13 期问的是没有蓝图时秩序从哪儿来、由什么选出形状；第 14 期问的是一群东西怎么在时间上对齐；本期只问一个问题——<b>这一切的账单是谁在付、付多少、停付会怎样。</b></p>
+</div>
+<h2><span class="n">01</span>一个不变的读数，背后可能是两种东西<span class="he">（Equilibrium Is Not Steady State）</span></h2>
+<p class="lead">先把一个词从日常语义里拆出来。日常说"平衡"，意思往往是"各方力量势均力敌、局面稳住了"。物理学里的<b>平衡态</b>（thermodynamic equilibrium）不是这个意思，它更极端：温度、浓度、压强处处相同，宏观上<em>不再有任何净流动</em>，也不再有任何变化。平衡态不是稳住了，是死透了。</p>
+<p>与之相对的是<b>稳态</b>（steady state）：读数也不变，但底下有两股大流在对冲。浴缸的水位保持在半满，可能是因为龙头和下水都关着（平衡态），也可能是因为龙头开着、下水也开着、进出恰好相等（稳态）。<b>水位这个读数分辨不出这两种情况，而它们的干预方式完全相反。</b></p>
+<p>普里高津（Ilya Prigogine，1917–2003）拿到 1977 年诺贝尔化学奖，就是因为他把注意力放在了第二种情况上，并且给这类靠流维持的秩序起了个名字：<b>耗散结构</b>（dissipative structure）。名字里"耗散"两个字是重点——它不是说这个结构在浪费，而是说<b>持续的耗散正是它存在的条件</b>。</p>
+<figure>
+<svg aria-label="两种秩序的对比：晶体是平衡态秩序、维持成本为零；对流胞是耗散结构、断流即消失" role="img" viewbox="0 0 720 300" xmlns="http://www.w3.org/2000/svg">
+<defs>
+<marker id="t15a" markerheight="10" markerunits="userSpaceOnUse" markerwidth="10" orient="auto" refx="9" refy="5" viewbox="0 0 10 10">
+<path d="M0,1 L9,5 L0,9 z" fill="#e0895e"></path>
+</marker>
+<marker id="t15b" markerheight="10" markerunits="userSpaceOnUse" markerwidth="10" orient="auto" refx="9" refy="5" viewbox="0 0 10 10">
+<path d="M0,1 L9,5 L0,9 z" fill="#79a6d2"></path>
+</marker>
+<marker id="t15c" markerheight="9" markerunits="userSpaceOnUse" markerwidth="9" orient="auto" refx="9" refy="5" viewbox="0 0 10 10">
+<path d="M0,1 L9,5 L0,9 z" fill="#8d867b"></path>
+</marker>
+</defs>
+<text fill="#aba498" font-family="-apple-system,sans-serif" font-size="13" text-anchor="middle" x="360" y="26">两种秩序，账单完全不同</text>
+<text fill="#9fbc7a" font-family="SF Mono,monospace" font-size="12" text-anchor="middle" x="118" y="56">① 平衡态的秩序</text>
+<g transform="translate(46,70)">
+<rect fill="rgba(255,255,255,0.02)" height="120" rx="8" stroke="rgba(255,255,255,0.10)" width="144" x="0" y="0"></rect>
+<g fill="none" stroke="#9fbc7a" stroke-width="1.6">
+<path d="M42,36 L60,26 L78,36 L78,58 L60,68 L42,58 z"></path>
+<path d="M78,36 L96,26 L114,36 L114,58 L96,68 L78,58 z"></path>
+<path d="M60,68 L78,58 L96,68 L96,90 L78,100 L60,90 z"></path>
+<path d="M24,68 L42,58 L60,68 L60,90 L42,100 L24,90 z"></path>
+</g>
+<text fill="#787268" font-family="-apple-system,sans-serif" font-size="10.5" text-anchor="middle" x="72" y="115">无流入 · 无流出</text>
+</g>
+<text fill="#8d867b" font-family="-apple-system,sans-serif" font-size="11" text-anchor="middle" x="118" y="212">晶体、雪花、结冰</text>
+<text fill="#9fbc7a" font-family="SF Mono,monospace" font-size="11.5" text-anchor="middle" x="118" y="232">维持成本 = 0</text>
+<text fill="#57524b" font-family="-apple-system,sans-serif" font-size="10.5" text-anchor="middle" x="118" y="252">但它什么也不做</text>
+<text fill="#e0895e" font-family="SF Mono,monospace" font-size="12" text-anchor="middle" x="360" y="56">② 耗散结构</text>
+<g transform="translate(288,70)">
+<rect fill="rgba(224,137,94,0.05)" height="120" rx="8" stroke="rgba(224,137,94,0.35)" width="144" x="0" y="0"></rect>
+<g fill="none" stroke="#e0895e" stroke-width="1.8">
+<path d="M20,96 C20,62 52,62 52,96"></path>
+<path d="M52,96 C52,62 84,62 84,96"></path>
+<path d="M84,96 C84,62 116,62 116,96"></path>
+</g>
+<line stroke="#7a4a30" stroke-width="4" x1="14" x2="130" y1="99" y2="99"></line>
+<text fill="#c0703f" font-family="-apple-system,sans-serif" font-size="10.5" text-anchor="middle" x="72" y="115">热从下面进来</text>
+</g>
+<line marker-end="url(#t15a)" stroke="#e0895e" stroke-width="2.5" x1="360" x2="360" y1="212" y2="182"></line>
+<text fill="#e0895e" font-family="-apple-system,sans-serif" font-size="11" text-anchor="middle" x="360" y="228">能量流入</text>
+<line marker-end="url(#t15b)" stroke="#79a6d2" stroke-width="2.5" x1="426" x2="466" y1="80" y2="52"></line>
+<text fill="#79a6d2" font-family="-apple-system,sans-serif" font-size="11" text-anchor="start" x="470" y="48">废热流出</text>
+<text fill="#8d867b" font-family="-apple-system,sans-serif" font-size="11" text-anchor="middle" x="360" y="252">火焰、对流胞、飓风、你</text>
+<text fill="#e0895e" font-family="SF Mono,monospace" font-size="11.5" text-anchor="middle" x="360" y="272">维持成本 &gt; 0，每秒都在付</text>
+<line marker-end="url(#t15c)" stroke="#8d867b" stroke-width="1.5" x1="444" x2="486" y1="130" y2="130"></line>
+<text fill="#787268" font-family="-apple-system,sans-serif" font-size="10.5" text-anchor="middle" x="465" y="118">断流</text>
+<text fill="#cd7f9b" font-family="SF Mono,monospace" font-size="12" text-anchor="middle" x="600" y="56">③ 停付之后</text>
+<g transform="translate(528,70)">
+<rect fill="rgba(255,255,255,0.02)" height="120" rx="8" stroke="rgba(255,255,255,0.10)" width="144" x="0" y="0"></rect>
+<line stroke="rgba(205,127,155,0.30)" stroke-width="1.4" x1="20" x2="124" y1="52" y2="52"></line>
+<line stroke="rgba(205,127,155,0.30)" stroke-width="1.4" x1="20" x2="124" y1="70" y2="70"></line>
+<line stroke="rgba(205,127,155,0.30)" stroke-width="1.4" x1="20" x2="124" y1="88" y2="88"></line>
+<text fill="#787268" font-family="-apple-system,sans-serif" font-size="10.5" text-anchor="middle" x="72" y="115">均匀 · 什么也不发生</text>
+</g>
+<text fill="#cd7f9b" font-family="-apple-system,sans-serif" font-size="11" text-anchor="middle" x="600" y="212">结构不是"坏掉"</text>
+<text fill="#cd7f9b" font-family="-apple-system,sans-serif" font-size="11" text-anchor="middle" x="600" y="232">是不再存在</text>
+<text fill="#57524b" font-family="-apple-system,sans-serif" font-size="10.5" text-anchor="middle" x="600" y="252">而且几乎是立刻</text>
+</svg>
+<figcaption>晶体的秩序是免费的，代价是它不做任何事；耗散结构什么都能做，代价是账单一天不停。</figcaption>
+</figure>
+<p>两者的分界不在"看起来乱不乱"，而在<b>它需不需要持续的输入才不散</b>。一块冰的规整排列是免费的：你把它封在恒温箱里，它可以一直那样。而一个对流胞、一场飓风、一个活着的人，全都要求某样东西持续流过自己——断掉，几秒到几天之内就没了。</p>
+<p>顺手算一下人的账单：一个成年人一天代谢大约 2000 千卡，摊到每一秒是 100 瓦左右——跟一只老式白炽灯泡差不多。<b>你身上那套极其精细的秩序，标价大约是一只灯泡。</b>而这 100 瓦里的绝大部分并不用来干活，是用来维持现状：把离子泵回膜外、把出错的蛋白拆掉重造、把该在里面的东西按在里面。</p>
+<div class="crossx-inline">
+🌀 <b>生物与医学 · 体温 37 度是两股大流的差</b>　体温读数几十年不变，很容易读成"身体处在平衡"。它其实是产热与散热两股大流恰好相抵的稳态，血糖的平稳同样是肝脏输出与组织摄取相抵的结果。这条区分有个直接的临床后果：发烧不是产热失控，是设定点被上调了——所以病人会同时觉得冷、会打寒战，因为身体正在<em>朝新的目标值赶</em>。对着一个不变的读数，先问它是零流量还是大流量相抵：前者要推动，后者要减小其中一股，做反了就会把系统推得更远。
+</div>
+<div class="decide">
+<span class="lb">🎯 决策线</span>
+<p>看到一个稳定的指标，别急着下"这里稳了"的结论。先做一次<b>流量归因</b>：这个读数是没人在动它，还是有两股力量在对冲？具体动作——找出该指标的流入项与流出项，各自估一个量级。如果两股都很大，那么它随时可能因为<em>其中一股</em>的小变化而急剧偏移，而你的仪表盘上完全看不出预兆。</p>
+</div>
+<p class="en-brief"><b>EN</b> Thermodynamic equilibrium means no net flows and no further change — it is death, not balance. A steady state looks identical on the dial but is two large flows cancelling. Prigogine's dissipative structures are the second kind: order whose continued existence <i>is</i> the dissipation. Cut the supply and the structure does not decay, it stops existing.</p>
+<h2><span class="n">02</span>熵不是被消灭的，是被排出去的<span class="he">（Entropy Needs an Exit）</span></h2>
+<p class="lead">这里要处理一个非常常见的误会。<b>热力学第二定律</b>（second law of thermodynamics）说熵（entropy，可以粗略理解成"混乱程度"或者更准确一点——"系统可能处于的微观状态有多少种"）只增不减。于是一个流行的疑问是：生命、城市、这套精细的秩序，不是明摆着在减少混乱吗？</p>
+<p>误会出在漏掉了一个前提词。<b>第二定律说的是「孤立系统」的熵不减</b>——孤立（isolated）指的是既不交换能量也不交换物质的那种系统。而地球、你、一座城市，全都是<b>开放系统</b>（open system）。开放系统的熵可以下降，条件是它把等量以上的熵<em>推给了外面</em>。</p>
+<p>薛定谔（Erwin Schrödinger）1944 年在《生命是什么》里把这件事说得很直白：生命"以负熵为食"。他自己后来加了个注，说更准确的说法应该是自由能（free energy）。这个更正很重要——生物吃进去的不是"秩序"这种玄乎东西，是<b>可用的能量</b>，而秩序是这股能量流过身体时的副产品。</p>
+<p>地球这一笔账算起来特别干净。地球从太阳接收能量，又向宇宙辐射掉几乎同样多的能量——<b>能量上是收支平衡的，一分不多。</b>可两边的品质天差地别：进来的是来自 5800 K 表面的可见光，出去的是 255 K 左右的红外线。同样的能量，温度低了大约二十倍，就得用大约二十倍数量的光子才装得下。</p>
+<figure>
+<svg aria-label="地球的熵账：少量高能光子进入，约二十倍数量的低能光子离开" role="img" viewbox="0 0 720 280" xmlns="http://www.w3.org/2000/svg">
+<defs>
+<marker id="t15d" markerheight="10" markerunits="userSpaceOnUse" markerwidth="10" orient="auto" refx="9" refy="5" viewbox="0 0 10 10">
+<path d="M0,1 L9,5 L0,9 z" fill="#d9b45f"></path>
+</marker>
+<marker id="t15e" markerheight="9" markerunits="userSpaceOnUse" markerwidth="9" orient="auto" refx="9" refy="5" viewbox="0 0 10 10">
+<path d="M0,1 L9,5 L0,9 z" fill="#79a6d2"></path>
+</marker>
+</defs>
+<text fill="#aba498" font-family="-apple-system,sans-serif" font-size="13" text-anchor="middle" x="360" y="26">能量进出相等，熵进出差得远 — 差额就是地球能买到的秩序</text>
+<circle cx="72" cy="140" fill="#d9b45f" r="34"></circle>
+<text fill="#100f0d" font-family="SF Mono,monospace" font-size="12" font-weight="700" text-anchor="middle" x="72" y="145">5800K</text>
+<text fill="#d9b45f" font-family="-apple-system,sans-serif" font-size="12" text-anchor="middle" x="72" y="196">太阳</text>
+<line marker-end="url(#t15d)" stroke="#d9b45f" stroke-width="2.5" x1="118" x2="286" y1="140" y2="140"></line>
+<text fill="#d9b45f" font-family="-apple-system,sans-serif" font-size="11.5" text-anchor="middle" x="202" y="128">少量高能光子</text>
+<text fill="#8d867b" font-family="SF Mono,monospace" font-size="11" text-anchor="middle" x="202" y="162">1 份能量</text>
+<circle cx="336" cy="140" fill="rgba(159,188,122,0.16)" r="42" stroke="#9fbc7a" stroke-width="1.6"></circle>
+<text fill="#9fbc7a" font-family="-apple-system,sans-serif" font-size="12.5" text-anchor="middle" x="336" y="136">地球</text>
+<text fill="#787268" font-family="-apple-system,sans-serif" font-size="10.5" text-anchor="middle" x="336" y="155">开放系统</text>
+<text fill="#8d867b" font-family="-apple-system,sans-serif" font-size="11" text-anchor="middle" x="336" y="210">生物圈 · 气候 · 城市</text>
+<text fill="#57524b" font-family="-apple-system,sans-serif" font-size="10.5" text-anchor="middle" x="336" y="230">全部秩序都从这个差额里买</text>
+<g stroke="#79a6d2" stroke-width="1.6">
+<line marker-end="url(#t15e)" x1="382" x2="560" y1="108" y2="72"></line>
+<line marker-end="url(#t15e)" x1="384" x2="562" y1="124" y2="106"></line>
+<line marker-end="url(#t15e)" x1="386" x2="564" y1="140" y2="140"></line>
+<line marker-end="url(#t15e)" x1="384" x2="562" y1="156" y2="174"></line>
+<line marker-end="url(#t15e)" x1="382" x2="560" y1="172" y2="208"></line>
+</g>
+<text fill="#79a6d2" font-family="-apple-system,sans-serif" font-size="11.5" text-anchor="middle" x="474" y="60">约 20 倍数量的低能光子</text>
+<text fill="#8d867b" font-family="SF Mono,monospace" font-size="11" text-anchor="middle" x="474" y="228">同样 1 份能量</text>
+<rect fill="rgba(121,166,210,0.08)" height="88" rx="8" stroke="rgba(121,166,210,0.32)" width="112" x="586" y="96"></rect>
+<text fill="#79a6d2" font-family="SF Mono,monospace" font-size="12" text-anchor="middle" x="642" y="128">255K</text>
+<text fill="#79a6d2" font-family="-apple-system,sans-serif" font-size="11.5" text-anchor="middle" x="642" y="150">宇宙</text>
+<text fill="#787268" font-family="-apple-system,sans-serif" font-size="10.5" text-anchor="middle" x="642" y="170">熵的出口</text>
+<text fill="#57524b" font-family="-apple-system,sans-serif" font-size="11" text-anchor="middle" x="360" y="266">地球不是靠"接收能量"活着的 — 它靠的是能量以高品质进来、以低品质出去这个落差</text>
+</svg>
+<figcaption>把出口堵上，光有能量流入没有用。秩序买的不是能量，是能量品质的落差。</figcaption>
+</figure>
+<p>这一步值得停一下：<b>地球缺的从来不是能量，是熵的出口。</b>如果太阳照常照着，而地球没法向宇宙辐射，温度会一路飙升到什么结构都待不住。所以"能量流"这个词其实说得不够准——真正在买单的是<em>能量品质的落差</em>：高品质进来、低品质出去，中间那段差价就是这颗星球上一切结构的经费。</p>
+<div class="crossx-inline">
+🌀 <b>经济与制度 · 「清洁」是一道边界题</b>　既然局部的秩序必须由更大范围的熵增买单，那么任何"零排放""碳中和"的说法，问的都不是干不干净，而是<b>你把账画在哪个边界上</b>。一辆电动车的排放在车这个边界内确实是零，把边界扩到电网和电池冶炼就不是；一个数据中心的余热"处理掉了"，只是被推出了机房这个边界。由此推出的结论比"要看全生命周期"更硬一点：<b>不存在没有边界的洁净指标</b>，所以对任何洁净宣称，第一句该问的不是数字多少，是这个数字的边界画在哪里、谁在边界外面收账。
+</div>
+<div class="decide">
+<span class="lb">🎯 决策线</span>
+<p>凡是你想维持的秩序（一支队伍的默契、一份代码的整洁、一个作息），都别问"怎么让它更稳固"，改问三个具体问题：<b>①</b> 维持它的那股流是什么？<b>②</b> 谁在付、按什么频率付？<b>③</b> 排出去的熵落在谁头上？第三问最容易漏——一处秩序井然，往往意味着混乱被推给了下游的某个人或某个环节，而他不在你的仪表盘上。</p>
+</div>
+<p class="en-brief"><b>EN</b> The second law forbids entropy decrease in <i>isolated</i> systems. Open systems get around it by exporting entropy, not destroying it. Earth's books balance on energy — the same joules leave as arrive — but the light comes in at ~5800 K and leaves at ~255 K, so roughly twenty low-grade photons carry out what one high-grade photon brought in. That gap in quality, not the energy itself, is what buys every structure on the planet.</p>
+<h2><span class="n">03</span>把流拧大，结构会换代<span class="he">（Turn Up the Flow）</span></h2>
+<p class="lead">现在把上一节那个"落差"当成一个可以旋的旋钮，慢慢往大了拧，看会发生什么。经典的实验台是一薄层液体，底下加热、上面散热——温差就是旋钮 <a class="reflink" href="ref-lorenz.html">→ 参考 · 洛伦兹系统</a>。</p>
+<p>温差很小的时候，热靠分子一个个撞过去往上传，液体本身一动不动，看不出任何结构。把温差调大，到某个具体的值，液体突然整层<em>动起来</em>，排出一格一格的对流胞。这个门槛在流体力学里有个数：<b>瑞利数</b>（Rayleigh number，把温差、层厚、黏性等揉成的一个无量纲量）越过约 1708，静止就不再是可能的了。</p>
+<p>关键不在于"越过阈值会出现花纹"——这是第 13 期的话题。关键在于：<b>继续往大了拧，系统不是把同一个结构做得更强，而是整个换掉一批。</b>规则的对流卷 → 摇摆的卷 → 周期性振荡 → 一片混乱的湍流。每一次都是一次<b>分岔</b>（bifurcation，系统在某个参数值上突然改变行为的类型）。你手里只有一个旋钮，系统却给出了一整个序列的定性不同的结构。</p>
+<figure>
+<svg aria-label="能量流量轴上的结构换代：传导、稳定对流胞、振荡、湍流" role="img" viewbox="0 0 720 300" xmlns="http://www.w3.org/2000/svg">
+<defs>
+<marker id="t15f" markerheight="11" markerunits="userSpaceOnUse" markerwidth="11" orient="auto" refx="9" refy="5" viewbox="0 0 10 10">
+<path d="M0,1 L9,5 L0,9 z" fill="#aba498"></path>
+</marker>
+</defs>
+<text fill="#aba498" font-family="-apple-system,sans-serif" font-size="13" text-anchor="middle" x="360" y="26">一个旋钮，四种定性不同的结构</text>
+<g transform="translate(44,52)">
+<rect fill="rgba(255,255,255,0.02)" height="86" rx="6" stroke="rgba(255,255,255,0.10)" width="140" x="0" y="0"></rect>
+<line stroke="rgba(255,255,255,0.16)" stroke-width="1.3" x1="16" x2="124" y1="26" y2="26"></line>
+<line stroke="rgba(255,255,255,0.16)" stroke-width="1.3" x1="16" x2="124" y1="43" y2="43"></line>
+<line stroke="rgba(255,255,255,0.16)" stroke-width="1.3" x1="16" x2="124" y1="60" y2="60"></line>
+<text fill="#8d867b" font-family="-apple-system,sans-serif" font-size="10.5" text-anchor="middle" x="70" y="80">液体不动</text>
+</g>
+<text fill="#8d867b" font-family="SF Mono,monospace" font-size="11.5" text-anchor="middle" x="114" y="156">① 传导</text>
+<text fill="#57524b" font-family="-apple-system,sans-serif" font-size="10.5" text-anchor="middle" x="114" y="174">无结构</text>
+<g transform="translate(206,52)">
+<rect fill="rgba(159,188,122,0.05)" height="86" rx="6" stroke="rgba(159,188,122,0.30)" width="140" x="0" y="0"></rect>
+<g fill="none" stroke="#9fbc7a" stroke-width="1.7">
+<path d="M18,66 C18,32 46,32 46,66"></path>
+<path d="M46,66 C46,32 74,32 74,66"></path>
+<path d="M74,66 C74,32 102,32 102,66"></path>
+<path d="M102,66 C102,32 124,32 124,66"></path>
+</g>
+<text fill="#8d867b" font-family="-apple-system,sans-serif" font-size="10.5" text-anchor="middle" x="70" y="80">规则的卷</text>
+</g>
+<text fill="#9fbc7a" font-family="SF Mono,monospace" font-size="11.5" text-anchor="middle" x="276" y="156">② 稳定对流胞</text>
+<text fill="#57524b" font-family="-apple-system,sans-serif" font-size="10.5" text-anchor="middle" x="276" y="174">空间上的秩序</text>
+<g transform="translate(368,52)">
+<rect fill="rgba(217,180,95,0.05)" height="86" rx="6" stroke="rgba(217,180,95,0.30)" width="140" x="0" y="0"></rect>
+<path d="M14,50 C34,20 54,80 74,50 C94,20 114,80 128,52" fill="none" stroke="#d9b45f" stroke-width="2"></path>
+<path d="M14,66 C34,40 54,92 74,66 C94,40 114,92 128,68" fill="none" opacity="0.45" stroke="#d9b45f" stroke-width="1.6"></path>
+<text fill="#8d867b" font-family="-apple-system,sans-serif" font-size="10.5" text-anchor="middle" x="70" y="80">花样自己在动</text>
+</g>
+<text fill="#d9b45f" font-family="SF Mono,monospace" font-size="11.5" text-anchor="middle" x="438" y="156">③ 周期振荡</text>
+<text fill="#57524b" font-family="-apple-system,sans-serif" font-size="10.5" text-anchor="middle" x="438" y="174">时间上的秩序</text>
+<g transform="translate(530,52)">
+<rect fill="rgba(224,137,94,0.05)" height="86" rx="6" stroke="rgba(224,137,94,0.30)" width="140" x="0" y="0"></rect>
+<g fill="none" stroke="#e0895e" stroke-width="1.5">
+<path d="M16,58 C28,34 38,74 50,50 C60,30 70,66 82,44 C92,26 104,62 124,40"></path>
+<path d="M16,70 C30,52 40,84 56,64 C70,48 84,80 100,60 C110,48 118,70 126,60"></path>
+<circle cx="42" cy="34" r="6"></circle><circle cx="96" cy="56" r="6"></circle><circle cx="110" cy="30" r="5"></circle>
+</g>
+<text fill="#8d867b" font-family="-apple-system,sans-serif" font-size="10.5" text-anchor="middle" x="70" y="80">尺度全都有</text>
+</g>
+<text fill="#e0895e" font-family="SF Mono,monospace" font-size="11.5" text-anchor="middle" x="600" y="156">④ 湍流</text>
+<text fill="#57524b" font-family="-apple-system,sans-serif" font-size="10.5" text-anchor="middle" x="600" y="174">仍是结构，不是噪声</text>
+<line marker-end="url(#t15f)" stroke="#aba498" stroke-width="2" x1="44" x2="676" y1="212" y2="212"></line>
+<text fill="#aba498" font-family="-apple-system,sans-serif" font-size="12" x="44" y="236">能量流 / 温差 →</text>
+<line stroke="rgba(159,188,122,0.5)" stroke-width="1.4" x1="196" x2="196" y1="204" y2="220"></line>
+<text fill="#9fbc7a" font-family="SF Mono,monospace" font-size="10.5" text-anchor="middle" x="196" y="256">Ra ≈ 1708</text>
+<line stroke="rgba(217,180,95,0.5)" stroke-width="1.4" x1="358" x2="358" y1="204" y2="220"></line>
+<line stroke="rgba(224,137,94,0.5)" stroke-width="1.4" x1="520" x2="520" y1="204" y2="220"></line>
+<text fill="#57524b" font-family="-apple-system,sans-serif" font-size="10.5" text-anchor="middle" x="439" y="256">每一道竖线都是一次分岔：不是变强，是换了一种结构</text>
+<text fill="#57524b" font-family="-apple-system,sans-serif" font-size="11" text-anchor="middle" x="360" y="286">你只旋了一个旋钮，系统却把整个花样换了四回</text>
+</svg>
+<figcaption>结构不是被设计出来的，是被流量选出来的。想换结构，去动那个旋钮，别去修结构本身。</figcaption>
+</figure>
+<p>化学里有个更漂亮的例子。1950 年代初，苏联化学家<b>别洛乌索夫</b>（Boris Belousov）发现了一锅会周期性变色的溶液——红、黄、红、黄，来回换，像个钟。当时这被认为不可能：反应不是应该单向走到平衡就完事吗？他的论文被拒了两次。十年后<b>扎鲍廷斯基</b>（Anatol Zhabotinsky）重做并推广了它，现在它叫<b>别洛乌索夫-扎鲍廷斯基反应</b>（Belousov–Zhabotinsky reaction），通称 <b>BZ 反应</b>。</p>
+<p>它不违反任何定律。之所以能一直振荡，是因为体系远离平衡：只要不断供应反应物，它就一直摆下去；反应物耗尽，它安静下来，走进真正的平衡态。在状态空间里，这种自我维持的循环叫<b>极限环</b>（limit cycle）<a class="reflink" href="ref-phase-space.html">→ 参考 · 相空间与吸引子</a>。普里高津和同事在 1968 年给出了能产生这种行为的最小玩具模型 <a class="reflink" href="ref-brusselator.html">→ 参考 · 布鲁塞尔器</a>。</p>
+<p>于是有了一个不太直觉的推论：<b>周期性的规律行为，可能恰恰是远离平衡的证据，而不是安定的证据。</b>一件事年复一年准时发生，可能说明它离平衡还远得很——而它准时，靠的是某股流一直没断。</p>
+<div class="crossx-inline">
+🌀 <b>工程与技术史 · 潘季驯的「束水攻沙」</b>　明代治黄河的常规做法是分流泄洪、然后年年挖沙。潘季驯（1521–1595）反其道而行：<em>收窄</em>河道、筑堤把水束起来，让流速自己把泥沙带走。这正是本节的机制被当成工具使用——泥沙淤积和冲刷不是两件要分别去治的事，而是同一条河在流速这个参数上的两种<b>结构</b>，越过某个流速，淤积那一支就不存在了。由此推出的干预原则很硬：当一个坏结果是被参数选出来的，去修那个结果（挖沙、清淤、加人手）等于每年重付一次账；能一次性改掉它的只有参数本身。
+</div>
+<div class="decide">
+<span class="lb">🎯 决策线</span>
+<p>想换掉一个你不喜欢的结构，先别动结构，去找那个把它选出来的<b>流量参数</b>：预算的下拨节奏、招聘速度、请求量、信息流经的带宽。判据很具体——如果你反复修同一个症状而它反复回来，说明你在结构那一层使劲，而选出它的参数没动。另一半同样要记住：参数一旦推过下一个门槛，你得到的不是"更好的当前结构"，而是<em>一个你没设计过的新结构</em>。</p>
+</div>
+<p class="en-brief"><b>EN</b> Take the quality gradient of section 2 and treat it as a dial. Below a threshold (Rayleigh number ≈ 1708) a heated fluid layer just conducts. Above it, convection cells appear; turn further and you get oscillation, then turbulence — a whole sequence of qualitatively different structures from a single knob. The Belousov–Zhabotinsky reaction is the chemical version: a clock that keeps ticking only while it is fed, settling into equilibrium the moment it is not.</p>
+<h2><span class="n">04</span>这套说法在哪儿不成立<span class="he">（Where This Breaks Down）</span></h2>
+<p class="lead">耗散结构是复杂性科学里被引用得最多、也被撑得最过的概念之一。用它之前，有四条边界必须知道。</p>
+<p><b>第一，普里高津自己那条定理管不到这里。</b>他早年（1945 年前后）证明过一个漂亮的结果：<b>最小熵产生定理</b>（theorem of minimum entropy production）——系统在稳态下会让熵产生率取到最小。问题是这条定理有个严格的适用范围：只在<em>接近</em>平衡态、各种流与力还成正比的那个线性区里成立。而耗散结构全都出现在线性区之外。<b>所以在真正有趣的那片区域里，我们并没有一条"系统会优化某某量"的通用原理。</b>这一点常被搞混：拿最小熵产生去解释生命、组织、城市，是把一条近平衡的定理搬到了它明确不适用的地方。</p>
+<p><b>第二，与之对称的那个说法也还不是定律。</b>另一派主张远离平衡的系统会让熵产生率取到<em>最大</em>，即<b>最大熵产生原理</b>（maximum entropy production principle，缩写 MEP）。它在某些气候与流体问题上给出过不错的预测，但至今没有被普遍接受的推导，适用条件也说不清。见到有人用"系统总会最大化熵产生"一句话解释一切，那是在把一个开放问题当成已知定律用。</p>
+<p><b>第三，"耗散结构"不解释生命的起源，它只给出必要条件。</b>说生命是一种耗散结构，这句话是对的，但信息量有限——飓风和蜡烛火焰也是。生命额外有的那一大堆东西（可遗传的信息载体、代谢与复制的分工、能积累的变异），耗散结构理论一样都推不出来。把"生命远离平衡"当成生命起源的解释，是拿一个共性冒充一个机制。</p>
+<p><b>第四，别把熵当成比喻用。</b>熵是有精确定义、有单位、能算出数值的量。"这家公司熵增了""关系的熵太高"这类说法里的熵没有量纲、不可测，也就不能被证伪。真要用这套语言，最起码得说清：你说的那股流是什么、以什么单位计量、谁在付。说不出来，就直接说"这事没人维护会散"，反而更诚实。</p>
+<div class="crossx-inline">
+🌀 <b>西方哲学与科学哲学 · 优化原理的诱惑</b>　从最小作用量原理开始，物理学一再兑现过同一种奢望：找到一个量，宣布自然总是让它取极值，于是一整片现象被一条原理收编。本节的第一、二条边界说明这个奢望在远离平衡处落空了——不是还没找到，而是目前没有理由相信存在。由此可以推出一条读文献时能直接用的判据：<b>凡是听到"系统总会趋向某某最小/最大"，先问它离平衡有多远。</b>近平衡区确实有这类原理，而所有值得研究的结构都在远处——这也解释了为什么这类总纲式的原理在生物学和社会科学里格外容易被误用：那些领域的对象，全都在原理失效的那一侧。
+</div>
+<div class="decide">
+<span class="lb">🎯 决策线</span>
+<p>拿这套语言下结论之前，先过一遍三问：这个系统的<b>流</b>能不能指出来、能不能量？它离平衡是近还是远（近了才有那些优化原理，远了就得老老实实做模型）？你说的"熵"有没有单位？三问里有一问答不上，就把这套词收起来，改用你能测的东西说话——否则你说的不是机制，是修辞。</p>
+</div>
+<p class="en-brief"><b>EN</b> Four limits. Prigogine's own minimum-entropy-production theorem holds only in the near-equilibrium linear regime — precisely not where dissipative structures live, so no general optimisation principle is available there. The maximum-entropy-production principle is a live hypothesis, not a law. Calling life a dissipative structure is true and thin: so are hurricanes. And entropy used without units or a measurable flow is rhetoric, not mechanism.</p>
+<div class="bigcat">
+<h3>🎒 场景 · BigCat</h3>
+<ol>
+<li><span class="dm">带团队与组织</span>一套运转良好的机制——周会纪要、代码规范、on-call 轮值、新人手册——看上去像制度，其实往往是一个人每周悄悄付出的几小时在维持。那个人休假三周，机制就散了，然后被总结成"执行力不行"。可改的东西很具体：给每条流程后面加两个字段，<b>「每周维持工时」</b>与<b>「付账人」</b>；付账人只有一个名字的条目全部标出来。这不是为了减少流程，是为了知道你现在同时供着几处火——供不起的那几处，早点让它塌，比它在你休假时塌要好。</li>
+<li><span class="dm">育儿</span>家里偶尔会进入一段"秩序特别好"的时期：作息准、作业不用催、晚上不吵。它几乎总是由某一股不显眼的流维持着——某个大人多出来的一小时、一段没有其它安排的空档、某个固定的接送时段。那股流一断，秩序常常三五天内散掉，然后被归因成"最近不听话"。改问的那句话不是"怎么又退步了"，而是<b>"上周哪一股流停了"</b>；改做的那件事是把维持它的那一小时当成固定开销排进日程，而不是"有空就做"。判据也简单：如果一个好状态的出现与消失，总跟着某个成年人的日程走，那它就不是孩子的属性。</li>
+<li><span class="dm">修行与心性</span>用功一段时间后心里清明，过阵子又散回去，通常被解释成"退转了、道心不够"。本期的机制给的是另一种读法：那段清明是耗散结构，它的稳定度大致正比于当时那股流的大小——独处的时长、作息的规整、共修的频率。换了工作、搬了家，流被抽掉，结构自然不再存在，这跟意志强弱无关。可改的动作：别再去加大用功的强度（那是加大流量，账单更贵、更难持续），先把这段时期<b>实际存在过的那几股流</b>写下来——每天几点、在哪儿、多久、有没有别人——然后只恢复最便宜的那一股。至于典籍里那种"不待缘而住"的稳定属于另一个类别，别用它来评价一个明显靠条件撑着的状态。</li>
+</ol>
+</div>
+<div class="crossx">
+<h3>🌀 越界 · 跨学科的联想<span class="he">（Crossings）</span></h3>
+<ul>
+<li><b>历史与经济 · 文明的能量账单</b>：Ian Morris 在《文明的度量》里把"人均能量捕获"（kcal/人/天）当作社会发展指数的首要维度——不是因为能量比制度重要，而是因为它是唯一能跨几千年、跨东西方统一计量的东西。把本期的机制成套接上去，这个选择就不只是方法上的方便了：一个社会的全部结构（官僚层级、常备军、城市、学术）都是耗散结构，维持它们需要持续的能流（第 1 节），而能流的规模决定了能维持到哪一档结构（第 3 节）。Joseph Tainter 在《复杂社会的崩溃》里给出的正是这条链的另一半——复杂度本身的边际收益递减，最终维持成本超过能收上来的部分。由此能推出一个原本看不出的结论：崩溃不必是被谁打垮的，能流跌到某一档以下，社会会<em>换代</em>到一个更便宜的结构，就像温差降下去时对流胞消失、回到传导——外敌往往只是那时候恰好在场的那粒沙。<b>但这里不成立</b>：对流胞断电后什么都不剩，而社会退化后会留下文字、技术、法律条文这些不需要能流维持的存量——它们更像第 1 节里那块"免费的晶体"。所以社会的崩溃是带棘轮的，下一轮重建不从零开始；把物理耗散结构的"归零"直接搬过来，会得出比史实悲观得多的图景。</li>
+<li><b>文学与艺术 · 一门手艺不是存量，是流</b>：抢救濒危的手工艺、方言、乐种，最常见的做法是记录——录像、建档、出书、拍纪录片。用本期的机制看，这个做法有个结构性的漏洞：一门活着的手艺是耗散结构，它由持续的传习与使用维持（第 1 节），而它的形态由当下的边界条件与流量选出来，不由历史初值决定（第 3 节）。既然这类结构的状态不是由初始条件推出来的，那么它的快照就不足以重建它——档案保存的是描述，不是那股流。由此推出一个反直觉的结论：<b>把资源全投在记录上，可能恰恰意味着放弃了保存</b>；真正等价的动作是维持一个哪怕很小的、真实的需求与传承回路——一年有几件东西被真的做出来、被真的用掉。这也解释了一个常被当成怪事的现象：档案做得最全的门类，往往是断得最彻底的那些——因为记录通常是在流已经快停了的时候才开始的。</li>
+<li><b>东方思想 · 「有为法」的判准</b>：佛教把现象分成有为法与无为法，判准是前者"待缘而生、待缘而住"——由条件造作，也依赖条件才继续存在。本期第 1、2 两节合起来，给这个古老的分类提供了一把可操作的尺子：一个状态需不需要持续的输入才不散？它维持自己的代价被推给了谁？这两问都是可以真去测的。由此能推出一个不显然的结论：修行里讲的"不退转"如果被理解成"把用功的强度再加大"，走的其实是耗散结构那条路——稳定度正比于流量，流一断就退，而且账单只会越来越贵；典籍之所以把无为法单列一类，正是在说另一种稳定不靠这个。<b>但这里不成立</b>：物理世界里没有"无为法"的对应物。热力学不允许任何有内部结构、还能做事的东西完全免费地存在；最接近免费的是晶体，而它的代价是什么也不做。所以能借走的是那把判准的尺子——问"待不待缘"——而不是"存在一种零成本的秩序"这个结论。</li>
+</ul>
+</div>
+<div class="thinking">
+<h3>深入思考<span class="he">（Going Deeper）</span></h3>
+<details><summary>如果一切秩序都要花钱维持，那"可持续"到底在说什么？</summary><p>它不可能是"不花钱"，只能是两件事之一：要么维持成本低到某股长期稳定的流能覆盖（太阳能级别的流），要么这个结构在退化时留下的存量足够多，下一轮不必从零起。注意这两条对应的设计动作完全不同——前者是压低单位时间的账单，后者是提高崩塌后的残值，而多数"可持续"方案只在做前者。</p></details>
+<details><summary>为什么效率提升常常没有降低总能耗？</summary><p>一种读法是杰文斯悖论（Jevons paradox）：效率提高降低了单位成本，需求随之扩张，总量反而上升。放到本期的语言里，这等于说效率是在改变结构的单位维持成本，而没有改变那个把结构选出来的流量参数——参数没动，系统就会用省下来的余量去支撑一个更大的结构。这也提示了一个判据：任何效率改进，要看它有没有同时约束住流量本身。</p></details>
+<details><summary>"远离平衡"能不能被测出来，还是只能定性地说？</summary><p>在实验室里可以：瑞利数、雷诺数这类无量纲量就是干这个的，它们把驱动与耗散的比值做成一个数，阈值也算得出来。难的是社会与组织系统——那里既说不清什么是"流"的单位，也没有对应的临界值。所以当有人说某个组织"远离平衡"时，通常这是一句比喻；能不能把它变成一个可算的比值，是这套语言在那些领域到底有没有用的分水岭。</p></details>
+<details><summary>一个结构在被拆掉之前，会不会先变便宜？</summary><p>不一定，而且常常相反：接近某个门槛时，维持同一个结构反而更费劲（这与第 36 期要讲的临界慢化是同一件事的两面——恢复变慢，意味着同样的扰动要花更久才被抹平）。这也是识别"这个结构快撑不住了"的一个方向：不是看它的产出，是看它每单位产出所消耗的维持成本有没有在悄悄爬升。</p></details>
+</div>
+<div class="refs">
+<h3>延伸阅读<span class="he">（Further Reading）</span></h3>
+<ul>
+<li><a href="https://www.nobelprize.org/prizes/chemistry/1977/prigogine/facts/">Ilya Prigogine · 1977 年诺贝尔化学奖</a>（获奖理由即"耗散结构理论"）</li>
+<li>Prigogine &amp; Stengers, <a href="https://en.wikipedia.org/wiki/Order_Out_of_Chaos">Order Out of Chaos</a>（面向大众的经典，也是被批评推得过远的那本）</li>
+<li>Erwin Schrödinger, <a href="https://en.wikipedia.org/wiki/What_Is_Life%3F">What Is Life?</a>（1944，"以负熵为食"及作者本人的更正）</li>
+<li><a href="https://en.wikipedia.org/wiki/Rayleigh%E2%80%93B%C3%A9nard_convection">Rayleigh–Bénard convection</a>（临界瑞利数与结构序列）</li>
+<li><a href="https://en.wikipedia.org/wiki/Belousov%E2%80%93Zhabotinsky_reaction">Belousov–Zhabotinsky reaction</a>（化学振荡，含被拒稿的那段历史）</li>
+<li>Martyushev &amp; Seleznev, <a href="https://doi.org/10.1016/j.physrep.2005.12.001">Maximum entropy production principle in physics, chemistry and biology</a>（2006，MEP 的正面综述——争议同样载于其后的讨论）</li>
+<li>Joseph Tainter, <a href="https://www.cambridge.org/core/books/collapse-of-complex-societies/8B87E0D0BFDA5D3F9BD4E2CE3786C0DB">The Collapse of Complex Societies</a>（1988，复杂度的边际收益递减）</li>
+<li>Ian Morris, <a href="https://press.princeton.edu/books/paperback/9780691160863/the-measure-of-civilization">The Measure of Civilization</a>（以能量捕获度量社会发展）</li>
+</ul>
+</div>
+<footer>BigCat · 复杂性科学 · <a href="index.html">← 全部 Topic</a></footer>
+</div>
+</body></html>

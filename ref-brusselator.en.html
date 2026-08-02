@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+
+<html lang="en"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>The Brusselator · Reference Library · Complexity Science</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,"SF Pro Display","Noto Sans SC",sans-serif;color:#e4ded5;line-height:1.85;min-height:100vh;
+  background:radial-gradient(1100px 620px at 12% -6%,rgba(99,179,166,0.09),transparent 62%),radial-gradient(950px 700px at 100% 2%,rgba(166,147,205,0.08),transparent 58%),linear-gradient(168deg,#100f0d 0%,#15161b 48%,#0a0a0c 100%);background-attachment:fixed}
+.wrap{max-width:720px;margin:0 auto;padding:30px 22px 90px}
+header{padding:52px 0 8px;border-bottom:1px solid rgba(255,255,255,0.07);margin-bottom:32px}
+.rtag{font-family:"SF Mono",Menlo,monospace;font-size:0.72rem;font-weight:700;letter-spacing:2px;color:#63b3a6;border:1px solid rgba(99,179,166,0.4);background:rgba(99,179,166,0.07);padding:3px 11px;border-radius:20px}
+h1{font-size:2.15rem;font-weight:800;line-height:1.2;margin:20px 0 0;color:#f0eae0}
+h1 .h1en{display:block;font-size:0.42em;font-weight:600;letter-spacing:2.5px;color:#847d72;margin-top:11px}
+.sub{font-size:0.98rem;color:#aba498;margin-top:12px}
+.meta{font-family:"SF Mono",Menlo,monospace;font-size:0.75rem;color:#57524b;margin-top:16px;letter-spacing:1px}
+h2{font-size:1.25rem;font-weight:700;color:#e9e3d9;margin:44px 0 10px}
+h2 .n{font-family:"SF Mono",Menlo,monospace;font-size:0.8rem;color:#63b3a6;display:block;margin-bottom:5px;letter-spacing:2px}
+.he{font-size:0.68em;color:#8d867b;font-weight:500;letter-spacing:0}
+p{margin-bottom:16px}
+b,strong{color:#f0eae0;font-weight:600}
+em{color:#d9b45f;font-style:normal;font-weight:500}
+.rule{border:1px solid rgba(99,179,166,0.3);background:rgba(99,179,166,0.05);border-radius:12px;padding:16px 20px;margin:22px 0;font-size:0.94rem;color:#d5cdc1}
+.rule ol{padding-left:20px;margin:0}
+.rule li{margin-bottom:7px}
+.rule li:last-child{margin-bottom:0}
+figure{margin:28px 0}
+figure svg{display:block;width:100%;height:auto;border-radius:12px;background:rgba(255,255,255,0.018);border:1px solid rgba(255,255,255,0.06)}
+figcaption{font-size:0.82rem;color:#787268;margin-top:10px;text-align:center;line-height:1.6}
+.cant{border:1px solid rgba(205,127,155,0.36);background:rgba(205,127,155,0.05);border-radius:12px;padding:18px 21px;margin:26px 0 10px}
+.cant h3{font-size:1rem;color:#cd7f9b;margin-bottom:12px}
+.cant ul{list-style:none;padding:0}
+.cant li{margin-bottom:13px;font-size:0.93rem;color:#d5cdc1;line-height:1.76}
+.cant li:last-child{margin-bottom:0}
+.cant li b{color:#cd7f9b}
+.refs{margin:40px 0 10px}
+.refs h3{font-size:1rem;color:#79a6d2;margin-bottom:12px}
+.refs ul{list-style:none;padding:0}
+.refs li{margin-bottom:9px;font-size:0.89rem;color:#8d867b;line-height:1.7}
+.refs a{color:#79a6d2;text-decoration:none;border-bottom:1px solid rgba(121,166,210,0.3)}
+.refs a:hover{color:#a6c4e2}
+footer{text-align:center;padding:52px 0 10px;font-size:0.78rem;color:#57524b;font-family:"SF Mono",Menlo,monospace;border-top:1px solid rgba(255,255,255,0.06);margin-top:46px}
+footer a{color:#79a6d2;text-decoration:none}
+@media(max-width:600px){h1{font-size:1.7rem}.wrap{padding:24px 16px 60px}}
+</style></head><body>
+<div class="wrap">
+<header>
+<span class="rtag">REF · CLASSIC MODEL</span>
+<h1>The Brusselator</h1>
+<p class="sub">Prigogine &amp; Lefever, 1968 — the minimal toy model of a dissipative structure</p>
+<p class="meta">Linked from: Topic 15 · Dissipative Structures</p>
+</header>
+<h2><span class="n">01</span>The question it poses</h2>
+<p>Chemistry class teaches that reactions run towards equilibrium: concentrations approach some value monotonically and then stop changing. But from the 1950s onwards, solutions that refused to end that way kept turning up in laboratories — most famously the <b>Belousov–Zhabotinsky reaction</b> (the BZ reaction), in which the colour of a beaker swings back and forth periodically for tens of minutes, like a clock. This was widely held to be impossible, and Belousov's paper was rejected twice.</p>
+<p>So the question becomes: <b>what allows a system made only of ordinary chemical reactions to start oscillating on its own, and how few ingredients does it take?</b> The answer Ilya Prigogine and René Lefever gave in Brussels in 1968 was a hypothetical reaction network pared back as far as it would go — later nicknamed the "Brusselator" by John Tyson, after the Oregonator.</p>
+<p>It is not an attempt to model the real chemistry of the BZ reaction. It answers a cleaner question: <b>what is the minimum parts list for oscillation?</b></p>
+<h2><span class="n">02</span>The rules</h2>
+<div class="rule">
+<ol>
+<li>Four reactions, all running one way only:<br/>1. A → X　　2. B + X → Y + D　　3. 2X + Y → 3X　　4. X → E</li>
+<li>A and B are <b>feedstocks</b>, held at fixed concentration from outside (picture two inexhaustible tanks).</li>
+<li>D and E are <b>waste</b>, removed as soon as they form and taking no further part.</li>
+<li>Only X and Y are free to vary — the whole system has two variables.</li>
+<li>Step 3 is the crucial one: <b>the more X there is, the faster X is produced</b> (this is autocatalysis). Step 2 supplies the negative feedback — it consumes X while manufacturing the Y that will hold X down.</li>
+</ol>
+</div>
+<p>As equations it is two lines (X and Y are concentrations):</p>
+<p style="font-family:'SF Mono',Menlo,monospace;font-size:0.92rem;color:#63b3a6;text-align:center;margin:20px 0">dX/dt = A − (B+1)·X + X²·Y<br/>dY/dt = B·X − X²·Y</p>
+<p>Rule 2 — feedstock concentrations pinned from outside — carries all the weight and is the easiest to skim past: <b>it is what keeps the system from ever reaching equilibrium.</b> Somebody outside is supplying reagents and clearing waste, and the bill is being paid continuously. The real BZ reaction eventually falls quiet for exactly this reason: the beaker runs out of reagents, and only then does it truly reach equilibrium.</p>
+<figure>
+<svg aria-label="The four Brusselator reactions: an autocatalytic loop and a negative feedback loop" role="img" viewbox="0 0 700 250" xmlns="http://www.w3.org/2000/svg">
+<defs>
+<marker id="rb1e" markerheight="10" markerunits="userSpaceOnUse" markerwidth="10" orient="auto" refx="9" refy="5" viewbox="0 0 10 10">
+<path d="M0,1 L9,5 L0,9 z" fill="#8d867b"></path>
+</marker>
+<marker id="rb2e" markerheight="10" markerunits="userSpaceOnUse" markerwidth="10" orient="auto" refx="9" refy="5" viewbox="0 0 10 10">
+<path d="M0,1 L9,5 L0,9 z" fill="#e0895e"></path>
+</marker>
+<marker id="rb3e" markerheight="10" markerunits="userSpaceOnUse" markerwidth="10" orient="auto" refx="9" refy="5" viewbox="0 0 10 10">
+<path d="M0,1 L9,5 L0,9 z" fill="#79a6d2"></path>
+</marker>
+</defs>
+<text fill="#aba498" font-family="-apple-system,sans-serif" font-size="13" text-anchor="middle" x="350" y="26">Two variables, one positive loop and one negative loop</text>
+<rect fill="rgba(255,255,255,0.03)" height="34" rx="6" stroke="rgba(255,255,255,0.14)" width="48" x="40" y="106"></rect>
+<text fill="#aba498" font-family="SF Mono,monospace" font-size="15" text-anchor="middle" x="64" y="129">A</text>
+<text fill="#57524b" font-family="-apple-system,sans-serif" font-size="10.5" text-anchor="middle" x="64" y="156">feedstock</text>
+<line marker-end="url(#rb1e)" stroke="#8d867b" stroke-width="1.8" x1="94" x2="164" y1="123" y2="123"></line>
+<text fill="#787268" font-family="-apple-system,sans-serif" font-size="10.5" text-anchor="middle" x="129" y="113">1</text>
+<circle cx="200" cy="123" fill="rgba(224,137,94,0.14)" r="32" stroke="#e0895e" stroke-width="1.8"></circle>
+<text fill="#e0895e" font-family="SF Mono,monospace" font-size="19" text-anchor="middle" x="200" y="130">X</text>
+<circle cx="420" cy="123" fill="rgba(121,166,210,0.14)" r="32" stroke="#79a6d2" stroke-width="1.8"></circle>
+<text fill="#79a6d2" font-family="SF Mono,monospace" font-size="19" text-anchor="middle" x="420" y="130">Y</text>
+<path d="M226,105 C280,64 340,64 394,105" fill="none" marker-end="url(#rb3e)" stroke="#79a6d2" stroke-width="1.8"></path>
+<text fill="#79a6d2" font-family="-apple-system,sans-serif" font-size="11.5" text-anchor="middle" x="310" y="52">2. B + X → Y + D　(X builds its own inhibitor)</text>
+<path d="M394,143 C340,184 280,184 226,143" fill="none" marker-end="url(#rb2e)" stroke="#e0895e" stroke-width="1.8"></path>
+<text fill="#e0895e" font-family="-apple-system,sans-serif" font-size="11.5" text-anchor="middle" x="310" y="204">3. 2X + Y → 3X　(more X makes X faster)</text>
+<text fill="#c0703f" font-family="SF Mono,monospace" font-size="11" text-anchor="middle" x="310" y="222">autocatalysis = positive feedback</text>
+<line marker-end="url(#rb1e)" stroke="#8d867b" stroke-width="1.8" x1="178" x2="146" y1="146" y2="176"></line>
+<text fill="#787268" font-family="-apple-system,sans-serif" font-size="10.5" text-anchor="middle" x="128" y="194">4. X → E (waste)</text>
+<rect fill="rgba(255,255,255,0.03)" height="34" rx="6" stroke="rgba(255,255,255,0.14)" width="48" x="288" y="106"></rect>
+<text fill="#aba498" font-family="SF Mono,monospace" font-size="15" text-anchor="middle" x="312" y="129">B</text>
+<text fill="#57524b" font-family="-apple-system,sans-serif" font-size="10.5" text-anchor="middle" x="312" y="156">the dial</text>
+<line marker-end="url(#rb3e)" stroke="#79a6d2" stroke-width="1.5" x1="342" x2="384" y1="123" y2="123"></line>
+<text fill="#8d867b" font-family="-apple-system,sans-serif" font-size="11" text-anchor="middle" x="592" y="106">B is the dial for</text>
+<text fill="#8d867b" font-family="-apple-system,sans-serif" font-size="11" text-anchor="middle" x="592" y="124">"how far from</text>
+<text fill="#8d867b" font-family="-apple-system,sans-serif" font-size="11" text-anchor="middle" x="592" y="142">equilibrium"</text>
+<line stroke="rgba(255,255,255,0.10)" stroke-width="1" x1="500" x2="500" y1="70" y2="180"></line>
+</svg>
+<figcaption>One autocatalytic positive loop plus one delayed negative loop — that is the entire parts list for oscillation.</figcaption>
+</figure>
+<h2><span class="n">03</span>What you see when it runs</h2>
+<p>Fix A, raise B slowly, and you get one clean switch:</p>
+<p><b>For small B</b>, X and Y wobble for a while from any starting point and then settle on a fixed pair of concentrations (X = A, Y = B/A). That is a steady state: material keeps flowing through, but the dials stop moving.</p>
+<p><b>When B crosses 1 + A²</b>, that steady state goes unstable. The system no longer settles; it runs around a closed orbit instead, X and Y alternately rising and falling with a stable period and amplitude. In state space this self-sustaining loop is a <b>limit cycle</b> — "limit" meaning that whatever concentrations you start from, you are drawn onto the same loop, with an amplitude set by the equations rather than by how you began.</p>
+<figure>
+<svg aria-label="Brusselator concentration oscillations and the limit cycle in the phase plane" role="img" viewbox="0 0 700 280" xmlns="http://www.w3.org/2000/svg">
+<defs>
+<marker id="rb4e" markerheight="9" markerunits="userSpaceOnUse" markerwidth="9" orient="auto" refx="9" refy="5" viewbox="0 0 10 10">
+<path d="M0,1 L9,5 L0,9 z" fill="#9fbc7a"></path>
+</marker>
+</defs>
+<text fill="#aba498" font-family="-apple-system,sans-serif" font-size="13" text-anchor="middle" x="350" y="26">The same thing drawn two ways</text>
+<line stroke="rgba(255,255,255,0.18)" stroke-width="1.4" x1="52" x2="330" y1="212" y2="212"></line>
+<line stroke="rgba(255,255,255,0.18)" stroke-width="1.4" x1="52" x2="52" y1="212" y2="56"></line>
+<text fill="#8d867b" font-family="-apple-system,sans-serif" font-size="11" text-anchor="middle" x="196" y="238">time →</text>
+<text fill="#8d867b" font-family="-apple-system,sans-serif" font-size="11" transform="rotate(-90 26 140)" x="26" y="140">conc.</text>
+<path d="M52,180 C70,96 88,72 106,150 C118,196 128,200 140,178 C158,96 176,72 194,150 C206,196 216,200 228,178 C246,96 264,72 282,150 C294,196 304,200 316,178" fill="none" stroke="#e0895e" stroke-width="2.2"></path>
+<path d="M52,140 C74,178 92,190 112,120 C130,68 148,66 166,140 C184,186 200,192 218,124 C234,68 252,66 270,140 C286,184 302,192 320,132" fill="none" stroke="#79a6d2" stroke-width="2.2"></path>
+<text fill="#e0895e" font-family="SF Mono,monospace" font-size="12" x="60" y="72">X</text>
+<text fill="#79a6d2" font-family="SF Mono,monospace" font-size="12" x="60" y="204">Y</text>
+<text fill="#57524b" font-family="-apple-system,sans-serif" font-size="10.5" text-anchor="middle" x="196" y="258">X spikes → Y is produced → X is pushed down → repeat</text>
+<line stroke="rgba(255,255,255,0.18)" stroke-width="1.4" x1="410" x2="668" y1="212" y2="212"></line>
+<line stroke="rgba(255,255,255,0.18)" stroke-width="1.4" x1="410" x2="410" y1="212" y2="56"></line>
+<text fill="#e0895e" font-family="SF Mono,monospace" font-size="11.5" text-anchor="middle" x="540" y="238">X →</text>
+<text fill="#79a6d2" font-family="SF Mono,monospace" font-size="11.5" transform="rotate(-90 386 138)" x="386" y="138">Y</text>
+<path d="M448,168 C444,120 480,86 534,84 C596,82 634,116 630,156 C626,192 578,204 522,200 C468,196 450,190 448,168 z" fill="none" stroke="#9fbc7a" stroke-width="2.4"></path>
+<path d="M540,150 C556,146 566,150 568,158 C570,168 558,174 546,170 C528,164 522,142 536,126 C556,104 596,110 606,134" fill="none" marker-end="url(#rb4e)" opacity="0.6" stroke="#9fbc7a" stroke-width="1.4"></path>
+<circle cx="540" cy="150" fill="#cd7f9b" r="4"></circle>
+<line opacity="0.55" stroke="#cd7f9b" stroke-width="1" x1="512" x2="534" y1="160" y2="154"></line>
+<text fill="#cd7f9b" font-family="-apple-system,sans-serif" font-size="10.5" text-anchor="middle" x="486" y="166">unstable</text>
+<text fill="#cd7f9b" font-family="-apple-system,sans-serif" font-size="10.5" text-anchor="middle" x="486" y="180">steady state</text>
+<text fill="#9fbc7a" font-family="SF Mono,monospace" font-size="12" text-anchor="middle" x="540" y="70">limit cycle</text>
+<text fill="#57524b" font-family="-apple-system,sans-serif" font-size="10.5" text-anchor="middle" x="540" y="258">start inside or outside — you end up on the same loop</text>
+</svg>
+<figcaption>The instability sets in at B &gt; 1 + A². Left is what an experiment would record; right is what the system really is, in state space.</figcaption>
+</figure>
+<p>There is a second way to play it: give X and Y diffusion terms so they can spread out in space. When the two diffuse at different rates (the inhibitor travelling faster than the activator), the system grows stationary stripes in space — Turing patterns. <b>Same reactions: without diffusion you get order in time, with it you get order in space.</b></p>
+<h2><span class="n">04</span>What it explains</h2>
+<p>The Brusselator's value is not in predicting any particular reaction. It is that it settled a question: <b>sustained oscillation needs no special or mysterious ingredient — ordinary reactions plus "the system is continuously fed" is enough.</b> And it hands over a minimum parts list: one autocatalytic positive feedback, one delayed negative feedback, and an unbroken flow of material.</p>
+<p>Read the world with that list and the same skeleton shows up all over: oscillations in glycolysis, the rise and fall of proteins through the cell cycle, predator–prey cycles, the rhythmic firing of cardiac and nerve cells. The chemistry and biology have nothing in common; the three parts do. <b>Which is also its central falsifiable expectation: take the parameter measuring distance from equilibrium and push it, and the steady state should go unstable at a specific threshold rather than becoming gradually shakier.</b></p>
+<div class="cant">
+<h3>What it cannot explain</h3>
+<ul>
+<li><b>It is not the chemistry of the BZ reaction.</b> Step 3, 2X + Y → 3X, requires three molecules to collide at once, and such termolecular reactions are vanishingly rare in reality — it was invented to give the shortest possible autocatalytic term, not measured. The accepted mechanism for the real BZ reaction is the FKN scheme of 1972, whose reduced model is the Oregonator. For concentrations, periods or yields in a real system, do not reach for the Brusselator.</li>
+<li><b>It makes no quantitative predictions.</b> The parameters A and B correspond to no measurable experimental quantity, so its periods and amplitudes have no units to compare against. What it delivers is qualitative — whether oscillation happens at all — not numbers.</li>
+<li><b>It cannot describe systems near equilibrium.</b> All four reactions are written as one-way and irreversible, which amounts to assuming the system is dragged infinitely far from equilibrium. Once reverse reactions matter, the analysis has to be redone — and in every real system the reverse rates are not exactly zero.</li>
+<li><b>It never becomes chaotic.</b> With only two variables in a continuous dynamical system, the Poincaré–Bendixson theorem rules chaos out. Real BZ reactions do go chaotic under some conditions; that needs more variables than this model has.</li>
+<li><b>It does not explain life, or the origin of life.</b> It shows that self-sustaining rhythm can arise spontaneously; it says nothing about where heredity, replication or the division of metabolic labour came from. Treating oscillation as sufficient for life is the furthest this model gets stretched.</li>
+</ul>
+</div>
+<div class="refs">
+<h3>Further Reading</h3>
+<ul>
+<li>Prigogine &amp; Lefever, <a href="https://doi.org/10.1063/1.1668896">Symmetry Breaking Instabilities in Dissipative Systems II</a> (1968, the original paper)</li>
+<li><a href="https://en.wikipedia.org/wiki/Brusselator">Brusselator</a> (equations, instability condition, phase portraits)</li>
+<li><a href="https://en.wikipedia.org/wiki/Belousov%E2%80%93Zhabotinsky_reaction">Belousov–Zhabotinsky reaction</a> (the real chemical oscillator and its history)</li>
+<li>Field &amp; Noyes, <a href="https://doi.org/10.1063/1.1681288">Oscillations in chemical systems IV (the Oregonator)</a> (1974, a reduced model closer to the real mechanism)</li>
+<li>Steven Strogatz, <a href="https://www.stevenstrogatz.com/books/nonlinear-dynamics-and-chaos">Nonlinear Dynamics and Chaos</a> (chapter 8 works the Brusselator's stability analysis in full)</li>
+</ul>
+</div>
+<footer>BigCat · Complexity Science · <a href="index.en.html">← All topics</a></footer>
+</div>
+<script defer="" src="https://hub.cissychen.com/comments.js"></script>
+<script defer="" src="https://hub.cissychen.com/search.js"></script>
+<script defer="" src="https://hub.cissychen.com/index-button.js"></script>
+<script defer="" src="https://hub.cissychen.com/i18n-tts.js"></script>
+</body></html>

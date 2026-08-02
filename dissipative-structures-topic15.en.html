@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+
+<html lang="en"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Dissipative Structures — Every Order Is Running Up a Bill · Complexity Science T15</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,"SF Pro Display","Noto Sans SC",sans-serif;color:#e4ded5;line-height:1.85;min-height:100vh;
+  background:radial-gradient(1100px 620px at 12% -6%,rgba(224,137,94,0.10),transparent 62%),radial-gradient(950px 700px at 100% 2%,rgba(166,147,205,0.09),transparent 58%),linear-gradient(168deg,#100f0d 0%,#15161b 48%,#0a0a0c 100%);background-attachment:fixed}
+.wrap{max-width:760px;margin:0 auto;padding:30px 22px 90px}
+header{padding:52px 0 8px;border-bottom:1px solid rgba(255,255,255,0.07);margin-bottom:34px}
+.week-tag{font-family:"SF Mono",Menlo,monospace;font-size:0.72rem;font-weight:700;letter-spacing:2px;color:#9fbc7a;border:1px solid rgba(159,188,122,0.4);background:rgba(159,188,122,0.07);padding:3px 11px;border-radius:20px}
+h1{font-size:2.5rem;font-weight:800;letter-spacing:0.5px;line-height:1.2;margin:20px 0 0;background:linear-gradient(106deg,#e0895e 0%,#d9b45f 34%,#9fbc7a 68%,#63b3a6 100%);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+h1 .h1en{display:block;font-size:0.40em;font-weight:600;letter-spacing:2.5px;color:#847d72;-webkit-text-fill-color:#847d72;background:none;margin-top:13px}
+.sub{font-size:1.05rem;color:#aba498;margin-top:14px;font-weight:500}
+.date{font-family:"SF Mono",Menlo,monospace;font-size:0.75rem;color:#57524b;margin-top:18px;letter-spacing:1px}
+.pitch{margin:22px 0 30px;font-size:0.97rem;color:#cd7f9b;border-left:2px solid rgba(205,127,155,0.5);padding-left:16px;font-style:italic}
+.intro{font-size:1.02rem;color:#cfc8bc;margin-bottom:14px}
+.intro p{margin-bottom:16px}
+h2{font-size:1.42rem;font-weight:700;color:#e9e3d9;margin:56px 0 8px;letter-spacing:0.3px}
+h2 .n{font-family:"SF Mono",Menlo,monospace;font-size:0.85rem;color:#9fbc7a;display:block;margin-bottom:6px;letter-spacing:2px}
+.he{font-size:0.68em;color:#8d867b;font-weight:500;letter-spacing:0}
+p{margin-bottom:17px}
+.lead{color:#cfc8bc}
+b,strong{color:#f0eae0;font-weight:600}
+em{color:#d9b45f;font-style:normal;font-weight:500}
+.dim{color:#8d867b}
+a.reflink{display:inline-block;font-size:0.82rem;font-family:"SF Mono",Menlo,monospace;color:#63b3a6;border:1px solid rgba(99,179,166,0.38);background:rgba(99,179,166,0.07);padding:1px 9px;border-radius:20px;text-decoration:none;transition:all 0.15s;white-space:nowrap}
+a.reflink:hover{background:rgba(99,179,166,0.16);border-color:rgba(99,179,166,0.7)}
+figure{margin:30px 0}
+figure svg{display:block;width:100%;height:auto;border-radius:12px;background:rgba(255,255,255,0.018);border:1px solid rgba(255,255,255,0.06)}
+figcaption{font-size:0.82rem;color:#787268;margin-top:11px;text-align:center;line-height:1.6}
+.decide{margin:24px 0;border:1px solid rgba(224,137,94,0.36);background:rgba(224,137,94,0.055);border-radius:12px;padding:15px 19px}
+.decide .lb{font-family:"SF Mono",Menlo,monospace;font-size:0.73rem;letter-spacing:1.5px;color:#e0895e;font-weight:700;display:block;margin-bottom:7px}
+.decide p{margin:0;font-size:0.95rem;color:#ddd5c9}
+.crossx-inline{margin:20px 0 22px;border-left:2px solid rgba(205,127,155,0.55);padding:2px 0 2px 15px;font-size:0.89rem;color:#a9a096;line-height:1.72}
+.crossx-inline b{color:#cd7f9b;font-weight:600}
+.bigcat{margin:46px 0 10px;border:1px solid rgba(217,180,95,0.38);background:rgba(217,180,95,0.05);border-radius:14px;padding:20px 22px}
+.bigcat h3{font-size:1.02rem;color:#d9b45f;margin-bottom:14px;letter-spacing:0.5px}
+.bigcat ol{list-style:none;padding:0}
+.bigcat li{margin-bottom:15px;font-size:0.94rem;color:#d5cdc1;line-height:1.78}
+.bigcat li:last-child{margin-bottom:0}
+.bigcat .dm{font-family:"SF Mono",Menlo,monospace;font-size:0.73rem;color:#d9b45f;border:1px solid rgba(217,180,95,0.32);border-radius:4px;padding:1px 7px;margin-right:8px;white-space:nowrap}
+.crossx{margin:46px 0 10px;border:1px solid rgba(205,127,155,0.38);background:rgba(205,127,155,0.05);border-radius:14px;padding:20px 22px}
+.crossx h3{font-size:1.02rem;color:#cd7f9b;margin-bottom:14px;letter-spacing:0.5px}
+.crossx ul{list-style:none;padding:0}
+.crossx li{margin-bottom:16px;font-size:0.94rem;color:#d5cdc1;line-height:1.78}
+.crossx li:last-child{margin-bottom:0}
+.crossx li b{color:#cd7f9b;font-weight:600}
+.thinking{margin:46px 0 10px}
+.thinking h3{font-size:1.02rem;color:#a693cd;margin-bottom:14px;letter-spacing:0.5px}
+details{border:1px solid rgba(166,147,205,0.22);border-radius:10px;padding:12px 16px;margin-bottom:10px;background:rgba(166,147,205,0.035)}
+summary{cursor:pointer;font-size:0.93rem;color:#c9c2b6;font-weight:500}
+summary::marker{color:#a693cd}
+details p{margin:12px 0 0;font-size:0.9rem;color:#a9a096;line-height:1.75}
+.refs{margin:46px 0 10px}
+.refs h3{font-size:1.02rem;color:#79a6d2;margin-bottom:14px;letter-spacing:0.5px}
+.refs ul{list-style:none;padding:0}
+.refs li{margin-bottom:10px;font-size:0.9rem;color:#8d867b;line-height:1.7}
+.refs a{color:#79a6d2;text-decoration:none;border-bottom:1px solid rgba(121,166,210,0.3)}
+.refs a:hover{color:#a6c4e2;border-bottom-color:rgba(121,166,210,0.7)}
+footer{text-align:center;padding:56px 0 10px;font-size:0.78rem;color:#57524b;font-family:"SF Mono",Menlo,monospace;border-top:1px solid rgba(255,255,255,0.06);margin-top:50px}
+footer a{color:#79a6d2;text-decoration:none}
+@media(max-width:600px){h1{font-size:1.85rem}.wrap{padding:24px 16px 60px}h2{font-size:1.22rem}}
+</style></head><body>
+<div class="wrap">
+<header>
+<span class="week-tag">TOPIC 15 · PHASE C</span>
+<h1>Dissipative Structures</h1>
+<p class="sub">Every order is running up a bill</p>
+<p class="date">2026-08-02 · Self-Organization &amp; Criticality</p>
+</header>
+<p class="pitch">A candle flame has a shape, and it holds that shape for hours. But it is not a thing — it is what an ongoing process looks like. Stop the process and the shape does not break. It simply stops existing.</p>
+<div class="intro">
+<p>Put a cup of hot water inside a sealed insulated box and come back in a few hours: same temperature inside and out, uniform throughout, nothing further happening. This is the least suspenseful result in physics — a system that exchanges nothing with the outside ends up in the state where <em>nothing happens any more</em>.</p>
+<p>And yet everywhere you look there are things that refuse to end that way: tornadoes, flames, cities, you. All of them have sharp structure, and the structure persists. The counterintuitive part is why: not because they are solidly built, but because <b>they are being remade every second</b>. Cut the supply and they don't slowly age. They are gone almost at once.</p>
+<p class="dim">Five issues in this phase deal with criticality from different angles: Topic 10 is bifurcation and tipping, Topic 16 is phase transitions and universality, Topic 17 is percolation, Topic 18 is self-organized criticality, Topic 36 is critical slowing down. <b>This issue is not one of them.</b> Topic 13 asked where order comes from when there is no blueprint, and what selects its shape; Topic 14 asked how a crowd of things falls into step in time. This issue asks one question only: <b>who pays the bill for all of it, at what rate, and what happens when payment stops.</b></p>
+</div>
+<h2><span class="n">01</span>A steady reading can mean two very different things</h2>
+<p class="lead">First, prise one word away from its everyday sense. In ordinary speech "equilibrium" means something like a stand-off — forces evenly matched, situation stable. In physics, <b>thermodynamic equilibrium</b> is more extreme than that: temperature, concentration and pressure the same everywhere, <em>no net flow of anything</em>, and no further change. Equilibrium isn't stable. It's finished.</p>
+<p>Against it sits the <b>steady state</b>: the reading is also constant, but underneath it two large flows are cancelling. A bathtub sitting half full might have both taps and drain shut (equilibrium), or it might have water pouring in and draining out at exactly matched rates (steady state). <b>The water level cannot tell you which — and the two call for opposite interventions.</b></p>
+<p>Ilya Prigogine (1917–2003) won the 1977 Nobel Prize in Chemistry for taking the second case seriously, and gave this flow-sustained kind of order a name: the <b>dissipative structure</b>. The word "dissipative" is the point. It doesn't mean the structure is wasteful. It means <b>the dissipation is the condition of its existence</b>.</p>
+<figure>
+<svg aria-label="Two kinds of order: a crystal costs nothing to maintain; a convection cell vanishes when the flow stops" role="img" viewbox="0 0 720 300" xmlns="http://www.w3.org/2000/svg">
+<defs>
+<marker id="t15ae" markerheight="10" markerunits="userSpaceOnUse" markerwidth="10" orient="auto" refx="9" refy="5" viewbox="0 0 10 10">
+<path d="M0,1 L9,5 L0,9 z" fill="#e0895e"></path>
+</marker>
+<marker id="t15be" markerheight="10" markerunits="userSpaceOnUse" markerwidth="10" orient="auto" refx="9" refy="5" viewbox="0 0 10 10">
+<path d="M0,1 L9,5 L0,9 z" fill="#79a6d2"></path>
+</marker>
+<marker id="t15ce" markerheight="9" markerunits="userSpaceOnUse" markerwidth="9" orient="auto" refx="9" refy="5" viewbox="0 0 10 10">
+<path d="M0,1 L9,5 L0,9 z" fill="#8d867b"></path>
+</marker>
+</defs>
+<text fill="#aba498" font-family="-apple-system,sans-serif" font-size="13" text-anchor="middle" x="360" y="26">Two kinds of order, two very different bills</text>
+<text fill="#9fbc7a" font-family="SF Mono,monospace" font-size="12" text-anchor="middle" x="118" y="56">1. equilibrium order</text>
+<g transform="translate(46,70)">
+<rect fill="rgba(255,255,255,0.02)" height="120" rx="8" stroke="rgba(255,255,255,0.10)" width="144" x="0" y="0"></rect>
+<g fill="none" stroke="#9fbc7a" stroke-width="1.6">
+<path d="M42,36 L60,26 L78,36 L78,58 L60,68 L42,58 z"></path>
+<path d="M78,36 L96,26 L114,36 L114,58 L96,68 L78,58 z"></path>
+<path d="M60,68 L78,58 L96,68 L96,90 L78,100 L60,90 z"></path>
+<path d="M24,68 L42,58 L60,68 L60,90 L42,100 L24,90 z"></path>
+</g>
+<text fill="#787268" font-family="-apple-system,sans-serif" font-size="10.5" text-anchor="middle" x="72" y="115">no inflow · no outflow</text>
+</g>
+<text fill="#8d867b" font-family="-apple-system,sans-serif" font-size="11" text-anchor="middle" x="118" y="212">crystals, snowflakes, ice</text>
+<text fill="#9fbc7a" font-family="SF Mono,monospace" font-size="11.5" text-anchor="middle" x="118" y="232">upkeep = 0</text>
+<text fill="#57524b" font-family="-apple-system,sans-serif" font-size="10.5" text-anchor="middle" x="118" y="252">but it does nothing</text>
+<text fill="#e0895e" font-family="SF Mono,monospace" font-size="12" text-anchor="middle" x="360" y="56">2. dissipative structure</text>
+<g transform="translate(288,70)">
+<rect fill="rgba(224,137,94,0.05)" height="120" rx="8" stroke="rgba(224,137,94,0.35)" width="144" x="0" y="0"></rect>
+<g fill="none" stroke="#e0895e" stroke-width="1.8">
+<path d="M20,96 C20,62 52,62 52,96"></path>
+<path d="M52,96 C52,62 84,62 84,96"></path>
+<path d="M84,96 C84,62 116,62 116,96"></path>
+</g>
+<line stroke="#7a4a30" stroke-width="4" x1="14" x2="130" y1="99" y2="99"></line>
+<text fill="#c0703f" font-family="-apple-system,sans-serif" font-size="10.5" text-anchor="middle" x="72" y="115">heated from below</text>
+</g>
+<line marker-end="url(#t15ae)" stroke="#e0895e" stroke-width="2.5" x1="360" x2="360" y1="212" y2="182"></line>
+<text fill="#e0895e" font-family="-apple-system,sans-serif" font-size="11" text-anchor="middle" x="360" y="228">energy in</text>
+<line marker-end="url(#t15be)" stroke="#79a6d2" stroke-width="2.5" x1="426" x2="466" y1="80" y2="52"></line>
+<text fill="#79a6d2" font-family="-apple-system,sans-serif" font-size="11" text-anchor="start" x="470" y="44">waste</text>
+<text fill="#79a6d2" font-family="-apple-system,sans-serif" font-size="11" text-anchor="start" x="470" y="58">heat out</text>
+<text fill="#8d867b" font-family="-apple-system,sans-serif" font-size="11" text-anchor="middle" x="360" y="252">flames, convection cells, hurricanes, you</text>
+<text fill="#e0895e" font-family="SF Mono,monospace" font-size="11.5" text-anchor="middle" x="360" y="272">upkeep &gt; 0, paid every second</text>
+<line marker-end="url(#t15ce)" stroke="#8d867b" stroke-width="1.5" x1="444" x2="486" y1="130" y2="130"></line>
+<text fill="#787268" font-family="-apple-system,sans-serif" font-size="10.5" text-anchor="middle" x="465" y="118">cut off</text>
+<text fill="#cd7f9b" font-family="SF Mono,monospace" font-size="12" text-anchor="middle" x="600" y="56">3. after payment stops</text>
+<g transform="translate(528,70)">
+<rect fill="rgba(255,255,255,0.02)" height="120" rx="8" stroke="rgba(255,255,255,0.10)" width="144" x="0" y="0"></rect>
+<line stroke="rgba(205,127,155,0.30)" stroke-width="1.4" x1="20" x2="124" y1="52" y2="52"></line>
+<line stroke="rgba(205,127,155,0.30)" stroke-width="1.4" x1="20" x2="124" y1="70" y2="70"></line>
+<line stroke="rgba(205,127,155,0.30)" stroke-width="1.4" x1="20" x2="124" y1="88" y2="88"></line>
+<text fill="#787268" font-family="-apple-system,sans-serif" font-size="10.5" text-anchor="middle" x="72" y="115">uniform · nothing happens</text>
+</g>
+<text fill="#cd7f9b" font-family="-apple-system,sans-serif" font-size="11" text-anchor="middle" x="600" y="212">the structure does not break</text>
+<text fill="#cd7f9b" font-family="-apple-system,sans-serif" font-size="11" text-anchor="middle" x="600" y="232">it stops existing</text>
+<text fill="#57524b" font-family="-apple-system,sans-serif" font-size="10.5" text-anchor="middle" x="600" y="252">and almost immediately</text>
+</svg>
+<figcaption>A crystal's order is free, at the price of doing nothing. A dissipative structure can do anything, at the price of a bill that never pauses.</figcaption>
+</figure>
+<p>The dividing line isn't how tidy something looks. It is whether <b>it needs continuous input in order not to disperse</b>. The neat lattice of an ice cube is free: seal it in a constant-temperature box and it can stay that way indefinitely. A convection cell, a hurricane, a living person all demand that something keep flowing through them — cut it, and within seconds to days they are gone.</p>
+<p>Do the arithmetic on a person: about 2000 kcal a day works out to roughly 100 watts, about the same as an old incandescent bulb. <b>The exquisitely detailed order that is you is priced at one light bulb.</b> And most of that 100 W isn't spent doing anything — it goes on holding the line: pumping ions back out, dismantling and rebuilding misfolded proteins, keeping what belongs inside inside.</p>
+<div class="crossx-inline">
+🌀 <b>Biology and medicine · 37 °C is the difference between two large flows</b>　Body temperature barely moves for decades, which invites you to read it as a body at equilibrium. It is in fact a steady state in which heat production and heat loss cancel; steady blood glucose is likewise hepatic output cancelling tissue uptake. That distinction has a direct clinical consequence: fever is not runaway heat production, it is the set point being raised — which is why the patient feels cold and shivers, because the body is <em>racing towards a new target</em>. Faced with a constant reading, ask first whether it is zero flow or two large flows cancelling: the first needs pushing, the second needs one of the flows reduced, and getting it backwards drives the system further away.
+</div>
+<div class="decide">
+<span class="lb">🎯 DECISION LINE</span>
+<p>When a metric holds steady, don't conclude "this part is stable". Do a <b>flow attribution</b> first: is nothing moving it, or are two forces cancelling? Concretely — name the inflow and the outflow behind that number and estimate the order of magnitude of each. If both are large, the reading can swing sharply on a small change in <em>one</em> of them, and nothing on your dashboard will warn you first.</p>
+</div>
+<h2><span class="n">02</span>Entropy is not destroyed, it is exported</h2>
+<p class="lead">Here is a very common misunderstanding to clear up. The <b>second law of thermodynamics</b> says entropy — roughly, "how disordered" something is, or more precisely, how many microscopic arrangements are compatible with what you can see — never decreases. Which prompts the obvious objection: aren't life, cities and all this fine structure plainly decreasing disorder?</p>
+<p>The objection drops a qualifier. <b>The second law is about <i>isolated</i> systems</b> — ones exchanging neither energy nor matter with anything. Earth, you, and a city are all <b>open systems</b>. An open system's entropy can fall, provided it pushes at least as much entropy <em>outwards</em>.</p>
+<p>Erwin Schrödinger put it bluntly in <i>What Is Life?</i> (1944): living things feed on "negative entropy". He later added a note saying free energy would have been the more accurate term. The correction matters — organisms don't ingest some mystical substance called order; they ingest <b>usable energy</b>, and the order is what happens while that energy passes through.</p>
+<p>Earth's books make the point cleanly. Earth receives energy from the Sun and radiates almost exactly as much back out — <b>on energy it balances to the joule.</b> But the quality on the two sides is nothing alike: what arrives is visible light from a 5800 K surface, what leaves is infrared at around 255 K. Same energy, some twenty times colder, so it takes roughly twenty times as many photons to carry it away.</p>
+<figure>
+<svg aria-label="Earth's entropy budget: a few high-grade photons in, about twenty times as many low-grade photons out" role="img" viewbox="0 0 720 280" xmlns="http://www.w3.org/2000/svg">
+<defs>
+<marker id="t15de" markerheight="10" markerunits="userSpaceOnUse" markerwidth="10" orient="auto" refx="9" refy="5" viewbox="0 0 10 10">
+<path d="M0,1 L9,5 L0,9 z" fill="#d9b45f"></path>
+</marker>
+<marker id="t15ee" markerheight="9" markerunits="userSpaceOnUse" markerwidth="9" orient="auto" refx="9" refy="5" viewbox="0 0 10 10">
+<path d="M0,1 L9,5 L0,9 z" fill="#79a6d2"></path>
+</marker>
+</defs>
+<text fill="#aba498" font-family="-apple-system,sans-serif" font-size="13" text-anchor="middle" x="360" y="26">Energy in equals energy out — entropy in does not. The gap is what Earth spends.</text>
+<circle cx="72" cy="140" fill="#d9b45f" r="34"></circle>
+<text fill="#100f0d" font-family="SF Mono,monospace" font-size="12" font-weight="700" text-anchor="middle" x="72" y="145">5800K</text>
+<text fill="#d9b45f" font-family="-apple-system,sans-serif" font-size="12" text-anchor="middle" x="72" y="196">Sun</text>
+<line marker-end="url(#t15de)" stroke="#d9b45f" stroke-width="2.5" x1="118" x2="286" y1="140" y2="140"></line>
+<text fill="#d9b45f" font-family="-apple-system,sans-serif" font-size="11.5" text-anchor="middle" x="202" y="128">few high-grade photons</text>
+<text fill="#8d867b" font-family="SF Mono,monospace" font-size="11" text-anchor="middle" x="202" y="162">1 unit of energy</text>
+<circle cx="336" cy="140" fill="rgba(159,188,122,0.16)" r="42" stroke="#9fbc7a" stroke-width="1.6"></circle>
+<text fill="#9fbc7a" font-family="-apple-system,sans-serif" font-size="12.5" text-anchor="middle" x="336" y="136">Earth</text>
+<text fill="#787268" font-family="-apple-system,sans-serif" font-size="10.5" text-anchor="middle" x="336" y="155">open system</text>
+<text fill="#8d867b" font-family="-apple-system,sans-serif" font-size="11" text-anchor="middle" x="336" y="210">biosphere · climate · cities</text>
+<text fill="#57524b" font-family="-apple-system,sans-serif" font-size="10.5" text-anchor="middle" x="336" y="248">every structure is bought from this gap</text>
+<g stroke="#79a6d2" stroke-width="1.6">
+<line marker-end="url(#t15ee)" x1="382" x2="560" y1="108" y2="72"></line>
+<line marker-end="url(#t15ee)" x1="384" x2="562" y1="124" y2="106"></line>
+<line marker-end="url(#t15ee)" x1="386" x2="564" y1="140" y2="140"></line>
+<line marker-end="url(#t15ee)" x1="384" x2="562" y1="156" y2="174"></line>
+<line marker-end="url(#t15ee)" x1="382" x2="560" y1="172" y2="208"></line>
+</g>
+<text fill="#79a6d2" font-family="-apple-system,sans-serif" font-size="11.5" text-anchor="middle" x="474" y="60">about 20× as many low-grade photons</text>
+<text fill="#8d867b" font-family="SF Mono,monospace" font-size="11" text-anchor="middle" x="474" y="228">same 1 unit of energy</text>
+<rect fill="rgba(121,166,210,0.08)" height="88" rx="8" stroke="rgba(121,166,210,0.32)" width="112" x="586" y="96"></rect>
+<text fill="#79a6d2" font-family="SF Mono,monospace" font-size="12" text-anchor="middle" x="642" y="128">255K</text>
+<text fill="#79a6d2" font-family="-apple-system,sans-serif" font-size="11.5" text-anchor="middle" x="642" y="150">space</text>
+<text fill="#787268" font-family="-apple-system,sans-serif" font-size="10.5" text-anchor="middle" x="642" y="170">the exit for entropy</text>
+<text fill="#57524b" font-family="-apple-system,sans-serif" font-size="11" text-anchor="middle" x="360" y="266">Earth does not live on received energy — it lives on the drop in quality between arrival and departure</text>
+</svg>
+<figcaption>Block the exit and incoming energy does you no good. What order buys is not energy but a gradient in its quality.</figcaption>
+</figure>
+<p>That step is worth pausing on: <b>Earth has never been short of energy. It is short of exits for entropy.</b> If the Sun kept shining and the planet could not radiate, the temperature would climb until no structure could hold together. So "energy flow" is a slightly sloppy way to put it — what actually pays the bill is the <em>drop in energy quality</em>: high grade in, low grade out, and the spread between them funds everything structured on this planet.</p>
+<div class="crossx-inline">
+🌀 <b>Economics and institutions · "Clean" is a question about boundaries</b>　If local order must be paid for by a larger entropy increase somewhere, then every claim of "zero emissions" or "carbon neutral" is not a question about cleanliness but about <b>where you drew the boundary</b>. An electric car's tailpipe emissions really are zero at the boundary of the car; extend the line to the grid and to battery smelting and they are not. A data centre's waste heat isn't handled, it is pushed past the wall of the machine room. The conclusion is sharper than the usual "look at the whole life cycle": <b>there is no such thing as a boundary-free cleanliness metric</b>, so the first question to ask of any such claim is not how big the number is but where its boundary runs and who is standing outside it collecting the bill.
+</div>
+<div class="decide">
+<span class="lb">🎯 DECISION LINE</span>
+<p>For any order you want to keep — a team's tacit coordination, a clean codebase, a daily routine — don't ask how to make it sturdier. Ask three concrete questions instead. <b>1.</b> What flow sustains it? <b>2.</b> Who pays, and at what frequency? <b>3.</b> Where does the exported entropy land? The third is the one people skip: a conspicuously orderly patch usually means the mess has been pushed onto somebody downstream who isn't on your dashboard.</p>
+</div>
+<h2><span class="n">03</span>Turn up the flow and the structure is replaced</h2>
+<p class="lead">Now take the quality gradient of the last section, treat it as a dial, and slowly turn it up. The classic bench setup is a thin layer of fluid heated from below and cooled from above; the temperature difference is the dial <a class="reflink" href="ref-lorenz.en.html">→ ref · the Lorenz system</a>.</p>
+<p>With a small difference, heat crosses by molecules jostling each other, the fluid itself does not move, and there is no visible structure at all. Increase the difference and at a specific value the whole layer suddenly <em>starts moving</em>, arranging itself into convection cells. Fluid dynamics puts a number on the threshold: the <b>Rayleigh number</b> — temperature difference, layer depth and viscosity rolled into one dimensionless quantity — crossing roughly 1708, beyond which standing still is no longer an option.</p>
+<p>The point is not that a pattern appears above a threshold; that was Topic 13. The point is what comes next: <b>keep turning, and the system does not do the same structure harder — it swaps in a different one.</b> Regular rolls → wobbling rolls → periodic oscillation → full turbulence. Each transition is a <b>bifurcation</b>: a parameter value at which the system abruptly changes the <i>kind</i> of behaviour it has. You had one dial. The system gave you a whole sequence of qualitatively different structures.</p>
+<figure>
+<svg aria-label="Structures replaced along the flow axis: conduction, steady convection cells, oscillation, turbulence" role="img" viewbox="0 0 720 300" xmlns="http://www.w3.org/2000/svg">
+<defs>
+<marker id="t15fe" markerheight="11" markerunits="userSpaceOnUse" markerwidth="11" orient="auto" refx="9" refy="5" viewbox="0 0 10 10">
+<path d="M0,1 L9,5 L0,9 z" fill="#aba498"></path>
+</marker>
+</defs>
+<text fill="#aba498" font-family="-apple-system,sans-serif" font-size="13" text-anchor="middle" x="360" y="26">One dial, four qualitatively different structures</text>
+<g transform="translate(44,52)">
+<rect fill="rgba(255,255,255,0.02)" height="86" rx="6" stroke="rgba(255,255,255,0.10)" width="140" x="0" y="0"></rect>
+<line stroke="rgba(255,255,255,0.16)" stroke-width="1.3" x1="16" x2="124" y1="26" y2="26"></line>
+<line stroke="rgba(255,255,255,0.16)" stroke-width="1.3" x1="16" x2="124" y1="43" y2="43"></line>
+<line stroke="rgba(255,255,255,0.16)" stroke-width="1.3" x1="16" x2="124" y1="60" y2="60"></line>
+<text fill="#8d867b" font-family="-apple-system,sans-serif" font-size="10.5" text-anchor="middle" x="70" y="80">fluid at rest</text>
+</g>
+<text fill="#8d867b" font-family="SF Mono,monospace" font-size="11.5" text-anchor="middle" x="114" y="156">1. conduction</text>
+<text fill="#57524b" font-family="-apple-system,sans-serif" font-size="10.5" text-anchor="middle" x="114" y="174">no structure</text>
+<g transform="translate(206,52)">
+<rect fill="rgba(159,188,122,0.05)" height="86" rx="6" stroke="rgba(159,188,122,0.30)" width="140" x="0" y="0"></rect>
+<g fill="none" stroke="#9fbc7a" stroke-width="1.7">
+<path d="M18,66 C18,32 46,32 46,66"></path>
+<path d="M46,66 C46,32 74,32 74,66"></path>
+<path d="M74,66 C74,32 102,32 102,66"></path>
+<path d="M102,66 C102,32 124,32 124,66"></path>
+</g>
+<text fill="#8d867b" font-family="-apple-system,sans-serif" font-size="10.5" text-anchor="middle" x="70" y="80">regular rolls</text>
+</g>
+<text fill="#9fbc7a" font-family="SF Mono,monospace" font-size="11.5" text-anchor="middle" x="276" y="156">2. steady cells</text>
+<text fill="#57524b" font-family="-apple-system,sans-serif" font-size="10.5" text-anchor="middle" x="276" y="174">order in space</text>
+<g transform="translate(368,52)">
+<rect fill="rgba(217,180,95,0.05)" height="86" rx="6" stroke="rgba(217,180,95,0.30)" width="140" x="0" y="0"></rect>
+<path d="M14,50 C34,20 54,80 74,50 C94,20 114,80 128,52" fill="none" stroke="#d9b45f" stroke-width="2"></path>
+<path d="M14,66 C34,40 54,92 74,66 C94,40 114,92 128,68" fill="none" opacity="0.45" stroke="#d9b45f" stroke-width="1.6"></path>
+<text fill="#8d867b" font-family="-apple-system,sans-serif" font-size="10.5" text-anchor="middle" x="70" y="80">the pattern moves</text>
+</g>
+<text fill="#d9b45f" font-family="SF Mono,monospace" font-size="11.5" text-anchor="middle" x="438" y="156">3. oscillation</text>
+<text fill="#57524b" font-family="-apple-system,sans-serif" font-size="10.5" text-anchor="middle" x="438" y="174">order in time</text>
+<g transform="translate(530,52)">
+<rect fill="rgba(224,137,94,0.05)" height="86" rx="6" stroke="rgba(224,137,94,0.30)" width="140" x="0" y="0"></rect>
+<g fill="none" stroke="#e0895e" stroke-width="1.5">
+<path d="M16,58 C28,34 38,74 50,50 C60,30 70,66 82,44 C92,26 104,62 124,40"></path>
+<path d="M16,70 C30,52 40,84 56,64 C70,48 84,80 100,60 C110,48 118,70 126,60"></path>
+<circle cx="42" cy="34" r="6"></circle><circle cx="96" cy="56" r="6"></circle><circle cx="110" cy="30" r="5"></circle>
+</g>
+<text fill="#8d867b" font-family="-apple-system,sans-serif" font-size="10.5" text-anchor="middle" x="70" y="80">every scale at once</text>
+</g>
+<text fill="#e0895e" font-family="SF Mono,monospace" font-size="11.5" text-anchor="middle" x="600" y="156">4. turbulence</text>
+<text fill="#57524b" font-family="-apple-system,sans-serif" font-size="10.5" text-anchor="middle" x="600" y="174">still structure, not noise</text>
+<line marker-end="url(#t15fe)" stroke="#aba498" stroke-width="2" x1="44" x2="676" y1="212" y2="212"></line>
+<text fill="#aba498" font-family="-apple-system,sans-serif" font-size="12" x="44" y="236">energy flow / temperature difference →</text>
+<line stroke="rgba(159,188,122,0.5)" stroke-width="1.4" x1="196" x2="196" y1="204" y2="220"></line>
+<text fill="#9fbc7a" font-family="SF Mono,monospace" font-size="10.5" text-anchor="middle" x="196" y="256">Ra ≈ 1708</text>
+<line stroke="rgba(217,180,95,0.5)" stroke-width="1.4" x1="358" x2="358" y1="204" y2="220"></line>
+<line stroke="rgba(224,137,94,0.5)" stroke-width="1.4" x1="520" x2="520" y1="204" y2="220"></line>
+<text fill="#57524b" font-family="-apple-system,sans-serif" font-size="10.5" text-anchor="middle" x="439" y="256">each line is a bifurcation: not stronger, but a different structure</text>
+<text fill="#57524b" font-family="-apple-system,sans-serif" font-size="11" text-anchor="middle" x="360" y="286">You turned one dial, and the system changed its whole repertoire four times</text>
+</svg>
+<figcaption>Structure isn't designed, it is selected by the flow. To change it, move the dial — not the structure.</figcaption>
+</figure>
+<p>Chemistry supplies a prettier example. In the early 1950s the Soviet chemist Boris Belousov found a solution that changed colour periodically — red, yellow, red, yellow, back and forth like a clock. This was widely held to be impossible: aren't reactions supposed to run one way to equilibrium and stop? His paper was rejected twice. A decade later Anatol Zhabotinsky reproduced and extended the work, and the thing is now called the <b>Belousov–Zhabotinsky reaction</b>, or <b>BZ reaction</b>.</p>
+<p>It violates no law. It keeps oscillating because the system is held far from equilibrium: feed it and it swings indefinitely; let the reagents run out and it falls quiet, entering true equilibrium at last. In state space, this self-sustaining loop is called a <b>limit cycle</b> <a class="reflink" href="ref-phase-space.en.html">→ ref · phase space and attractors</a>. Prigogine and a colleague wrote down the minimal toy model that produces such behaviour in 1968 <a class="reflink" href="ref-brusselator.en.html">→ ref · the Brusselator</a>.</p>
+<p>Which yields a distinctly non-obvious corollary: <b>regular, clockwork behaviour can be evidence of being far from equilibrium rather than evidence of having settled.</b> Something that happens punctually year after year may be very far from rest indeed — and it is punctual only because some flow has not yet stopped.</p>
+<div class="crossx-inline">
+🌀 <b>Engineering history · Pan Jixun and "constrict the water to attack the silt"</b>　Ming-dynasty practice on the Yellow River was to divert floodwater into relief channels and then dredge the silt, year after year. Pan Jixun (1521–1595) did the opposite: <em>narrow</em> the channel, build dykes that squeeze the flow, and let the increased velocity carry the sediment away by itself. That is this section's mechanism used as a tool — deposition and scouring are not two problems to be managed separately, they are two <b>structures</b> of the same river on the single parameter of flow velocity, and past a certain velocity the depositing branch does not exist. The intervention rule that follows is hard-edged: when a bad outcome has been selected by a parameter, fixing the outcome (dredging, clearing, adding staff) means paying the same bill every year; the only thing that removes it once is the parameter itself.
+</div>
+<div class="decide">
+<span class="lb">🎯 DECISION LINE</span>
+<p>To get rid of a structure you dislike, leave the structure alone and go find the <b>flow parameter</b> that selected it: the cadence of budget release, hiring rate, request volume, the bandwidth information travels on. The test is concrete — if you keep fixing the same symptom and it keeps coming back, you are working at the level of the structure while the parameter that picks it hasn't moved. The other half matters just as much: push a parameter past the next threshold and what you get is not a better version of the current structure, but <em>a new one you never designed</em>.</p>
+</div>
+<h2><span class="n">04</span>Where this breaks down</h2>
+<p class="lead">Dissipative structures are among the most cited — and most overstretched — ideas in complexity science. Four boundaries you need before using it.</p>
+<p><b>First, Prigogine's own theorem does not reach this far.</b> Around 1945 he proved an elegant result, the <b>theorem of minimum entropy production</b>: in a steady state, a system settles where entropy production is minimised. The catch is the fine print — it holds only <em>near</em> equilibrium, in the linear regime where flows are still proportional to forces. Dissipative structures all live outside that regime. <b>So in the interesting territory we simply do not have a general "the system optimises X" principle.</b> This gets muddled constantly: invoking minimum entropy production to explain life, organisations or cities transplants a near-equilibrium theorem to precisely where it is declared not to apply.</p>
+<p><b>Second, the symmetric claim isn't a law either.</b> A rival school holds that far-from-equilibrium systems maximise entropy production — the <b>maximum entropy production principle</b> (MEP). It has produced decent predictions in some climate and fluid problems, but there is still no generally accepted derivation and no clear statement of when it applies. Anyone explaining everything with "systems always maximise entropy production" is treating an open question as settled law.</p>
+<p><b>Third, "dissipative structure" does not explain the origin of life; it supplies a necessary condition.</b> Saying life is a dissipative structure is true and thin — so are hurricanes and candle flames. Everything else life has (heritable information, the division of labour between metabolism and replication, variation that can accumulate) simply does not follow from the theory. Treating "life is far from equilibrium" as an account of life's origin passes off a shared property as a mechanism.</p>
+<p><b>Fourth, don't use entropy as a metaphor.</b> Entropy has a precise definition, units, and a computable value. In phrases like "this company's entropy is rising" or "there's too much entropy in the relationship", it has no dimensions, cannot be measured, and therefore cannot be wrong. If you want to use this vocabulary, the minimum bar is to say what the flow is, in what units it is counted, and who pays. If you can't, saying "this will fall apart if nobody maintains it" is both clearer and more honest.</p>
+<div class="crossx-inline">
+🌀 <b>Philosophy of science · The lure of optimisation principles</b>　Ever since the principle of least action, physics has repeatedly delivered on a single ambition: find a quantity, declare that nature always takes its extremum, and a whole territory of phenomena falls under one rule. The first two limits above say the ambition fails far from equilibrium — not that the right quantity is still being sought, but that there is currently no reason to think one exists. From which a usable reading heuristic follows: <b>whenever you hear "the system always tends to minimise/maximise X", ask first how far from equilibrium it is.</b> Such principles do exist near equilibrium, and every structure worth studying is far from it — which also explains why sweeping principles of this kind are especially prone to misuse in biology and the social sciences: their subject matter sits entirely on the side where the principles fail.
+</div>
+<div class="decide">
+<span class="lb">🎯 DECISION LINE</span>
+<p>Before drawing conclusions in this vocabulary, run three checks. Can you point at the <b>flow</b>, and can you quantify it? Is the system near equilibrium or far from it (near buys you those optimisation principles; far means doing the modelling honestly)? Does your "entropy" have units? Fail any one of them and put the vocabulary away — say it in terms you can measure instead, because otherwise what you have is rhetoric, not mechanism.</p>
+</div>
+<div class="bigcat">
+<h3>🎒 Scenario · BigCat</h3>
+<ol>
+<li><span class="dm">Teams and organisations</span>A mechanism that works well — meeting notes, coding conventions, the on-call rota, the new-joiner handbook — looks like an institution but is usually a few hours a week that one person quietly puts in. That person takes three weeks off, the mechanism falls apart, and it gets written up as "poor execution". The concrete change: add two fields behind every process, <b>"weekly upkeep hours"</b> and <b>"who pays"</b>; flag every row where the payer is a single name. The point isn't to have fewer processes — it's to know how many fires you are currently feeding. The ones you can't afford are better let go now than during your holiday.</li>
+<li><span class="dm">Parenting</span>Households drift into stretches where everything runs well: bedtimes hold, homework doesn't need chasing, evenings stay calm. Almost always it is sustained by one unglamorous flow — an hour some adult happens to have, a gap with nothing else scheduled, a fixed pickup slot. Cut that flow and the order often disperses within days, after which it gets attributed to a child "acting up lately". The question to change is not "why the backsliding" but <b>"which flow stopped last week"</b>; the action to change is to schedule that hour as a fixed cost rather than something done when there's time. The test is simple too: if a good stretch appears and disappears in step with an adult's calendar, it was never a property of the child.</li>
+<li><span class="dm">Practice and inner life</span>A period of steady practice brings clarity; some weeks later it disperses, and the standard reading is backsliding, or insufficient resolve. This issue's mechanism offers another: that clarity was a dissipative structure, and its stability was roughly proportional to the flow sustaining it — hours alone, a regular schedule, how often you sat with others. Change jobs or move house, the flow is withdrawn, and the structure stops existing; willpower has little to do with it. The action to change: stop increasing the intensity of practice (that means raising the flow — a costlier bill and harder to sustain) and instead write down <b>the specific flows that actually existed</b> during that period: what hour, where, how long, with whom. Then restore only the cheapest of them. As for the kind of stability the texts describe as not depending on conditions — that belongs to a different category, and shouldn't be used to grade a state visibly propped up by conditions.</li>
+</ol>
+</div>
+<div class="crossx">
+<h3>🌀 Crossings</h3>
+<ul>
+<li><b>History and economics · A civilisation's energy bill</b>: In <i>The Measure of Civilization</i>, Ian Morris makes energy capture (kcal per person per day) the leading dimension of his social development index — not because energy matters more than institutions, but because it is the one thing measurable in the same units across millennia and across East and West. Wire this issue's mechanisms to that choice and it stops being mere methodological convenience: every structure a society has — bureaucratic tiers, standing armies, cities, scholarship — is a dissipative structure requiring a continuous energy flow (section 1), and the size of that flow decides which tier of structure can be held (section 3). Joseph Tainter's <i>The Collapse of Complex Societies</i> supplies the other half of the chain: complexity itself has declining marginal returns, until upkeep exceeds what can be collected. Which yields a conclusion you would not otherwise see: collapse need not be defeat by anyone. Let the flow fall below a threshold and a society <em>switches down</em> to a cheaper structure, exactly as convection cells vanish and conduction returns when the temperature difference drops — the invading army is often just the grain of sand that happened to be present. <b>But here it does not hold</b>: kill the power and a convection cell leaves nothing behind, whereas a society that regresses keeps writing, techniques, legal texts — stock that needs no flow to persist, more like the "free crystal" of section 1. Societal collapse comes with a ratchet, and the next build-up does not start from zero; importing the physicist's return-to-nothing wholesale produces a picture far bleaker than the historical record.</li>
+<li><b>Art and craft · A craft is not a stock, it is a flow</b>: The standard response to an endangered handicraft, dialect or musical tradition is documentation — film it, archive it, publish the book, make the documentary. Through this issue's mechanisms, that response has a structural hole: a living craft is a dissipative structure sustained by continuous transmission and use (section 1), and its form is selected by present boundary conditions and flow rather than determined by historical initial conditions (section 3). Since the state of such a structure is not derivable from initial conditions, a snapshot of it is not enough to rebuild it — an archive preserves the description, not the flow. Hence a counterintuitive conclusion: <b>pouring the whole budget into documentation may be precisely how you give up on preservation</b>; the genuinely equivalent action is sustaining even a small real loop of demand and apprenticeship — some number of pieces actually made each year, and actually used. It also explains something usually treated as a curiosity: the traditions with the most complete archives are frequently the ones most thoroughly broken, because documentation typically begins only once the flow has nearly stopped.</li>
+<li><b>Eastern thought · The test behind "conditioned phenomena"</b>: Buddhist analysis divides phenomena into the conditioned (<i>saṃskṛta</i>) and the unconditioned, the criterion for the former being that it "arises through conditions and abides through conditions". Sections 1 and 2 together hand that ancient division an operational ruler: does a state require continuous input in order not to disperse, and onto whom is the cost of maintaining it exported? Both are things you can actually check. From which a non-obvious conclusion follows: if "non-retrogression" in practice is understood as cranking up the intensity of effort, it is travelling the dissipative-structure road — stability proportional to flow, dispersal the moment the flow stops, and a bill that only grows; the texts single out the unconditioned as a separate category precisely to say that some other kind of stability does not work that way. <b>But here it does not hold</b>: the physical world has no counterpart to the unconditioned. Thermodynamics permits nothing that both has internal structure and does anything to exist entirely for free; the closest thing to free is a crystal, and its price is doing nothing at all. What can be borrowed is the ruler — asking whether a thing abides through conditions — not the conclusion that a zero-cost order exists.</li>
+</ul>
+</div>
+<div class="thinking">
+<h3>Going Deeper</h3>
+<details><summary>If all order has to be paid for, what does "sustainable" actually mean?</summary><p>It can't mean free. It can only mean one of two things: upkeep low enough that some durable long-run flow covers it (solar-scale flows), or enough stock left behind on degradation that the next round doesn't start from scratch. Note that these imply completely different designs — the first lowers the bill per unit time, the second raises the residual value after collapse — and most "sustainability" work only does the first.</p></details>
+<details><summary>Why do efficiency gains so often fail to reduce total consumption?</summary><p>One reading is the Jevons paradox: efficiency lowers unit cost, demand expands, and the total goes up. In this issue's language, efficiency alters the upkeep cost per unit of structure without touching the flow parameter that selects the structure — so the system spends the slack on supporting a larger structure. That also gives a test: for any efficiency improvement, ask whether it also constrains the flow itself.</p></details>
+<details><summary>Can "far from equilibrium" be measured, or is it only ever qualitative?</summary><p>In the lab it can: dimensionless numbers like the Rayleigh and Reynolds numbers exist for exactly this, turning drive-over-dissipation into a single figure with computable thresholds. The hard case is social and organisational systems, where neither the units of the "flow" nor any critical value are defined. So when someone calls an organisation "far from equilibrium", that is generally a metaphor — and whether it can be turned into a computable ratio is the dividing line for whether this vocabulary is doing any work there.</p></details>
+<details><summary>Does a structure get cheaper before it is dismantled?</summary><p>Not necessarily, and often the reverse: near a threshold, holding the same structure takes more effort (the flip side of the critical slowing down of Topic 36 — recovery slows, so the same perturbation takes longer to erase). That suggests a way to spot a structure about to fail: don't watch its output, watch whether the upkeep consumed per unit of output has been quietly climbing.</p></details>
+</div>
+<div class="refs">
+<h3>Further Reading</h3>
+<ul>
+<li><a href="https://www.nobelprize.org/prizes/chemistry/1977/prigogine/facts/">Ilya Prigogine · Nobel Prize in Chemistry 1977</a>(awarded for the theory of dissipative structures)</li>
+<li>Prigogine &amp; Stengers, <a href="https://en.wikipedia.org/wiki/Order_Out_of_Chaos">Order Out of Chaos</a>(the popular classic — also the book most criticised for overreach)</li>
+<li>Erwin Schrödinger, <a href="https://en.wikipedia.org/wiki/What_Is_Life%3F">What Is Life?</a>(1944, "feeding on negative entropy" and the author's own correction)</li>
+<li><a href="https://en.wikipedia.org/wiki/Rayleigh%E2%80%93B%C3%A9nard_convection">Rayleigh–Bénard convection</a>(critical Rayleigh number and the sequence of structures)</li>
+<li><a href="https://en.wikipedia.org/wiki/Belousov%E2%80%93Zhabotinsky_reaction">Belousov–Zhabotinsky reaction</a>(chemical oscillation, including the rejected-manuscript history)</li>
+<li>Martyushev &amp; Seleznev, <a href="https://doi.org/10.1016/j.physrep.2005.12.001">Maximum entropy production principle in physics, chemistry and biology</a>(2006, a sympathetic review — the controversy is in the literature that follows it)</li>
+<li>Joseph Tainter, <a href="https://www.cambridge.org/core/books/collapse-of-complex-societies/8B87E0D0BFDA5D3F9BD4E2CE3786C0DB">The Collapse of Complex Societies</a>(1988, declining marginal returns on complexity)</li>
+<li>Ian Morris, <a href="https://press.princeton.edu/books/paperback/9780691160863/the-measure-of-civilization">The Measure of Civilization</a>(social development measured through energy capture)</li>
+</ul>
+</div>
+<footer>BigCat · Complexity Science · <a href="index.en.html">← All Topics</a></footer>
+</div>
+</body></html>
