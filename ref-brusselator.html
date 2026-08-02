@@ -45,15 +45,15 @@ footer a{color:#79a6d2;text-decoration:none}
 <div class="wrap">
 <header>
 <span class="rtag">REF · 经典模型</span>
-<h1>布鲁塞尔器<span class="h1en">THE BRUSSELATOR</span></h1>
+<h1 data-tts="59c7c4f9196e5d58">布鲁塞尔器<span class="h1en">THE BRUSSELATOR</span></h1>
 <p class="sub">Prigogine &amp; Lefever，1968 — 耗散结构（dissipative structure）的最小玩具模型</p>
 <p class="meta">被引用于：Topic 15 耗散结构</p>
 </header>
-<h2><span class="n">01</span>它问的是什么问题<span class="he">（The Question It Poses）</span></h2>
+<h2 data-tts="0f08d649949a5b0e"><span class="n">01</span>它问的是什么问题<span class="he">（The Question It Poses）</span></h2>
 <p>化学课上教的是：反应向着平衡走，浓度单调地趋近某个值，到了就不再变。可 1950 年代起，实验室里陆续出现了不肯这样收场的溶液——最有名的是<b>别洛乌索夫-扎鲍廷斯基反应</b>（Belousov–Zhabotinsky reaction，通称 BZ 反应），一锅溶液的颜色会周期性地来回变，像个钟一样走上几十分钟。这在当时被普遍认为不可能，别洛乌索夫的论文两度被拒。</p>
 <p>于是问题变成：<b>一个只由普通化学反应组成的体系，凭什么会自己振荡起来？需要多少条件才够？</b>普里高津（Ilya Prigogine）和勒菲弗（René Lefever）1968 年在布鲁塞尔给出的回答，就是把条件削到不能再削的一个假想反应网——后来被 John Tyson 戏称为"布鲁塞尔器"（Brusselator，仿照当时的另一个模型 Oregonator 的构词）。</p>
 <p>它不是要模拟 BZ 反应的真实化学。它要回答的是一个更干净的问题：<b>振荡这件事，最少需要哪几样零件？</b></p>
-<h2><span class="n">02</span>规则本身<span class="he">（The Rules）</span></h2>
+<h2 data-tts="6dcda61da1c4428d"><span class="n">02</span>规则本身<span class="he">（The Rules）</span></h2>
 <div class="rule">
 <ol>
 <li>四个反应，全部只朝一个方向走：<br/>① A → X　　② B + X → Y + D　　③ 2X + Y → 3X　　④ X → E</li>
@@ -107,7 +107,7 @@ footer a{color:#79a6d2;text-decoration:none}
 </svg>
 <figcaption>一个自催化的正反馈，加一个带延迟的负反馈——振荡所需的零件就这两样。</figcaption>
 </figure>
-<h2><span class="n">03</span>跑起来会看到什么<span class="he">（What You See When It Runs）</span></h2>
+<h2 data-tts="1a40188fca794289"><span class="n">03</span>跑起来会看到什么<span class="he">（What You See When It Runs）</span></h2>
 <p>把 A 固定，慢慢把 B 调大，会看到一次干净利落的切换：</p>
 <p><b>B 小的时候</b>，X 和 Y 无论从哪儿出发，都会晃几下然后停在一组固定的浓度上（X = A，Y = B/A）。这是个稳态：有物料在不停地流过，但读数不动。</p>
 <p><b>B 越过 1 + A² 的时候</b>，这个稳态失稳了。系统不再停下来，而是走上一条闭合的循环轨道，X 与 Y 一高一低地交替，周期和振幅都稳定。这种自我维持的循环在状态空间里叫<b>极限环</b>（limit cycle）——"极限"的意思是：无论你从哪个初始浓度出发，最后都会被吸到同一条环上去，振幅由方程决定，不由你怎么起步决定。</p>
@@ -143,11 +143,11 @@ footer a{color:#79a6d2;text-decoration:none}
 <figcaption>失稳发生在 B &gt; 1 + A²。左边是实验里能测到的样子，右边是它在状态空间里的真身。</figcaption>
 </figure>
 <p>还有第二种玩法：给 X 和 Y 各加一个扩散项，让它们能在空间里散开。当两者扩散得快慢不同（抑制者跑得比激活者快），系统会长出静止的空间条纹——也就是图灵斑图（Turing pattern）。<b>同一套反应，加不加扩散，给出的是时间上的秩序和空间上的秩序两种东西。</b></p>
-<h2><span class="n">04</span>它解释了现实中的什么<span class="he">（What It Explains）</span></h2>
+<h2 data-tts="a3ed5b998eba61b7"><span class="n">04</span>它解释了现实中的什么<span class="he">（What It Explains）</span></h2>
 <p>布鲁塞尔器的价值不在预测某个具体反应，而在于它把一件事证死了：<b>持续的振荡不需要任何特殊的、神秘的成分，普通的化学反应加上"体系被持续供料"这一条就够了。</b>它同时给出了一份最小零件清单：一个自催化的正反馈、一个带延迟的负反馈、以及一股不停的物料流。</p>
 <p>照着这份清单去看，同一个骨架在很多地方出现：糖酵解过程中的振荡、细胞周期里蛋白质浓度的起伏、捕食者与猎物的数量循环、心肌与神经元的节律放电。它们的化学/生物细节毫不相干，但都装着同样的三个零件。<b>这也是它的核心可证伪预期：只要拿到那个"离平衡多远"的参数并往上推，稳态就应当在某个具体的阈值上失稳，而不是逐渐变得摇晃。</b></p>
 <div class="cant">
-<h3>它不能解释什么<span class="he">（What It Cannot Explain）</span></h3>
+<h3 data-tts="853ff6a9a5e3ac3c">它不能解释什么<span class="he">（What It Cannot Explain）</span></h3>
 <ul>
 <li><b>它不是 BZ 反应的化学。</b>第 ③ 步 2X + Y → 3X 要求三个分子同时相撞，现实中这种三分子反应极其罕见——它是为了写出最短的自催化项而编出来的，不是测出来的。真实 BZ 反应的机理是 1972 年的 FKN 机理，对应的简化模型叫 Oregonator。要谈真实体系的浓度、周期、产率，别用布鲁塞尔器。</li>
 <li><b>它不能给出任何定量预言。</b>参数 A、B 不对应任何可测的实验量，所以它算出的周期和振幅没有单位可比。它给的是"会不会振荡"这一类定性结论，不是数值。</li>
@@ -157,7 +157,7 @@ footer a{color:#79a6d2;text-decoration:none}
 </ul>
 </div>
 <div class="refs">
-<h3>延伸阅读<span class="he">（Further Reading）</span></h3>
+<h3 data-tts="63bd7f64e811570a">延伸阅读<span class="he">（Further Reading）</span></h3>
 <ul>
 <li>Prigogine &amp; Lefever, <a href="https://doi.org/10.1063/1.1668896">Symmetry Breaking Instabilities in Dissipative Systems II</a>（1968，原始论文）</li>
 <li><a href="https://en.wikipedia.org/wiki/Brusselator">Brusselator</a>（方程、失稳条件与相图）</li>
