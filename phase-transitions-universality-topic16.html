@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+
+<html lang="zh-CN"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>相变与普适类 — 细节在临界点上不算数 · 复杂性科学 T16</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,"SF Pro Display","Noto Sans SC",sans-serif;color:#e4ded5;line-height:1.85;min-height:100vh;
+  background:radial-gradient(1100px 620px at 12% -6%,rgba(224,137,94,0.10),transparent 62%),radial-gradient(950px 700px at 100% 2%,rgba(166,147,205,0.09),transparent 58%),linear-gradient(168deg,#100f0d 0%,#15161b 48%,#0a0a0c 100%);background-attachment:fixed}
+.wrap{max-width:760px;margin:0 auto;padding:30px 22px 90px}
+header{padding:52px 0 8px;border-bottom:1px solid rgba(255,255,255,0.07);margin-bottom:34px}
+.week-tag{font-family:"SF Mono",Menlo,monospace;font-size:0.72rem;font-weight:700;letter-spacing:2px;color:#9fbc7a;border:1px solid rgba(159,188,122,0.4);background:rgba(159,188,122,0.07);padding:3px 11px;border-radius:20px}
+h1{font-size:2.5rem;font-weight:800;letter-spacing:0.5px;line-height:1.2;margin:20px 0 0;background:linear-gradient(106deg,#e0895e 0%,#d9b45f 34%,#9fbc7a 68%,#63b3a6 100%);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+h1 .h1en{display:block;font-size:0.40em;font-weight:600;letter-spacing:2.5px;color:#847d72;-webkit-text-fill-color:#847d72;background:none;margin-top:13px}
+.sub{font-size:1.05rem;color:#aba498;margin-top:14px;font-weight:500}
+.date{font-family:"SF Mono",Menlo,monospace;font-size:0.75rem;color:#57524b;margin-top:18px;letter-spacing:1px}
+.pitch{margin:22px 0 30px;font-size:0.97rem;color:#cd7f9b;border-left:2px solid rgba(205,127,155,0.5);padding-left:16px;font-style:italic}
+.intro{font-size:1.02rem;color:#cfc8bc;margin-bottom:14px}
+.intro p{margin-bottom:16px}
+h2{font-size:1.42rem;font-weight:700;color:#e9e3d9;margin:56px 0 8px;letter-spacing:0.3px}
+h2 .n{font-family:"SF Mono",Menlo,monospace;font-size:0.85rem;color:#9fbc7a;display:block;margin-bottom:6px;letter-spacing:2px}
+.he{font-size:0.68em;color:#8d867b;font-weight:500;letter-spacing:0}
+p{margin-bottom:17px}
+.lead{color:#cfc8bc}
+b,strong{color:#f0eae0;font-weight:600}
+em{color:#d9b45f;font-style:normal;font-weight:500}
+.dim{color:#8d867b}
+a.reflink{display:inline-block;font-size:0.82rem;font-family:"SF Mono",Menlo,monospace;color:#63b3a6;border:1px solid rgba(99,179,166,0.38);background:rgba(99,179,166,0.07);padding:1px 9px;border-radius:20px;text-decoration:none;transition:all 0.15s;white-space:nowrap}
+a.reflink:hover{background:rgba(99,179,166,0.16);border-color:rgba(99,179,166,0.7)}
+figure{margin:30px 0}
+figure svg{display:block;width:100%;height:auto;border-radius:12px;background:rgba(255,255,255,0.018);border:1px solid rgba(255,255,255,0.06)}
+figcaption{font-size:0.82rem;color:#787268;margin-top:11px;text-align:center;line-height:1.6}
+.en-brief{font-size:0.85rem;color:#847d72;border-top:1px dashed rgba(255,255,255,0.09);padding-top:12px;margin-top:22px;line-height:1.65}
+.en-brief b{font-family:"SF Mono",Menlo,monospace;font-size:0.72rem;color:#63b3a6;letter-spacing:1px;margin-right:7px}
+.decide{margin:24px 0;border:1px solid rgba(224,137,94,0.36);background:rgba(224,137,94,0.055);border-radius:12px;padding:15px 19px}
+.decide .lb{font-family:"SF Mono",Menlo,monospace;font-size:0.73rem;letter-spacing:1.5px;color:#e0895e;font-weight:700;display:block;margin-bottom:7px}
+.decide p{margin:0;font-size:0.95rem;color:#ddd5c9}
+.crossx-inline{margin:20px 0 22px;border-left:2px solid rgba(205,127,155,0.55);padding:2px 0 2px 15px;font-size:0.89rem;color:#a9a096;line-height:1.72}
+.crossx-inline b{color:#cd7f9b;font-weight:600}
+.bigcat{margin:46px 0 10px;border:1px solid rgba(217,180,95,0.38);background:rgba(217,180,95,0.05);border-radius:14px;padding:20px 22px}
+.bigcat h3{font-size:1.02rem;color:#d9b45f;margin-bottom:14px;letter-spacing:0.5px}
+.bigcat ol{list-style:none;padding:0}
+.bigcat li{margin-bottom:15px;font-size:0.94rem;color:#d5cdc1;line-height:1.78}
+.bigcat li:last-child{margin-bottom:0}
+.bigcat .dm{font-family:"SF Mono",Menlo,monospace;font-size:0.73rem;color:#d9b45f;border:1px solid rgba(217,180,95,0.32);border-radius:4px;padding:1px 7px;margin-right:8px;white-space:nowrap}
+.crossx{margin:46px 0 10px;border:1px solid rgba(205,127,155,0.38);background:rgba(205,127,155,0.05);border-radius:14px;padding:20px 22px}
+.crossx h3{font-size:1.02rem;color:#cd7f9b;margin-bottom:14px;letter-spacing:0.5px}
+.crossx ul{list-style:none;padding:0}
+.crossx li{margin-bottom:16px;font-size:0.94rem;color:#d5cdc1;line-height:1.78}
+.crossx li:last-child{margin-bottom:0}
+.crossx li b{color:#cd7f9b;font-weight:600}
+.thinking{margin:46px 0 10px}
+.thinking h3{font-size:1.02rem;color:#a693cd;margin-bottom:14px;letter-spacing:0.5px}
+details{border:1px solid rgba(166,147,205,0.22);border-radius:10px;padding:12px 16px;margin-bottom:10px;background:rgba(166,147,205,0.035)}
+summary{cursor:pointer;font-size:0.93rem;color:#c9c2b6;font-weight:500}
+summary::marker{color:#a693cd}
+details p{margin:12px 0 0;font-size:0.9rem;color:#a9a096;line-height:1.75}
+.refs{margin:46px 0 10px}
+.refs h3{font-size:1.02rem;color:#79a6d2;margin-bottom:14px;letter-spacing:0.5px}
+.refs ul{list-style:none;padding:0}
+.refs li{margin-bottom:10px;font-size:0.9rem;color:#8d867b;line-height:1.7}
+.refs a{color:#79a6d2;text-decoration:none;border-bottom:1px solid rgba(121,166,210,0.3)}
+.refs a:hover{color:#a6c4e2;border-bottom-color:rgba(121,166,210,0.7)}
+footer{text-align:center;padding:56px 0 10px;font-size:0.78rem;color:#57524b;font-family:"SF Mono",Menlo,monospace;border-top:1px solid rgba(255,255,255,0.06);margin-top:50px}
+footer a{color:#79a6d2;text-decoration:none}
+@media(max-width:600px){h1{font-size:1.85rem}.wrap{padding:24px 16px 60px}h2{font-size:1.22rem}}
+</style></head><body>
+<div class="wrap">
+<header>
+<span class="week-tag">TOPIC 16 · PHASE C</span>
+<h1>相变与普适类<span class="h1en">PHASE TRANSITIONS AND UNIVERSALITY</span></h1>
+<p class="sub">细节在临界点上不算数<span class="he">（Details stop counting at the critical point）</span></p>
+<p class="date">2026-08-03 · 自组织与临界</p>
+</header>
+<p class="pitch">一块铁和一罐氙气：一个是硬邦邦的金属，一个是无色的气体，原子不一样、结构不一样、连"变化"的内容都不一样——一个是磁性消失，一个是液面消失。可它们共用同一个数字，小数点后三位都对得上。没有人能说出这个数字跟铁或者氙有任何关系。</p>
+<div class="intro">
+<p>水烧到 99 度还是水，100 度成了蒸汽。中间没有"半水半汽"的那种中间货色。这跟"水变热了"完全是两码事——变热是连续的，你可以停在任意温度；而变成蒸汽是<em>翻面</em>，翻过去就是另一种东西。</p>
+<p>反直觉的地方在于：正好在翻面的那一刻，一个系统会把自己的身世忘得干干净净。它是铁还是氙、原子多重、原子之间隔多远、晶格是方是斜——这些平时决定一切的东西，在那一刻全部退场。留下来的只剩几个数，而那几个数在毫不相干的物质之间是共享的。</p>
+<p class="dim">本站讲"临界"的有五期，视角各不相同：第 10 期是分岔跃迁（系统跳到另一个稳态），第 17 期是渗流（连通性突然贯通），第 18 期是自组织临界（系统自己爬到临界点），第 36 期是临界慢化（怎么提前监测）。<b>本期只问一件事：正好站在临界点上的时候，系统的哪些性质还算数。</b>答案是——非常少，而且少得很有规律。</p>
+</div>
+
+<h2><span class="n">01</span>先挑出那个「翻没翻面」的数<span class="he">（The Order Parameter）</span></h2>
+<p class="lead">要谈翻面，先得有个东西能告诉你翻没翻。这个东西叫<b>序参量</b>（order parameter）。它的定义很省事：<b>在"没翻"的那一侧恒等于 0，在"翻了"的那一侧不等于 0。</b></p>
+<p>拿磁铁举例。一块铁里，每个铁原子都像一根小指南针，各自有个朝向。把铁烧到 770 摄氏度以上，这些小指南针的朝向乱七八糟、互相抵消，整块铁一点磁性也没有——序参量是 0。温度降下来，它们会自发地大体朝同一个方向排，整块铁就有了磁性——序参量不是 0。这个 770 度有个名字，叫居里点（Curie point）。</p>
+<p>再拿一罐水举例。常温下罐子里下面是水、上面是汽，中间有一道看得见的水面，因为液体比气体密得多。序参量就是"液体密度减气体密度"这个差。把罐子加热到 374 摄氏度、同时压到 220 个大气压左右，这个差会缩到 0——水面消失了，罐子里变成一种既不是液也不是气的东西。这个点叫水的临界点（critical point）。</p>
+<p>序参量不是随便挑一个指标。你不能挑"温度"，因为温度两边都不是 0；也不能挑"密度"，因为密度两边都不是 0。你要挑的是那个<b>专门用来标记对称性有没有被打破</b>的量：高温的时候所有方向都一样（对称），低温的时候系统被迫选了一个方向（对称破缺，symmetry breaking），序参量记的就是它选了多少。</p>
+<figure>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 300" role="img" aria-label="三张小图对比：普通渐变、一阶跳变、连续相变">
+<text x="360" y="26" text-anchor="middle" fill="#aba498" font-family="-apple-system,sans-serif" font-size="13">温度都是往右升 — 只有右边两张叫「相变」</text>
+<text x="142" y="58" text-anchor="middle" fill="#6b665e" font-family="SF Mono,monospace" font-size="12.5">① 只是渐变</text>
+<line x1="66" y1="70" x2="66" y2="214" stroke="rgba(255,255,255,0.16)" stroke-width="1.3"/>
+<line x1="66" y1="214" x2="230" y2="214" stroke="rgba(255,255,255,0.16)" stroke-width="1.3"/>
+<polyline points="66.0,95.3 68.6,96.7 71.2,98.2 73.8,99.6 76.4,101.0 79.0,102.5 81.6,103.9 84.2,105.3 86.8,106.7 89.4,108.2 92.0,109.6 94.6,111.0 97.2,112.4 99.8,113.9 102.4,115.3 105.0,116.7 107.6,118.1 110.2,119.6 112.8,121.0 115.4,122.4 118.0,123.8 120.6,125.3 123.2,126.7 125.8,128.1 128.4,129.5 131.0,131.0 133.6,132.4 136.2,133.8 138.8,135.2 141.4,136.7 144.0,138.1 146.6,139.5 149.2,141.0 151.8,142.4 154.4,143.8 157.0,145.2 159.6,146.7 162.2,148.1 164.8,149.5 167.4,150.9 170.0,152.4 172.6,153.8 175.2,155.2 177.8,156.6 180.4,158.1 183.0,159.5 185.6,160.9 188.2,162.3 190.8,163.8 193.4,165.2 196.0,166.6 198.6,168.0 201.2,169.5 203.8,170.9 206.4,172.3 209.0,173.8 211.6,175.2 214.2,176.6 216.8,178.0 219.4,179.5 222.0,180.9" fill="none" stroke="#6b665e" stroke-width="2.6"/>
+<text x="142" y="240" text-anchor="middle" fill="#8d867b" font-family="-apple-system,sans-serif" font-size="11">没有哪一点特殊</text>
+<text x="368" y="58" text-anchor="middle" fill="#79a6d2" font-family="SF Mono,monospace" font-size="12.5">② 一阶相变</text>
+<line x1="292" y1="70" x2="292" y2="214" stroke="rgba(255,255,255,0.16)" stroke-width="1.3"/>
+<line x1="292" y1="214" x2="456" y2="214" stroke="rgba(255,255,255,0.16)" stroke-width="1.3"/>
+<line x1="388.7" y1="70" x2="388.7" y2="214" stroke="rgba(217,180,95,0.5)" stroke-width="1.3" stroke-dasharray="5 4"/>
+<text x="388.7" y="230" text-anchor="middle" fill="#d9b45f" font-family="SF Mono,monospace" font-size="10.5">转变点</text>
+<line x1="294.0" y1="106.4" x2="388.7" y2="106.4" stroke="#79a6d2" stroke-width="2.6"/>
+<line x1="388.7" y1="106.4" x2="388.7" y2="214.0" stroke="#79a6d2" stroke-width="1.6" stroke-dasharray="4 3"/>
+<line x1="388.7" y1="214" x2="452.0" y2="214" stroke="#79a6d2" stroke-width="2.6"/>
+<circle cx="388.7" cy="106.4" r="3.6" fill="#79a6d2"/>
+<circle cx="388.7" cy="214" r="3.6" fill="none" stroke="#79a6d2" stroke-width="1.5"/>
+<text x="354.7" y="160.2" text-anchor="middle" fill="#5c7f9e" font-family="-apple-system,sans-serif" font-size="10.5">这一段</text>
+<text x="354.7" y="175.2" text-anchor="middle" fill="#5c7f9e" font-family="-apple-system,sans-serif" font-size="10.5">是空的</text>
+<text x="368" y="240" text-anchor="middle" fill="#8d867b" font-family="-apple-system,sans-serif" font-size="11">直接跳，中间值不出现</text>
+<text x="594" y="58" text-anchor="middle" fill="#e0895e" font-family="SF Mono,monospace" font-size="12.5">③ 连续相变（本期）</text>
+<line x1="518" y1="70" x2="518" y2="214" stroke="rgba(255,255,255,0.16)" stroke-width="1.3"/>
+<line x1="518" y1="214" x2="682" y2="214" stroke="rgba(255,255,255,0.16)" stroke-width="1.3"/>
+<line x1="614.7" y1="70" x2="614.7" y2="214" stroke="rgba(217,180,95,0.5)" stroke-width="1.3" stroke-dasharray="5 4"/>
+<text x="614.7" y="230" text-anchor="middle" fill="#d9b45f" font-family="SF Mono,monospace" font-size="10.5">转变点</text>
+<polyline points="518.0,89.8 519.2,90.3 520.4,90.8 521.6,91.3 522.8,91.9 524.0,92.4 525.3,92.9 526.5,93.5 527.7,94.0 528.9,94.5 530.1,95.1 531.3,95.6 532.5,96.2 533.7,96.8 534.9,97.3 536.1,97.9 537.3,98.5 538.6,99.1 539.8,99.7 541.0,100.3 542.2,100.9 543.4,101.5 544.6,102.2 545.8,102.8 547.0,103.4 548.2,104.1 549.4,104.7 550.6,105.4 551.9,106.1 553.1,106.8 554.3,107.4 555.5,108.1 556.7,108.9 557.9,109.6 559.1,110.3 560.3,111.0 561.5,111.8 562.7,112.6 563.9,113.3 565.2,114.1 566.4,114.9 567.6,115.7 568.8,116.6 570.0,117.4 571.2,118.3 572.4,119.1 573.6,120.0 574.8,120.9 576.0,121.9 577.2,122.8 578.5,123.8 579.7,124.8 580.9,125.8 582.1,126.8 583.3,127.9 584.5,129.0 585.7,130.1 586.9,131.3 588.1,132.5 589.3,133.7 590.5,135.0 591.7,136.3 593.0,137.6 594.2,139.0 595.4,140.5 596.6,142.0 597.8,143.6 599.0,145.3 600.2,147.1 601.4,149.0 602.6,150.9 603.8,153.1 605.0,155.4 606.3,157.9 607.5,160.6 608.7,163.7 609.9,167.2 611.1,171.4 612.3,176.7 613.5,184.2 614.7,214.0" fill="none" stroke="#e0895e" stroke-width="2.6"/>
+<line x1="614.7" y1="214" x2="678.0" y2="214" stroke="#e0895e" stroke-width="2.6"/>
+<circle cx="614.7" cy="214" r="3.6" fill="#e0895e"/>
+<text x="648.7" y="202" text-anchor="middle" fill="#c0703f" font-family="-apple-system,sans-serif" font-size="10.5">恒为 0</text>
+<text x="594" y="240" text-anchor="middle" fill="#8d867b" font-family="-apple-system,sans-serif" font-size="11">不跳，但坡度在转变点发散</text>
+<text x="360" y="276" text-anchor="middle" fill="#57524b" font-family="-apple-system,sans-serif" font-size="11">纵轴是同一个东西：序参量 — 一个专门挑出来标记「翻没翻面」的数</text>
+</svg>
+
+<figcaption>三种曲线长得完全不同。中间那种叫一阶相变（first-order），冰化成水、水烧成汽都是它——有跳变、有潜热、能出现"两相共存"。右边那种叫连续相变（continuous transition，也叫二阶相变），本期讲的是它。</figcaption>
+</figure>
+<p>为什么单挑连续相变来讲？因为跳变的那种没什么可普适的：跳多高、在哪跳，全是那种物质自己的事。而<b>连续相变在临界点上有一件怪事——它的关联距离会长到无穷大</b>，正是这一条把后面所有的"细节不算数"逼了出来。</p>
+<div class="decide">
+<span class="lb">🎯 决策线</span>
+<p>下次有人说某个系统"正在发生转变"，先要一个数：<b>这个数在转变前那一侧应该恒为 0。</b>写不出来，说明"转变"两个字目前只是个感觉。写得出来，你立刻就有了可监测的对象——而且能分辨它是在跳（一阶，那就没有前兆、只能提前布防）还是在连续地爬（连续相变，那就有前兆可测）。</p>
+</div>
+<div class="crossx-inline">
+🌀 <b>医学 · 全身麻醉的那一下</b>　麻醉不是"越来越困"。临床上观察到的是：药物浓度缓慢上升的过程中，病人在某个很窄的区间里突然失去反应，脑电图的形态也跟着整体换了一副样子。把"清醒程度"当成连续变量去调剂量，是在用渐变的直觉对付一个有序参量的系统——这正是麻醉深度要靠脑电指标而不是靠剂量表来监控的原因：剂量是参数，不是序参量。
+</div>
+<p class="en-brief"><b>EN</b> A phase transition needs a quantity that is exactly zero on one side and non-zero on the other — the order parameter. For a magnet it is the net alignment of atomic spins, which vanishes above the Curie point (770&#8201;°C for iron); for a fluid it is the density gap between liquid and gas, which closes at the critical point (374&#8201;°C for water). Picking the order parameter is picking which symmetry gets broken. This issue is about continuous transitions, where the order parameter reaches zero smoothly rather than by jumping.</p>
+
+<h2><span class="n">02</span>八种气体，一条曲线<span class="he">（One Curve for Everybody）</span></h2>
+<p class="lead">1945 年，物理化学家 Edward Guggenheim 干了一件很朴素的事。他把当时能查到的八种气体——氖、氩、氪、氙、氮、氧、一氧化碳、甲烷——的液气共存数据全画到一张图上。</p>
+<p>用绝对单位画，这八条曲线毫无关系：氖的临界温度是 44 K，氙是 290 K，差了六倍多；密度也差好几倍。八个互不相干的钟罩。</p>
+<p>然后他做了一件小学生也会做的事：把每种气体的温度除以<em>它自己的</em>临界温度，密度除以<em>它自己的</em>临界密度。八条曲线立刻叠成了一条。</p>
+<figure>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 350" role="img" aria-label="四种气体的共存曲线：绝对坐标下各不相干，约化坐标下重合成一条">
+<text x="360" y="24" text-anchor="middle" fill="#aba498" font-family="-apple-system,sans-serif" font-size="13">四种毫不相干的气体 — 换一套坐标就叠成了一条线</text>
+<text x="193" y="50" text-anchor="middle" fill="#8d867b" font-family="SF Mono,monospace" font-size="11.5">绝对坐标</text>
+<line x1="66" y1="62" x2="66" y2="288" stroke="rgba(255,255,255,0.18)" stroke-width="1.4"/>
+<line x1="66" y1="288" x2="320" y2="288" stroke="rgba(255,255,255,0.18)" stroke-width="1.4"/>
+<text x="193" y="314" text-anchor="middle" fill="#8d867b" font-family="-apple-system,sans-serif" font-size="11.5">温度 T（K）</text>
+<text x="26" y="180" fill="#8d867b" font-family="-apple-system,sans-serif" font-size="11.5" transform="rotate(-90 26 180)">密度（g/cm³）</text>
+<polyline points="85.8,194.5 86.0,195.0 86.3,195.4 86.6,195.9 86.8,196.3 87.1,196.8 87.3,197.3 87.6,197.8 87.8,198.2 88.1,198.7 88.4,199.2 88.6,199.7 88.9,200.2 89.1,200.7 89.4,201.2 89.7,201.7 89.9,202.2 90.2,202.7 90.4,203.2 90.7,203.8 91.0,204.3 91.2,204.8 91.5,205.4 91.7,205.9 92.0,206.5 92.3,207.0 92.5,207.6 92.8,208.2 93.0,208.8 93.3,209.4 93.5,210.0 93.8,210.6 94.1,211.2 94.3,211.8 94.6,212.5 94.8,213.1 95.1,213.8 95.4,214.5 95.6,215.1 95.9,215.9 96.1,216.6 96.4,217.3 96.7,218.1 96.9,218.9 97.2,219.7 97.4,220.5 97.7,221.4 97.9,222.3 98.2,223.2 98.5,224.2 98.7,225.2 99.0,226.3 99.2,227.4 99.5,228.7 99.8,230.0 100.0,231.5 100.3,233.1 100.5,235.1 100.8,237.4 101.1,240.7 101.3,252.9 101.3,252.9 101.1,264.6 100.8,267.5 100.5,269.5 100.3,271.1 100.0,272.3 99.8,273.4 99.5,274.4 99.2,275.2 99.0,276.0 98.7,276.7 98.5,277.3 98.2,277.9 97.9,278.4 97.7,279.0 97.4,279.4 97.2,279.9 96.9,280.3 96.7,280.7 96.4,281.1 96.1,281.4 95.9,281.8 95.6,282.1 95.4,282.4 95.1,282.7 94.8,283.0 94.6,283.2 94.3,283.5 94.1,283.7 93.8,284.0 93.5,284.2 93.3,284.4 93.0,284.6 92.8,284.8 92.5,285.0 92.3,285.2 92.0,285.4 91.7,285.5 91.5,285.7 91.2,285.8 91.0,286.0 90.7,286.1 90.4,286.3 90.2,286.4 89.9,286.5 89.7,286.7 89.4,286.8 89.1,286.9 88.9,287.0 88.6,287.1 88.4,287.2 88.1,287.3 87.8,287.4 87.6,287.5 87.3,287.6 87.1,287.7 86.8,287.7 86.6,287.8 86.3,287.9 86.0,288.0 85.8,288.0" fill="none" stroke="#79a6d2" stroke-width="2"/>
+<circle cx="101.3" cy="252.9" r="3.2" fill="#79a6d2"/>
+<polyline points="122.1,227.2 122.8,227.5 123.6,227.8 124.3,228.1 125.0,228.4 125.8,228.7 126.5,229.0 127.2,229.3 128.0,229.6 128.7,230.0 129.4,230.3 130.2,230.6 130.9,230.9 131.6,231.2 132.4,231.6 133.1,231.9 133.8,232.2 134.6,232.6 135.3,232.9 136.0,233.2 136.8,233.6 137.5,233.9 138.3,234.3 139.0,234.6 139.7,235.0 140.5,235.4 141.2,235.7 141.9,236.1 142.7,236.5 143.4,236.9 144.1,237.3 144.9,237.7 145.6,238.1 146.3,238.5 147.1,238.9 147.8,239.3 148.5,239.7 149.3,240.2 150.0,240.6 150.7,241.1 151.5,241.6 152.2,242.1 152.9,242.5 153.7,243.1 154.4,243.6 155.1,244.1 155.9,244.7 156.6,245.3 157.3,245.9 158.1,246.5 158.8,247.2 159.6,247.9 160.3,248.6 161.0,249.4 161.8,250.3 162.5,251.3 163.2,252.3 164.0,253.6 164.7,255.1 165.4,257.3 166.2,265.2 166.2,265.2 165.4,272.8 164.7,274.7 164.0,276.0 163.2,277.0 162.5,277.8 161.8,278.5 161.0,279.1 160.3,279.7 159.6,280.2 158.8,280.6 158.1,281.0 157.3,281.4 156.6,281.8 155.9,282.1 155.1,282.4 154.4,282.7 153.7,283.0 152.9,283.3 152.2,283.5 151.5,283.7 150.7,283.9 150.0,284.2 149.3,284.4 148.5,284.5 147.8,284.7 147.1,284.9 146.3,285.1 145.6,285.2 144.9,285.4 144.1,285.5 143.4,285.7 142.7,285.8 141.9,285.9 141.2,286.0 140.5,286.2 139.7,286.3 139.0,286.4 138.3,286.5 137.5,286.6 136.8,286.7 136.0,286.8 135.3,286.9 134.6,287.0 133.8,287.0 133.1,287.1 132.4,287.2 131.6,287.3 130.9,287.4 130.2,287.4 129.4,287.5 128.7,287.6 128.0,287.6 127.2,287.7 126.5,287.7 125.8,287.8 125.0,287.8 124.3,287.9 123.6,287.9 122.8,288.0 122.1,288.0" fill="none" stroke="#9fbc7a" stroke-width="2"/>
+<circle cx="166.2" cy="265.2" r="3.2" fill="#9fbc7a"/>
+<polyline points="133.0,184.1 133.9,184.6 134.7,185.1 135.6,185.6 136.5,186.1 137.4,186.7 138.2,187.2 139.1,187.7 140.0,188.2 140.9,188.8 141.8,189.3 142.6,189.8 143.5,190.4 144.4,190.9 145.3,191.5 146.1,192.1 147.0,192.6 147.9,193.2 148.8,193.8 149.6,194.4 150.5,195.0 151.4,195.6 152.3,196.2 153.2,196.8 154.0,197.4 154.9,198.0 155.8,198.6 156.7,199.3 157.5,199.9 158.4,200.6 159.3,201.3 160.2,201.9 161.1,202.6 161.9,203.3 162.8,204.0 163.7,204.8 164.6,205.5 165.4,206.3 166.3,207.0 167.2,207.8 168.1,208.6 168.9,209.4 169.8,210.3 170.7,211.2 171.6,212.1 172.5,213.0 173.3,213.9 174.2,214.9 175.1,216.0 176.0,217.1 176.8,218.2 177.7,219.4 178.6,220.7 179.5,222.1 180.3,223.5 181.2,225.2 182.1,227.0 183.0,229.2 183.9,231.8 184.7,235.5 185.6,249.0 185.6,249.0 184.7,262.0 183.9,265.2 183.0,267.5 182.1,269.2 181.2,270.6 180.3,271.8 179.5,272.8 178.6,273.8 177.7,274.6 176.8,275.4 176.0,276.1 175.1,276.8 174.2,277.4 173.3,277.9 172.5,278.5 171.6,279.0 170.7,279.4 169.8,279.9 168.9,280.3 168.1,280.7 167.2,281.1 166.3,281.4 165.4,281.8 164.6,282.1 163.7,282.4 162.8,282.7 161.9,283.0 161.1,283.3 160.2,283.5 159.3,283.8 158.4,284.0 157.5,284.2 156.7,284.4 155.8,284.7 154.9,284.9 154.0,285.1 153.2,285.2 152.3,285.4 151.4,285.6 150.5,285.8 149.6,285.9 148.8,286.1 147.9,286.2 147.0,286.4 146.1,286.5 145.3,286.6 144.4,286.8 143.5,286.9 142.6,287.0 141.8,287.1 140.9,287.2 140.0,287.3 139.1,287.4 138.2,287.5 137.4,287.6 136.5,287.7 135.6,287.8 134.7,287.9 133.9,288.0 133.0,288.0" fill="none" stroke="#d9b45f" stroke-width="2"/>
+<circle cx="185.6" cy="249.0" r="3.2" fill="#d9b45f"/>
+<polyline points="194.8,72.7 196.5,73.7 198.2,74.8 199.8,75.8 201.5,76.9 203.2,78.0 204.9,79.0 206.6,80.1 208.3,81.2 210.0,82.3 211.6,83.5 213.3,84.6 215.0,85.7 216.7,86.9 218.4,88.0 220.1,89.2 221.8,90.4 223.5,91.5 225.1,92.7 226.8,94.0 228.5,95.2 230.2,96.4 231.9,97.7 233.6,98.9 235.3,100.2 236.9,101.5 238.6,102.8 240.3,104.1 242.0,105.5 243.7,106.9 245.4,108.2 247.1,109.6 248.8,111.1 250.4,112.5 252.1,114.0 253.8,115.5 255.5,117.0 257.2,118.6 258.9,120.2 260.6,121.8 262.2,123.5 263.9,125.2 265.6,127.0 267.3,128.8 269.0,130.6 270.7,132.5 272.4,134.5 274.0,136.6 275.7,138.7 277.4,141.0 279.1,143.4 280.8,145.8 282.5,148.5 284.2,151.3 285.9,154.4 287.5,157.8 289.2,161.6 290.9,166.1 292.6,171.5 294.3,179.1 296.0,207.1 296.0,207.1 294.3,234.1 292.6,240.9 290.9,245.4 289.2,249.0 287.5,251.9 285.9,254.4 284.2,256.6 282.5,258.5 280.8,260.3 279.1,261.9 277.4,263.4 275.7,264.7 274.0,266.0 272.4,267.2 270.7,268.3 269.0,269.3 267.3,270.3 265.6,271.2 263.9,272.0 262.2,272.9 260.6,273.6 258.9,274.4 257.2,275.1 255.5,275.8 253.8,276.4 252.1,277.0 250.4,277.6 248.8,278.2 247.1,278.7 245.4,279.2 243.7,279.7 242.0,280.2 240.3,280.6 238.6,281.1 236.9,281.5 235.3,281.9 233.6,282.3 231.9,282.7 230.2,283.0 228.5,283.4 226.8,283.7 225.1,284.0 223.5,284.3 221.8,284.6 220.1,284.9 218.4,285.2 216.7,285.4 215.0,285.7 213.3,285.9 211.6,286.2 210.0,286.4 208.3,286.6 206.6,286.8 204.9,287.0 203.2,287.2 201.5,287.4 199.8,287.6 198.2,287.8 196.5,287.9 194.8,288.1" fill="none" stroke="#cd7f9b" stroke-width="2"/>
+<circle cx="296.0" cy="207.1" r="3.2" fill="#cd7f9b"/>
+<rect x="80" y="98" width="9" height="9" fill="#79a6d2"/>
+<text x="94" y="106" fill="#8d867b" font-family="SF Mono,monospace" font-size="10.5">Ne  Tc=44K</text>
+<rect x="80" y="117" width="9" height="9" fill="#9fbc7a"/>
+<text x="94" y="125" fill="#8d867b" font-family="SF Mono,monospace" font-size="10.5">N₂  Tc=126K</text>
+<rect x="80" y="136" width="9" height="9" fill="#d9b45f"/>
+<text x="94" y="144" fill="#8d867b" font-family="SF Mono,monospace" font-size="10.5">Ar  Tc=151K</text>
+<rect x="80" y="155" width="9" height="9" fill="#cd7f9b"/>
+<text x="94" y="163" fill="#8d867b" font-family="SF Mono,monospace" font-size="10.5">Xe  Tc=290K</text>
+<text x="193" y="332" text-anchor="middle" fill="#57524b" font-family="-apple-system,sans-serif" font-size="10.5">四个互不相干的钟罩</text>
+<text x="551" y="50" text-anchor="middle" fill="#e0895e" font-family="SF Mono,monospace" font-size="11.5">各自除以自己的临界值</text>
+<line x1="424" y1="62" x2="424" y2="288" stroke="rgba(255,255,255,0.18)" stroke-width="1.4"/>
+<line x1="424" y1="288" x2="678" y2="288" stroke="rgba(255,255,255,0.18)" stroke-width="1.4"/>
+<text x="551" y="314" text-anchor="middle" fill="#8d867b" font-family="%s" font-size="11.5">T / Tc</text>
+<text x="386" y="180" fill="#8d867b" font-family="-apple-system,sans-serif" font-size="11.5" transform="rotate(-90 386 180)">ρ / ρc</text>
+<polyline points="450.3,94.0 453.5,94.9 456.7,95.9 459.9,96.8 463.1,97.8 466.3,98.8 469.5,99.8 472.8,100.7 476.0,101.7 479.2,102.7 482.4,103.7 485.6,104.7 488.8,105.8 492.0,106.8 495.2,107.8 498.4,108.9 501.7,109.9 504.9,111.0 508.1,112.1 511.3,113.2 514.5,114.3 517.7,115.4 520.9,116.5 524.1,117.7 527.4,118.8 530.6,120.0 533.8,121.2 537.0,122.4 540.2,123.6 543.4,124.8 546.6,126.0 549.8,127.3 553.0,128.6 556.3,129.9 559.5,131.2 562.7,132.6 565.9,134.0 569.1,135.4 572.3,136.8 575.5,138.3 578.7,139.8 581.9,141.3 585.2,142.9 588.4,144.5 591.6,146.2 594.8,148.0 598.0,149.7 601.2,151.6 604.4,153.5 607.6,155.6 610.9,157.7 614.1,159.9 617.3,162.3 620.5,164.9 623.7,167.7 626.9,170.7 630.1,174.1 633.3,178.1 636.5,183.1 639.8,189.9 643.0,215.1 643.0,215.1 639.8,239.5 636.5,245.5 633.3,249.6 630.1,252.8 626.9,255.5 623.7,257.7 620.5,259.7 617.3,261.5 614.1,263.0 610.9,264.5 607.6,265.8 604.4,267.0 601.2,268.2 598.0,269.2 594.8,270.2 591.6,271.1 588.4,272.0 585.2,272.8 581.9,273.6 578.7,274.4 575.5,275.1 572.3,275.7 569.1,276.4 565.9,277.0 562.7,277.5 559.5,278.1 556.3,278.6 553.0,279.1 549.8,279.6 546.6,280.1 543.4,280.5 540.2,281.0 537.0,281.4 533.8,281.8 530.6,282.1 527.4,282.5 524.1,282.9 520.9,283.2 517.7,283.5 514.5,283.8 511.3,284.1 508.1,284.4 504.9,284.7 501.7,285.0 498.4,285.2 495.2,285.5 492.0,285.7 488.8,285.9 485.6,286.2 482.4,286.4 479.2,286.6 476.0,286.8 472.8,287.0 469.5,287.1 466.3,287.3 463.1,287.5 459.9,287.6 456.7,287.8 453.5,287.9 450.3,288.1" fill="none" stroke="rgba(255,255,255,0.30)" stroke-width="1.4"/>
+<circle cx="461.2" cy="97.2" r="3.1" fill="#79a6d2"/>
+<circle cx="461.2" cy="287.6" r="3.1" fill="#79a6d2"/>
+<circle cx="491.0" cy="106.5" r="3.1" fill="#79a6d2"/>
+<circle cx="491.0" cy="285.8" r="3.1" fill="#79a6d2"/>
+<circle cx="520.8" cy="116.5" r="3.1" fill="#79a6d2"/>
+<circle cx="520.8" cy="283.2" r="3.1" fill="#79a6d2"/>
+<circle cx="550.6" cy="127.6" r="3.1" fill="#79a6d2"/>
+<circle cx="550.6" cy="279.5" r="3.1" fill="#79a6d2"/>
+<circle cx="580.3" cy="140.6" r="3.1" fill="#79a6d2"/>
+<circle cx="580.3" cy="274.0" r="3.1" fill="#79a6d2"/>
+<circle cx="610.1" cy="157.2" r="3.1" fill="#79a6d2"/>
+<circle cx="610.1" cy="264.8" r="3.1" fill="#79a6d2"/>
+<circle cx="470.4" cy="100.0" r="3.1" fill="#9fbc7a"/>
+<circle cx="470.4" cy="287.1" r="3.1" fill="#9fbc7a"/>
+<circle cx="500.2" cy="109.5" r="3.1" fill="#9fbc7a"/>
+<circle cx="500.2" cy="285.1" r="3.1" fill="#9fbc7a"/>
+<circle cx="530.0" cy="119.8" r="3.1" fill="#9fbc7a"/>
+<circle cx="530.0" cy="282.2" r="3.1" fill="#9fbc7a"/>
+<circle cx="559.8" cy="131.4" r="3.1" fill="#9fbc7a"/>
+<circle cx="559.8" cy="278.1" r="3.1" fill="#9fbc7a"/>
+<circle cx="589.5" cy="145.2" r="3.1" fill="#9fbc7a"/>
+<circle cx="589.5" cy="271.7" r="3.1" fill="#9fbc7a"/>
+<circle cx="619.3" cy="163.9" r="3.1" fill="#9fbc7a"/>
+<circle cx="619.3" cy="260.4" r="3.1" fill="#9fbc7a"/>
+<circle cx="479.6" cy="102.9" r="3.1" fill="#d9b45f"/>
+<circle cx="479.6" cy="286.5" r="3.1" fill="#d9b45f"/>
+<circle cx="509.4" cy="112.5" r="3.1" fill="#d9b45f"/>
+<circle cx="509.4" cy="284.3" r="3.1" fill="#d9b45f"/>
+<circle cx="539.2" cy="123.2" r="3.1" fill="#d9b45f"/>
+<circle cx="539.2" cy="281.1" r="3.1" fill="#d9b45f"/>
+<circle cx="569.0" cy="135.3" r="3.1" fill="#d9b45f"/>
+<circle cx="569.0" cy="276.4" r="3.1" fill="#d9b45f"/>
+<circle cx="598.7" cy="150.2" r="3.1" fill="#d9b45f"/>
+<circle cx="598.7" cy="269.0" r="3.1" fill="#d9b45f"/>
+<circle cx="628.5" cy="172.4" r="3.1" fill="#d9b45f"/>
+<circle cx="628.5" cy="254.2" r="3.1" fill="#d9b45f"/>
+<circle cx="488.8" cy="105.8" r="3.1" fill="#cd7f9b"/>
+<circle cx="488.8" cy="285.9" r="3.1" fill="#cd7f9b"/>
+<circle cx="518.6" cy="115.7" r="3.1" fill="#cd7f9b"/>
+<circle cx="518.6" cy="283.4" r="3.1" fill="#cd7f9b"/>
+<circle cx="548.4" cy="126.7" r="3.1" fill="#cd7f9b"/>
+<circle cx="548.4" cy="279.8" r="3.1" fill="#cd7f9b"/>
+<circle cx="578.2" cy="139.5" r="3.1" fill="#cd7f9b"/>
+<circle cx="578.2" cy="274.5" r="3.1" fill="#cd7f9b"/>
+<circle cx="607.9" cy="155.7" r="3.1" fill="#cd7f9b"/>
+<circle cx="607.9" cy="265.7" r="3.1" fill="#cd7f9b"/>
+<circle cx="637.7" cy="185.2" r="3.1" fill="#cd7f9b"/>
+<circle cx="637.7" cy="243.6" r="3.1" fill="#cd7f9b"/>
+<circle cx="643.0" cy="215.1" r="4.5" fill="#e0895e"/>
+<text x="635" y="203" fill="#e0895e" font-family="-apple-system,sans-serif" font-size="11">临界点</text>
+<text x="432" y="78" fill="#c0703f" font-family="-apple-system,sans-serif" font-size="11.5">四种气体的点全落在同一条线上</text>
+<text x="551" y="332" text-anchor="middle" fill="#57524b" font-family="-apple-system,sans-serif" font-size="10.5">同一条钟罩，宽度 ∝ (1 − T/Tc)^β</text>
+</svg>
+
+<figcaption>左边是绝对坐标下的四种气体（为了看清只画了四种）；右边是各自除以自己临界值之后的样子。曲线按 Guggenheim 1945 年那个经验式画出，每种气体用自己实测的 Tc 与临界密度——真实的测量点正是这样落在同一条线上的。</figcaption>
+</figure>
+<p>叠在一起并不稀奇——把任何两条形状差不多的曲线各自归一化，都能靠得比较近。真正要命的是<b>钟罩顶端的形状</b>。</p>
+<p>越靠近临界点，液气密度差越小。它缩小的方式不是随便什么方式，而是遵守一个幂：密度差 ∝（1 − T/Tc）的 β 次方——这里 T 是当前温度，Tc 是这种物质的临界温度，所以括号里那个数就是"离临界点还有多远"。这个 β 就叫<b>临界指数</b>（critical exponent）——描述某个量在贴近临界点时以多快的速度趋于 0 或者发散。习惯上用希腊字母命名，序参量的那个叫 β，另外还有描述涨落强度的 γ、描述关联距离的 ν 等等。</p>
+<p>Guggenheim 拟合出来的 β 是 1/3。而后来精确的实验与计算给出的值是 <b>0.326</b> 左右。</p>
+<p>下面这句是本期的分水岭：<b>三维空间里的普通磁体，临界点附近的 β 也是 0.326。</b>不是"差不多"——在<em>贴近</em>临界点的那一小段里，两者在实验与计算能达到的精度上一致（离远一点就不再一致了，这一条第 05 节会专门说）。同一个数字还出现在二元合金的有序-无序转变里，出现在两种液体从互溶变成分层的那一刻。这些系统之间没有任何共同的原料——磁体里跑的是电子自旋，流体里跑的是分子的疏密，合金里跑的是原子占了哪个格点。</p>
+<p>物理学家把共享同一组临界指数的所有系统称为一个<b>普适类</b>（universality class）。上面这一串东西属于同一个普适类，它的名字叫"三维伊辛类"，因为最早把它算清楚的是一个极其简陋的格点模型 <a class="reflink" href="ref-ising.html">→ 参考 · 伊辛模型</a>。</p>
+<div class="crossx-inline">
+🌀 <b>西方哲学 · 多重可实现性</b>　Hilary Putnam 在 1960 年代提出：疼痛这种心理状态可以由人的神经、章鱼的神经、乃至硅片同时实现，所以心理状态不能等同于某种特定的物理状态。这个论证一直停在"原则上可以"的层面。普适类给了它一个可算的版本，也给了它一个更硬的约束：同一个宏观规律确实可以由完全不同的底层实现，但<b>只在系统被推到某个特定条件附近时才成立</b>——离开那个条件，底层立刻重新说了算。于是"多重可实现"不再是一句关于可能性的哲学主张，而变成一个可以问"在什么范围内成立"的经验问题。
+</div>
+<p class="en-brief"><b>EN</b> In 1945 Guggenheim rescaled the coexistence curves of eight gases by each substance's own critical temperature and density; all eight collapsed onto a single curve. The shape near the top follows a power law with exponent β. Modern measurements give β ≈ 0.326 — and the same 0.326 turns up in three-dimensional magnets, in order–disorder transitions of alloys, and in demixing liquids. Systems sharing a set of critical exponents form a universality class.</p>
+
+<h2><span class="n">03</span>细节是怎么被洗掉的<span class="he">（How the Details Get Washed Out）</span></h2>
+<p class="lead">先看一个能用肉眼看见的现象。把一根装着二氧化碳的耐压玻璃管慢慢加热到它的临界点附近，管里原本清亮的液体会突然变得像牛奶一样浑浊，光都透不过去。移开热源，又清亮回来。这叫<b>临界乳光</b>（critical opalescence）。</p>
+<p>浑浊的原因是：管子里出现了大量密度不均的团块，而这些团块的尺寸恰好跟可见光的波长同一个量级，于是把光散射得到处都是。</p>
+<p>这里出现了本期最关键的一个量：<b>关联长度</b>（correlation length），通常记作 ξ。它的意思是——<b>相隔多远的两个地方还能"感觉到"彼此。</b>常温下的水，ξ 只有几个分子那么长：这边一个分子挤过去，隔壁三个分子有反应，再远就没人理了。而在临界点上，ξ 会一路涨到<em>无穷大</em>：整罐水从头到尾都在互相牵扯。</p>
+<p>团块之所以有各种尺寸——从几个分子到整根管子——正是因为没有哪个尺寸是"典型"的。这跟第 18 期沙堆里雪崩没有典型规模是同一副面孔，只不过那边是自己爬上去的，这边是被人调上去的。</p>
+<figure>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 552" role="img" aria-label="三个温度下的自旋格点，逐级粗粒化后的样子">
+<defs>
+<marker id="cgA" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="10" markerHeight="10" markerUnits="userSpaceOnUse" orient="auto"><path d="M0,1 L9,5 L0,9 z" fill="#8d867b"/></marker>
+</defs>
+<g transform="translate(168,74)"><rect width="126" height="126" fill="#26252b"/><path transform="scale(1.96875)" d="M0 0h15v1h-15zM16 0h48v1h-48zM0 1h14v1h-14zM16 1h48v1h-48zM0 2h64v1h-64zM0 3h64v1h-64zM0 4h5v1h-5zM6 4h36v1h-36zM43 4h21v1h-21zM0 5h49v1h-49zM50 5h14v1h-14zM0 6h49v1h-49zM50 6h3v1h-3zM55 6h9v1h-9zM0 7h49v1h-49zM50 7h14v1h-14zM0 8h55v1h-55zM56 8h8v1h-8zM0 9h55v1h-55zM57 9h7v1h-7zM0 10h60v1h-60zM61 10h3v1h-3zM0 11h8v1h-8zM9 11h55v1h-55zM0 12h7v1h-7zM9 12h55v1h-55zM0 13h7v1h-7zM9 13h20v1h-20zM31 13h6v1h-6zM38 13h14v1h-14zM53 13h5v1h-5zM59 13h5v1h-5zM0 14h7v1h-7zM9 14h49v1h-49zM59 14h2v1h-2zM62 14h2v1h-2zM0 15h4v1h-4zM5 15h2v1h-2zM9 15h55v1h-55zM0 16h64v1h-64zM0 17h64v1h-64zM0 18h64v1h-64zM0 19h41v1h-41zM42 19h22v1h-22zM0 20h24v1h-24zM25 20h16v1h-16zM42 20h17v1h-17zM60 20h4v1h-4zM0 21h64v1h-64zM0 22h64v1h-64zM0 23h30v1h-30zM31 23h6v1h-6zM38 23h2v1h-2zM41 23h23v1h-23zM0 24h64v1h-64zM0 25h30v1h-30zM31 25h10v1h-10zM42 25h22v1h-22zM0 26h40v1h-40zM41 26h9v1h-9zM51 26h13v1h-13zM0 27h10v1h-10zM11 27h26v1h-26zM39 27h1v1h-1zM41 27h14v1h-14zM57 27h1v1h-1zM63 27h1v1h-1zM0 28h10v1h-10zM11 28h43v1h-43zM60 28h1v1h-1zM63 28h1v1h-1zM0 29h10v1h-10zM11 29h43v1h-43zM55 29h1v1h-1zM58 29h6v1h-6zM0 30h45v1h-45zM46 30h10v1h-10zM58 30h6v1h-6zM0 31h6v1h-6zM7 31h48v1h-48zM58 31h6v1h-6zM0 32h14v1h-14zM15 32h49v1h-49zM0 33h58v1h-58zM59 33h5v1h-5zM0 34h31v1h-31zM33 34h18v1h-18zM52 34h5v1h-5zM58 34h6v1h-6zM0 35h15v1h-15zM17 35h28v1h-28zM46 35h18v1h-18zM0 36h59v1h-59zM61 36h3v1h-3zM0 37h64v1h-64zM0 38h9v1h-9zM10 38h54v1h-54zM0 39h2v1h-2zM3 39h61v1h-61zM0 40h2v1h-2zM3 40h61v1h-61zM0 41h48v1h-48zM49 41h15v1h-15zM0 42h33v1h-33zM34 42h8v1h-8zM43 42h2v1h-2zM47 42h17v1h-17zM0 43h25v1h-25zM26 43h38v1h-38zM0 44h51v1h-51zM52 44h5v1h-5zM58 44h6v1h-6zM0 45h45v1h-45zM46 45h18v1h-18zM0 46h64v1h-64zM0 47h42v1h-42zM43 47h5v1h-5zM49 47h15v1h-15zM0 48h12v1h-12zM13 48h34v1h-34zM49 48h15v1h-15zM0 49h64v1h-64zM0 50h19v1h-19zM20 50h35v1h-35zM56 50h8v1h-8zM0 51h41v1h-41zM43 51h12v1h-12zM56 51h8v1h-8zM0 52h7v1h-7zM8 52h1v1h-1zM11 52h7v1h-7zM19 52h16v1h-16zM36 52h5v1h-5zM42 52h22v1h-22zM0 53h21v1h-21zM22 53h41v1h-41zM0 54h2v1h-2zM3 54h60v1h-60zM0 55h4v1h-4zM5 55h34v1h-34zM40 55h10v1h-10zM51 55h13v1h-13zM0 56h21v1h-21zM22 56h42v1h-42zM0 57h7v1h-7zM8 57h4v1h-4zM13 57h51v1h-51zM0 58h28v1h-28zM29 58h35v1h-35zM0 59h10v1h-10zM11 59h5v1h-5zM17 59h6v1h-6zM24 59h30v1h-30zM55 59h9v1h-9zM0 60h16v1h-16zM17 60h47v1h-47zM0 61h51v1h-51zM53 61h11v1h-11zM0 62h37v1h-37zM40 62h11v1h-11zM53 62h11v1h-11zM0 63h64v1h-64z" fill="#c98a5e"/><rect width="126" height="126" fill="none" stroke="rgba(255,255,255,0.16)"/></g>
+<g transform="translate(332,74)"><rect width="126" height="126" fill="#26252b"/><path transform="scale(3.93750)" d="M0 0h7v1h-7zM8 0h24v1h-24zM0 1h32v1h-32zM0 2h32v1h-32zM0 3h24v1h-24zM25 3h7v1h-7zM0 4h27v1h-27zM28 4h4v1h-4zM0 5h32v1h-32zM0 6h3v1h-3zM4 6h28v1h-28zM0 7h4v1h-4zM5 7h27v1h-27zM0 8h32v1h-32zM0 9h32v1h-32zM0 10h32v1h-32zM0 11h32v1h-32zM0 12h32v1h-32zM0 13h20v1h-20zM21 13h9v1h-9zM31 13h1v1h-1zM0 14h5v1h-5zM6 14h21v1h-21zM30 14h2v1h-2zM0 15h28v1h-28zM29 15h3v1h-3zM0 16h32v1h-32zM0 17h32v1h-32zM0 18h32v1h-32zM0 19h32v1h-32zM0 20h32v1h-32zM0 21h32v1h-32zM0 22h32v1h-32zM0 23h32v1h-32zM0 24h32v1h-32zM0 25h32v1h-32zM0 26h32v1h-32zM0 27h32v1h-32zM0 28h32v1h-32zM0 29h32v1h-32zM0 30h32v1h-32zM0 31h32v1h-32z" fill="#c98a5e"/><rect width="126" height="126" fill="none" stroke="rgba(255,255,255,0.16)"/></g>
+<g transform="translate(496,74)"><rect width="126" height="126" fill="#26252b"/><path transform="scale(7.87500)" d="M0 0h16v1h-16zM0 1h16v1h-16zM0 2h16v1h-16zM0 3h16v1h-16zM0 4h16v1h-16zM0 5h16v1h-16zM0 6h16v1h-16zM0 7h14v1h-14zM15 7h1v1h-1zM0 8h16v1h-16zM0 9h16v1h-16zM0 10h16v1h-16zM0 11h16v1h-16zM0 12h16v1h-16zM0 13h16v1h-16zM0 14h16v1h-16zM0 15h16v1h-16z" fill="#c98a5e"/><rect width="126" height="126" fill="none" stroke="rgba(255,255,255,0.16)"/></g>
+<g transform="translate(168,224)"><rect width="126" height="126" fill="#26252b"/><path transform="scale(1.96875)" d="M0 0h4v1h-4zM20 0h1v1h-1zM35 0h2v1h-2zM42 0h6v1h-6zM49 0h2v1h-2zM52 0h3v1h-3zM56 0h3v1h-3zM61 0h1v1h-1zM63 0h1v1h-1zM0 1h7v1h-7zM35 1h2v1h-2zM42 1h2v1h-2zM46 1h13v1h-13zM63 1h1v1h-1zM0 2h10v1h-10zM36 2h1v1h-1zM42 2h2v1h-2zM48 2h3v1h-3zM53 2h5v1h-5zM63 2h1v1h-1zM0 3h10v1h-10zM12 3h1v1h-1zM24 3h1v1h-1zM26 3h1v1h-1zM29 3h1v1h-1zM36 3h2v1h-2zM43 3h1v1h-1zM56 3h2v1h-2zM59 3h1v1h-1zM63 3h1v1h-1zM0 4h9v1h-9zM12 4h2v1h-2zM21 4h2v1h-2zM24 4h2v1h-2zM29 4h1v1h-1zM39 4h1v1h-1zM44 4h1v1h-1zM56 4h1v1h-1zM61 4h3v1h-3zM0 5h6v1h-6zM12 5h1v1h-1zM16 5h1v1h-1zM23 5h8v1h-8zM61 5h3v1h-3zM0 6h5v1h-5zM12 6h1v1h-1zM14 6h3v1h-3zM24 6h7v1h-7zM59 6h2v1h-2zM63 6h1v1h-1zM7 7h2v1h-2zM12 7h2v1h-2zM17 7h1v1h-1zM24 7h7v1h-7zM33 7h2v1h-2zM39 7h1v1h-1zM63 7h1v1h-1zM14 8h1v1h-1zM23 8h12v1h-12zM38 8h7v1h-7zM50 8h2v1h-2zM53 8h1v1h-1zM63 8h1v1h-1zM10 9h1v1h-1zM23 9h8v1h-8zM33 9h2v1h-2zM36 9h1v1h-1zM38 9h3v1h-3zM42 9h1v1h-1zM46 9h1v1h-1zM60 9h1v1h-1zM2 10h2v1h-2zM12 10h1v1h-1zM25 10h2v1h-2zM33 10h3v1h-3zM42 10h1v1h-1zM3 11h1v1h-1zM6 11h2v1h-2zM33 11h5v1h-5zM43 11h2v1h-2zM3 12h1v1h-1zM6 12h2v1h-2zM23 12h2v1h-2zM35 12h3v1h-3zM44 12h1v1h-1zM50 12h1v1h-1zM58 12h2v1h-2zM6 13h2v1h-2zM22 13h3v1h-3zM35 13h1v1h-1zM59 13h1v1h-1zM62 13h1v1h-1zM6 14h2v1h-2zM23 14h1v1h-1zM47 14h1v1h-1zM57 14h2v1h-2zM7 15h3v1h-3zM28 15h1v1h-1zM34 15h1v1h-1zM53 15h1v1h-1zM6 16h4v1h-4zM53 16h1v1h-1zM57 16h1v1h-1zM3 17h1v1h-1zM6 17h5v1h-5zM15 17h1v1h-1zM31 17h2v1h-2zM37 17h1v1h-1zM48 17h1v1h-1zM3 18h5v1h-5zM10 18h3v1h-3zM16 18h2v1h-2zM19 18h1v1h-1zM29 18h4v1h-4zM34 18h4v1h-4zM42 18h3v1h-3zM47 18h2v1h-2zM56 18h1v1h-1zM60 18h1v1h-1zM3 19h6v1h-6zM16 19h2v1h-2zM26 19h7v1h-7zM34 19h4v1h-4zM40 19h5v1h-5zM4 20h7v1h-7zM16 20h1v1h-1zM22 20h1v1h-1zM27 20h6v1h-6zM34 20h4v1h-4zM40 20h5v1h-5zM47 20h3v1h-3zM57 20h2v1h-2zM0 21h3v1h-3zM4 21h7v1h-7zM22 21h1v1h-1zM25 21h20v1h-20zM56 21h3v1h-3zM60 21h2v1h-2zM0 22h2v1h-2zM4 22h7v1h-7zM19 22h1v1h-1zM22 22h1v1h-1zM25 22h18v1h-18zM44 22h1v1h-1zM46 22h3v1h-3zM56 22h6v1h-6zM63 22h1v1h-1zM0 23h2v1h-2zM4 23h5v1h-5zM19 23h2v1h-2zM22 23h1v1h-1zM25 23h15v1h-15zM41 23h4v1h-4zM47 23h3v1h-3zM57 23h7v1h-7zM0 24h1v1h-1zM4 24h5v1h-5zM19 24h4v1h-4zM24 24h21v1h-21zM47 24h4v1h-4zM57 24h7v1h-7zM0 25h3v1h-3zM4 25h5v1h-5zM21 25h3v1h-3zM25 25h14v1h-14zM48 25h2v1h-2zM55 25h9v1h-9zM0 26h1v1h-1zM2 26h1v1h-1zM5 26h4v1h-4zM19 26h20v1h-20zM43 26h1v1h-1zM48 26h1v1h-1zM55 26h9v1h-9zM0 27h1v1h-1zM3 27h6v1h-6zM13 27h1v1h-1zM18 27h26v1h-26zM46 27h6v1h-6zM54 27h10v1h-10zM0 28h5v1h-5zM16 28h36v1h-36zM53 28h11v1h-11zM0 29h5v1h-5zM10 29h2v1h-2zM18 29h2v1h-2zM24 29h25v1h-25zM51 29h13v1h-13zM0 30h5v1h-5zM18 30h5v1h-5zM25 30h39v1h-39zM0 31h2v1h-2zM18 31h5v1h-5zM25 31h28v1h-28zM55 31h9v1h-9zM0 32h3v1h-3zM13 32h2v1h-2zM18 32h5v1h-5zM25 32h23v1h-23zM51 32h1v1h-1zM53 32h11v1h-11zM0 33h3v1h-3zM11 33h4v1h-4zM19 33h5v1h-5zM25 33h39v1h-39zM0 34h2v1h-2zM5 34h2v1h-2zM9 34h7v1h-7zM20 34h4v1h-4zM26 34h8v1h-8zM35 34h15v1h-15zM52 34h2v1h-2zM55 34h8v1h-8zM0 35h3v1h-3zM7 35h1v1h-1zM9 35h7v1h-7zM19 35h2v1h-2zM25 35h25v1h-25zM52 35h2v1h-2zM55 35h8v1h-8zM0 36h5v1h-5zM6 36h11v1h-11zM19 36h1v1h-1zM21 36h11v1h-11zM33 36h17v1h-17zM52 36h2v1h-2zM55 36h1v1h-1zM0 37h18v1h-18zM22 37h3v1h-3zM26 37h5v1h-5zM34 37h3v1h-3zM38 37h7v1h-7zM46 37h2v1h-2zM49 37h9v1h-9zM63 37h1v1h-1zM1 38h29v1h-29zM33 38h4v1h-4zM38 38h7v1h-7zM46 38h2v1h-2zM49 38h1v1h-1zM53 38h5v1h-5zM63 38h1v1h-1zM0 39h21v1h-21zM24 39h5v1h-5zM33 39h3v1h-3zM37 39h2v1h-2zM40 39h10v1h-10zM54 39h1v1h-1zM63 39h1v1h-1zM0 40h21v1h-21zM24 40h12v1h-12zM37 40h13v1h-13zM52 40h3v1h-3zM63 40h1v1h-1zM0 41h21v1h-21zM24 41h30v1h-30zM63 41h1v1h-1zM0 42h19v1h-19zM24 42h8v1h-8zM33 42h16v1h-16zM50 42h4v1h-4zM56 42h1v1h-1zM62 42h2v1h-2zM0 43h1v1h-1zM2 43h11v1h-11zM14 43h1v1h-1zM17 43h2v1h-2zM23 43h7v1h-7zM31 43h22v1h-22zM55 43h1v1h-1zM61 43h3v1h-3zM0 44h1v1h-1zM3 44h18v1h-18zM22 44h31v1h-31zM54 44h10v1h-10zM0 45h1v1h-1zM4 45h9v1h-9zM14 45h31v1h-31zM46 45h3v1h-3zM50 45h6v1h-6zM57 45h7v1h-7zM0 46h1v1h-1zM5 46h59v1h-59zM0 47h1v1h-1zM7 47h15v1h-15zM23 47h7v1h-7zM31 47h26v1h-26zM58 47h1v1h-1zM60 47h4v1h-4zM0 48h1v1h-1zM7 48h5v1h-5zM15 48h3v1h-3zM19 48h3v1h-3zM23 48h2v1h-2zM26 48h6v1h-6zM34 48h3v1h-3zM39 48h10v1h-10zM50 48h2v1h-2zM53 48h5v1h-5zM61 48h3v1h-3zM0 49h2v1h-2zM6 49h4v1h-4zM11 49h6v1h-6zM18 49h3v1h-3zM24 49h3v1h-3zM28 49h2v1h-2zM31 49h1v1h-1zM34 49h10v1h-10zM46 49h1v1h-1zM48 49h4v1h-4zM53 49h5v1h-5zM61 49h3v1h-3zM0 50h2v1h-2zM3 50h1v1h-1zM7 50h1v1h-1zM10 50h11v1h-11zM24 50h6v1h-6zM31 50h1v1h-1zM33 50h21v1h-21zM55 50h3v1h-3zM59 50h1v1h-1zM61 50h3v1h-3zM0 51h3v1h-3zM6 51h15v1h-15zM25 51h2v1h-2zM29 51h3v1h-3zM35 51h2v1h-2zM38 51h1v1h-1zM41 51h1v1h-1zM43 51h9v1h-9zM53 51h1v1h-1zM56 51h2v1h-2zM59 51h5v1h-5zM0 52h2v1h-2zM7 52h13v1h-13zM25 52h2v1h-2zM29 52h5v1h-5zM35 52h4v1h-4zM41 52h9v1h-9zM51 52h13v1h-13zM0 53h2v1h-2zM11 53h7v1h-7zM21 53h2v1h-2zM25 53h1v1h-1zM29 53h5v1h-5zM35 53h1v1h-1zM41 53h16v1h-16zM59 53h5v1h-5zM0 54h1v1h-1zM10 54h1v1h-1zM12 54h4v1h-4zM21 54h2v1h-2zM29 54h5v1h-5zM35 54h3v1h-3zM40 54h17v1h-17zM60 54h4v1h-4zM10 55h5v1h-5zM21 55h2v1h-2zM27 55h6v1h-6zM34 55h23v1h-23zM60 55h4v1h-4zM19 56h1v1h-1zM21 56h3v1h-3zM28 56h11v1h-11zM40 56h9v1h-9zM50 56h7v1h-7zM0 57h3v1h-3zM22 57h2v1h-2zM27 57h12v1h-12zM40 57h9v1h-9zM51 57h4v1h-4zM56 57h2v1h-2zM0 58h3v1h-3zM26 58h32v1h-32zM1 59h1v1h-1zM3 59h1v1h-1zM5 59h1v1h-1zM24 59h15v1h-15zM40 59h17v1h-17zM1 60h5v1h-5zM23 60h3v1h-3zM28 60h11v1h-11zM40 60h11v1h-11zM52 60h4v1h-4zM2 61h3v1h-3zM23 61h3v1h-3zM28 61h10v1h-10zM41 61h15v1h-15zM60 61h3v1h-3zM0 62h5v1h-5zM24 62h2v1h-2zM30 62h8v1h-8zM41 62h22v1h-22zM0 63h5v1h-5zM30 63h1v1h-1zM34 63h2v1h-2zM42 63h6v1h-6zM49 63h15v1h-15z" fill="#c98a5e"/><rect width="126" height="126" fill="none" stroke="rgba(255,255,255,0.16)"/></g>
+<g transform="translate(332,224)"><rect width="126" height="126" fill="#26252b"/><path transform="scale(3.93750)" d="M0 0h3v1h-3zM18 0h1v1h-1zM21 0h8v1h-8zM0 1h5v1h-5zM18 1h1v1h-1zM21 1h1v1h-1zM27 1h2v1h-2zM31 1h1v1h-1zM0 2h3v1h-3zM6 2h1v1h-1zM12 2h1v1h-1zM14 2h1v1h-1zM30 2h2v1h-2zM1 3h1v1h-1zM6 3h2v1h-2zM12 3h4v1h-4zM31 3h1v1h-1zM12 4h5v1h-5zM19 4h3v1h-3zM1 5h1v1h-1zM3 5h1v1h-1zM17 5h1v1h-1zM21 5h1v1h-1zM3 6h1v1h-1zM11 6h2v1h-2zM18 6h1v1h-1zM29 6h1v1h-1zM3 7h1v1h-1zM3 8h2v1h-2zM1 9h3v1h-3zM5 9h1v1h-1zM8 9h1v1h-1zM13 9h3v1h-3zM17 9h2v1h-2zM21 9h1v1h-1zM0 10h1v1h-1zM2 10h3v1h-3zM13 10h6v1h-6zM20 10h3v1h-3zM24 10h1v1h-1zM28 10h1v1h-1zM30 10h1v1h-1zM0 11h1v1h-1zM2 11h3v1h-3zM9 11h1v1h-1zM11 11h1v1h-1zM13 11h9v1h-9zM23 11h2v1h-2zM28 11h4v1h-4zM0 12h1v1h-1zM2 12h3v1h-3zM10 12h11v1h-11zM24 12h1v1h-1zM28 12h4v1h-4zM1 13h3v1h-3zM9 13h11v1h-11zM21 13h1v1h-1zM23 13h3v1h-3zM27 13h5v1h-5zM0 14h3v1h-3zM8 14h3v1h-3zM12 14h20v1h-20zM0 15h2v1h-2zM9 15h3v1h-3zM13 15h19v1h-19zM0 16h1v1h-1zM6 16h1v1h-1zM9 16h23v1h-23zM0 17h1v1h-1zM3 17h1v1h-1zM5 17h3v1h-3zM10 17h2v1h-2zM13 17h12v1h-12zM26 17h6v1h-6zM0 18h9v1h-9zM11 18h5v1h-5zM17 18h8v1h-8zM26 18h3v1h-3zM0 19h15v1h-15zM17 19h1v1h-1zM19 19h6v1h-6zM27 19h1v1h-1zM31 19h1v1h-1zM0 20h11v1h-11zM12 20h13v1h-13zM26 20h1v1h-1zM0 21h10v1h-10zM12 21h15v1h-15zM31 21h1v1h-1zM0 22h1v1h-1zM2 22h30v1h-30zM3 23h29v1h-29zM0 24h1v1h-1zM3 24h8v1h-8zM12 24h4v1h-4zM17 24h12v1h-12zM30 24h2v1h-2zM0 25h2v1h-2zM3 25h1v1h-1zM5 25h5v1h-5zM12 25h4v1h-4zM17 25h10v1h-10zM28 25h4v1h-4zM0 26h1v1h-1zM4 26h5v1h-5zM12 26h1v1h-1zM14 26h3v1h-3zM18 26h1v1h-1zM20 26h12v1h-12zM5 27h3v1h-3zM11 27h1v1h-1zM14 27h14v1h-14zM30 27h2v1h-2zM0 28h1v1h-1zM11 28h1v1h-1zM14 28h5v1h-5zM20 28h9v1h-9zM0 29h2v1h-2zM13 29h16v1h-16zM1 30h2v1h-2zM12 30h1v1h-1zM14 30h5v1h-5zM20 30h8v1h-8zM30 30h1v1h-1zM0 31h2v1h-2zM15 31h1v1h-1zM17 31h1v1h-1zM21 31h11v1h-11z" fill="#c98a5e"/><rect width="126" height="126" fill="none" stroke="rgba(255,255,255,0.16)"/></g>
+<g transform="translate(496,224)"><rect width="126" height="126" fill="#26252b"/><path transform="scale(7.87500)" d="M0 0h2v1h-2zM12 0h3v1h-3zM0 1h2v1h-2zM3 1h1v1h-1zM6 1h2v1h-2zM15 1h1v1h-1zM6 2h1v1h-1zM8 2h1v1h-1zM10 2h1v1h-1zM1 4h2v1h-2zM1 5h2v1h-2zM6 5h6v1h-6zM14 5h2v1h-2zM0 6h2v1h-2zM5 6h6v1h-6zM12 6h1v1h-1zM14 6h2v1h-2zM0 7h1v1h-1zM4 7h12v1h-12zM0 8h1v1h-1zM3 8h1v1h-1zM5 8h11v1h-11zM0 9h12v1h-12zM13 9h1v1h-1zM0 10h5v1h-5zM6 10h8v1h-8zM1 11h15v1h-15zM0 12h1v1h-1zM2 12h3v1h-3zM6 12h10v1h-10zM3 13h1v1h-1zM7 13h7v1h-7zM15 13h1v1h-1zM0 14h1v1h-1zM7 14h7v1h-7zM0 15h1v1h-1zM7 15h2v1h-2zM10 15h4v1h-4zM15 15h1v1h-1z" fill="#c98a5e"/><rect width="126" height="126" fill="none" stroke="rgba(255,255,255,0.16)"/></g>
+<g transform="translate(168,374)"><rect width="126" height="126" fill="#26252b"/><path transform="scale(1.96875)" d="M0 0h1v1h-1zM2 0h6v1h-6zM12 0h3v1h-3zM19 0h2v1h-2zM22 0h3v1h-3zM26 0h2v1h-2zM29 0h3v1h-3zM37 0h1v1h-1zM45 0h3v1h-3zM52 0h1v1h-1zM54 0h1v1h-1zM58 0h2v1h-2zM62 0h2v1h-2zM2 1h1v1h-1zM4 1h2v1h-2zM7 1h6v1h-6zM19 1h2v1h-2zM23 1h16v1h-16zM44 1h8v1h-8zM58 1h1v1h-1zM2 2h1v1h-1zM4 2h3v1h-3zM9 2h7v1h-7zM17 2h1v1h-1zM20 2h1v1h-1zM24 2h3v1h-3zM28 2h1v1h-1zM30 2h6v1h-6zM38 2h11v1h-11zM50 2h1v1h-1zM52 2h2v1h-2zM63 2h1v1h-1zM5 3h5v1h-5zM13 3h6v1h-6zM20 3h6v1h-6zM28 3h2v1h-2zM31 3h2v1h-2zM37 3h5v1h-5zM46 3h3v1h-3zM51 3h4v1h-4zM5 4h4v1h-4zM11 4h3v1h-3zM15 4h1v1h-1zM18 4h2v1h-2zM21 4h5v1h-5zM28 4h1v1h-1zM31 4h1v1h-1zM33 4h2v1h-2zM38 4h3v1h-3zM44 4h2v1h-2zM47 4h1v1h-1zM54 4h1v1h-1zM57 4h2v1h-2zM60 4h1v1h-1zM62 4h1v1h-1zM0 5h2v1h-2zM4 5h4v1h-4zM12 5h5v1h-5zM18 5h3v1h-3zM23 5h3v1h-3zM45 5h1v1h-1zM59 5h2v1h-2zM62 5h1v1h-1zM0 6h3v1h-3zM4 6h1v1h-1zM6 6h2v1h-2zM10 6h1v1h-1zM12 6h3v1h-3zM18 6h8v1h-8zM28 6h1v1h-1zM30 6h3v1h-3zM34 6h3v1h-3zM45 6h1v1h-1zM47 6h1v1h-1zM50 6h4v1h-4zM58 6h6v1h-6zM0 7h5v1h-5zM6 7h2v1h-2zM10 7h5v1h-5zM17 7h6v1h-6zM25 7h4v1h-4zM30 7h3v1h-3zM36 7h1v1h-1zM43 7h2v1h-2zM47 7h2v1h-2zM52 7h6v1h-6zM60 7h4v1h-4zM4 8h3v1h-3zM10 8h3v1h-3zM14 8h1v1h-1zM16 8h7v1h-7zM27 8h1v1h-1zM29 8h6v1h-6zM36 8h1v1h-1zM39 8h2v1h-2zM44 8h1v1h-1zM47 8h1v1h-1zM50 8h1v1h-1zM53 8h3v1h-3zM61 8h3v1h-3zM0 9h1v1h-1zM4 9h5v1h-5zM10 9h1v1h-1zM12 9h2v1h-2zM15 9h1v1h-1zM21 9h4v1h-4zM27 9h2v1h-2zM30 9h3v1h-3zM34 9h4v1h-4zM40 9h1v1h-1zM44 9h2v1h-2zM59 9h3v1h-3zM63 9h1v1h-1zM0 10h2v1h-2zM8 10h1v1h-1zM10 10h2v1h-2zM15 10h1v1h-1zM22 10h1v1h-1zM27 10h2v1h-2zM30 10h5v1h-5zM43 10h1v1h-1zM45 10h1v1h-1zM48 10h1v1h-1zM52 10h2v1h-2zM56 10h4v1h-4zM62 10h2v1h-2zM1 11h1v1h-1zM4 11h1v1h-1zM8 11h1v1h-1zM10 11h9v1h-9zM20 11h4v1h-4zM30 11h6v1h-6zM40 11h1v1h-1zM42 11h2v1h-2zM45 11h1v1h-1zM47 11h7v1h-7zM56 11h1v1h-1zM58 11h2v1h-2zM62 11h2v1h-2zM0 12h2v1h-2zM4 12h1v1h-1zM6 12h2v1h-2zM11 12h3v1h-3zM16 12h1v1h-1zM21 12h3v1h-3zM30 12h5v1h-5zM37 12h3v1h-3zM41 12h3v1h-3zM45 12h1v1h-1zM47 12h10v1h-10zM63 12h1v1h-1zM0 13h1v1h-1zM4 13h4v1h-4zM11 13h3v1h-3zM15 13h2v1h-2zM19 13h1v1h-1zM21 13h1v1h-1zM23 13h2v1h-2zM28 13h3v1h-3zM34 13h1v1h-1zM38 13h6v1h-6zM46 13h11v1h-11zM58 13h2v1h-2zM63 13h1v1h-1zM0 14h6v1h-6zM8 14h1v1h-1zM10 14h1v1h-1zM12 14h5v1h-5zM19 14h2v1h-2zM23 14h3v1h-3zM28 14h3v1h-3zM37 14h3v1h-3zM45 14h3v1h-3zM49 14h3v1h-3zM53 14h1v1h-1zM55 14h4v1h-4zM62 14h2v1h-2zM0 15h4v1h-4zM6 15h2v1h-2zM9 15h7v1h-7zM19 15h1v1h-1zM24 15h1v1h-1zM28 15h2v1h-2zM36 15h3v1h-3zM40 15h1v1h-1zM43 15h5v1h-5zM55 15h6v1h-6zM62 15h2v1h-2zM0 16h3v1h-3zM7 16h4v1h-4zM12 16h6v1h-6zM24 16h1v1h-1zM29 16h2v1h-2zM33 16h1v1h-1zM35 16h3v1h-3zM40 16h5v1h-5zM47 16h1v1h-1zM49 16h1v1h-1zM59 16h5v1h-5zM0 17h3v1h-3zM6 17h8v1h-8zM21 17h4v1h-4zM29 17h2v1h-2zM35 17h6v1h-6zM42 17h1v1h-1zM45 17h3v1h-3zM58 17h3v1h-3zM0 18h2v1h-2zM5 18h3v1h-3zM9 18h3v1h-3zM13 18h2v1h-2zM16 18h3v1h-3zM20 18h5v1h-5zM30 18h1v1h-1zM33 18h4v1h-4zM38 18h4v1h-4zM47 18h2v1h-2zM50 18h1v1h-1zM59 18h2v1h-2zM0 19h2v1h-2zM6 19h2v1h-2zM10 19h2v1h-2zM14 19h5v1h-5zM22 19h5v1h-5zM29 19h1v1h-1zM31 19h1v1h-1zM33 19h5v1h-5zM40 19h1v1h-1zM44 19h1v1h-1zM47 19h3v1h-3zM52 19h6v1h-6zM59 19h3v1h-3zM2 20h2v1h-2zM7 20h3v1h-3zM15 20h3v1h-3zM22 20h3v1h-3zM26 20h2v1h-2zM31 20h2v1h-2zM34 20h4v1h-4zM40 20h2v1h-2zM47 20h2v1h-2zM52 20h6v1h-6zM59 20h1v1h-1zM61 20h3v1h-3zM2 21h4v1h-4zM14 21h2v1h-2zM23 21h2v1h-2zM26 21h4v1h-4zM31 21h3v1h-3zM36 21h1v1h-1zM38 21h6v1h-6zM47 21h1v1h-1zM52 21h6v1h-6zM59 21h4v1h-4zM2 22h4v1h-4zM14 22h3v1h-3zM18 22h1v1h-1zM21 22h1v1h-1zM26 22h2v1h-2zM31 22h2v1h-2zM35 22h2v1h-2zM38 22h5v1h-5zM45 22h1v1h-1zM47 22h3v1h-3zM51 22h4v1h-4zM56 22h2v1h-2zM59 22h2v1h-2zM62 22h2v1h-2zM0 23h5v1h-5zM7 23h2v1h-2zM15 23h1v1h-1zM18 23h1v1h-1zM26 23h1v1h-1zM28 23h1v1h-1zM35 23h6v1h-6zM42 23h1v1h-1zM44 23h2v1h-2zM47 23h3v1h-3zM57 23h2v1h-2zM60 23h4v1h-4zM0 24h4v1h-4zM6 24h1v1h-1zM17 24h3v1h-3zM22 24h1v1h-1zM25 24h2v1h-2zM28 24h4v1h-4zM35 24h3v1h-3zM39 24h1v1h-1zM45 24h9v1h-9zM58 24h1v1h-1zM61 24h3v1h-3zM1 25h2v1h-2zM4 25h3v1h-3zM11 25h1v1h-1zM17 25h2v1h-2zM21 25h7v1h-7zM29 25h1v1h-1zM33 25h1v1h-1zM35 25h2v1h-2zM38 25h1v1h-1zM41 25h3v1h-3zM45 25h3v1h-3zM49 25h3v1h-3zM53 25h1v1h-1zM58 25h1v1h-1zM61 25h1v1h-1zM0 26h1v1h-1zM5 26h1v1h-1zM7 26h1v1h-1zM9 26h1v1h-1zM11 26h3v1h-3zM17 26h2v1h-2zM20 26h8v1h-8zM29 26h1v1h-1zM33 26h1v1h-1zM36 26h2v1h-2zM40 26h3v1h-3zM45 26h3v1h-3zM51 26h1v1h-1zM53 26h2v1h-2zM62 26h1v1h-1zM0 27h2v1h-2zM6 27h2v1h-2zM9 27h2v1h-2zM13 27h1v1h-1zM20 27h2v1h-2zM23 27h5v1h-5zM29 27h2v1h-2zM33 27h1v1h-1zM38 27h1v1h-1zM45 27h3v1h-3zM53 27h2v1h-2zM62 27h1v1h-1zM1 28h1v1h-1zM5 28h2v1h-2zM9 28h2v1h-2zM13 28h2v1h-2zM16 28h2v1h-2zM23 28h3v1h-3zM40 28h1v1h-1zM45 28h1v1h-1zM47 28h3v1h-3zM52 28h2v1h-2zM58 28h1v1h-1zM62 28h1v1h-1zM5 29h2v1h-2zM8 29h10v1h-10zM20 29h6v1h-6zM30 29h1v1h-1zM40 29h1v1h-1zM43 29h1v1h-1zM47 29h6v1h-6zM57 29h4v1h-4zM62 29h1v1h-1zM0 30h2v1h-2zM3 30h3v1h-3zM8 30h1v1h-1zM10 30h1v1h-1zM12 30h6v1h-6zM20 30h11v1h-11zM35 30h1v1h-1zM43 30h2v1h-2zM48 30h2v1h-2zM51 30h2v1h-2zM56 30h2v1h-2zM61 30h2v1h-2zM1 31h1v1h-1zM5 31h1v1h-1zM7 31h2v1h-2zM10 31h7v1h-7zM21 31h5v1h-5zM27 31h2v1h-2zM32 31h1v1h-1zM41 31h3v1h-3zM46 31h8v1h-8zM56 31h2v1h-2zM1 32h3v1h-3zM5 32h7v1h-7zM13 32h3v1h-3zM17 32h1v1h-1zM20 32h2v1h-2zM24 32h5v1h-5zM36 32h1v1h-1zM38 32h1v1h-1zM43 32h4v1h-4zM48 32h1v1h-1zM50 32h8v1h-8zM62 32h2v1h-2zM1 33h10v1h-10zM13 33h2v1h-2zM17 33h1v1h-1zM20 33h5v1h-5zM26 33h3v1h-3zM31 33h3v1h-3zM38 33h1v1h-1zM43 33h3v1h-3zM48 33h1v1h-1zM50 33h9v1h-9zM62 33h2v1h-2zM1 34h1v1h-1zM6 34h10v1h-10zM17 34h1v1h-1zM19 34h6v1h-6zM26 34h3v1h-3zM30 34h5v1h-5zM41 34h4v1h-4zM46 34h1v1h-1zM53 34h2v1h-2zM57 34h2v1h-2zM62 34h1v1h-1zM0 35h3v1h-3zM4 35h2v1h-2zM7 35h2v1h-2zM11 35h7v1h-7zM20 35h5v1h-5zM26 35h3v1h-3zM36 35h1v1h-1zM50 35h1v1h-1zM53 35h3v1h-3zM57 35h1v1h-1zM59 35h1v1h-1zM0 36h2v1h-2zM4 36h21v1h-21zM27 36h3v1h-3zM36 36h2v1h-2zM53 36h4v1h-4zM58 36h1v1h-1zM62 36h1v1h-1zM0 37h1v1h-1zM4 37h4v1h-4zM10 37h12v1h-12zM23 37h2v1h-2zM27 37h3v1h-3zM32 37h1v1h-1zM41 37h1v1h-1zM46 37h1v1h-1zM53 37h5v1h-5zM0 38h2v1h-2zM5 38h2v1h-2zM9 38h1v1h-1zM11 38h5v1h-5zM19 38h2v1h-2zM23 38h3v1h-3zM29 38h4v1h-4zM38 38h2v1h-2zM41 38h1v1h-1zM46 38h1v1h-1zM53 38h5v1h-5zM60 38h3v1h-3zM1 39h1v1h-1zM6 39h1v1h-1zM9 39h1v1h-1zM12 39h2v1h-2zM15 39h1v1h-1zM18 39h3v1h-3zM24 39h2v1h-2zM29 39h4v1h-4zM40 39h7v1h-7zM57 39h1v1h-1zM59 39h4v1h-4zM6 40h2v1h-2zM9 40h1v1h-1zM15 40h8v1h-8zM28 40h5v1h-5zM40 40h5v1h-5zM46 40h3v1h-3zM57 40h1v1h-1zM5 41h3v1h-3zM9 41h1v1h-1zM14 41h1v1h-1zM17 41h3v1h-3zM21 41h2v1h-2zM28 41h2v1h-2zM31 41h2v1h-2zM36 41h1v1h-1zM39 41h4v1h-4zM44 41h2v1h-2zM47 41h1v1h-1zM49 41h4v1h-4zM55 41h1v1h-1zM60 41h2v1h-2zM63 41h1v1h-1zM1 42h2v1h-2zM5 42h3v1h-3zM9 42h1v1h-1zM11 42h2v1h-2zM14 42h1v1h-1zM17 42h2v1h-2zM21 42h1v1h-1zM28 42h3v1h-3zM32 42h1v1h-1zM35 42h8v1h-8zM45 42h1v1h-1zM47 42h3v1h-3zM51 42h1v1h-1zM53 42h1v1h-1zM55 42h1v1h-1zM58 42h4v1h-4zM63 42h1v1h-1zM1 43h2v1h-2zM4 43h1v1h-1zM6 43h4v1h-4zM13 43h10v1h-10zM24 43h1v1h-1zM28 43h1v1h-1zM30 43h10v1h-10zM41 43h2v1h-2zM44 43h1v1h-1zM47 43h3v1h-3zM53 43h1v1h-1zM55 43h1v1h-1zM57 43h1v1h-1zM60 43h2v1h-2zM63 43h1v1h-1zM1 44h2v1h-2zM5 44h1v1h-1zM8 44h2v1h-2zM14 44h2v1h-2zM24 44h2v1h-2zM28 44h2v1h-2zM32 44h4v1h-4zM41 44h2v1h-2zM49 44h1v1h-1zM57 44h7v1h-7zM2 45h4v1h-4zM7 45h2v1h-2zM15 45h1v1h-1zM24 45h1v1h-1zM26 45h4v1h-4zM31 45h4v1h-4zM38 45h1v1h-1zM45 45h1v1h-1zM49 45h1v1h-1zM51 45h2v1h-2zM55 45h3v1h-3zM60 45h1v1h-1zM3 46h1v1h-1zM5 46h4v1h-4zM12 46h3v1h-3zM16 46h1v1h-1zM18 46h1v1h-1zM22 46h17v1h-17zM43 46h1v1h-1zM45 46h1v1h-1zM49 46h1v1h-1zM54 46h5v1h-5zM4 47h4v1h-4zM13 47h4v1h-4zM18 47h1v1h-1zM22 47h16v1h-16zM43 47h3v1h-3zM50 47h2v1h-2zM53 47h6v1h-6zM0 48h1v1h-1zM4 48h4v1h-4zM12 48h2v1h-2zM17 48h2v1h-2zM22 48h4v1h-4zM31 48h1v1h-1zM50 48h13v1h-13zM0 49h1v1h-1zM3 49h2v1h-2zM7 49h1v1h-1zM9 49h1v1h-1zM13 49h2v1h-2zM16 49h3v1h-3zM20 49h2v1h-2zM23 49h4v1h-4zM31 49h4v1h-4zM36 49h2v1h-2zM40 49h1v1h-1zM44 49h1v1h-1zM46 49h1v1h-1zM51 49h4v1h-4zM58 49h6v1h-6zM4 50h2v1h-2zM9 50h3v1h-3zM13 50h2v1h-2zM21 50h1v1h-1zM23 50h4v1h-4zM34 50h2v1h-2zM37 50h1v1h-1zM40 50h8v1h-8zM51 50h2v1h-2zM58 50h5v1h-5zM2 51h1v1h-1zM10 51h1v1h-1zM13 51h2v1h-2zM17 51h1v1h-1zM20 51h1v1h-1zM22 51h1v1h-1zM25 51h11v1h-11zM37 51h1v1h-1zM40 51h2v1h-2zM45 51h4v1h-4zM51 51h3v1h-3zM58 51h1v1h-1zM60 51h1v1h-1zM62 51h1v1h-1zM0 52h1v1h-1zM6 52h1v1h-1zM9 52h1v1h-1zM11 52h4v1h-4zM16 52h1v1h-1zM20 52h1v1h-1zM23 52h8v1h-8zM32 52h1v1h-1zM39 52h2v1h-2zM45 52h5v1h-5zM52 52h1v1h-1zM57 52h1v1h-1zM63 52h1v1h-1zM0 53h1v1h-1zM5 53h2v1h-2zM9 53h1v1h-1zM11 53h3v1h-3zM19 53h1v1h-1zM22 53h1v1h-1zM24 53h3v1h-3zM28 53h1v1h-1zM30 53h2v1h-2zM33 53h1v1h-1zM35 53h1v1h-1zM37 53h3v1h-3zM41 53h1v1h-1zM43 53h1v1h-1zM45 53h5v1h-5zM55 53h5v1h-5zM61 53h3v1h-3zM0 54h2v1h-2zM4 54h5v1h-5zM11 54h3v1h-3zM15 54h1v1h-1zM21 54h2v1h-2zM25 54h4v1h-4zM30 54h1v1h-1zM35 54h3v1h-3zM44 54h5v1h-5zM54 54h2v1h-2zM57 54h7v1h-7zM4 55h1v1h-1zM7 55h1v1h-1zM11 55h3v1h-3zM15 55h2v1h-2zM26 55h6v1h-6zM33 55h5v1h-5zM40 55h2v1h-2zM44 55h2v1h-2zM55 55h1v1h-1zM57 55h2v1h-2zM60 55h4v1h-4zM10 56h3v1h-3zM17 56h1v1h-1zM30 56h6v1h-6zM40 56h2v1h-2zM44 56h2v1h-2zM60 56h1v1h-1zM62 56h2v1h-2zM1 57h1v1h-1zM4 57h1v1h-1zM6 57h1v1h-1zM8 57h5v1h-5zM24 57h1v1h-1zM29 57h1v1h-1zM32 57h5v1h-5zM38 57h4v1h-4zM44 57h2v1h-2zM51 57h3v1h-3zM57 57h2v1h-2zM60 57h4v1h-4zM0 58h2v1h-2zM7 58h4v1h-4zM12 58h1v1h-1zM14 58h2v1h-2zM19 58h1v1h-1zM32 58h2v1h-2zM38 58h4v1h-4zM44 58h2v1h-2zM55 58h6v1h-6zM63 58h1v1h-1zM8 59h2v1h-2zM12 59h4v1h-4zM21 59h1v1h-1zM32 59h1v1h-1zM34 59h7v1h-7zM43 59h3v1h-3zM55 59h1v1h-1zM57 59h2v1h-2zM13 60h1v1h-1zM27 60h3v1h-3zM31 60h1v1h-1zM34 60h1v1h-1zM36 60h6v1h-6zM43 60h1v1h-1zM45 60h1v1h-1zM55 60h5v1h-5zM61 60h3v1h-3zM0 61h1v1h-1zM2 61h1v1h-1zM4 61h1v1h-1zM6 61h1v1h-1zM10 61h1v1h-1zM12 61h2v1h-2zM17 61h2v1h-2zM20 61h1v1h-1zM25 61h1v1h-1zM27 61h1v1h-1zM37 61h4v1h-4zM46 61h1v1h-1zM56 61h4v1h-4zM63 61h1v1h-1zM0 62h1v1h-1zM4 62h1v1h-1zM7 62h2v1h-2zM13 62h2v1h-2zM16 62h2v1h-2zM36 62h5v1h-5zM42 62h2v1h-2zM45 62h1v1h-1zM47 62h4v1h-4zM55 62h3v1h-3zM59 62h1v1h-1zM61 62h3v1h-3zM0 63h4v1h-4zM12 63h6v1h-6zM19 63h3v1h-3zM24 63h1v1h-1zM27 63h1v1h-1zM30 63h2v1h-2zM35 63h1v1h-1zM37 63h4v1h-4zM45 63h6v1h-6zM53 63h1v1h-1zM57 63h1v1h-1zM59 63h2v1h-2zM62 63h2v1h-2z" fill="#c98a5e"/><rect width="126" height="126" fill="none" stroke="rgba(255,255,255,0.16)"/></g>
+<g transform="translate(332,374)"><rect width="126" height="126" fill="#26252b"/><path transform="scale(3.93750)" d="M1 0h4v1h-4zM6 0h1v1h-1zM10 0h7v1h-7zM18 0h1v1h-1zM22 0h3v1h-3zM29 0h1v1h-1zM2 1h7v1h-7zM10 1h3v1h-3zM14 1h4v1h-4zM19 1h3v1h-3zM23 1h1v1h-1zM25 1h2v1h-2zM0 2h1v1h-1zM2 2h2v1h-2zM6 2h2v1h-2zM9 2h4v1h-4zM22 2h1v1h-1zM30 2h1v1h-1zM0 3h2v1h-2zM3 3h1v1h-1zM5 3h3v1h-3zM9 3h5v1h-5zM15 3h1v1h-1zM17 3h1v1h-1zM23 3h1v1h-1zM25 3h3v1h-3zM29 3h3v1h-3zM2 4h2v1h-2zM5 4h2v1h-2zM8 4h1v1h-1zM10 4h2v1h-2zM14 4h5v1h-5zM20 4h1v1h-1zM22 4h1v1h-1zM30 4h2v1h-2zM0 5h1v1h-1zM5 5h1v1h-1zM7 5h1v1h-1zM11 5h1v1h-1zM15 5h3v1h-3zM21 5h1v1h-1zM24 5h3v1h-3zM28 5h2v1h-2zM31 5h1v1h-1zM0 6h1v1h-1zM2 6h2v1h-2zM6 6h1v1h-1zM8 6h1v1h-1zM10 6h2v1h-2zM14 6h3v1h-3zM19 6h3v1h-3zM23 6h6v1h-6zM0 7h2v1h-2zM3 7h1v1h-1zM5 7h3v1h-3zM9 7h1v1h-1zM12 7h1v1h-1zM14 7h1v1h-1zM18 7h2v1h-2zM22 7h2v1h-2zM25 7h1v1h-1zM27 7h3v1h-3zM31 7h1v1h-1zM0 8h1v1h-1zM3 8h4v1h-4zM8 8h1v1h-1zM12 8h1v1h-1zM14 8h1v1h-1zM18 8h1v1h-1zM20 8h4v1h-4zM29 8h2v1h-2zM0 9h1v1h-1zM3 9h1v1h-1zM5 9h1v1h-1zM7 9h3v1h-3zM11 9h2v1h-2zM15 9h1v1h-1zM17 9h4v1h-4zM23 9h2v1h-2zM27 9h1v1h-1zM29 9h2v1h-2zM1 10h2v1h-2zM4 10h1v1h-1zM7 10h2v1h-2zM11 10h4v1h-4zM16 10h1v1h-1zM18 10h1v1h-1zM20 10h1v1h-1zM26 10h3v1h-3zM30 10h2v1h-2zM1 11h2v1h-2zM7 11h1v1h-1zM9 11h1v1h-1zM13 11h1v1h-1zM17 11h8v1h-8zM28 11h4v1h-4zM0 12h3v1h-3zM8 12h2v1h-2zM11 12h4v1h-4zM18 12h1v1h-1zM22 12h5v1h-5zM30 12h1v1h-1zM0 13h1v1h-1zM3 13h1v1h-1zM5 13h2v1h-2zM10 13h4v1h-4zM23 13h1v1h-1zM27 13h1v1h-1zM31 13h1v1h-1zM2 14h1v1h-1zM4 14h5v1h-5zM10 14h3v1h-3zM20 14h1v1h-1zM24 14h1v1h-1zM26 14h1v1h-1zM29 14h1v1h-1zM0 15h1v1h-1zM2 15h1v1h-1zM5 15h4v1h-4zM10 15h5v1h-5zM21 15h1v1h-1zM23 15h4v1h-4zM28 15h1v1h-1zM0 16h9v1h-9zM10 16h1v1h-1zM12 16h3v1h-3zM16 16h1v1h-1zM22 16h1v1h-1zM24 16h5v1h-5zM31 16h1v1h-1zM0 17h1v1h-1zM3 17h6v1h-6zM10 17h2v1h-2zM13 17h1v1h-1zM15 17h1v1h-1zM21 17h1v1h-1zM27 17h1v1h-1zM29 17h1v1h-1zM0 18h1v1h-1zM2 18h11v1h-11zM14 18h1v1h-1zM18 18h1v1h-1zM26 18h3v1h-3zM0 19h1v1h-1zM3 19h1v1h-1zM6 19h2v1h-2zM9 19h1v1h-1zM12 19h1v1h-1zM15 19h1v1h-1zM19 19h3v1h-3zM23 19h1v1h-1zM27 19h2v1h-2zM30 19h2v1h-2zM3 20h2v1h-2zM8 20h3v1h-3zM14 20h3v1h-3zM20 20h5v1h-5zM30 20h1v1h-1zM1 21h1v1h-1zM3 21h2v1h-2zM7 21h4v1h-4zM14 21h8v1h-8zM23 21h2v1h-2zM27 21h1v1h-1zM29 21h3v1h-3zM1 22h2v1h-2zM4 22h1v1h-1zM7 22h1v1h-1zM12 22h1v1h-1zM14 22h1v1h-1zM16 22h2v1h-2zM24 22h1v1h-1zM28 22h1v1h-1zM30 22h1v1h-1zM2 23h2v1h-2zM6 23h2v1h-2zM9 23h1v1h-1zM11 23h8v1h-8zM21 23h2v1h-2zM25 23h1v1h-1zM27 23h3v1h-3zM0 24h1v1h-1zM2 24h2v1h-2zM6 24h1v1h-1zM8 24h1v1h-1zM10 24h3v1h-3zM16 24h1v1h-1zM18 24h1v1h-1zM25 24h7v1h-7zM5 25h1v1h-1zM7 25h1v1h-1zM11 25h3v1h-3zM15 25h1v1h-1zM17 25h1v1h-1zM20 25h4v1h-4zM25 25h2v1h-2zM29 25h3v1h-3zM0 26h1v1h-1zM4 26h1v1h-1zM6 26h1v1h-1zM12 26h5v1h-5zM19 26h2v1h-2zM22 26h3v1h-3zM28 26h1v1h-1zM31 26h1v1h-1zM2 27h2v1h-2zM5 27h3v1h-3zM13 27h3v1h-3zM17 27h2v1h-2zM22 27h2v1h-2zM27 27h1v1h-1zM29 27h3v1h-3zM4 28h3v1h-3zM16 28h2v1h-2zM20 28h1v1h-1zM22 28h1v1h-1zM26 28h1v1h-1zM30 28h2v1h-2zM4 29h1v1h-1zM6 29h2v1h-2zM16 29h2v1h-2zM19 29h2v1h-2zM22 29h1v1h-1zM27 29h3v1h-3zM6 30h1v1h-1zM14 30h1v1h-1zM18 30h3v1h-3zM28 30h2v1h-2zM31 30h1v1h-1zM0 31h2v1h-2zM6 31h3v1h-3zM15 31h1v1h-1zM18 31h2v1h-2zM21 31h1v1h-1zM23 31h3v1h-3zM28 31h2v1h-2zM31 31h1v1h-1z" fill="#c98a5e"/><rect width="126" height="126" fill="none" stroke="rgba(255,255,255,0.16)"/></g>
+<g transform="translate(496,374)"><rect width="126" height="126" fill="#26252b"/><path transform="scale(7.87500)" d="M1 0h3v1h-3zM5 0h5v1h-5zM11 0h2v1h-2zM0 1h2v1h-2zM3 1h5v1h-5zM11 1h1v1h-1zM15 1h1v1h-1zM2 2h2v1h-2zM5 2h1v1h-1zM7 2h2v1h-2zM14 2h2v1h-2zM0 3h2v1h-2zM3 3h1v1h-1zM7 3h1v1h-1zM9 3h6v1h-6zM0 4h1v1h-1zM2 4h4v1h-4zM8 4h3v1h-3zM0 5h1v1h-1zM6 5h1v1h-1zM9 5h2v1h-2zM13 5h3v1h-3zM0 6h1v1h-1zM5 6h2v1h-2zM11 6h2v1h-2zM1 7h3v1h-3zM5 7h2v1h-2zM12 7h1v1h-1zM0 8h4v1h-4zM5 8h2v1h-2zM13 8h2v1h-2zM1 9h5v1h-5zM7 9h1v1h-1zM13 9h1v1h-1zM1 10h1v1h-1zM4 10h2v1h-2zM7 10h6v1h-6zM15 10h1v1h-1zM1 11h1v1h-1zM3 11h1v1h-1zM6 11h3v1h-3zM14 11h1v1h-1zM5 12h2v1h-2zM8 12h1v1h-1zM11 12h1v1h-1zM13 12h3v1h-3zM1 13h1v1h-1zM3 13h1v1h-1zM6 13h2v1h-2zM9 13h1v1h-1zM11 13h1v1h-1zM14 13h2v1h-2zM2 14h2v1h-2zM8 14h3v1h-3zM14 14h2v1h-2zM3 15h1v1h-1zM9 15h1v1h-1zM14 15h2v1h-2z" fill="#c98a5e"/><rect width="126" height="126" fill="none" stroke="rgba(255,255,255,0.16)"/></g>
+<text x="360" y="26" text-anchor="middle" fill="#aba498" font-family="-apple-system,sans-serif" font-size="13">同一套规则，一步步退后看 — 只有中间那一行退不掉</text>
+<text x="231" y="60" text-anchor="middle" fill="#8d867b" font-family="SF Mono,monospace" font-size="11.5">原始 64×64</text>
+<text x="395" y="60" text-anchor="middle" fill="#8d867b" font-family="SF Mono,monospace" font-size="11.5">每 2×2 并成 1 格</text>
+<text x="559" y="60" text-anchor="middle" fill="#8d867b" font-family="SF Mono,monospace" font-size="11.5">每 4×4 并成 1 格</text>
+<line x1="300" y1="46" x2="330" y2="46" stroke="#8d867b" stroke-width="1.3" marker-end="url(#cgA)"/>
+<line x1="464" y1="46" x2="494" y2="46" stroke="#8d867b" stroke-width="1.3" marker-end="url(#cgA)"/>
+<text x="14" y="122" fill="#79a6d2" font-family="SF Mono,monospace" font-size="12.5">低温 T &lt; Tc</text>
+<text x="14" y="143" fill="#787268" font-family="-apple-system,sans-serif" font-size="10.5">零星的反向小点</text>
+<text x="14" y="161" fill="#787268" font-family="-apple-system,sans-serif" font-size="10.5">被抹掉 → 趋于纯色</text>
+<text x="14" y="272" fill="#e0895e" font-family="SF Mono,monospace" font-size="12.5">临界 T = Tc</text>
+<text x="14" y="293" fill="#c0703f" font-family="-apple-system,sans-serif" font-size="10.5">大小斑块都有，</text>
+<text x="14" y="311" fill="#c0703f" font-family="-apple-system,sans-serif" font-size="10.5">每一档长得一样</text>
+<text x="14" y="422" fill="#9fbc7a" font-family="SF Mono,monospace" font-size="12.5">高温 T &gt; Tc</text>
+<text x="14" y="443" fill="#787268" font-family="-apple-system,sans-serif" font-size="10.5">斑块只有几格大，</text>
+<text x="14" y="461" fill="#787268" font-family="-apple-system,sans-serif" font-size="10.5">退一步就散成杂点</text>
+<text x="360" y="528" text-anchor="middle" fill="#57524b" font-family="-apple-system,sans-serif" font-size="11">橙 = 朝上，深色 = 朝下。合并规则是多数决：2×2 里哪种多，并出来的那格就是哪种</text>
+</svg>
+
+<figcaption>格点上的"翻面"演示（每个小方格是一个只有两种朝向的单元）。低温那行退两步就成了纯色，高温那行退两步就成了互不相干的杂点，只有中间那行怎么退都长一个样。</figcaption>
+</figure>
+<p>上面这张图演示的动作，物理学家叫<b>粗粒化</b>（coarse-graining）：把相邻的几个单元合并成一个，然后当作新的单元继续看。这相当于你往后退一步、把细节丢掉。</p>
+<p>Leo Kadanoff 在 1966 年提出这个思路，Kenneth Wilson 在 1970 年代把它做成了一整套能算数的方法，叫<b>重整化群</b>（renormalization group），并因此拿了 1982 年的诺贝尔物理学奖。这套方法的核心结论，用大白话说是这样的：</p>
+<p>每粗粒化一次，描述系统的那些参数（键有多强、原子有多重、有没有次近邻的作用……）都会变成一组新的参数。反复做下去，<b>绝大多数参数会一路缩向 0——它们被称为"无关的"（irrelevant）；只有极少数参数不缩反涨，它们是"相关的"（relevant）。</b>而临界点上的行为，只由那几个相关参数决定。</p>
+<p>这就把"细节为什么不算数"讲清楚了：不是细节不存在，是<b>细节在放大镜每退一格的过程中被系统性地磨掉了</b>。而 ξ 无穷大恰恰保证了你可以一直退下去——退多少步都还看得见结构，于是所有有限尺度的细节都有足够的时间被磨没。远离临界点时 ξ 很短，退两步就什么都没了，你根本走不到"细节被磨掉"那一步，所以那时细节完全说了算。</p>
+<div class="decide">
+<span class="lb">🎯 决策线</span>
+<p>接手一个说不清楚的系统时，先测<b>关联长度</b>：随便挑一个可观测量，看它在相隔多远的两个位置之间还有相关性。ξ 短，就老老实实做局部的、细节的、还原论的模型，粗粒化模型一定不准；ξ 长到接近系统尺寸，就<b>停止往细节里投钱</b>——那时候再精确的微观参数也进不了结论，该做的是找出那两三个相关参数。这个判断要在建模之前做，而不是模型跑砸了之后做。</p>
+</div>
+<div class="crossx-inline">
+🌀 <b>史学 · 布罗代尔的长时段</b>　年鉴学派的 Fernand Braudel 把历史切成三层：转瞬即逝的事件、几十年尺度的局势、几百年才动一下的结构；他主张史学应该盯住最后一层。这正是一次粗粒化——把短尺度的东西反复平均掉，看什么活得下来。有意思的是这个类比推出的结论跟他本人的主张相反：粗粒化会磨掉细节，<b>前提是关联长度有限</b>。而恰恰在关联长度暴涨的那些时刻，一件小事能一路传到所有尺度上去，事件层根本不会被磨掉。所以"事件不重要"不是一个普遍的史学原则，而是一个有适用范围的判断——范围之外正是它最该退让的地方。
+</div>
+<p class="en-brief"><b>EN</b> Near a critical point the correlation length — how far apart two places can still feel each other — diverges, which is why carbon dioxide turns milky at its critical point: density blobs of every size scatter visible light. Coarse-graining repeatedly (Kadanoff 1966, Wilson's renormalization group, Nobel 1982) shrinks most parameters to zero — they are "irrelevant" — and leaves only a handful growing. Universality is not the claim that details are absent; it is the claim that details are systematically ground away, and a diverging correlation length is what gives the grinding enough room to finish.</p>
+
+<h2><span class="n">04</span>决定普适类的只有三件事<span class="he">（What Fixes a Universality Class）</span></h2>
+<p class="lead">既然细节被磨掉了，那么剩下什么？重整化群给的答案短得出奇——只有三件事，而且没有一件跟材料是什么有关。</p>
+<figure>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 372" role="img" aria-label="决定普适类的三件事与被扔掉的细节">
+<defs><marker id="f4a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="11" markerHeight="11" markerUnits="userSpaceOnUse" orient="auto"><path d="M0,1 L9,5 L0,9 z" fill="#63b3a6"/></marker><marker id="f4b" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="9" markerHeight="9" markerUnits="userSpaceOnUse" orient="auto"><path d="M0,1 L9,5 L0,9 z" fill="#57524b"/></marker></defs>
+<text x="360" y="26" text-anchor="middle" fill="#aba498" font-family="-apple-system,sans-serif" font-size="13">临界指数只认这三件事 — 其余全部无关</text>
+<rect x="34" y="62" width="238" height="54" rx="9" fill="rgba(99,179,166,0.07)" stroke="rgba(99,179,166,0.36)"/>
+<text x="50" y="84" fill="#63b3a6" font-family="SF Mono,monospace" font-size="12.5">① 空间维度</text>
+<text x="50" y="103" fill="#8d867b" font-family="-apple-system,sans-serif" font-size="11">每个单元直接挨着几个</text>
+<line x1="278" y1="89" x2="330" y2="176" stroke="#63b3a6" stroke-width="1.8" marker-end="url(#f4a)"/>
+<rect x="34" y="130" width="238" height="54" rx="9" fill="rgba(99,179,166,0.07)" stroke="rgba(99,179,166,0.36)"/>
+<text x="50" y="152" fill="#63b3a6" font-family="SF Mono,monospace" font-size="12.5">② 序参量有几个分量</text>
+<text x="50" y="171" fill="#8d867b" font-family="-apple-system,sans-serif" font-size="11">二选一？还是连续的方向？</text>
+<line x1="278" y1="157" x2="330" y2="176" stroke="#63b3a6" stroke-width="1.8" marker-end="url(#f4a)"/>
+<rect x="34" y="198" width="238" height="54" rx="9" fill="rgba(99,179,166,0.07)" stroke="rgba(99,179,166,0.36)"/>
+<text x="50" y="220" fill="#63b3a6" font-family="SF Mono,monospace" font-size="12.5">③ 相互作用的射程</text>
+<text x="50" y="239" fill="#8d867b" font-family="-apple-system,sans-serif" font-size="11">只影响邻居，还是影响所有人</text>
+<line x1="278" y1="225" x2="330" y2="176" stroke="#63b3a6" stroke-width="1.8" marker-end="url(#f4a)"/>
+<rect x="342" y="118" width="196" height="118" rx="12" fill="rgba(224,137,94,0.08)" stroke="rgba(224,137,94,0.45)"/>
+<text x="440" y="146" text-anchor="middle" fill="#e0895e" font-family="SF Mono,monospace" font-size="13">普适类</text>
+<text x="440" y="172" text-anchor="middle" fill="#ddd5c9" font-family="-apple-system,sans-serif" font-size="11.5">→ 一组临界指数</text>
+<text x="440" y="196" text-anchor="middle" fill="#d9b45f" font-family="SF Mono,monospace" font-size="12">β · γ · ν</text>
+<text x="440" y="220" text-anchor="middle" fill="#8d867b" font-family="-apple-system,sans-serif" font-size="10.5">曲线贴近 Tc 时的形状</text>
+<rect x="558" y="62" width="136" height="174" rx="10" fill="rgba(255,255,255,0.02)" stroke="rgba(255,255,255,0.09)" stroke-dasharray="5 4"/>
+<text x="626" y="86" text-anchor="middle" fill="#6b665e" font-family="SF Mono,monospace" font-size="11.5">扔掉的</text>
+<text x="626" y="112" text-anchor="middle" fill="#57524b" font-family="-apple-system,sans-serif" font-size="10.5" text-decoration="line-through">原子是什么</text>
+<text x="626" y="136" text-anchor="middle" fill="#57524b" font-family="-apple-system,sans-serif" font-size="10.5" text-decoration="line-through">格子是方是三角</text>
+<text x="626" y="160" text-anchor="middle" fill="#57524b" font-family="-apple-system,sans-serif" font-size="10.5" text-decoration="line-through">键有多强</text>
+<text x="626" y="184" text-anchor="middle" fill="#57524b" font-family="-apple-system,sans-serif" font-size="10.5" text-decoration="line-through">Tc 具体是多少</text>
+<text x="626" y="208" text-anchor="middle" fill="#57524b" font-family="-apple-system,sans-serif" font-size="10.5" text-decoration="line-through">分子多重</text>
+<text x="360" y="272" text-anchor="middle" fill="#aba498" font-family="-apple-system,sans-serif" font-size="12">β 的几个实际取值 — 只有换了普适类它才会变</text>
+<text x="46" y="296" fill="#79a6d2" font-family="-apple-system,sans-serif" font-size="11">二维格点上的二选一系统</text>
+<text x="674" y="296" text-anchor="end" fill="#79a6d2" font-family="SF Mono,monospace" font-size="11.5">β = 1/8 = 0.125</text>
+<text x="46" y="320" fill="#e0895e" font-family="-apple-system,sans-serif" font-size="11">三维：磁体 · 液气临界点 · 二元合金 · 分层的液体</text>
+<text x="674" y="320" text-anchor="end" fill="#e0895e" font-family="SF Mono,monospace" font-size="11.5">β ≈ 0.326</text>
+<text x="46" y="344" fill="#6b665e" font-family="-apple-system,sans-serif" font-size="11">假装每个单元只感受到一个「平均场」（维度 ≥ 4 时才对）</text>
+<text x="674" y="344" text-anchor="end" fill="#6b665e" font-family="SF Mono,monospace" font-size="11.5">β = 1/2</text>
+</svg>
+
+<figcaption>能进临界指数的只有这三件。原子种类、晶格形状、键能强弱、Tc 具体是多少——全在被扔掉的那一边。</figcaption>
+</figure>
+<p><b>第一件：空间维度。</b>同一套规则摆在一条线上、一张纸上、一块砖里，结果完全不同。在一条线上甚至根本不会发生相变：只要温度不是绝对零度，任何一个位置都可以翻过来，把这条线切成互不相干的两段，而这么做的代价是固定的、涨落随时付得起。所以一维的秩序在任何有限温度下都撑不住。（顺便说一句，这正是 Ernst Ising 在 1924 年算完一维之后犯的错——他由此断定任何维度都不会有相变。二十年后 Lars Onsager 精确解出二维，证明它有。）</p>
+<p><b>第二件：序参量有几个分量。</b>这句话的意思是：系统翻面时，可选的"方向"是二选一，还是一整圈连续的方向？铁磁体里的小指南针如果只能上或下，那是二选一；如果可以指向平面内任意角度，那是一整圈。这两种情况的临界指数不一样——它们是两个不同的普适类。这一条其实就是在问系统有什么对称性。</p>
+<p><b>第三件：相互作用能传多远。</b>只影响紧挨着的邻居，和"每个单元都直接影响所有单元"，是两个世界。后者叫平均场（mean field），它的 β 是干净的 1/2。而且有个漂亮的结论：当空间维度高到 4 以上，短程作用的系统也会退化成平均场——邻居太多了，多到跟"所有人"没区别。</p>
+<p>把这三件事定下来，普适类就定了，临界指数也就定了。剩下的所有信息——这是铁还是镍、Tc 是 770 度还是 358 度、曲线的绝对高度是多少——一个都进不来。</p>
+<p>最锋利的一次检验来自液氦。氦-4 在 2.17 K 附近会变成超流体，这个转变属于"三维 XY 类"（序参量是一整圈方向的那一类）。研究者把实验送上了地球轨道——在地面上，重力造成的压强梯度会把转变本身抹圆，测不到那么近——2003 年发表的分析给出这个转变的一个临界指数 α = −0.0127，误差在千分之几。这个数跟磁体、跟液氦的化学性质都毫无关系，只跟"三维 + 一整圈方向 + 短程作用"这三件事有关。</p>
+<div class="decide">
+<span class="lb">🎯 决策线</span>
+<p>想把某个系统的行为类比到另一个系统上时，先过这三关：<b>每个单元直接连着几个（维度）· 它面临的是二选一还是连续的一圈（对称性）· 影响只到邻居还是到所有人（射程）</b>。三关全对，类比可以往下推数量；有一关对不上，类比就只能停在"讲个故事"的层面，别拿它算数。最常出问题的是第三关——人的社会网络里有大量长程连接，跟"只影响邻居"的模型根本不在一个普适类里。</p>
+</div>
+<div class="crossx-inline">
+🌀 <b>工程与制度 · 一维链上撑不住共识</b>　"一维没有相变"这条结论有个很实在的用处：如果一件事的信息只能沿一条链传（逐级上报、逐级下达，横向不通气），那么任何一个环节的偏差都足以把上下游切成互不相干的两截，而制造这种偏差的代价是固定的、不随链条长度增加。于是链越长，全局一致越不可能——不是因为人不努力，是拓扑不允许。想让共识稳住，要加的是横向连接（提高有效维度），不是加压或者加考核。加压只是把噪声调小一点，而在一维里，噪声再小也终究不为零。
+</div>
+<p class="en-brief"><b>EN</b> Renormalization says only three things enter the critical exponents: the dimension of space, the number of components of the order parameter (that is, the symmetry), and the range of the interaction. Nothing about the material survives. In one dimension there is no transition at all at any finite temperature; above four dimensions short-range systems collapse to mean-field behaviour with β = 1/2. The sharpest test is the superfluid transition of helium-4, whose exponent α was measured in Earth orbit and reported in 2003 as −0.0127.</p>
+
+<h2><span class="n">05</span>这套说法在哪儿不成立<span class="he">（Where This Breaks Down）</span></h2>
+<p class="lead">普适性是二十世纪物理学最漂亮的结果之一，也是被搬到社会科学里滥用得最厉害的概念之一。用之前必须知道它的边界。</p>
+<p><b>第一，它只在临界点旁边一条很窄的走廊里成立。</b>离开那条走廊，两种物质立刻各走各的路。而走廊有多宽，本身完全不普适——它是每种物质自己的事，有些物质的标度区宽到实验很容易抓，有些窄到需要把温度控到万分之一度。</p>
+<figure>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 330" role="img" aria-label="双对数图：只有贴近 Tc 的一小段才是直线">
+<defs><marker id="f5a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="10" markerHeight="10" markerUnits="userSpaceOnUse" orient="auto"><path d="M0,1 L9,5 L0,9 z" fill="#cd7f9b"/></marker></defs>
+<text x="360" y="26" text-anchor="middle" fill="#aba498" font-family="-apple-system,sans-serif" font-size="13">普适性住在一条很窄的走廊里</text>
+<line x1="96" y1="58" x2="96" y2="256" stroke="rgba(255,255,255,0.18)" stroke-width="1.5"/>
+<line x1="96" y1="256" x2="640" y2="256" stroke="rgba(255,255,255,0.18)" stroke-width="1.5"/>
+<text x="368" y="288" text-anchor="middle" fill="#8d867b" font-family="-apple-system,sans-serif" font-size="12">离临界点有多远  |1 − T/Tc|（对数）→</text>
+<text x="38" y="160" fill="#8d867b" font-family="-apple-system,sans-serif" font-size="12" transform="rotate(-90 38 160)">序参量（对数）</text>
+<text x="100" y="274" fill="#57524b" font-family="SF Mono,monospace" font-size="10.5">贴着 Tc</text>
+<text x="646" y="274" text-anchor="end" fill="#57524b" font-family="SF Mono,monospace" font-size="10.5">远离 Tc</text>
+<rect x="116" y="56" width="190" height="200" fill="rgba(224,137,94,0.09)" stroke="rgba(224,137,94,0.3)" stroke-dasharray="4 3"/>
+<text x="211" y="48" text-anchor="middle" fill="#e0895e" font-family="SF Mono,monospace" font-size="11.5">标度区</text>
+<polyline points="116.0,72.0 120.8,73.4 125.6,74.8 130.4,76.1 135.2,77.5 140.0,78.9 144.8,80.3 149.6,81.7 154.4,83.0 159.2,84.4 164.0,85.8 168.8,87.2 173.6,88.6 178.4,89.9 183.2,91.3 188.0,92.7 192.8,94.1 197.6,95.5 202.4,96.8 207.2,98.2 212.0,99.6 216.8,101.0 221.6,102.4 226.4,103.7 231.2,105.1 236.0,106.5 240.8,107.9 245.6,109.3 250.4,110.6 255.2,112.0 260.0,113.4 264.8,114.8 269.6,116.2 274.4,117.5 279.2,118.9 284.0,120.3 288.8,121.7 293.6,123.1 298.4,124.5 303.2,125.9 308.0,127.3 312.8,128.7 317.6,130.2 322.4,131.7 327.2,133.2 332.0,134.7 336.8,136.2 341.6,137.7 346.4,139.3 351.2,140.9 356.0,142.4 360.8,144.1 365.6,145.7 370.4,147.3 375.2,149.0 380.0,150.7 384.8,152.3 389.6,154.1 394.4,155.8 399.2,157.5 404.0,159.3 408.8,161.1 413.6,162.9 418.4,164.7 423.2,166.5 428.0,168.4 432.8,170.3 437.6,172.2 442.4,174.1 447.2,176.0 452.0,177.9 456.8,179.9 461.6,181.9 466.4,183.9 471.2,185.9 476.0,188.0 480.8,190.0 485.6,192.1 490.4,194.2 495.2,196.3 500.0,198.5 504.8,200.6 509.6,202.8 514.4,205.0 519.2,207.2 524.0,209.4 528.8,211.7 533.6,213.9 538.4,216.2 543.2,218.5 548.0,220.9 552.8,223.2 557.6,225.6 562.4,228.0 567.2,230.4 572.0,232.8 576.8,235.3 581.6,237.7 586.4,240.2 591.2,242.7 596.0,245.3" fill="none" stroke="#79a6d2" stroke-width="2.4"/>
+<text x="598" y="257.3" fill="#79a6d2" font-family="SF Mono,monospace" font-size="11.5">物质 A</text>
+<polyline points="116.0,72.0 120.8,73.4 125.6,74.8 130.4,76.1 135.2,77.5 140.0,78.9 144.8,80.3 149.6,81.7 154.4,83.0 159.2,84.4 164.0,85.8 168.8,87.2 173.6,88.6 178.4,89.9 183.2,91.3 188.0,92.7 192.8,94.1 197.6,95.5 202.4,96.8 207.2,98.2 212.0,99.6 216.8,101.0 221.6,102.4 226.4,103.7 231.2,105.1 236.0,106.5 240.8,107.9 245.6,109.3 250.4,110.6 255.2,112.0 260.0,113.4 264.8,114.8 269.6,116.2 274.4,117.5 279.2,118.9 284.0,120.3 288.8,121.7 293.6,123.1 298.4,124.4 303.2,125.8 308.0,127.1 312.8,128.4 317.6,129.7 322.4,131.0 327.2,132.3 332.0,133.5 336.8,134.8 341.6,136.0 346.4,137.2 351.2,138.4 356.0,139.6 360.8,140.7 365.6,141.8 370.4,143.0 375.2,144.1 380.0,145.1 384.8,146.2 389.6,147.3 394.4,148.3 399.2,149.3 404.0,150.3 408.8,151.3 413.6,152.2 418.4,153.2 423.2,154.1 428.0,155.0 432.8,155.9 437.6,156.8 442.4,157.6 447.2,158.4 452.0,159.3 456.8,160.1 461.6,160.8 466.4,161.6 471.2,162.3 476.0,163.0 480.8,163.7 485.6,164.4 490.4,165.1 495.2,165.7 500.0,166.3 504.8,167.0 509.6,167.5 514.4,168.1 519.2,168.7 524.0,169.2 528.8,169.7 533.6,170.2 538.4,170.6 543.2,171.1 548.0,171.5 552.8,171.9 557.6,172.3 562.4,172.7 567.2,173.0 572.0,173.4 576.8,173.7 581.6,174.0 586.4,174.3 591.2,174.5 596.0,174.7" fill="none" stroke="#9fbc7a" stroke-width="2.4"/>
+<text x="598" y="168.7" fill="#9fbc7a" font-family="SF Mono,monospace" font-size="11.5">物质 B</text>
+<text x="120" y="234" fill="#c0703f" font-family="-apple-system,sans-serif" font-size="11.5">这一段：两条重合，斜率 = β</text>
+<line x1="318" y1="88" x2="380" y2="88" stroke="#cd7f9b" stroke-width="1.6" marker-end="url(#f5a)"/>
+<text x="320" y="76" fill="#cd7f9b" font-family="-apple-system,sans-serif" font-size="11.5">出了这段，两条各走各的</text>
+<text x="360" y="316" text-anchor="middle" fill="#57524b" font-family="-apple-system,sans-serif" font-size="11">走廊有多宽，是每种物质自己的事 — 普适的是走廊里的斜率，不是走廊的宽度</text>
+</svg>
+
+<figcaption>普适的是走廊里那条直线的斜率，不是走廊的宽度，更不是走廊的位置。把在走廊外面测到的数据拟合出一个指数，然后宣称找到了普适类，是最常见的一种自欺。</figcaption>
+</figure>
+<p><b>第二，Tc 本身一点都不普适。</b>这一条最容易忘。普适的只有"贴近临界点时曲线的形状"；临界点在哪、曲线有多高、涨落有多大，全都是材料自己的事。所以"两个系统属于同一个普适类"这句话，<b>不允许</b>你从一个系统的临界点位置推断另一个的。它只允许你推断形状。</p>
+<p><b>第三，社会系统很可能不满足前提。</b>把舆论翻转、市场崩盘、组织变革说成"相变"，念起来很顺口，但前提一条都不轻松：普适性的推导需要系统处在平衡态（有一个明确的"温度"来度量随机扰动的强度）、单元大体同质、耦合对称（我影响你多少，你就影响我多少）、单元数量大到有限尺度效应可以忽略。人的系统四条基本上条条不满足：没有温度，永远不在平衡态，人和人差得远，影响是单向的（有些人说话有人听），而且一个组织只有几十上百人，离"无穷大"差着十几个数量级。</p>
+<p>更要命的是上一节的第三关：社会网络里到处是长程连接。而长程连接会直接换掉普适类——它把系统往平均场那一侧推。所以就算社会现象真有相变，它多半也不在你顺手拿来类比的那个普适类里。</p>
+<p><b>第四，"看起来像相变"几乎不能当证据。</b>一条 S 形曲线可以由相变生成，也可以由一堆完全不同的机制生成（累积的正反馈、阈值的分布、单纯的时间序列自相关）。想认真主张一次相变，最低限度得独立测出两个不同的临界指数，并检验它们之间的标度关系对不对——单一曲线拟合出的单一指数说明不了什么。</p>
+<div class="decide">
+<span class="lb">🎯 决策线</span>
+<p>把"相变"这个词写进结论之前，先答四问：<b>① 序参量是哪个量，它在一侧是不是真的恒为 0？② 你的数据落在标度区里还是外面？③ 有没有独立测到第二个指数？④ 单元数量够不够大到有限尺度效应可以忽略？</b>四问答不齐，就把"相变"降级为"看起来有个阈值"——后者照样能指导行动（找阈值、盯它），而且不会带来一堆你根本没验证过的推论。</p>
+</div>
+<p class="en-brief"><b>EN</b> Four limits. Universality holds only inside a narrow scaling window, whose width is itself entirely non-universal. Tc, amplitudes and heights are non-universal too, so a shared universality class licenses conclusions about shape and nothing else. Social systems typically violate the premises — no temperature, no equilibrium, heterogeneous and asymmetric couplings, and far too few units — and their long-range links would change the universality class anyway. And an S-shaped curve is weak evidence: claiming a transition requires at least two independently measured exponents plus a check of the scaling relation between them.</p>
+
+<div class="bigcat">
+<h3>🎒 场景 · BigCat</h3>
+<ol>
+<li><span class="dm">投资与仓位</span>盯着"这个资产现在多少钱"是在盯一个非序参量。真正标记翻没翻面的，是那些<b>在一种状态下应该恒为 0 的量</b>——比如资产之间的相关性在正常时段应该接近 0，比如同一标的在两个市场的价差应该接近 0。它们从 0 开始持续偏离，才是翻面的信号；而价格本身在两种状态里都是非零的，看它涨跌得不出任何关于"处在哪一相"的信息。具体动作：在你的盯盘面板里，把至少一个指标换成"平时应为 0"的那种量，并且记下它平时的波动幅度当基线。</li>
+<li><span class="dm">写作与这个学习站本身</span>选题的时候容易假设"讲透了机制，读者就能迁移到自己的领域"。本期恰好说明迁移是有条件的：换个领域相当于换了维度、换了对称性、换了作用射程，机制的形状能不能跟着过去，取决于这三件事对不对得上。所以每期写完可以加一次自检：<b>这一期的机制，在读者的领域里，"每个单元直接连着几个"和"影响能传多远"是不是跟例子里差不多？</b>差得远，就必须在正文里点破，否则这一期教出去的是一个用错场合的模板。可改的动作：把"延伸阅读"之外再固定留一句"这套说法换到什么场合会失效"。</li>
+<li><span class="dm">健康与精力</span>用"今天累不累"来管精力，等于拿一个连续渐变量去描述一个可能有翻面的系统。更有信息量的是那些<b>状态好的时候应该恒为 0 的现象</b>：一句话读两遍才懂、写完一段想不起来要写什么、看见待办列表先想关掉。这些在状态好的时候出现次数就是 0，一旦开始出现就说明已经在另一侧了，而它们出现之前"累的程度"可能一点没变。具体动作：挑两个这样的零事件，每天只记它们出现了几次，比记疲劳评分有用得多。</li>
+</ol>
+</div>
+
+<div class="crossx">
+<h3>🌀 越界 · 跨学科的联想<span class="he">（Crossings）</span></h3>
+<ul>
+<li><b>科学哲学 · 库恩的范式转换</b>：托马斯·库恩说科学不是连续积累，而是常规科学与革命交替；革命之后，同一个词的意思都变了。本期三条机制合起来能给这个说法一次相当苛刻的体检。序参量：革命的序参量是可以写下来的——"用新框架发表的论文占比"在常规时期恒为 0，这比"共同体的信念"可操作得多。粗粒化：库恩坚持革命的走向不能由个别人的说服过程解释，这正是"微观细节被磨掉"的主张。而第三条机制立刻给出了一个可证伪的预言：如果科学革命真是同一个普适类里的相变，那么物理学、生物学、经济学各自革命的<em>指数</em>应该一样。<b>但这里不成立</b>：普适性要求单元数量大到有限尺度效应可以忽略，而一个学科的核心共同体常常只有几百上千人，且影响力高度不对称——少数权威的一句话抵得上几十篇论文，这是典型的长程且非对称耦合。在这种条件下临界指数根本定义不出来。能从本期借走的是"序参量"这件工具，借不走的恰恰是"普适"这个结论——而这两件事在通俗读物里几乎总是被打包一起卖。</li>
+<li><b>生物学 · 趋同演化</b>：眼睛这种精密的成像器官，在脊椎动物和头足类（章鱼）身上各自独立演化了一次，长得惊人地像；翅膀在昆虫、鸟类、蝙蝠身上演化了至少三次。这看起来跟普适性是同一件事——不同的底层给出同一个宏观结果。但把本期的机制摊开来看，两者的成因完全不同：普适性靠的是关联长度发散把细节磨掉，趋同演化靠的是选择压力把不同的起点推向同一个最优解。区别不是学术上的洁癖，它给出一个能当场用的判据：<b>细节无关如果来自临界，它只在参数被调到某个特定值附近才成立，离开就立刻失效；如果来自优化，它在整个参数范围内都稳定成立。</b>所以下次看到"完全不同的系统给出同一条规律"，先别急着说这是复杂性科学的胜利——先问它是哪一种，方法是把参数推远一点看它还成不成立。</li>
+<li><b>工程与技术史 · 抽象层为什么会漏</b>：软件里有条老话叫"所有不平凡的抽象都是漏的"——你以为不用管数据库怎么存，直到某个查询慢了一千倍，底层的细节一下全涌上来。热力学也是一层抽象：十九世纪的工程师不知道原子长什么样，照样把蒸汽机算得很准。本期的机制解释了这两件事其实是一件事的两面：一层抽象能不能成立，取决于底层细节在反复粗粒化之后是缩向 0 还是不缩——而这不是设计出来的，是系统自己的性质。由此得到一个反直觉的推论：<b>抽象漏水通常不是实现得不好，而是系统被推到了关联长度很长的区域</b>——满载、拥塞、锁竞争、缓存刚好失效。所以修补漏水的抽象往往修不好，正确的动作是把系统推离那个区域（限流、分片、留余量），让底层细节重新变回"无关的"。<b>但这里不成立</b>：软件系统的"关联长度"目前没有公认的量法，上面这套推理还只是一个类比的启发，不是可以拿来算数的模型；它值钱的地方在于换了个提问方式——从"谁写错了"变成"系统现在离饱和有多远"，而这一步转换本身不需要任何数值。</li>
+</ul>
+</div>
+
+<div class="thinking">
+<h3>深入思考<span class="he">（Going Deeper）</span></h3>
+<details><summary>如果 Tc 不普适、走廊宽度也不普适，那"普适"到底给了我们什么可用的东西？</summary><p>给了一条极强的约束：它把"可能的宏观行为"从无穷多种压缩到了很少的几类。这意味着当你测出一组指数，你反过来能推断系统的维度、对称性和作用射程——而这三件事往往比指数本身更难直接观测。普适性真正的用途是当反向的探针，不是当正向的预测器。</p></details>
+<details><summary>为什么维度高到 4 以上，涨落就不重要了？</summary><p>直觉是这样的：维度越高，每个单元的邻居越多，它感受到的是越来越接近平均值的东西，个别邻居的随机偏差被平均掉。到了 4 维以上，这种平均已经彻底压倒了涨落，系统的行为跟"每个单元只感受到一个平均场"没有区别。有意思的是我们生活的三维恰好在这个门槛之下——涨落在三维里刚好还重要，普适类才有得可分。</p></details>
+<details><summary>「混沌边缘」和「临界点」是同一件事吗？</summary><p>不是，至少不能默认它们是。临界点有明确的定义（序参量、关联长度、可测的指数），而"混沌边缘"在多数使用场合里没有指定序参量，也没人给出可测的指数。判据很简单：如果某人说一个系统"在混沌边缘"，问他序参量是哪个量、关联长度怎么测。答不上来的时候，这个词是个比喻。</p></details>
+<details><summary>一个组织有没有可能被人为地推到临界点附近，以获得"任何小信号都能传遍全场"的响应能力？</summary><p>形式上说得通——关联长度长确实意味着灵敏度高。但同一条性质意味着噪声也会传遍全场，而且响应时间会变得极长（这正是第 36 期临界慢化的内容）。所以这不是免费的：你换来的灵敏是对所有输入的灵敏，包括你不想要的那些。真要试，先想清楚谁来过滤输入。</p></details>
+<details><summary>把"翻面"当成目标来设计，和把它当成风险来防范，需要的是同一套指标吗？</summary><p>大体是同一套——序参量和关联长度两边都要测。差别在阈值的方向：想促成翻面，你要盯的是关联长度什么时候开始涨（说明系统开始有整体响应了）；想防范翻面，你要盯的是序参量什么时候离开 0，因为那时候已经翻过去了。两者之间通常有个时间差，这个时间差就是可干预窗口。</p></details>
+</div>
+
+<div class="refs">
+<h3>延伸阅读<span class="he">（Further Reading）</span></h3>
+<ul>
+<li><a href="https://en.wikipedia.org/wiki/Universality_(dynamical_systems)">Universality</a> · <a href="https://en.wikipedia.org/wiki/Universality_class">Universality class</a>（词条，含普适类一览表）</li>
+<li>Guggenheim, <a href="https://doi.org/10.1063/1.1724033">The Principle of Corresponding States</a>（1945，八种气体叠成一条曲线的原始论文）</li>
+<li><a href="https://en.wikipedia.org/wiki/Renormalization_group">重整化群</a> · Kenneth Wilson 的 <a href="https://www.nobelprize.org/prizes/physics/1982/wilson/lecture/">1982 年诺贝尔演讲</a></li>
+<li>Kadanoff, <a href="https://doi.org/10.1103/PhysicsPhysiqueFizika.2.263">Scaling laws for Ising models near Tc</a>（1966，块自旋的原始思路）</li>
+<li>Onsager, <a href="https://doi.org/10.1103/PhysRev.65.117">Crystal Statistics I: A Two-Dimensional Model with an Order-Disorder Transition</a>（1944，二维精确解）</li>
+<li>Lipa et al., <a href="https://doi.org/10.1103/PhysRevB.68.174518">Specific heat of liquid helium in zero gravity very near the lambda point</a>（2003，航天飞机上的那次测量）</li>
+<li><a href="https://en.wikipedia.org/wiki/Critical_opalescence">Critical opalescence</a>（临界乳光，能用肉眼看见的关联长度发散）</li>
+<li>Nigel Goldenfeld, <a href="https://www.taylorfrancis.com/books/mono/10.1201/9780429493492/lectures-phase-transitions-renormalization-group-nigel-goldenfeld">Lectures on Phase Transitions and the Renormalization Group</a>（想认真学的标准入门）</li>
+</ul>
+</div>
+<footer>BigCat · 复杂性科学 · <a href="index.html">← 全部 Topic</a></footer>
+</div>
+<script src="https://hub.cissychen.com/comments.js" defer></script>
+<script src="https://hub.cissychen.com/search.js" defer></script>
+<script src="https://hub.cissychen.com/index-button.js" defer></script>
+<script src="https://hub.cissychen.com/lightbox.js" defer></script>
+<script src="https://hub.cissychen.com/i18n-tts.js" defer></script>
+</body></html>

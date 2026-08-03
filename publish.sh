@@ -77,9 +77,13 @@ for F in $NEW_FILES; do
     grep -q "$F" index.html || { echo "ERROR: index.html does not reference $F"; exit 1; }
   fi
 
-  # Forbidden hardcoded scripts (auto-injected by GitHub Action)
+  # Shared scripts: CLAUDE.md now asks new pages to carry them inline so the
+  # inject-comments Action has nothing left to append (no bot commit per page).
+  # The Action greps before injecting, so one copy never duplicates — only
+  # a second copy in the same file would.
   for s in comments.js search.js index-button.js i18n-tts.js; do
-    grep -q "$s" "$F" && { echo "ERROR: $F hardcodes $s (auto-injected, will duplicate)"; exit 1; }
+    N_S=$(grep -c "$s" "$F" || true)
+    [ "$N_S" -gt 1 ] && { echo "ERROR: $F includes $s $N_S times (duplicate script tag)"; exit 1; }
   done
   grep -q "← Hub" "$F" && echo "WARN: $F hardcodes ← Hub button (will be deduped, consider removing)"
 
