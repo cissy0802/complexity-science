@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+
+<html lang="en"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Identifying and Misidentifying Power Laws · Reference · Complexity Science</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,"SF Pro Display","Noto Sans SC",sans-serif;color:#e4ded5;line-height:1.85;min-height:100vh;
+  background:radial-gradient(1100px 620px at 12% -6%,rgba(99,179,166,0.09),transparent 62%),radial-gradient(950px 700px at 100% 2%,rgba(166,147,205,0.08),transparent 58%),linear-gradient(168deg,#100f0d 0%,#15161b 48%,#0a0a0c 100%);background-attachment:fixed}
+.wrap{max-width:720px;margin:0 auto;padding:30px 22px 90px}
+header{padding:52px 0 8px;border-bottom:1px solid rgba(255,255,255,0.07);margin-bottom:32px}
+.rtag{font-family:"SF Mono",Menlo,monospace;font-size:0.72rem;font-weight:700;letter-spacing:2px;color:#63b3a6;border:1px solid rgba(99,179,166,0.4);background:rgba(99,179,166,0.07);padding:3px 11px;border-radius:20px}
+h1{font-size:2.15rem;font-weight:800;line-height:1.2;margin:20px 0 0;color:#f0eae0}
+h1 .h1en{display:block;font-size:0.42em;font-weight:600;letter-spacing:2.5px;color:#847d72;margin-top:11px}
+.sub{font-size:0.98rem;color:#aba498;margin-top:12px}
+.meta{font-family:"SF Mono",Menlo,monospace;font-size:0.75rem;color:#57524b;margin-top:16px;letter-spacing:1px}
+h2{font-size:1.25rem;font-weight:700;color:#e9e3d9;margin:44px 0 10px}
+h2 .n{font-family:"SF Mono",Menlo,monospace;font-size:0.8rem;color:#63b3a6;display:block;margin-bottom:5px;letter-spacing:2px}
+.he{font-size:0.68em;color:#8d867b;font-weight:500;letter-spacing:0}
+p{margin-bottom:16px}
+b,strong{color:#f0eae0;font-weight:600}
+em{color:#d9b45f;font-style:normal;font-weight:500}
+.rule{border:1px solid rgba(99,179,166,0.3);background:rgba(99,179,166,0.05);border-radius:12px;padding:16px 20px;margin:22px 0;font-size:0.94rem;color:#d5cdc1}
+.rule ol{padding-left:20px;margin:0}
+.rule li{margin-bottom:7px}
+.rule li:last-child{margin-bottom:0}
+figure{margin:28px 0}
+figure svg{display:block;width:100%;height:auto;border-radius:12px;background:rgba(255,255,255,0.018);border:1px solid rgba(255,255,255,0.06)}
+figcaption{font-size:0.82rem;color:#787268;margin-top:10px;text-align:center;line-height:1.6}
+.cant{border:1px solid rgba(205,127,155,0.36);background:rgba(205,127,155,0.05);border-radius:12px;padding:18px 21px;margin:26px 0 10px}
+.cant h3{font-size:1rem;color:#cd7f9b;margin-bottom:12px}
+.cant ul{list-style:none;padding:0}
+.cant li{margin-bottom:13px;font-size:0.93rem;color:#d5cdc1;line-height:1.76}
+.cant li:last-child{margin-bottom:0}
+.cant li b{color:#cd7f9b}
+.refs{margin:40px 0 10px}
+.refs h3{font-size:1rem;color:#79a6d2;margin-bottom:12px}
+.refs ul{list-style:none;padding:0}
+.refs li{margin-bottom:9px;font-size:0.89rem;color:#8d867b;line-height:1.7}
+.refs a{color:#79a6d2;text-decoration:none;border-bottom:1px solid rgba(121,166,210,0.3)}
+.refs a:hover{color:#a6c4e2}
+footer{text-align:center;padding:52px 0 10px;font-size:0.78rem;color:#57524b;font-family:"SF Mono",Menlo,monospace;border-top:1px solid rgba(255,255,255,0.06);margin-top:46px}
+footer a{color:#79a6d2;text-decoration:none}
+@media(max-width:600px){h1{font-size:1.7rem}.wrap{padding:24px 16px 60px}}
+</style></head><body>
+<div class="wrap">
+<header>
+<span class="rtag">REF · METHOD</span>
+<h1>Identifying and Misidentifying Power Laws</h1>
+<p class="sub">How to tell whether data really follow a power law — and why most of the time they do not</p>
+<p class="meta">Linked from: Topic 19 · Power Laws and Heavy Tails</p>
+</header>
+<h2><span class="n">01</span>The Question It Poses</h2>
+<p>Over the past thirty years, "this quantity follows a power law" has become an easy thing to say. City sizes, citation counts, web links, surname frequencies, war casualties, protein interactions — all have been declared so. The usual procedure is: plot the data on log-log axes (each step on each axis multiplies by ten), see something straight, fit a line, report the slope, done.</p>
+<p>The trouble is that every step of that procedure is flawed, and all the flaws lean the same way: <b>it tends to classify non-power-laws as power laws.</b> This page answers what an honest procedure looks like, and why "it looks straight" carries almost no evidential weight on its own.</p>
+<h2><span class="n">02</span>The Procedure</h2>
+<p>The method given by Clauset, Shalizi and Newman in 2009 is the current standard. It has four steps, and each one plugs a specific hole:</p>
+<div class="rule">
+<ol>
+<li><b>First decide where the tail begins.</b> A power law usually holds only above some lower bound x<sub>min</sub>; below it something else is going on. Scan every candidate x<sub>min</sub>, run the next step for each, and keep the one that brings the data closest to the fitted distribution.</li>
+<li><b>Estimate the exponent by maximum likelihood, not by fitting a line.</b> Least-squares regression on a log-log plot is the field's most common error — it assumes independent, equally weighted errors, whereas points on a cumulative curve are strongly correlated by construction, and the resulting exponent is systematically too low.</li>
+<li><b>Run a goodness-of-fit test.</b> Use the Kolmogorov-Smirnov statistic — the largest vertical gap between two cumulative curves — with bootstrap resampling to obtain a p-value. <b>A small p-value rejects the power law outright</b>, and this is the step where most data sets fall over.</li>
+<li><b>Compare against the other heavy-tailed candidates.</b> Passing the test does not make the power law the best available account. Use likelihood ratio tests against the log-normal, the exponentially truncated power law and the stretched exponential. Three outcomes are possible: the power law wins, a rival wins, or <em>there are not enough data to tell</em> — the third being the most common, and the one most in need of being reported honestly.</li>
+</ol>
+</div>
+<p>Set this beside "plot it and draw a line" and the difference is clear: the latter only establishes that a fit is possible, while the former asks whether the fit is good enough and whether something else explains it better.</p>
+<h2><span class="n">03</span>What You See When You Run It</h2>
+<p>Start with a purely graphical trap, which arrives earlier than the statistical problems and is easier to fall into. The two panels below use <b>the same data</b> — a thousand draws from a genuine power law — and differ only in how they are drawn.</p>
+<figure>
+<svg aria-label="Two ways of plotting the same data: an equal-width histogram degenerates into noise in the tail, the cumulative distribution stays a clean straight line" role="img" viewBox="0 0 720 268" xmlns="http://www.w3.org/2000/svg">
+<text fill="#aba498" font-family="-apple-system,sans-serif" font-size="13" text-anchor="middle" x="360" y="24">The same data · two ways of plotting it</text>
+<text fill="#cd7f9b" font-family="SF Mono,monospace" font-size="12" text-anchor="middle" x="201" y="46">equal-width histogram</text>
+<text fill="#63b3a6" font-family="SF Mono,monospace" font-size="12" text-anchor="middle" x="527" y="46">cumulative (fraction exceeding x)</text>
+<line stroke="rgba(255,255,255,0.18)" stroke-width="1.3" x1="72" x2="330" y1="214" y2="214"></line>
+<line stroke="rgba(255,255,255,0.18)" stroke-width="1.3" x1="72" x2="72" y1="214" y2="58"></line>
+<circle cx="87.1" cy="65.5" r="2.6" fill="#cd7f9b"></circle><circle cx="106.2" cy="89.8" r="2.6" fill="#cd7f9b"></circle><circle cx="118.8" cy="104.3" r="2.6" fill="#cd7f9b"></circle><circle cx="128.2" cy="113.4" r="2.6" fill="#cd7f9b"></circle><circle cx="135.7" cy="123.4" r="2.6" fill="#cd7f9b"></circle><circle cx="141.9" cy="127.0" r="2.6" fill="#cd7f9b"></circle><circle cx="147.3" cy="129.1" r="2.6" fill="#cd7f9b"></circle><circle cx="151.9" cy="142.0" r="2.6" fill="#cd7f9b"></circle><circle cx="156.1" cy="137.8" r="2.6" fill="#cd7f9b"></circle><circle cx="159.8" cy="144.7" r="2.6" fill="#cd7f9b"></circle><circle cx="163.2" cy="156.4" r="2.6" fill="#cd7f9b"></circle><circle cx="166.3" cy="156.4" r="2.6" fill="#cd7f9b"></circle><circle cx="171.9" cy="156.4" r="2.6" fill="#cd7f9b"></circle><circle cx="174.4" cy="175.0" r="2.6" fill="#cd7f9b"></circle><circle cx="176.7" cy="175.0" r="2.6" fill="#cd7f9b"></circle><circle cx="178.9" cy="163.3" r="2.6" fill="#cd7f9b"></circle><circle cx="181.0" cy="175.0" r="2.6" fill="#cd7f9b"></circle><circle cx="182.9" cy="175.0" r="2.6" fill="#cd7f9b"></circle><circle cx="186.6" cy="175.0" r="2.6" fill="#cd7f9b"></circle><circle cx="188.3" cy="163.3" r="2.6" fill="#cd7f9b"></circle><circle cx="191.5" cy="175.0" r="2.6" fill="#cd7f9b"></circle><circle cx="198.4" cy="175.0" r="2.6" fill="#cd7f9b"></circle><circle cx="203.2" cy="175.0" r="2.6" fill="#cd7f9b"></circle><circle cx="213.8" cy="175.0" r="2.6" fill="#cd7f9b"></circle><circle cx="217.0" cy="175.0" r="2.6" fill="#cd7f9b"></circle><circle cx="229.9" cy="175.0" r="2.6" fill="#cd7f9b"></circle><circle cx="245.3" cy="175.0" r="2.6" fill="#cd7f9b"></circle><circle cx="254.2" cy="175.0" r="2.6" fill="#cd7f9b"></circle><circle cx="264.4" cy="175.0" r="2.6" fill="#cd7f9b"></circle>
+<line stroke="rgba(255,255,255,0.18)" stroke-width="1.3" x1="398" x2="656" y1="214" y2="214"></line>
+<line stroke="rgba(255,255,255,0.18)" stroke-width="1.3" x1="398" x2="398" y1="214" y2="58"></line>
+<circle cx="398.0" cy="58.0" r="2.6" fill="#63b3a6"></circle><circle cx="398.4" cy="58.2" r="2.6" fill="#63b3a6"></circle><circle cx="398.6" cy="58.4" r="2.6" fill="#63b3a6"></circle><circle cx="398.9" cy="58.6" r="2.6" fill="#63b3a6"></circle><circle cx="399.1" cy="58.8" r="2.6" fill="#63b3a6"></circle><circle cx="399.5" cy="59.0" r="2.6" fill="#63b3a6"></circle><circle cx="399.7" cy="59.3" r="2.6" fill="#63b3a6"></circle><circle cx="400.0" cy="59.5" r="2.6" fill="#63b3a6"></circle><circle cx="400.2" cy="59.7" r="2.6" fill="#63b3a6"></circle><circle cx="400.7" cy="59.9" r="2.6" fill="#63b3a6"></circle><circle cx="400.9" cy="60.2" r="2.6" fill="#63b3a6"></circle><circle cx="401.4" cy="60.4" r="2.6" fill="#63b3a6"></circle><circle cx="402.1" cy="60.6" r="2.6" fill="#63b3a6"></circle><circle cx="402.6" cy="60.9" r="2.6" fill="#63b3a6"></circle><circle cx="402.8" cy="61.1" r="2.6" fill="#63b3a6"></circle><circle cx="403.1" cy="61.4" r="2.6" fill="#63b3a6"></circle><circle cx="403.6" cy="61.6" r="2.6" fill="#63b3a6"></circle><circle cx="404.1" cy="61.9" r="2.6" fill="#63b3a6"></circle><circle cx="404.4" cy="62.1" r="2.6" fill="#63b3a6"></circle><circle cx="404.8" cy="62.4" r="2.6" fill="#63b3a6"></circle><circle cx="405.2" cy="62.6" r="2.6" fill="#63b3a6"></circle><circle cx="405.6" cy="62.9" r="2.6" fill="#63b3a6"></circle><circle cx="405.9" cy="63.2" r="2.6" fill="#63b3a6"></circle><circle cx="406.4" cy="63.5" r="2.6" fill="#63b3a6"></circle><circle cx="406.8" cy="63.8" r="2.6" fill="#63b3a6"></circle><circle cx="407.2" cy="64.0" r="2.6" fill="#63b3a6"></circle><circle cx="407.6" cy="64.3" r="2.6" fill="#63b3a6"></circle><circle cx="408.1" cy="64.6" r="2.6" fill="#63b3a6"></circle><circle cx="408.7" cy="64.9" r="2.6" fill="#63b3a6"></circle><circle cx="409.0" cy="65.2" r="2.6" fill="#63b3a6"></circle><circle cx="409.7" cy="65.6" r="2.6" fill="#63b3a6"></circle><circle cx="410.0" cy="65.9" r="2.6" fill="#63b3a6"></circle><circle cx="410.4" cy="66.2" r="2.6" fill="#63b3a6"></circle><circle cx="410.9" cy="66.5" r="2.6" fill="#63b3a6"></circle><circle cx="411.5" cy="66.9" r="2.6" fill="#63b3a6"></circle><circle cx="411.8" cy="67.2" r="2.6" fill="#63b3a6"></circle><circle cx="412.6" cy="67.6" r="2.6" fill="#63b3a6"></circle><circle cx="413.2" cy="67.9" r="2.6" fill="#63b3a6"></circle><circle cx="413.7" cy="68.3" r="2.6" fill="#63b3a6"></circle><circle cx="414.4" cy="68.7" r="2.6" fill="#63b3a6"></circle><circle cx="415.3" cy="69.1" r="2.6" fill="#63b3a6"></circle><circle cx="415.9" cy="69.5" r="2.6" fill="#63b3a6"></circle><circle cx="416.3" cy="69.9" r="2.6" fill="#63b3a6"></circle><circle cx="416.8" cy="70.3" r="2.6" fill="#63b3a6"></circle><circle cx="417.5" cy="70.7" r="2.6" fill="#63b3a6"></circle><circle cx="418.3" cy="71.2" r="2.6" fill="#63b3a6"></circle><circle cx="419.1" cy="71.6" r="2.6" fill="#63b3a6"></circle><circle cx="419.6" cy="72.1" r="2.6" fill="#63b3a6"></circle><circle cx="420.6" cy="72.5" r="2.6" fill="#63b3a6"></circle><circle cx="421.4" cy="73.0" r="2.6" fill="#63b3a6"></circle><circle cx="421.9" cy="73.5" r="2.6" fill="#63b3a6"></circle><circle cx="422.4" cy="74.0" r="2.6" fill="#63b3a6"></circle><circle cx="422.8" cy="74.6" r="2.6" fill="#63b3a6"></circle><circle cx="423.6" cy="75.1" r="2.6" fill="#63b3a6"></circle><circle cx="424.3" cy="75.7" r="2.6" fill="#63b3a6"></circle><circle cx="425.5" cy="76.3" r="2.6" fill="#63b3a6"></circle><circle cx="426.8" cy="76.9" r="2.6" fill="#63b3a6"></circle><circle cx="427.8" cy="77.5" r="2.6" fill="#63b3a6"></circle><circle cx="428.5" cy="78.2" r="2.6" fill="#63b3a6"></circle><circle cx="429.1" cy="78.9" r="2.6" fill="#63b3a6"></circle><circle cx="430.1" cy="79.6" r="2.6" fill="#63b3a6"></circle><circle cx="431.2" cy="80.3" r="2.6" fill="#63b3a6"></circle><circle cx="432.9" cy="81.1" r="2.6" fill="#63b3a6"></circle><circle cx="433.8" cy="81.9" r="2.6" fill="#63b3a6"></circle><circle cx="435.2" cy="82.7" r="2.6" fill="#63b3a6"></circle><circle cx="436.9" cy="83.6" r="2.6" fill="#63b3a6"></circle><circle cx="438.5" cy="84.6" r="2.6" fill="#63b3a6"></circle><circle cx="441.0" cy="85.6" r="2.6" fill="#63b3a6"></circle><circle cx="443.1" cy="86.7" r="2.6" fill="#63b3a6"></circle><circle cx="444.9" cy="87.8" r="2.6" fill="#63b3a6"></circle><circle cx="446.4" cy="89.0" r="2.6" fill="#63b3a6"></circle><circle cx="448.1" cy="90.4" r="2.6" fill="#63b3a6"></circle><circle cx="451.2" cy="91.8" r="2.6" fill="#63b3a6"></circle><circle cx="453.4" cy="93.4" r="2.6" fill="#63b3a6"></circle><circle cx="456.1" cy="95.1" r="2.6" fill="#63b3a6"></circle><circle cx="458.6" cy="97.0" r="2.6" fill="#63b3a6"></circle><circle cx="462.9" cy="99.2" r="2.6" fill="#63b3a6"></circle><circle cx="467.0" cy="101.6" r="2.6" fill="#63b3a6"></circle><circle cx="470.8" cy="104.6" r="2.6" fill="#63b3a6"></circle><circle cx="473.6" cy="108.1" r="2.6" fill="#63b3a6"></circle><circle cx="480.7" cy="112.5" r="2.6" fill="#63b3a6"></circle><circle cx="487.5" cy="118.6" r="2.6" fill="#63b3a6"></circle><circle cx="505.7" cy="128.0" r="2.6" fill="#63b3a6"></circle><circle cx="555.7" cy="151.5" r="2.6" fill="#63b3a6"></circle><circle cx="590.5" cy="175.0" r="2.6" fill="#63b3a6"></circle>
+<text fill="#787268" font-family="SF Mono,monospace" font-size="10" text-anchor="middle" x="72" y="230">1</text>
+<text fill="#787268" font-family="SF Mono,monospace" font-size="10" text-anchor="middle" x="158" y="230">10</text>
+<text fill="#787268" font-family="SF Mono,monospace" font-size="10" text-anchor="middle" x="244" y="230">100</text>
+<text fill="#787268" font-family="SF Mono,monospace" font-size="10" text-anchor="middle" x="330" y="230">1000</text>
+<text fill="#787268" font-family="SF Mono,monospace" font-size="10" text-anchor="middle" x="398" y="230">1</text>
+<text fill="#787268" font-family="SF Mono,monospace" font-size="10" text-anchor="middle" x="484" y="230">10</text>
+<text fill="#787268" font-family="SF Mono,monospace" font-size="10" text-anchor="middle" x="570" y="230">100</text>
+<text fill="#787268" font-family="SF Mono,monospace" font-size="10" text-anchor="middle" x="656" y="230">1000</text>
+<text fill="#cd7f9b" font-family="-apple-system,sans-serif" font-size="10.5" text-anchor="middle" x="201" y="250">half the tail bins hold one sample — all pinned to the same floor</text>
+<text fill="#63b3a6" font-family="-apple-system,sans-serif" font-size="10.5" text-anchor="middle" x="527" y="250">same data, tail still a clean straight line</text>
+<text fill="#57524b" font-family="-apple-system,sans-serif" font-size="10.5" text-anchor="middle" x="360" y="264">both panels: size on the horizontal axis, frequency on the vertical, each step ×10</text>
+</svg>
+<figcaption>The row of points sitting on the floor of the left panel is not the data telling you something. It is noise manufactured by the binning. Fit a line through it and the slope is dragged off.</figcaption>
+</figure>
+<p>The left panel uses the most common method: slice the horizontal axis into equal-width bins and count. Out in the tail each bin holds zero or one sample, so every non-empty bin lands on the "one sample" floor and the plot becomes a meaningless horizontal row of dots. <b>Those dots dominate both the visual impression and the fit, and they carry nearly no information.</b></p>
+<p>The right panel plots the same numbers differently: size x still runs along the horizontal axis, but the vertical axis now shows what fraction of samples exceed x. That quantity is the <b>complementary cumulative distribution function</b>, abbreviated <b>CCDF</b> hereafter. It needs no bins, uses every data point, and so keeps the tail clean. <b>If you are going to plot, plot the CCDF; equal-width histograms are essentially unusable on heavy-tailed data.</b></p>
+<p>With the plotting fixed, the statistics arrive, and they are harder. Running the Clauset procedure on real data usually ends one of two ways: either the goodness-of-fit test rejects the power law outright, or the power law survives but the log-normal survives just as well and the likelihood ratio test returns "indistinguishable".</p>
+<p>This is not a failure of effort. <b>Power laws and log-normals are intrinsically very similar over a limited range of magnitudes</b> — one says "each doubling multiplies the probability by a fixed factor", the other says "the logarithm is bell-shaped", and across two or three decades the gap between them is smaller than typical sampling noise. Separating them usually takes another one or two decades of data, and tail data are inherently scarce.</p>
+<h2><span class="n">04</span>What It Explains</h2>
+<p>What this method explains is not a natural phenomenon but <b>a systematic bias in a stretch of academic history</b>: why, around the year 2000, power laws appeared to be everywhere.</p>
+<p>Three causes compounded. Graphically, equal-width histograms and least-squares fits both tend to produce power-law-looking results. Statistically, almost nobody ran goodness-of-fit tests, so "can be fitted" was taken as "holds". And in publishing, "we found a power law" travels further than "we found it was actually log-normal".</p>
+<p>After 2009 the wind changed. As the procedure spread, many classic power-law claims were re-examined and a substantial share failed; network science's signature claim that real networks are scale-free later met a systematic rebuttal of its own. The episode is a useful specimen in itself: <b>a sufficiently convenient shape can stay popular for twenty years while the methodology catches up.</b></p>
+<div class="cant">
+<h3>What It Cannot Explain</h3>
+<ul>
+<li><b>It cannot tell you the mechanism.</b> Passing the test says only that the data are compatible with a power law. Preferential attachment, random proportional growth, critical connectivity and extremal aggregation all emit power laws; inferring the mechanism from the shape inverts a many-to-one map and the answer is not unique. To claim a mechanism, find some other testable consequence of it.</li>
+<li><b>It cannot conclude anything from small samples.</b> Tail samples are scarce to begin with, and a data set of a few dozen points usually cannot separate a power law from a log-normal. The only honest output is "cannot tell", not a pick.</li>
+<li><b>It cannot tell you what to do below x<sub>min</sub>.</b> The procedure handles the tail only. The mass of data under the lower bound is often the business-relevant majority, its distribution is a separate question, and this method is silent on it.</li>
+<li><b>It cannot guarantee a stable exponent.</b> The estimate depends on the choice of x<sub>min</sub> and on the observation window. An exponent reported without x<sub>min</sub>, sample size and a confidence interval cannot be checked by anyone else, and so means very little.</li>
+<li><b>It cannot handle bounded quantities.</b> Real systems have physical or institutional ceilings. The test can only say "power-law-like within the range you observed", and cannot extrapolate beyond it — which is precisely what most people want to use it for.</li>
+</ul>
+</div>
+<div class="refs">
+<h3>Further Reading</h3>
+<ul>
+<li>Clauset, Shalizi &amp; Newman, <a href="https://arxiv.org/abs/0706.1062">Power-law distributions in empirical data</a> (2009 — the source of this procedure)</li>
+<li><a href="https://aaronclauset.github.io/powerlaws/">powerlaw toolbox and data sets</a> (ready implementations in Python / R / Matlab)</li>
+<li>Newman, <a href="https://arxiv.org/abs/cond-mat/0412004">Power laws, Pareto distributions and Zipf's law</a> (2005 — plotting methods and generative mechanisms)</li>
+<li>Broido &amp; Clauset, <a href="https://www.nature.com/articles/s41467-019-08746-5">Scale-free networks are rare</a> (2019 — the systematic rebuttal of scale-free real networks)</li>
+<li>Mitzenmacher, <a href="https://projecteuclid.org/journals/internet-mathematics/volume-1/issue-2/A-Brief-History-of-Generative-Models-for-Power-Law-and/im/1089229510.full">A Brief History of Generative Models for Power Law and Lognormal Distributions</a> (2004 — why the two are so persistently hard to separate)</li>
+</ul>
+</div>
+<footer>BigCat · Complexity Science · <a href="index.en.html">← All Topics</a></footer>
+</div>
+<script defer="" src="https://hub.cissychen.com/comments.js"></script>
+<script defer="" src="https://hub.cissychen.com/search.js"></script>
+<script defer="" src="https://hub.cissychen.com/index-button.js"></script>
+<script defer="" src="https://hub.cissychen.com/i18n-tts.js"></script>
+</body></html>

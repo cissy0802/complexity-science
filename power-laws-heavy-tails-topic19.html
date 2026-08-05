@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+
+<html lang="zh-CN"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>幂律与重尾 — 「平均」在这里是个陷阱 · 复杂性科学 T19</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,"SF Pro Display","Noto Sans SC",sans-serif;color:#e4ded5;line-height:1.85;min-height:100vh;
+  background:radial-gradient(1100px 620px at 12% -6%,rgba(224,137,94,0.10),transparent 62%),radial-gradient(950px 700px at 100% 2%,rgba(166,147,205,0.09),transparent 58%),linear-gradient(168deg,#100f0d 0%,#15161b 48%,#0a0a0c 100%);background-attachment:fixed}
+.wrap{max-width:760px;margin:0 auto;padding:30px 22px 90px}
+header{padding:52px 0 8px;border-bottom:1px solid rgba(255,255,255,0.07);margin-bottom:34px}
+.week-tag{font-family:"SF Mono",Menlo,monospace;font-size:0.72rem;font-weight:700;letter-spacing:2px;color:#9fbc7a;border:1px solid rgba(159,188,122,0.4);background:rgba(159,188,122,0.07);padding:3px 11px;border-radius:20px}
+h1{font-size:2.5rem;font-weight:800;letter-spacing:0.5px;line-height:1.2;margin:20px 0 0;background:linear-gradient(106deg,#e0895e 0%,#d9b45f 34%,#9fbc7a 68%,#63b3a6 100%);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+h1 .h1en{display:block;font-size:0.40em;font-weight:600;letter-spacing:2.5px;color:#847d72;-webkit-text-fill-color:#847d72;background:none;margin-top:13px}
+.sub{font-size:1.05rem;color:#aba498;margin-top:14px;font-weight:500}
+.date{font-family:"SF Mono",Menlo,monospace;font-size:0.75rem;color:#57524b;margin-top:18px;letter-spacing:1px}
+.pitch{margin:22px 0 30px;font-size:0.97rem;color:#cd7f9b;border-left:2px solid rgba(205,127,155,0.5);padding-left:16px;font-style:italic}
+.intro{font-size:1.02rem;color:#cfc8bc;margin-bottom:14px}
+.intro p{margin-bottom:16px}
+h2{font-size:1.42rem;font-weight:700;color:#e9e3d9;margin:56px 0 8px;letter-spacing:0.3px}
+h2 .n{font-family:"SF Mono",Menlo,monospace;font-size:0.85rem;color:#9fbc7a;display:block;margin-bottom:6px;letter-spacing:2px}
+.he{font-size:0.68em;color:#8d867b;font-weight:500;letter-spacing:0}
+p{margin-bottom:17px}
+.lead{color:#cfc8bc}
+b,strong{color:#f0eae0;font-weight:600}
+em{color:#d9b45f;font-style:normal;font-weight:500}
+.dim{color:#8d867b}
+a.reflink{display:inline-block;font-size:0.82rem;font-family:"SF Mono",Menlo,monospace;color:#63b3a6;border:1px solid rgba(99,179,166,0.38);background:rgba(99,179,166,0.07);padding:1px 9px;border-radius:20px;text-decoration:none;transition:all 0.15s;white-space:nowrap}
+a.reflink:hover{background:rgba(99,179,166,0.16);border-color:rgba(99,179,166,0.7)}
+figure{margin:30px 0}
+figure svg{display:block;width:100%;height:auto;border-radius:12px;background:rgba(255,255,255,0.018);border:1px solid rgba(255,255,255,0.06)}
+figcaption{font-size:0.82rem;color:#787268;margin-top:11px;text-align:center;line-height:1.6}
+.en-brief{font-size:0.85rem;color:#847d72;border-top:1px dashed rgba(255,255,255,0.09);padding-top:12px;margin-top:22px;line-height:1.65}
+.en-brief b{font-family:"SF Mono",Menlo,monospace;font-size:0.72rem;color:#63b3a6;letter-spacing:1px;margin-right:7px}
+.decide{margin:24px 0;border:1px solid rgba(224,137,94,0.36);background:rgba(224,137,94,0.055);border-radius:12px;padding:15px 19px}
+.decide .lb{font-family:"SF Mono",Menlo,monospace;font-size:0.73rem;letter-spacing:1.5px;color:#e0895e;font-weight:700;display:block;margin-bottom:7px}
+.decide p{margin:0;font-size:0.95rem;color:#ddd5c9}
+.crossx-inline{margin:20px 0 22px;border-left:2px solid rgba(205,127,155,0.55);padding:2px 0 2px 15px;font-size:0.89rem;color:#a9a096;line-height:1.72}
+.crossx-inline b{color:#cd7f9b;font-weight:600}
+.bigcat{margin:46px 0 10px;border:1px solid rgba(217,180,95,0.38);background:rgba(217,180,95,0.05);border-radius:14px;padding:20px 22px}
+.bigcat h3{font-size:1.02rem;color:#d9b45f;margin-bottom:14px;letter-spacing:0.5px}
+.bigcat ol{list-style:none;padding:0}
+.bigcat li{margin-bottom:15px;font-size:0.94rem;color:#d5cdc1;line-height:1.78}
+.bigcat li:last-child{margin-bottom:0}
+.bigcat .dm{font-family:"SF Mono",Menlo,monospace;font-size:0.73rem;color:#d9b45f;border:1px solid rgba(217,180,95,0.32);border-radius:4px;padding:1px 7px;margin-right:8px;white-space:nowrap}
+.crossx{margin:46px 0 10px;border:1px solid rgba(205,127,155,0.38);background:rgba(205,127,155,0.05);border-radius:14px;padding:20px 22px}
+.crossx h3{font-size:1.02rem;color:#cd7f9b;margin-bottom:14px;letter-spacing:0.5px}
+.crossx ul{list-style:none;padding:0}
+.crossx li{margin-bottom:16px;font-size:0.94rem;color:#d5cdc1;line-height:1.78}
+.crossx li:last-child{margin-bottom:0}
+.crossx li b{color:#cd7f9b;font-weight:600}
+.thinking{margin:46px 0 10px}
+.thinking h3{font-size:1.02rem;color:#a693cd;margin-bottom:14px;letter-spacing:0.5px}
+details{border:1px solid rgba(166,147,205,0.22);border-radius:10px;padding:12px 16px;margin-bottom:10px;background:rgba(166,147,205,0.035)}
+summary{cursor:pointer;font-size:0.93rem;color:#c9c2b6;font-weight:500}
+summary::marker{color:#a693cd}
+details p{margin:12px 0 0;font-size:0.9rem;color:#a9a096;line-height:1.75}
+.refs{margin:46px 0 10px}
+.refs h3{font-size:1.02rem;color:#79a6d2;margin-bottom:14px;letter-spacing:0.5px}
+.refs ul{list-style:none;padding:0}
+.refs li{margin-bottom:10px;font-size:0.9rem;color:#8d867b;line-height:1.7}
+.refs a{color:#79a6d2;text-decoration:none;border-bottom:1px solid rgba(121,166,210,0.3)}
+.refs a:hover{color:#a6c4e2;border-bottom-color:rgba(121,166,210,0.7)}
+footer{text-align:center;padding:56px 0 10px;font-size:0.78rem;color:#57524b;font-family:"SF Mono",Menlo,monospace;border-top:1px solid rgba(255,255,255,0.06);margin-top:50px}
+footer a{color:#79a6d2;text-decoration:none}
+@media(max-width:600px){h1{font-size:1.85rem}.wrap{padding:24px 16px 60px}h2{font-size:1.22rem}}
+</style></head><body>
+<div class="wrap">
+<header>
+<span class="week-tag">TOPIC 19 · PHASE C</span>
+<h1>幂律与重尾<span class="h1en">POWER LAWS AND HEAVY TAILS</span></h1>
+<p class="sub">「平均」在这里是个陷阱<span class="he">（When the average is a trap）</span></p>
+<p class="date">2026-08-05 · 自组织与临界</p>
+</header>
+<p class="pitch">你可以算一个国家的平均身高，也可以算一次地震释放的平均能量。前一个数字有意义。后一个不但没意义，而且在数学上根本不存在——不是因为数据不够，是因为它不存在。</p>
+<div class="intro">
+<p>你在做一件很正常的事：估个平均数。一本书平均能卖多少册、一次停电平均影响多少户、一个新用户平均带来多少收入。把历史数据拉出来一除，得到一个数，拿它去做计划。</p>
+<p>对身高、体重、每天通勤时间这类东西，这个动作完全没问题。对上面那三个，它会把你带沟里，而且是那种<b>越努力越错</b>的沟：你多收集一年数据，那个数不但不会更稳，还可能整个翻一倍。再收一年，它可能又变回去。</p>
+<p>问题不在样本量。问题在于"求个平均"这个动作偷偷假设了一件从来没人跟你说过的事——<em>典型值这个东西存在</em>。有一大类系统里它不存在，而这类系统恰好包括了你最想预测的那些：崩盘、爆红、事故、疫情、暴富。</p>
+<p class="dim">本站讲临界的几期各有各的问法：第 16 期问临界点上为什么细节不重要，第 17 期问连通性怎么会突然贯通，第 18 期问那个临界点是被谁调到的。<b>本期不问机制，问产物</b>——这些系统吐出来的那条统计规律本身长什么样，以及它取消了你哪几个惯用动作。</p>
+</div>
+<h2><span class="n">01</span>一百个人，同样的总量<span class="he">（One Hundred Draws, the Same Total）</span></h2>
+<p class="lead">先看一眼东西长什么样，再谈它叫什么。</p>
+<p>下面是两组数，每组 100 个，<b>总和完全相同</b>。你可以把它想成同一笔钱的两种分法、同样一堆流量的两种落点、同样多的读者两种分布方式。两组都按从大到小排好队画成柱子，纵轴刻度也一样。</p>
+<figure>
+<svg aria-label="同样总量的两组一百个数：正态分布几乎等高，幂律分布头部顶天尾部贴地" role="img" viewBox="0 0 720 262" xmlns="http://www.w3.org/2000/svg">
+<text fill="#aba498" font-family="-apple-system,sans-serif" font-size="13" text-anchor="middle" x="360" y="26">两组各 100 个数 · 总和相同 · 同一纵轴</text>
+<text fill="#79a6d2" font-family="SF Mono,monospace" font-size="12.5" text-anchor="middle" x="201" y="50">正态分布（身高型）</text>
+<text fill="#e0895e" font-family="SF Mono,monospace" font-size="12.5" text-anchor="middle" x="527" y="50">幂律分布（销量型）</text>
+<rect x="70.00" y="194.20" width="1.83" height="19.80" fill="#79a6d2"></rect><rect x="72.62" y="194.99" width="1.83" height="19.01" fill="#79a6d2"></rect><rect x="75.24" y="195.33" width="1.83" height="18.67" fill="#79a6d2"></rect><rect x="77.86" y="195.45" width="1.83" height="18.55" fill="#79a6d2"></rect><rect x="80.48" y="195.45" width="1.83" height="18.55" fill="#79a6d2"></rect><rect x="83.10" y="195.63" width="1.83" height="18.37" fill="#79a6d2"></rect><rect x="85.72" y="196.17" width="1.83" height="17.83" fill="#79a6d2"></rect><rect x="88.34" y="196.20" width="1.83" height="17.80" fill="#79a6d2"></rect><rect x="90.96" y="196.56" width="1.83" height="17.44" fill="#79a6d2"></rect><rect x="93.58" y="197.37" width="1.83" height="16.63" fill="#79a6d2"></rect><rect x="96.20" y="197.74" width="1.83" height="16.26" fill="#79a6d2"></rect><rect x="98.82" y="197.81" width="1.83" height="16.19" fill="#79a6d2"></rect><rect x="101.44" y="197.90" width="1.83" height="16.10" fill="#79a6d2"></rect><rect x="104.06" y="197.91" width="1.83" height="16.09" fill="#79a6d2"></rect><rect x="106.68" y="197.98" width="1.83" height="16.02" fill="#79a6d2"></rect><rect x="109.30" y="198.14" width="1.83" height="15.86" fill="#79a6d2"></rect><rect x="111.92" y="198.21" width="1.83" height="15.79" fill="#79a6d2"></rect><rect x="114.54" y="198.27" width="1.83" height="15.73" fill="#79a6d2"></rect><rect x="117.16" y="198.71" width="1.83" height="15.29" fill="#79a6d2"></rect><rect x="119.78" y="198.78" width="1.83" height="15.22" fill="#79a6d2"></rect><rect x="122.40" y="198.85" width="1.83" height="15.15" fill="#79a6d2"></rect><rect x="125.02" y="198.91" width="1.83" height="15.09" fill="#79a6d2"></rect><rect x="127.64" y="199.18" width="1.83" height="14.82" fill="#79a6d2"></rect><rect x="130.26" y="199.33" width="1.83" height="14.67" fill="#79a6d2"></rect><rect x="132.88" y="199.50" width="1.83" height="14.50" fill="#79a6d2"></rect><rect x="135.50" y="199.51" width="1.83" height="14.49" fill="#79a6d2"></rect><rect x="138.12" y="199.71" width="1.83" height="14.29" fill="#79a6d2"></rect><rect x="140.74" y="199.97" width="1.83" height="14.03" fill="#79a6d2"></rect><rect x="143.36" y="200.02" width="1.83" height="13.98" fill="#79a6d2"></rect><rect x="145.98" y="200.09" width="1.83" height="13.91" fill="#79a6d2"></rect><rect x="148.60" y="200.10" width="1.83" height="13.90" fill="#79a6d2"></rect><rect x="151.22" y="200.17" width="1.83" height="13.83" fill="#79a6d2"></rect><rect x="153.84" y="200.19" width="1.83" height="13.81" fill="#79a6d2"></rect><rect x="156.46" y="200.37" width="1.83" height="13.63" fill="#79a6d2"></rect><rect x="159.08" y="200.45" width="1.83" height="13.55" fill="#79a6d2"></rect><rect x="161.70" y="200.60" width="1.83" height="13.40" fill="#79a6d2"></rect><rect x="164.32" y="200.79" width="1.83" height="13.21" fill="#79a6d2"></rect><rect x="166.94" y="200.86" width="1.83" height="13.14" fill="#79a6d2"></rect><rect x="169.56" y="201.16" width="1.83" height="12.84" fill="#79a6d2"></rect><rect x="172.18" y="201.20" width="1.83" height="12.80" fill="#79a6d2"></rect><rect x="174.80" y="201.20" width="1.83" height="12.80" fill="#79a6d2"></rect><rect x="177.42" y="201.30" width="1.83" height="12.70" fill="#79a6d2"></rect><rect x="180.04" y="201.30" width="1.83" height="12.70" fill="#79a6d2"></rect><rect x="182.66" y="201.43" width="1.83" height="12.57" fill="#79a6d2"></rect><rect x="185.28" y="201.50" width="1.83" height="12.50" fill="#79a6d2"></rect><rect x="187.90" y="201.51" width="1.83" height="12.49" fill="#79a6d2"></rect><rect x="190.52" y="201.53" width="1.83" height="12.47" fill="#79a6d2"></rect><rect x="193.14" y="201.58" width="1.83" height="12.42" fill="#79a6d2"></rect><rect x="195.76" y="201.59" width="1.83" height="12.41" fill="#79a6d2"></rect><rect x="198.38" y="201.66" width="1.83" height="12.34" fill="#79a6d2"></rect><rect x="201.00" y="201.67" width="1.83" height="12.33" fill="#79a6d2"></rect><rect x="203.62" y="201.71" width="1.83" height="12.29" fill="#79a6d2"></rect><rect x="206.24" y="201.74" width="1.83" height="12.26" fill="#79a6d2"></rect><rect x="208.86" y="201.75" width="1.83" height="12.25" fill="#79a6d2"></rect><rect x="211.48" y="201.77" width="1.83" height="12.23" fill="#79a6d2"></rect><rect x="214.10" y="201.83" width="1.83" height="12.17" fill="#79a6d2"></rect><rect x="216.72" y="201.84" width="1.83" height="12.16" fill="#79a6d2"></rect><rect x="219.34" y="201.91" width="1.83" height="12.09" fill="#79a6d2"></rect><rect x="221.96" y="201.99" width="1.83" height="12.01" fill="#79a6d2"></rect><rect x="224.58" y="202.02" width="1.83" height="11.98" fill="#79a6d2"></rect><rect x="227.20" y="202.15" width="1.83" height="11.85" fill="#79a6d2"></rect><rect x="229.82" y="202.17" width="1.83" height="11.83" fill="#79a6d2"></rect><rect x="232.44" y="202.25" width="1.83" height="11.75" fill="#79a6d2"></rect><rect x="235.06" y="202.36" width="1.83" height="11.64" fill="#79a6d2"></rect><rect x="237.68" y="202.39" width="1.83" height="11.61" fill="#79a6d2"></rect><rect x="240.30" y="202.45" width="1.83" height="11.55" fill="#79a6d2"></rect><rect x="242.92" y="202.50" width="1.83" height="11.50" fill="#79a6d2"></rect><rect x="245.54" y="202.56" width="1.83" height="11.44" fill="#79a6d2"></rect><rect x="248.16" y="202.62" width="1.83" height="11.38" fill="#79a6d2"></rect><rect x="250.78" y="202.81" width="1.83" height="11.19" fill="#79a6d2"></rect><rect x="253.40" y="202.82" width="1.83" height="11.18" fill="#79a6d2"></rect><rect x="256.02" y="202.86" width="1.83" height="11.14" fill="#79a6d2"></rect><rect x="258.64" y="203.05" width="1.83" height="10.95" fill="#79a6d2"></rect><rect x="261.26" y="203.23" width="1.83" height="10.77" fill="#79a6d2"></rect><rect x="263.88" y="203.39" width="1.83" height="10.61" fill="#79a6d2"></rect><rect x="266.50" y="203.57" width="1.83" height="10.43" fill="#79a6d2"></rect><rect x="269.12" y="203.67" width="1.83" height="10.33" fill="#79a6d2"></rect><rect x="271.74" y="203.82" width="1.83" height="10.18" fill="#79a6d2"></rect><rect x="274.36" y="203.89" width="1.83" height="10.11" fill="#79a6d2"></rect><rect x="276.98" y="203.95" width="1.83" height="10.05" fill="#79a6d2"></rect><rect x="279.60" y="203.98" width="1.83" height="10.02" fill="#79a6d2"></rect><rect x="282.22" y="203.98" width="1.83" height="10.02" fill="#79a6d2"></rect><rect x="284.84" y="204.30" width="1.83" height="9.70" fill="#79a6d2"></rect><rect x="287.46" y="204.43" width="1.83" height="9.57" fill="#79a6d2"></rect><rect x="290.08" y="204.54" width="1.83" height="9.46" fill="#79a6d2"></rect><rect x="292.70" y="205.01" width="1.83" height="8.99" fill="#79a6d2"></rect><rect x="295.32" y="205.02" width="1.83" height="8.98" fill="#79a6d2"></rect><rect x="297.94" y="205.26" width="1.83" height="8.74" fill="#79a6d2"></rect><rect x="300.56" y="205.53" width="1.83" height="8.47" fill="#79a6d2"></rect><rect x="303.18" y="205.88" width="1.83" height="8.12" fill="#79a6d2"></rect><rect x="305.80" y="206.59" width="1.83" height="7.41" fill="#79a6d2"></rect><rect x="308.42" y="206.72" width="1.83" height="7.28" fill="#79a6d2"></rect><rect x="311.04" y="206.94" width="1.83" height="7.06" fill="#79a6d2"></rect><rect x="313.66" y="207.03" width="1.83" height="6.97" fill="#79a6d2"></rect><rect x="316.28" y="207.25" width="1.83" height="6.75" fill="#79a6d2"></rect><rect x="318.90" y="207.56" width="1.83" height="6.44" fill="#79a6d2"></rect><rect x="321.52" y="207.58" width="1.83" height="6.42" fill="#79a6d2"></rect><rect x="324.14" y="208.18" width="1.83" height="5.82" fill="#79a6d2"></rect><rect x="326.76" y="208.19" width="1.83" height="5.81" fill="#79a6d2"></rect><rect x="329.38" y="211.73" width="1.83" height="2.27" fill="#79a6d2"></rect>
+<rect x="396.00" y="64.26" width="1.83" height="149.74" fill="#e0895e"></rect><rect x="398.62" y="117.20" width="1.83" height="96.80" fill="#e0895e"></rect><rect x="401.24" y="145.41" width="1.83" height="68.59" fill="#e0895e"></rect><rect x="403.86" y="157.56" width="1.83" height="56.44" fill="#e0895e"></rect><rect x="406.48" y="161.50" width="1.83" height="52.50" fill="#e0895e"></rect><rect x="409.10" y="187.89" width="1.83" height="26.11" fill="#e0895e"></rect><rect x="411.72" y="187.99" width="1.83" height="26.01" fill="#e0895e"></rect><rect x="414.34" y="188.49" width="1.83" height="25.51" fill="#e0895e"></rect><rect x="416.96" y="189.20" width="1.83" height="24.80" fill="#e0895e"></rect><rect x="419.58" y="191.74" width="1.83" height="22.26" fill="#e0895e"></rect><rect x="422.20" y="191.80" width="1.83" height="22.20" fill="#e0895e"></rect><rect x="424.82" y="191.81" width="1.83" height="22.19" fill="#e0895e"></rect><rect x="427.44" y="192.72" width="1.83" height="21.28" fill="#e0895e"></rect><rect x="430.06" y="192.91" width="1.83" height="21.09" fill="#e0895e"></rect><rect x="432.68" y="195.23" width="1.83" height="18.77" fill="#e0895e"></rect><rect x="435.30" y="195.39" width="1.83" height="18.61" fill="#e0895e"></rect><rect x="437.92" y="195.48" width="1.83" height="18.52" fill="#e0895e"></rect><rect x="440.54" y="196.43" width="1.83" height="17.57" fill="#e0895e"></rect><rect x="443.16" y="198.94" width="1.83" height="15.06" fill="#e0895e"></rect><rect x="445.78" y="200.06" width="1.83" height="13.94" fill="#e0895e"></rect><rect x="448.40" y="200.12" width="1.83" height="13.88" fill="#e0895e"></rect><rect x="451.02" y="200.14" width="1.83" height="13.86" fill="#e0895e"></rect><rect x="453.64" y="200.31" width="1.83" height="13.69" fill="#e0895e"></rect><rect x="456.26" y="200.40" width="1.83" height="13.60" fill="#e0895e"></rect><rect x="458.88" y="200.71" width="1.83" height="13.29" fill="#e0895e"></rect><rect x="461.50" y="201.07" width="1.83" height="12.93" fill="#e0895e"></rect><rect x="464.12" y="201.41" width="1.83" height="12.59" fill="#e0895e"></rect><rect x="466.74" y="201.48" width="1.83" height="12.52" fill="#e0895e"></rect><rect x="469.36" y="201.52" width="1.83" height="12.48" fill="#e0895e"></rect><rect x="471.98" y="202.11" width="1.83" height="11.89" fill="#e0895e"></rect><rect x="474.60" y="203.04" width="1.83" height="10.96" fill="#e0895e"></rect><rect x="477.22" y="203.83" width="1.83" height="10.17" fill="#e0895e"></rect><rect x="479.84" y="204.65" width="1.83" height="9.35" fill="#e0895e"></rect><rect x="482.46" y="205.23" width="1.83" height="8.77" fill="#e0895e"></rect><rect x="485.08" y="205.33" width="1.83" height="8.67" fill="#e0895e"></rect><rect x="487.70" y="205.35" width="1.83" height="8.65" fill="#e0895e"></rect><rect x="490.32" y="205.36" width="1.83" height="8.64" fill="#e0895e"></rect><rect x="492.94" y="205.77" width="1.83" height="8.23" fill="#e0895e"></rect><rect x="495.56" y="205.96" width="1.83" height="8.04" fill="#e0895e"></rect><rect x="498.18" y="206.10" width="1.83" height="7.90" fill="#e0895e"></rect><rect x="500.80" y="206.45" width="1.83" height="7.55" fill="#e0895e"></rect><rect x="503.42" y="206.51" width="1.83" height="7.49" fill="#e0895e"></rect><rect x="506.04" y="206.56" width="1.83" height="7.44" fill="#e0895e"></rect><rect x="508.66" y="206.62" width="1.83" height="7.38" fill="#e0895e"></rect><rect x="511.28" y="206.76" width="1.83" height="7.24" fill="#e0895e"></rect><rect x="513.90" y="207.22" width="1.83" height="6.78" fill="#e0895e"></rect><rect x="516.52" y="207.26" width="1.83" height="6.74" fill="#e0895e"></rect><rect x="519.14" y="207.35" width="1.83" height="6.65" fill="#e0895e"></rect><rect x="521.76" y="207.60" width="1.83" height="6.40" fill="#e0895e"></rect><rect x="524.38" y="207.85" width="1.83" height="6.15" fill="#e0895e"></rect><rect x="527.00" y="208.22" width="1.83" height="5.78" fill="#e0895e"></rect><rect x="529.62" y="208.32" width="1.83" height="5.68" fill="#e0895e"></rect><rect x="532.24" y="208.33" width="1.83" height="5.67" fill="#e0895e"></rect><rect x="534.86" y="208.45" width="1.83" height="5.55" fill="#e0895e"></rect><rect x="537.48" y="208.64" width="1.83" height="5.36" fill="#e0895e"></rect><rect x="540.10" y="208.77" width="1.83" height="5.23" fill="#e0895e"></rect><rect x="542.72" y="208.85" width="1.83" height="5.15" fill="#e0895e"></rect><rect x="545.34" y="208.93" width="1.83" height="5.07" fill="#e0895e"></rect><rect x="547.96" y="209.02" width="1.83" height="4.98" fill="#e0895e"></rect><rect x="550.58" y="209.05" width="1.83" height="4.95" fill="#e0895e"></rect><rect x="553.20" y="209.09" width="1.83" height="4.91" fill="#e0895e"></rect><rect x="555.82" y="209.11" width="1.83" height="4.89" fill="#e0895e"></rect><rect x="558.44" y="209.12" width="1.83" height="4.88" fill="#e0895e"></rect><rect x="561.06" y="209.19" width="1.83" height="4.81" fill="#e0895e"></rect><rect x="563.68" y="209.26" width="1.83" height="4.74" fill="#e0895e"></rect><rect x="566.30" y="209.32" width="1.83" height="4.68" fill="#e0895e"></rect><rect x="568.92" y="209.37" width="1.83" height="4.63" fill="#e0895e"></rect><rect x="571.54" y="209.39" width="1.83" height="4.61" fill="#e0895e"></rect><rect x="574.16" y="209.49" width="1.83" height="4.51" fill="#e0895e"></rect><rect x="576.78" y="209.55" width="1.83" height="4.45" fill="#e0895e"></rect><rect x="579.40" y="209.57" width="1.83" height="4.43" fill="#e0895e"></rect><rect x="582.02" y="209.60" width="1.83" height="4.40" fill="#e0895e"></rect><rect x="584.64" y="209.63" width="1.83" height="4.37" fill="#e0895e"></rect><rect x="587.26" y="209.71" width="1.83" height="4.29" fill="#e0895e"></rect><rect x="589.88" y="209.75" width="1.83" height="4.25" fill="#e0895e"></rect><rect x="592.50" y="209.76" width="1.83" height="4.24" fill="#e0895e"></rect><rect x="595.12" y="209.86" width="1.83" height="4.14" fill="#e0895e"></rect><rect x="597.74" y="209.86" width="1.83" height="4.14" fill="#e0895e"></rect><rect x="600.36" y="209.87" width="1.83" height="4.13" fill="#e0895e"></rect><rect x="602.98" y="209.90" width="1.83" height="4.10" fill="#e0895e"></rect><rect x="605.60" y="209.91" width="1.83" height="4.09" fill="#e0895e"></rect><rect x="608.22" y="210.06" width="1.83" height="3.94" fill="#e0895e"></rect><rect x="610.84" y="210.07" width="1.83" height="3.93" fill="#e0895e"></rect><rect x="613.46" y="210.07" width="1.83" height="3.93" fill="#e0895e"></rect><rect x="616.08" y="210.14" width="1.83" height="3.86" fill="#e0895e"></rect><rect x="618.70" y="210.19" width="1.83" height="3.81" fill="#e0895e"></rect><rect x="621.32" y="210.34" width="1.83" height="3.66" fill="#e0895e"></rect><rect x="623.94" y="210.38" width="1.83" height="3.62" fill="#e0895e"></rect><rect x="626.56" y="210.44" width="1.83" height="3.56" fill="#e0895e"></rect><rect x="629.18" y="210.49" width="1.83" height="3.51" fill="#e0895e"></rect><rect x="631.80" y="210.49" width="1.83" height="3.51" fill="#e0895e"></rect><rect x="634.42" y="210.51" width="1.83" height="3.49" fill="#e0895e"></rect><rect x="637.04" y="210.55" width="1.83" height="3.45" fill="#e0895e"></rect><rect x="639.66" y="210.56" width="1.83" height="3.44" fill="#e0895e"></rect><rect x="642.28" y="210.58" width="1.83" height="3.42" fill="#e0895e"></rect><rect x="644.90" y="210.58" width="1.83" height="3.42" fill="#e0895e"></rect><rect x="647.52" y="210.59" width="1.83" height="3.41" fill="#e0895e"></rect><rect x="650.14" y="210.60" width="1.83" height="3.40" fill="#e0895e"></rect><rect x="652.76" y="210.61" width="1.83" height="3.39" fill="#e0895e"></rect><rect x="655.38" y="210.62" width="1.83" height="3.38" fill="#e0895e"></rect>
+<line stroke="rgba(255,255,255,0.20)" stroke-width="1.5" x1="70" x2="332" y1="214" y2="214"></line>
+<line stroke="rgba(255,255,255,0.20)" stroke-width="1.5" x1="396" x2="658" y1="214" y2="214"></line>
+<line opacity="0.75" stroke="#d9b45f" stroke-dasharray="5 4" stroke-width="1.6" x1="70" x2="332" y1="201.6" y2="201.6"></line>
+<line opacity="0.75" stroke="#d9b45f" stroke-dasharray="5 4" stroke-width="1.6" x1="396" x2="658" y1="201.6" y2="201.6"></line>
+<text fill="#d9b45f" font-family="SF Mono,monospace" font-size="11" x="336" y="205">均值</text>
+<text fill="#787268" font-family="-apple-system,sans-serif" font-size="11" text-anchor="middle" x="201" y="232">最大的一个 = 均值的 1.6 倍</text>
+<text fill="#787268" font-family="-apple-system,sans-serif" font-size="11" text-anchor="middle" x="201" y="248">53 个低于均值</text>
+<text fill="#c0703f" font-family="-apple-system,sans-serif" font-size="11" text-anchor="middle" x="527" y="232">最大的一个 = 均值的 12 倍</text>
+<text fill="#c0703f" font-family="-apple-system,sans-serif" font-size="11" text-anchor="middle" x="527" y="248">71 个低于均值 · 前 10 名拿走 44%</text>
+</svg>
+<figcaption>同样多的东西、同样的总量，两种分法。右边那根顶天的柱子不是异常值，它是这个分布正常运转的样子。</figcaption>
+</figure>
+<p>左边这组，"平均值 6.7"是一句有内容的话：绝大多数柱子都在它附近，最高的那根也就是它的 1.6 倍。你告诉别人平均值，对方脑子里浮现的图基本是对的。</p>
+<p>右边这组，同一句话几乎不传递任何信息。<b>100 个数里有 71 个低于均值</b>，中位数只有 3.1——连均值的一半都不到；而最高的那个是均值的 12 倍，前 10 名合起来拿走了总量的 44%。"平均 6.7"这句话没有描述任何一个具体的柱子：多数人比它低得多，少数几个比它高得多，正好落在它附近的反而最少。</p>
+<p>右边这种形状叫<b>幂律</b>（power law）。它的定义可以写得很朴素：<em>规模超过 x 的东西有多少个</em>，正比于 x 的某个负次方。写成式子是 P(超过 x) ∝ x<sup>−β</sup>，这个 β 叫<b>尾指数</b>（tail index）。β 越小，尾巴越沉、越容易出巨物。<a class="reflink" href="ref-power-law.html">→ 参考 · 幂律的识别与误判</a></p>
+<p>这条式子有个立刻能用的读法：<b>把横轴和纵轴都换成"每格乘以 10"的刻度（也就是双对数坐标），幂律就是一条直线，斜率就是 −β。</b>而钟形的正态分布在同样的坐标下会迅速向下拐、贴到地板上：它对"超过均值 5 倍的东西"给出的预测次数基本是零。</p>
+<p>为什么会长成两种样子，根子在生成方式。正态分布（normal distribution）来自很多小因素<em>相加</em>——身高是成百上千个基因和营养条件的加总，谁也不能一票定乾坤。幂律往往来自<em>相乘</em>或<em>传染</em>：已经卖得好的书被更多人看见于是卖得更好，已经连上的电网节点承担更多负载于是更容易被压垮。加法把差异磨平，乘法把差异放大。</p>
+<p>顺便处理掉一个被说滥的说法。"80/20 法则"——两成的人占八成的量——不是幂律的定义，它只是<b>某一个特定尾指数下的推论</b>：β ≈ 1.16 时恰好是 80/20。β 换一个值，比例就完全不同（β 更小，可能是 90/10；β 更大，可能只有 60/20）。把 80/20 当成一条普适定律去套，等于把一个参数当成了一条规律。</p>
+<div class="decide">
+<span class="lb">🎯 决策线</span>
+<p>拿到任何一组"规模"数据（销量、故障影响面、客户价值、事故损失），第一个动作不是求均值，是<b>按大小排序，算出最大的那 1% 占总量的百分之几</b>。这个数超过 10%，就把均值口径从你的报表里拿掉，换成中位数加上"前 1% 占比"这两个数一起报。这一步不需要任何统计知识，五分钟能做完。</p>
+</div>
+<div class="crossx-inline">
+🌀 <b>经济与制度 · 为什么统计局报的是中位数</b>　各国统计部门公布居民收入时用的是中位数而不是平均数，正是因为收入的形状是右边那张图。顺着这条机制能推出一个不那么显然的结论：<b>凡是以"人均"为口径设定的政策目标，在重尾的量上表达的都不是多数人的处境，而是尾部的规模。</b>人均住房面积、人均带宽、人均藏书量都吃这个亏——指标涨了，可能只是头部又拉长了一点，中间那一大段一动没动。
+</div>
+<p class="en-brief"><b>EN</b> Two samples of 100 draws with identical totals. Under a normal distribution the largest draw is 1.6× the mean and 53 fall below it; under a power law 71 fall below the mean, the median is under half the mean, and the top ten take 44% of everything. A power law says the count of items exceeding x scales as x to a negative power — a straight line on log-log axes. The "80/20 rule" is not the definition; it is what one particular exponent (β ≈ 1.16) happens to give.</p>
+<h2><span class="n">02</span>那个平均数根本不收敛<span class="he">（The Average That Never Settles）</span></h2>
+<p class="lead">上一节说"平均值不代表任何人"，那还只是描述得不好。这一节说的是更硬的一件事：<b>那个平均值你可能根本测不出来。</b></p>
+<p>你大概隐约信着一条规律：数据多了就稳了。抛硬币抛一百次正面比例上下乱跳，抛一百万次就贴着 50% 不动了。这条规律叫<b>大数定律</b>（law of large numbers），它是几乎所有"多收集点数据"这类建议的靠山。</p>
+<p>它有前提。而在<b>重尾</b>（heavy tail）的世界里，前提可能不满足。所谓重尾，就是"极端事件的概率衰减得比指数还慢"这一大类分布，幂律是其中最干净的一种。下面这张图是真的跑出来的：两组随机数各抽十万个，每抽一个就重算一次到目前为止的平均值，看它往哪儿走。纵轴是"当前平均值 ÷ 理论平均值"，所以 1.0 就是收敛到位。</p>
+<figure>
+<svg aria-label="十万次抽样的跑动均值：正态迅速收敛到1，幂律在第两万次被一个样本抬到2.9倍" role="img" viewBox="0 0 720 300" xmlns="http://www.w3.org/2000/svg">
+<defs>
+<marker id="a19b" markerHeight="10" markerUnits="userSpaceOnUse" markerWidth="10" orient="auto" refX="9" refY="5" viewBox="0 0 10 10">
+<path d="M0,1 L9,5 L0,9 z" fill="#cd7f9b"></path>
+</marker>
+</defs>
+<text fill="#aba498" font-family="-apple-system,sans-serif" font-size="13" text-anchor="middle" x="360" y="24">跑动平均值 ÷ 理论平均值 — 抽十万次</text>
+<line stroke="rgba(255,255,255,0.18)" stroke-width="1.5" x1="90" x2="640" y1="240" y2="240"></line>
+<line stroke="rgba(255,255,255,0.18)" stroke-width="1.5" x1="90" x2="90" y1="240" y2="52"></line>
+<line opacity="0.6" stroke="#d9b45f" stroke-dasharray="5 4" stroke-width="1.4" x1="90" x2="640" y1="189.4" y2="189.4"></line>
+<text fill="#d9b45f" font-family="SF Mono,monospace" font-size="11" x="646" y="193">1.0</text>
+<text fill="#57524b" font-family="SF Mono,monospace" font-size="11" x="646" y="142">2.0</text>
+<text fill="#57524b" font-family="SF Mono,monospace" font-size="11" x="646" y="92">3.0</text>
+<polyline fill="none" points="90.0,193.0 123.1,187.7 142.5,189.3 156.2,190.4 166.9,192.8 175.6,192.8 183.0,190.1 189.3,189.3 195.0,187.7 200.0,187.5 204.6,187.2 208.7,187.2 212.5,189.1 216.1,188.3 219.4,187.9 222.5,187.6 225.3,189.1 228.1,190.4 230.7,191.0 233.1,191.3 235.4,191.0 237.7,190.9 239.8,190.6 241.8,190.9 243.8,190.7 245.6,190.4 249.2,189.8 250.9,189.5 252.5,189.0 255.6,189.6 257.0,189.7 259.8,189.5 261.2,189.4 263.8,189.9 266.2,189.7 268.6,189.8 270.8,190.2 272.9,189.7 274.9,190.4 276.9,190.6 278.8,190.4 281.4,190.4 284.0,189.7 285.6,189.9 287.9,190.0 290.1,190.6 292.3,191.0 294.3,190.5 296.9,191.3 298.7,191.0 301.1,190.6 303.3,190.5 305.5,190.3 307.5,190.6 310.0,190.3 312.3,190.0 314.6,189.9 316.7,189.9 318.7,189.9 321.0,189.6 323.3,189.5 325.4,189.2 327.8,189.3 329.7,189.2 331.9,189.1 334.2,189.1 336.5,189.4 338.6,189.3 340.9,189.0 343.1,189.3 345.2,189.1 347.4,188.9 349.6,188.6 351.8,188.8 354.0,188.9 356.2,188.8 358.3,188.9 360.5,189.4 362.8,189.3 365.0,189.1 367.2,189.1 369.4,189.0 371.6,188.9 373.8,189.0 376.0,189.2 378.2,188.8 380.5,188.6 382.6,188.8 384.8,189.1 387.0,189.3 389.2,189.4 391.4,189.1 393.6,188.9 395.8,189.1 398.0,189.1 400.2,189.1 402.4,189.0 404.6,189.1 406.8,189.1 409.0,188.9 411.2,188.9 413.4,189.0 415.6,188.9 417.8,188.9 420.0,189.1 422.2,189.1 424.4,189.1 426.6,189.1 428.8,189.1 431.0,189.1 433.2,189.0 435.4,189.1 437.6,189.0 439.8,189.1 442.0,189.3 444.2,189.2 446.4,189.3 448.6,189.3 450.8,189.2 453.0,189.2 455.2,189.2 457.4,189.4 459.6,189.4 461.8,189.4 464.0,189.3 466.2,189.3 468.4,189.3 470.6,189.4 472.8,189.3 475.0,189.4 477.2,189.4 479.4,189.4 481.6,189.4 483.8,189.4 486.0,189.4 488.2,189.4 490.4,189.4 492.6,189.4 494.8,189.4 497.0,189.4 499.2,189.4 501.4,189.4 503.6,189.4 505.8,189.4 508.0,189.4 510.2,189.3 512.4,189.3 514.6,189.3 516.8,189.3 519.0,189.3 521.2,189.3 523.4,189.3 525.6,189.3 527.8,189.3 530.0,189.4 532.2,189.4 534.4,189.4 536.6,189.4 538.8,189.4 541.0,189.4 543.2,189.4 545.4,189.4 547.6,189.4 549.8,189.4 552.0,189.4 554.2,189.3 556.4,189.4 558.6,189.4 560.8,189.4 563.0,189.4 565.2,189.4 567.4,189.4 569.6,189.4 571.8,189.4 574.0,189.4 576.2,189.4 578.4,189.4 580.6,189.4 582.8,189.4 585.0,189.4 587.2,189.4 589.4,189.5 591.6,189.5 593.8,189.5 596.0,189.5 598.2,189.5 600.4,189.5 602.6,189.5 604.8,189.5 607.0,189.4 609.2,189.5 611.4,189.4 613.6,189.5 615.8,189.4 618.0,189.5 620.2,189.4 622.4,189.4 624.6,189.4 626.8,189.4 629.0,189.4 631.2,189.4 633.4,189.4 635.6,189.4 637.8,189.4 640.0,189.4" stroke="#79a6d2" stroke-width="2"></polyline>
+<polyline fill="none" points="90.0,203.8 123.1,216.6 142.5,213.7 156.2,217.9 166.9,220.2 175.6,220.9 183.0,222.1 189.3,222.9 195.0,213.2 200.0,214.7 204.6,216.0 208.7,217.0 212.5,218.1 216.1,219.1 219.4,219.4 222.5,219.1 225.3,217.9 228.1,218.7 230.7,219.3 233.1,219.8 235.4,220.1 237.7,220.4 239.8,220.2 241.8,220.5 243.8,219.8 245.6,220.2 249.2,220.9 250.9,220.7 252.5,219.5 255.6,220.0 257.0,220.2 259.8,220.7 261.2,220.8 263.8,220.7 266.2,220.7 268.6,221.1 270.8,221.3 272.9,221.8 274.9,222.1 276.9,222.4 278.8,222.6 281.4,223.0 284.0,223.4 285.6,223.6 287.9,223.8 290.1,223.8 292.3,223.3 294.3,223.4 296.9,223.5 298.7,223.1 301.1,222.6 303.3,221.9 305.5,221.9 307.5,221.8 310.0,222.2 312.3,221.8 314.6,222.1 316.7,218.3 318.7,218.8 321.0,218.7 323.3,218.9 325.4,219.1 327.8,216.6 329.7,216.7 331.9,216.4 334.2,216.5 336.5,216.4 338.6,216.5 340.9,216.3 343.1,215.5 345.2,216.0 347.4,216.4 349.6,216.0 351.8,216.5 354.0,215.1 356.2,215.3 358.3,214.8 360.5,215.0 362.8,215.3 365.0,215.7 367.2,216.2 369.4,216.5 371.6,216.7 373.8,217.2 376.0,217.6 378.2,217.6 380.5,217.1 382.6,215.7 384.8,215.9 387.0,216.0 389.2,216.5 391.4,216.7 393.6,217.1 395.8,213.6 398.0,212.1 400.2,212.6 402.4,212.4 404.6,212.6 406.8,212.7 409.0,212.8 411.2,212.6 413.4,212.6 415.6,212.6 417.8,212.3 420.0,212.4 422.2,212.4 424.4,212.3 426.6,212.5 428.8,212.6 431.0,212.7 433.2,212.9 435.4,212.7 437.6,213.1 439.8,212.5 442.0,206.9 444.2,207.1 446.4,207.6 448.6,204.7 450.8,204.1 453.0,202.0 455.2,200.9 457.4,201.9 459.6,202.4 461.8,202.8 464.0,203.3 466.2,202.5 468.4,203.0 470.6,203.8 472.8,203.8 475.0,204.1 477.2,204.6 479.4,203.2 481.6,203.6 483.8,203.8 486.0,203.8 488.2,203.8 490.4,203.4 492.6,200.7 494.8,201.1 497.0,201.1 499.2,201.4 501.4,201.5 503.6,202.4 505.8,202.4 508.0,202.5 510.2,202.5 512.4,200.3 514.6,201.1 516.8,201.4 519.0,202.0 521.2,202.1 523.4,202.3 525.6,202.5 527.8,202.6 530.0,203.1 532.2,203.1 534.4,203.4 536.6,203.6 538.8,202.1 541.0,202.5 543.2,202.4 545.4,202.7 547.6,203.0 549.8,203.0 552.0,203.3 554.2,203.5 556.4,199.3 558.6,199.6 560.8,199.9 563.0,200.1 565.2,200.3 567.4,93.5 569.6,98.4 571.8,103.0 574.0,107.8 576.2,111.9 578.4,116.2 580.6,120.0 582.8,123.7 585.0,127.6 587.2,130.9 589.4,133.3 591.6,136.0 593.8,139.1 596.0,142.3 598.2,144.7 600.4,147.7 602.6,150.5 604.8,150.3 607.0,152.9 609.2,155.1 611.4,157.3 613.6,159.5 615.8,161.9 618.0,163.5 620.2,165.3 622.4,167.3 624.6,168.4 626.8,169.7 629.0,169.0 631.2,170.2 633.4,171.8 635.6,173.2 637.8,174.3 640.0,174.3" stroke="#e0895e" stroke-width="2.2"></polyline>
+<line stroke="#e0895e" stroke-width="2.5" x1="104" x2="130" y1="68" y2="68"></line>
+<text fill="#e0895e" font-family="SF Mono,monospace" font-size="12" x="138" y="72">幂律 — 十万次仍未收敛</text>
+<line stroke="#79a6d2" stroke-width="2.5" x1="104" x2="130" y1="90" y2="90"></line>
+<text fill="#79a6d2" font-family="SF Mono,monospace" font-size="12" x="138" y="94">正态 — 几百次即收敛</text>
+<line marker-end="url(#a19b)" stroke="#cd7f9b" stroke-width="1.8" x1="602" x2="574" y1="70" y2="88"></line>
+<text fill="#cd7f9b" font-family="-apple-system,sans-serif" font-size="11.5" text-anchor="end" x="644" y="58">第 21668 个样本：一个数就把均值抬到 2.9 倍</text>
+<text fill="#787268" font-family="SF Mono,monospace" font-size="10.5" text-anchor="middle" x="90" y="258">1</text>
+<text fill="#787268" font-family="SF Mono,monospace" font-size="10.5" text-anchor="middle" x="200" y="258">10</text>
+<text fill="#787268" font-family="SF Mono,monospace" font-size="10.5" text-anchor="middle" x="310" y="258">100</text>
+<text fill="#787268" font-family="SF Mono,monospace" font-size="10.5" text-anchor="middle" x="420" y="258">1000</text>
+<text fill="#787268" font-family="SF Mono,monospace" font-size="10.5" text-anchor="middle" x="530" y="258">1 万</text>
+<text fill="#787268" font-family="SF Mono,monospace" font-size="10.5" text-anchor="middle" x="640" y="258">10 万</text>
+<text fill="#8d867b" font-family="-apple-system,sans-serif" font-size="11.5" text-anchor="middle" x="365" y="278">已抽样本数（每格乘以 10）→</text>
+<text fill="#57524b" font-family="-apple-system,sans-serif" font-size="11" text-anchor="middle" x="365" y="294">橙线这组的理论均值是存在的 — 但十万个样本还没把它测出来</text>
+</svg>
+<figcaption>蓝线几百步就躺平了。橙线在两万步上被<b>一个</b>样本抬高了近三倍，然后花掉剩下八万步慢慢往回爬，最后停在 1.3。</figcaption>
+</figure>
+<p>请注意橙色那条线的关键细节：<b>它不是抖动，是跳台阶。</b>前面两万步它一直待在 0.7 附近，你要是在那儿停下，会以为自己已经测准了；然后来了一个数，一步就把整个平均值抬到 2.9 倍。这个数不是错误、不是脏数据、不需要剔除——它就是这个分布该有的样子。而这样的跳跃，往后还会有，只是越来越稀疏。</p>
+<p>所以"多收集点数据"在这里失效得非常彻底：<b>你的平均值不是慢慢变准，而是长期偏低，偶尔被一次跳跃修正过头。</b>任何一次快照都不可信，而你没有办法知道自己现在处在两次跳跃之间的哪个位置。</p>
+<p>这背后有一条很干净的数学事实，值得记住，因为它把"这个量能不能算平均"变成了一个可查的问题。对尾指数为 β 的幂律：</p>
+<figure>
+<svg aria-label="尾指数轴：小于1均值不存在，1到2均值存在方差不存在，大于2两者都存在" role="img" viewBox="0 0 720 226" xmlns="http://www.w3.org/2000/svg">
+<text fill="#aba498" font-family="-apple-system,sans-serif" font-size="13" text-anchor="middle" x="360" y="26">尾指数 β 决定哪些"常用统计量"还活着</text>
+<text fill="#8d867b" font-family="SF Mono,monospace" font-size="12" text-anchor="middle" x="250" y="54">β = 1</text>
+<text fill="#8d867b" font-family="SF Mono,monospace" font-size="12" text-anchor="middle" x="410" y="54">β = 2</text>
+<rect fill="rgba(205,127,155,0.13)" height="40" width="160" x="90" y="66"></rect>
+<rect fill="rgba(217,180,95,0.13)" height="40" width="160" x="250" y="66"></rect>
+<rect fill="rgba(159,188,122,0.13)" height="40" width="240" x="410" y="66"></rect>
+<text fill="#cd7f9b" font-family="-apple-system,sans-serif" font-size="11.5" text-anchor="middle" x="170" y="86">均值不存在</text>
+<text fill="#cd7f9b" font-family="-apple-system,sans-serif" font-size="11.5" text-anchor="middle" x="170" y="102">方差不存在</text>
+<text fill="#d9b45f" font-family="-apple-system,sans-serif" font-size="11.5" text-anchor="middle" x="330" y="86">均值存在</text>
+<text fill="#d9b45f" font-family="-apple-system,sans-serif" font-size="11.5" text-anchor="middle" x="330" y="102">方差不存在</text>
+<text fill="#9fbc7a" font-family="-apple-system,sans-serif" font-size="11.5" text-anchor="middle" x="530" y="86">均值存在</text>
+<text fill="#9fbc7a" font-family="-apple-system,sans-serif" font-size="11.5" text-anchor="middle" x="530" y="102">方差存在</text>
+<line stroke="rgba(255,255,255,0.22)" stroke-width="1.5" x1="90" x2="650" y1="112" y2="112"></line>
+<line stroke="rgba(255,255,255,0.35)" stroke-width="1.5" x1="250" x2="250" y1="60" y2="118"></line>
+<line stroke="rgba(255,255,255,0.35)" stroke-width="1.5" x1="410" x2="410" y1="60" y2="118"></line>
+<text fill="#57524b" font-family="-apple-system,sans-serif" font-size="11.5" text-anchor="middle" x="600" y="132">尾指数 β →</text>
+<line stroke="#e0895e" stroke-width="1.4" x1="197" x2="197" y1="112" y2="132"></line>
+<circle cx="197" cy="112" fill="#e0895e" r="4"></circle>
+<text fill="#e0895e" font-family="-apple-system,sans-serif" font-size="11" text-anchor="middle" x="170" y="146">地震能量 ≈ 0.67</text>
+<line stroke="#63b3a6" stroke-width="1.4" x1="250" x2="250" y1="112" y2="156"></line>
+<circle cx="250" cy="112" fill="#63b3a6" r="4"></circle>
+<text fill="#63b3a6" font-family="-apple-system,sans-serif" font-size="11" text-anchor="middle" x="250" y="170">词频 / 城市人口 ≈ 1</text>
+<line stroke="#d9b45f" stroke-width="1.4" x1="276" x2="400" y1="112" y2="180"></line>
+<circle cx="276" cy="112" fill="#d9b45f" r="4"></circle>
+<text fill="#d9b45f" font-family="-apple-system,sans-serif" font-size="11" x="408" y="184">财富（80/20 那个点）≈ 1.16</text>
+<text fill="#57524b" font-family="-apple-system,sans-serif" font-size="11" text-anchor="middle" x="360" y="212">正态分布的身高在这条轴上没有位置 — 它的尾巴衰减得比任何幂律都快</text>
+</svg>
+<figcaption>β 落在哪一段，决定了你手上的哪些统计习惯还能用。这不是精度问题，是存在性问题。</figcaption>
+</figure>
+<p><b>β 大于 1，平均值才存在；β 大于 2，方差（也就是"波动幅度"这个概念）才存在。</b>不存在的意思不是"很大"，是这个积分发散、这个数字没有极限值可言——你算出来的样本均值只是一个随样本量乱走的随机数，它不在收敛到任何东西。</p>
+<p class="dim">（这里有个约定上的坑：不少论文写的是概率密度的指数 α，两者的关系是 α = β + 1，于是同一件事在那边写成"α &gt; 2 才有均值、α &gt; 3 才有方差"。读到具体数字先确认对方用的是哪一套，否则会差整整 1。）</p>
+<p>这不是数学家的玩具。地震就活在最左边那一格：<b>古登堡-里希特定律</b>（Gutenberg-Richter law）说震级每升 1 级、次数降到约十分之一，换算成地震释放的能量之后，尾指数大约是 2/3——<em>小于 1</em>。也就是说，"一次地震平均释放多少能量"这个问题，在这个模型里没有答案。现实中之所以还能算出个数，是因为地球尺寸有限、断层长度有上限，把那条尾巴硬生生截断了。<b>你算出来的那个平均值，其实是被截断位置决定的，不是被物理决定的。</b></p>
+<div class="decide">
+<span class="lb">🎯 决策线</span>
+<p>给任何一个你要拿来做决策的均值做一次<b>跑动均值检验</b>：按时间顺序把样本一个一个加进去，每加一个重算一次平均，把这条曲线画出来。曲线躺平了，均值可以用；曲线还在跳台阶，就说明<b>你的均值目前由最大的那几个样本决定</b>——这时候别报均值，报中位数和分位数。这个检验十行代码，比任何统计检验都先做。</p>
+</div>
+<div class="crossx-inline">
+🌀 <b>生物与医学 · 一个 R₀ 背后可以是两种完全不同的疫情</b>　流行病学用<b>基本再生数</b>（basic reproduction number，记作 R₀）描述"一个病人平均传染几个人"。但新冠传播的实测显示，个体之间的传播数极度不均：Endo 等人 2020 年估计其离散度参数 k 约为 0.1，对应大约<b>一成的感染者造成了八成的传播</b>。同样是 R₀ = 2，可以是"人人传两个"，也可以是"九成人传零个、少数人传几十个"。两者的平均值一模一样，该采取的动作却完全相反：前者要普遍降低接触，后者要盯住聚集场所和回溯性密接追踪。<b>均值相同而分布不同的两个世界，需要不同的干预。</b>
+</div>
+<p class="en-brief"><b>EN</b> Run a hundred thousand draws and recompute the running mean each step. The normal sample flattens within a few hundred draws; the power-law sample sits near 0.7 for twenty thousand draws, is lifted to 2.9× by a single draw, and is still at 1.3 after a hundred thousand. For tail index β, the mean exists only if β &gt; 1 and the variance only if β &gt; 2 (α = β + 1 in the density convention). Earthquake energy sits near β ≈ 2/3 — its mean is finite only because the Earth is finite.</p>
+<h2><span class="n">03</span>「无标度」到底在说什么<span class="he">（What Scale-Free Actually Means）</span></h2>
+<p class="lead">"无标度"（scale-free）这个词经常被当形容词用，好像它只是"很大很不均匀"的文艺说法。它其实是一句非常具体、可以拿去验证的话。</p>
+<p>先看它的反面。假设成年男性身高服从平均 1.75 米、标准差 7 厘米的钟形分布，那么：超过 1.80 米的人占 24%，超过 1.90 米的占 1.6%，超过 2.00 米的占 0.018%，超过 2.10 米的占 0.0000287%。<b>每往上加 10 厘米，人数分别掉到原来的 1/15、1/90、1/619。</b>掉的倍数本身在飞快变大——越往上越难，而且难度加速。</p>
+<p>幂律里完全不是这样。<b>规模翻一倍的概率，与你现在在哪儿无关。</b>不管一本书已经卖了一万册还是一百万册，它"再翻一倍"的概率是同一个数：2<sup>−β</sup>。β = 1.16 时就是 45%，永远是 45%。</p>
+<figure>
+<svg aria-label="条件生存概率对比：正态每加10厘米衰减倍数飞涨，幂律每翻倍衰减倍数恒定" role="img" viewBox="0 0 720 286" xmlns="http://www.w3.org/2000/svg">
+<defs>
+<marker id="a19c" markerHeight="9" markerUnits="userSpaceOnUse" markerWidth="9" orient="auto" refX="8.5" refY="5" viewBox="0 0 10 10">
+<path d="M0,1 L9,5 L0,9 z" fill="#79a6d2"></path>
+</marker>
+<marker id="a19d" markerHeight="9" markerUnits="userSpaceOnUse" markerWidth="9" orient="auto" refX="8.5" refY="5" viewBox="0 0 10 10">
+<path d="M0,1 L9,5 L0,9 z" fill="#e0895e"></path>
+</marker>
+</defs>
+<text fill="#aba498" font-family="-apple-system,sans-serif" font-size="13" text-anchor="middle" x="360" y="26">"再上一个台阶"的概率，掉得有多快</text>
+<text fill="#79a6d2" font-family="SF Mono,monospace" font-size="12.5" text-anchor="middle" x="185" y="54">正态 · 身高每加 10 厘米</text>
+<text fill="#e0895e" font-family="SF Mono,monospace" font-size="12.5" text-anchor="middle" x="535" y="54">幂律 · 规模每翻一倍</text>
+<rect fill="rgba(121,166,210,0.10)" height="26" rx="5" stroke="rgba(121,166,210,0.35)" width="150" x="76" y="74"></rect>
+<text fill="#c9d8e8" font-family="SF Mono,monospace" font-size="12" x="86" y="92">&gt; 1.80 m　24%</text>
+<rect fill="rgba(121,166,210,0.10)" height="26" rx="5" stroke="rgba(121,166,210,0.35)" width="150" x="76" y="130"></rect>
+<text fill="#c9d8e8" font-family="SF Mono,monospace" font-size="12" x="86" y="148">&gt; 1.90 m　1.6%</text>
+<rect fill="rgba(121,166,210,0.10)" height="26" rx="5" stroke="rgba(121,166,210,0.35)" width="150" x="76" y="186"></rect>
+<text fill="#c9d8e8" font-family="SF Mono,monospace" font-size="12" x="86" y="204">&gt; 2.00 m　0.018%</text>
+<rect fill="rgba(121,166,210,0.10)" height="26" rx="5" stroke="rgba(121,166,210,0.35)" width="150" x="76" y="242"></rect>
+<text fill="#c9d8e8" font-family="SF Mono,monospace" font-size="12" x="86" y="260">&gt; 2.10 m　0.00003%</text>
+<line marker-end="url(#a19c)" stroke="#79a6d2" stroke-width="1.8" x1="140" x2="140" y1="100" y2="126"></line>
+<line marker-end="url(#a19c)" stroke="#79a6d2" stroke-width="1.8" x1="140" x2="140" y1="156" y2="182"></line>
+<line marker-end="url(#a19c)" stroke="#79a6d2" stroke-width="1.8" x1="140" x2="140" y1="212" y2="238"></line>
+<text fill="#79a6d2" font-family="SF Mono,monospace" font-size="12.5" x="238" y="118">÷ 15</text>
+<text fill="#79a6d2" font-family="SF Mono,monospace" font-size="12.5" x="238" y="174">÷ 90</text>
+<text fill="#79a6d2" font-family="SF Mono,monospace" font-size="12.5" x="238" y="230">÷ 619</text>
+<text fill="#5c7f9e" font-family="-apple-system,sans-serif" font-size="11" x="290" y="140">衰减倍数</text>
+<text fill="#5c7f9e" font-family="-apple-system,sans-serif" font-size="11" x="290" y="156">自己在加速</text>
+<rect fill="rgba(224,137,94,0.10)" height="26" rx="5" stroke="rgba(224,137,94,0.35)" width="150" x="430" y="74"></rect>
+<text fill="#f0d0bc" font-family="SF Mono,monospace" font-size="12" x="440" y="92">&gt; 1 万册　100%</text>
+<rect fill="rgba(224,137,94,0.10)" height="26" rx="5" stroke="rgba(224,137,94,0.35)" width="150" x="430" y="130"></rect>
+<text fill="#f0d0bc" font-family="SF Mono,monospace" font-size="12" x="440" y="148">&gt; 2 万册　45%</text>
+<rect fill="rgba(224,137,94,0.10)" height="26" rx="5" stroke="rgba(224,137,94,0.35)" width="150" x="430" y="186"></rect>
+<text fill="#f0d0bc" font-family="SF Mono,monospace" font-size="12" x="440" y="204">&gt; 4 万册　20%</text>
+<rect fill="rgba(224,137,94,0.10)" height="26" rx="5" stroke="rgba(224,137,94,0.35)" width="150" x="430" y="242"></rect>
+<text fill="#f0d0bc" font-family="SF Mono,monospace" font-size="12" x="440" y="260">&gt; 8 万册　9%</text>
+<line marker-end="url(#a19d)" stroke="#e0895e" stroke-width="1.8" x1="494" x2="494" y1="100" y2="126"></line>
+<line marker-end="url(#a19d)" stroke="#e0895e" stroke-width="1.8" x1="494" x2="494" y1="156" y2="182"></line>
+<line marker-end="url(#a19d)" stroke="#e0895e" stroke-width="1.8" x1="494" x2="494" y1="212" y2="238"></line>
+<text fill="#e0895e" font-family="SF Mono,monospace" font-size="12.5" x="592" y="118">÷ 2.2</text>
+<text fill="#e0895e" font-family="SF Mono,monospace" font-size="12.5" x="592" y="174">÷ 2.2</text>
+<text fill="#e0895e" font-family="SF Mono,monospace" font-size="12.5" x="592" y="230">÷ 2.2</text>
+<text fill="#c0703f" font-family="-apple-system,sans-serif" font-size="11" x="596" y="140">恒定</text>
+<text fill="#c0703f" font-family="-apple-system,sans-serif" font-size="11" x="596" y="156">这就是"无标度"</text>
+</svg>
+<figcaption>右边这一列的三个 ÷2.2 完全相同——这不是巧合，这就是「无标度」四个字的字面意思：换个尺度看，规律长得一模一样。</figcaption>
+</figure>
+<p>"无标度"就是这个意思：<b>这条分布上没有任何一个位置是特殊的。</b>没有"正常范围"，没有"超出正常范围"，也就没有一个能拿来当基准的典型尺度。你把横轴的单位从"册"换成"万册"，图形一模一样。</p>
+<p>这条性质有个直接的、很反直觉的后果。在幂律里，<b>已经很大，是"还会更大"的证据</b>。具体地说，如果你知道某个量已经超过了 x，那它最终值的期望是 x 乘以 β/(β−1) 这个固定倍数——<em>期望值正比于当前值</em>。β = 1.16 时这个倍数是 7.25：一本已经卖到 10 万册的书，期望最终销量是 72 万册；卖到 100 万册的，期望是 725 万册。它永远不"到头"。</p>
+<p>正态分布是反过来的。已知一个人超过 1.90 米，他的期望身高是 1.925 米；已知超过 2.00 米，期望是 2.017 米。<b>条件期望死死贴着阈值</b>——阈值再往上抬，期望几乎跟着不动。这才是<b>均值回归</b>（regression to the mean）成立的地方：分布有中心，偏离中心的观测下一次多半更靠近中心。</p>
+<p>所以"涨了这么多了，该回调了"这句话不是一句普遍的智慧，它是一句<b>有前提的</b>话，前提就是这个量有中心。对无标度的量，它不但不成立，方向还正好相反。</p>
+<div class="decide">
+<span class="lb">🎯 决策线</span>
+<p>先判断量的类型，再决定用哪套直觉：<b>薄尾的量（身高、反应时间、日通勤时长）用均值回归——极端值之后预期回落；重尾的量（销量、传播量、事故损失、单客收入）反过来——已达规模是继续增长的最好预测器。</b>具体动作：在你的复盘模板里，把"这次是不是异常值，要不要剔除"这个问句换成"这个量属于哪一类"。前一个问句在重尾的量上必然把最有信息的数据扔掉。</p>
+</div>
+<div class="crossx-inline">
+🌀 <b>工程与技术史 · 该迁走哪个进程</b>　1997 年 Harchol-Balter 与 Downey 测了 UNIX 系统上进程存活时间的分布，发现它是重尾的。这直接推翻了当时的调度直觉："这个进程已经跑很久了，快结束了吧"——在重尾分布下正相反，<b>跑得越久的进程，剩余期望寿命越长</b>。于是他们给出的负载均衡策略是把<b>已经活得最久</b>的进程迁到空闲机器上：只有它们大概率还会活足够久，来摊薄迁移本身的开销。同一条条件期望性质，在这里变成了一行可执行的调度规则。
+</div>
+<p class="en-brief"><b>EN</b> Scale-free is a testable statement, not an adjective. Under a normal height distribution the odds of clearing each extra 10 cm fall by 15×, then 90×, then 619×. Under a power law the odds of doubling are constant at 2 to the minus β. Consequently the conditional expectation is proportional to the current value — already large is evidence of larger still — which is the exact reverse of regression to the mean.</p>
+<h2><span class="n">04</span>这套说法在哪儿不成立<span class="he">（Where This Breaks Down）</span></h2>
+<p class="lead">幂律是复杂性科学里最容易被滥用的一件工具，原因很简单：它长得像一条直线，而直线让人放松警惕。用之前，四条边界。</p>
+<p><b>第一，"看起来像直线"不是证据。</b>双对数坐标是一种极其宽容的画法：它把纵轴压缩了几个数量级，于是人眼对弯曲的敏感度大幅下降。<b>对数正态分布</b>（log-normal distribution，很多小因素相乘出来的结果）画在同一张纸上，在两三个数量级的范围内和幂律几乎分不开。2009 年 Clauset、Shalizi 与 Newman 用一套统一的统计流程重新检验了一批被广泛引用为幂律的数据集，其中一部分明确通不过；而通过的里面，也有不少无法与对数正态区分开。<a class="reflink" href="ref-power-law.html">→ 参考 · 幂律的识别与误判</a></p>
+<p><b>第二，现实里的尾巴总是被截断的。</b>没有哪本书能卖给比地球人口更多的人，没有哪次地震能大过地壳。所以严格意义的"均值不存在"在真实数据里永远不会以"无穷大"的形式出现，它出现的形式就是第 02 节那条曲线：<b>算得出来，但不收敛，而且它的值实际上由截断位置决定。</b>这不是把结论削弱了，是把它变得可操作——你要报告均值，就得同时说清楚你的观测窗口有多长、最大观测值是多少。</p>
+<p><b>第三，也是最要紧的：同一条直线可以由完全不同的机制产出。</b></p>
+<figure>
+<svg aria-label="三种不同机制都产出同一条双对数直线，因此从直线反推机制无效" role="img" viewBox="0 0 720 258" xmlns="http://www.w3.org/2000/svg">
+<defs>
+<marker id="a19e" markerHeight="10" markerUnits="userSpaceOnUse" markerWidth="10" orient="auto" refX="9" refY="5" viewBox="0 0 10 10">
+<path d="M0,1 L9,5 L0,9 z" fill="#9fbc7a"></path>
+</marker>
+<marker id="a19f" markerHeight="11" markerUnits="userSpaceOnUse" markerWidth="11" orient="auto" refX="9" refY="5" viewBox="0 0 10 10">
+<path d="M0,1 L9,5 L0,9 z" fill="#cd7f9b"></path>
+</marker>
+</defs>
+<text fill="#aba498" font-family="-apple-system,sans-serif" font-size="13" text-anchor="middle" x="360" y="24">多对一：好几种机制吐出同一条直线</text>
+<rect fill="rgba(159,188,122,0.08)" height="34" rx="6" stroke="rgba(159,188,122,0.32)" width="196" x="42" y="52"></rect>
+<text fill="#d5cdc1" font-family="-apple-system,sans-serif" font-size="12" x="56" y="74">优先连接（富者愈富）</text>
+<rect fill="rgba(159,188,122,0.08)" height="34" rx="6" stroke="rgba(159,188,122,0.32)" width="196" x="42" y="106"></rect>
+<text fill="#d5cdc1" font-family="-apple-system,sans-serif" font-size="12" x="56" y="128">随机比例增长 + 一个下界</text>
+<rect fill="rgba(159,188,122,0.08)" height="34" rx="6" stroke="rgba(159,188,122,0.32)" width="196" x="42" y="160"></rect>
+<text fill="#d5cdc1" font-family="-apple-system,sans-serif" font-size="12" x="56" y="182">临界点上的连通簇</text>
+<line marker-end="url(#a19e)" stroke="#9fbc7a" stroke-width="1.8" x1="244" x2="330" y1="69" y2="112"></line>
+<line marker-end="url(#a19e)" stroke="#9fbc7a" stroke-width="1.8" x1="244" x2="330" y1="123" y2="123"></line>
+<line marker-end="url(#a19e)" stroke="#9fbc7a" stroke-width="1.8" x1="244" x2="330" y1="177" y2="134"></line>
+<rect fill="rgba(255,255,255,0.02)" height="130" rx="8" stroke="rgba(255,255,255,0.10)" width="180" x="344" y="58"></rect>
+<line stroke="rgba(255,255,255,0.20)" stroke-width="1.3" x1="368" x2="504" y1="168" y2="168"></line>
+<line stroke="rgba(255,255,255,0.20)" stroke-width="1.3" x1="368" x2="368" y1="168" y2="76"></line>
+<line stroke="#e0895e" stroke-width="2.4" x1="376" x2="498" y1="84" y2="162"></line>
+<text fill="#787268" font-family="-apple-system,sans-serif" font-size="10.5" text-anchor="middle" x="434" y="184">双对数坐标下的同一条直线</text>
+<line marker-end="url(#a19f)" stroke="#cd7f9b" stroke-dasharray="6 4" stroke-width="2" x1="530" x2="626" y1="123" y2="123"></line>
+<text fill="#cd7f9b" font-family="-apple-system,sans-serif" font-size="12.5" text-anchor="middle" x="640" y="100">反推</text>
+<text fill="#cd7f9b" font-family="-apple-system,sans-serif" font-size="12.5" text-anchor="middle" x="640" y="118">回去</text>
+<text fill="#cd7f9b" font-family="SF Mono,monospace" font-size="20" text-anchor="middle" x="640" y="146">✗</text>
+<text fill="#57524b" font-family="-apple-system,sans-serif" font-size="11" text-anchor="middle" x="360" y="222">观察到直线 → 说明"某类机制在跑"，这一步成立</text>
+<text fill="#cd7f9b" font-family="-apple-system,sans-serif" font-size="11" text-anchor="middle" x="360" y="240">观察到直线 → 说明"是这一条机制在跑"，这一步不成立</text>
+</svg>
+<figcaption>富者愈富、随机比例增长、临界连通——三种毫无关系的过程都能给出幂律。所以直线不能当作某一条具体机制的证据。</figcaption>
+</figure>
+<p>这一点直接限制了上一期的结论能走多远。看到一条幂律，你可以说"这个系统里存在某种能跨尺度传递的放大机制"，这是成立的。但你不能从这条直线推出"所以这个系统处于自组织临界状态"——因为随机比例增长、优先连接、极值叠加都能产出同样的直线，而它们和临界毫无关系。从形状反推机制，是在做一个<b>多对一映射的逆运算</b>，逆运算不唯一。</p>
+<p><b>第四，重尾不等于幂律。</b>本期用"重尾"泛指"极端事件的概率衰减得比指数还慢"这一大类，幂律只是其中最干净的一种。对数正态、拉伸指数也在这个大类里，但它们的所有阶矩都存在。所以第 02 节那些关于"均值不存在"的结论只对幂律那一支成立，不能整包搬到"重尾"上去用。<b>说一个量重尾，和说它服从幂律，是两个强度差很多的主张。</b></p>
+<div class="decide">
+<span class="lb">🎯 决策线</span>
+<p>别把"符合幂律"当成机制的证据。如果你想主张某个具体机制（富者愈富、自组织临界、传染）在起作用，就必须给出这个机制的<b>另一个</b>可检验后果——比如它预言的时间顺序、它预言的干预效果、它预言的某个别的量的形状。只有分布形状这一条证据时，正确的说法是"存在跨尺度的放大"，说到这里就停。</p>
+</div>
+<div class="crossx-inline">
+🌀 <b>文学与艺术 · 文体计量学的归属判定</b>　用词频统计判断一部作品到底是谁写的（stylometry），这门手艺的成立靠的恰恰是"共性不携带信息"这条：所有自然语言文本的词频都服从大致相同的幂律，所以<b>"符合齐夫定律"对判定作者毫无用处，能用的只有偏离共性的那部分残差</b>——功能词的使用比例、罕见搭配的偏好。这与本节的多对一映射同构：共有的形状是所有生成过程的公约数，因此它恰好是最不能用来区分它们的东西。凡是把"符合某条普适规律"当作鉴定证据的做法，都在拿公约数当指纹。
+</div>
+<p class="en-brief"><b>EN</b> Four limits. Log-log axes flatter curvature, and a log-normal is hard to separate from a power law over two or three decades. Real tails are always truncated, so a divergent mean shows up as a non-converging estimate whose value is set by the observation window. Preferential attachment, random proportional growth and critical connectivity all emit the same straight line, so the shape cannot identify the mechanism. And heavy-tailed is a much weaker claim than power law.</p>
+<div class="bigcat">
+<h3>🎒 场景 · BigCat</h3>
+<ol>
+<li><span class="dm">工程与系统设计</span>接口延迟报表上写着"平均响应 180 毫秒"，这个数几乎只反映了最慢的那千分之几个请求，涨跌都读不出原因。改成三个数一起看：<b>中位数、P99（99% 的请求都比它快的那个耗时）、以及最慢的 0.1% 贡献了总等待时间的百分之几</b>。更值钱的是把第 03 节那条性质用起来：既然已经等了很久的请求剩余期望更长，那么<b>"等到超时就重发一个新请求"在重尾延迟下是有效手段，而不是浪费</b>——重发的那一个是从分布里重新抽样，期望比继续等下去更短。具体动作：给读请求配上超时重试（对幂等的操作），超时阈值设在 P99 附近而不是平均值的几倍。</li>
+<li><span class="dm">健康与精力</span>用"这周平均睡了 7 小时"给自己发合格证，是本期第 01 节那个错误的私人版本：把两天 4 小时和五天 8 小时抹成一个数，而身体的账不是这么记的。恢复能力是被<b>最差的那几天</b>支配的。改看三个计数：本月低于 5 小时的天数、连续两天低于 5 小时出现过几次、最长的一次连续亏空有多少天。停掉的动作：用周平均给自己打分。</li>
+<li><span class="dm">育儿</span>"这周吵了三次"这种频次统计，在冲突这件事上几乎不携带信息——因为冲突的严重程度是重尾的，一次真正的决裂对关系的影响超过几十次拌嘴的总和。可改的是记录口径：不记次数，记<b>最严重的那一次有多严重、以及事后多久恢复到能正常说话</b>。恢复时间在变长，是比次数变多严重得多的信号；次数变少而恢复变慢，往往意味着冲突被压住了而不是解决了。</li>
+</ol>
+</div>
+<div class="crossx">
+<h3>🌀 越界 · 跨学科的联想<span class="he">（Crossings）</span></h3>
+<ul>
+<li><b>语言学 · 齐夫定律与打字的猴子</b>：把任何一种语言的词按使用频率排名，第 n 名的频率大致正比于 1/n——这就是<b>齐夫定律</b>（Zipf's law），几十种语言都成立。Zipf 本人把它解释成"省力原则"，说话人和听话人在拉锯。但本期的三条机制合起来给出了一个更冷静的读法：无标度（换个尺度形状不变）意味着<em>不存在"典型词频"</em>，所以任何按平均词频设阈值来筛词表的做法都必然失败；尾指数 ≈ 1 意味着<em>正好落在均值存在的边界上</em>，于是文本越长、词表越大，永远有没见过的新词进来，覆盖率不收敛——这是每一个分词器、输入法、检索系统都要面对的现实；而多对一映射意味着<em>齐夫定律本身不能当作任何语言学理论的证据</em>。<b>但这里不成立</b>：Miller 在 1957 年指出，让猴子在打字机上随机敲、偶尔敲到空格，产生的"词"照样服从齐夫定律——所以这条定律的解释力被高估了。不过这个反驳后来也被反驳了一半：Ferrer-i-Cancho 与 Elvevåg 2010 年在《PLOS ONE》上给出的数据显示，随机文本给出的排名分布在细节上与真实语言并不一致。<b>能借走的结论是"别拿符合齐夫定律当证据"，不是"齐夫定律没内容"。</b></li>
+<li><b>西方哲学与科学哲学 · 归纳问题的一个可以算出来的版本</b>：休谟问的是我们凭什么相信"至今如此"能推出"以后也如此"，这在哲学里是一个原则性的怀疑，你没法拿它去做工程。重尾世界把这个怀疑变成了一个能算的东西：抽 n 个样本，最大值的期望大致按 n 的 1/β 次方增长——<b>"史上最大"是样本量的函数，不是系统的属性。</b>于是"防洪堤按百年一遇设计""压测按历史峰值的两倍"这类做法，其低估幅度是可以估出来的：你观测了一百年，你的"史上最大"就只是一百年这个数字的产物，把观测拉长到一千年，它会按上面那个指数继续长。<b>但这里不成立</b>：休谟的怀疑是普遍的，重尾只给出了一类特定的失败模式；在薄尾的世界里归纳工作得相当好——测一万个人的身高，你对"人类最高能到多少"的估计不会随样本量继续漂。所以这不是对休谟的支持，而是对他的<em>限缩</em>：归纳在哪儿靠不住，是可以按分布形状分类的，不必一概而论。</li>
+<li><b>经济与医学 · 按人头付费为什么会惩罚接重症的医院</b>：美国医疗支出面板调查（Medical Expenditure Panel Survey）2022 年的数据显示，支出最高的 1% 人群占了全部医疗支出的 21.7%，最高的 5% 占了 49.7%，而支出最低的一半人加起来不到 3%。本期几条机制在这里同时成立：均值被尾部主导（"人均医疗费用"不描述任何一个具体的人）、方差极大（同样服务一千人，两家机构的实际支出可以差出数倍，纯属抽样）、已达规模预测继续（重症患者的后续费用期望远高于当前值）。合起来推出一个制度设计上的结论：<b>任何按人头包干的付费方式，都在把一个高方差的抽签结果当成经营能力来考核</b>——接了几个重症的机构会亏，而它并没有做错任何事。这正是风险调整和再保险机制存在的理由，它们不是补贴，是在修一个统计上的错配。<b>但这里不成立</b>：医疗费用有硬上界（人会死、床位有限），而且多项研究显示它更接近对数正态而不是幂律，所以第 02 节"均值不存在"那一条在这儿并不成立——能借走的只有"方差主导决策"这半边，借走另一半就成了危言耸听。</li>
+</ul>
+</div>
+<div class="thinking">
+<h3>深入思考<span class="he">（Going Deeper）</span></h3>
+<details><summary>如果均值不可靠，为什么不干脆全都改用中位数？</summary><p>因为很多问题问的本来就是总量，而总量必然由尾部决定。保险公司要赔的是全部赔付之和，不是典型赔付；服务器要扛的是全部请求的总耗时。中位数在这些问题上是安全的废话——它稳定，但它回答的不是你的问题。正确的做法不是换一个数，是换成一组数：中位数说典型情况，分位数说尾部形状，最大观测值说你的观测窗口有多长。</p></details>
+<details><summary>「已经很大所以会更大」和「均值回归」，怎么判断眼前这件事该用哪一条？</summary><p>看这个量有没有一个内生的上限机制。人的身高受骨骼和代谢限制，考试成绩有满分，这些量有中心，均值回归成立。销量、传播量、财富没有这种机制，反而有正反馈（卖得好→被看见→卖得更好），所以尾巴撑得开。一个粗糙但好用的判据：这个量能不能翻十倍而不撞到任何物理或制度的墙？能，就别用均值回归。</p></details>
+<details><summary>知道了尾巴很沉，除了「别用均值」还能做什么积极的事？</summary><p>能做的事其实比薄尾世界多。既然结果由少数几次决定，那么增加尝试次数、保证尝试之间足够不同、以及让每次尝试的下行有界，就成了比"提高单次成功率"更有效的策略。这也解释了为什么风险投资、药物筛选、内容创作都长成组合的样子——它们不是在赌运气，是在配合分布的形状做设计。</p></details>
+<details><summary>一个量的尾指数会随时间变化吗？</summary><p>会，而且这往往比指数本身更值得盯。金融市场在平静期和危机期的尾部形状不一样，社交网络在推荐算法改版前后的传播分布也不一样。麻烦在于估计尾指数需要大量的尾部样本，而尾部样本天然稀少——所以"尾指数在变化"这件事，通常要等它变完很久之后才测得出来。这是本期方法的一个真实软肋，别指望拿它做实时预警。</p></details>
+</div>
+<div class="refs">
+<h3>延伸阅读<span class="he">（Further Reading）</span></h3>
+<ul>
+<li>Clauset, Shalizi &amp; Newman, <a href="https://arxiv.org/abs/0706.1062">Power-law distributions in empirical data</a>（2009，检验方法与大量反例）</li>
+<li>Newman, <a href="https://arxiv.org/abs/cond-mat/0412004">Power laws, Pareto distributions and Zipf's law</a>（2005，最好的一篇综述入门）</li>
+<li><a href="https://en.wikipedia.org/wiki/Heavy-tailed_distribution">Heavy-tailed distribution</a>（重尾的严格定义与几个子类的关系）</li>
+<li>Piantadosi, <a href="https://link.springer.com/article/10.3758/s13423-014-0585-6">Zipf's word frequency law in natural language: A critical review</a>（2014，齐夫定律的证据到底有多强）</li>
+<li>Ferrer-i-Cancho &amp; Elvevåg, <a href="https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0009411">Random Texts Do Not Exhibit the Real Zipf's Law-Like Rank Distribution</a>（2010，对"打字的猴子"的反驳）</li>
+<li>Endo et al., <a href="https://wellcomeopenresearch.org/articles/5-67">Estimating the overdispersion in COVID-19 transmission using outbreak sizes outside China</a>（2020，离散度参数 k ≈ 0.1）</li>
+<li>Harchol-Balter &amp; Downey, <a href="https://www.cs.cmu.edu/~harchol/Papers/TOCS.pdf">Exploiting Process Lifetime Distributions for Dynamic Load Balancing</a>（1997，重尾寿命与迁移策略）</li>
+<li><a href="https://meps.ahrq.gov/data_files/publications/st560/stat560.shtml">MEPS Statistical Brief · 美国医疗支出的集中度</a>（2022 年数据）</li>
+<li><a href="https://en.wikipedia.org/wiki/Gutenberg%E2%80%93Richter_law">古登堡-里希特定律</a>（震级-频率关系与能量换算）</li>
+</ul>
+</div>
+<footer>BigCat · 复杂性科学 · <a href="index.html">← 全部 Topic</a></footer>
+</div>
+<script defer="" src="https://hub.cissychen.com/comments.js"></script>
+<script defer="" src="https://hub.cissychen.com/search.js"></script>
+<script defer="" src="https://hub.cissychen.com/index-button.js"></script>
+<script defer="" src="https://hub.cissychen.com/i18n-tts.js"></script>
+</body></html>

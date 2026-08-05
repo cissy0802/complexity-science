@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+
+<html lang="zh-CN"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>幂律的识别与误判 · 参考库 · 复杂性科学</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,"SF Pro Display","Noto Sans SC",sans-serif;color:#e4ded5;line-height:1.85;min-height:100vh;
+  background:radial-gradient(1100px 620px at 12% -6%,rgba(99,179,166,0.09),transparent 62%),radial-gradient(950px 700px at 100% 2%,rgba(166,147,205,0.08),transparent 58%),linear-gradient(168deg,#100f0d 0%,#15161b 48%,#0a0a0c 100%);background-attachment:fixed}
+.wrap{max-width:720px;margin:0 auto;padding:30px 22px 90px}
+header{padding:52px 0 8px;border-bottom:1px solid rgba(255,255,255,0.07);margin-bottom:32px}
+.rtag{font-family:"SF Mono",Menlo,monospace;font-size:0.72rem;font-weight:700;letter-spacing:2px;color:#63b3a6;border:1px solid rgba(99,179,166,0.4);background:rgba(99,179,166,0.07);padding:3px 11px;border-radius:20px}
+h1{font-size:2.15rem;font-weight:800;line-height:1.2;margin:20px 0 0;color:#f0eae0}
+h1 .h1en{display:block;font-size:0.42em;font-weight:600;letter-spacing:2.5px;color:#847d72;margin-top:11px}
+.sub{font-size:0.98rem;color:#aba498;margin-top:12px}
+.meta{font-family:"SF Mono",Menlo,monospace;font-size:0.75rem;color:#57524b;margin-top:16px;letter-spacing:1px}
+h2{font-size:1.25rem;font-weight:700;color:#e9e3d9;margin:44px 0 10px}
+h2 .n{font-family:"SF Mono",Menlo,monospace;font-size:0.8rem;color:#63b3a6;display:block;margin-bottom:5px;letter-spacing:2px}
+.he{font-size:0.68em;color:#8d867b;font-weight:500;letter-spacing:0}
+p{margin-bottom:16px}
+b,strong{color:#f0eae0;font-weight:600}
+em{color:#d9b45f;font-style:normal;font-weight:500}
+.rule{border:1px solid rgba(99,179,166,0.3);background:rgba(99,179,166,0.05);border-radius:12px;padding:16px 20px;margin:22px 0;font-size:0.94rem;color:#d5cdc1}
+.rule ol{padding-left:20px;margin:0}
+.rule li{margin-bottom:7px}
+.rule li:last-child{margin-bottom:0}
+figure{margin:28px 0}
+figure svg{display:block;width:100%;height:auto;border-radius:12px;background:rgba(255,255,255,0.018);border:1px solid rgba(255,255,255,0.06)}
+figcaption{font-size:0.82rem;color:#787268;margin-top:10px;text-align:center;line-height:1.6}
+.cant{border:1px solid rgba(205,127,155,0.36);background:rgba(205,127,155,0.05);border-radius:12px;padding:18px 21px;margin:26px 0 10px}
+.cant h3{font-size:1rem;color:#cd7f9b;margin-bottom:12px}
+.cant ul{list-style:none;padding:0}
+.cant li{margin-bottom:13px;font-size:0.93rem;color:#d5cdc1;line-height:1.76}
+.cant li:last-child{margin-bottom:0}
+.cant li b{color:#cd7f9b}
+.refs{margin:40px 0 10px}
+.refs h3{font-size:1rem;color:#79a6d2;margin-bottom:12px}
+.refs ul{list-style:none;padding:0}
+.refs li{margin-bottom:9px;font-size:0.89rem;color:#8d867b;line-height:1.7}
+.refs a{color:#79a6d2;text-decoration:none;border-bottom:1px solid rgba(121,166,210,0.3)}
+.refs a:hover{color:#a6c4e2}
+footer{text-align:center;padding:52px 0 10px;font-size:0.78rem;color:#57524b;font-family:"SF Mono",Menlo,monospace;border-top:1px solid rgba(255,255,255,0.06);margin-top:46px}
+footer a{color:#79a6d2;text-decoration:none}
+@media(max-width:600px){h1{font-size:1.7rem}.wrap{padding:24px 16px 60px}}
+</style></head><body>
+<div class="wrap">
+<header>
+<span class="rtag">REF · 方法</span>
+<h1>幂律的识别与误判<span class="h1en">IDENTIFYING AND MISIDENTIFYING POWER LAWS</span></h1>
+<p class="sub">怎么判断一组数据真的服从幂律（power law）——以及为什么大多数时候它并不服从</p>
+<p class="meta">被引用于：Topic 19 幂律与重尾</p>
+</header>
+<h2><span class="n">01</span>它问的是什么问题<span class="he">（The Question It Poses）</span></h2>
+<p>过去三十年里，"这个量服从幂律"变成了一句被说得很轻的话。城市规模、论文引用数、网页链接、姓氏频率、战争死亡人数、蛋白质相互作用——都被这样宣布过。做法通常是：把数据画在双对数坐标（两个轴都是每格乘以 10）上，看着像直线，拟合一条线，报出斜率，完事。</p>
+<p>问题在于这个流程的每一步都有毛病，而且毛病都朝同一个方向偏：<b>它倾向于把不是幂律的东西判成幂律。</b>这一页要回答的就是：一个诚实的判断流程长什么样，以及为什么"看着像直线"这件事本身几乎不携带证据。</p>
+<h2><span class="n">02</span>规则本身<span class="he">（The Procedure）</span></h2>
+<p>Clauset、Shalizi 与 Newman 在 2009 年给出的流程是目前的标准做法，只有四步，每一步都在堵一个具体的漏洞：</p>
+<div class="rule">
+<ol>
+<li><b>先确定尾巴从哪儿开始。</b>幂律通常只在某个下界 x<sub>min</sub> 之上成立，小的那一头是别的东西。扫描所有可能的 x<sub>min</sub>，对每一个都做下面一步，挑出让数据与拟合分布最接近的那个。</li>
+<li><b>用极大似然估计指数，别用直线拟合。</b>在双对数图上做最小二乘回归是这一行最常见的错误——它假设各点的误差同等且独立，而累积分布的点天然是强相关的，得到的指数系统性偏低。</li>
+<li><b>做拟合优度检验。</b>用 Kolmogorov-Smirnov 统计量（衡量两条累积曲线的最大垂直距离）配合自助重采样，算出一个 p 值。<b>p 值太小就直接否掉幂律</b>，这一步才是大多数数据集倒下的地方。</li>
+<li><b>和别的重尾分布比一比。</b>幂律通过了检验，不代表它比对手更好。用似然比检验把它与对数正态（log-normal）、指数截断的幂律、拉伸指数逐个对照。结论有三种：幂律更好、对手更好、<em>数据量不足以区分</em>——第三种最常见，也最需要老老实实报出来。</li>
+</ol>
+</div>
+<p>把这四步跟"画个图、拉条线"对比一下就明白差别在哪：后者只做了"能不能拟合"，而前者问的是"拟合得够不够好"和"有没有更好的解释"。</p>
+<h2><span class="n">03</span>跑起来会看到什么<span class="he">（What You See When You Run It）</span></h2>
+<p>先看一个纯粹画法上的坑，它比统计问题更早出现，也更容易犯。下面两张图用的是<b>同一组数据</b>——一千个从真幂律里抽出来的数——只是画法不同。</p>
+<figure>
+<svg aria-label="同一组数据的两种画法：等宽直方图在尾部退化成噪声，累积分布保持一条干净的直线" role="img" viewBox="0 0 720 268" xmlns="http://www.w3.org/2000/svg">
+<text fill="#aba498" font-family="-apple-system,sans-serif" font-size="13" text-anchor="middle" x="360" y="24">同一组数据 · 两种画法</text>
+<text fill="#cd7f9b" font-family="SF Mono,monospace" font-size="12" text-anchor="middle" x="201" y="46">等宽直方图</text>
+<text fill="#63b3a6" font-family="SF Mono,monospace" font-size="12" text-anchor="middle" x="527" y="46">累积分布（超过 x 的比例）</text>
+<line stroke="rgba(255,255,255,0.18)" stroke-width="1.3" x1="72" x2="330" y1="214" y2="214"></line>
+<line stroke="rgba(255,255,255,0.18)" stroke-width="1.3" x1="72" x2="72" y1="214" y2="58"></line>
+<circle cx="87.1" cy="65.5" r="2.6" fill="#cd7f9b"></circle><circle cx="106.2" cy="89.8" r="2.6" fill="#cd7f9b"></circle><circle cx="118.8" cy="104.3" r="2.6" fill="#cd7f9b"></circle><circle cx="128.2" cy="113.4" r="2.6" fill="#cd7f9b"></circle><circle cx="135.7" cy="123.4" r="2.6" fill="#cd7f9b"></circle><circle cx="141.9" cy="127.0" r="2.6" fill="#cd7f9b"></circle><circle cx="147.3" cy="129.1" r="2.6" fill="#cd7f9b"></circle><circle cx="151.9" cy="142.0" r="2.6" fill="#cd7f9b"></circle><circle cx="156.1" cy="137.8" r="2.6" fill="#cd7f9b"></circle><circle cx="159.8" cy="144.7" r="2.6" fill="#cd7f9b"></circle><circle cx="163.2" cy="156.4" r="2.6" fill="#cd7f9b"></circle><circle cx="166.3" cy="156.4" r="2.6" fill="#cd7f9b"></circle><circle cx="171.9" cy="156.4" r="2.6" fill="#cd7f9b"></circle><circle cx="174.4" cy="175.0" r="2.6" fill="#cd7f9b"></circle><circle cx="176.7" cy="175.0" r="2.6" fill="#cd7f9b"></circle><circle cx="178.9" cy="163.3" r="2.6" fill="#cd7f9b"></circle><circle cx="181.0" cy="175.0" r="2.6" fill="#cd7f9b"></circle><circle cx="182.9" cy="175.0" r="2.6" fill="#cd7f9b"></circle><circle cx="186.6" cy="175.0" r="2.6" fill="#cd7f9b"></circle><circle cx="188.3" cy="163.3" r="2.6" fill="#cd7f9b"></circle><circle cx="191.5" cy="175.0" r="2.6" fill="#cd7f9b"></circle><circle cx="198.4" cy="175.0" r="2.6" fill="#cd7f9b"></circle><circle cx="203.2" cy="175.0" r="2.6" fill="#cd7f9b"></circle><circle cx="213.8" cy="175.0" r="2.6" fill="#cd7f9b"></circle><circle cx="217.0" cy="175.0" r="2.6" fill="#cd7f9b"></circle><circle cx="229.9" cy="175.0" r="2.6" fill="#cd7f9b"></circle><circle cx="245.3" cy="175.0" r="2.6" fill="#cd7f9b"></circle><circle cx="254.2" cy="175.0" r="2.6" fill="#cd7f9b"></circle><circle cx="264.4" cy="175.0" r="2.6" fill="#cd7f9b"></circle>
+<line stroke="rgba(255,255,255,0.18)" stroke-width="1.3" x1="398" x2="656" y1="214" y2="214"></line>
+<line stroke="rgba(255,255,255,0.18)" stroke-width="1.3" x1="398" x2="398" y1="214" y2="58"></line>
+<circle cx="398.0" cy="58.0" r="2.6" fill="#63b3a6"></circle><circle cx="398.4" cy="58.2" r="2.6" fill="#63b3a6"></circle><circle cx="398.6" cy="58.4" r="2.6" fill="#63b3a6"></circle><circle cx="398.9" cy="58.6" r="2.6" fill="#63b3a6"></circle><circle cx="399.1" cy="58.8" r="2.6" fill="#63b3a6"></circle><circle cx="399.5" cy="59.0" r="2.6" fill="#63b3a6"></circle><circle cx="399.7" cy="59.3" r="2.6" fill="#63b3a6"></circle><circle cx="400.0" cy="59.5" r="2.6" fill="#63b3a6"></circle><circle cx="400.2" cy="59.7" r="2.6" fill="#63b3a6"></circle><circle cx="400.7" cy="59.9" r="2.6" fill="#63b3a6"></circle><circle cx="400.9" cy="60.2" r="2.6" fill="#63b3a6"></circle><circle cx="401.4" cy="60.4" r="2.6" fill="#63b3a6"></circle><circle cx="402.1" cy="60.6" r="2.6" fill="#63b3a6"></circle><circle cx="402.6" cy="60.9" r="2.6" fill="#63b3a6"></circle><circle cx="402.8" cy="61.1" r="2.6" fill="#63b3a6"></circle><circle cx="403.1" cy="61.4" r="2.6" fill="#63b3a6"></circle><circle cx="403.6" cy="61.6" r="2.6" fill="#63b3a6"></circle><circle cx="404.1" cy="61.9" r="2.6" fill="#63b3a6"></circle><circle cx="404.4" cy="62.1" r="2.6" fill="#63b3a6"></circle><circle cx="404.8" cy="62.4" r="2.6" fill="#63b3a6"></circle><circle cx="405.2" cy="62.6" r="2.6" fill="#63b3a6"></circle><circle cx="405.6" cy="62.9" r="2.6" fill="#63b3a6"></circle><circle cx="405.9" cy="63.2" r="2.6" fill="#63b3a6"></circle><circle cx="406.4" cy="63.5" r="2.6" fill="#63b3a6"></circle><circle cx="406.8" cy="63.8" r="2.6" fill="#63b3a6"></circle><circle cx="407.2" cy="64.0" r="2.6" fill="#63b3a6"></circle><circle cx="407.6" cy="64.3" r="2.6" fill="#63b3a6"></circle><circle cx="408.1" cy="64.6" r="2.6" fill="#63b3a6"></circle><circle cx="408.7" cy="64.9" r="2.6" fill="#63b3a6"></circle><circle cx="409.0" cy="65.2" r="2.6" fill="#63b3a6"></circle><circle cx="409.7" cy="65.6" r="2.6" fill="#63b3a6"></circle><circle cx="410.0" cy="65.9" r="2.6" fill="#63b3a6"></circle><circle cx="410.4" cy="66.2" r="2.6" fill="#63b3a6"></circle><circle cx="410.9" cy="66.5" r="2.6" fill="#63b3a6"></circle><circle cx="411.5" cy="66.9" r="2.6" fill="#63b3a6"></circle><circle cx="411.8" cy="67.2" r="2.6" fill="#63b3a6"></circle><circle cx="412.6" cy="67.6" r="2.6" fill="#63b3a6"></circle><circle cx="413.2" cy="67.9" r="2.6" fill="#63b3a6"></circle><circle cx="413.7" cy="68.3" r="2.6" fill="#63b3a6"></circle><circle cx="414.4" cy="68.7" r="2.6" fill="#63b3a6"></circle><circle cx="415.3" cy="69.1" r="2.6" fill="#63b3a6"></circle><circle cx="415.9" cy="69.5" r="2.6" fill="#63b3a6"></circle><circle cx="416.3" cy="69.9" r="2.6" fill="#63b3a6"></circle><circle cx="416.8" cy="70.3" r="2.6" fill="#63b3a6"></circle><circle cx="417.5" cy="70.7" r="2.6" fill="#63b3a6"></circle><circle cx="418.3" cy="71.2" r="2.6" fill="#63b3a6"></circle><circle cx="419.1" cy="71.6" r="2.6" fill="#63b3a6"></circle><circle cx="419.6" cy="72.1" r="2.6" fill="#63b3a6"></circle><circle cx="420.6" cy="72.5" r="2.6" fill="#63b3a6"></circle><circle cx="421.4" cy="73.0" r="2.6" fill="#63b3a6"></circle><circle cx="421.9" cy="73.5" r="2.6" fill="#63b3a6"></circle><circle cx="422.4" cy="74.0" r="2.6" fill="#63b3a6"></circle><circle cx="422.8" cy="74.6" r="2.6" fill="#63b3a6"></circle><circle cx="423.6" cy="75.1" r="2.6" fill="#63b3a6"></circle><circle cx="424.3" cy="75.7" r="2.6" fill="#63b3a6"></circle><circle cx="425.5" cy="76.3" r="2.6" fill="#63b3a6"></circle><circle cx="426.8" cy="76.9" r="2.6" fill="#63b3a6"></circle><circle cx="427.8" cy="77.5" r="2.6" fill="#63b3a6"></circle><circle cx="428.5" cy="78.2" r="2.6" fill="#63b3a6"></circle><circle cx="429.1" cy="78.9" r="2.6" fill="#63b3a6"></circle><circle cx="430.1" cy="79.6" r="2.6" fill="#63b3a6"></circle><circle cx="431.2" cy="80.3" r="2.6" fill="#63b3a6"></circle><circle cx="432.9" cy="81.1" r="2.6" fill="#63b3a6"></circle><circle cx="433.8" cy="81.9" r="2.6" fill="#63b3a6"></circle><circle cx="435.2" cy="82.7" r="2.6" fill="#63b3a6"></circle><circle cx="436.9" cy="83.6" r="2.6" fill="#63b3a6"></circle><circle cx="438.5" cy="84.6" r="2.6" fill="#63b3a6"></circle><circle cx="441.0" cy="85.6" r="2.6" fill="#63b3a6"></circle><circle cx="443.1" cy="86.7" r="2.6" fill="#63b3a6"></circle><circle cx="444.9" cy="87.8" r="2.6" fill="#63b3a6"></circle><circle cx="446.4" cy="89.0" r="2.6" fill="#63b3a6"></circle><circle cx="448.1" cy="90.4" r="2.6" fill="#63b3a6"></circle><circle cx="451.2" cy="91.8" r="2.6" fill="#63b3a6"></circle><circle cx="453.4" cy="93.4" r="2.6" fill="#63b3a6"></circle><circle cx="456.1" cy="95.1" r="2.6" fill="#63b3a6"></circle><circle cx="458.6" cy="97.0" r="2.6" fill="#63b3a6"></circle><circle cx="462.9" cy="99.2" r="2.6" fill="#63b3a6"></circle><circle cx="467.0" cy="101.6" r="2.6" fill="#63b3a6"></circle><circle cx="470.8" cy="104.6" r="2.6" fill="#63b3a6"></circle><circle cx="473.6" cy="108.1" r="2.6" fill="#63b3a6"></circle><circle cx="480.7" cy="112.5" r="2.6" fill="#63b3a6"></circle><circle cx="487.5" cy="118.6" r="2.6" fill="#63b3a6"></circle><circle cx="505.7" cy="128.0" r="2.6" fill="#63b3a6"></circle><circle cx="555.7" cy="151.5" r="2.6" fill="#63b3a6"></circle><circle cx="590.5" cy="175.0" r="2.6" fill="#63b3a6"></circle>
+<text fill="#787268" font-family="SF Mono,monospace" font-size="10" text-anchor="middle" x="72" y="230">1</text>
+<text fill="#787268" font-family="SF Mono,monospace" font-size="10" text-anchor="middle" x="158" y="230">10</text>
+<text fill="#787268" font-family="SF Mono,monospace" font-size="10" text-anchor="middle" x="244" y="230">100</text>
+<text fill="#787268" font-family="SF Mono,monospace" font-size="10" text-anchor="middle" x="330" y="230">1000</text>
+<text fill="#787268" font-family="SF Mono,monospace" font-size="10" text-anchor="middle" x="398" y="230">1</text>
+<text fill="#787268" font-family="SF Mono,monospace" font-size="10" text-anchor="middle" x="484" y="230">10</text>
+<text fill="#787268" font-family="SF Mono,monospace" font-size="10" text-anchor="middle" x="570" y="230">100</text>
+<text fill="#787268" font-family="SF Mono,monospace" font-size="10" text-anchor="middle" x="656" y="230">1000</text>
+<text fill="#cd7f9b" font-family="-apple-system,sans-serif" font-size="10.5" text-anchor="middle" x="201" y="250">尾部一半的格子只有 1 个样本 — 全趴在同一条底线上</text>
+<text fill="#63b3a6" font-family="-apple-system,sans-serif" font-size="10.5" text-anchor="middle" x="527" y="250">同样的数据，尾部依然是干净的直线</text>
+<text fill="#57524b" font-family="-apple-system,sans-serif" font-size="10.5" text-anchor="middle" x="360" y="264">两图横轴都是"规模"，纵轴都是频率/比例，都用每格乘以 10 的刻度</text>
+</svg>
+<figcaption>左图那一排贴在底部的点不是数据在告诉你什么，是分格方式制造出来的噪声。在它上面拟合直线，斜率会被这排噪声拽偏。</figcaption>
+</figure>
+<p>左边是最常见的画法：把横轴切成等宽的格子数个数。尾部每个格子里往往只有 0 个或 1 个样本，于是所有非空格子都落在"1 个样本"那条底线上，画出来是一排毫无意义的水平点。<b>这排点在视觉上和在拟合中都占了很大权重，而它们携带的信息接近于零。</b></p>
+<p>右边画的是同一批数：横轴仍是规模 x，纵轴改成"有百分之多少的样本超过了 x"。这个量叫<b>互补累积分布函数</b>（complementary cumulative distribution function），业内缩写成 <b>CCDF</b>——下文这么用。CCDF 不需要分格，每个数据点都用上，尾部因此保持干净。<b>要画，就画 CCDF；等宽直方图在重尾数据上基本不可用。</b></p>
+<p>画法解决之后，统计问题才登场，而它更难对付。把 Clauset 那套流程跑在真实数据上，最常见的结局有两种：一种是拟合优度检验直接把幂律否掉；另一种是幂律活了下来，但对数正态活得一样好，似然比检验给出"分不清"。</p>
+<p>这不是数据不够努力。<b>幂律和对数正态在有限的数量级范围内本来就极其相似</b>——前者是"每翻一倍概率乘以固定系数"，后者是"取对数之后是钟形"，两者在两三个数量级内的差别小于典型的抽样噪声。想把它们分开，往往需要多出一到两个数量级的数据，而尾部的数据天生稀少。</p>
+<h2><span class="n">04</span>它解释了现实中的什么<span class="he">（What It Explains）</span></h2>
+<p>这套方法解释的不是自然现象，而是<b>一段学术史上的系统性偏差</b>：为什么在 2000 年前后，幂律看起来到处都是。</p>
+<p>三个原因叠在一起。画法上，等宽直方图和最小二乘拟合都倾向于给出"像幂律"的结果。检验上，当时几乎没人做拟合优度检验，"能拟合"被当成了"成立"。发表上，报告"我们发现了幂律"比报告"我们发现它其实是对数正态"更容易发出去。</p>
+<p>2009 年之后风向变了。这套流程被广泛采用之后，很多经典的幂律主张被重新审视，其中相当一部分没能通过；网络科学里"真实网络是无标度的"这个招牌主张，后来也遭遇了系统性的反驳。这段历史本身是个有用的样本：<b>一个足够好用的形状，可以在方法学补上之前，独自流行二十年。</b></p>
+<div class="cant">
+<h3>它不能解释什么<span class="he">（What It Cannot Explain）</span></h3>
+<ul>
+<li><b>不能告诉你机制是什么。</b>检验通过只说明"数据与幂律相容"。优先连接、随机比例增长、临界连通、极值叠加都能产出幂律，从形状反推机制是在解一个多对一映射的逆，答案不唯一。要主张机制，必须另找该机制的其它可检验后果。</li>
+<li><b>不能在样本量小的时候给出结论。</b>尾部样本本来就少，几十个点的数据集通常连"幂律还是对数正态"都分不开。这时唯一诚实的输出是"分不清"，而不是挑一个报上去。</li>
+<li><b>不能替你选 x<sub>min</sub> 之下的部分怎么办。</b>流程只处理尾巴。下界以下的那一大堆数据往往才是业务上的多数，它们的分布是另一个问题，这套方法对此完全沉默。</li>
+<li><b>不能保证指数稳定。</b>估出来的指数依赖于 x<sub>min</sub> 的选择，也依赖于观测窗口。报指数时不给出 x<sub>min</sub>、样本量和置信区间，这个数字没法被别人复核，也就没什么意义。</li>
+<li><b>不能处理有上界的量。</b>真实系统总有物理或制度的天花板。检验只能告诉你"在你观测到的范围内像幂律"，不能外推到观测范围之外——而外推恰恰是大多数人想拿它来做的事。</li>
+</ul>
+</div>
+<div class="refs">
+<h3>延伸阅读<span class="he">（Further Reading）</span></h3>
+<ul>
+<li>Clauset, Shalizi &amp; Newman, <a href="https://arxiv.org/abs/0706.1062">Power-law distributions in empirical data</a>（2009，本页流程的出处）</li>
+<li><a href="https://aaronclauset.github.io/powerlaws/">powerlaw 工具箱与数据集</a>（作者提供的现成实现，Python / R / Matlab）</li>
+<li>Newman, <a href="https://arxiv.org/abs/cond-mat/0412004">Power laws, Pareto distributions and Zipf's law</a>（2005，画法与生成机制的综述）</li>
+<li>Broido &amp; Clauset, <a href="https://www.nature.com/articles/s41467-019-08746-5">Scale-free networks are rare</a>（2019，对"真实网络无标度"的系统性反驳）</li>
+<li>Mitzenmacher, <a href="https://projecteuclid.org/journals/internet-mathematics/volume-1/issue-2/A-Brief-History-of-Generative-Models-for-Power-Law-and/im/1089229510.full">A Brief History of Generative Models for Power Law and Lognormal Distributions</a>（2004，两种分布为何总是难分难解）</li>
+</ul>
+</div>
+<footer>BigCat · 复杂性科学 · <a href="index.html">← 全部 Topic</a></footer>
+</div>
+<script defer="" src="https://hub.cissychen.com/comments.js"></script>
+<script defer="" src="https://hub.cissychen.com/search.js"></script>
+<script defer="" src="https://hub.cissychen.com/index-button.js"></script>
+<script defer="" src="https://hub.cissychen.com/i18n-tts.js"></script>
+</body></html>
