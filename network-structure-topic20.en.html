@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Structure Drives Dynamics — Draw the Graph Before You Blame the Person · Complexity Science T20</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,"SF Pro Display","Noto Sans SC",sans-serif;color:#e4ded5;line-height:1.85;min-height:100vh;
+  background:radial-gradient(1100px 620px at 12% -6%,rgba(224,137,94,0.10),transparent 62%),radial-gradient(950px 700px at 100% 2%,rgba(166,147,205,0.09),transparent 58%),linear-gradient(168deg,#100f0d 0%,#15161b 48%,#0a0a0c 100%);background-attachment:fixed}
+.wrap{max-width:760px;margin:0 auto;padding:30px 22px 90px}
+header{padding:52px 0 8px;border-bottom:1px solid rgba(255,255,255,0.07);margin-bottom:34px}
+.week-tag{font-family:"SF Mono",Menlo,monospace;font-size:0.72rem;font-weight:700;letter-spacing:2px;color:#63b3a6;border:1px solid rgba(99,179,166,0.4);background:rgba(99,179,166,0.07);padding:3px 11px;border-radius:20px}
+h1{font-size:2.5rem;font-weight:800;letter-spacing:0.5px;line-height:1.2;margin:20px 0 0;background:linear-gradient(106deg,#e0895e 0%,#d9b45f 34%,#9fbc7a 68%,#63b3a6 100%);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+.sub{font-size:1.05rem;color:#aba498;margin-top:14px;font-weight:500}
+.date{font-family:"SF Mono",Menlo,monospace;font-size:0.75rem;color:#57524b;margin-top:18px;letter-spacing:1px}
+.pitch{margin:22px 0 30px;font-size:0.97rem;color:#cd7f9b;border-left:2px solid rgba(205,127,155,0.5);padding-left:16px;font-style:italic}
+.intro{font-size:1.02rem;color:#cfc8bc;margin-bottom:14px}
+.intro p{margin-bottom:16px}
+h2{font-size:1.42rem;font-weight:700;color:#e9e3d9;margin:56px 0 8px;letter-spacing:0.3px}
+h2 .n{font-family:"SF Mono",Menlo,monospace;font-size:0.85rem;color:#63b3a6;display:block;margin-bottom:6px;letter-spacing:2px}
+p{margin-bottom:17px}
+.lead{color:#cfc8bc}
+b,strong{color:#f0eae0;font-weight:600}
+em{color:#d9b45f;font-style:normal;font-weight:500}
+.dim{color:#8d867b}
+a.reflink{display:inline-block;font-size:0.82rem;font-family:"SF Mono",Menlo,monospace;color:#63b3a6;border:1px solid rgba(99,179,166,0.38);background:rgba(99,179,166,0.07);padding:1px 9px;border-radius:20px;text-decoration:none;transition:all 0.15s;white-space:nowrap}
+a.reflink:hover{background:rgba(99,179,166,0.16);border-color:rgba(99,179,166,0.7)}
+figure{margin:30px 0}
+figure svg{display:block;width:100%;height:auto;border-radius:12px;background:rgba(255,255,255,0.018);border:1px solid rgba(255,255,255,0.06)}
+figcaption{font-size:0.82rem;color:#787268;margin-top:11px;text-align:center;line-height:1.6}
+.decide{margin:24px 0;border:1px solid rgba(224,137,94,0.36);background:rgba(224,137,94,0.055);border-radius:12px;padding:15px 19px}
+.decide .lb{font-family:"SF Mono",Menlo,monospace;font-size:0.73rem;letter-spacing:1.5px;color:#e0895e;font-weight:700;display:block;margin-bottom:7px}
+.decide p{margin:0;font-size:0.95rem;color:#ddd5c9}
+.crossx-inline{margin:20px 0 22px;border-left:2px solid rgba(205,127,155,0.55);padding:2px 0 2px 15px;font-size:0.89rem;color:#a9a096;line-height:1.72}
+.crossx-inline b{color:#cd7f9b;font-weight:600}
+.bigcat{margin:46px 0 10px;border:1px solid rgba(217,180,95,0.38);background:rgba(217,180,95,0.05);border-radius:14px;padding:20px 22px}
+.bigcat h3{font-size:1.02rem;color:#d9b45f;margin-bottom:14px;letter-spacing:0.5px}
+.bigcat ol{list-style:none;padding:0}
+.bigcat li{margin-bottom:15px;font-size:0.94rem;color:#d5cdc1;line-height:1.78}
+.bigcat li:last-child{margin-bottom:0}
+.bigcat .dm{font-family:"SF Mono",Menlo,monospace;font-size:0.73rem;color:#d9b45f;border:1px solid rgba(217,180,95,0.32);border-radius:4px;padding:1px 7px;margin-right:8px;white-space:nowrap}
+.crossx{margin:46px 0 10px;border:1px solid rgba(205,127,155,0.38);background:rgba(205,127,155,0.05);border-radius:14px;padding:20px 22px}
+.crossx h3{font-size:1.02rem;color:#cd7f9b;margin-bottom:14px;letter-spacing:0.5px}
+.crossx ul{list-style:none;padding:0}
+.crossx li{margin-bottom:16px;font-size:0.94rem;color:#d5cdc1;line-height:1.78}
+.crossx li:last-child{margin-bottom:0}
+.crossx li b{color:#cd7f9b;font-weight:600}
+.thinking{margin:46px 0 10px}
+.thinking h3{font-size:1.02rem;color:#a693cd;margin-bottom:14px;letter-spacing:0.5px}
+details{border:1px solid rgba(166,147,205,0.22);border-radius:10px;padding:12px 16px;margin-bottom:10px;background:rgba(166,147,205,0.035)}
+summary{cursor:pointer;font-size:0.93rem;color:#c9c2b6;font-weight:500}
+summary::marker{color:#a693cd}
+details p{margin:12px 0 0;font-size:0.9rem;color:#a9a096;line-height:1.75}
+.refs{margin:46px 0 10px}
+.refs h3{font-size:1.02rem;color:#79a6d2;margin-bottom:14px;letter-spacing:0.5px}
+.refs ul{list-style:none;padding:0}
+.refs li{margin-bottom:10px;font-size:0.9rem;color:#8d867b;line-height:1.7}
+.refs a{color:#79a6d2;text-decoration:none;border-bottom:1px solid rgba(121,166,210,0.3)}
+.refs a:hover{color:#a6c4e2;border-bottom-color:rgba(121,166,210,0.7)}
+footer{text-align:center;padding:56px 0 10px;font-size:0.78rem;color:#57524b;font-family:"SF Mono",Menlo,monospace;border-top:1px solid rgba(255,255,255,0.06);margin-top:50px}
+footer a{color:#79a6d2;text-decoration:none}
+@media(max-width:600px){h1{font-size:1.85rem}.wrap{padding:24px 16px 60px}h2{font-size:1.22rem}}
+</style></head><body>
+<div class="wrap">
+
+<header>
+  <span class="week-tag">TOPIC 20 · PHASE D</span>
+  <h1>Structure Drives Dynamics</h1>
+  <p class="sub">Draw the graph before you blame the person</p>
+  <p class="date">2026-08-06 · Networks</p>
+</header>
+
+<p class="pitch">The same internal announcement goes out at two companies. At one, everybody knows within two days. At the other, three weeks later some people still haven't heard. The people are comparable, the announcement is identical. The difference is who is wired to whom — and when we explain what happened, that is the one thing we almost never look at.</p>
+
+<div class="intro">
+<p>The next six issues are about networks. The word has been worn out, so let's push it back down to something plain: <b>a picture of who is connected to whom.</b> Dots and lines. Nothing else.</p>
+<p>What's counterintuitive is how much that absurdly impoverished picture can eat. Take two groups with identical abilities, identical motives, identical rules, change only the wiring, and watch an outcome flip. <b>Wiring is a variable you can measure on its own, separately from content.</b> This issue does one thing: measure it.</p>
+<p class="dim">There is history in that step. In 1736 Euler settled the Seven Bridges of Königsberg, proving no route crosses all seven exactly once — and graph theory was born, asking yes-or-no questions of the form "does such a path exist?" Network science asks something else: given a real graph with tens of thousands of nodes, what do its statistics look like, and how will things travelling on it — messages, money, infections, failures — actually move? The first wants an answer; the second wants a distribution.</p>
+</div>
+
+<h2><span class="n">01</span>Same people, different wiring</h2>
+<p class="lead">Vocabulary first. Each thing in the graph is a <b>node</b> — a person, a server, a species. A relationship between two nodes is an <b>edge</b>. How many edges a node has is its <b>degree</b>.</p>
+<p>Now a controlled experiment. Two graphs, each with 12 nodes and 12 edges, so each node has on average two connections — the <em>average degree</em> is identical. Only the wiring differs: on the left everyone connects to their two neighbours around a ring; on the right two people each hold a fan of connections, with a single link between the two fans.</p>
+<p>Run the same rule on both: start somewhere, pass the message to all your neighbours each round, three rounds.</p>
+<figure>
+<svg aria-label="Two wirings of the same 12 nodes and 12 edges, compared after three rounds of spreading" role="img" viewBox="0 0 720 350" xmlns="http://www.w3.org/2000/svg">
+<text x="360" y="26" fill="#aba498" font-family="-apple-system,sans-serif" font-size="13" text-anchor="middle">Same 12 people, same 12 ties, same average degree of 2.0</text>
+<text x="190" y="52" fill="#8d867b" font-family="SF Mono,monospace" font-size="12" text-anchor="middle">1 · Ring: neighbours only</text>
+<g stroke="rgba(255,255,255,0.22)" stroke-width="1.4">
+<line x1="190" y1="83" x2="236" y2="95"></line><line x1="236" y1="95" x2="270" y2="129"></line><line x1="270" y1="129" x2="282" y2="175"></line><line x1="282" y1="175" x2="270" y2="221"></line><line x1="270" y1="221" x2="236" y2="255"></line><line x1="236" y1="255" x2="190" y2="267"></line><line x1="190" y1="267" x2="144" y2="255"></line><line x1="144" y1="255" x2="110" y2="221"></line><line x1="110" y1="221" x2="98" y2="175"></line><line x1="98" y1="175" x2="110" y2="129"></line><line x1="110" y1="129" x2="144" y2="95"></line><line x1="144" y1="95" x2="190" y2="83"></line>
+</g>
+<circle cx="236" cy="95" r="8" fill="#63b3a6"></circle><circle cx="144" cy="95" r="8" fill="#63b3a6"></circle>
+<circle cx="270" cy="129" r="8" fill="#4a8f86"></circle><circle cx="110" cy="129" r="8" fill="#4a8f86"></circle>
+<circle cx="282" cy="175" r="8" fill="#376b66"></circle><circle cx="98" cy="175" r="8" fill="#376b66"></circle>
+<circle cx="270" cy="221" r="8" fill="#2a2a26" stroke="rgba(255,255,255,0.20)"></circle><circle cx="236" cy="255" r="8" fill="#2a2a26" stroke="rgba(255,255,255,0.20)"></circle><circle cx="190" cy="267" r="8" fill="#2a2a26" stroke="rgba(255,255,255,0.20)"></circle><circle cx="144" cy="255" r="8" fill="#2a2a26" stroke="rgba(255,255,255,0.20)"></circle><circle cx="110" cy="221" r="8" fill="#2a2a26" stroke="rgba(255,255,255,0.20)"></circle>
+<circle cx="190" cy="83" r="9.5" fill="#e0895e"></circle>
+<text x="190" y="70" fill="#e0895e" font-family="SF Mono,monospace" font-size="11" text-anchor="middle">start</text>
+<text x="190" y="300" fill="#63b3a6" font-family="-apple-system,sans-serif" font-size="12.5" text-anchor="middle">After three rounds: 7 people know</text>
+<text x="190" y="320" fill="#787268" font-family="-apple-system,sans-serif" font-size="11" text-anchor="middle">the 5 grey nodes still haven't heard</text>
+<text x="530" y="52" fill="#8d867b" font-family="SF Mono,monospace" font-size="12" text-anchor="middle">2 · Hubs: same 12 edges, wired differently</text>
+<g stroke="rgba(255,255,255,0.22)" stroke-width="1.4">
+<line x1="455" y1="120" x2="382" y2="88"></line><line x1="455" y1="120" x2="378" y2="145"></line><line x1="455" y1="120" x2="420" y2="62"></line><line x1="455" y1="120" x2="492" y2="60"></line><line x1="455" y1="120" x2="410" y2="190"></line>
+<line x1="585" y1="225" x2="660" y2="190"></line><line x1="585" y1="225" x2="668" y2="250"></line><line x1="585" y1="225" x2="610" y2="293"></line><line x1="585" y1="225" x2="532" y2="288"></line><line x1="585" y1="225" x2="500" y2="232"></line>
+<line x1="455" y1="120" x2="585" y2="225"></line><line x1="410" y1="190" x2="500" y2="232"></line>
+</g>
+<circle cx="455" cy="120" r="11" fill="#63b3a6"></circle>
+<circle cx="378" cy="145" r="8" fill="#4a8f86"></circle><circle cx="420" cy="62" r="8" fill="#4a8f86"></circle><circle cx="492" cy="60" r="8" fill="#4a8f86"></circle><circle cx="410" cy="190" r="8" fill="#4a8f86"></circle><circle cx="585" cy="225" r="11" fill="#4a8f86"></circle>
+<circle cx="660" cy="190" r="8" fill="#376b66"></circle><circle cx="668" cy="250" r="8" fill="#376b66"></circle><circle cx="610" cy="293" r="8" fill="#376b66"></circle><circle cx="532" cy="288" r="8" fill="#376b66"></circle><circle cx="500" cy="232" r="8" fill="#376b66"></circle>
+<circle cx="382" cy="88" r="9.5" fill="#e0895e"></circle>
+<text x="382" y="72" fill="#e0895e" font-family="SF Mono,monospace" font-size="11" text-anchor="middle">start</text>
+<text x="530" y="320" fill="#63b3a6" font-family="-apple-system,sans-serif" font-size="12.5" text-anchor="middle">After three rounds: all 12 know</text>
+<text x="360" y="342" fill="#57524b" font-family="-apple-system,sans-serif" font-size="11" text-anchor="middle">Brighter = reached earlier; grey = not reached within three rounds</text>
+</svg>
+<figcaption>Same rule, same headcount, same total number of ties. The only difference is the wiring, and the outcome differs by nearly a factor of two.</figcaption>
+</figure>
+<p>Seven on the left, all twelve on the right. The number you reach for most often — "how many people does the average person know" — is exactly equal across these two graphs and therefore <b>carries no information about the outcome</b>.</p>
+<p>What does the work is how degree is <em>spread</em>: on the left everyone has degree 2; on the right two nodes have degree 6 and most have degree 1. That spread is the <b>degree distribution</b>, the most basic fingerprint a network has. When it is heavy-tailed — a few nodes enormous, most tiny — the average becomes the trap the last issue was about <a class="reflink" href="ref-power-law.en.html">→ ref · Spotting and Misreading Power Laws</a>.</p>
+<div class="decide">
+<span class="lb">🎯 DECISION LINE</span>
+<p>Before you attribute an outcome to a person, spend an hour drawing the graph. Not the org chart from memory — use traces: who reviewed whose code in the last three months, who tagged whom in which ticket, who sat in which meeting with whom. <b>Then check whether your original explanation still stands.</b> Most of the time the person you were about to blame turns out to be standing on the one position everything has to pass through.</p>
+</div>
+<div class="crossx-inline">
+🌀 <b>Architecture and planning · Christopher Alexander, "A City is Not a Tree"</b>　Alexander's famous 1965 critique: planned new towns chop function into non-overlapping blocks — a <em>tree</em>; naturally grown old cities have overlapping user-sets for the corner shop, the newsstand, the bus stop, the pavement — a <em>semilattice</em>. In this section's terms: nearly the same nodes, entirely different edge overlap. Which yields a conclusion planners of the day would not accept: the lifelessness of the new town isn't a wrong mix of functions, it is that the wiring itself was forced into a shape that forbids overlap — so no amount of re-tuning the mix can recover it.
+</div>
+
+<h2><span class="n">02</span>Three rulers</h2>
+<p class="lead">Describing "the wiring" takes at least three numbers, because they measure three different levels.</p>
+<p><b>Degree</b> measures the most local thing: how many people you connect to. <b>Shortest path length</b> measures the most global: the fewest hops from here to there. Average it over all pairs and you get the graph's <em>average shortest path length</em> — roughly "how many hands a message typically passes through to get from anyone to anyone".</p>
+<p>One level is missing in between, and it's the one people skip: the <b>clustering coefficient</b>. It asks — <b>do your friends know each other?</b> Take all pairs of your neighbours, count how many pairs are already acquainted, divide by the number of pairs. All of them is 1; none of them is 0.</p>
+<figure>
+<svg aria-label="Three rulers on one seven-node network: degree, shortest path, clustering" role="img" viewBox="0 0 720 290" xmlns="http://www.w3.org/2000/svg">
+<text x="360" y="24" fill="#aba498" font-family="-apple-system,sans-serif" font-size="13" text-anchor="middle">One graph, three quantities at three levels</text>
+<text x="115" y="50" fill="#63b3a6" font-family="SF Mono,monospace" font-size="12" text-anchor="middle">1 · Degree — most local</text>
+<g transform="translate(15,60)">
+<g stroke="rgba(255,255,255,0.20)" stroke-width="1.3">
+<line x1="18" y1="62" x2="66" y2="24"></line><line x1="18" y1="62" x2="60" y2="100"></line><line x1="66" y1="24" x2="60" y2="100"></line><line x1="66" y1="24" x2="116" y2="62"></line><line x1="60" y1="100" x2="116" y2="62"></line><line x1="116" y1="62" x2="166" y2="80"></line><line x1="166" y1="80" x2="206" y2="36"></line><line x1="166" y1="80" x2="212" y2="112"></line><line x1="206" y1="36" x2="212" y2="112"></line>
+</g>
+<circle cx="18" cy="62" r="8" fill="#2f2c27" stroke="rgba(255,255,255,0.18)"></circle><text x="18" y="46" fill="#8d867b" font-family="SF Mono,monospace" font-size="10.5" text-anchor="middle">2</text>
+<circle cx="66" cy="24" r="10" fill="#63b3a6"></circle><text x="66" y="8" fill="#63b3a6" font-family="SF Mono,monospace" font-size="11.5" text-anchor="middle">3</text>
+<circle cx="60" cy="100" r="8" fill="#2f2c27" stroke="rgba(255,255,255,0.18)"></circle><text x="60" y="120" fill="#8d867b" font-family="SF Mono,monospace" font-size="10.5" text-anchor="middle">3</text>
+<circle cx="116" cy="62" r="8" fill="#2f2c27" stroke="rgba(255,255,255,0.18)"></circle><text x="116" y="46" fill="#8d867b" font-family="SF Mono,monospace" font-size="10.5" text-anchor="middle">3</text>
+<circle cx="166" cy="80" r="8" fill="#2f2c27" stroke="rgba(255,255,255,0.18)"></circle><text x="166" y="100" fill="#8d867b" font-family="SF Mono,monospace" font-size="10.5" text-anchor="middle">3</text>
+<circle cx="206" cy="36" r="8" fill="#2f2c27" stroke="rgba(255,255,255,0.18)"></circle><text x="206" y="20" fill="#8d867b" font-family="SF Mono,monospace" font-size="10.5" text-anchor="middle">2</text>
+<circle cx="212" cy="112" r="8" fill="#2f2c27" stroke="rgba(255,255,255,0.18)"></circle><text x="212" y="132" fill="#8d867b" font-family="SF Mono,monospace" font-size="10.5" text-anchor="middle">2</text>
+</g>
+<text x="115" y="228" fill="#c9c2b6" font-family="-apple-system,sans-serif" font-size="11.5" text-anchor="middle">The green node has three ties</text>
+<text x="115" y="246" fill="#787268" font-family="-apple-system,sans-serif" font-size="11" text-anchor="middle">its degree = 3</text>
+<text x="360" y="50" fill="#e0895e" font-family="SF Mono,monospace" font-size="12" text-anchor="middle">2 · Shortest path — most global</text>
+<g transform="translate(255,60)">
+<g stroke="rgba(255,255,255,0.14)" stroke-width="1.3">
+<line x1="18" y1="62" x2="60" y2="100"></line><line x1="66" y1="24" x2="60" y2="100"></line><line x1="60" y1="100" x2="116" y2="62"></line><line x1="166" y1="80" x2="212" y2="112"></line><line x1="206" y1="36" x2="212" y2="112"></line>
+</g>
+<g stroke="#e0895e" stroke-width="2.6">
+<line x1="18" y1="62" x2="66" y2="24"></line><line x1="66" y1="24" x2="116" y2="62"></line><line x1="116" y1="62" x2="166" y2="80"></line><line x1="166" y1="80" x2="206" y2="36"></line>
+</g>
+<circle cx="18" cy="62" r="9" fill="#e0895e"></circle><text x="6" y="82" fill="#e0895e" font-family="SF Mono,monospace" font-size="10.5" text-anchor="middle">from</text>
+<circle cx="66" cy="24" r="7" fill="#8a5238"></circle><circle cx="60" cy="100" r="7" fill="#2f2c27" stroke="rgba(255,255,255,0.18)"></circle><circle cx="116" cy="62" r="7" fill="#8a5238"></circle><circle cx="166" cy="80" r="7" fill="#8a5238"></circle>
+<circle cx="206" cy="36" r="9" fill="#e0895e"></circle><text x="216" y="22" fill="#e0895e" font-family="SF Mono,monospace" font-size="10.5" text-anchor="middle">to</text>
+<circle cx="212" cy="112" r="7" fill="#2f2c27" stroke="rgba(255,255,255,0.18)"></circle>
+</g>
+<text x="360" y="228" fill="#c9c2b6" font-family="-apple-system,sans-serif" font-size="11.5" text-anchor="middle">Four hops at minimum between the two ends</text>
+<text x="360" y="246" fill="#787268" font-family="-apple-system,sans-serif" font-size="11" text-anchor="middle">averaged over all pairs: 2.0 hops</text>
+<text x="600" y="50" fill="#a693cd" font-family="SF Mono,monospace" font-size="12" text-anchor="middle">3 · Clustering — in between</text>
+<g transform="translate(495,60)">
+<g stroke="rgba(255,255,255,0.14)" stroke-width="1.3">
+<line x1="116" y1="62" x2="166" y2="80"></line><line x1="166" y1="80" x2="206" y2="36"></line><line x1="166" y1="80" x2="212" y2="112"></line><line x1="206" y1="36" x2="212" y2="112"></line>
+</g>
+<g stroke="rgba(166,147,205,0.55)" stroke-width="1.6">
+<line x1="18" y1="62" x2="66" y2="24"></line><line x1="66" y1="24" x2="60" y2="100"></line><line x1="66" y1="24" x2="116" y2="62"></line>
+</g>
+<g stroke="#a693cd" stroke-width="2.6">
+<line x1="18" y1="62" x2="60" y2="100"></line><line x1="60" y1="100" x2="116" y2="62"></line>
+</g>
+<line x1="18" y1="62" x2="116" y2="62" stroke="#8d867b" stroke-dasharray="4 4" stroke-width="1.6"></line>
+<circle cx="66" cy="24" r="10" fill="#a693cd"></circle>
+<circle cx="18" cy="62" r="7" fill="#5b4f74"></circle><circle cx="60" cy="100" r="7" fill="#5b4f74"></circle><circle cx="116" cy="62" r="7" fill="#5b4f74"></circle>
+<circle cx="166" cy="80" r="7" fill="#2f2c27" stroke="rgba(255,255,255,0.18)"></circle><circle cx="206" cy="36" r="7" fill="#2f2c27" stroke="rgba(255,255,255,0.18)"></circle><circle cx="212" cy="112" r="7" fill="#2f2c27" stroke="rgba(255,255,255,0.18)"></circle>
+<text x="67" y="136" fill="#8d867b" font-family="-apple-system,sans-serif" font-size="10.5" text-anchor="middle">the dashed pair is unlinked</text>
+</g>
+<text x="600" y="228" fill="#c9c2b6" font-family="-apple-system,sans-serif" font-size="11.5" text-anchor="middle">Its 3 neighbours make 3 pairs</text>
+<text x="600" y="246" fill="#787268" font-family="-apple-system,sans-serif" font-size="11" text-anchor="middle">2 of them are linked → clustering 2/3</text>
+<text x="360" y="278" fill="#57524b" font-family="-apple-system,sans-serif" font-size="11" text-anchor="middle">The three are mutually independent: knowing one tells you nothing about the other two</text>
+</svg>
+<figcaption>Degree asks "who am I tied to", path length asks "how many hands across the whole graph", clustering asks "do my people know each other".</figcaption>
+</figure>
+<p>That last line is the point: <b>the three are independent</b>. A graph can have high clustering and long paths (everyone within a village knows everyone, but villages are far apart) or low clustering and short paths (a hall where everyone knows only the host, yet any two people are two hops apart). Quoting a single number and calling a network "tight-knit" says nothing at all.</p>
+<p>Incidentally, high clustering and short paths appearing <em>together</em> is both strange and extremely common. It has its own name, and the next issue is about it.</p>
+<div class="crossx-inline">
+🌀 <b>Eastern thought · Indra's Net in Huayan Buddhism</b>　The famous image: a net hangs in the palace of Indra, a jewel at every knot, each jewel reflecting every other jewel, endlessly. Read it with this section's rulers and something hard falls out: the image demands a path length of <em>1</em> between any two jewels and a clustering coefficient of <em>1</em> — a complete graph. And a complete graph's edge count grows with the square of the node count, which no real system with maintenance costs can afford. The conclusion isn't that the metaphor is bad; it is that <b>real-world "everything contains everything" has to be routed through a few hubs to exist at all</b>, and is therefore inherently unequal — whereas the whole moral weight of Indra's Net comes from the jewels reflecting each other as <em>equals</em>. That gap is not rhetorical. It is topological.
+</div>
+
+<h2><span class="n">03</span>"Who matters most" has four answers</h2>
+<p class="lead">Now the question everyone actually wants to ask: who is the most important node here?</p>
+<p>There is no single answer, and not because the question is hard. Because it is <b>incomplete</b>. The family of measures is called <b>centrality</b>, and the four common ones correspond to four different kinds of importance <a class="reflink" href="ref-centrality.en.html">→ ref · Network Centrality Measures</a>:</p>
+<p><b>Degree centrality</b> is just degree — most ties. <b>Closeness centrality</b> is the smallest total distance to everyone else — you sit closest to the whole crowd on average. <b>Betweenness centrality</b> counts how many pairs of nodes have their shortest path running through you — how many people you are the route for. <b>Eigenvector centrality</b> is recursive: you matter because the people connected to you matter — Google's PageRank is a variant of it.</p>
+<p>The graph below is the standard teaching example in social network analysis, Krackhardt's "kite": ten people, eighteen ties. Three centralities pick three different people.</p>
+<figure>
+<svg aria-label="Three centralities each pick a different node on Krackhardt's kite graph" role="img" viewBox="0 0 720 400" xmlns="http://www.w3.org/2000/svg">
+<text x="360" y="24" fill="#aba498" font-family="-apple-system,sans-serif" font-size="13" text-anchor="middle">One graph, three senses of "most important", three different people</text>
+<text x="110" y="48" fill="#63b3a6" font-family="SF Mono,monospace" font-size="12" text-anchor="middle">Degree · most ties</text>
+<g transform="translate(25,58)">
+<g stroke="rgba(255,255,255,0.18)" stroke-width="1.3">
+<line x1="50" y1="40" x2="130" y2="40"></line><line x1="50" y1="40" x2="15" y2="100"></line><line x1="50" y1="40" x2="90" y2="100"></line><line x1="50" y1="40" x2="50" y2="160"></line><line x1="130" y1="40" x2="90" y2="100"></line><line x1="130" y1="40" x2="165" y2="100"></line><line x1="130" y1="40" x2="130" y2="160"></line><line x1="15" y1="100" x2="90" y2="100"></line><line x1="15" y1="100" x2="50" y2="160"></line><line x1="90" y1="100" x2="165" y2="100"></line><line x1="90" y1="100" x2="50" y2="160"></line><line x1="90" y1="100" x2="130" y2="160"></line><line x1="165" y1="100" x2="130" y2="160"></line><line x1="50" y1="160" x2="130" y2="160"></line><line x1="50" y1="160" x2="90" y2="215"></line><line x1="130" y1="160" x2="90" y2="215"></line><line x1="90" y1="215" x2="90" y2="262"></line><line x1="90" y1="262" x2="90" y2="308"></line>
+</g>
+<circle cx="50" cy="40" r="9" fill="#2f2c27" stroke="rgba(255,255,255,0.16)"></circle><text x="50" y="44" fill="#8d867b" font-family="SF Mono,monospace" font-size="10" text-anchor="middle">A</text>
+<circle cx="130" cy="40" r="9" fill="#2f2c27" stroke="rgba(255,255,255,0.16)"></circle><text x="130" y="44" fill="#8d867b" font-family="SF Mono,monospace" font-size="10" text-anchor="middle">B</text>
+<circle cx="15" cy="100" r="9" fill="#2f2c27" stroke="rgba(255,255,255,0.16)"></circle><text x="15" y="104" fill="#8d867b" font-family="SF Mono,monospace" font-size="10" text-anchor="middle">C</text>
+<circle cx="90" cy="100" r="13" fill="#63b3a6"></circle><text x="90" y="105" fill="#10100e" font-family="SF Mono,monospace" font-size="11" font-weight="700" text-anchor="middle">D</text>
+<circle cx="165" cy="100" r="9" fill="#2f2c27" stroke="rgba(255,255,255,0.16)"></circle><text x="165" y="104" fill="#8d867b" font-family="SF Mono,monospace" font-size="10" text-anchor="middle">E</text>
+<circle cx="50" cy="160" r="9" fill="#2f2c27" stroke="rgba(255,255,255,0.16)"></circle><text x="50" y="164" fill="#8d867b" font-family="SF Mono,monospace" font-size="10" text-anchor="middle">F</text>
+<circle cx="130" cy="160" r="9" fill="#2f2c27" stroke="rgba(255,255,255,0.16)"></circle><text x="130" y="164" fill="#8d867b" font-family="SF Mono,monospace" font-size="10" text-anchor="middle">G</text>
+<circle cx="90" cy="215" r="9" fill="#2f2c27" stroke="rgba(255,255,255,0.16)"></circle><text x="90" y="219" fill="#8d867b" font-family="SF Mono,monospace" font-size="10" text-anchor="middle">H</text>
+<circle cx="90" cy="262" r="9" fill="#2f2c27" stroke="rgba(255,255,255,0.16)"></circle><text x="90" y="266" fill="#8d867b" font-family="SF Mono,monospace" font-size="10" text-anchor="middle">I</text>
+<circle cx="90" cy="308" r="9" fill="#2f2c27" stroke="rgba(255,255,255,0.16)"></circle><text x="90" y="312" fill="#8d867b" font-family="SF Mono,monospace" font-size="10" text-anchor="middle">J</text>
+</g>
+<text x="110" y="388" fill="#63b3a6" font-family="-apple-system,sans-serif" font-size="11.5" text-anchor="middle">D has 6 ties, the most in the graph</text>
+<text x="350" y="48" fill="#d9b45f" font-family="SF Mono,monospace" font-size="12" text-anchor="middle">Closeness · nearest to everyone</text>
+<g transform="translate(265,58)">
+<g stroke="rgba(255,255,255,0.18)" stroke-width="1.3">
+<line x1="50" y1="40" x2="130" y2="40"></line><line x1="50" y1="40" x2="15" y2="100"></line><line x1="50" y1="40" x2="90" y2="100"></line><line x1="50" y1="40" x2="50" y2="160"></line><line x1="130" y1="40" x2="90" y2="100"></line><line x1="130" y1="40" x2="165" y2="100"></line><line x1="130" y1="40" x2="130" y2="160"></line><line x1="15" y1="100" x2="90" y2="100"></line><line x1="15" y1="100" x2="50" y2="160"></line><line x1="90" y1="100" x2="165" y2="100"></line><line x1="90" y1="100" x2="50" y2="160"></line><line x1="90" y1="100" x2="130" y2="160"></line><line x1="165" y1="100" x2="130" y2="160"></line><line x1="50" y1="160" x2="130" y2="160"></line><line x1="50" y1="160" x2="90" y2="215"></line><line x1="130" y1="160" x2="90" y2="215"></line><line x1="90" y1="215" x2="90" y2="262"></line><line x1="90" y1="262" x2="90" y2="308"></line>
+</g>
+<circle cx="50" cy="40" r="9" fill="#2f2c27" stroke="rgba(255,255,255,0.16)"></circle><text x="50" y="44" fill="#8d867b" font-family="SF Mono,monospace" font-size="10" text-anchor="middle">A</text>
+<circle cx="130" cy="40" r="9" fill="#2f2c27" stroke="rgba(255,255,255,0.16)"></circle><text x="130" y="44" fill="#8d867b" font-family="SF Mono,monospace" font-size="10" text-anchor="middle">B</text>
+<circle cx="15" cy="100" r="9" fill="#2f2c27" stroke="rgba(255,255,255,0.16)"></circle><text x="15" y="104" fill="#8d867b" font-family="SF Mono,monospace" font-size="10" text-anchor="middle">C</text>
+<circle cx="90" cy="100" r="9" fill="#2f2c27" stroke="rgba(255,255,255,0.16)"></circle><text x="90" y="104" fill="#8d867b" font-family="SF Mono,monospace" font-size="10" text-anchor="middle">D</text>
+<circle cx="165" cy="100" r="9" fill="#2f2c27" stroke="rgba(255,255,255,0.16)"></circle><text x="165" y="104" fill="#8d867b" font-family="SF Mono,monospace" font-size="10" text-anchor="middle">E</text>
+<circle cx="50" cy="160" r="13" fill="#d9b45f"></circle><text x="50" y="165" fill="#15130e" font-family="SF Mono,monospace" font-size="11" font-weight="700" text-anchor="middle">F</text>
+<circle cx="130" cy="160" r="13" fill="#d9b45f"></circle><text x="130" y="165" fill="#15130e" font-family="SF Mono,monospace" font-size="11" font-weight="700" text-anchor="middle">G</text>
+<circle cx="90" cy="215" r="9" fill="#2f2c27" stroke="rgba(255,255,255,0.16)"></circle><text x="90" y="219" fill="#8d867b" font-family="SF Mono,monospace" font-size="10" text-anchor="middle">H</text>
+<circle cx="90" cy="262" r="9" fill="#2f2c27" stroke="rgba(255,255,255,0.16)"></circle><text x="90" y="266" fill="#8d867b" font-family="SF Mono,monospace" font-size="10" text-anchor="middle">I</text>
+<circle cx="90" cy="308" r="9" fill="#2f2c27" stroke="rgba(255,255,255,0.16)"></circle><text x="90" y="312" fill="#8d867b" font-family="SF Mono,monospace" font-size="10" text-anchor="middle">J</text>
+</g>
+<text x="350" y="388" fill="#d9b45f" font-family="-apple-system,sans-serif" font-size="11.5" text-anchor="middle">F and G: total distance to the other 9 = 14 (D is 15)</text>
+<text x="595" y="48" fill="#cd7f9b" font-family="SF Mono,monospace" font-size="12" text-anchor="middle">Betweenness · the only way through</text>
+<g transform="translate(505,58)">
+<g stroke="rgba(255,255,255,0.18)" stroke-width="1.3">
+<line x1="50" y1="40" x2="130" y2="40"></line><line x1="50" y1="40" x2="15" y2="100"></line><line x1="50" y1="40" x2="90" y2="100"></line><line x1="50" y1="40" x2="50" y2="160"></line><line x1="130" y1="40" x2="90" y2="100"></line><line x1="130" y1="40" x2="165" y2="100"></line><line x1="130" y1="40" x2="130" y2="160"></line><line x1="15" y1="100" x2="90" y2="100"></line><line x1="15" y1="100" x2="50" y2="160"></line><line x1="90" y1="100" x2="165" y2="100"></line><line x1="90" y1="100" x2="50" y2="160"></line><line x1="90" y1="100" x2="130" y2="160"></line><line x1="165" y1="100" x2="130" y2="160"></line><line x1="50" y1="160" x2="130" y2="160"></line>
+</g>
+<g stroke="#cd7f9b" stroke-width="2.4">
+<line x1="50" y1="160" x2="90" y2="215"></line><line x1="130" y1="160" x2="90" y2="215"></line><line x1="90" y1="215" x2="90" y2="262"></line><line x1="90" y1="262" x2="90" y2="308"></line>
+</g>
+<circle cx="50" cy="40" r="9" fill="#2f2c27" stroke="rgba(255,255,255,0.16)"></circle><text x="50" y="44" fill="#8d867b" font-family="SF Mono,monospace" font-size="10" text-anchor="middle">A</text>
+<circle cx="130" cy="40" r="9" fill="#2f2c27" stroke="rgba(255,255,255,0.16)"></circle><text x="130" y="44" fill="#8d867b" font-family="SF Mono,monospace" font-size="10" text-anchor="middle">B</text>
+<circle cx="15" cy="100" r="9" fill="#2f2c27" stroke="rgba(255,255,255,0.16)"></circle><text x="15" y="104" fill="#8d867b" font-family="SF Mono,monospace" font-size="10" text-anchor="middle">C</text>
+<circle cx="90" cy="100" r="9" fill="#2f2c27" stroke="rgba(255,255,255,0.16)"></circle><text x="90" y="104" fill="#8d867b" font-family="SF Mono,monospace" font-size="10" text-anchor="middle">D</text>
+<circle cx="165" cy="100" r="9" fill="#2f2c27" stroke="rgba(255,255,255,0.16)"></circle><text x="165" y="104" fill="#8d867b" font-family="SF Mono,monospace" font-size="10" text-anchor="middle">E</text>
+<circle cx="50" cy="160" r="9" fill="#2f2c27" stroke="rgba(255,255,255,0.16)"></circle><text x="50" y="164" fill="#8d867b" font-family="SF Mono,monospace" font-size="10" text-anchor="middle">F</text>
+<circle cx="130" cy="160" r="9" fill="#2f2c27" stroke="rgba(255,255,255,0.16)"></circle><text x="130" y="164" fill="#8d867b" font-family="SF Mono,monospace" font-size="10" text-anchor="middle">G</text>
+<circle cx="90" cy="215" r="13" fill="#cd7f9b"></circle><text x="90" y="220" fill="#170f12" font-family="SF Mono,monospace" font-size="11" font-weight="700" text-anchor="middle">H</text>
+<circle cx="90" cy="262" r="9" fill="#2f2c27" stroke="rgba(255,255,255,0.16)"></circle><text x="90" y="266" fill="#8d867b" font-family="SF Mono,monospace" font-size="10" text-anchor="middle">I</text>
+<circle cx="90" cy="308" r="9" fill="#2f2c27" stroke="rgba(255,255,255,0.16)"></circle><text x="90" y="312" fill="#8d867b" font-family="SF Mono,monospace" font-size="10" text-anchor="middle">J</text>
+</g>
+<text x="595" y="388" fill="#cd7f9b" font-family="-apple-system,sans-serif" font-size="11.5" text-anchor="middle">H has only 3 ties, yet is the sole route for 14 pairs</text>
+</svg>
+<figcaption>D is the busiest, F and G sit most centrally, and the one actually holding the throat is H, with three ties.</figcaption>
+</figure>
+<p>H has three ties and ranks in the lower half by degree. But every route from I and J to everyone else must pass through H — remove H and the graph falls into two pieces. <b>The busiest person and the critical person are not the same person</b>, and they are often nowhere near each other.</p>
+<p>So which measure? It depends on <b>what flows, and how it flows</b>. Things that can be copied and travel in all directions at once — a message, a joke, a habit — call for degree and eigenvector centrality. Things that cannot be copied and must traverse a route — a payment, a shipment, a patient referral, an introduction made in person — call for betweenness and closeness. Pick the wrong measure and you will protect the wrong people.</p>
+<div class="decide">
+<span class="lb">🎯 DECISION LINE</span>
+<p>Before computing any centrality, write one sentence: <b>what flows on this graph, and can it be copied.</b> If you can't write that sentence, don't compute — someone will believe the resulting ranking, and a ranking with no stated flow is about as reliable as a horoscope. Once you can write it, the sentence picks the measure. You don't.</p>
+</div>
+<div class="crossx-inline">
+🌀 <b>History and technology · Finding Paul Revere from metadata</b>　In 2013 the sociologist Kieran Healy published a famous demonstration: take only the <em>membership rosters</em> of Boston clubs in the 1770s — nothing anyone said or wrote — link people who belong to the same club, compute betweenness centrality, and the top of the list is Paul Revere. His point was that "we only collect metadata, never content" is no comfort at all. This section's mechanism explains why: <b>"who is the key person" is a purely structural quantity, computable without any content whatsoever.</b> Protecting content and protecting structure are two different jobs, and doing the first perfectly does nothing for the second.
+</div>
+
+<h2><span class="n">04</span>A network is not a uniform blob</h2>
+<p class="lead">So far the graph is just dots and lines. Real relationship graphs are almost never uniform: edges bunch into dense blocks with only a few strands running between them. The blocks are called <b>communities</b>.</p>
+<p>The trouble is that "it looks like it splits into blocks" is a subjective statement. To make it computable, Newman and Girvan introduced <b>modularity</b> (usually written Q) in 2004. Its definition is one sentence: <b>the fraction of edges that fall inside your proposed blocks, minus the fraction you would expect if every node kept its degree but all the edges were rewired at random.</b></p>
+<p>That second half is the whole trick — it is the zero point of the ruler. Any partition traps some edges inside it, so the raw fraction flatters you. Subtract what chance would give, and what remains is the part that is genuinely blocky.</p>
+<figure>
+<svg aria-label="Same degrees, different wiring: community structure versus a degree-preserving random rewiring" role="img" viewBox="0 0 720 340" xmlns="http://www.w3.org/2000/svg">
+<text x="360" y="26" fill="#aba498" font-family="-apple-system,sans-serif" font-size="13" text-anchor="middle">Every node has exactly the same degree in both graphs — only the wiring differs</text>
+<text x="188" y="52" fill="#63b3a6" font-family="SF Mono,monospace" font-size="12" text-anchor="middle">1 · With community structure</text>
+<g transform="translate(45,70)">
+<g stroke="rgba(99,179,166,0.45)" stroke-width="1.5">
+<line x1="40" y1="45" x2="88" y2="43"></line><line x1="40" y1="45" x2="38" y2="88"></line><line x1="40" y1="45" x2="88" y2="86"></line><line x1="88" y1="43" x2="38" y2="88"></line><line x1="88" y1="43" x2="88" y2="86"></line><line x1="38" y1="88" x2="88" y2="86"></line>
+<line x1="200" y1="45" x2="248" y2="43"></line><line x1="200" y1="45" x2="198" y2="88"></line><line x1="200" y1="45" x2="248" y2="86"></line><line x1="248" y1="43" x2="198" y2="88"></line><line x1="248" y1="43" x2="248" y2="86"></line><line x1="198" y1="88" x2="248" y2="86"></line>
+<line x1="120" y1="175" x2="168" y2="173"></line><line x1="120" y1="175" x2="118" y2="218"></line><line x1="120" y1="175" x2="168" y2="216"></line><line x1="168" y1="173" x2="118" y2="218"></line><line x1="168" y1="173" x2="168" y2="216"></line><line x1="118" y1="218" x2="168" y2="216"></line>
+</g>
+<g stroke="#cd7f9b" stroke-width="1.8" stroke-dasharray="5 3">
+<line x1="88" y1="43" x2="200" y2="45"></line><line x1="198" y1="88" x2="168" y2="173"></line><line x1="120" y1="175" x2="38" y2="88"></line>
+</g>
+<circle cx="40" cy="45" r="7.5" fill="#63b3a6"></circle><circle cx="88" cy="43" r="7.5" fill="#63b3a6"></circle><circle cx="38" cy="88" r="7.5" fill="#63b3a6"></circle><circle cx="88" cy="86" r="7.5" fill="#63b3a6"></circle>
+<circle cx="200" cy="45" r="7.5" fill="#d9b45f"></circle><circle cx="248" cy="43" r="7.5" fill="#d9b45f"></circle><circle cx="198" cy="88" r="7.5" fill="#d9b45f"></circle><circle cx="248" cy="86" r="7.5" fill="#d9b45f"></circle>
+<circle cx="120" cy="175" r="7.5" fill="#a693cd"></circle><circle cx="168" cy="173" r="7.5" fill="#a693cd"></circle><circle cx="118" cy="218" r="7.5" fill="#a693cd"></circle><circle cx="168" cy="216" r="7.5" fill="#a693cd"></circle>
+</g>
+<text x="188" y="312" fill="#63b3a6" font-family="SF Mono,monospace" font-size="13" text-anchor="middle">modularity Q = 0.52</text>
+<text x="188" y="330" fill="#787268" font-family="-apple-system,sans-serif" font-size="11" text-anchor="middle">18 of 21 edges sit inside blocks; only 3 (dashed) cross</text>
+<text x="530" y="52" fill="#8d867b" font-family="SF Mono,monospace" font-size="12" text-anchor="middle">2 · Rewired at random, degrees preserved</text>
+<g transform="translate(390,70)">
+<g stroke="rgba(255,255,255,0.20)" stroke-width="1.2">
+<line x1="40" y1="45" x2="120" y2="175"></line><line x1="40" y1="45" x2="168" y2="173"></line><line x1="40" y1="45" x2="168" y2="216"></line><line x1="88" y1="43" x2="198" y2="88"></line><line x1="88" y1="43" x2="248" y2="86"></line><line x1="88" y1="43" x2="118" y2="218"></line><line x1="88" y1="43" x2="168" y2="216"></line><line x1="38" y1="88" x2="198" y2="88"></line><line x1="38" y1="88" x2="120" y2="175"></line><line x1="38" y1="88" x2="168" y2="173"></line><line x1="38" y1="88" x2="118" y2="218"></line><line x1="88" y1="86" x2="198" y2="88"></line><line x1="88" y1="86" x2="168" y2="173"></line><line x1="88" y1="86" x2="118" y2="218"></line><line x1="200" y1="45" x2="198" y2="88"></line><line x1="200" y1="45" x2="248" y2="86"></line><line x1="200" y1="45" x2="120" y2="175"></line><line x1="200" y1="45" x2="168" y2="216"></line><line x1="248" y1="43" x2="248" y2="86"></line><line x1="248" y1="43" x2="120" y2="175"></line><line x1="248" y1="43" x2="168" y2="173"></line>
+</g>
+<circle cx="40" cy="45" r="7.5" fill="#63b3a6"></circle><circle cx="88" cy="43" r="7.5" fill="#63b3a6"></circle><circle cx="38" cy="88" r="7.5" fill="#63b3a6"></circle><circle cx="88" cy="86" r="7.5" fill="#63b3a6"></circle>
+<circle cx="200" cy="45" r="7.5" fill="#d9b45f"></circle><circle cx="248" cy="43" r="7.5" fill="#d9b45f"></circle><circle cx="198" cy="88" r="7.5" fill="#d9b45f"></circle><circle cx="248" cy="86" r="7.5" fill="#d9b45f"></circle>
+<circle cx="120" cy="175" r="7.5" fill="#a693cd"></circle><circle cx="168" cy="173" r="7.5" fill="#a693cd"></circle><circle cx="118" cy="218" r="7.5" fill="#a693cd"></circle><circle cx="168" cy="216" r="7.5" fill="#a693cd"></circle>
+</g>
+<text x="530" y="312" fill="#8d867b" font-family="SF Mono,monospace" font-size="13" text-anchor="middle">same three-colour partition → Q = −0.19</text>
+<text x="530" y="330" fill="#787268" font-family="-apple-system,sans-serif" font-size="11" text-anchor="middle">colours survive, blocks don't — the partition is now uninformative</text>
+</svg>
+<figcaption>Modularity does not count edges inside blocks; it counts how many more there are than random wiring would give. On the right the colours are unchanged and Q goes negative.</figcaption>
+</figure>
+<p>There is a lovely real-data test of this. In the 1970s the anthropologist Wayne Zachary recorded the private ties among the 34 members of a university karate club. The club later split in two after the instructor and the president fell out. Working only from the tie graph, Zachary's partition matched the actual sides with <b>a single member misplaced</b>. Who had drunk with whom had written the ending before anything was said at a meeting.</p>
+<p>Community structure also turns Topic 3's near-decomposability from a philosophical claim into a computable number: Simon argued complex systems must be tight-within, loose-between; modularity is the scale on which that "must" is read off.</p>
+<p class="dim">A necessary warning: Q is not an absolute score. Fortunato and Barthélemy proved in 2007 that it has a <b>resolution limit</b> — modularity-maximising algorithms systematically fail to see communities below a certain size, and that size grows with the total number of edges in the graph. The same small clique gets absorbed into its neighbours in a large graph while being detected easily in a small one. So Q compares different partitions of one graph. It cannot compare two graphs of different sizes.</p>
+<div class="crossx-inline">
+🌀 <b>Ecology · mutualistic and trophic networks are shaped differently</b>　Thébault and Fontaine compared two kinds of ecological network in 2010: plants and their pollinators, versus who eats whom. The first is highly connected with little clear modularity; the second is distinctly blocky. Read through this section's mechanism, that is not an aesthetic difference but a difference in stability machinery — <b>blocks keep a disturbance inside one module, which suits predation, where one shock can be lethal; the absence of blocks spreads any effect thinly across the whole graph, which suits mutualism, where one pollinator more or less hardly matters.</b> Hence a counterintuitive conclusion: modularity is not generically good design. It is good design <em>against a particular kind of disturbance</em>. Scoring a system by its modularity without asking what hits it is grading an answer without reading the question.
+</div>
+
+<h2><span class="n">05</span>Where this breaks down</h2>
+<p class="lead">"Draw the graph first" is this issue's claim. Here is where it will drive you into a ditch — and these four points matter more than the previous four sections combined.</p>
+<p><b>First, the graph you drew is probably wrong.</b> Real edges are always a sample: you see the interactions that left a trace, never the sentence spoken in the corridor. And centrality is brutally sensitive to missing edges — betweenness above all, because it lives off the property of being the <em>only</em> route; add one edge and someone's betweenness can halve. Worse, the threshold for "close enough to count as an edge" is yours to set, and moving it one notch reshuffles the ranking. <b>So the second decimal place of a network metric is meaningless. What you can use is orders of magnitude and rank order — and even the rank order needs a threshold sweep.</b></p>
+<p><b>Second, and most dangerous: structural correlation is not structural causation.</b> A widely reported 2007 study claimed obesity "spreads" through social networks — when your friend gains weight, your odds of gaining weight rise measurably. The methodological objection that followed is very hard to answer: Shalizi and Thomas showed in 2011 that <b>in observational social network data, contagion and homophily (the tendency of like to befriend like) are generically indistinguishable.</b> Connected people resembling each other might mean A influenced B; it might mean A and B were already alike and that is why they became friends; it might mean they live on the same street and shop at the same supermarket. All three leave identical data behind.</p>
+<figure>
+<svg aria-label="Three causal mechanisms leaving identical observational data: contagion, homophily, shared environment" role="img" viewBox="0 0 720 290" xmlns="http://www.w3.org/2000/svg">
+<defs>
+<marker id="t20ear" markerWidth="10" markerHeight="10" markerUnits="userSpaceOnUse" orient="auto" refX="9" refY="5" viewBox="0 0 10 10"><path d="M0,1 L9,5 L0,9 z" fill="#cd7f9b"></path></marker>
+<marker id="t20earb" markerWidth="10" markerHeight="10" markerUnits="userSpaceOnUse" orient="auto" refX="9" refY="5" viewBox="0 0 10 10"><path d="M0,1 L9,5 L0,9 z" fill="#8d867b"></path></marker>
+</defs>
+<text x="360" y="26" fill="#aba498" font-family="-apple-system,sans-serif" font-size="13" text-anchor="middle">What you observe is always the same: connected people are more alike</text>
+<text x="118" y="58" fill="#cd7f9b" font-family="SF Mono,monospace" font-size="12" text-anchor="middle">1 · Contagion</text>
+<circle cx="60" cy="120" r="17" fill="#cd7f9b"></circle><text x="60" y="125" fill="#170f12" font-family="SF Mono,monospace" font-size="12" font-weight="700" text-anchor="middle">A</text>
+<circle cx="178" cy="120" r="17" fill="#cd7f9b"></circle><text x="178" y="125" fill="#170f12" font-family="SF Mono,monospace" font-size="12" font-weight="700" text-anchor="middle">B</text>
+<line x1="82" y1="120" x2="152" y2="120" stroke="#cd7f9b" stroke-width="2.2" marker-end="url(#t20ear)"></line>
+<text x="118" y="108" fill="#cd7f9b" font-family="-apple-system,sans-serif" font-size="11" text-anchor="middle">influences</text>
+<text x="118" y="172" fill="#a9a096" font-family="-apple-system,sans-serif" font-size="11.5" text-anchor="middle">Edge first; A passes the state to B</text>
+<text x="118" y="192" fill="#787268" font-family="-apple-system,sans-serif" font-size="11" text-anchor="middle">edge is cause, likeness is effect</text>
+<text x="360" y="58" fill="#63b3a6" font-family="SF Mono,monospace" font-size="12" text-anchor="middle">2 · Homophily</text>
+<circle cx="302" cy="120" r="17" fill="#63b3a6"></circle><text x="302" y="125" fill="#10100e" font-family="SF Mono,monospace" font-size="12" font-weight="700" text-anchor="middle">A</text>
+<circle cx="420" cy="120" r="17" fill="#63b3a6"></circle><text x="420" y="125" fill="#10100e" font-family="SF Mono,monospace" font-size="12" font-weight="700" text-anchor="middle">B</text>
+<line x1="319" y1="120" x2="403" y2="120" stroke="#63b3a6" stroke-width="2.2"></line>
+<line x1="361" y1="86" x2="361" y2="108" stroke="#8d867b" stroke-width="1.8" marker-end="url(#t20earb)"></line>
+<text x="361" y="80" fill="#8d867b" font-family="-apple-system,sans-serif" font-size="11" text-anchor="middle">already alike → hence linked</text>
+<text x="361" y="172" fill="#a9a096" font-family="-apple-system,sans-serif" font-size="11.5" text-anchor="middle">Likeness first; the edge follows from it</text>
+<text x="361" y="192" fill="#787268" font-family="-apple-system,sans-serif" font-size="11" text-anchor="middle">likeness is cause, edge is effect</text>
+<text x="600" y="58" fill="#d9b45f" font-family="SF Mono,monospace" font-size="12" text-anchor="middle">3 · Shared environment</text>
+<circle cx="600" cy="80" r="15" fill="#d9b45f"></circle><text x="600" y="85" fill="#15130e" font-family="SF Mono,monospace" font-size="11" font-weight="700" text-anchor="middle">Z</text>
+<circle cx="542" cy="150" r="17" fill="#d9b45f"></circle><text x="542" y="155" fill="#15130e" font-family="SF Mono,monospace" font-size="12" font-weight="700" text-anchor="middle">A</text>
+<circle cx="660" cy="150" r="17" fill="#d9b45f"></circle><text x="660" y="155" fill="#15130e" font-family="SF Mono,monospace" font-size="12" font-weight="700" text-anchor="middle">B</text>
+<line x1="589" y1="93" x2="558" y2="131" stroke="#8d867b" stroke-width="1.8" marker-end="url(#t20earb)"></line>
+<line x1="611" y1="93" x2="644" y2="131" stroke="#8d867b" stroke-width="1.8" marker-end="url(#t20earb)"></line>
+<line x1="559" y1="150" x2="643" y2="150" stroke="#d9b45f" stroke-width="2.2"></line>
+<text x="600" y="188" fill="#a9a096" font-family="-apple-system,sans-serif" font-size="11.5" text-anchor="middle">One environment produced both</text>
+<text x="600" y="206" fill="#a9a096" font-family="-apple-system,sans-serif" font-size="11.5" text-anchor="middle">the edge and the likeness</text>
+<text x="600" y="228" fill="#787268" font-family="-apple-system,sans-serif" font-size="11" text-anchor="middle">both are effects</text>
+<text x="360" y="268" fill="#57524b" font-family="-apple-system,sans-serif" font-size="11.5" text-anchor="middle">Three causal diagrams, one data table. From the observations alone you cannot tell which one you are looking at.</text>
+</svg>
+<figcaption>"Connected people are more alike" is a genuine observation. It is compatible with three quite different causal structures — and the right intervention is opposite in each.</figcaption>
+</figure>
+<p>The practical stakes are high. If it is contagion, <b>intervening on hubs</b> is correct. If it is homophily, hub intervention wastes money and the thing to change is the sorting mechanism that piles like with like. If it is shared environment, what needs changing is neither the people nor the edges but the environment. <b>The three prescriptions are mutually exclusive, and a beautiful network diagram is perfectly indifferent between them.</b></p>
+<p><b>Third, static snapshots systematically overstate reachability.</b> The graph shows A—B—C, so you assume a message can get from A to C. But if A met B <em>after</em> B met C, that route does not exist in time. Flattening timed interactions into one static picture converts a great many impossible routes into apparent ones — which is why spreading models built on static graphs run optimistic.</p>
+<p><b>Fourth, being drawable as a graph doesn't mean it should be.</b> Define any pairwise relation over anything and you get a network, and then every metric becomes computable. But computable is not the same as meaningful. A centrality number means something only if something really does travel along the edges; if an edge is just "these two feel related to me", then the betweenness you compute is your own intuition re-sorted and given a decimal point for polish.</p>
+<div class="decide">
+<span class="lb">🎯 DECISION LINE</span>
+<p>Before acting on a network result, clear three gates: <b>(1) how was an edge defined, and does the conclusion survive moving the threshold; (2) are you claiming correlation or causation — if causation, state what rules out "they were already alike" and "they share an environment"; (3) is there a time order, and is your static reachability inflated?</b> Fail any of the three and treat the graph as a map, never as a causal model.</p>
+</div>
+<div class="crossx-inline">
+🌀 <b>Archaeology · trade networks rebuilt from potsherds</b>　Network analysis has taken hold in archaeology over the last twenty years: treat the similarity of finds between two sites as an "edge" and reconstruct ancient trade. The catch is that "how similar counts as an edge" is entirely the researcher's call, and moving the threshold moves which city comes out as the hub. This is the first point of this section in its most extreme form, in a field that <b>cannot collect more data</b>: a modern social network can be re-scraped, two-thousand-year-old pottery cannot. The response is not to give up, it is to change the reporting format — <b>never report "this city was the hub", only "this city stays the hub across this range of thresholds".</b> A conclusion's credibility is exactly the width of the threshold sweep it survives.
+</div>
+
+<div class="bigcat">
+<h3>🎒 In Practice · BigCat</h3>
+<ol>
+<li><span class="dm">Engineering &amp; teams</span>Cross-team work keeps stalling at the same point and the retro says "communication problems". Try this instead: turn the last three months of actual collaboration (code reviews, ticket mentions, shared meetings) into a graph, compute betweenness, and look at the top two or three. They are usually not the busiest people; they are the people every cross-module route has to pass through. <b>The change to make is not more headcount for them — headcount raises degree and does nothing for betweenness — but a parallel route for every bridge they carry</b>: a second reviewer, a second interface owner. Simple test: give that person a week off, and if several lines stall at once, you found it.</li>
+<li><span class="dm">Practice &amp; mind</span>"Why do I keep getting pulled around by this same kind of thing" gets treated as a question about temperament. Before working on temperament, draw the graph: map the relationships that actually moved your decisions this past year — not your contacts list, but "whose word did I end up going with". Very often a low-degree, high-betweenness shape appears: one person or one source is your <b>only route</b> to something you care about. <b>The thing to change is to add a parallel route</b> — one more person you can ask about the same thing. Most of the pull a sole route exerts drops away once there is a second edge; practising equanimity while the route stays unique is asking temperament to patch a hole in the topology.</li>
+<li><span class="dm">Investing</span>Diversification usually gets measured as number of positions — that is degree. What actually shapes a drawdown is <b>community structure</b>: whether those positions share a funding source, a supply chain, a regulatory regime. <b>The metric to change: swap "how many do I hold" for "if I group them by common exposure, what share of the book is the largest group".</b> And remember section four's warning — such groupings are very unstable on small samples, so read the order of magnitude (is the biggest group 30% or 70%), never the decimals.</li>
+</ol>
+</div>
+
+<div class="crossx">
+<h3>🌀 Crossings</h3>
+<ul>
+<li><b>Linguistics and anthropology · Structuralism</b>: Saussure argued a word's value lies not in itself but in its differences from other words — his famous claim being that in language there are <em>only differences, with no positive terms</em>. Lévi-Strauss applied the same move to kinship and myth: a mytheme means nothing alone, meaning lives in its oppositions. This issue's four sections are the computable version of that programme: node attributes can be erased entirely (section one) and relations alone still generate different macro outcomes; "important" turns out to be a relational quantity rather than a property (section three); and blocks standing in opposition to blocks are built into the structure (section four). <b>But here it does not hold</b>: structuralism assumes structure is synchronic, closed, its boundary given — the language is that language, the kinship system is that system. Section five shows that in real networks the boundary and the edge threshold are <em>chosen by the analyst</em>, and every metric drifts with the choice. The analyst's subjectivity that structuralism most wanted to escape comes back untouched, in the form of "who did you include in the graph". What transfers is the ruler — meaning is in relations, not elements. What does not transfer is the premise that the structure is objectively given.</li>
+<li><b>History and politics · the rise of the Medici</b>: Padgett and Ansell reconstructed the marriage and economic networks among the elite families of early-fifteenth-century Florence in 1993, asking how Cosimo de' Medici went from merchant to de facto ruler in twenty years. The answer on the graph is purely structural: Medici betweenness far exceeded every rival's, and more importantly their allies <em>did not intermarry with each other</em>, sitting in mutually unconnected communities, while the oligarch families were densely married among themselves. In this issue's terms: the Medici held the sole-route position (section three) and their neighbours belonged to different blocks (section four) — so every ally could only reach anyone else through the Medici, while every combination among the oligarchs needed the Medici not at all. Which yields a rather rude historiographical conclusion: <b>explaining Cosimo's success does not require issuing him a genius for strategy</b>. Padgett's own term is that his action was "robust" — precisely because in that structural position, ambiguous and not-quite-consistent action can satisfy several mutually unconnected parties at once, something a man with a clear stated intention could not do.</li>
+<li><b>Neuroscience · a complete wiring diagram still isn't enough</b>: <em>C. elegans</em> is the one animal whose wiring diagram has been fully mapped — in 1986 White and colleagues drew every synapse among its 302 neurons. Forty years on, the degree distribution, path lengths and community structure of that graph have all been computed, and it <em>still</em> does not let anyone derive from the graph when the worm will turn. The reason is exactly the ceiling of this issue's mechanism: structure constrains <b>what is possible</b> — which signal could reach where, in how few steps — not the <b>dynamics</b>: put a different set of response rules on the same graph and the behaviour changes completely. That draws a precise line under "draw the graph first". Drawing it converts "why this person" into "why this position", which is real progress. But a position fences off what can happen; it does not tell you what will. People who treat a network diagram as a causal model have usually mistaken a constraint for a mechanism at exactly this step.</li>
+</ul>
+</div>
+
+<div class="thinking">
+<h3>Going deeper</h3>
+<details><summary>If structure matters this much, why is changing it the hardest thing in any organisation?</summary><p>Because the graph that does the work isn't the org chart, it's the untraced one — who trusts whom, who owes whom a favour. An announcement can rewrite the first; the second only moves as the cost of interacting changes. That is also why the three months after a reorg look exactly like the three months before: the formal graph changed, the graph messages actually travel on didn't.</p></details>
+<details><summary>Is a high-betweenness person an asset or a risk?</summary><p>They are the same thing. That person is the source of efficiency (nothing has to detour), the single point of failure, and the occupant of a position that can collect rent — every cross-block exchange has to be visible to them. So "should we add redundancy to this bridge" is never a purely technical question: redundancy strips positional power from a specific person, and that, not the engineering, is why it doesn't get done.</p></details>
+<details><summary>Can network metrics be gamed?</summary><p>Yes, and any published metric certainly will be — this is Topic 26's Goodhart problem in network form. Search ranking is the complete demonstration: PageRank is eigenvector centrality, and link farms appeared the moment it became public. So any scheme that uses centrality for promotion or resource allocation has to start by asking how cheaply the evaluated party can add edges.</p></details>
+<details><summary>Does "draw the graph first" contradict "don't be reductionist"?</summary><p>It doesn't, but it can turn into a second reductionism. Assigning everything to structure and assigning everything to individual character make the same error — both claim one level explains it all. The defensible version of this issue's claim is the weaker one: before attributing to individuals, the structural variable should be netted out, because it is cheap, measurable, and frequently eats most of the explanatory power. What is left after netting it out is where people come in.</p></details>
+</div>
+
+<div class="refs">
+<h3>Further reading</h3>
+<ul>
+<li>Mark Newman, <a href="https://global.oup.com/academic/product/networks-9780198805090">Networks</a> (2nd ed., the standard textbook)</li>
+<li>Newman &amp; Girvan, <a href="https://arxiv.org/abs/cond-mat/0308217">Finding and evaluating community structure in networks</a> (2004, the original definition of modularity)</li>
+<li>Fortunato &amp; Barthélemy, <a href="https://www.pnas.org/doi/10.1073/pnas.0605965104">Resolution limit in community detection</a> (2007)</li>
+<li>Zachary, <a href="https://www.journals.uchicago.edu/doi/10.1086/jar.33.4.3629752">An Information Flow Model for Conflict and Fission in Small Groups</a> (1977, the karate club)</li>
+<li>Padgett &amp; Ansell, <a href="https://www.journals.uchicago.edu/doi/10.1086/230190">Robust Action and the Rise of the Medici, 1400-1434</a> (1993)</li>
+<li>Shalizi &amp; Thomas, <a href="https://arxiv.org/abs/1004.4704">Homophily and Contagion Are Generically Confounded in Observational Social Network Studies</a> (2011)</li>
+<li>Kieran Healy, <a href="https://kieranhealy.org/blog/archives/2013/06/09/using-metadata-to-find-paul-revere/">Using Metadata to Find Paul Revere</a> (2013)</li>
+<li>Christopher Alexander, <a href="https://en.wikipedia.org/wiki/A_City_is_Not_a_Tree">A City is Not a Tree</a> (1965)</li>
+<li>Thébault &amp; Fontaine, <a href="https://www.science.org/doi/10.1126/science.1188321">Stability of Ecological Communities and the Architecture of Mutualistic and Trophic Networks</a> (2010)</li>
+<li>White et al., <a href="https://royalsocietypublishing.org/doi/10.1098/rstb.1986.0056">The Structure of the Nervous System of the Nematode C. elegans</a> (1986, the complete connectome)</li>
+</ul>
+</div>
+
+<footer>BigCat · Complexity Science · <a href="index.en.html">← All topics</a></footer>
+</div>
+<script src="https://hub.cissychen.com/comments.js" defer></script>
+<script src="https://hub.cissychen.com/search.js" defer></script>
+<script src="https://hub.cissychen.com/index-button.js" defer></script>
+<script src="https://hub.cissychen.com/i18n-tts.js" defer></script>
+</body></html>

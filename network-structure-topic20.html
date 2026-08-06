@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+
+<html lang="zh-CN"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>结构决定动力学 — 先画关系图，再谈个体归因 · 复杂性科学 T20</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,"SF Pro Display","Noto Sans SC",sans-serif;color:#e4ded5;line-height:1.85;min-height:100vh;
+  background:radial-gradient(1100px 620px at 12% -6%,rgba(224,137,94,0.10),transparent 62%),radial-gradient(950px 700px at 100% 2%,rgba(166,147,205,0.09),transparent 58%),linear-gradient(168deg,#100f0d 0%,#15161b 48%,#0a0a0c 100%);background-attachment:fixed}
+.wrap{max-width:760px;margin:0 auto;padding:30px 22px 90px}
+header{padding:52px 0 8px;border-bottom:1px solid rgba(255,255,255,0.07);margin-bottom:34px}
+.week-tag{font-family:"SF Mono",Menlo,monospace;font-size:0.72rem;font-weight:700;letter-spacing:2px;color:#63b3a6;border:1px solid rgba(99,179,166,0.4);background:rgba(99,179,166,0.07);padding:3px 11px;border-radius:20px}
+h1{font-size:2.5rem;font-weight:800;letter-spacing:0.5px;line-height:1.2;margin:20px 0 0;background:linear-gradient(106deg,#e0895e 0%,#d9b45f 34%,#9fbc7a 68%,#63b3a6 100%);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+h1 .h1en{display:block;font-size:0.40em;font-weight:600;letter-spacing:2.5px;color:#847d72;-webkit-text-fill-color:#847d72;background:none;margin-top:13px}
+.sub{font-size:1.05rem;color:#aba498;margin-top:14px;font-weight:500}
+.date{font-family:"SF Mono",Menlo,monospace;font-size:0.75rem;color:#57524b;margin-top:18px;letter-spacing:1px}
+.pitch{margin:22px 0 30px;font-size:0.97rem;color:#cd7f9b;border-left:2px solid rgba(205,127,155,0.5);padding-left:16px;font-style:italic}
+.intro{font-size:1.02rem;color:#cfc8bc;margin-bottom:14px}
+.intro p{margin-bottom:16px}
+h2{font-size:1.42rem;font-weight:700;color:#e9e3d9;margin:56px 0 8px;letter-spacing:0.3px}
+h2 .n{font-family:"SF Mono",Menlo,monospace;font-size:0.85rem;color:#63b3a6;display:block;margin-bottom:6px;letter-spacing:2px}
+.he{font-size:0.68em;color:#8d867b;font-weight:500;letter-spacing:0}
+p{margin-bottom:17px}
+.lead{color:#cfc8bc}
+b,strong{color:#f0eae0;font-weight:600}
+em{color:#d9b45f;font-style:normal;font-weight:500}
+.dim{color:#8d867b}
+a.reflink{display:inline-block;font-size:0.82rem;font-family:"SF Mono",Menlo,monospace;color:#63b3a6;border:1px solid rgba(99,179,166,0.38);background:rgba(99,179,166,0.07);padding:1px 9px;border-radius:20px;text-decoration:none;transition:all 0.15s;white-space:nowrap}
+a.reflink:hover{background:rgba(99,179,166,0.16);border-color:rgba(99,179,166,0.7)}
+figure{margin:30px 0}
+figure svg{display:block;width:100%;height:auto;border-radius:12px;background:rgba(255,255,255,0.018);border:1px solid rgba(255,255,255,0.06)}
+figcaption{font-size:0.82rem;color:#787268;margin-top:11px;text-align:center;line-height:1.6}
+.en-brief{font-size:0.85rem;color:#847d72;border-top:1px dashed rgba(255,255,255,0.09);padding-top:12px;margin-top:22px;line-height:1.65}
+.en-brief b{font-family:"SF Mono",Menlo,monospace;font-size:0.72rem;color:#63b3a6;letter-spacing:1px;margin-right:7px}
+.decide{margin:24px 0;border:1px solid rgba(224,137,94,0.36);background:rgba(224,137,94,0.055);border-radius:12px;padding:15px 19px}
+.decide .lb{font-family:"SF Mono",Menlo,monospace;font-size:0.73rem;letter-spacing:1.5px;color:#e0895e;font-weight:700;display:block;margin-bottom:7px}
+.decide p{margin:0;font-size:0.95rem;color:#ddd5c9}
+.crossx-inline{margin:20px 0 22px;border-left:2px solid rgba(205,127,155,0.55);padding:2px 0 2px 15px;font-size:0.89rem;color:#a9a096;line-height:1.72}
+.crossx-inline b{color:#cd7f9b;font-weight:600}
+.bigcat{margin:46px 0 10px;border:1px solid rgba(217,180,95,0.38);background:rgba(217,180,95,0.05);border-radius:14px;padding:20px 22px}
+.bigcat h3{font-size:1.02rem;color:#d9b45f;margin-bottom:14px;letter-spacing:0.5px}
+.bigcat ol{list-style:none;padding:0}
+.bigcat li{margin-bottom:15px;font-size:0.94rem;color:#d5cdc1;line-height:1.78}
+.bigcat li:last-child{margin-bottom:0}
+.bigcat .dm{font-family:"SF Mono",Menlo,monospace;font-size:0.73rem;color:#d9b45f;border:1px solid rgba(217,180,95,0.32);border-radius:4px;padding:1px 7px;margin-right:8px;white-space:nowrap}
+.crossx{margin:46px 0 10px;border:1px solid rgba(205,127,155,0.38);background:rgba(205,127,155,0.05);border-radius:14px;padding:20px 22px}
+.crossx h3{font-size:1.02rem;color:#cd7f9b;margin-bottom:14px;letter-spacing:0.5px}
+.crossx ul{list-style:none;padding:0}
+.crossx li{margin-bottom:16px;font-size:0.94rem;color:#d5cdc1;line-height:1.78}
+.crossx li:last-child{margin-bottom:0}
+.crossx li b{color:#cd7f9b;font-weight:600}
+.thinking{margin:46px 0 10px}
+.thinking h3{font-size:1.02rem;color:#a693cd;margin-bottom:14px;letter-spacing:0.5px}
+details{border:1px solid rgba(166,147,205,0.22);border-radius:10px;padding:12px 16px;margin-bottom:10px;background:rgba(166,147,205,0.035)}
+summary{cursor:pointer;font-size:0.93rem;color:#c9c2b6;font-weight:500}
+summary::marker{color:#a693cd}
+details p{margin:12px 0 0;font-size:0.9rem;color:#a9a096;line-height:1.75}
+.refs{margin:46px 0 10px}
+.refs h3{font-size:1.02rem;color:#79a6d2;margin-bottom:14px;letter-spacing:0.5px}
+.refs ul{list-style:none;padding:0}
+.refs li{margin-bottom:10px;font-size:0.9rem;color:#8d867b;line-height:1.7}
+.refs a{color:#79a6d2;text-decoration:none;border-bottom:1px solid rgba(121,166,210,0.3)}
+.refs a:hover{color:#a6c4e2;border-bottom-color:rgba(121,166,210,0.7)}
+footer{text-align:center;padding:56px 0 10px;font-size:0.78rem;color:#57524b;font-family:"SF Mono",Menlo,monospace;border-top:1px solid rgba(255,255,255,0.06);margin-top:50px}
+footer a{color:#79a6d2;text-decoration:none}
+@media(max-width:600px){h1{font-size:1.85rem}.wrap{padding:24px 16px 60px}h2{font-size:1.22rem}}
+</style></head><body>
+<div class="wrap">
+<header>
+<span class="week-tag">TOPIC 20 · PHASE D</span>
+<h1>结构决定动力学<span class="h1en">STRUCTURE DRIVES DYNAMICS</span></h1>
+<p class="sub">先画出关系图，再谈个体归因<span class="he">（Draw the graph before you blame the person）</span></p>
+<p class="date">2026-08-06 · 网络</p>
+</header>
+<p class="pitch">同一封内部通知，在一家公司两天就人人都知道了，在另一家三周之后还有人说没听说。人差不多，通知一模一样。差别在于谁跟谁连着——而我们解释这件事的时候，几乎从来不看这张图。</p>
+<div class="intro">
+<p>接下来六期讲网络。这个词已经被用滥了，所以先把它降回一个很朴素的东西：<b>一张"谁跟谁有关系"的图。</b>只有点和线，没有别的。</p>
+<p>反直觉的地方在于，这张看起来贫瘠得可笑的图，能吃掉很多本来要归给"人的素质""执行力""企业文化"的差别。你可以让两组人的能力、动机、规则完全一样，只改接线，然后眼看着一件事的结局翻转。<b>接线是一个能单独测量、能和内容分开的变量。</b>本期就干这一件事：把它测出来。</p>
+<p class="dim">这一步是有历史的。1736 年欧拉解决哥尼斯堡七桥问题（Seven Bridges of Königsberg），证明那七座桥不可能一次不重复地走完——从此有了图论（graph theory），它问的是"存不存在这样一条路"这类是非题。而网络科学（network science）问的是另一类问题：一张有几万个点的真实的图，它的统计长什么样，跑在它上面的东西（消息、钱、病、故障）会怎么走。前者要答案，后者要分布。</p>
+</div>
+<h2><span class="n">01</span>同样的人，不同的接线<span class="he">（Same People, Different Wiring）</span></h2>
+<p class="lead">先把词说定。图里的每个东西叫一个<b>节点</b>（node），比如一个人、一台服务器、一个物种；两个节点之间的关系叫一条<b>边</b>（edge）。一个节点连了几条边，这个数叫它的<b>度</b>（degree）。</p>
+<p>现在做一个对照实验。两张图，都是 12 个节点、12 条边，因此平均每个节点连 2 条边——两边的<em>平均度</em>一模一样。区别只在接法：左边每个人只连左右两个邻居，围成一圈；右边有两个人各自连了一大片，这两片之间再搭一条。</p>
+<p>然后跑同一条规则：从某个人出发，消息每一轮传给他所有的邻居，传三轮。</p>
+<figure>
+<svg aria-label="同样 12 节点 12 条边的两种接线，同一条传播规则跑三步的覆盖对比" role="img" viewBox="0 0 720 350" xmlns="http://www.w3.org/2000/svg">
+<text x="360" y="26" fill="#aba498" font-family="-apple-system,sans-serif" font-size="13" text-anchor="middle">同样 12 个人、同样 12 条关系、同样的平均度 2.0</text>
+<text x="190" y="52" fill="#8d867b" font-family="SF Mono,monospace" font-size="12" text-anchor="middle">① 环形接线：每人只连左右邻居</text>
+<g stroke="rgba(255,255,255,0.22)" stroke-width="1.4">
+<line x1="190" y1="83" x2="236" y2="95"></line><line x1="236" y1="95" x2="270" y2="129"></line><line x1="270" y1="129" x2="282" y2="175"></line><line x1="282" y1="175" x2="270" y2="221"></line><line x1="270" y1="221" x2="236" y2="255"></line><line x1="236" y1="255" x2="190" y2="267"></line><line x1="190" y1="267" x2="144" y2="255"></line><line x1="144" y1="255" x2="110" y2="221"></line><line x1="110" y1="221" x2="98" y2="175"></line><line x1="98" y1="175" x2="110" y2="129"></line><line x1="110" y1="129" x2="144" y2="95"></line><line x1="144" y1="95" x2="190" y2="83"></line>
+</g>
+<circle cx="236" cy="95" r="8" fill="#63b3a6"></circle><circle cx="144" cy="95" r="8" fill="#63b3a6"></circle>
+<circle cx="270" cy="129" r="8" fill="#4a8f86"></circle><circle cx="110" cy="129" r="8" fill="#4a8f86"></circle>
+<circle cx="282" cy="175" r="8" fill="#376b66"></circle><circle cx="98" cy="175" r="8" fill="#376b66"></circle>
+<circle cx="270" cy="221" r="8" fill="#2a2a26" stroke="rgba(255,255,255,0.20)"></circle><circle cx="236" cy="255" r="8" fill="#2a2a26" stroke="rgba(255,255,255,0.20)"></circle><circle cx="190" cy="267" r="8" fill="#2a2a26" stroke="rgba(255,255,255,0.20)"></circle><circle cx="144" cy="255" r="8" fill="#2a2a26" stroke="rgba(255,255,255,0.20)"></circle><circle cx="110" cy="221" r="8" fill="#2a2a26" stroke="rgba(255,255,255,0.20)"></circle>
+<circle cx="190" cy="83" r="9.5" fill="#e0895e"></circle>
+<text x="190" y="70" fill="#e0895e" font-family="SF Mono,monospace" font-size="11" text-anchor="middle">起点</text>
+<text x="190" y="300" fill="#63b3a6" font-family="-apple-system,sans-serif" font-size="12.5" text-anchor="middle">三轮之后：7 个人知道（含起点）</text>
+<text x="190" y="320" fill="#787268" font-family="-apple-system,sans-serif" font-size="11" text-anchor="middle">灰色的 5 个人还没听说</text>
+<text x="530" y="52" fill="#8d867b" font-family="SF Mono,monospace" font-size="12" text-anchor="middle">② 枢纽接线：同样 12 条边，接法不同</text>
+<g stroke="rgba(255,255,255,0.22)" stroke-width="1.4">
+<line x1="455" y1="120" x2="382" y2="88"></line><line x1="455" y1="120" x2="378" y2="145"></line><line x1="455" y1="120" x2="420" y2="62"></line><line x1="455" y1="120" x2="492" y2="60"></line><line x1="455" y1="120" x2="410" y2="190"></line>
+<line x1="585" y1="225" x2="660" y2="190"></line><line x1="585" y1="225" x2="668" y2="250"></line><line x1="585" y1="225" x2="610" y2="293"></line><line x1="585" y1="225" x2="532" y2="288"></line><line x1="585" y1="225" x2="500" y2="232"></line>
+<line x1="455" y1="120" x2="585" y2="225"></line><line x1="410" y1="190" x2="500" y2="232"></line>
+</g>
+<circle cx="455" cy="120" r="11" fill="#63b3a6"></circle>
+<circle cx="378" cy="145" r="8" fill="#4a8f86"></circle><circle cx="420" cy="62" r="8" fill="#4a8f86"></circle><circle cx="492" cy="60" r="8" fill="#4a8f86"></circle><circle cx="410" cy="190" r="8" fill="#4a8f86"></circle><circle cx="585" cy="225" r="11" fill="#4a8f86"></circle>
+<circle cx="660" cy="190" r="8" fill="#376b66"></circle><circle cx="668" cy="250" r="8" fill="#376b66"></circle><circle cx="610" cy="293" r="8" fill="#376b66"></circle><circle cx="532" cy="288" r="8" fill="#376b66"></circle><circle cx="500" cy="232" r="8" fill="#376b66"></circle>
+<circle cx="382" cy="88" r="9.5" fill="#e0895e"></circle>
+<text x="382" y="72" fill="#e0895e" font-family="SF Mono,monospace" font-size="11" text-anchor="middle">起点</text>
+<text x="530" y="320" fill="#63b3a6" font-family="-apple-system,sans-serif" font-size="12.5" text-anchor="middle">三轮之后：12 个人全知道</text>
+<text x="360" y="342" fill="#57524b" font-family="-apple-system,sans-serif" font-size="11" text-anchor="middle">颜色越亮 = 越早收到；灰色 = 三轮内没收到</text>
+</svg>
+<figcaption>规则相同、人数相同、关系总量相同。唯一的差别是接线，而结局差了近一倍。</figcaption>
+</figure>
+<p>左边七个人知道，右边十二个人全知道。你手里那个最常用的数字——"平均每人认识几个人"——在这两张图上完全相等，因此对结果<b>一点信息也不提供</b>。</p>
+<p>真正起作用的是度怎么<em>散开</em>的：左边所有人的度都是 2，右边有两个人的度是 6、大多数人的度是 1。这个"度的分布情况"叫<b>度分布</b>（degree distribution），它是网络最基本的指纹。当度分布是重尾的（少数节点极高、多数极低），平均值就会像上一期讲的那样变成一个陷阱 <a class="reflink" href="ref-power-law.html">→ 参考 · 幂律的识别与误判</a>。</p>
+<div class="decide">
+<span class="lb">🎯 决策线</span>
+<p>把结果归因到某个人之前，先花一小时把图画出来。不要凭印象画组织架构图——用留痕的数据：过去三个月谁给谁做过代码评审、谁在哪个工单里 @ 了谁、谁和谁同时出现在哪个会上。<b>画完再看你原来那个解释还站不站得住。</b>大多数时候会发现，你要怪的那个人正好站在图上唯一一个必经的位置上。</p>
+</div>
+<div class="crossx-inline">
+🌀 <b>建筑与城市规划 · Christopher Alexander「城市并非树形」</b>　1965 年 Alexander 写过一篇著名的批评：规划出来的新城把功能切成互不重叠的块，是一棵<em>树</em>；而自然生长的老城里，杂货店、报摊、公交站、人行道的使用者集合彼此重叠，是一张<em>半格</em>（semilattice）。用本节的话说，两者的节点几乎相同，接线的重叠度完全不同。由此能推出一个规划师当时不接受的结论：新城的"没有生气"不是因为选错了功能配比，而是因为接线本身被压成了不允许重叠的形状——所以再怎么调配比也补不回来。
+</div>
+<p class="en-brief"><b>EN</b> Two graphs, both 12 nodes and 12 edges, therefore identical average degree. Run the same three-round spreading rule: the ring reaches 7 people, the hub wiring reaches all 12. Average degree carries no information here; what does the work is the degree distribution.</p>
+<h2><span class="n">02</span>三把尺子<span class="he">（Three Rulers: Degree, Path Length, Clustering）</span></h2>
+<p class="lead">要把"接线"说清楚，最少需要三个数，因为它们量的是三个不同的层次。</p>
+<p><b>度</b>量的是最局部的事：你自己连了几个人。<b>最短路径长度</b>（shortest path length）量的是最全局的事：从这个点走到那个点，最少几步。把所有点对的最短路径取个平均，就是这张图的<em>平均最短路径长度</em>——它大致等于"消息从任意一个人传到任意另一个人，通常要转几手"。</p>
+<p>中间还差一层，而这层最容易被忽略：<b>聚类系数</b>（clustering coefficient）。它问的是——<b>你的朋友之间，彼此认识吗？</b>把你的邻居两两配对，数一数有多少对本来就是熟人，再除以总配对数，就是你的聚类系数。全是熟人是 1，互相都不认识是 0。</p>
+<figure>
+<svg aria-label="同一张七节点网络上的三把尺子：度、最短路径、聚类系数" role="img" viewBox="0 0 720 290" xmlns="http://www.w3.org/2000/svg">
+<text x="360" y="24" fill="#aba498" font-family="-apple-system,sans-serif" font-size="13" text-anchor="middle">同一张图，三个不同层次的量</text>
+<text x="115" y="50" fill="#63b3a6" font-family="SF Mono,monospace" font-size="12" text-anchor="middle">① 度 · 最局部</text>
+<g transform="translate(15,60)">
+<g stroke="rgba(255,255,255,0.20)" stroke-width="1.3">
+<line x1="18" y1="62" x2="66" y2="24"></line><line x1="18" y1="62" x2="60" y2="100"></line><line x1="66" y1="24" x2="60" y2="100"></line><line x1="66" y1="24" x2="116" y2="62"></line><line x1="60" y1="100" x2="116" y2="62"></line><line x1="116" y1="62" x2="166" y2="80"></line><line x1="166" y1="80" x2="206" y2="36"></line><line x1="166" y1="80" x2="212" y2="112"></line><line x1="206" y1="36" x2="212" y2="112"></line>
+</g>
+<circle cx="18" cy="62" r="8" fill="#2f2c27" stroke="rgba(255,255,255,0.18)"></circle><text x="18" y="46" fill="#8d867b" font-family="SF Mono,monospace" font-size="10.5" text-anchor="middle">2</text>
+<circle cx="66" cy="24" r="10" fill="#63b3a6"></circle><text x="66" y="8" fill="#63b3a6" font-family="SF Mono,monospace" font-size="11.5" text-anchor="middle">3</text>
+<circle cx="60" cy="100" r="8" fill="#2f2c27" stroke="rgba(255,255,255,0.18)"></circle><text x="60" y="120" fill="#8d867b" font-family="SF Mono,monospace" font-size="10.5" text-anchor="middle">3</text>
+<circle cx="116" cy="62" r="8" fill="#2f2c27" stroke="rgba(255,255,255,0.18)"></circle><text x="116" y="46" fill="#8d867b" font-family="SF Mono,monospace" font-size="10.5" text-anchor="middle">3</text>
+<circle cx="166" cy="80" r="8" fill="#2f2c27" stroke="rgba(255,255,255,0.18)"></circle><text x="166" y="100" fill="#8d867b" font-family="SF Mono,monospace" font-size="10.5" text-anchor="middle">3</text>
+<circle cx="206" cy="36" r="8" fill="#2f2c27" stroke="rgba(255,255,255,0.18)"></circle><text x="206" y="20" fill="#8d867b" font-family="SF Mono,monospace" font-size="10.5" text-anchor="middle">2</text>
+<circle cx="212" cy="112" r="8" fill="#2f2c27" stroke="rgba(255,255,255,0.18)"></circle><text x="212" y="132" fill="#8d867b" font-family="SF Mono,monospace" font-size="10.5" text-anchor="middle">2</text>
+</g>
+<text x="115" y="228" fill="#c9c2b6" font-family="-apple-system,sans-serif" font-size="11.5" text-anchor="middle">绿点连了 3 个人</text>
+<text x="115" y="246" fill="#787268" font-family="-apple-system,sans-serif" font-size="11" text-anchor="middle">它的度 = 3</text>
+<text x="360" y="50" fill="#e0895e" font-family="SF Mono,monospace" font-size="12" text-anchor="middle">② 最短路径 · 最全局</text>
+<g transform="translate(255,60)">
+<g stroke="rgba(255,255,255,0.14)" stroke-width="1.3">
+<line x1="18" y1="62" x2="60" y2="100"></line><line x1="66" y1="24" x2="60" y2="100"></line><line x1="60" y1="100" x2="116" y2="62"></line><line x1="166" y1="80" x2="212" y2="112"></line><line x1="206" y1="36" x2="212" y2="112"></line>
+</g>
+<g stroke="#e0895e" stroke-width="2.6">
+<line x1="18" y1="62" x2="66" y2="24"></line><line x1="66" y1="24" x2="116" y2="62"></line><line x1="116" y1="62" x2="166" y2="80"></line><line x1="166" y1="80" x2="206" y2="36"></line>
+</g>
+<circle cx="18" cy="62" r="9" fill="#e0895e"></circle><text x="8" y="82" fill="#e0895e" font-family="SF Mono,monospace" font-size="11" text-anchor="middle">起</text>
+<circle cx="66" cy="24" r="7" fill="#8a5238"></circle><circle cx="60" cy="100" r="7" fill="#2f2c27" stroke="rgba(255,255,255,0.18)"></circle><circle cx="116" cy="62" r="7" fill="#8a5238"></circle><circle cx="166" cy="80" r="7" fill="#8a5238"></circle>
+<circle cx="206" cy="36" r="9" fill="#e0895e"></circle><text x="216" y="24" fill="#e0895e" font-family="SF Mono,monospace" font-size="11" text-anchor="middle">终</text>
+<circle cx="212" cy="112" r="7" fill="#2f2c27" stroke="rgba(255,255,255,0.18)"></circle>
+</g>
+<text x="360" y="228" fill="#c9c2b6" font-family="-apple-system,sans-serif" font-size="11.5" text-anchor="middle">两端之间最少走 4 步</text>
+<text x="360" y="246" fill="#787268" font-family="-apple-system,sans-serif" font-size="11" text-anchor="middle">全图所有点对平均 2.0 步</text>
+<text x="600" y="50" fill="#a693cd" font-family="SF Mono,monospace" font-size="12" text-anchor="middle">③ 聚类系数 · 中间层</text>
+<g transform="translate(495,60)">
+<g stroke="rgba(255,255,255,0.14)" stroke-width="1.3">
+<line x1="116" y1="62" x2="166" y2="80"></line><line x1="166" y1="80" x2="206" y2="36"></line><line x1="166" y1="80" x2="212" y2="112"></line><line x1="206" y1="36" x2="212" y2="112"></line>
+</g>
+<g stroke="rgba(166,147,205,0.55)" stroke-width="1.6">
+<line x1="18" y1="62" x2="66" y2="24"></line><line x1="66" y1="24" x2="60" y2="100"></line><line x1="66" y1="24" x2="116" y2="62"></line>
+</g>
+<g stroke="#a693cd" stroke-width="2.6">
+<line x1="18" y1="62" x2="60" y2="100"></line><line x1="60" y1="100" x2="116" y2="62"></line>
+</g>
+<line x1="18" y1="62" x2="116" y2="62" stroke="#8d867b" stroke-dasharray="4 4" stroke-width="1.6"></line>
+<circle cx="66" cy="24" r="10" fill="#a693cd"></circle>
+<circle cx="18" cy="62" r="7" fill="#5b4f74"></circle><circle cx="60" cy="100" r="7" fill="#5b4f74"></circle><circle cx="116" cy="62" r="7" fill="#5b4f74"></circle>
+<circle cx="166" cy="80" r="7" fill="#2f2c27" stroke="rgba(255,255,255,0.18)"></circle><circle cx="206" cy="36" r="7" fill="#2f2c27" stroke="rgba(255,255,255,0.18)"></circle><circle cx="212" cy="112" r="7" fill="#2f2c27" stroke="rgba(255,255,255,0.18)"></circle>
+<text x="67" y="136" fill="#8d867b" font-family="-apple-system,sans-serif" font-size="10.5" text-anchor="middle">虚线这一对不认识</text>
+</g>
+<text x="600" y="228" fill="#c9c2b6" font-family="-apple-system,sans-serif" font-size="11.5" text-anchor="middle">紫点的 3 个邻居两两配对共 3 对</text>
+<text x="600" y="246" fill="#787268" font-family="-apple-system,sans-serif" font-size="11" text-anchor="middle">其中 2 对彼此认识 → 聚类系数 2/3</text>
+<text x="360" y="278" fill="#57524b" font-family="-apple-system,sans-serif" font-size="11" text-anchor="middle">三个量互不蕴含：知道其中一个，猜不出另外两个</text>
+</svg>
+<figcaption>度看的是「我连了谁」，路径看的是「全场要转几手」，聚类看的是「我的人互相认不认识」。</figcaption>
+</figure>
+<p>要紧的是最后那句：<b>这三个量互相独立。</b>一张图可以聚类很高而路径很长（每个村子内部人人相熟，村与村之间要走很远），也可以聚类很低而路径很短（一个大厅里所有人都只认识主持人，但任意两人转两手就到）。所以只报一个数就说"这个网络很紧密"，等于什么都没说。</p>
+<p>顺带一提，"高聚类 + 短路径同时出现"这件事本身很反常，也很常见，它有专门的名字，下一期专讲。</p>
+<div class="crossx-inline">
+🌀 <b>东方思想 · 华严宗的因陀罗网</b>　佛经里那个著名的意象：帝释天宫悬着一张宝网，每个网结上一颗宝珠，每颗珠子都映现其余所有珠子，重重无尽。用本节的尺子去读它，会读出一个很硬的东西：这个意象要求任意两颗珠子之间的路径长度是 <em>1</em>，聚类系数是 <em>1</em>——也就是一张完全图。而完全图的边数按节点数的平方涨，任何有维护成本的真实系统都撑不起。由此推出的结论不是"这个比喻不好"，而是：<b>真实世界里的"万物互摄"必须靠少数枢纽中转才实现得了</b>，于是它天然是不平等的——而因陀罗网的全部道德分量恰恰来自珠子之间的<em>平等</em>互摄。这个落差不是修辞问题，是拓扑问题。
+</div>
+<p class="en-brief"><b>EN</b> Three rulers at three levels: degree (how many you connect to), average shortest path length (how many hops the whole graph typically needs), and clustering coefficient (whether your neighbours know each other). They are mutually independent — high clustering implies nothing about path length, and vice versa. Quoting one number and calling a network "tight-knit" says nothing.</p>
+<h2><span class="n">03</span>「谁最关键」有四个答案<span class="he">（Centrality Is Not One Thing）</span></h2>
+<p class="lead">现在问一个所有人都想问的问题：这张图上谁最重要？</p>
+<p>这个问题没有单一答案，而且不是因为它太难，是因为它<b>问得不完整</b>。衡量"重要"的量叫<b>中心性</b>（centrality），常用的有四种，各自对应一种完全不同的重要 <a class="reflink" href="ref-centrality.html">→ 参考 · 网络中心性指标</a>：</p>
+<p><b>度中心性</b>（degree centrality）就是度本身——连的人最多。<b>接近中心性</b>（closeness centrality）看的是你到所有人的距离之和最小——你在"平均意义上离大家最近"的位置。<b>介数中心性</b>（betweenness centrality）数的是有多少对人之间的最短路径必须经过你——你是多少人的必经之路。<b>特征向量中心性</b>（eigenvector centrality）则是递归的：你重要，是因为连你的那些人重要——搜索引擎的 PageRank 就是它的一个变种。</p>
+<p>下面这张图是社会网络分析里的标准算例（Krackhardt 的"风筝图"），十个人、十八条关系。三种中心性，选出来的是三个不同的人。</p>
+<figure>
+<svg aria-label="Krackhardt 风筝图上三种中心性各自选出不同的人" role="img" viewBox="0 0 720 400" xmlns="http://www.w3.org/2000/svg">
+<text x="360" y="24" fill="#aba498" font-family="-apple-system,sans-serif" font-size="13" text-anchor="middle">同一张关系图，三种「最重要」，三个不同的人</text>
+<text x="110" y="48" fill="#63b3a6" font-family="SF Mono,monospace" font-size="12" text-anchor="middle">度中心性 · 连的人最多</text>
+<g transform="translate(25,58)">
+<g stroke="rgba(255,255,255,0.18)" stroke-width="1.3">
+<line x1="50" y1="40" x2="130" y2="40"></line><line x1="50" y1="40" x2="15" y2="100"></line><line x1="50" y1="40" x2="90" y2="100"></line><line x1="50" y1="40" x2="50" y2="160"></line><line x1="130" y1="40" x2="90" y2="100"></line><line x1="130" y1="40" x2="165" y2="100"></line><line x1="130" y1="40" x2="130" y2="160"></line><line x1="15" y1="100" x2="90" y2="100"></line><line x1="15" y1="100" x2="50" y2="160"></line><line x1="90" y1="100" x2="165" y2="100"></line><line x1="90" y1="100" x2="50" y2="160"></line><line x1="90" y1="100" x2="130" y2="160"></line><line x1="165" y1="100" x2="130" y2="160"></line><line x1="50" y1="160" x2="130" y2="160"></line><line x1="50" y1="160" x2="90" y2="215"></line><line x1="130" y1="160" x2="90" y2="215"></line><line x1="90" y1="215" x2="90" y2="262"></line><line x1="90" y1="262" x2="90" y2="308"></line>
+</g>
+<circle cx="50" cy="40" r="9" fill="#2f2c27" stroke="rgba(255,255,255,0.16)"></circle><text x="50" y="44" fill="#8d867b" font-family="SF Mono,monospace" font-size="10" text-anchor="middle">A</text>
+<circle cx="130" cy="40" r="9" fill="#2f2c27" stroke="rgba(255,255,255,0.16)"></circle><text x="130" y="44" fill="#8d867b" font-family="SF Mono,monospace" font-size="10" text-anchor="middle">B</text>
+<circle cx="15" cy="100" r="9" fill="#2f2c27" stroke="rgba(255,255,255,0.16)"></circle><text x="15" y="104" fill="#8d867b" font-family="SF Mono,monospace" font-size="10" text-anchor="middle">C</text>
+<circle cx="90" cy="100" r="13" fill="#63b3a6"></circle><text x="90" y="105" fill="#10100e" font-family="SF Mono,monospace" font-size="11" font-weight="700" text-anchor="middle">D</text>
+<circle cx="165" cy="100" r="9" fill="#2f2c27" stroke="rgba(255,255,255,0.16)"></circle><text x="165" y="104" fill="#8d867b" font-family="SF Mono,monospace" font-size="10" text-anchor="middle">E</text>
+<circle cx="50" cy="160" r="9" fill="#2f2c27" stroke="rgba(255,255,255,0.16)"></circle><text x="50" y="164" fill="#8d867b" font-family="SF Mono,monospace" font-size="10" text-anchor="middle">F</text>
+<circle cx="130" cy="160" r="9" fill="#2f2c27" stroke="rgba(255,255,255,0.16)"></circle><text x="130" y="164" fill="#8d867b" font-family="SF Mono,monospace" font-size="10" text-anchor="middle">G</text>
+<circle cx="90" cy="215" r="9" fill="#2f2c27" stroke="rgba(255,255,255,0.16)"></circle><text x="90" y="219" fill="#8d867b" font-family="SF Mono,monospace" font-size="10" text-anchor="middle">H</text>
+<circle cx="90" cy="262" r="9" fill="#2f2c27" stroke="rgba(255,255,255,0.16)"></circle><text x="90" y="266" fill="#8d867b" font-family="SF Mono,monospace" font-size="10" text-anchor="middle">I</text>
+<circle cx="90" cy="308" r="9" fill="#2f2c27" stroke="rgba(255,255,255,0.16)"></circle><text x="90" y="312" fill="#8d867b" font-family="SF Mono,monospace" font-size="10" text-anchor="middle">J</text>
+</g>
+<text x="110" y="388" fill="#63b3a6" font-family="-apple-system,sans-serif" font-size="11.5" text-anchor="middle">D 连了 6 个人，全场最多</text>
+<text x="350" y="48" fill="#d9b45f" font-family="SF Mono,monospace" font-size="12" text-anchor="middle">接近中心性 · 离所有人最近</text>
+<g transform="translate(265,58)">
+<g stroke="rgba(255,255,255,0.18)" stroke-width="1.3">
+<line x1="50" y1="40" x2="130" y2="40"></line><line x1="50" y1="40" x2="15" y2="100"></line><line x1="50" y1="40" x2="90" y2="100"></line><line x1="50" y1="40" x2="50" y2="160"></line><line x1="130" y1="40" x2="90" y2="100"></line><line x1="130" y1="40" x2="165" y2="100"></line><line x1="130" y1="40" x2="130" y2="160"></line><line x1="15" y1="100" x2="90" y2="100"></line><line x1="15" y1="100" x2="50" y2="160"></line><line x1="90" y1="100" x2="165" y2="100"></line><line x1="90" y1="100" x2="50" y2="160"></line><line x1="90" y1="100" x2="130" y2="160"></line><line x1="165" y1="100" x2="130" y2="160"></line><line x1="50" y1="160" x2="130" y2="160"></line><line x1="50" y1="160" x2="90" y2="215"></line><line x1="130" y1="160" x2="90" y2="215"></line><line x1="90" y1="215" x2="90" y2="262"></line><line x1="90" y1="262" x2="90" y2="308"></line>
+</g>
+<circle cx="50" cy="40" r="9" fill="#2f2c27" stroke="rgba(255,255,255,0.16)"></circle><text x="50" y="44" fill="#8d867b" font-family="SF Mono,monospace" font-size="10" text-anchor="middle">A</text>
+<circle cx="130" cy="40" r="9" fill="#2f2c27" stroke="rgba(255,255,255,0.16)"></circle><text x="130" y="44" fill="#8d867b" font-family="SF Mono,monospace" font-size="10" text-anchor="middle">B</text>
+<circle cx="15" cy="100" r="9" fill="#2f2c27" stroke="rgba(255,255,255,0.16)"></circle><text x="15" y="104" fill="#8d867b" font-family="SF Mono,monospace" font-size="10" text-anchor="middle">C</text>
+<circle cx="90" cy="100" r="9" fill="#2f2c27" stroke="rgba(255,255,255,0.16)"></circle><text x="90" y="104" fill="#8d867b" font-family="SF Mono,monospace" font-size="10" text-anchor="middle">D</text>
+<circle cx="165" cy="100" r="9" fill="#2f2c27" stroke="rgba(255,255,255,0.16)"></circle><text x="165" y="104" fill="#8d867b" font-family="SF Mono,monospace" font-size="10" text-anchor="middle">E</text>
+<circle cx="50" cy="160" r="13" fill="#d9b45f"></circle><text x="50" y="165" fill="#15130e" font-family="SF Mono,monospace" font-size="11" font-weight="700" text-anchor="middle">F</text>
+<circle cx="130" cy="160" r="13" fill="#d9b45f"></circle><text x="130" y="165" fill="#15130e" font-family="SF Mono,monospace" font-size="11" font-weight="700" text-anchor="middle">G</text>
+<circle cx="90" cy="215" r="9" fill="#2f2c27" stroke="rgba(255,255,255,0.16)"></circle><text x="90" y="219" fill="#8d867b" font-family="SF Mono,monospace" font-size="10" text-anchor="middle">H</text>
+<circle cx="90" cy="262" r="9" fill="#2f2c27" stroke="rgba(255,255,255,0.16)"></circle><text x="90" y="266" fill="#8d867b" font-family="SF Mono,monospace" font-size="10" text-anchor="middle">I</text>
+<circle cx="90" cy="308" r="9" fill="#2f2c27" stroke="rgba(255,255,255,0.16)"></circle><text x="90" y="312" fill="#8d867b" font-family="SF Mono,monospace" font-size="10" text-anchor="middle">J</text>
+</g>
+<text x="350" y="388" fill="#d9b45f" font-family="-apple-system,sans-serif" font-size="11.5" text-anchor="middle">F 与 G 到其余 9 人的距离和 = 14（D 是 15）</text>
+<text x="595" y="48" fill="#cd7f9b" font-family="SF Mono,monospace" font-size="12" text-anchor="middle">介数中心性 · 最多路径的必经之地</text>
+<g transform="translate(505,58)">
+<g stroke="rgba(255,255,255,0.18)" stroke-width="1.3">
+<line x1="50" y1="40" x2="130" y2="40"></line><line x1="50" y1="40" x2="15" y2="100"></line><line x1="50" y1="40" x2="90" y2="100"></line><line x1="50" y1="40" x2="50" y2="160"></line><line x1="130" y1="40" x2="90" y2="100"></line><line x1="130" y1="40" x2="165" y2="100"></line><line x1="130" y1="40" x2="130" y2="160"></line><line x1="15" y1="100" x2="90" y2="100"></line><line x1="15" y1="100" x2="50" y2="160"></line><line x1="90" y1="100" x2="165" y2="100"></line><line x1="90" y1="100" x2="50" y2="160"></line><line x1="90" y1="100" x2="130" y2="160"></line><line x1="165" y1="100" x2="130" y2="160"></line><line x1="50" y1="160" x2="130" y2="160"></line>
+</g>
+<g stroke="#cd7f9b" stroke-width="2.4">
+<line x1="50" y1="160" x2="90" y2="215"></line><line x1="130" y1="160" x2="90" y2="215"></line><line x1="90" y1="215" x2="90" y2="262"></line><line x1="90" y1="262" x2="90" y2="308"></line>
+</g>
+<circle cx="50" cy="40" r="9" fill="#2f2c27" stroke="rgba(255,255,255,0.16)"></circle><text x="50" y="44" fill="#8d867b" font-family="SF Mono,monospace" font-size="10" text-anchor="middle">A</text>
+<circle cx="130" cy="40" r="9" fill="#2f2c27" stroke="rgba(255,255,255,0.16)"></circle><text x="130" y="44" fill="#8d867b" font-family="SF Mono,monospace" font-size="10" text-anchor="middle">B</text>
+<circle cx="15" cy="100" r="9" fill="#2f2c27" stroke="rgba(255,255,255,0.16)"></circle><text x="15" y="104" fill="#8d867b" font-family="SF Mono,monospace" font-size="10" text-anchor="middle">C</text>
+<circle cx="90" cy="100" r="9" fill="#2f2c27" stroke="rgba(255,255,255,0.16)"></circle><text x="90" y="104" fill="#8d867b" font-family="SF Mono,monospace" font-size="10" text-anchor="middle">D</text>
+<circle cx="165" cy="100" r="9" fill="#2f2c27" stroke="rgba(255,255,255,0.16)"></circle><text x="165" y="104" fill="#8d867b" font-family="SF Mono,monospace" font-size="10" text-anchor="middle">E</text>
+<circle cx="50" cy="160" r="9" fill="#2f2c27" stroke="rgba(255,255,255,0.16)"></circle><text x="50" y="164" fill="#8d867b" font-family="SF Mono,monospace" font-size="10" text-anchor="middle">F</text>
+<circle cx="130" cy="160" r="9" fill="#2f2c27" stroke="rgba(255,255,255,0.16)"></circle><text x="130" y="164" fill="#8d867b" font-family="SF Mono,monospace" font-size="10" text-anchor="middle">G</text>
+<circle cx="90" cy="215" r="13" fill="#cd7f9b"></circle><text x="90" y="220" fill="#170f12" font-family="SF Mono,monospace" font-size="11" font-weight="700" text-anchor="middle">H</text>
+<circle cx="90" cy="262" r="9" fill="#2f2c27" stroke="rgba(255,255,255,0.16)"></circle><text x="90" y="266" fill="#8d867b" font-family="SF Mono,monospace" font-size="10" text-anchor="middle">I</text>
+<circle cx="90" cy="308" r="9" fill="#2f2c27" stroke="rgba(255,255,255,0.16)"></circle><text x="90" y="312" fill="#8d867b" font-family="SF Mono,monospace" font-size="10" text-anchor="middle">J</text>
+</g>
+<text x="595" y="388" fill="#cd7f9b" font-family="-apple-system,sans-serif" font-size="11.5" text-anchor="middle">H 只连 3 个人，却是 14 对人的唯一通道</text>
+</svg>
+<figcaption>D 最热闹，F 与 G 位置最居中，而真正掐着咽喉的是只连了三个人的 H。</figcaption>
+</figure>
+<p>H 只有 3 条关系，度中心性排在中下游。但 I 和 J 通往其余所有人的路都必须过 H——把 H 拿掉，图就断成两块。<b>最忙的人和最关键的人不是同一个人</b>，而且经常离得很远。</p>
+<p>那到底该用哪一个？答案取决于<b>什么在流动、以及它怎么流</b>。可以复制、可以同时往四面八方走的东西——一条消息、一个笑话、一种习惯——用度和特征向量中心性；不能复制、必须沿着一条路走完的东西——一笔钱、一批货、一个转诊的病人、一次面对面的引荐——用介数和接近中心性。选错了指标，你就会保护错人。</p>
+<div class="decide">
+<span class="lb">🎯 决策线</span>
+<p>在算任何中心性之前，先用一句话写清楚：<b>在这张图上流动的是什么，它能不能被复制。</b>写不出这句话就别算——算出来的排行榜一定有人信，而一个没说清流的排行榜和星座运势的可靠性差不多。写得出来之后，指标是被这句话选定的，不是你挑的。</p>
+</div>
+<div class="crossx-inline">
+🌀 <b>历史与技术 · 用元数据找出保罗·里维尔</b>　社会学家 Kieran Healy 在 2013 年写过一篇著名的演示：只拿 1770 年代波士顿各个社团的<em>成员名单</em>——不看任何人说了什么、写了什么——把"谁和谁同属一个社团"连成图，算一遍介数中心性，排在最前面的就是保罗·里维尔。他用这个说明：情报机关声称"我们只看元数据、不看内容"完全不构成安慰。本节的机制解释了为什么——<b>"谁是关键人物"本来就是一个纯结构的量，它不需要内容也能算出来。</b>内容保护和结构保护是两件事，前者做得再好也挡不住后者。
+</div>
+<p class="en-brief"><b>EN</b> Four centralities — degree, closeness, betweenness, eigenvector — pick different people. On Krackhardt's kite, D has the most ties, F and G sit closest to everyone, and H, with only three ties, is the sole route between fourteen pairs. Which measure is right depends on what flows and whether it can be copied.</p>
+<h2><span class="n">04</span>网络不是一团浆糊<span class="he">（Communities and Modularity）</span></h2>
+<p class="lead">到这里为止，图还只是一堆点线。但真实的关系图几乎从不均匀：边会成块地密集，块与块之间只挂着几根线。这些块叫<b>社群</b>（community）。</p>
+<p>难点在于，"看起来分成几块"是句主观的话。要把它变成可以算的东西，Newman 和 Girvan 在 2004 年提出了<b>模块度</b>（modularity，通常记作 Q）。它的定义只有一句话：<b>按你这种切法，落在社群内部的边占了多大比例；再减去"如果保持每个点的度不变、把所有边随机重接一遍，本来该有多大比例"。</b></p>
+<p>后面那半句是关键——它是一把尺子的零点。任何切法都会有一些边落在内部，光看比例会骗人；减掉随机情况下的期望之后，剩下的才是"这个结构确实比碰运气更成块"的部分。</p>
+<figure>
+<svg aria-label="同样的度、不同的接线：真实社群结构与随机重连后的模块度对比" role="img" viewBox="0 0 720 340" xmlns="http://www.w3.org/2000/svg">
+<text x="360" y="26" fill="#aba498" font-family="-apple-system,sans-serif" font-size="13" text-anchor="middle">两张图每个点的度完全一样，只有接法不同</text>
+<text x="188" y="52" fill="#63b3a6" font-family="SF Mono,monospace" font-size="12" text-anchor="middle">① 有社群结构</text>
+<g transform="translate(45,70)">
+<g stroke="rgba(99,179,166,0.45)" stroke-width="1.5">
+<line x1="40" y1="45" x2="88" y2="43"></line><line x1="40" y1="45" x2="38" y2="88"></line><line x1="40" y1="45" x2="88" y2="86"></line><line x1="88" y1="43" x2="38" y2="88"></line><line x1="88" y1="43" x2="88" y2="86"></line><line x1="38" y1="88" x2="88" y2="86"></line>
+<line x1="200" y1="45" x2="248" y2="43"></line><line x1="200" y1="45" x2="198" y2="88"></line><line x1="200" y1="45" x2="248" y2="86"></line><line x1="248" y1="43" x2="198" y2="88"></line><line x1="248" y1="43" x2="248" y2="86"></line><line x1="198" y1="88" x2="248" y2="86"></line>
+<line x1="120" y1="175" x2="168" y2="173"></line><line x1="120" y1="175" x2="118" y2="218"></line><line x1="120" y1="175" x2="168" y2="216"></line><line x1="168" y1="173" x2="118" y2="218"></line><line x1="168" y1="173" x2="168" y2="216"></line><line x1="118" y1="218" x2="168" y2="216"></line>
+</g>
+<g stroke="#cd7f9b" stroke-width="1.8" stroke-dasharray="5 3">
+<line x1="88" y1="43" x2="200" y2="45"></line><line x1="198" y1="88" x2="168" y2="173"></line><line x1="120" y1="175" x2="38" y2="88"></line>
+</g>
+<circle cx="40" cy="45" r="7.5" fill="#63b3a6"></circle><circle cx="88" cy="43" r="7.5" fill="#63b3a6"></circle><circle cx="38" cy="88" r="7.5" fill="#63b3a6"></circle><circle cx="88" cy="86" r="7.5" fill="#63b3a6"></circle>
+<circle cx="200" cy="45" r="7.5" fill="#d9b45f"></circle><circle cx="248" cy="43" r="7.5" fill="#d9b45f"></circle><circle cx="198" cy="88" r="7.5" fill="#d9b45f"></circle><circle cx="248" cy="86" r="7.5" fill="#d9b45f"></circle>
+<circle cx="120" cy="175" r="7.5" fill="#a693cd"></circle><circle cx="168" cy="173" r="7.5" fill="#a693cd"></circle><circle cx="118" cy="218" r="7.5" fill="#a693cd"></circle><circle cx="168" cy="216" r="7.5" fill="#a693cd"></circle>
+</g>
+<text x="188" y="312" fill="#63b3a6" font-family="SF Mono,monospace" font-size="13" text-anchor="middle">模块度 Q = 0.52</text>
+<text x="188" y="330" fill="#787268" font-family="-apple-system,sans-serif" font-size="11" text-anchor="middle">21 条边里 18 条在块内，只有 3 条（虚线）跨块</text>
+<text x="530" y="52" fill="#8d867b" font-family="SF Mono,monospace" font-size="12" text-anchor="middle">② 保持每点的度，随机重连</text>
+<g transform="translate(390,70)">
+<g stroke="rgba(255,255,255,0.20)" stroke-width="1.2">
+<line x1="40" y1="45" x2="120" y2="175"></line><line x1="40" y1="45" x2="168" y2="173"></line><line x1="40" y1="45" x2="168" y2="216"></line><line x1="88" y1="43" x2="198" y2="88"></line><line x1="88" y1="43" x2="248" y2="86"></line><line x1="88" y1="43" x2="118" y2="218"></line><line x1="88" y1="43" x2="168" y2="216"></line><line x1="38" y1="88" x2="198" y2="88"></line><line x1="38" y1="88" x2="120" y2="175"></line><line x1="38" y1="88" x2="168" y2="173"></line><line x1="38" y1="88" x2="118" y2="218"></line><line x1="88" y1="86" x2="198" y2="88"></line><line x1="88" y1="86" x2="168" y2="173"></line><line x1="88" y1="86" x2="118" y2="218"></line><line x1="200" y1="45" x2="198" y2="88"></line><line x1="200" y1="45" x2="248" y2="86"></line><line x1="200" y1="45" x2="120" y2="175"></line><line x1="200" y1="45" x2="168" y2="216"></line><line x1="248" y1="43" x2="248" y2="86"></line><line x1="248" y1="43" x2="120" y2="175"></line><line x1="248" y1="43" x2="168" y2="173"></line>
+</g>
+<circle cx="40" cy="45" r="7.5" fill="#63b3a6"></circle><circle cx="88" cy="43" r="7.5" fill="#63b3a6"></circle><circle cx="38" cy="88" r="7.5" fill="#63b3a6"></circle><circle cx="88" cy="86" r="7.5" fill="#63b3a6"></circle>
+<circle cx="200" cy="45" r="7.5" fill="#d9b45f"></circle><circle cx="248" cy="43" r="7.5" fill="#d9b45f"></circle><circle cx="198" cy="88" r="7.5" fill="#d9b45f"></circle><circle cx="248" cy="86" r="7.5" fill="#d9b45f"></circle>
+<circle cx="120" cy="175" r="7.5" fill="#a693cd"></circle><circle cx="168" cy="173" r="7.5" fill="#a693cd"></circle><circle cx="118" cy="218" r="7.5" fill="#a693cd"></circle><circle cx="168" cy="216" r="7.5" fill="#a693cd"></circle>
+</g>
+<text x="530" y="312" fill="#8d867b" font-family="SF Mono,monospace" font-size="13" text-anchor="middle">同样的三色分组 → Q = −0.19</text>
+<text x="530" y="330" fill="#787268" font-family="-apple-system,sans-serif" font-size="11" text-anchor="middle">颜色还在，块没了：这个分组已经不携带任何信息</text>
+</svg>
+<figcaption>模块度不是数"块内有多少边"，而是数"比随机接线多出了多少"。右图颜色照旧，模块度掉到负数。</figcaption>
+</figure>
+<p>这件事在真实数据上做过一个漂亮的检验。1970 年代，人类学家 Zachary 记录了一个大学空手道俱乐部 34 个成员之间的私下往来。后来俱乐部因为教练和会长闹翻，真的裂成了两半。Zachary 事后只用那张关系图去切，切出来的两半和实际站队<b>只错了一个人</b>。谁跟谁喝过酒这件事，比谁在会上说了什么更早地写好了结局。</p>
+<p>社群结构也把第 3 期讲的近可分解性（near-decomposability）从一个哲学论断变成了一个能算的数：Simon 说复杂系统必然是"块内紧、块间松"的，模块度就是那个"必然"的刻度。</p>
+<p class="dim">一句必要的警告：模块度不能当绝对分数用。Fortunato 和 Barthélemy 在 2007 年证明了它有<b>分辨率极限</b>（resolution limit）——最大化模块度的算法会系统性地看不见小于某个尺度的社群，而那个尺度随整张网的边数变大。也就是说，同一个小团体，在一张大图里会被算法揉进邻居里，在一张小图里却能被认出来。所以 Q 只能横向比较同一张图的不同切法，不能拿两张不同大小的图的 Q 来比。</p>
+<div class="crossx-inline">
+🌀 <b>生态学 · 互惠网络与捕食网络长得不一样</b>　Thébault 和 Fontaine 在 2010 年比较了两类生态网络：植物与传粉者构成的互惠网络，和吃与被吃构成的食物网。前者高度连通、少有清晰的模块；后者则明显分块。用本节的机制看，这不是审美差异而是稳定性机制的差异——<b>分块把扰动关在模块里，因此适合"一次冲击可能致命"的捕食关系；不分块让影响迅速摊薄到全网，因此适合"多一个少一个传粉者无所谓"的互惠关系。</b>由此推出一个反直觉的结论：模块化不是普遍的好设计，它是<em>针对某种扰动</em>的好设计。用模块度高低给一个系统打分而不问它挨的是哪种打击，等于在给答案打分却没看题。
+</div>
+<p class="en-brief"><b>EN</b> Real graphs are lumpy: dense blocks joined by a few edges. Modularity Q measures the fraction of edges inside your proposed blocks minus the fraction expected from a degree-preserving random rewiring — the second term is the zero point. Zachary's 1977 karate club split in reality, and the structure alone predicted the sides with one error. But Q has a resolution limit (Fortunato &amp; Barthélemy 2007), so it compares partitions of one graph, never two graphs of different size.</p>
+<h2><span class="n">05</span>这套说法在哪儿不成立<span class="he">（Where This Breaks Down）</span></h2>
+<p class="lead">"先画关系图"是本期的主张。现在说它会在哪儿把你带沟里，而且这几条比前面四节加起来更重要。</p>
+<p><b>第一，你画的那张图多半是错的。</b>真实的边永远是抽样出来的：你只能看到留痕的互动，看不到走廊里那句话。而中心性对漏边极其敏感——尤其是介数中心性，因为它靠的是"唯一通道"这种性质，补上一条边，某个人的介数就可能塌掉一半。更麻烦的是"多熟才算一条边"这个门槛是你定的：门槛调一格，排行榜就换人。<b>所以网络指标的小数点后两位没有意义，能用的只有量级和排序，而且排序还得做门槛扫描。</b></p>
+<p><b>第二，也是最要命的：结构相关不等于结构导致。</b>2007 年有一项被广泛报道的研究说肥胖会在社交网络里"传染"——你的朋友变胖，你变胖的概率显著上升。这个结论后来遭到了一个很难反驳的方法论批评：Shalizi 和 Thomas 在 2011 年证明，<b>在观测性的社会网络数据里，"传染"和"同类相聚"（homophily，同质选择）一般是无法区分的。</b>你看到相连的人彼此相似，可能是因为 A 影响了 B，也可能是因为 A 和 B 本来就像所以才成了朋友，还可能是他们住在同一片街区、面对同一家超市。三种机制留下的观测数据长得一模一样。</p>
+<figure>
+<svg aria-label="三种机制留下同一张观测数据：传染、同质选择、共同环境" role="img" viewBox="0 0 720 270" xmlns="http://www.w3.org/2000/svg">
+<defs>
+<marker id="t20ar" markerWidth="10" markerHeight="10" markerUnits="userSpaceOnUse" orient="auto" refX="9" refY="5" viewBox="0 0 10 10"><path d="M0,1 L9,5 L0,9 z" fill="#cd7f9b"></path></marker>
+<marker id="t20arb" markerWidth="10" markerHeight="10" markerUnits="userSpaceOnUse" orient="auto" refX="9" refY="5" viewBox="0 0 10 10"><path d="M0,1 L9,5 L0,9 z" fill="#8d867b"></path></marker>
+</defs>
+<text x="360" y="26" fill="#aba498" font-family="-apple-system,sans-serif" font-size="13" text-anchor="middle">观测到的都是同一件事：连着的两个人更像</text>
+<text x="118" y="58" fill="#cd7f9b" font-family="SF Mono,monospace" font-size="12" text-anchor="middle">① 传染</text>
+<circle cx="60" cy="120" r="17" fill="#cd7f9b"></circle><text x="60" y="125" fill="#170f12" font-family="SF Mono,monospace" font-size="12" font-weight="700" text-anchor="middle">A</text>
+<circle cx="178" cy="120" r="17" fill="#cd7f9b"></circle><text x="178" y="125" fill="#170f12" font-family="SF Mono,monospace" font-size="12" font-weight="700" text-anchor="middle">B</text>
+<line x1="82" y1="120" x2="152" y2="120" stroke="#cd7f9b" stroke-width="2.2" marker-end="url(#t20ar)"></line>
+<text x="118" y="108" fill="#cd7f9b" font-family="-apple-system,sans-serif" font-size="11" text-anchor="middle">影响</text>
+<text x="118" y="172" fill="#a9a096" font-family="-apple-system,sans-serif" font-size="11.5" text-anchor="middle">先有边，A 把状态传给 B</text>
+<text x="118" y="192" fill="#787268" font-family="-apple-system,sans-serif" font-size="11" text-anchor="middle">边是因，相似是果</text>
+<text x="360" y="58" fill="#63b3a6" font-family="SF Mono,monospace" font-size="12" text-anchor="middle">② 同质选择</text>
+<circle cx="302" cy="120" r="17" fill="#63b3a6"></circle><text x="302" y="125" fill="#10100e" font-family="SF Mono,monospace" font-size="12" font-weight="700" text-anchor="middle">A</text>
+<circle cx="420" cy="120" r="17" fill="#63b3a6"></circle><text x="420" y="125" fill="#10100e" font-family="SF Mono,monospace" font-size="12" font-weight="700" text-anchor="middle">B</text>
+<line x1="319" y1="120" x2="403" y2="120" stroke="#63b3a6" stroke-width="2.2"></line>
+<line x1="361" y1="86" x2="361" y2="108" stroke="#8d867b" stroke-width="1.8" marker-end="url(#t20arb)"></line>
+<text x="361" y="80" fill="#8d867b" font-family="-apple-system,sans-serif" font-size="11" text-anchor="middle">本来就像 → 才连上</text>
+<text x="361" y="172" fill="#a9a096" font-family="-apple-system,sans-serif" font-size="11.5" text-anchor="middle">先相似，因此才结成边</text>
+<text x="361" y="192" fill="#787268" font-family="-apple-system,sans-serif" font-size="11" text-anchor="middle">相似是因，边是果</text>
+<text x="600" y="58" fill="#d9b45f" font-family="SF Mono,monospace" font-size="12" text-anchor="middle">③ 共同环境</text>
+<circle cx="600" cy="80" r="15" fill="#d9b45f"></circle><text x="600" y="85" fill="#15130e" font-family="SF Mono,monospace" font-size="11" font-weight="700" text-anchor="middle">Z</text>
+<circle cx="542" cy="150" r="17" fill="#d9b45f"></circle><text x="542" y="155" fill="#15130e" font-family="SF Mono,monospace" font-size="12" font-weight="700" text-anchor="middle">A</text>
+<circle cx="660" cy="150" r="17" fill="#d9b45f"></circle><text x="660" y="155" fill="#15130e" font-family="SF Mono,monospace" font-size="12" font-weight="700" text-anchor="middle">B</text>
+<line x1="589" y1="93" x2="558" y2="131" stroke="#8d867b" stroke-width="1.8" marker-end="url(#t20arb)"></line>
+<line x1="611" y1="93" x2="644" y2="131" stroke="#8d867b" stroke-width="1.8" marker-end="url(#t20arb)"></line>
+<line x1="559" y1="150" x2="643" y2="150" stroke="#d9b45f" stroke-width="2.2"></line>
+<text x="600" y="192" fill="#a9a096" font-family="-apple-system,sans-serif" font-size="11.5" text-anchor="middle">同一个环境同时造出了边和相似</text>
+<text x="600" y="212" fill="#787268" font-family="-apple-system,sans-serif" font-size="11" text-anchor="middle">两者都是果</text>
+<text x="360" y="248" fill="#57524b" font-family="-apple-system,sans-serif" font-size="11.5" text-anchor="middle">三张因果图，同一张数据表。只看观测数据，你分不出自己在看哪一张。</text>
+</svg>
+<figcaption>「相连的人更像」是一条真实的观测。它同时兼容三种完全不同的因果结构，而干预方案在三种情况下完全相反。</figcaption>
+</figure>
+<p>这条边界的实际后果很重：如果是传染，那么<b>干预枢纽</b>是对的；如果是同质选择，干预枢纽白花钱，该改的是让人聚成堆的那个筛选机制；如果是共同环境，那么改的既不是人也不是边，是环境。<b>三种情况下的行动方案互相排斥，而漂亮的网络图对它们一视同仁。</b></p>
+<p><b>第三，静态快照会系统性高估可达性。</b>图上画着 A—B—C，你以为消息能从 A 到 C。但如果 A 和 B 的那次接触发生在 B 和 C 那次<em>之后</em>，这条路在时间上根本不存在。把带时间的互动压成一张静态图，你就把大量走不通的路算成了通路——传播模型因此普遍偏乐观。</p>
+<p><b>第四，能画成图不等于该画成图。</b>任何东西两两之间定义个关系都能得到一张网络，然后一堆指标就都能算了。但指标算得出来，不等于它测的是你以为的那件事。一个中心性数字要有意义，前提是这张图上真的有某种东西在沿着边流动；如果边只是"我觉得这俩有点关系"，那么算出来的介数中心性只是把你的直觉重新排了个序，再用小数点给它镀了层金。</p>
+<div class="decide">
+<span class="lb">🎯 决策线</span>
+<p>拿网络结论做决定之前，过三道关：<b>① 边是怎么定义的、门槛变一变结论还在不在；② 你主张的是相关还是因果——如果是因果，说出你凭什么排除掉"他们本来就像"和"他们在同一个环境里"；③ 有没有时间顺序，静态图算出的可达性是不是被高估了。</b>三关过不了，就只把图当成一份地图看，别拿它当因果模型用。</p>
+</div>
+<div class="crossx-inline">
+🌀 <b>考古学 · 用陶片重建的贸易网</b>　近二十年考古学兴起了网络分析：把各遗址出土器物的相似度当成"边"，重建古代贸易往来。麻烦在于"相似到什么程度才算一条边"完全由研究者定，而阈值一动，图上那个"贸易中心"就换了城市。这正是本节第一条机制在一门<b>无法补数据</b>的学科里的极端版本：现代社交网络还能再抓一轮日志，两千年前的陶片抓不了。由此推出的做法不是放弃，而是把汇报格式改掉——<b>不报告"某城是中心"，只报告"在哪一段阈值区间里它一直是中心"。</b>一个结论的可信度，等于它能扛住多宽的阈值扫描。
+</div>
+<p class="en-brief"><b>EN</b> Four limits. Observed graphs are sampled and threshold-dependent, and betweenness is especially fragile to missing edges. Homophily and contagion are generically confounded in observational network data (Shalizi &amp; Thomas 2011), and the three causal stories imply opposite interventions. Static snapshots ignore edge timing and so overstate reachability. And anything can be drawn as a graph — the metrics only mean something if something actually flows along the edges.</p>
+<div class="bigcat">
+<h3>🎒 场景 · BigCat</h3>
+<ol>
+<li><span class="dm">带团队与组织</span>跨部门的事总在同一个环节卡住，复盘写的是"沟通不畅"。换个做法：把最近三个月真实发生过的协作（代码评审、工单里的 @、共同参会）连成一张图，算介数中心性，找出排前二三名的人。他们通常不是最忙的人，而是所有跨模块的路必须经过的人。<b>可改的动作：不是给他们加人手（加人手提高的是度，解决不了介数），而是给他们承担的每一条桥接配一条平行路径</b>——第二个评审人、第二个对接口的人。判据很简单：把这个人请一周假，如果多条线同时停摆，那就是它。</li>
+<li><span class="dm">修行与心性</span>"我怎么老是被某一类事牵动"——这件事通常被当成心性问题处理。先别急着处理心性，先画图：把过去一年真正影响过你决策的关系画出来（不是通讯录，是"这件事我最后听了谁的"）。很多时候会看到一个度很低、介数极高的结构——某个人或某个信息源，是你通往某件你在意的事的<b>唯一路径</b>。<b>可改的东西：加一条平行路径</b>（同一件事再找一个能问的人）。一条唯一路径带来的那种拽住你的力量，加一条并联边就会掉一大半；而在只有一条路的情况下反复修炼"不在意"，是在拿心性去补拓扑的缺口。</li>
+<li><span class="dm">投资与仓位</span>分散度通常用持仓数量衡量——那是度。但真正决定回撤形状的是<b>社群结构</b>：这些标的是不是共享同一批资金来源、同一条供应链、同一个监管口径。<b>可改的指标：把"持有几只"换成"如果按共同暴露把它们分组，最大的那一组占多少仓位"。</b>另外记住本期第四节那条警告——这种分组在小样本上极不稳定，所以看的是量级（最大组是三成还是七成），不是小数点。</li>
+</ol>
+</div>
+<div class="crossx">
+<h3>🌀 越界 · 跨学科的联想<span class="he">（Crossings）</span></h3>
+<ul>
+<li><b>语言学与人类学 · 结构主义</b>：索绪尔（Ferdinand de Saussure）主张一个词的价值不在它自身，而在它与其他词的差别——他那句著名的断言是，语言中<em>只有差别，没有正项</em>。列维-斯特劳斯（Claude Lévi-Strauss）把同一招用到亲属制度和神话上：单个神话母题没有意义，意义在它与其他母题的对立关系里。本期四节合起来，正好是这套主张的可计算版本：节点自身的属性可以全部抹掉（第一节），关系本身就足以生成不同的宏观结局；"重要"是一个关系量而非属性量（第三节）；而结构里天然带着块与块的对立（第四节）。<b>但这里不成立</b>：结构主义假定结构是共时的、封闭的、边界给定的——语言就是那套语言，亲属制度就是那套制度。而本期第五节说明，真实网络的边界和边的门槛都是<em>研究者选的</em>，而且所有指标都随这个选择漂移。换句话说，结构主义最想摆脱的那个"分析者的主观性"，在网络科学里以"你把谁算进图里"的形式原封不动地回来了。能借走的是"意义在关系不在元素"这把尺子，借不走的是"结构是客观给定的"这个前提。</li>
+<li><b>史学与政治 · 美第奇家族的崛起</b>：Padgett 和 Ansell 1993 年重建了 15 世纪初佛罗伦萨精英家族之间的联姻与经济往来网络，问科西莫·德·美第奇怎么在二十年里从一个商人家族变成实际统治者。图上的答案是纯结构的：美第奇的介数中心性远高于所有对手；更关键的是他们的盟友<em>彼此不通婚</em>，分散在互不相连的几个社群里，而对手寡头们则密集地互相联姻。用本期的话说：美第奇占的是唯一通道的位置（第三节），并且他们的邻居分属不同的块（第四节）——于是每一个盟友都只能通过美第奇去够到别人，而寡头们的每一次串联都不需要美第奇。这推出一个史学上很不客气的结论：<b>解释科西莫的成功不需要给他配一个天才的谋略</b>。Padgett 的原话是他的行动具有"稳健性"（robust action）——恰恰因为在那个结构位置上，含混的、不必自洽的行动也能同时取悦互不相通的几方；一个意图明确的人反而做不到。</li>
+<li><b>神经科学 · 完整的接线图也不够</b>：秀丽隐杆线虫是唯一一种接线图被完整测绘的动物——1986 年 White 等人把它 302 个神经元之间的每一个突触都画了出来。四十年过去，这张图上的度分布、路径长度、社群结构全都算清楚了，可它<em>仍然</em>不能让人从图推出这条虫在什么情况下会转弯。原因正好是本期机制的天花板：结构约束的是<b>可能性</b>——什么信号有可能到达哪里、最少几步——而不是<b>动力学</b>：同一张图上换一套神经元的响应规则，行为就完全不同。这给"先画关系图"划了一条准确的界：画图能把"为什么是这个人"的问题换成"为什么是这个位置"，这是一次真正的进步；但位置只圈定了可能发生什么，不告诉你会发生什么。把网络图当成因果模型的人，通常是在这一步上把约束误当成了机制。</li>
+</ul>
+</div>
+<div class="thinking">
+<h3>深入思考<span class="he">（Going Deeper）</span></h3>
+<details><summary>如果结构这么关键，为什么组织里改结构总是最难的事？</summary><p>因为真正起作用的那张图不是组织架构图，而是留痕之外的那张——谁信任谁、谁欠谁人情。行政命令能改的是前者，后者只能靠改变互动的机会成本慢慢移动。这也解释了为什么重组之后前三个月往往一切照旧：正式的图变了，实际跑消息的那张图还是老的。</p></details>
+<details><summary>介数中心性高的人，是资产还是风险？</summary><p>两者是同一件事。他是效率的来源（信息不必绕路），也是单点故障，还占据着一个可以收租的位置——所有跨块的往来都得让他知道。所以"该不该给桥接加冗余"从来不是纯技术问题：加冗余会削弱某个具体的人的位置权力，这才是它推不动的真实原因。</p></details>
+<details><summary>网络指标能不能反过来被人操纵？</summary><p>能，而且一旦指标公开就一定会被操纵——这正是第 26 期要讲的古德哈特问题在网络上的版本。搜索引擎排名的历史就是完整的演示：PageRank 是特征向量中心性，公开之后立刻长出了链接农场。所以任何"用中心性做人事或资源分配"的方案，都得先想清楚被评估者能怎么便宜地加边。</p></details>
+<details><summary>「先画关系图」和「不要过度还原论」冲突吗？</summary><p>不冲突，但要小心它变成另一种还原论。把一切归给结构，和把一切归给个人品质，犯的是同一个错误——都在声称一个层次能解释完。本期能站住的主张只有较弱的那一条：在做个体归因之前，结构这个变量应该先被扣掉，因为它便宜、可测、而且经常吃掉大半解释力。扣完之后剩下的部分，才轮到谈人。</p></details>
+</div>
+<div class="refs">
+<h3>延伸阅读<span class="he">（Further Reading）</span></h3>
+<ul>
+<li>Mark Newman, <a href="https://global.oup.com/academic/product/networks-9780198805090">Networks</a>（第二版，网络科学的标准教科书）</li>
+<li>Newman &amp; Girvan, <a href="https://arxiv.org/abs/cond-mat/0308217">Finding and evaluating community structure in networks</a>（2004，模块度的原始定义）</li>
+<li>Fortunato &amp; Barthélemy, <a href="https://www.pnas.org/doi/10.1073/pnas.0605965104">Resolution limit in community detection</a>（2007，模块度的分辨率极限）</li>
+<li>Zachary, <a href="https://www.journals.uchicago.edu/doi/10.1086/jar.33.4.3629752">An Information Flow Model for Conflict and Fission in Small Groups</a>（1977，空手道俱乐部）</li>
+<li>Padgett &amp; Ansell, <a href="https://www.journals.uchicago.edu/doi/10.1086/230190">Robust Action and the Rise of the Medici, 1400-1434</a>（1993）</li>
+<li>Shalizi &amp; Thomas, <a href="https://arxiv.org/abs/1004.4704">Homophily and Contagion Are Generically Confounded in Observational Social Network Studies</a>（2011）</li>
+<li>Kieran Healy, <a href="https://kieranhealy.org/blog/archives/2013/06/09/using-metadata-to-find-paul-revere/">Using Metadata to Find Paul Revere</a>（2013）</li>
+<li>Christopher Alexander, <a href="https://en.wikipedia.org/wiki/A_City_is_Not_a_Tree">A City is Not a Tree</a>（1965）</li>
+<li>Thébault &amp; Fontaine, <a href="https://www.science.org/doi/10.1126/science.1188321">Stability of Ecological Communities and the Architecture of Mutualistic and Trophic Networks</a>（2010）</li>
+<li>White et al., <a href="https://royalsocietypublishing.org/doi/10.1098/rstb.1986.0056">The Structure of the Nervous System of the Nematode C. elegans</a>（1986，完整连接组）</li>
+</ul>
+</div>
+<footer>BigCat · 复杂性科学 · <a href="index.html">← 全部 Topic</a></footer>
+</div>
+<script src="https://hub.cissychen.com/comments.js" defer></script>
+<script src="https://hub.cissychen.com/search.js" defer></script>
+<script src="https://hub.cissychen.com/index-button.js" defer></script>
+<script src="https://hub.cissychen.com/i18n-tts.js" defer></script>
+</body></html>
