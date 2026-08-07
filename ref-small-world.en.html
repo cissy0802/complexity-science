@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Small-World Model · Reference · Complexity Science</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,"SF Pro Display","Noto Sans SC",sans-serif;color:#e4ded5;line-height:1.85;min-height:100vh;
+  background:radial-gradient(1100px 620px at 12% -6%,rgba(99,179,166,0.09),transparent 62%),radial-gradient(950px 700px at 100% 2%,rgba(166,147,205,0.08),transparent 58%),linear-gradient(168deg,#100f0d 0%,#15161b 48%,#0a0a0c 100%);background-attachment:fixed}
+.wrap{max-width:720px;margin:0 auto;padding:30px 22px 90px}
+header{padding:52px 0 8px;border-bottom:1px solid rgba(255,255,255,0.07);margin-bottom:32px}
+.rtag{font-family:"SF Mono",Menlo,monospace;font-size:0.72rem;font-weight:700;letter-spacing:2px;color:#63b3a6;border:1px solid rgba(99,179,166,0.4);background:rgba(99,179,166,0.07);padding:3px 11px;border-radius:20px}
+h1{font-size:2.15rem;font-weight:800;line-height:1.2;margin:20px 0 0;color:#f0eae0}
+h1 .h1en{display:block;font-size:0.42em;font-weight:600;letter-spacing:2.5px;color:#847d72;margin-top:11px}
+.sub{font-size:0.98rem;color:#aba498;margin-top:12px}
+.meta{font-family:"SF Mono",Menlo,monospace;font-size:0.75rem;color:#57524b;margin-top:16px;letter-spacing:1px}
+h2{font-size:1.25rem;font-weight:700;color:#e9e3d9;margin:44px 0 10px}
+h2 .n{font-family:"SF Mono",Menlo,monospace;font-size:0.8rem;color:#63b3a6;display:block;margin-bottom:5px;letter-spacing:2px}
+.he{font-size:0.68em;color:#8d867b;font-weight:500;letter-spacing:0}
+p{margin-bottom:16px}
+b,strong{color:#f0eae0;font-weight:600}
+em{color:#d9b45f;font-style:normal;font-weight:500}
+.rule{border:1px solid rgba(99,179,166,0.3);background:rgba(99,179,166,0.05);border-radius:12px;padding:16px 20px;margin:22px 0;font-size:0.94rem;color:#d5cdc1}
+.rule ol{padding-left:20px;margin:0}
+.rule li{margin-bottom:7px}
+.rule li:last-child{margin-bottom:0}
+figure{margin:28px 0}
+figure svg{display:block;width:100%;height:auto;border-radius:12px;background:rgba(255,255,255,0.018);border:1px solid rgba(255,255,255,0.06)}
+figcaption{font-size:0.82rem;color:#787268;margin-top:10px;text-align:center;line-height:1.6}
+.cant{border:1px solid rgba(205,127,155,0.36);background:rgba(205,127,155,0.05);border-radius:12px;padding:18px 21px;margin:26px 0 10px}
+.cant h3{font-size:1rem;color:#cd7f9b;margin-bottom:12px}
+.cant ul{list-style:none;padding:0}
+.cant li{margin-bottom:13px;font-size:0.93rem;color:#d5cdc1;line-height:1.76}
+.cant li:last-child{margin-bottom:0}
+.cant li b{color:#cd7f9b}
+.refs{margin:40px 0 10px}
+.refs h3{font-size:1rem;color:#79a6d2;margin-bottom:12px}
+.refs ul{list-style:none;padding:0}
+.refs li{margin-bottom:9px;font-size:0.89rem;color:#8d867b;line-height:1.7}
+.refs a{color:#79a6d2;text-decoration:none;border-bottom:1px solid rgba(121,166,210,0.3)}
+.refs a:hover{color:#a6c4e2}
+footer{text-align:center;padding:52px 0 10px;font-size:0.78rem;color:#57524b;font-family:"SF Mono",Menlo,monospace;border-top:1px solid rgba(255,255,255,0.06);margin-top:46px}
+footer a{color:#79a6d2;text-decoration:none}
+@media(max-width:600px){h1{font-size:1.7rem}.wrap{padding:24px 16px 60px}}
+</style></head><body>
+<div class="wrap">
+<header>
+<span class="rtag">REF · CLASSIC MODEL</span>
+<h1>The Small-World Model</h1>
+<p class="sub">Watts &amp; Strogatz, 1998 — one parameter turns a lattice into a random graph</p>
+<p class="meta">Cited by: Topic 21 · Small World</p>
+</header>
+<h2><span class="n">01</span>The Question It Poses</h2>
+<p>Before the 1990s there were two standard network models, each holding one extreme. A <b>regular lattice</b>: every node links only to its near neighbours, so "my neighbours are neighbours of each other" is almost always true — high clustering; but crossing from one side to the other takes an enormous number of steps — large average path length. A <b>random graph</b>: edges thrown anywhere, paths startlingly short, but the chance that two of your neighbours happen to be connected is negligible — clustering near zero.</p>
+<p>The trouble is that real networks are at neither extreme. Nervous systems, power grids, human social circles, actor collaborations — all of them are <b>clustered and close at once</b>, which is impossible in either standard model.</p>
+<p>What Watts and Strogatz asked was: <b>how can those two properties coexist, and how elaborate does the mechanism have to be?</b> Their answer: not elaborate at all. Put a knob between the two extremes and look at the middle.</p>
+<h2><span class="n">02</span>The Rules</h2>
+<div class="rule">
+<ol>
+<li>Arrange N nodes in a ring and connect each to its K/2 nearest neighbours on either side. That is the starting point — a regular lattice.</li>
+<li>Walk through every edge. For each one, with probability <em>p</em>, detach one end and reattach it to a randomly chosen node (no self-loops, no duplicate edges).</li>
+<li>p = 0 changes nothing and leaves the lattice; p = 1 rewires every edge and gives something close to a random graph.</li>
+<li>Measure two numbers: <b>average path length L</b> (mean hop count along shortest paths over all pairs) and <b>clustering coefficient C</b> (the fraction of a node's neighbours that are connected to each other).</li>
+<li>Divide both by their p = 0 values and plot against p. Those two curves are the entire model.</li>
+</ol>
+</div>
+<p>Note that step 2 only <em>moves</em> edges; it never adds or removes any. So all three frames have exactly the same edge count — every difference that follows comes from the wiring alone.</p>
+<p>One common variant is worth knowing: the Newman–Watts version <b>adds</b> a random edge with probability p instead of rewiring. That keeps the graph from fragmenting (rewiring can, with small probability, isolate a stretch), and the qualitative conclusions are identical. Numerical work usually uses this version.</p>
+<figure>
+<svg viewBox="0 0 700 266" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="One rewiring step: detach one end of a short edge and reattach it far away"><defs><marker id="r1a" markerWidth="9" markerHeight="9" markerUnits="userSpaceOnUse" refX="8" refY="5" orient="auto" viewBox="0 0 10 10"><path d="M0,1 L9,5 L0,9 z" fill="#63b3a6"></path></marker></defs><text x="350" y="26" fill="#aba498" font-family="-apple-system,sans-serif" font-size="13" text-anchor="middle">Rewiring one edge: the only operation</text><g stroke="rgba(255,255,255,0.20)" stroke-width="1.1"><line x1="190.0" y1="66.0" x2="218.6" y2="72.5"></line><line x1="190.0" y1="66.0" x2="241.6" y2="90.8"></line><line x1="218.6" y1="72.5" x2="241.6" y2="90.8"></line><line x1="218.6" y1="72.5" x2="254.3" y2="117.3"></line><line x1="241.6" y1="90.8" x2="254.3" y2="117.3"></line><line x1="241.6" y1="90.8" x2="254.3" y2="146.7"></line><line x1="254.3" y1="117.3" x2="254.3" y2="146.7"></line><line x1="254.3" y1="117.3" x2="241.6" y2="173.2"></line><line x1="254.3" y1="146.7" x2="241.6" y2="173.2"></line><line x1="254.3" y1="146.7" x2="218.6" y2="191.5"></line><line x1="241.6" y1="173.2" x2="218.6" y2="191.5"></line><line x1="241.6" y1="173.2" x2="190.0" y2="198.0"></line><line x1="218.6" y1="191.5" x2="190.0" y2="198.0"></line><line x1="218.6" y1="191.5" x2="161.4" y2="191.5"></line><line x1="190.0" y1="198.0" x2="161.4" y2="191.5"></line><line x1="190.0" y1="198.0" x2="138.4" y2="173.2"></line><line x1="161.4" y1="191.5" x2="138.4" y2="173.2"></line><line x1="161.4" y1="191.5" x2="125.7" y2="146.7"></line><line x1="138.4" y1="173.2" x2="125.7" y2="146.7"></line><line x1="138.4" y1="173.2" x2="125.7" y2="117.3"></line><line x1="125.7" y1="146.7" x2="125.7" y2="117.3"></line><line x1="125.7" y1="146.7" x2="138.4" y2="90.8"></line><line x1="125.7" y1="117.3" x2="138.4" y2="90.8"></line><line x1="125.7" y1="117.3" x2="161.4" y2="72.5"></line><line x1="138.4" y1="90.8" x2="161.4" y2="72.5"></line><line x1="138.4" y1="90.8" x2="190.0" y2="66.0"></line><line x1="161.4" y1="72.5" x2="190.0" y2="66.0"></line><line x1="161.4" y1="72.5" x2="218.6" y2="72.5"></line></g><line x1="241.6" y1="90.8" x2="254.3" y2="146.7" stroke="#cd7f9b" stroke-width="2.6"></line><circle cx="190.0" cy="66.0" r="4.4" fill="#63b3a6"></circle><circle cx="218.6" cy="72.5" r="4.4" fill="#63b3a6"></circle><circle cx="241.6" cy="90.8" r="4.4" fill="#63b3a6"></circle><circle cx="254.3" cy="117.3" r="4.4" fill="#63b3a6"></circle><circle cx="254.3" cy="146.7" r="4.4" fill="#63b3a6"></circle><circle cx="241.6" cy="173.2" r="4.4" fill="#63b3a6"></circle><circle cx="218.6" cy="191.5" r="4.4" fill="#63b3a6"></circle><circle cx="190.0" cy="198.0" r="4.4" fill="#63b3a6"></circle><circle cx="161.4" cy="191.5" r="4.4" fill="#63b3a6"></circle><circle cx="138.4" cy="173.2" r="4.4" fill="#63b3a6"></circle><circle cx="125.7" cy="146.7" r="4.4" fill="#63b3a6"></circle><circle cx="125.7" cy="117.3" r="4.4" fill="#63b3a6"></circle><circle cx="138.4" cy="90.8" r="4.4" fill="#63b3a6"></circle><circle cx="161.4" cy="72.5" r="4.4" fill="#63b3a6"></circle><text x="190" y="54" fill="#8d867b" font-family="SF Mono,monospace" font-size="12" text-anchor="middle">before</text><text x="190" y="224" fill="#cd7f9b" font-family="-apple-system,sans-serif" font-size="11.5" text-anchor="middle">this edge only joins near neighbours</text><line x1="292" y1="132" x2="400" y2="132" stroke="#63b3a6" stroke-width="2" marker-end="url(#r1a)"></line><text x="346" y="122" fill="#63b3a6" font-family="-apple-system,sans-serif" font-size="11.5" text-anchor="middle">with probability p, detach one end and reattach at random</text><g stroke="rgba(255,255,255,0.20)" stroke-width="1.1"><line x1="510.0" y1="66.0" x2="538.6" y2="72.5"></line><line x1="510.0" y1="66.0" x2="561.6" y2="90.8"></line><line x1="538.6" y1="72.5" x2="561.6" y2="90.8"></line><line x1="538.6" y1="72.5" x2="574.3" y2="117.3"></line><line x1="561.6" y1="90.8" x2="574.3" y2="117.3"></line><line x1="574.3" y1="117.3" x2="574.3" y2="146.7"></line><line x1="574.3" y1="117.3" x2="561.6" y2="173.2"></line><line x1="574.3" y1="146.7" x2="561.6" y2="173.2"></line><line x1="574.3" y1="146.7" x2="538.6" y2="191.5"></line><line x1="561.6" y1="173.2" x2="538.6" y2="191.5"></line><line x1="561.6" y1="173.2" x2="510.0" y2="198.0"></line><line x1="538.6" y1="191.5" x2="510.0" y2="198.0"></line><line x1="538.6" y1="191.5" x2="481.4" y2="191.5"></line><line x1="510.0" y1="198.0" x2="481.4" y2="191.5"></line><line x1="510.0" y1="198.0" x2="458.4" y2="173.2"></line><line x1="481.4" y1="191.5" x2="458.4" y2="173.2"></line><line x1="481.4" y1="191.5" x2="445.7" y2="146.7"></line><line x1="458.4" y1="173.2" x2="445.7" y2="146.7"></line><line x1="458.4" y1="173.2" x2="445.7" y2="117.3"></line><line x1="445.7" y1="146.7" x2="445.7" y2="117.3"></line><line x1="445.7" y1="146.7" x2="458.4" y2="90.8"></line><line x1="445.7" y1="117.3" x2="458.4" y2="90.8"></line><line x1="445.7" y1="117.3" x2="481.4" y2="72.5"></line><line x1="458.4" y1="90.8" x2="481.4" y2="72.5"></line><line x1="458.4" y1="90.8" x2="510.0" y2="66.0"></line><line x1="481.4" y1="72.5" x2="510.0" y2="66.0"></line><line x1="481.4" y1="72.5" x2="538.6" y2="72.5"></line></g><line x1="561.6" y1="90.8" x2="458.4" y2="173.2" stroke="#e0895e" stroke-width="2.6"></line><circle cx="510.0" cy="66.0" r="4.4" fill="#63b3a6"></circle><circle cx="538.6" cy="72.5" r="4.4" fill="#63b3a6"></circle><circle cx="561.6" cy="90.8" r="4.4" fill="#63b3a6"></circle><circle cx="574.3" cy="117.3" r="4.4" fill="#63b3a6"></circle><circle cx="574.3" cy="146.7" r="4.4" fill="#63b3a6"></circle><circle cx="561.6" cy="173.2" r="4.4" fill="#63b3a6"></circle><circle cx="538.6" cy="191.5" r="4.4" fill="#63b3a6"></circle><circle cx="510.0" cy="198.0" r="4.4" fill="#63b3a6"></circle><circle cx="481.4" cy="191.5" r="4.4" fill="#63b3a6"></circle><circle cx="458.4" cy="173.2" r="4.4" fill="#63b3a6"></circle><circle cx="445.7" cy="146.7" r="4.4" fill="#63b3a6"></circle><circle cx="445.7" cy="117.3" r="4.4" fill="#63b3a6"></circle><circle cx="458.4" cy="90.8" r="4.4" fill="#63b3a6"></circle><circle cx="481.4" cy="72.5" r="4.4" fill="#63b3a6"></circle><text x="510" y="54" fill="#8d867b" font-family="SF Mono,monospace" font-size="12" text-anchor="middle">after</text><text x="510" y="224" fill="#e0895e" font-family="-apple-system,sans-serif" font-size="11.5" text-anchor="middle">it is now a shortcut across half the ring</text><text x="350" y="252" fill="#57524b" font-family="-apple-system,sans-serif" font-size="11" text-anchor="middle">run this over every edge and you have a small-world graph</text></svg>
+<figcaption>The model has exactly one operation. "Small world" is simply the state after a very small number of them.</figcaption>
+</figure>
+<h2><span class="n">03</span>What You See When It Runs</h2>
+<p>Turn p up slowly from zero and the two curves do not fall together — that is the whole paper.</p>
+<p><b>L collapses fast.</b> At p of one per cent, average path length has already dropped close to random-graph territory. <b>C barely moves.</b> At that same p, more than ninety per cent of the clustering is still there. The wide stretch in between — p spanning two or three orders of magnitude — is the small-world regime.</p>
+<figure>
+<svg viewBox="0 0 700 288" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Path length and clustering coefficient as functions of rewiring probability"><text x="350" y="26" fill="#aba498" font-family="-apple-system,sans-serif" font-size="13" text-anchor="middle">The two curves fall out of step — that is the whole model</text><rect x="235.0" y="60" width="270.0" height="156" fill="rgba(99,179,166,0.07)"></rect><text x="370.0" y="52" fill="#63b3a6" font-family="-apple-system,sans-serif" font-size="11.5" text-anchor="middle">small-world regime</text><line x1="100" y1="216" x2="640" y2="216" stroke="rgba(255,255,255,0.18)" stroke-width="1.4"></line><line x1="100" y1="216" x2="100" y2="60" stroke="rgba(255,255,255,0.18)" stroke-width="1.4"></line><line x1="100.0" y1="216" x2="100.0" y2="220" stroke="rgba(255,255,255,0.18)" stroke-width="1.2"></line><text x="100.0" y="234" fill="#57524b" font-family="SF Mono,monospace" font-size="10.5" text-anchor="middle">10⁻⁴</text><line x1="235.0" y1="216" x2="235.0" y2="220" stroke="rgba(255,255,255,0.18)" stroke-width="1.2"></line><text x="235.0" y="234" fill="#57524b" font-family="SF Mono,monospace" font-size="10.5" text-anchor="middle">10⁻³</text><line x1="370.0" y1="216" x2="370.0" y2="220" stroke="rgba(255,255,255,0.18)" stroke-width="1.2"></line><text x="370.0" y="234" fill="#57524b" font-family="SF Mono,monospace" font-size="10.5" text-anchor="middle">10⁻²</text><line x1="505.0" y1="216" x2="505.0" y2="220" stroke="rgba(255,255,255,0.18)" stroke-width="1.2"></line><text x="505.0" y="234" fill="#57524b" font-family="SF Mono,monospace" font-size="10.5" text-anchor="middle">10⁻¹</text><line x1="640.0" y1="216" x2="640.0" y2="220" stroke="rgba(255,255,255,0.18)" stroke-width="1.2"></line><text x="640.0" y="234" fill="#57524b" font-family="SF Mono,monospace" font-size="10.5" text-anchor="middle">1</text><path d="M100.0,67.8 L167.5,81.8 L235.0,103.7 L302.5,133.3 L370.0,161.4 L437.5,183.2 L505.0,195.7 L572.5,202.0 L640.0,205.1" fill="none" stroke="#e0895e" stroke-width="2.4"></path><path d="M100.0,60.2 L235.0,60.5 L370.0,64.7 L437.5,74.4 L505.0,102.3 L572.5,166.1 L640.0,214.0" fill="none" stroke="#9fbc7a" stroke-width="2.4"></path><line x1="118" y1="164" x2="144" y2="164" stroke="#e0895e" stroke-width="2.6"></line><text x="152" y="168" fill="#e0895e" font-family="SF Mono,monospace" font-size="11.5" text-anchor="start">L / L(0)　path length</text><line x1="118" y1="186" x2="144" y2="186" stroke="#9fbc7a" stroke-width="2.6"></line><text x="152" y="190" fill="#9fbc7a" font-family="SF Mono,monospace" font-size="11.5" text-anchor="start">C / C(0)　clustering</text><text x="96" y="50" fill="#8d867b" font-family="-apple-system,sans-serif" font-size="11" text-anchor="start">ratio to the p = 0 value</text><text x="370.0" y="252" fill="#8d867b" font-family="-apple-system,sans-serif" font-size="11.5" text-anchor="middle">rewiring probability p (log) →</text><text x="350" y="272" fill="#57524b" font-family="-apple-system,sans-serif" font-size="11" text-anchor="middle">a shortcut helps whole regions at once and costs a single triangle — so the first few are nearly free</text></svg>
+<figcaption>The curves follow the shape of the original result (N ≈ 1000, 10 edges per node). What to read is the gap between them, not the exact values.</figcaption>
+</figure>
+<p>Why the gap? Because the two things a shortcut does differ enormously in magnitude.</p>
+<p><b>Its benefit to distance is regional.</b> It welds together two stretches of the ring that were far apart, so every pair of nodes that had to travel from one stretch to the other gets a shorter route — whole regions of pairs benefit. <b>Its damage to clustering is pointwise.</b> It destroys one triangle and leaves clustering everywhere else untouched.</p>
+<p>A region's worth of gain against one node's worth of loss, so the first few shortcuts are nearly free; once there are enough that paths are already short, adding more buys nothing but destroyed triangles. <b>Returns collapse while costs accumulate linearly</b> — that is the entire reason the middle stretch exists.</p>
+<p>Watts and Strogatz checked three real networks: the film-actor collaboration graph, the western US power grid, and the nervous system of <em>C. elegans</em>. All three sit in the middle band — the actor graph's clustering is more than a hundred times that of a size-matched random graph while its path length is about the same.</p>
+<h2><span class="n">04</span>What It Explains</h2>
+<p>The model makes one core claim, and it is a useful one: <b>"clustered and close" requires no ingenious mechanism, only a very small number of random cross-circle links.</b></p>
+<p>That claim goes straight to work in several places. <b>Spreading</b>: disease, rumour and fashion can sweep a highly localised population without assuming any special "super-spreading structure" — a few shortcuts suffice. <b>Synchronisation</b>: coupled oscillators (fireflies, cardiac cells, grid frequency) lock together far more readily on small-world topology than on a lattice. <b>Brains</b>: nervous systems must balance dense local processing against global integration while long-range fibres are metabolically expensive, and a small world is the solution under that constraint. <b>Engineering</b>: to shrink a system's diameter, adding a few long links is far cheaper than densifying everywhere.</p>
+<p>It also supplies a falsifiable contrast: if a network's clustering is not markedly above that of a size-matched random graph, the small-world account does not apply and you need a different mechanism.</p>
+<div class="cant">
+<h3>What It Cannot Explain</h3>
+<ul>
+<li><b>It produces no hubs.</b> Rewiring does not change the shape of the degree distribution — every node ends up with roughly the same number of edges (near-Poisson), the most-connected differing from the least by a small factor. So it cannot explain why some nodes carry thousands of edges. That needs a preferential-attachment mechanism, which is a different model.</li>
+<li><b>It does not guarantee you can find the path.</b> Short paths existing is not the same as being able to find them with local information. Kleinberg proved in 2000 that greedy forwarding is efficient only when the exponent governing long-range link lengths equals the lattice dimension — and Watts–Strogatz rewiring is <em>uniformly random</em>, which fails exactly that condition. Paths on a standard small-world graph are short and nobody can find them.</li>
+<li><b>It does not predict complex contagion.</b> The model describes topology only; it carries no transmission rule. For behaviours that require repeated confirmation from several sources, a long bridge is a dead end — it delivers a single exposure. Such spread feeds on bridge <b>width</b> rather than length (Centola &amp; Macy, 2007), and the model says nothing about width.</li>
+<li><b>"Is it a small world" excludes almost nothing.</b> The test (L close to a random graph, C far above it) is satisfied by the vast majority of real sparse networks, so the label itself carries little information. Report ratios instead: how many times L and C are relative to a size-matched random graph.</li>
+<li><b>It is static, unweighted and undirected.</b> Edges have no strength, no direction, and never appear or disappear over time. Real ties have all three — and which edge can serve as a bridge depends precisely on strength (see Granovetter), a variable the model does not contain.</li>
+</ul>
+</div>
+<div class="refs">
+<h3>Further Reading</h3>
+<ul>
+<li>Watts &amp; Strogatz, <a href="https://www.nature.com/articles/30918">Collective dynamics of 'small-world' networks</a> (1998, the original paper)</li>
+<li>Newman &amp; Watts, <a href="https://arxiv.org/abs/cond-mat/9903357">Renormalization group analysis of the small-world network model</a> (1999, the add-edges variant)</li>
+<li>Kleinberg, <a href="https://www.nature.com/articles/35022643">Navigation in a small world</a> (2000, the condition for navigability)</li>
+<li>Centola &amp; Macy, <a href="https://doi.org/10.1086/521848">Complex Contagions and the Weakness of Long Ties</a> (2007, when long bridges fail)</li>
+<li><a href="https://en.wikipedia.org/wiki/Watts%E2%80%93Strogatz_model">Watts–Strogatz model</a> (formulas and implementation details)</li>
+</ul>
+</div>
+<footer>BigCat · Complexity Science · <a href="index.en.html">← All topics</a></footer>
+</div>
+<script src="https://hub.cissychen.com/comments.js" defer></script>
+<script src="https://hub.cissychen.com/search.js" defer></script>
+<script src="https://hub.cissychen.com/index-button.js" defer></script>
+<script src="https://hub.cissychen.com/i18n-tts.js" defer></script>
+</body></html>

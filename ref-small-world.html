@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="zh-CN"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>小世界模型 · 参考库 · 复杂性科学</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,"SF Pro Display","Noto Sans SC",sans-serif;color:#e4ded5;line-height:1.85;min-height:100vh;
+  background:radial-gradient(1100px 620px at 12% -6%,rgba(99,179,166,0.09),transparent 62%),radial-gradient(950px 700px at 100% 2%,rgba(166,147,205,0.08),transparent 58%),linear-gradient(168deg,#100f0d 0%,#15161b 48%,#0a0a0c 100%);background-attachment:fixed}
+.wrap{max-width:720px;margin:0 auto;padding:30px 22px 90px}
+header{padding:52px 0 8px;border-bottom:1px solid rgba(255,255,255,0.07);margin-bottom:32px}
+.rtag{font-family:"SF Mono",Menlo,monospace;font-size:0.72rem;font-weight:700;letter-spacing:2px;color:#63b3a6;border:1px solid rgba(99,179,166,0.4);background:rgba(99,179,166,0.07);padding:3px 11px;border-radius:20px}
+h1{font-size:2.15rem;font-weight:800;line-height:1.2;margin:20px 0 0;color:#f0eae0}
+h1 .h1en{display:block;font-size:0.42em;font-weight:600;letter-spacing:2.5px;color:#847d72;margin-top:11px}
+.sub{font-size:0.98rem;color:#aba498;margin-top:12px}
+.meta{font-family:"SF Mono",Menlo,monospace;font-size:0.75rem;color:#57524b;margin-top:16px;letter-spacing:1px}
+h2{font-size:1.25rem;font-weight:700;color:#e9e3d9;margin:44px 0 10px}
+h2 .n{font-family:"SF Mono",Menlo,monospace;font-size:0.8rem;color:#63b3a6;display:block;margin-bottom:5px;letter-spacing:2px}
+.he{font-size:0.68em;color:#8d867b;font-weight:500;letter-spacing:0}
+p{margin-bottom:16px}
+b,strong{color:#f0eae0;font-weight:600}
+em{color:#d9b45f;font-style:normal;font-weight:500}
+.rule{border:1px solid rgba(99,179,166,0.3);background:rgba(99,179,166,0.05);border-radius:12px;padding:16px 20px;margin:22px 0;font-size:0.94rem;color:#d5cdc1}
+.rule ol{padding-left:20px;margin:0}
+.rule li{margin-bottom:7px}
+.rule li:last-child{margin-bottom:0}
+figure{margin:28px 0}
+figure svg{display:block;width:100%;height:auto;border-radius:12px;background:rgba(255,255,255,0.018);border:1px solid rgba(255,255,255,0.06)}
+figcaption{font-size:0.82rem;color:#787268;margin-top:10px;text-align:center;line-height:1.6}
+.cant{border:1px solid rgba(205,127,155,0.36);background:rgba(205,127,155,0.05);border-radius:12px;padding:18px 21px;margin:26px 0 10px}
+.cant h3{font-size:1rem;color:#cd7f9b;margin-bottom:12px}
+.cant ul{list-style:none;padding:0}
+.cant li{margin-bottom:13px;font-size:0.93rem;color:#d5cdc1;line-height:1.76}
+.cant li:last-child{margin-bottom:0}
+.cant li b{color:#cd7f9b}
+.refs{margin:40px 0 10px}
+.refs h3{font-size:1rem;color:#79a6d2;margin-bottom:12px}
+.refs ul{list-style:none;padding:0}
+.refs li{margin-bottom:9px;font-size:0.89rem;color:#8d867b;line-height:1.7}
+.refs a{color:#79a6d2;text-decoration:none;border-bottom:1px solid rgba(121,166,210,0.3)}
+.refs a:hover{color:#a6c4e2}
+footer{text-align:center;padding:52px 0 10px;font-size:0.78rem;color:#57524b;font-family:"SF Mono",Menlo,monospace;border-top:1px solid rgba(255,255,255,0.06);margin-top:46px}
+footer a{color:#79a6d2;text-decoration:none}
+@media(max-width:600px){h1{font-size:1.7rem}.wrap{padding:24px 16px 60px}}
+</style></head><body>
+<div class="wrap">
+<header>
+<span class="rtag">REF · 经典模型</span>
+<h1>小世界模型<span class="h1en">THE SMALL-WORLD MODEL</span></h1>
+<p class="sub">Watts &amp; Strogatz，1998 — 用一个参数把规则格子拧成随机图</p>
+<p class="meta">被引用于：Topic 21 小世界</p>
+</header>
+<h2><span class="n">01</span>它问的是什么问题<span class="he">（The Question It Poses）</span></h2>
+<p>1990 年代之前，网络只有两种标准模型，各占一头。<b>规则格子</b>（regular lattice）：每个点只连着自己的近邻，于是"我的邻居也彼此是邻居"这件事几乎总成立——聚类高；但从这头走到那头要经过极多步——平均路径长度大。<b>随机图</b>（random graph）：边随便撒，路径短得惊人，可是任意两个邻居碰巧也相连的概率低到可以忽略——聚类几乎为零。</p>
+<p>问题在于，真实网络两头都不在。神经网络、电网、人的社交圈、演员的合作关系，全都<b>又抱团又很近</b>。这在两种标准模型里都不可能出现。</p>
+<p>Watts 和 Strogatz 要问的就是：<b>这两个性质凭什么能共存？需要多复杂的机制？</b>他们的答案是——不需要复杂机制，只需要在两个极端之间放一个旋钮，然后看中间。</p>
+<h2><span class="n">02</span>规则本身<span class="he">（The Rules）</span></h2>
+<div class="rule">
+<ol>
+<li>把 N 个点排成一个环，每个点跟左右各 K/2 个最近的邻居连边。这就是起点，一张规则格子。</li>
+<li>遍历每一条边。对每条边，以概率 <em>p</em> 把它的一端拆下来，随机改接到另一个点上（不许连自己，不许和已有的边重复）。</li>
+<li>p = 0 什么都不动，还是格子；p = 1 每条边都重连过，接近随机图。</li>
+<li>量两个数：<b>平均路径长度 L</b>（任意两点最短路的平均跳数）和<b>聚类系数 C</b>（一个点的邻居之间实际相连的比例）。</li>
+<li>把 L 和 C 都除以 p = 0 时的值，随 p 画出来。整个模型的全部内容就在这两条曲线上。</li>
+</ol>
+</div>
+<p>注意第 2 条只<em>移动</em>边，不增删。所以三张图的边数完全一样——后面看到的差别，全部来自接法。</p>
+<p>有一个常见的变体值得知道：Newman–Watts 版本不重连、而是以概率 p <b>新加</b>一条随机边。这样图不会被拆散（重连有小概率把某段孤立出去），定性结论完全相同。做数值实验时通常用这一版。</p>
+<figure>
+<svg viewBox="0 0 700 266" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="一次重连操作：把一条短边的一端拆下来接到远处"><defs><marker id="r1a" markerWidth="9" markerHeight="9" markerUnits="userSpaceOnUse" refX="8" refY="5" orient="auto" viewBox="0 0 10 10"><path d="M0,1 L9,5 L0,9 z" fill="#63b3a6"></path></marker></defs><text x="350" y="26" fill="#aba498" font-family="-apple-system,sans-serif" font-size="13" text-anchor="middle">重连一条边：唯一的操作</text><g stroke="rgba(255,255,255,0.20)" stroke-width="1.1"><line x1="190.0" y1="66.0" x2="218.6" y2="72.5"></line><line x1="190.0" y1="66.0" x2="241.6" y2="90.8"></line><line x1="218.6" y1="72.5" x2="241.6" y2="90.8"></line><line x1="218.6" y1="72.5" x2="254.3" y2="117.3"></line><line x1="241.6" y1="90.8" x2="254.3" y2="117.3"></line><line x1="241.6" y1="90.8" x2="254.3" y2="146.7"></line><line x1="254.3" y1="117.3" x2="254.3" y2="146.7"></line><line x1="254.3" y1="117.3" x2="241.6" y2="173.2"></line><line x1="254.3" y1="146.7" x2="241.6" y2="173.2"></line><line x1="254.3" y1="146.7" x2="218.6" y2="191.5"></line><line x1="241.6" y1="173.2" x2="218.6" y2="191.5"></line><line x1="241.6" y1="173.2" x2="190.0" y2="198.0"></line><line x1="218.6" y1="191.5" x2="190.0" y2="198.0"></line><line x1="218.6" y1="191.5" x2="161.4" y2="191.5"></line><line x1="190.0" y1="198.0" x2="161.4" y2="191.5"></line><line x1="190.0" y1="198.0" x2="138.4" y2="173.2"></line><line x1="161.4" y1="191.5" x2="138.4" y2="173.2"></line><line x1="161.4" y1="191.5" x2="125.7" y2="146.7"></line><line x1="138.4" y1="173.2" x2="125.7" y2="146.7"></line><line x1="138.4" y1="173.2" x2="125.7" y2="117.3"></line><line x1="125.7" y1="146.7" x2="125.7" y2="117.3"></line><line x1="125.7" y1="146.7" x2="138.4" y2="90.8"></line><line x1="125.7" y1="117.3" x2="138.4" y2="90.8"></line><line x1="125.7" y1="117.3" x2="161.4" y2="72.5"></line><line x1="138.4" y1="90.8" x2="161.4" y2="72.5"></line><line x1="138.4" y1="90.8" x2="190.0" y2="66.0"></line><line x1="161.4" y1="72.5" x2="190.0" y2="66.0"></line><line x1="161.4" y1="72.5" x2="218.6" y2="72.5"></line></g><line x1="241.6" y1="90.8" x2="254.3" y2="146.7" stroke="#cd7f9b" stroke-width="2.6"></line><circle cx="190.0" cy="66.0" r="4.4" fill="#63b3a6"></circle><circle cx="218.6" cy="72.5" r="4.4" fill="#63b3a6"></circle><circle cx="241.6" cy="90.8" r="4.4" fill="#63b3a6"></circle><circle cx="254.3" cy="117.3" r="4.4" fill="#63b3a6"></circle><circle cx="254.3" cy="146.7" r="4.4" fill="#63b3a6"></circle><circle cx="241.6" cy="173.2" r="4.4" fill="#63b3a6"></circle><circle cx="218.6" cy="191.5" r="4.4" fill="#63b3a6"></circle><circle cx="190.0" cy="198.0" r="4.4" fill="#63b3a6"></circle><circle cx="161.4" cy="191.5" r="4.4" fill="#63b3a6"></circle><circle cx="138.4" cy="173.2" r="4.4" fill="#63b3a6"></circle><circle cx="125.7" cy="146.7" r="4.4" fill="#63b3a6"></circle><circle cx="125.7" cy="117.3" r="4.4" fill="#63b3a6"></circle><circle cx="138.4" cy="90.8" r="4.4" fill="#63b3a6"></circle><circle cx="161.4" cy="72.5" r="4.4" fill="#63b3a6"></circle><text x="190" y="54" fill="#8d867b" font-family="SF Mono,monospace" font-size="12" text-anchor="middle">重连前</text><text x="190" y="224" fill="#cd7f9b" font-family="-apple-system,sans-serif" font-size="11.5" text-anchor="middle">这条边只连着近邻</text><line x1="292" y1="132" x2="400" y2="132" stroke="#63b3a6" stroke-width="2" marker-end="url(#r1a)"></line><text x="346" y="122" fill="#63b3a6" font-family="-apple-system,sans-serif" font-size="11.5" text-anchor="middle">以概率 p 拆一端、随机改接</text><g stroke="rgba(255,255,255,0.20)" stroke-width="1.1"><line x1="510.0" y1="66.0" x2="538.6" y2="72.5"></line><line x1="510.0" y1="66.0" x2="561.6" y2="90.8"></line><line x1="538.6" y1="72.5" x2="561.6" y2="90.8"></line><line x1="538.6" y1="72.5" x2="574.3" y2="117.3"></line><line x1="561.6" y1="90.8" x2="574.3" y2="117.3"></line><line x1="574.3" y1="117.3" x2="574.3" y2="146.7"></line><line x1="574.3" y1="117.3" x2="561.6" y2="173.2"></line><line x1="574.3" y1="146.7" x2="561.6" y2="173.2"></line><line x1="574.3" y1="146.7" x2="538.6" y2="191.5"></line><line x1="561.6" y1="173.2" x2="538.6" y2="191.5"></line><line x1="561.6" y1="173.2" x2="510.0" y2="198.0"></line><line x1="538.6" y1="191.5" x2="510.0" y2="198.0"></line><line x1="538.6" y1="191.5" x2="481.4" y2="191.5"></line><line x1="510.0" y1="198.0" x2="481.4" y2="191.5"></line><line x1="510.0" y1="198.0" x2="458.4" y2="173.2"></line><line x1="481.4" y1="191.5" x2="458.4" y2="173.2"></line><line x1="481.4" y1="191.5" x2="445.7" y2="146.7"></line><line x1="458.4" y1="173.2" x2="445.7" y2="146.7"></line><line x1="458.4" y1="173.2" x2="445.7" y2="117.3"></line><line x1="445.7" y1="146.7" x2="445.7" y2="117.3"></line><line x1="445.7" y1="146.7" x2="458.4" y2="90.8"></line><line x1="445.7" y1="117.3" x2="458.4" y2="90.8"></line><line x1="445.7" y1="117.3" x2="481.4" y2="72.5"></line><line x1="458.4" y1="90.8" x2="481.4" y2="72.5"></line><line x1="458.4" y1="90.8" x2="510.0" y2="66.0"></line><line x1="481.4" y1="72.5" x2="510.0" y2="66.0"></line><line x1="481.4" y1="72.5" x2="538.6" y2="72.5"></line></g><line x1="561.6" y1="90.8" x2="458.4" y2="173.2" stroke="#e0895e" stroke-width="2.6"></line><circle cx="510.0" cy="66.0" r="4.4" fill="#63b3a6"></circle><circle cx="538.6" cy="72.5" r="4.4" fill="#63b3a6"></circle><circle cx="561.6" cy="90.8" r="4.4" fill="#63b3a6"></circle><circle cx="574.3" cy="117.3" r="4.4" fill="#63b3a6"></circle><circle cx="574.3" cy="146.7" r="4.4" fill="#63b3a6"></circle><circle cx="561.6" cy="173.2" r="4.4" fill="#63b3a6"></circle><circle cx="538.6" cy="191.5" r="4.4" fill="#63b3a6"></circle><circle cx="510.0" cy="198.0" r="4.4" fill="#63b3a6"></circle><circle cx="481.4" cy="191.5" r="4.4" fill="#63b3a6"></circle><circle cx="458.4" cy="173.2" r="4.4" fill="#63b3a6"></circle><circle cx="445.7" cy="146.7" r="4.4" fill="#63b3a6"></circle><circle cx="445.7" cy="117.3" r="4.4" fill="#63b3a6"></circle><circle cx="458.4" cy="90.8" r="4.4" fill="#63b3a6"></circle><circle cx="481.4" cy="72.5" r="4.4" fill="#63b3a6"></circle><text x="510" y="54" fill="#8d867b" font-family="SF Mono,monospace" font-size="12" text-anchor="middle">重连后</text><text x="510" y="224" fill="#e0895e" font-family="-apple-system,sans-serif" font-size="11.5" text-anchor="middle">它现在是一条跨半圈的捷径</text><text x="350" y="252" fill="#57524b" font-family="-apple-system,sans-serif" font-size="11" text-anchor="middle">每条边都过一遍这个操作，过完就是一张小世界图</text></svg>
+<figcaption>模型只有这一个操作。所谓"小世界"，就是这个操作做了很少几次之后的状态。</figcaption>
+</figure>
+<h2><span class="n">03</span>跑起来会看到什么<span class="he">（What You See When It Runs）</span></h2>
+<p>把 p 从 0 慢慢调大，两条曲线并不同步下落——这就是整篇论文。</p>
+<p><b>L 崩得极快。</b>p 才百分之一，平均路径长度已经掉到接近随机图的水平。<b>C 几乎纹丝不动。</b>在同一个 p 上，聚类系数还保留着九成以上。中间那一大段——p 横跨两三个数量级——就是小世界区间。</p>
+<figure>
+<svg viewBox="0 0 700 288" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="路径长度与聚类系数随重连概率变化的两条曲线"><text x="350" y="26" fill="#aba498" font-family="-apple-system,sans-serif" font-size="13" text-anchor="middle">两条曲线不同步 — 模型的全部内容</text><rect x="235.0" y="60" width="270.0" height="156" fill="rgba(99,179,166,0.07)"></rect><text x="370.0" y="52" fill="#63b3a6" font-family="-apple-system,sans-serif" font-size="11.5" text-anchor="middle">小世界区间</text><line x1="100" y1="216" x2="640" y2="216" stroke="rgba(255,255,255,0.18)" stroke-width="1.4"></line><line x1="100" y1="216" x2="100" y2="60" stroke="rgba(255,255,255,0.18)" stroke-width="1.4"></line><line x1="100.0" y1="216" x2="100.0" y2="220" stroke="rgba(255,255,255,0.18)" stroke-width="1.2"></line><text x="100.0" y="234" fill="#57524b" font-family="SF Mono,monospace" font-size="10.5" text-anchor="middle">10⁻⁴</text><line x1="235.0" y1="216" x2="235.0" y2="220" stroke="rgba(255,255,255,0.18)" stroke-width="1.2"></line><text x="235.0" y="234" fill="#57524b" font-family="SF Mono,monospace" font-size="10.5" text-anchor="middle">10⁻³</text><line x1="370.0" y1="216" x2="370.0" y2="220" stroke="rgba(255,255,255,0.18)" stroke-width="1.2"></line><text x="370.0" y="234" fill="#57524b" font-family="SF Mono,monospace" font-size="10.5" text-anchor="middle">10⁻²</text><line x1="505.0" y1="216" x2="505.0" y2="220" stroke="rgba(255,255,255,0.18)" stroke-width="1.2"></line><text x="505.0" y="234" fill="#57524b" font-family="SF Mono,monospace" font-size="10.5" text-anchor="middle">10⁻¹</text><line x1="640.0" y1="216" x2="640.0" y2="220" stroke="rgba(255,255,255,0.18)" stroke-width="1.2"></line><text x="640.0" y="234" fill="#57524b" font-family="SF Mono,monospace" font-size="10.5" text-anchor="middle">1</text><path d="M100.0,67.8 L167.5,81.8 L235.0,103.7 L302.5,133.3 L370.0,161.4 L437.5,183.2 L505.0,195.7 L572.5,202.0 L640.0,205.1" fill="none" stroke="#e0895e" stroke-width="2.4"></path><path d="M100.0,60.2 L235.0,60.5 L370.0,64.7 L437.5,74.4 L505.0,102.3 L572.5,166.1 L640.0,214.0" fill="none" stroke="#9fbc7a" stroke-width="2.4"></path><line x1="118" y1="164" x2="144" y2="164" stroke="#e0895e" stroke-width="2.6"></line><text x="152" y="168" fill="#e0895e" font-family="SF Mono,monospace" font-size="11.5" text-anchor="start">L / L(0)　平均路径长度</text><line x1="118" y1="186" x2="144" y2="186" stroke="#9fbc7a" stroke-width="2.6"></line><text x="152" y="190" fill="#9fbc7a" font-family="SF Mono,monospace" font-size="11.5" text-anchor="start">C / C(0)　聚类系数</text><text x="96" y="50" fill="#8d867b" font-family="-apple-system,sans-serif" font-size="11" text-anchor="start">相对 p = 0 时的比值</text><text x="370.0" y="252" fill="#8d867b" font-family="-apple-system,sans-serif" font-size="11.5" text-anchor="middle">重连概率 p（对数）→</text><text x="350" y="272" fill="#57524b" font-family="-apple-system,sans-serif" font-size="11" text-anchor="middle">一条捷径的好处是成片的，代价只是一个三角形 — 所以前几条几乎白捡</text></svg>
+<figcaption>曲线取自原论文的结果形状（N ≈ 1000、每点 10 条边）。要看的是错开的那一段，不是具体数值。</figcaption>
+</figure>
+<p>为什么错开？一条捷径做的两件事量级差得远：</p>
+<p><b>对距离的好处是成片的。</b>它把环上相隔很远的两块直接焊住，于是所有"要从这块走到那块"的点对，路径统统缩短——受益的是成片的点对。<b>对聚类的伤害是单点的。</b>它只拆掉了一个三角形，别处的聚类一点没动。</p>
+<p>成片的收益对上一个点的损失，所以前几条捷径几乎白捡；而当捷径多到路径已经很短时，再加就只剩下拆三角形的代价了。<b>收益急剧递减、代价线性累积</b>——这就是中间那段存在的全部原因。</p>
+<p>Watts 和 Strogatz 用三个真实网络验证过：电影演员合作网、美国西部电网、秀丽隐杆线虫（<em>C. elegans</em>）的神经网。三个都落在中间段——演员网的聚类系数比同规模随机图高一百多倍，平均路径长度却和随机图差不多。</p>
+<h2><span class="n">04</span>它解释了现实中的什么<span class="he">（What It Explains）</span></h2>
+<p>这个模型给出的核心主张只有一条，但很有用：<b>"又抱团又很近"不需要任何精巧的机制，只需要极少量的随机跨圈连接。</b></p>
+<p>这条主张能直接用在几个地方。<b>传播</b>：疾病、谣言、时尚在高度本地化的人群里也能迅速全境扩散，不需要假设存在什么"超级传播结构"——几条捷径就够。<b>同步</b>：耦合振子（萤火虫、心肌细胞、电网频率）在小世界拓扑上比在规则格子上更容易整体同步。<b>大脑</b>：神经系统需要在"局部密集处理"和"全局整合"之间取平衡，而长程纤维在代谢上极其昂贵，小世界正是这个约束下的解。<b>工程</b>：想缩短一个系统的直径，先加少数几条长连接，比普遍加密便宜得多。</p>
+<p>反过来，它也提供了一个可被证伪的对照：如果一张网络的聚类系数并不显著高于同规模随机图，那"小世界"这套解释就用不上，得另找机制。</p>
+<div class="cant">
+<h3>它不能解释什么<span class="he">（What It Cannot Explain）</span></h3>
+<ul>
+<li><b>不能产生枢纽。</b>重连不改变度分布的形状——所有点连的边数都差不多（接近泊松分布），最多的和最少的差不了几倍。所以它解释不了"为什么有些节点连了成千上万条边"。那需要优先连接一类的机制，是另一个模型的事。</li>
+<li><b>不能保证找得到路。</b>短路径存在，不等于只用局部信息能找到它。Kleinberg 2000 年证明：只有当长程边的长度分布指数恰好等于格子维数时，贪心转发才高效；而 Watts–Strogatz 的重连是<em>均匀随机</em>的，正好不满足这个条件。也就是说，标准小世界图上的路很短，但没人找得到。</li>
+<li><b>不能预测复杂传染。</b>模型只描述拓扑，不带传播规则。对需要多次、多源确认才会采纳的行为，长桥反而是死路——它只提供一次曝光。这类传播吃的是桥的<b>宽度</b>而非长度（Centola &amp; Macy 2007），而模型对宽度只字未提。</li>
+<li><b>"是不是小世界"几乎不筛掉任何东西。</b>判据（L 接近随机图、C 远高于随机图）被现实中绝大多数稀疏网络满足，所以这个标签本身信息量很低。报结果要给倍数：L 和 C 相对同规模随机图各是几倍。</li>
+<li><b>它是静态、无权、无向的。</b>边没有强弱、没有方向、也不随时间生灭。真实关系三样都有——而"哪条边能当桥"恰恰取决于强弱（见 Granovetter），模型里根本没有这个变量。</li>
+</ul>
+</div>
+<div class="refs">
+<h3>延伸阅读<span class="he">（Further Reading）</span></h3>
+<ul>
+<li>Watts &amp; Strogatz, <a href="https://www.nature.com/articles/30918">Collective dynamics of 'small-world' networks</a>（1998，原始论文）</li>
+<li>Newman &amp; Watts, <a href="https://arxiv.org/abs/cond-mat/9903357">Renormalization group analysis of the small-world network model</a>（1999，加边而非重连的变体）</li>
+<li>Kleinberg, <a href="https://www.nature.com/articles/35022643">Navigation in a small world</a>（2000，可导航性的条件）</li>
+<li>Centola &amp; Macy, <a href="https://doi.org/10.1086/521848">Complex Contagions and the Weakness of Long Ties</a>（2007，长桥失效的条件）</li>
+<li><a href="https://en.wikipedia.org/wiki/Watts%E2%80%93Strogatz_model">Watts–Strogatz model</a>（含公式与实现细节）</li>
+</ul>
+</div>
+<footer>BigCat · 复杂性科学 · <a href="index.html">← 全部 Topic</a></footer>
+</div>
+<script src="https://hub.cissychen.com/comments.js" defer></script>
+<script src="https://hub.cissychen.com/search.js" defer></script>
+<script src="https://hub.cissychen.com/index-button.js" defer></script>
+<script src="https://hub.cissychen.com/i18n-tts.js" defer></script>
+</body></html>
