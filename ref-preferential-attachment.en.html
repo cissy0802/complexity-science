@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+
+<html lang="en"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>The Preferential Attachment Model · Reference · Complexity Science</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,"SF Pro Display","Noto Sans SC",sans-serif;color:#e4ded5;line-height:1.85;min-height:100vh;
+  background:radial-gradient(1100px 620px at 12% -6%,rgba(99,179,166,0.09),transparent 62%),radial-gradient(950px 700px at 100% 2%,rgba(166,147,205,0.08),transparent 58%),linear-gradient(168deg,#100f0d 0%,#15161b 48%,#0a0a0c 100%);background-attachment:fixed}
+.wrap{max-width:720px;margin:0 auto;padding:30px 22px 90px}
+header{padding:52px 0 8px;border-bottom:1px solid rgba(255,255,255,0.07);margin-bottom:32px}
+.rtag{font-family:"SF Mono",Menlo,monospace;font-size:0.72rem;font-weight:700;letter-spacing:2px;color:#63b3a6;border:1px solid rgba(99,179,166,0.4);background:rgba(99,179,166,0.07);padding:3px 11px;border-radius:20px}
+h1{font-size:2.15rem;font-weight:800;line-height:1.2;margin:20px 0 0;color:#f0eae0}
+h1 .h1en{display:block;font-size:0.42em;font-weight:600;letter-spacing:2.5px;color:#847d72;margin-top:11px}
+.sub{font-size:0.98rem;color:#aba498;margin-top:12px}
+.meta{font-family:"SF Mono",Menlo,monospace;font-size:0.75rem;color:#57524b;margin-top:16px;letter-spacing:1px}
+h2{font-size:1.25rem;font-weight:700;color:#e9e3d9;margin:44px 0 10px}
+h2 .n{font-family:"SF Mono",Menlo,monospace;font-size:0.8rem;color:#63b3a6;display:block;margin-bottom:5px;letter-spacing:2px}
+.he{font-size:0.68em;color:#8d867b;font-weight:500;letter-spacing:0}
+p{margin-bottom:16px}
+b,strong{color:#f0eae0;font-weight:600}
+em{color:#d9b45f;font-style:normal;font-weight:500}
+.rule{border:1px solid rgba(99,179,166,0.3);background:rgba(99,179,166,0.05);border-radius:12px;padding:16px 20px;margin:22px 0;font-size:0.94rem;color:#d5cdc1}
+.rule ol{padding-left:20px;margin:0}
+.rule li{margin-bottom:7px}
+.rule li:last-child{margin-bottom:0}
+figure{margin:28px 0}
+figure svg{display:block;width:100%;height:auto;border-radius:12px;background:rgba(255,255,255,0.018);border:1px solid rgba(255,255,255,0.06)}
+figcaption{font-size:0.82rem;color:#787268;margin-top:10px;text-align:center;line-height:1.6}
+.cant{border:1px solid rgba(205,127,155,0.36);background:rgba(205,127,155,0.05);border-radius:12px;padding:18px 21px;margin:26px 0 10px}
+.cant h3{font-size:1rem;color:#cd7f9b;margin-bottom:12px}
+.cant ul{list-style:none;padding:0}
+.cant li{margin-bottom:13px;font-size:0.93rem;color:#d5cdc1;line-height:1.76}
+.cant li:last-child{margin-bottom:0}
+.cant li b{color:#cd7f9b}
+.refs{margin:40px 0 10px}
+.refs h3{font-size:1rem;color:#79a6d2;margin-bottom:12px}
+.refs ul{list-style:none;padding:0}
+.refs li{margin-bottom:9px;font-size:0.89rem;color:#8d867b;line-height:1.7}
+.refs a{color:#79a6d2;text-decoration:none;border-bottom:1px solid rgba(121,166,210,0.3)}
+.refs a:hover{color:#a6c4e2}
+footer{text-align:center;padding:52px 0 10px;font-size:0.78rem;color:#57524b;font-family:"SF Mono",Menlo,monospace;border-top:1px solid rgba(255,255,255,0.06);margin-top:46px}
+footer a{color:#79a6d2;text-decoration:none}
+@media(max-width:600px){h1{font-size:1.7rem}.wrap{padding:24px 16px 60px}}
+</style></head><body>
+<div class="wrap">
+<header>
+<span class="rtag">REF · CLASSIC MODEL</span>
+<h1>The Preferential Attachment Model</h1>
+<p class="sub">Barabási–Albert, 1999 — the network version of "rich get richer"; earlier forms in Yule (1925), Simon (1955), Price (1976)</p>
+<p class="meta">Cited from: Topic 22 · Scale-free networks and preferential attachment</p>
+</header>
+<h2><span class="n">01</span>The Question It Poses</h2>
+<p>Before the 1990s the default model in network research was the <b>random graph</b>: connect pairs of nodes at random. It makes a clear prediction — the number of edges a node holds (its <b>degree</b>) should have a typical value, with almost every node near the mean and the largest only a few times bigger.</p>
+<p>Look up from the model and reality is nothing like that: a few web pages are linked by millions, a few airports carry hundreds of routes, a few papers take most of the citations. These nodes are not slightly larger; they are larger by orders of magnitude.</p>
+<p>So the question becomes concrete: <b>what must be added to random wiring for giants to grow by themselves — and how little can you get away with adding?</b> The less you add, the more systems the conclusion covers. This model's answer: two rules suffice.</p>
+<h2><span class="n">02</span>The Rules</h2>
+<div class="rule">
+<ol>
+<li>Start from a small set of already-connected nodes (a handful, wired however you like — the final result does not depend on it).</li>
+<li>At each step add <em>one</em> new node, which brings <em>m</em> edges (m is a small fixed number, say 2).</li>
+<li>Who does it attach to? The probability of picking a given existing node = <b>that node's current degree ÷ the sum of all degrees in the network</b>. This rule is <b>preferential attachment</b>.</li>
+<li>Once attached, move to the next step and add another node. The network keeps growing this way.</li>
+<li>Existing edges are never deleted or rewired; existing nodes never leave.</li>
+</ol>
+</div>
+<p>Rule 3 is the whole trick: it never says the newcomer <em>likes</em> anyone, only that the probability is proportional to how many edges the target already holds. Rule 5 is the strongest assumption, and the first one reality breaks.</p>
+<figure>
+<svg viewBox="0 0 720 264" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Selection probability allocated by degree"><defs><marker id="fAa" markerWidth="10" markerHeight="10" markerUnits="userSpaceOnUse" refX="9" refY="5" orient="auto" viewBox="0 0 10 10"><path d="M0,1 L9,5 L0,9 z" fill="#e0895e"></path></marker></defs><text x="360" y="28" fill="#aba498" font-family="-apple-system,sans-serif" font-size="13" text-anchor="middle">A newcomer picks one existing node — each node's width is its current degree</text><rect x="92.0" y="128" width="220.3" height="46" rx="4" fill="#e0895e" opacity="0.62"></rect><text x="202.16666666666669" y="158" fill="#15161b" font-family="SF Mono,monospace" font-size="15" text-anchor="middle">A</text><text x="202.16666666666669" y="194" fill="#e0895e" font-family="SF Mono,monospace" font-size="11.5" text-anchor="middle">k = 5</text><text x="202.16666666666669" y="214" fill="#57524b" font-family="SF Mono,monospace" font-size="11" text-anchor="middle">42%</text><rect x="315.3" y="128" width="131.0" height="46" rx="4" fill="#d9b45f" opacity="0.62"></rect><text x="380.83333333333337" y="158" fill="#15161b" font-family="SF Mono,monospace" font-size="15" text-anchor="middle">B</text><text x="380.83333333333337" y="194" fill="#d9b45f" font-family="SF Mono,monospace" font-size="11.5" text-anchor="middle">k = 3</text><text x="380.83333333333337" y="214" fill="#57524b" font-family="SF Mono,monospace" font-size="11" text-anchor="middle">25%</text><rect x="449.3" y="128" width="86.3" height="46" rx="4" fill="#9fbc7a" opacity="0.62"></rect><text x="492.50000000000006" y="158" fill="#15161b" font-family="SF Mono,monospace" font-size="15" text-anchor="middle">C</text><text x="492.50000000000006" y="194" fill="#9fbc7a" font-family="SF Mono,monospace" font-size="11.5" text-anchor="middle">k = 2</text><text x="492.50000000000006" y="214" fill="#57524b" font-family="SF Mono,monospace" font-size="11" text-anchor="middle">17%</text><rect x="538.7" y="128" width="41.7" height="46" rx="4" fill="#63b3a6" opacity="0.62"></rect><text x="559.5000000000001" y="158" fill="#15161b" font-family="SF Mono,monospace" font-size="15" text-anchor="middle">D</text><text x="559.5000000000001" y="194" fill="#63b3a6" font-family="SF Mono,monospace" font-size="11.5" text-anchor="middle">k = 1</text><text x="559.5000000000001" y="214" fill="#57524b" font-family="SF Mono,monospace" font-size="11" text-anchor="middle">8%</text><rect x="583.3" y="128" width="41.7" height="46" rx="4" fill="#79a6d2" opacity="0.62"></rect><text x="604.1666666666667" y="158" fill="#15161b" font-family="SF Mono,monospace" font-size="15" text-anchor="middle">E</text><text x="604.1666666666667" y="194" fill="#79a6d2" font-family="SF Mono,monospace" font-size="11.5" text-anchor="middle">k = 1</text><text x="604.1666666666667" y="214" fill="#57524b" font-family="SF Mono,monospace" font-size="11" text-anchor="middle">8%</text><line x1="209.92000000000002" y1="66" x2="209.92000000000002" y2="122" stroke="#e0895e" stroke-width="1.8" marker-end="url(#fAa)"></line><text x="209.92000000000002" y="58" fill="#e0895e" font-family="SF Mono,monospace" font-size="11.5" text-anchor="middle">the newcomer</text><text x="360" y="236" fill="#57524b" font-family="-apple-system,sans-serif" font-size="11" text-anchor="middle">Nobody prefers anyone — A is likelier only because it occupies more of the strip</text></svg>
+<figcaption>Draw the choice as a strip divided in proportion to degree: whoever occupies more of the strip is likelier to be hit by a random point. "Preferential" here is a bias in probability, not anyone's preference.</figcaption>
+</figure>
+<h2><span class="n">03</span>What You See When It Runs</h2>
+<p>The degree distribution that comes out is a <b>power law</b>: the number of nodes holding k edges is proportional to k to the minus three. That exponent is derived from the rules — it does not depend on m, nor on how the initial handful was wired.</p>
+<p>The figure below is a real run: 30,000 nodes on each side, 2 edges per new node, the only difference being how targets are chosen. Under uniform choice the maximum degree is 27. Under preferential choice it is 616. And <b>the mean degree is identical on both sides — exactly 4.0</b>.</p>
+<figure>
+<svg viewBox="0 0 720 312" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Degree distributions from two growth rules"><text x="360" y="26" fill="#aba498" font-family="-apple-system,sans-serif" font-size="13" text-anchor="middle">30000 nodes each, 2 edges per node — only the choice rule differs</text><line x1="104" y1="236" x2="566" y2="236" stroke="rgba(255,255,255,0.18)" stroke-width="1.5"></line><line x1="104" y1="236" x2="104" y2="60" stroke="rgba(255,255,255,0.18)" stroke-width="1.5"></line><text x="104.0" y="254" fill="#57524b" font-family="SF Mono,monospace" font-size="10.5" text-anchor="middle">1</text><text x="265.04508032724345" y="254" fill="#57524b" font-family="SF Mono,monospace" font-size="10.5" text-anchor="middle">10</text><text x="426.09016065448697" y="254" fill="#57524b" font-family="SF Mono,monospace" font-size="10.5" text-anchor="middle">100</text><text x="92" y="64.0" fill="#57524b" font-family="SF Mono,monospace" font-size="10.5" text-anchor="end">1</text><text x="92" y="103.31097461666141" fill="#57524b" font-family="SF Mono,monospace" font-size="10.5" text-anchor="end">10⁻1</text><text x="92" y="142.62194923332285" fill="#57524b" font-family="SF Mono,monospace" font-size="10.5" text-anchor="end">10⁻2</text><text x="92" y="181.93292384998426" fill="#57524b" font-family="SF Mono,monospace" font-size="10.5" text-anchor="end">10⁻3</text><text x="92" y="221.2438984666457" fill="#57524b" font-family="SF Mono,monospace" font-size="10.5" text-anchor="end">10⁻4</text><text x="335" y="278" fill="#787268" font-family="-apple-system,sans-serif" font-size="11.5" text-anchor="middle">degree k (log) →</text><text x="28" y="150" fill="#787268" font-family="-apple-system,sans-serif" font-size="11" text-anchor="middle" transform="rotate(-90 28 150)">fraction with degree ≥ k (log)</text><polyline points="152.5,60.0 180.8,71.9 201.0,80.6 216.6,87.4 229.3,93.1 240.1,98.1 249.4,102.5 257.7,106.3 265.0,109.9 271.7,112.8 277.8,115.6 283.4,118.3 288.6,120.4 293.4,122.5 297.9,124.8 302.2,126.5 306.2,128.7 309.9,130.4 313.5,131.9 316.9,133.4 320.2,135.1 323.3,136.7 326.3,138.0 329.1,139.7 331.9,141.4 334.5,142.6 337.1,144.6 339.5,145.8 341.9,147.0 344.2,148.2 346.4,149.6 348.5,150.5 350.6,151.2 352.7,151.9 354.6,152.5 356.6,153.0 358.4,154.3 360.2,155.3 362.0,156.2 363.7,157.4 365.4,158.1 367.1,159.4 368.7,159.8 370.2,160.4 371.8,161.0 373.3,161.6 374.8,163.0 376.2,163.5 377.6,164.7 379.0,165.3 380.4,165.8 381.7,166.1 383.0,166.4 384.3,167.6 385.5,167.9 386.8,169.2 388.0,169.6 389.2,169.9 390.4,170.3 391.5,171.0 392.7,171.4 393.8,171.8 394.9,172.6 397.0,173.0 398.1,174.4 400.1,175.8 403.1,176.3 404.1,176.8 405.0,177.4 406.0,177.9 406.9,179.1 407.8,179.7 410.5,180.4 411.4,181.0 412.2,181.7 413.1,182.5 415.5,183.2 419.5,184.0 421.0,184.9 425.4,185.7 427.5,186.7 430.2,187.6 430.8,188.7 432.8,189.8 435.9,190.9 438.8,192.2 442.3,195.1 444.4,196.7 448.6,198.5 455.4,200.5 455.8,202.8 461.1,205.4 481.9,208.5 487.3,212.3 532.8,217.2 534.8,224.2 553.2,236.0" fill="none" stroke="#e0895e" stroke-width="2.4"></polyline><line x1="356" y1="84" x2="386" y2="84" stroke="#e0895e" stroke-width="2.6"></line><text x="394" y="88" fill="#e0895e" font-family="-apple-system,sans-serif" font-size="11.5" text-anchor="start">preferential (pick by degree)</text><polyline points="152.5,60.0 180.8,67.0 201.0,73.9 216.6,80.7 229.3,87.7 240.1,94.7 249.4,101.3 257.7,108.1 265.0,115.4 271.7,122.3 277.8,128.4 283.4,135.7 288.6,143.5 293.4,150.2 297.9,156.4 302.2,164.5 306.2,171.4 309.9,176.3 313.5,184.0 316.9,193.6 320.2,202.8 323.3,205.4 326.3,212.3 329.1,217.2 334.5,236.0" fill="none" stroke="#79a6d2" stroke-width="2.4"></polyline><line x1="356" y1="106" x2="386" y2="106" stroke="#79a6d2" stroke-width="2.6"></line><text x="394" y="110" fill="#79a6d2" font-family="-apple-system,sans-serif" font-size="11.5" text-anchor="start">uniform choice</text><text x="356" y="134" fill="#57524b" font-family="-apple-system,sans-serif" font-size="10.5" text-anchor="start">both have exactly the same mean degree (4.0)</text><text x="360" y="302" fill="#57524b" font-family="-apple-system,sans-serif" font-size="11" text-anchor="middle">Same 30000 nodes: max degree 27 under uniform choice, 616 under preferential</text></svg>
+<figcaption>The vertical axis is the fraction of nodes with degree at least k, both axes logarithmic. In these coordinates a power law is a straight line, while uniform choice falls off a cliff — it has a typical value; the straight line does not.</figcaption>
+</figure>
+<p>You can also solve for a single node's growth curve: the <em>i</em>-th node to arrive holds, once the network has grown to <em>t</em> nodes, a degree of kᵢ(t) = m·√(t/tᵢ). <b>All nodes are identical in the model; arrival order is the only difference</b>, and time amplifies it as a square root. Early nodes stay ahead, and late ones never catch up.</p>
+<p>One last thing that gets skipped: <b>both rules are needed.</b> Keep growth but choose uniformly and you get an exponential distribution with no hubs. Keep preferential attachment on a fixed node set and the distribution never settles — edges pile up until everything is connected to everything. What does the work is the combination: a growing system allocating its increments in proportion to stock.</p>
+<h2><span class="n">04</span>What It Explains</h2>
+<p>It explains one thing: <b>why systems that keep growing, and whose newcomers choose by visibility, end up with heavy-tailed rather than bell-shaped size distributions</b> — web links, citations, air routes, package dependencies, protein interactions all share this structure.</p>
+<p>It yields three expectations that data can refute: (1) the degree distribution is heavy-tailed; (2) the rate at which new edges land on a node rises <em>linearly</em> with that node's degree; (3) nodes that arrived early are systematically larger. Expectation (2) is the most useful because it can be measured directly — Jeong, Néda and Barabási did exactly that in 2003, finding citations and the internet close to linear while actor collaboration and scientific co-authorship came out sublinear.</p>
+<p>It also displaces a popular bad explanation. When one node is enormous, the default account is "because it is better"; this model shows that in a system obeying the two rules, <b>a crop of giants appears even when every node is identical</b> — so being large is not by itself evidence of being good. As for whether a small early lead really compounds, van de Rijt and colleagues ran randomised field experiments in 2014 on Kickstarter, Wikipedia and others: a randomly conferred initial success did raise later success rates, with diminishing returns.</p>
+<div class="cant">
+<h3>What It Cannot Explain</h3>
+<ul>
+<li><b>It cannot say which node becomes a hub.</b> It predicts that hubs will exist, but with identical nodes the identity of the hub is settled entirely by the first few random choices. On predicting who, the model is explicitly silent.</li>
+<li><b>It cannot explain latecomers overtaking.</b> Under kᵢ(t) = m·√(t/tᵢ) a late node never catches up, yet Google and others plainly did. That needs the Bianconi–Barabási fitness extension, where new edges are allocated by fitness × degree so a young but fit node can overtake. Pure preferential attachment systematically overstates first-mover advantage.</li>
+<li><b>It cannot produce clustering or communities.</b> In the networks it generates, the probability that two of your neighbours know each other approaches zero, and there is no community structure at all. Real networks have both. Any question that turns on clustering or communities is the wrong question to ask this model, however well its degree distribution fits.</li>
+<li><b>It cannot tolerate nonlinearity.</b> Krapivsky, Redner and Leyvraz worked it out in 2000: make the probability proportional to degree raised to the power α and only α = 1 yields a power law. Slightly below 1 the hubs flatten into a stretched exponential; above 1 the links collapse onto a few nodes, and further up onto essentially one. <b>It is a knife-edge condition, not an approximation that is fine if roughly right.</b></li>
+<li><b>It cannot be used where nodes die and edges rewire.</b> Rule 5 requires that nodes never leave and edges never change. Companies fold, friendships end, dependencies get replaced — such systems need variants with deletion, and the conclusions change with them.</li>
+<li><b>It cannot prove that a given network is scale-free.</b> The model produces power laws, but that does not make it the mechanism behind any particular tail: duplication–divergence, random proportional growth, even plain sampling bias produce the same shape. And when Broido and Clauset ran one consistent test over 927 real networks in 2019, only 4% showed the strongest level of evidence.</li>
+</ul>
+</div>
+<div class="refs">
+<h3>Further Reading</h3>
+<ul>
+<li>Barabási &amp; Albert, <a href="https://www.science.org/doi/10.1126/science.286.5439.509">Emergence of Scaling in Random Networks</a> (1999, the original paper)</li>
+<li><a href="https://en.wikipedia.org/wiki/Price%27s_model">Price's model</a> (1976, cumulative advantage on citation networks)</li>
+<li>Jeong, Néda &amp; Barabási, <a href="https://iopscience.iop.org/article/10.1209/epl/i2003-00166-9">Measuring preferential attachment in evolving networks</a> (2003)</li>
+<li>Bianconi &amp; Barabási, <a href="https://webspace.maths.qmul.ac.uk/g.bianconi/Fitness.html">the fitness model and its winner-takes-all phase</a> (2001)</li>
+<li>Broido &amp; Clauset, <a href="https://www.nature.com/articles/s41467-019-08746-5">Scale-free networks are rare</a> (2019)</li>
+<li><a href="https://en.wikipedia.org/wiki/Preferential_attachment">Preferential attachment</a> (nonlinear kernels and variants)</li>
+</ul>
+</div>
+<footer>BigCat · Complexity Science · <a href="index.en.html">← All topics</a></footer>
+</div>
+
+<script src="https://hub.cissychen.com/comments.js" defer></script>
+<script src="https://hub.cissychen.com/search.js" defer></script>
+<script src="https://hub.cissychen.com/index-button.js" defer></script>
+<script src="https://hub.cissychen.com/i18n-tts.js" defer></script>
+</body></html>

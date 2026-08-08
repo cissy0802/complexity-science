@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+
+<html lang="zh-CN"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>优先连接模型 · 参考库 · 复杂性科学</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,"SF Pro Display","Noto Sans SC",sans-serif;color:#e4ded5;line-height:1.85;min-height:100vh;
+  background:radial-gradient(1100px 620px at 12% -6%,rgba(99,179,166,0.09),transparent 62%),radial-gradient(950px 700px at 100% 2%,rgba(166,147,205,0.08),transparent 58%),linear-gradient(168deg,#100f0d 0%,#15161b 48%,#0a0a0c 100%);background-attachment:fixed}
+.wrap{max-width:720px;margin:0 auto;padding:30px 22px 90px}
+header{padding:52px 0 8px;border-bottom:1px solid rgba(255,255,255,0.07);margin-bottom:32px}
+.rtag{font-family:"SF Mono",Menlo,monospace;font-size:0.72rem;font-weight:700;letter-spacing:2px;color:#63b3a6;border:1px solid rgba(99,179,166,0.4);background:rgba(99,179,166,0.07);padding:3px 11px;border-radius:20px}
+h1{font-size:2.15rem;font-weight:800;line-height:1.2;margin:20px 0 0;color:#f0eae0}
+h1 .h1en{display:block;font-size:0.42em;font-weight:600;letter-spacing:2.5px;color:#847d72;margin-top:11px}
+.sub{font-size:0.98rem;color:#aba498;margin-top:12px}
+.meta{font-family:"SF Mono",Menlo,monospace;font-size:0.75rem;color:#57524b;margin-top:16px;letter-spacing:1px}
+h2{font-size:1.25rem;font-weight:700;color:#e9e3d9;margin:44px 0 10px}
+h2 .n{font-family:"SF Mono",Menlo,monospace;font-size:0.8rem;color:#63b3a6;display:block;margin-bottom:5px;letter-spacing:2px}
+.he{font-size:0.68em;color:#8d867b;font-weight:500;letter-spacing:0}
+p{margin-bottom:16px}
+b,strong{color:#f0eae0;font-weight:600}
+em{color:#d9b45f;font-style:normal;font-weight:500}
+.rule{border:1px solid rgba(99,179,166,0.3);background:rgba(99,179,166,0.05);border-radius:12px;padding:16px 20px;margin:22px 0;font-size:0.94rem;color:#d5cdc1}
+.rule ol{padding-left:20px;margin:0}
+.rule li{margin-bottom:7px}
+.rule li:last-child{margin-bottom:0}
+figure{margin:28px 0}
+figure svg{display:block;width:100%;height:auto;border-radius:12px;background:rgba(255,255,255,0.018);border:1px solid rgba(255,255,255,0.06)}
+figcaption{font-size:0.82rem;color:#787268;margin-top:10px;text-align:center;line-height:1.6}
+.cant{border:1px solid rgba(205,127,155,0.36);background:rgba(205,127,155,0.05);border-radius:12px;padding:18px 21px;margin:26px 0 10px}
+.cant h3{font-size:1rem;color:#cd7f9b;margin-bottom:12px}
+.cant ul{list-style:none;padding:0}
+.cant li{margin-bottom:13px;font-size:0.93rem;color:#d5cdc1;line-height:1.76}
+.cant li:last-child{margin-bottom:0}
+.cant li b{color:#cd7f9b}
+.refs{margin:40px 0 10px}
+.refs h3{font-size:1rem;color:#79a6d2;margin-bottom:12px}
+.refs ul{list-style:none;padding:0}
+.refs li{margin-bottom:9px;font-size:0.89rem;color:#8d867b;line-height:1.7}
+.refs a{color:#79a6d2;text-decoration:none;border-bottom:1px solid rgba(121,166,210,0.3)}
+.refs a:hover{color:#a6c4e2}
+footer{text-align:center;padding:52px 0 10px;font-size:0.78rem;color:#57524b;font-family:"SF Mono",Menlo,monospace;border-top:1px solid rgba(255,255,255,0.06);margin-top:46px}
+footer a{color:#79a6d2;text-decoration:none}
+@media(max-width:600px){h1{font-size:1.7rem}.wrap{padding:24px 16px 60px}}
+</style></head><body>
+<div class="wrap">
+<header>
+<span class="rtag">REF · 经典模型</span>
+<h1>优先连接模型<span class="h1en">THE PREFERENTIAL ATTACHMENT MODEL</span></h1>
+<p class="sub">Barabási–Albert，1999 — 「富者愈富」的网络版；更早的形式见 Yule（1925）、Simon（1955）、Price（1976）</p>
+<p class="meta">被引用于：Topic 22 无标度与优先连接</p>
+</header>
+<h2><span class="n">01</span>它问的是什么问题<span class="he">（The Question It Poses）</span></h2>
+<p>1990 年代之前，网络研究的默认模型是<b>随机图</b>（random graph）：把点两两之间随机连线。它有个明确的预测——一个点连了几条边（这个数叫<b>度数</b>，degree）应该有个典型值，绝大多数点都挤在平均值附近，最大的也大不了几倍。</p>
+<p>可是一抬眼，现实完全不是这样：极少数网页被上百万个页面链接，极少数机场连着上百条航线，极少数论文拿走大部分引用。这些点不是稍微大一点，是大出几个数量级。</p>
+<p>于是问题变得很具体：<b>要给「随机连线」补上什么，巨头才会自己长出来？而且尽量少补</b>——补得越少，结论能覆盖的系统越多。这个模型给出的回答是：补两条就够。</p>
+<h2><span class="n">02</span>规则本身<span class="he">（The Rules）</span></h2>
+<div class="rule">
+<ol>
+<li>从一小撮已经连好的点开始（几个就行，怎么连都无所谓，最终结果不受它影响）。</li>
+<li>每一步加入<em>一个</em>新点，它带来 <em>m</em> 条边（m 是个固定的小数字，比如 2）。</li>
+<li>新点连谁？选中某个老点的概率 = <b>那个老点当前的度数 ÷ 全网所有点的度数之和</b>。这一条就叫<b>优先连接</b>（preferential attachment）。</li>
+<li>连好之后，进入下一步，再加一个新点。网络就这样一直长下去。</li>
+<li>已有的边永不删除、永不改接；已有的点永不退出。</li>
+</ol>
+</div>
+<p>第 3 条是全部的机关：它没有说新点"喜欢"谁，只说了概率跟对方已有的边数成正比。第 5 条则是最强的一条假设，也是这个模型在现实里最先破掉的地方。</p>
+<figure>
+<svg viewBox="0 0 720 264" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="按度数分配的选择概率"><defs><marker id="fAa" markerWidth="10" markerHeight="10" markerUnits="userSpaceOnUse" refX="9" refY="5" orient="auto" viewBox="0 0 10 10"><path d="M0,1 L9,5 L0,9 z" fill="#e0895e"></path></marker></defs><text x="360" y="28" fill="#aba498" font-family="-apple-system,sans-serif" font-size="13" text-anchor="middle">新来的点要选一个老点连上 — 每个老点占的宽度就是它现在的边数</text><rect x="92.0" y="128" width="220.3" height="46" rx="4" fill="#e0895e" opacity="0.62"></rect><text x="202.16666666666669" y="158" fill="#15161b" font-family="SF Mono,monospace" font-size="15" text-anchor="middle">A</text><text x="202.16666666666669" y="194" fill="#e0895e" font-family="SF Mono,monospace" font-size="11.5" text-anchor="middle">k = 5</text><text x="202.16666666666669" y="214" fill="#57524b" font-family="SF Mono,monospace" font-size="11" text-anchor="middle">42%</text><rect x="315.3" y="128" width="131.0" height="46" rx="4" fill="#d9b45f" opacity="0.62"></rect><text x="380.83333333333337" y="158" fill="#15161b" font-family="SF Mono,monospace" font-size="15" text-anchor="middle">B</text><text x="380.83333333333337" y="194" fill="#d9b45f" font-family="SF Mono,monospace" font-size="11.5" text-anchor="middle">k = 3</text><text x="380.83333333333337" y="214" fill="#57524b" font-family="SF Mono,monospace" font-size="11" text-anchor="middle">25%</text><rect x="449.3" y="128" width="86.3" height="46" rx="4" fill="#9fbc7a" opacity="0.62"></rect><text x="492.50000000000006" y="158" fill="#15161b" font-family="SF Mono,monospace" font-size="15" text-anchor="middle">C</text><text x="492.50000000000006" y="194" fill="#9fbc7a" font-family="SF Mono,monospace" font-size="11.5" text-anchor="middle">k = 2</text><text x="492.50000000000006" y="214" fill="#57524b" font-family="SF Mono,monospace" font-size="11" text-anchor="middle">17%</text><rect x="538.7" y="128" width="41.7" height="46" rx="4" fill="#63b3a6" opacity="0.62"></rect><text x="559.5000000000001" y="158" fill="#15161b" font-family="SF Mono,monospace" font-size="15" text-anchor="middle">D</text><text x="559.5000000000001" y="194" fill="#63b3a6" font-family="SF Mono,monospace" font-size="11.5" text-anchor="middle">k = 1</text><text x="559.5000000000001" y="214" fill="#57524b" font-family="SF Mono,monospace" font-size="11" text-anchor="middle">8%</text><rect x="583.3" y="128" width="41.7" height="46" rx="4" fill="#79a6d2" opacity="0.62"></rect><text x="604.1666666666667" y="158" fill="#15161b" font-family="SF Mono,monospace" font-size="15" text-anchor="middle">E</text><text x="604.1666666666667" y="194" fill="#79a6d2" font-family="SF Mono,monospace" font-size="11.5" text-anchor="middle">k = 1</text><text x="604.1666666666667" y="214" fill="#57524b" font-family="SF Mono,monospace" font-size="11" text-anchor="middle">8%</text><line x1="209.92000000000002" y1="66" x2="209.92000000000002" y2="122" stroke="#e0895e" stroke-width="1.8" marker-end="url(#fAa)"></line><text x="209.92000000000002" y="58" fill="#e0895e" font-family="SF Mono,monospace" font-size="11.5" text-anchor="middle">新来的点</text><text x="360" y="236" fill="#57524b" font-family="-apple-system,sans-serif" font-size="11" text-anchor="middle">没有人在偏爱谁 — A 被选中的机会大，只是因为它占的格子多</text></svg>
+<figcaption>把选择过程画成一条按度数分格的带子：谁占的格子多，谁被随机指到的机会就大。「优先」在这里是概率上的偏向，不是任何人的偏好。</figcaption>
+</figure>
+<h2><span class="n">03</span>跑起来会看到什么<span class="he">（What You See When It Runs）</span></h2>
+<p>跑出来的度数分布是一条<b>幂律</b>（power law）：连了 k 条边的点的数量正比于 k 的负三次方。这个指数 3 是从规则里推出来的——它跟 m 是几无关，也跟一开始那撮点怎么连无关。</p>
+<p>下面这张图是真跑出来的：两边各 30000 个点、每个新点带 2 条边，唯一的差别是「选谁」。随机挑的时候，最大度数是 27；按边数挑的时候，最大度数是 616。而<b>两边的平均度数完全相同，都是 4.0</b>。</p>
+<figure>
+<svg viewBox="0 0 720 312" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="两种生长规则跑出的度分布"><text x="360" y="26" fill="#aba498" font-family="-apple-system,sans-serif" font-size="13" text-anchor="middle">各跑 30000 个点、每点 2 条边 — 只有「选谁」这一条不同</text><line x1="104" y1="236" x2="566" y2="236" stroke="rgba(255,255,255,0.18)" stroke-width="1.5"></line><line x1="104" y1="236" x2="104" y2="60" stroke="rgba(255,255,255,0.18)" stroke-width="1.5"></line><text x="104.0" y="254" fill="#57524b" font-family="SF Mono,monospace" font-size="10.5" text-anchor="middle">1</text><text x="265.04508032724345" y="254" fill="#57524b" font-family="SF Mono,monospace" font-size="10.5" text-anchor="middle">10</text><text x="426.09016065448697" y="254" fill="#57524b" font-family="SF Mono,monospace" font-size="10.5" text-anchor="middle">100</text><text x="92" y="64.0" fill="#57524b" font-family="SF Mono,monospace" font-size="10.5" text-anchor="end">1</text><text x="92" y="103.31097461666141" fill="#57524b" font-family="SF Mono,monospace" font-size="10.5" text-anchor="end">10⁻1</text><text x="92" y="142.62194923332285" fill="#57524b" font-family="SF Mono,monospace" font-size="10.5" text-anchor="end">10⁻2</text><text x="92" y="181.93292384998426" fill="#57524b" font-family="SF Mono,monospace" font-size="10.5" text-anchor="end">10⁻3</text><text x="92" y="221.2438984666457" fill="#57524b" font-family="SF Mono,monospace" font-size="10.5" text-anchor="end">10⁻4</text><text x="335" y="278" fill="#787268" font-family="-apple-system,sans-serif" font-size="11.5" text-anchor="middle">度数 k（对数）→</text><text x="28" y="150" fill="#787268" font-family="-apple-system,sans-serif" font-size="11" text-anchor="middle" transform="rotate(-90 28 150)">有多少点至少这么大（对数）</text><polyline points="152.5,60.0 180.8,71.9 201.0,80.6 216.6,87.4 229.3,93.1 240.1,98.1 249.4,102.5 257.7,106.3 265.0,109.9 271.7,112.8 277.8,115.6 283.4,118.3 288.6,120.4 293.4,122.5 297.9,124.8 302.2,126.5 306.2,128.7 309.9,130.4 313.5,131.9 316.9,133.4 320.2,135.1 323.3,136.7 326.3,138.0 329.1,139.7 331.9,141.4 334.5,142.6 337.1,144.6 339.5,145.8 341.9,147.0 344.2,148.2 346.4,149.6 348.5,150.5 350.6,151.2 352.7,151.9 354.6,152.5 356.6,153.0 358.4,154.3 360.2,155.3 362.0,156.2 363.7,157.4 365.4,158.1 367.1,159.4 368.7,159.8 370.2,160.4 371.8,161.0 373.3,161.6 374.8,163.0 376.2,163.5 377.6,164.7 379.0,165.3 380.4,165.8 381.7,166.1 383.0,166.4 384.3,167.6 385.5,167.9 386.8,169.2 388.0,169.6 389.2,169.9 390.4,170.3 391.5,171.0 392.7,171.4 393.8,171.8 394.9,172.6 397.0,173.0 398.1,174.4 400.1,175.8 403.1,176.3 404.1,176.8 405.0,177.4 406.0,177.9 406.9,179.1 407.8,179.7 410.5,180.4 411.4,181.0 412.2,181.7 413.1,182.5 415.5,183.2 419.5,184.0 421.0,184.9 425.4,185.7 427.5,186.7 430.2,187.6 430.8,188.7 432.8,189.8 435.9,190.9 438.8,192.2 442.3,195.1 444.4,196.7 448.6,198.5 455.4,200.5 455.8,202.8 461.1,205.4 481.9,208.5 487.3,212.3 532.8,217.2 534.8,224.2 553.2,236.0" fill="none" stroke="#e0895e" stroke-width="2.4"></polyline><line x1="356" y1="84" x2="386" y2="84" stroke="#e0895e" stroke-width="2.6"></line><text x="394" y="88" fill="#e0895e" font-family="-apple-system,sans-serif" font-size="11.5" text-anchor="start">优先连接（按边数挑）</text><polyline points="152.5,60.0 180.8,67.0 201.0,73.9 216.6,80.7 229.3,87.7 240.1,94.7 249.4,101.3 257.7,108.1 265.0,115.4 271.7,122.3 277.8,128.4 283.4,135.7 288.6,143.5 293.4,150.2 297.9,156.4 302.2,164.5 306.2,171.4 309.9,176.3 313.5,184.0 316.9,193.6 320.2,202.8 323.3,205.4 326.3,212.3 329.1,217.2 334.5,236.0" fill="none" stroke="#79a6d2" stroke-width="2.4"></polyline><line x1="356" y1="106" x2="386" y2="106" stroke="#79a6d2" stroke-width="2.6"></line><text x="394" y="110" fill="#79a6d2" font-family="-apple-system,sans-serif" font-size="11.5" text-anchor="start">随机挑</text><text x="356" y="134" fill="#57524b" font-family="-apple-system,sans-serif" font-size="10.5" text-anchor="start">两条线的平均度数完全相同（都是 4.0）</text><text x="360" y="302" fill="#57524b" font-family="-apple-system,sans-serif" font-size="11" text-anchor="middle">同样 30000 个点：随机挑时最大度数是 27，优先连接时是 616</text></svg>
+<figcaption>纵轴是「度数至少这么大的点占多少比例」，两轴都取了对数。这种坐标下幂律是直线，而随机挑出来的分布迅速掉到地上——它有典型值，直线那条没有。</figcaption>
+</figure>
+<p>还能算出单个点的成长曲线：第 <em>i</em> 个进场的点在网络长到 <em>t</em> 个点时，度数是 k<sub>i</sub>(t) = m·√(t/t<sub>i</sub>)。<b>所有点在模型里长得一模一样，唯一的差别是进场顺序</b>，而这个顺序被时间以平方根的速度放大。早到的点永远在前面，晚到的永远追不上。</p>
+<p>最后一件很重要但常被略过的事：<b>这两条规则缺一不可。</b>只保留增长、新点随机挑，出来的是指数分布，没有枢纽；只保留优先连接、点数固定不长，度数分布根本不稳定，边越加越多，最后整张网连成一片。是「增长中的系统按存量分配增量」这个组合在起作用。</p>
+<h2><span class="n">04</span>它解释了现实中的什么<span class="he">（What It Explains）</span></h2>
+<p>它解释的是一件事：<b>为什么在「一直在长、且新来者按可见度选择」的系统里，规模分布是重尾的而不是钟形的</b>——网页链接、论文引用、机场航线、软件包依赖、蛋白质相互作用，都有这个结构。</p>
+<p>它给出三条可以被数据否掉的预期：① 度分布重尾；② 新边分配到某个点的速率随该点度数<em>线性</em>上升；③ 早进场的点系统性地更大。第 ② 条尤其有用，因为它可以直接测——Jeong、Néda 和 Barabási 2003 年就这么干了，结果是引用网络和互联网接近线性，而演员合作网和科学合著网是次线性的。</p>
+<p>它还替掉了一个很流行的坏解释。看到某个节点特别大，默认的说法是「因为它更好」；这个模型说明，在满足上面两条规则的系统里，<b>就算所有节点完全一样，也一定会出现一批巨头</b>——所以「它大」本身不构成「它好」的证据。至于早期的一点随机领先会不会真的滚成后来的巨大差距，van de Rijt 等人 2014 年在 Kickstarter、Wikipedia 等平台上做了随机实验：随机给一点初始成功，后续成功率显著提高，但边际递减。</p>
+<div class="cant">
+<h3>它不能解释什么<span class="he">（What It Cannot Explain）</span></h3>
+<ul>
+<li><b>不能说出谁会成为枢纽。</b>它预言一定会有枢纽，但在所有节点同质的模型里，谁当枢纽完全取决于最早那几次随机选择。要预测具体是谁，这个模型明确无话可说。</li>
+<li><b>不能解释后来者超车。</b>按 k<sub>i</sub>(t) = m·√(t/t<sub>i</sub>)，晚到的永远追不上；而现实里 Google、微信这类后发者都翻过盘。这需要 Bianconi–Barabási 的适应度（fitness）扩展：新边按「适应度 × 度数」分配，年轻但适应度高的点才可能超车。纯优先连接会系统性高估先发优势。</li>
+<li><b>不能产生聚类和社群。</b>它生成的网络里，你的两个邻居互相认识的概率接近零，也没有任何社群结构。真实网络两样都有。任何依赖聚类或社群的问题，用它回答就是拿错了工具，哪怕度分布配得再好。</li>
+<li><b>不能容忍非线性。</b>Krapivsky、Redner 和 Leyvraz 2000 年算过：若把概率改成正比于度数的 α 次方，只有 α = 1 给出幂律。略小于 1，枢纽被压扁成拉伸指数；大于 1，连接向极少数点塌缩，再大一些几乎所有边都归一个点。<b>这是刀锋上的条件，不是一个大致成立就行的近似。</b></li>
+<li><b>不能用在节点会死、边会重连的系统里。</b>规则第 5 条要求点不退出、边不改接。公司会倒闭、朋友会绝交、依赖会被替换——这些系统需要带删除的变体，结论也随之改变。</li>
+<li><b>不能反过来证明「这个网络是无标度的」。</b>模型能产出幂律，不等于现实里那条尾巴就是这个机制造的：复制-分歧、随机比例增长、甚至纯粹的采样偏差都能给出同样的形状。而 Broido 与 Clauset 2019 年对 927 个真实网络做统一检验的结论是，能拿到最强证据的只有 4%。</li>
+</ul>
+</div>
+<div class="refs">
+<h3>延伸阅读<span class="he">（Further Reading）</span></h3>
+<ul>
+<li>Barabási &amp; Albert, <a href="https://www.science.org/doi/10.1126/science.286.5439.509">Emergence of Scaling in Random Networks</a>（1999，原始论文）</li>
+<li><a href="https://en.wikipedia.org/wiki/Price%27s_model">Price's model</a>（1976，引用网络上的「累积优势」）</li>
+<li>Jeong, Néda &amp; Barabási, <a href="https://iopscience.iop.org/article/10.1209/epl/i2003-00166-9">Measuring preferential attachment in evolving networks</a>（2003，直接测新边怎么分配）</li>
+<li>Bianconi &amp; Barabási, <a href="https://webspace.maths.qmul.ac.uk/g.bianconi/Fitness.html">适应度模型与「赢者通吃」相</a>（2001）</li>
+<li>Broido &amp; Clauset, <a href="https://www.nature.com/articles/s41467-019-08746-5">Scale-free networks are rare</a>（2019）</li>
+<li><a href="https://en.wikipedia.org/wiki/Preferential_attachment">Preferential attachment</a>（含非线性核与各变体）</li>
+</ul>
+</div>
+<footer>BigCat · 复杂性科学 · <a href="index.html">← 全部 Topic</a></footer>
+</div>
+
+<script src="https://hub.cissychen.com/comments.js" defer></script>
+<script src="https://hub.cissychen.com/search.js" defer></script>
+<script src="https://hub.cissychen.com/index-button.js" defer></script>
+<script src="https://hub.cissychen.com/i18n-tts.js" defer></script>
+</body></html>
