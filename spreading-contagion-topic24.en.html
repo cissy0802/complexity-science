@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+
+<html lang="en"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Spreading &amp; Contagion — ideas are not viruses · Complexity Science T24</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,"SF Pro Display","Noto Sans SC",sans-serif;color:#e4ded5;line-height:1.85;min-height:100vh;
+  background:radial-gradient(1100px 620px at 12% -6%,rgba(224,137,94,0.10),transparent 62%),radial-gradient(950px 700px at 100% 2%,rgba(166,147,205,0.09),transparent 58%),linear-gradient(168deg,#100f0d 0%,#15161b 48%,#0a0a0c 100%);background-attachment:fixed}
+.wrap{max-width:760px;margin:0 auto;padding:30px 22px 90px}
+header{padding:52px 0 8px;border-bottom:1px solid rgba(255,255,255,0.07);margin-bottom:34px}
+.week-tag{font-family:"SF Mono",Menlo,monospace;font-size:0.72rem;font-weight:700;letter-spacing:2px;color:#63b3a6;border:1px solid rgba(99,179,166,0.4);background:rgba(99,179,166,0.07);padding:3px 11px;border-radius:20px}
+h1{font-size:2.5rem;font-weight:800;letter-spacing:0.5px;line-height:1.2;margin:20px 0 0;background:linear-gradient(106deg,#e0895e 0%,#d9b45f 34%,#9fbc7a 68%,#63b3a6 100%);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+.sub{font-size:1.05rem;color:#aba498;margin-top:14px;font-weight:500}
+.date{font-family:"SF Mono",Menlo,monospace;font-size:0.75rem;color:#57524b;margin-top:18px;letter-spacing:1px}
+.pitch{margin:22px 0 30px;font-size:0.97rem;color:#cd7f9b;border-left:2px solid rgba(205,127,155,0.5);padding-left:16px;font-style:italic}
+.intro{font-size:1.02rem;color:#cfc8bc;margin-bottom:14px}
+.intro p{margin-bottom:16px}
+h2{font-size:1.42rem;font-weight:700;color:#e9e3d9;margin:56px 0 8px;letter-spacing:0.3px}
+h2 .n{font-family:"SF Mono",Menlo,monospace;font-size:0.85rem;color:#63b3a6;display:block;margin-bottom:6px;letter-spacing:2px}
+p{margin-bottom:17px}
+.lead{color:#cfc8bc}
+b,strong{color:#f0eae0;font-weight:600}
+em{color:#d9b45f;font-style:normal;font-weight:500}
+.dim{color:#8d867b}
+a.reflink{display:inline-block;font-size:0.82rem;font-family:"SF Mono",Menlo,monospace;color:#63b3a6;border:1px solid rgba(99,179,166,0.38);background:rgba(99,179,166,0.07);padding:1px 9px;border-radius:20px;text-decoration:none;transition:all 0.15s;white-space:nowrap}
+a.reflink:hover{background:rgba(99,179,166,0.16);border-color:rgba(99,179,166,0.7)}
+figure{margin:30px 0}
+figure svg{display:block;width:100%;height:auto;border-radius:12px;background:rgba(255,255,255,0.018);border:1px solid rgba(255,255,255,0.06)}
+figcaption{font-size:0.82rem;color:#787268;margin-top:11px;text-align:center;line-height:1.6}
+.decide{margin:24px 0;border:1px solid rgba(224,137,94,0.36);background:rgba(224,137,94,0.055);border-radius:12px;padding:15px 19px}
+.decide .lb{font-family:"SF Mono",Menlo,monospace;font-size:0.73rem;letter-spacing:1.5px;color:#e0895e;font-weight:700;display:block;margin-bottom:7px}
+.decide p{margin:0;font-size:0.95rem;color:#ddd5c9}
+.crossx-inline{margin:20px 0 22px;border-left:2px solid rgba(205,127,155,0.55);padding:2px 0 2px 15px;font-size:0.89rem;color:#a9a096;line-height:1.72}
+.crossx-inline b{color:#cd7f9b;font-weight:600}
+.bigcat{margin:46px 0 10px;border:1px solid rgba(217,180,95,0.38);background:rgba(217,180,95,0.05);border-radius:14px;padding:20px 22px}
+.bigcat h3{font-size:1.02rem;color:#d9b45f;margin-bottom:14px;letter-spacing:0.5px}
+.bigcat ol{list-style:none;padding:0}
+.bigcat li{margin-bottom:15px;font-size:0.94rem;color:#d5cdc1;line-height:1.78}
+.bigcat li:last-child{margin-bottom:0}
+.bigcat .dm{font-family:"SF Mono",Menlo,monospace;font-size:0.73rem;color:#d9b45f;border:1px solid rgba(217,180,95,0.32);border-radius:4px;padding:1px 7px;margin-right:8px;white-space:nowrap}
+.crossx{margin:46px 0 10px;border:1px solid rgba(205,127,155,0.38);background:rgba(205,127,155,0.05);border-radius:14px;padding:20px 22px}
+.crossx h3{font-size:1.02rem;color:#cd7f9b;margin-bottom:14px;letter-spacing:0.5px}
+.crossx ul{list-style:none;padding:0}
+.crossx li{margin-bottom:16px;font-size:0.94rem;color:#d5cdc1;line-height:1.78}
+.crossx li:last-child{margin-bottom:0}
+.crossx li b{color:#cd7f9b;font-weight:600}
+.thinking{margin:46px 0 10px}
+.thinking h3{font-size:1.02rem;color:#a693cd;margin-bottom:14px;letter-spacing:0.5px}
+details{border:1px solid rgba(166,147,205,0.22);border-radius:10px;padding:12px 16px;margin-bottom:10px;background:rgba(166,147,205,0.035)}
+summary{cursor:pointer;font-size:0.93rem;color:#c9c2b6;font-weight:500}
+summary::marker{color:#a693cd}
+details p{margin:12px 0 0;font-size:0.9rem;color:#a9a096;line-height:1.75}
+.refs{margin:46px 0 10px}
+.refs h3{font-size:1.02rem;color:#79a6d2;margin-bottom:14px;letter-spacing:0.5px}
+.refs ul{list-style:none;padding:0}
+.refs li{margin-bottom:10px;font-size:0.9rem;color:#8d867b;line-height:1.7}
+.refs a{color:#79a6d2;text-decoration:none;border-bottom:1px solid rgba(121,166,210,0.3)}
+.refs a:hover{color:#a6c4e2;border-bottom-color:rgba(121,166,210,0.7)}
+footer{text-align:center;padding:56px 0 10px;font-size:0.78rem;color:#57524b;font-family:"SF Mono",Menlo,monospace;border-top:1px solid rgba(255,255,255,0.06);margin-top:50px}
+footer a{color:#79a6d2;text-decoration:none}
+@media(max-width:600px){h1{font-size:1.85rem}.wrap{padding:24px 16px 60px}h2{font-size:1.22rem}}
+</style></head><body>
+<div class="wrap">
+<header>
+<span class="week-tag">TOPIC 24 · PHASE D</span>
+<h1>Spreading and Contagion</h1>
+<p class="sub">Ideas are not viruses — don't copy the virus playbook</p>
+<p class="date">2026-08-10 · Networks</p>
+</header>
+<p class="pitch">"How many people does one patient infect on average?" — not one term in that number belongs to the virus alone. It is the product of the pathogen, your behaviour, and the network you happen to sit in. Which is why the same disease can be two different diseases in two cities.</p>
+<div class="intro">
+<p>A rumour goes round the office, an app is suddenly on everyone's phone, a flu season, a clip that won't stop resurfacing. We call all of it "spreading", and we borrow the word <em>viral</em> for all of it. That word comes from epidemiology — and the borrowing leaves the most important premise behind.</p>
+<p>The premise left behind is this: <b>a virus only needs to touch you once.</b> Anything that asks you to change what you do — switch tools, drop a habit, be the first to say the plan is wrong — usually needs several <em>different</em> people to do it in front of you first. That one-word difference flips the whole playbook: the structure that makes viruses fly (long-range shortcuts, wide weak ties) is exactly the structure that stalls behaviour.</p>
+<p class="dim">The six network topics divide the ground: T20 is structure itself (degree, paths, clustering), T21 is shortcuts and small worlds, T22 is how hubs grow, T23 is what that structure resists and what breaks it, T25 is cascading failure through load redistribution. <b>This one asks a single question: once something is running across the network, what decides whether it stops?</b></p>
+</div>
+<h2><span class="n">01</span>How Many Does One Person Infect</h2>
+<p class="lead">In 1927 two Scottish researchers, Kermack and McKendrick, took a shortcut that turned out to be the whole field: track nobody in particular, and sort the population into three piles instead. <a class="reflink" href="ref-sir.en.html">→ ref · the SIR model</a></p>
+<p>Pile one is the <b>susceptible</b>: never had it, will catch it on contact. Pile two is the <b>infectious</b>: currently passing it on. Pile three is the <b>removed</b>: recovered or dead, either way out of the game. Their initials give the model its name — <b>SIR</b>. There are two rules: a susceptible who meets an infectious becomes infectious with some probability, and an infectious eventually becomes removed.</p>
+<p>Out of those two rules falls one number, the <b>basic reproduction number</b>, written <b>R₀</b>: drop a single infectious person into a population where everyone is still susceptible, and count how many they infect on average. Above 1 it grows, below 1 it dies out on its own. The line is almost suspiciously clean.</p>
+<p>What deserves a pause is what R₀ is made of. It is a product of three things: <em>how many people you contact per unit time</em> × <em>the chance a contact transmits</em> × <em>how long you stay infectious</em>. Only the middle term belongs mostly to the pathogen; the other two are behaviour and environment. So "this disease has an R₀ of 3" is an incomplete sentence — it needs "where, when, and among whom".</p>
+<figure>
+<svg aria-label="The three SIR compartments and two transitions, plus the three factors of R-zero" role="img" viewBox="0 0 720 280" xmlns="http://www.w3.org/2000/svg">
+<defs>
+<marker id="t24a" markerHeight="10" markerUnits="userSpaceOnUse" markerWidth="10" orient="auto" refX="9" refY="5" viewBox="0 0 10 10">
+<path d="M0,1 L9,5 L0,9 z" fill="#9fbc7a"></path>
+</marker>
+</defs>
+<text fill="#aba498" font-family="-apple-system,sans-serif" font-size="13" text-anchor="middle" x="360" y="26">Three piles, two arrows, one number</text>
+<rect fill="rgba(99,179,166,0.10)" height="56" rx="10" stroke="rgba(99,179,166,0.5)" width="120" x="40" y="60"></rect>
+<text fill="#63b3a6" font-family="-apple-system,sans-serif" font-size="15" font-weight="600" text-anchor="middle" x="100" y="85">S</text>
+<text fill="#8d867b" font-family="-apple-system,sans-serif" font-size="10.5" text-anchor="middle" x="100" y="103">Susceptible</text>
+<rect fill="rgba(224,137,94,0.12)" height="56" rx="10" stroke="rgba(224,137,94,0.55)" width="120" x="290" y="60"></rect>
+<text fill="#e0895e" font-family="-apple-system,sans-serif" font-size="15" font-weight="600" text-anchor="middle" x="350" y="85">I</text>
+<text fill="#8d867b" font-family="-apple-system,sans-serif" font-size="10.5" text-anchor="middle" x="350" y="103">Infectious</text>
+<rect fill="rgba(168,164,156,0.10)" height="56" rx="10" stroke="rgba(168,164,156,0.45)" width="120" x="540" y="60"></rect>
+<text fill="#a8a49c" font-family="-apple-system,sans-serif" font-size="15" font-weight="600" text-anchor="middle" x="600" y="85">R</text>
+<text fill="#8d867b" font-family="-apple-system,sans-serif" font-size="10.5" text-anchor="middle" x="600" y="103">Removed</text>
+<line marker-end="url(#t24a)" stroke="#9fbc7a" stroke-width="2" x1="170" x2="282" y1="88" y2="88"></line>
+<text fill="#9fbc7a" font-family="SF Mono,monospace" font-size="12" text-anchor="middle" x="226" y="74">β</text>
+<text fill="#787268" font-family="-apple-system,sans-serif" font-size="11" text-anchor="middle" x="226" y="110">contact, catch it</text>
+<line marker-end="url(#t24a)" stroke="#9fbc7a" stroke-width="2" x1="420" x2="532" y1="88" y2="88"></line>
+<text fill="#9fbc7a" font-family="SF Mono,monospace" font-size="12" text-anchor="middle" x="476" y="74">γ</text>
+<text fill="#787268" font-family="-apple-system,sans-serif" font-size="11" text-anchor="middle" x="476" y="110">no longer spreading</text>
+<line stroke="rgba(255,255,255,0.08)" stroke-width="1" x1="60" x2="660" y1="150" y2="150"></line>
+<text fill="#e0895e" font-family="SF Mono,monospace" font-size="17" font-weight="700" x="46" y="214">R₀ =</text>
+<rect fill="rgba(217,180,95,0.07)" height="52" rx="8" stroke="rgba(217,180,95,0.4)" width="146" x="106" y="182"></rect>
+<text fill="#d9b45f" font-family="-apple-system,sans-serif" font-size="13.5" text-anchor="middle" x="179" y="204">contact rate</text>
+<text fill="#8d867b" font-family="-apple-system,sans-serif" font-size="10" text-anchor="middle" x="179" y="222">people met per day</text>
+<text fill="#8d867b" font-family="SF Mono,monospace" font-size="15" text-anchor="middle" x="266" y="214">×</text>
+<rect fill="rgba(224,137,94,0.10)" height="52" rx="8" stroke="rgba(224,137,94,0.55)" width="146" x="280" y="182"></rect>
+<text fill="#e0895e" font-family="-apple-system,sans-serif" font-size="13.5" text-anchor="middle" x="353" y="204">per-contact chance</text>
+<text fill="#c0703f" font-family="-apple-system,sans-serif" font-size="10" text-anchor="middle" x="353" y="222">the pathogen's own term</text>
+<text fill="#8d867b" font-family="SF Mono,monospace" font-size="15" text-anchor="middle" x="440" y="214">×</text>
+<rect fill="rgba(217,180,95,0.07)" height="52" rx="8" stroke="rgba(217,180,95,0.4)" width="146" x="454" y="182"></rect>
+<text fill="#d9b45f" font-family="-apple-system,sans-serif" font-size="13.5" text-anchor="middle" x="527" y="204">infectious period</text>
+<text fill="#8d867b" font-family="-apple-system,sans-serif" font-size="10" text-anchor="middle" x="527" y="222">how long you can pass it on</text>
+<text fill="#57524b" font-family="-apple-system,sans-serif" font-size="11" text-anchor="middle" x="360" y="262">The other two are behaviour and environment — one pathogen, two cities, two values of R₀</text>
+</svg>
+<figcaption>All of SIR: three piles, two transitions. R₀ is a product of three factors, two of which are not the virus.</figcaption>
+</figure>
+<p>One number gets used even more than R₀: the <b>effective reproduction number</b>, <b>R_eff</b> — how many one infectious person is passing it to <em>right now</em>. It equals R₀ times the fraction of people still susceptible. That sentence looks unremarkable, and it is the seed of everything below: <b>spreading eats its own fuel.</b> Every person infected is a person removed from the susceptible pile, and the same virus with the same behaviour starts running slower.</p>
+<div class="decide">
+<span class="lb">🎯 DECISION LINE</span>
+<p>"Reduce transmission" is not one action, it is three separately priced ones. Split R₀ into contact rate, per-contact probability and infectious period, and ask of each: what does cutting this one by a third cost? Masks and encryption cut the middle term; capacity limits and isolation cut the first; fast detection and fast takedown cut the third. <b>Get all three price lists on the table before choosing — "we must control the spread" has no units.</b></p>
+</div>
+<div class="crossx-inline">
+🌀 <b>Engineering history · SQL Slammer</b>　In January 2003 a 376-byte worm scanned the internet by picking IP addresses at random, doubled every 8.5 seconds, and owned roughly 90% of vulnerable hosts in under ten minutes. It could be reconstructed so precisely afterwards precisely because the textbook assumption — contact a target chosen at random — was <b>literally true</b> of it: it knew nobody and had no social circle. Which gives an unflattering corollary: human epidemics are hard to forecast not mainly because viruses are complicated, but because people do not mix at random.
+</div>
+<h2><span class="n">02</span>Why It Stops By Itself</h2>
+<p class="lead">If R_eff = R₀ × (fraction still susceptible), then once that fraction drops below 1/R₀, R_eff falls under 1 and the outbreak contracts. That gate has a name — the <b>herd immunity threshold</b>, equal to 1 − 1/R₀. At R₀ = 3 it is 67%.</p>
+<p>This is exactly what Kermack and McKendrick set out to explain: why does an epidemic recede while a large crowd of never-infected people is still standing there? The fashionable answer at the time was that the pathogen weakened. They showed you need no such assumption — burn part of the fuel and the fire shrinks by itself.</p>
+<p>But there is a turn here that nearly everyone drops. <b>The epidemic does not end when the threshold is crossed.</b> Crossing it only means <em>new cases start falling</em>. A large number of people are still mid-infection, and they do not stop breathing because a statistical line was crossed. They keep transmitting, susceptibles keep falling, and the system sails well past the threshold before it truly halts. That extra stretch is <b>overshoot</b>.</p>
+<p>The numbers are worse than the intuition: at R₀ = 3 the threshold is 67%, but letting it burn out unmitigated infects about <b>94%</b> of the population. All 27 extra percentage points are overshoot. That is the arithmetic problem with "let it reach herd immunity naturally" — it treats the threshold as the finish line when it is only the turning point.</p>
+<figure>
+<svg aria-label="Susceptible fraction falls through the herd immunity threshold and keeps going; the excess is overshoot" role="img" viewBox="0 0 720 330" xmlns="http://www.w3.org/2000/svg">
+<defs>
+<marker id="t24b" markerHeight="9" markerUnits="userSpaceOnUse" markerWidth="9" orient="auto" refX="8" refY="5" viewBox="0 0 10 10">
+<path d="M0,1 L9,5 L0,9 z" fill="#cd7f9b"></path>
+</marker>
+<marker id="t24c" markerHeight="9" markerUnits="userSpaceOnUse" markerWidth="9" orient="auto" refX="8" refY="5" viewBox="0 0 10 10">
+<path d="M0,1 L9,5 L0,9 z" fill="#cd7f9b"></path>
+</marker>
+</defs>
+<text fill="#aba498" font-family="-apple-system,sans-serif" font-size="13" text-anchor="middle" x="360" y="26">How much fuel is left when the fire goes out (R₀ = 3)</text>
+<rect fill="rgba(205,127,155,0.10)" height="52" width="288" x="310" y="187"></rect>
+<line stroke="rgba(255,255,255,0.18)" stroke-width="1.5" x1="90" x2="600" y1="250" y2="250"></line>
+<line stroke="rgba(255,255,255,0.18)" stroke-width="1.5" x1="90" x2="90" y1="250" y2="52"></line>
+<text fill="#8d867b" font-family="-apple-system,sans-serif" font-size="11.5" transform="rotate(-90 34 150)" x="34" y="150">share never infected</text>
+<line stroke="#d9b45f" stroke-dasharray="6 5" stroke-width="1.6" x1="90" x2="600" y1="187" y2="187"></line>
+<text fill="#d9b45f" font-family="-apple-system,sans-serif" font-size="11.5" x="97" y="180">herd immunity threshold — 33% left susceptible</text>
+<line stroke="#cd7f9b" stroke-dasharray="3 5" stroke-width="1.6" x1="90" x2="600" y1="239" y2="239"></line>
+<text fill="#cd7f9b" font-family="-apple-system,sans-serif" font-size="11.5" x="97" y="232">burnt out: only 6% left susceptible (94% infected)</text>
+<path d="M100,62 C250,66 320,84 365,135 C410,186 455,228 515,236 C550,240 575,239 598,239" fill="none" stroke="#63b3a6" stroke-width="2.5"></path>
+<text fill="#63b3a6" font-family="SF Mono,monospace" font-size="12" x="126" y="82">susceptible S/N</text>
+<line stroke="#9fbc7a" stroke-dasharray="4 4" stroke-width="1.6" x1="310" x2="310" y1="187" y2="256"></line>
+<circle cx="310" cy="187" fill="#9fbc7a" r="5"></circle>
+<text fill="#9fbc7a" font-family="-apple-system,sans-serif" font-size="11.5" text-anchor="middle" x="310" y="274">R_eff is exactly 1 here</text>
+<text fill="#6f8a55" font-family="-apple-system,sans-serif" font-size="11" text-anchor="middle" x="310" y="290">new cases peak — this is not the end</text>
+<line marker-end="url(#t24b)" stroke="#cd7f9b" stroke-width="1.8" x1="614" x2="614" y1="196" y2="237"></line>
+<line marker-end="url(#t24c)" stroke="#cd7f9b" stroke-width="1.8" x1="614" x2="614" y1="230" y2="189"></line>
+<text fill="#cd7f9b" font-family="-apple-system,sans-serif" font-size="12" x="626" y="209">overshoot</text>
+<text fill="#a9a096" font-family="-apple-system,sans-serif" font-size="10.5" x="626" y="226">27% extra burnt</text>
+<text fill="#8d867b" font-family="-apple-system,sans-serif" font-size="11.5" text-anchor="middle" x="345" y="312">time →</text>
+</svg>
+<figcaption>The threshold is where new cases peak, not where it ends. Those 27 points inside the red band burn <em>after</em> the point where it "should" have stopped.</figcaption>
+</figure>
+<p>Overshoot also settles a very practical argument: <b>when to let go is a real question.</b> Lift an intervention exactly when R_eff has just crossed 1 and the susceptible share is still hugging the threshold — the moment it lifts, R_eff bounces back above 1 and the whole thing restarts. Any "stop at the target" plan needs headroom for overshoot, which means the exit condition should never be a date; it should be a stock level held below a line for a stated duration.</p>
+<div class="crossx-inline">
+🌀 <b>Demography · Keyfitz and population momentum</b>　In 1971 Nathan Keyfitz asked a question most people thought they knew: if fertility dropped to exact replacement level tomorrow, would population growth stop? It would not — he calculated that high-fertility countries would keep growing to roughly 1.6 times their then-current size before levelling off, because past high fertility had already loaded a large cohort into childbearing age and that stock still has to run through. Same mechanism as overshoot: <b>pushing the driver past its threshold turns the flow over, it does not turn the stock around.</b> Hence a test that applies to every "stop when we hit the target" policy: if you are acting on a flow but care about a stock, the moment you hit target is never the moment to stop.
+</div>
+<h2><span class="n">03</span>Where the Average Stops Working</h2>
+<p class="lead">Both sections above smuggled in an assumption called <b>homogeneous mixing</b>: everyone is equally likely to meet everyone, like a well-stirred soup. It makes the maths beautiful, and it puts the conclusions some distance from reality.</p>
+<p>People are not soup. Some meet two hundred people a day; some meet five a week. T22 covered why contact degree distributions are so often heavy-tailed <a class="reflink" href="ref-power-law.en.html">→ ref · spotting and misreading power laws</a>. Once degrees are uneven, the quantity that decides whether something takes off changes: it is no longer the mean degree ⟨k⟩ but <b>⟨k²⟩ / ⟨k⟩</b> — the mean of the <em>square</em>. Squaring is brutally sensitive to the tail: someone with 200 contacts weighs four hundred times as much as someone with ten.</p>
+<p>In 2001 Pastor-Satorras and Vespignani carried this to its conclusion, and it startled the field: if the degree distribution is a power law with exponent at or below 3, then ⟨k²⟩ diverges as the network grows and <b>the epidemic threshold goes to zero</b>. There is no safe band of "too weakly transmissible to take off". Any transmissibility at all can establish itself.</p>
+<figure>
+<svg aria-label="A homogeneous network beside a heavy-tailed one, and where each one's epidemic threshold sits" role="img" viewBox="0 0 720 344" xmlns="http://www.w3.org/2000/svg">
+<defs>
+<marker id="t24d" markerHeight="10" markerUnits="userSpaceOnUse" markerWidth="10" orient="auto" refX="9" refY="5" viewBox="0 0 10 10">
+<path d="M0,1 L9,5 L0,9 z" fill="#8d867b"></path>
+</marker>
+</defs>
+<text fill="#aba498" font-family="-apple-system,sans-serif" font-size="13" text-anchor="middle" x="360" y="26">Same mean number of contacts, two completely different networks</text>
+<text fill="#63b3a6" font-family="SF Mono,monospace" font-size="12.5" text-anchor="middle" x="154" y="50">homogeneous</text>
+<g stroke="rgba(99,179,166,0.45)" stroke-width="1.6">
+<line x1="70" x2="126" y1="80" y2="80"></line><line x1="126" x2="182" y1="80" y2="80"></line><line x1="182" x2="238" y1="80" y2="80"></line>
+<line x1="70" x2="126" y1="128" y2="128"></line><line x1="126" x2="182" y1="128" y2="128"></line><line x1="182" x2="238" y1="128" y2="128"></line>
+<line x1="70" x2="126" y1="176" y2="176"></line><line x1="126" x2="182" y1="176" y2="176"></line><line x1="182" x2="238" y1="176" y2="176"></line>
+<line x1="70" x2="70" y1="80" y2="128"></line><line x1="126" x2="126" y1="80" y2="128"></line><line x1="182" x2="182" y1="80" y2="128"></line><line x1="238" x2="238" y1="80" y2="128"></line>
+<line x1="70" x2="70" y1="128" y2="176"></line><line x1="126" x2="126" y1="128" y2="176"></line><line x1="182" x2="182" y1="128" y2="176"></line><line x1="238" x2="238" y1="128" y2="176"></line>
+</g>
+<g fill="#63b3a6">
+<circle cx="70" cy="80" r="8"></circle><circle cx="126" cy="80" r="8"></circle><circle cx="182" cy="80" r="8"></circle><circle cx="238" cy="80" r="8"></circle>
+<circle cx="70" cy="128" r="8"></circle><circle cx="126" cy="128" r="8"></circle><circle cx="182" cy="128" r="8"></circle><circle cx="238" cy="128" r="8"></circle>
+<circle cx="70" cy="176" r="8"></circle><circle cx="126" cy="176" r="8"></circle><circle cx="182" cy="176" r="8"></circle><circle cx="238" cy="176" r="8"></circle>
+</g>
+<text fill="#787268" font-family="-apple-system,sans-serif" font-size="11" text-anchor="middle" x="154" y="204">everyone has about the same number of contacts</text>
+<text fill="#cd7f9b" font-family="SF Mono,monospace" font-size="12.5" text-anchor="middle" x="520" y="50">heavy-tailed</text>
+<g stroke="rgba(205,127,155,0.42)" stroke-width="1.6">
+<line x1="520" x2="586" y1="128" y2="128"></line><line x1="520" x2="567" y1="128" y2="175"></line><line x1="520" x2="520" y1="128" y2="194"></line><line x1="520" x2="473" y1="128" y2="175"></line>
+<line x1="520" x2="454" y1="128" y2="128"></line><line x1="520" x2="473" y1="128" y2="81"></line><line x1="520" x2="520" y1="128" y2="62"></line><line x1="520" x2="567" y1="128" y2="81"></line>
+<line x1="586" x2="628" y1="128" y2="104"></line><line x1="586" x2="628" y1="128" y2="152"></line>
+<line x1="454" x2="412" y1="128" y2="104"></line><line x1="454" x2="412" y1="128" y2="152"></line>
+</g>
+<g fill="#63b3a6">
+<circle cx="586" cy="128" r="7"></circle><circle cx="567" cy="175" r="7"></circle><circle cx="520" cy="194" r="7"></circle><circle cx="473" cy="175" r="7"></circle>
+<circle cx="454" cy="128" r="7"></circle><circle cx="473" cy="81" r="7"></circle><circle cx="520" cy="62" r="7"></circle><circle cx="567" cy="81" r="7"></circle>
+<circle cx="628" cy="104" r="6"></circle><circle cx="628" cy="152" r="6"></circle><circle cx="412" cy="104" r="6"></circle><circle cx="412" cy="152" r="6"></circle>
+</g>
+<circle cx="520" cy="128" fill="#cd7f9b" r="13"></circle>
+<text fill="#787268" font-family="-apple-system,sans-serif" font-size="11" text-anchor="middle" x="520" y="216">a few people have very many; the mean hides it</text>
+<line marker-end="url(#t24d)" stroke="#8d867b" stroke-width="1.5" x1="90" x2="638" y1="278" y2="278"></line>
+<line stroke="#63b3a6" stroke-width="2.5" x1="330" x2="330" y1="262" y2="294"></line>
+<text fill="#63b3a6" font-family="-apple-system,sans-serif" font-size="11" text-anchor="middle" x="330" y="256">threshold of the homogeneous net</text>
+<line stroke="#cd7f9b" stroke-width="2.5" x1="98" x2="98" y1="262" y2="294"></line>
+<text fill="#cd7f9b" font-family="-apple-system,sans-serif" font-size="11" text-anchor="start" x="98" y="238">heavy-tailed threshold collapses toward 0</text>
+<text fill="#8d867b" font-family="-apple-system,sans-serif" font-size="11.5" text-anchor="middle" x="364" y="310">transmissibility λ →</text>
+<text fill="#57524b" font-family="-apple-system,sans-serif" font-size="11" text-anchor="middle" x="364" y="330">that whole left band — "too weak to spread" — does not exist on the right-hand network</text>
+</svg>
+<figcaption>The threshold is not set by the mean number of contacts but by the mean of the <b>square</b>. The few people in the tail nearly define the fate of the whole network.</figcaption>
+</figure>
+<p>There is a layer beyond "some people have more contacts": the <em>distribution of secondary infections itself</em> is heavy-tailed. The term is <b>overdispersion</b>. SARS-CoV-2's dispersion parameter was estimated around 0.1, meaning roughly <b>10% of cases produced about 80% of transmission</b>. So the person described by "three infections on average" may not exist at all — most infect nobody, a few infect dozens.</p>
+<p>That changes the shape of intervention outright. Under homogeneous mixing, an intervention must be universal to work, because every person contributes equally. Under overdispersion, transmission concentrates in a few <b>settings</b> — enclosed, poorly ventilated, long duration, loud — so setting-targeted measures are absurdly cheap: a tiny footprint buys most of the mass in the tail.</p>
+<div class="decide">
+<span class="lb">🎯 DECISION LINE</span>
+<p>Whenever a spreading metric is quoted "per person", ask about the shape of its distribution first. If secondary transmission is heavy-tailed, the mean carries almost no information and the thing to measure is the <b>tail</b>: what fraction of events produced what fraction of the consequences. The action changes to match — stop shaving everyone uniformly and instead <b>enumerate the high-transmission settings and handle them one by one</b>. Blunt test: sort past events by consequence; if the top 10% account for more than half the total, uniform intervention is buying you the wrong thing.</p>
+</div>
+<div class="crossx-inline">
+🌀 <b>History and medicine · Typhoid Mary</b>　Mary Mallon was a New York cook who never fell ill herself, yet was linked to at least 51 typhoid cases and three deaths; she was forcibly quarantined on North Brother Island twice, some 26 years in total, until her death in 1938. The case is usually taught as public-health ethics, but this section's mechanism adds a cold criterion: <b>only when transmission is strongly overdispersed can an intervention aimed at one individual have a system-level effect</b>. Under homogeneous mixing the benefit of isolating any single person is necessarily negligible, and therefore unjustifiable. So half the answer to "should we target this person" lives in the shape of the distribution, not only in ethical intuition — and the same accounting states the price out loud: 26 years.
+</div>
+<h2><span class="n">04</span>Is Once Enough</h2>
+<p class="lead">Here is the most useful distinction in this topic. A virus needs one contact: you meet it, you catch it with some probability, and how many carriers you met last week is irrelevant. That is <b>simple contagion</b>.</p>
+<p>A great deal of social behaviour is not like that. Quitting to start something; abandoning a tool you've used for ten years; being the first in the room to say the plan is wrong — the bar for these is <b>several different people around me already did it</b>. One person doing it is noise; three unrelated people doing it is signal. That is <b>complex contagion</b>, named by Centola and Macy in 2007 and prefigured by Granovetter's 1978 threshold model: everyone carries a private number — "I'll do it once n others have" — and those numbers vary across a population.</p>
+<p>The point is that this distinction <em>inverts</em> the value of network structure. T21 showed that a handful of long-range shortcuts collapses a network's diameter <a class="reflink" href="ref-small-world.en.html">→ ref · the small-world model</a>, which is wonderful for simple contagion: one shortcut suffices to carry a spark across. But complex contagion is not short of distance, it is short of <b>multiple independent signals landing on the same person</b>. A shortcut delivers exactly one and then it is spent; a dense circle of mutual acquaintances delivers the same thing from three directions, which is precisely what a threshold requires. The structure that makes viruses fly is the structure that stalls behaviour.</p>
+<p>Centola turned this into an experiment in 2010. Over 1,500 participants were randomly assigned to one of two artificial social networks: a clustered lattice (your neighbours are also each other's neighbours, so ties are highly redundant) or a random network (long ties, short paths). The behaviour to spread was registering for a health forum. The result ran against small-world intuition: <b>the clustered network spread it faster and further</b> — 54% adoption versus 38%, at roughly four times the speed.</p>
+<figure>
+<svg aria-label="On the same network a simple contagion crosses the shortcut while a complex contagion stops at its far end" role="img" viewBox="0 0 720 352" xmlns="http://www.w3.org/2000/svg">
+<text fill="#aba498" font-family="-apple-system,sans-serif" font-size="13" text-anchor="middle" x="360" y="26">Same network, same single shortcut, two outcomes</text>
+<text fill="#e0895e" font-family="SF Mono,monospace" font-size="12" x="40" y="48">① simple contagion — one contact is enough</text>
+<g stroke="rgba(224,137,94,0.40)" stroke-width="1.5">
+<line x1="192" x2="171" y1="105" y2="141"></line><line x1="171" x2="129" y1="141" y2="141"></line><line x1="129" x2="108" y1="141" y2="105"></line><line x1="108" x2="129" y1="105" y2="69"></line><line x1="129" x2="171" y1="69" y2="69"></line><line x1="171" x2="192" y1="69" y2="105"></line>
+<line x1="192" x2="129" y1="105" y2="141"></line><line x1="171" x2="108" y1="141" y2="105"></line><line x1="129" x2="171" y1="141" y2="69"></line>
+</g>
+<g stroke="rgba(224,137,94,0.40)" stroke-width="1.5">
+<line x1="602" x2="581" y1="105" y2="141"></line><line x1="581" x2="539" y1="141" y2="141"></line><line x1="539" x2="518" y1="141" y2="105"></line><line x1="518" x2="539" y1="105" y2="69"></line><line x1="539" x2="581" y1="69" y2="69"></line><line x1="581" x2="602" y1="69" y2="105"></line>
+<line x1="602" x2="539" y1="105" y2="141"></line><line x1="581" x2="518" y1="141" y2="105"></line><line x1="539" x2="581" y1="141" y2="69"></line>
+</g>
+<line stroke="#79a6d2" stroke-width="2" x1="192" x2="518" y1="105" y2="105"></line>
+<text fill="#79a6d2" font-family="-apple-system,sans-serif" font-size="11" text-anchor="middle" x="355" y="97">the only shortcut</text>
+<g fill="#e0895e">
+<circle cx="192" cy="105" r="9"></circle><circle cx="171" cy="141" r="9"></circle><circle cx="129" cy="141" r="9"></circle><circle cx="108" cy="105" r="9"></circle><circle cx="129" cy="69" r="9"></circle><circle cx="171" cy="69" r="9"></circle>
+<circle cx="602" cy="105" r="9"></circle><circle cx="581" cy="141" r="9"></circle><circle cx="539" cy="141" r="9"></circle><circle cx="518" cy="105" r="9"></circle><circle cx="539" cy="69" r="9"></circle><circle cx="581" cy="69" r="9"></circle>
+</g>
+<text fill="#c0703f" font-family="-apple-system,sans-serif" font-size="11" text-anchor="middle" x="355" y="122">one signal is enough to light the far side</text>
+<text fill="#787268" font-family="-apple-system,sans-serif" font-size="11" text-anchor="middle" x="150" y="172">infected</text>
+<text fill="#c0703f" font-family="-apple-system,sans-serif" font-size="11" text-anchor="middle" x="560" y="172">all of them fall</text>
+<line stroke="rgba(255,255,255,0.07)" stroke-width="1" x1="40" x2="680" y1="192" y2="192"></line>
+<text fill="#d9b45f" font-family="SF Mono,monospace" font-size="12" x="40" y="222">② complex contagion — needs 2 different neighbours first</text>
+<g stroke="rgba(217,180,95,0.38)" stroke-width="1.5">
+<line x1="192" x2="171" y1="275" y2="311"></line><line x1="171" x2="129" y1="311" y2="311"></line><line x1="129" x2="108" y1="311" y2="275"></line><line x1="108" x2="129" y1="275" y2="239"></line><line x1="129" x2="171" y1="239" y2="239"></line><line x1="171" x2="192" y1="239" y2="275"></line>
+<line x1="192" x2="129" y1="275" y2="311"></line><line x1="171" x2="108" y1="311" y2="275"></line><line x1="129" x2="171" y1="311" y2="239"></line>
+</g>
+<g stroke="rgba(120,114,104,0.45)" stroke-width="1.5">
+<line x1="602" x2="581" y1="275" y2="311"></line><line x1="581" x2="539" y1="311" y2="311"></line><line x1="539" x2="518" y1="311" y2="275"></line><line x1="518" x2="539" y1="275" y2="239"></line><line x1="539" x2="581" y1="239" y2="239"></line><line x1="581" x2="602" y1="239" y2="275"></line>
+<line x1="602" x2="539" y1="275" y2="311"></line><line x1="581" x2="518" y1="311" y2="275"></line><line x1="539" x2="581" y1="311" y2="239"></line>
+</g>
+<line stroke="#79a6d2" stroke-width="2" x1="192" x2="518" y1="275" y2="275"></line>
+<text fill="#79a6d2" font-family="-apple-system,sans-serif" font-size="11" text-anchor="middle" x="355" y="267">the same shortcut</text>
+<g fill="#d9b45f">
+<circle cx="192" cy="275" r="9"></circle><circle cx="171" cy="311" r="9"></circle><circle cx="129" cy="311" r="9"></circle><circle cx="108" cy="275" r="9"></circle><circle cx="129" cy="239" r="9"></circle><circle cx="171" cy="239" r="9"></circle>
+</g>
+<g fill="#3a352c" stroke="rgba(168,164,156,0.5)" stroke-width="1.5">
+<circle cx="602" cy="275" r="9"></circle><circle cx="581" cy="311" r="9"></circle><circle cx="539" cy="311" r="9"></circle><circle cx="539" cy="239" r="9"></circle><circle cx="581" cy="239" r="9"></circle>
+</g>
+<circle cx="518" cy="275" fill="#3a352c" r="10" stroke="#cd7f9b" stroke-width="2"></circle>
+<text fill="#cd7f9b" font-family="-apple-system,sans-serif" font-size="11" text-anchor="middle" x="355" y="292">delivers 1 signal, threshold is 2 — it stops here</text>
+<text fill="#787268" font-family="-apple-system,sans-serif" font-size="11" text-anchor="middle" x="150" y="338">adopted</text>
+<text fill="#8d867b" font-family="-apple-system,sans-serif" font-size="11" text-anchor="middle" x="560" y="338">nobody moves</text>
+</svg>
+<figcaption>Shortcuts save distance; complex contagion is short of repetition. The structure that makes viruses fly is the one that stalls behaviour.</figcaption>
+</figure>
+<div class="decide">
+<span class="lb">🎯 DECISION LINE</span>
+<p>Before funding any "rollout", settle one yes-or-no question: <b>is one exposure enough?</b> Yes (see it and you'll share it, install it and it works) → buy reach: shortcuts, cross-cutting ties, headcount covered. No (it demands a changed practice or a taken risk) → buy density: saturate one small circle, then move to the next, and never spread thin. The two spend in opposite directions; splitting the difference lands you short on both. The check is concrete: ask people who already adopted, "how many <b>different</b> people did you hear it from?" Mostly one — you have a simple contagion. Mostly two or three — you have a complex one, and every dollar priced per head reached is being wasted.</p>
+</div>
+<div class="crossx-inline">
+🌀 <b>Economics and institutions · why cold starts go city by city</b>　Ride-hailing, payments, collaboration tools: the adoption bar is "how many people I know already use it" — textbook complex contagion. National advertising (reach, one exposure) barely moves it, while <b>saturating one city or one campus at a time</b> does, because saturation is exactly what manufactures repeated exposure from several acquaintances of the same person. Which yields a hard budgeting corollary: under complex contagion, splitting a budget across ten cities is <b>not</b> one tenth as effective as concentrating it on one — it can be zero, because each city stalls below threshold, and spending below threshold accumulates nothing.
+</div>
+<h2><span class="n">05</span>Where This Breaks Down</h2>
+<p class="lead">Contagion models are the most heavily borrowed toolkit in complexity science, and therefore the most frequently broken in transit. Here is where they come apart.</p>
+<p><b>One: R₀ is not a constant you can look up.</b> Measles has long been quoted at 12–18, nearly as common knowledge. In 2017 Guerra and colleagues ran a systematic review, gathering 58 estimates from 18 studies, and concluded that the actual spread of estimates is <em>far wider</em> than that familiar range, and strongly dependent on population structure, era and estimation method. No surprise — two of R₀'s three factors were behaviour and environment all along. <b>Quoting an R₀ without saying which network and which behaviours produced it is quoting a number with no units.</b></p>
+<p><b>Two: the compartmental assumptions are load-bearing, not decorative.</b> The model requires homogeneous mixing (dismantled in section 3), discrete irreversible transitions (catch it once, immune for life), and a population whose composition doesn't shift over the period. Real pathogens have latent periods (add an E compartment), reinfection, mutation, seasonality. The model gives you a skeleton, not a body.</p>
+<p><b>Three: applied to ideas, what is missing is a definition of infection.</b> When exactly has someone "accepted" an idea? On hearing it? On agreeing? On changing behaviour? Without a decidable moment of transition, R₀ cannot be measured and the whole apparatus degrades into metaphor. <b>Memetics</b> ran aground precisely here — it treated ideas as self-replicating units, yet decades on, "replication" still has no observable counterpart; the <em>Journal of Memetics</em> ceased publication in 2005, and what it lacked was never data.</p>
+<p><b>Four: complex contagion has its own boundary.</b> Centola's elegant experiment ran on networks the researchers built: assignment was randomised, the behaviour was a single one (registering for a health forum), and participants were strangers. It demonstrated forcefully that social reinforcement is real; it did not demonstrate that all social spreading is complex contagion. Recent work also identifies a <b>trade-off between reach and reinforcement</b>: too clustered and reinforcement is ample but reach is slow; too random and reach is fast but reinforcement is thin. The optimum sits between them, which means "build denser small circles" is a prescription with a dose, not a direction.</p>
+<div class="decide">
+<span class="lb">🎯 DECISION LINE</span>
+<p>Before using any spreading model, write down three things: ① which <b>observable event</b> counts as your infection (a download? a payment? two straight weeks of use?); ② who the edges of your network actually connect; ③ whether one exposure is enough. If any of the three won't fill in, don't report an R₀ — report something you can actually measure, such as the distribution of "how many distinct sources had this new user heard of us from". <b>A crude number you can fill in beats an elegant parameter you cannot.</b></p>
+</div>
+<div class="bigcat">
+<h3>🎒 Scenarios · BigCat</h3>
+<ol>
+<li><span class="dm">writing and this site itself</span>The recurring situation: an issue goes out, you check views and shares the next day, and the high-numbered issue counts as "got it right". But what this site is trying to transmit — a changed way of framing a problem — is, if anything, a complex contagion: adoption needs the same person to run into the same mechanism in several different settings. View counts measure the simple-contagion side: a single exposure. What to change: make the headline number <b>return depth</b> instead of per-issue reach — over the past three months, how many people read three or more issues; and whether anyone can name a decision where they used a specific criterion from a specific issue. What to stop: rewriting headlines to lift the share rate. Share rate optimises the number of shortcuts, and what you're short of is repetition.</li>
+<li><span class="dm">parenting</span>The recurring situation: you want a habit to take (reading, exercise, finishing before playing), so you say it more often and explain it better. That is the simple-contagion playbook — more exposures from <b>the same source</b>. By section 4, complex contagion wants <b>several different, mutually independent sources</b>: your tenth repetition still counts as one person in the threshold tally. What to change: don't add repetitions of your own, add to the <b>count</b> of people they actually see doing the thing — and ideally people who don't know each other, or it's one source on replay. Checkable criterion: besides you, how many people does the child genuinely see doing this? The answer is usually zero or one, and the threshold is usually two or three.</li>
+<li><span class="dm">investing and position sizing</span>The recurring situation: something is growing fast (users, stores, penetration) and you extrapolate the last few months of growth rate forward. Section 1 explains why that is systematically optimistic: before the susceptible pool is meaningfully drawn down, R_eff hasn't started falling and the curve is pure exponential — and <b>a pure exponential stretch carries no information about the final size</b>. Its shape is completely insensitive to the ceiling. What to change: don't look at the growth rate; write down the denominator first (how many people, households or firms are genuinely reachable), work out what share has already been consumed, then watch a signal that leads growth — <b>whether new additions divided by installed base has begun to decline</b>, which is the first visible sign of R_eff turning. What to stop: compounding the last three months forward by twenty-four.</li>
+</ol>
+</div>
+<div class="crossx">
+<h3>🌀 Crossings</h3>
+<ul>
+<li><b>History of religion · a growth curve someone actually computed</b>: In <em>The Rise of Christianity</em>, the sociologist Rodney Stark did something disarmingly plain — assume 1,000 Christians in 40 CE, take 40% growth per decade (about 3.4% a year), compound it to 350 CE, and you get roughly 33.9 million. His argument: that rate is not miraculous at all (Mormon growth from 1880 to 1980 was the same order), so no emperor and no miracle is needed to explain the rise of Christianity. This topic's mechanisms make the argument harder still: an R₀ barely above 1 produces exactly this curve (section 1); and Stark stresses that conversion ran almost entirely along existing strong ties — family, friends, hometown networks — which is the signature of complex contagion, and explains why the rate was "40% per decade" rather than a plague-like sweep in a few years (section 4). <b>But here it fails</b>: section 2 kills the constant-rate assumption outright — R_eff must fall as the susceptible pool is consumed, so an exponential stretch cannot run for three centuries. Bart Ehrman pointed out that the same arithmetic taken to 400 CE yields 170 million Christians, more than the entire Roman Empire; Lucero's 2021 paper simply fits a <em>subexponential</em> growth model instead, and fits the estimates better. The deeper mismatch: conversion has no decidable moment and is not irreversible, while compartmental models require a one-way, one-time move from pile to pile — religious affiliation can be nominal, repeated, or held on both sides at once. What transfers is "this speed needs no miracle". What doesn't is the straight line.</li>
+<li><b>Eastern thought · why Chan Buddhism made transmission so slow</b>: In its own self-description, Chan (Zen) holds that the dharma is not transmitted through texts: it requires face-to-face teaching and formal recognition by someone who already holds it. In this topic's language, that is a deliberate conversion of something that could have been a simple contagion (read a book — one exposure suffices to copy) into a gated one: the receiver must spend long stretches with an already-"infected" person and then be certified. The cost is speed — transmission is confined to a very narrow contact surface, so lineages run tree-like and cluster geographically. The benefit is <b>variance suppression</b>: any single-point deviation cannot propagate, because propagation requires authorisation and there is only one authoriser. It also dissolves an apparent contradiction — a school that claims not to rely on words nonetheless produced vast literatures like the <em>Jingde Record of the Transmission of the Lamp</em>. What those records mainly record is not doctrine but <em>who transmitted to whom</em>: they are a ledger of network topology, the bookkeeping this transmission mechanism has to maintain on itself. (Incidentally, the four-phrase slogan "not established on words, a separate transmission outside the teachings" was attached to Bodhidharma retrospectively — Muan Shanqing's <em>Zuting shiyuan</em> of 1108 is one of the earlier places it appears.) <b>But here it fails</b>: a complex contagion's threshold counts how many <em>neighbours</em> have adopted — undirected, symmetric. Certification is a directed grant from a single authority, and a degree of one suffices. So Chan's slowness comes from scarcity of authorisers, not from a threshold. What transfers is the consequence — restricting transmission paths suppresses variation — not the cause.</li>
+<li><b>Philosophy of science · why memetics stalled</b>: Dawkins proposed the meme in 1976, casting ideas as units that replicate, mutate and are selected — an explicit "ideas are viruses" programme. This topic's three mechanisms together locate exactly where it jams, and the diagnosis is far more specific than "it wasn't rigorous". First, R₀ requires infection to be an observable state transition, and "holding an idea" has no decidable moment, so its central quantity cannot be measured at all. Second, complex contagion means adoption depends on the <em>joint state of several neighbours</em> — so the minimal unit of transmission is not one meme but a small patch of local consensus, and the atomising assumption picked the wrong unit from the start. Third, network heterogeneity means whether something spreads is largely settled by structure, so "this meme is more transmissible" systematically credits content with what structure did — the same sentence from a hub and from a leaf have entirely different fates. Together they give an actionable conclusion: to make idea-spreading an empirical science, the first job is not a better replication metaphor but <b>defining an observable adoption event and drawing the network</b>. Centola's experiment holds up precisely because it did both: registration is observable, and the researchers laid the network themselves.</li>
+</ul>
+</div>
+<div class="thinking">
+<h3>Going Deeper</h3>
+<details><summary>What if something spreads by both simple and complex routes at once?</summary><p>Most real things are mixed: hearing about it is simple contagion, adopting it is complex. The interesting part is that the two layers have opposite optimal structures — the awareness layer wants shortcuts, the adoption layer wants density. That suggests a division of labour: use reach to build a stock of "have heard of it", then use density to convert it locally. Worth pressing on: can saturating the awareness layer actually raise the adoption threshold — everyone has heard of it, nobody has gone first, and waiting itself becomes a signal?</p></details>
+<details><summary>Why does flattening the curve reduce the total, rather than just spreading it out?</summary><p>Intuition says an intervention only delays. Overshoot gives the other answer: intervention lowers R_eff, and final size is a function of R_eff — push it from 3 to 1.5 and the final attack rate falls from about 94% to about 58%. Flattening genuinely changes the total, because it changes the momentum with which the system charges past the threshold. The catch is that it must be sustained until susceptibles are actually drawn down, or lifting it produces a rebound.</p></details>
+<details><summary>Is overdispersion good news or bad news?</summary><p>Both. Bad: the mean stops predicting, small outbreaks have enormous variance, and early data barely extrapolates. Good: since most transmission concentrates in a few settings, cheap local measures can remove most of the risk — an opportunity that simply does not exist under homogeneous mixing. Which is why "is this system overdispersed?" belongs at the top of intervention design rather than in a statistical footnote.</p></details>
+<details><summary>Is there a "removed" pile for ideas?</summary><p>This is the hardest part of porting SIR to ideas. Someone who has had the disease is no longer susceptible, but someone who heard an argument and declined it can still accept it later — arguably more easily, since thresholds accumulate. That suggests the dynamics of ideas resemble a memoried SIS (repeat infection possible) more than SIR, and in a process with memory the notion of "threshold" needs redefining. Whoever gives that pile an observable definition moves this whole question forward.</p></details>
+</div>
+<div class="refs">
+<h3>Further Reading</h3>
+<ul>
+<li>Kermack &amp; McKendrick, <a href="https://doi.org/10.1098/rspa.1927.0118">A Contribution to the Mathematical Theory of Epidemics</a> (1927, the original SIR paper)</li>
+<li>Pastor-Satorras &amp; Vespignani, <a href="https://doi.org/10.1103/PhysRevLett.86.3200">Epidemic Spreading in Scale-Free Networks</a> (2001, the vanishing threshold)</li>
+<li>Centola, <a href="https://doi.org/10.1126/science.1185231">The Spread of Behavior in an Online Social Network Experiment</a> (2010)</li>
+<li>Centola &amp; Macy, <a href="https://doi.org/10.1086/521848">Complex Contagions and the Weakness of Long Ties</a> (2007)</li>
+<li>Granovetter, <a href="https://doi.org/10.1086/226707">Threshold Models of Collective Behavior</a> (1978)</li>
+<li>Guerra et al., <a href="https://doi.org/10.1016/S1473-3099(17)30307-9">The basic reproduction number (R₀) of measles: a systematic review</a> (2017)</li>
+<li>Endo et al., <a href="https://doi.org/10.12688/wellcomeopenres.15842.3">Estimating the overdispersion in COVID-19 transmission using outbreak sizes outside China</a> (2020)</li>
+<li>Moore et al., <a href="https://www.caida.org/catalog/papers/2003_sapphire/">The Spread of the Sapphire/Slammer Worm</a> (2003)</li>
+<li>Keyfitz, <a href="https://doi.org/10.2307/2060339">On the momentum of population growth</a> (1971)</li>
+<li><a href="https://en.wikipedia.org/wiki/Mary_Mallon">Mary Mallon</a> (the Typhoid Mary case file)</li>
+</ul>
+</div>
+<footer>BigCat · Complexity Science · <a href="index.en.html">← All Topics</a></footer>
+</div>
+<script src="https://hub.cissychen.com/comments.js" defer></script>
+<script src="https://hub.cissychen.com/search.js" defer></script>
+<script src="https://hub.cissychen.com/index-button.js" defer></script>
+<script src="https://hub.cissychen.com/i18n-tts.js" defer></script>
+</body></html>

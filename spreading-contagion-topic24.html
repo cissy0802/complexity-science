@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+
+<html lang="zh-CN"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>传播与传染 — 观念不是病毒，别照搬病毒的打法 · 复杂性科学 T24</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,"SF Pro Display","Noto Sans SC",sans-serif;color:#e4ded5;line-height:1.85;min-height:100vh;
+  background:radial-gradient(1100px 620px at 12% -6%,rgba(224,137,94,0.10),transparent 62%),radial-gradient(950px 700px at 100% 2%,rgba(166,147,205,0.09),transparent 58%),linear-gradient(168deg,#100f0d 0%,#15161b 48%,#0a0a0c 100%);background-attachment:fixed}
+.wrap{max-width:760px;margin:0 auto;padding:30px 22px 90px}
+header{padding:52px 0 8px;border-bottom:1px solid rgba(255,255,255,0.07);margin-bottom:34px}
+.week-tag{font-family:"SF Mono",Menlo,monospace;font-size:0.72rem;font-weight:700;letter-spacing:2px;color:#63b3a6;border:1px solid rgba(99,179,166,0.4);background:rgba(99,179,166,0.07);padding:3px 11px;border-radius:20px}
+h1{font-size:2.5rem;font-weight:800;letter-spacing:0.5px;line-height:1.2;margin:20px 0 0;background:linear-gradient(106deg,#e0895e 0%,#d9b45f 34%,#9fbc7a 68%,#63b3a6 100%);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+h1 .h1en{display:block;font-size:0.40em;font-weight:600;letter-spacing:2.5px;color:#847d72;-webkit-text-fill-color:#847d72;background:none;margin-top:13px}
+.sub{font-size:1.05rem;color:#aba498;margin-top:14px;font-weight:500}
+.date{font-family:"SF Mono",Menlo,monospace;font-size:0.75rem;color:#57524b;margin-top:18px;letter-spacing:1px}
+.pitch{margin:22px 0 30px;font-size:0.97rem;color:#cd7f9b;border-left:2px solid rgba(205,127,155,0.5);padding-left:16px;font-style:italic}
+.intro{font-size:1.02rem;color:#cfc8bc;margin-bottom:14px}
+.intro p{margin-bottom:16px}
+h2{font-size:1.42rem;font-weight:700;color:#e9e3d9;margin:56px 0 8px;letter-spacing:0.3px}
+h2 .n{font-family:"SF Mono",Menlo,monospace;font-size:0.85rem;color:#63b3a6;display:block;margin-bottom:6px;letter-spacing:2px}
+.he{font-size:0.68em;color:#8d867b;font-weight:500;letter-spacing:0}
+p{margin-bottom:17px}
+.lead{color:#cfc8bc}
+b,strong{color:#f0eae0;font-weight:600}
+em{color:#d9b45f;font-style:normal;font-weight:500}
+.dim{color:#8d867b}
+a.reflink{display:inline-block;font-size:0.82rem;font-family:"SF Mono",Menlo,monospace;color:#63b3a6;border:1px solid rgba(99,179,166,0.38);background:rgba(99,179,166,0.07);padding:1px 9px;border-radius:20px;text-decoration:none;transition:all 0.15s;white-space:nowrap}
+a.reflink:hover{background:rgba(99,179,166,0.16);border-color:rgba(99,179,166,0.7)}
+figure{margin:30px 0}
+figure svg{display:block;width:100%;height:auto;border-radius:12px;background:rgba(255,255,255,0.018);border:1px solid rgba(255,255,255,0.06)}
+figcaption{font-size:0.82rem;color:#787268;margin-top:11px;text-align:center;line-height:1.6}
+.en-brief{font-size:0.85rem;color:#847d72;border-top:1px dashed rgba(255,255,255,0.09);padding-top:12px;margin-top:22px;line-height:1.65}
+.en-brief b{font-family:"SF Mono",Menlo,monospace;font-size:0.72rem;color:#63b3a6;letter-spacing:1px;margin-right:7px}
+.decide{margin:24px 0;border:1px solid rgba(224,137,94,0.36);background:rgba(224,137,94,0.055);border-radius:12px;padding:15px 19px}
+.decide .lb{font-family:"SF Mono",Menlo,monospace;font-size:0.73rem;letter-spacing:1.5px;color:#e0895e;font-weight:700;display:block;margin-bottom:7px}
+.decide p{margin:0;font-size:0.95rem;color:#ddd5c9}
+.crossx-inline{margin:20px 0 22px;border-left:2px solid rgba(205,127,155,0.55);padding:2px 0 2px 15px;font-size:0.89rem;color:#a9a096;line-height:1.72}
+.crossx-inline b{color:#cd7f9b;font-weight:600}
+.bigcat{margin:46px 0 10px;border:1px solid rgba(217,180,95,0.38);background:rgba(217,180,95,0.05);border-radius:14px;padding:20px 22px}
+.bigcat h3{font-size:1.02rem;color:#d9b45f;margin-bottom:14px;letter-spacing:0.5px}
+.bigcat ol{list-style:none;padding:0}
+.bigcat li{margin-bottom:15px;font-size:0.94rem;color:#d5cdc1;line-height:1.78}
+.bigcat li:last-child{margin-bottom:0}
+.bigcat .dm{font-family:"SF Mono",Menlo,monospace;font-size:0.73rem;color:#d9b45f;border:1px solid rgba(217,180,95,0.32);border-radius:4px;padding:1px 7px;margin-right:8px;white-space:nowrap}
+.crossx{margin:46px 0 10px;border:1px solid rgba(205,127,155,0.38);background:rgba(205,127,155,0.05);border-radius:14px;padding:20px 22px}
+.crossx h3{font-size:1.02rem;color:#cd7f9b;margin-bottom:14px;letter-spacing:0.5px}
+.crossx ul{list-style:none;padding:0}
+.crossx li{margin-bottom:16px;font-size:0.94rem;color:#d5cdc1;line-height:1.78}
+.crossx li:last-child{margin-bottom:0}
+.crossx li b{color:#cd7f9b;font-weight:600}
+.thinking{margin:46px 0 10px}
+.thinking h3{font-size:1.02rem;color:#a693cd;margin-bottom:14px;letter-spacing:0.5px}
+details{border:1px solid rgba(166,147,205,0.22);border-radius:10px;padding:12px 16px;margin-bottom:10px;background:rgba(166,147,205,0.035)}
+summary{cursor:pointer;font-size:0.93rem;color:#c9c2b6;font-weight:500}
+summary::marker{color:#a693cd}
+details p{margin:12px 0 0;font-size:0.9rem;color:#a9a096;line-height:1.75}
+.refs{margin:46px 0 10px}
+.refs h3{font-size:1.02rem;color:#79a6d2;margin-bottom:14px;letter-spacing:0.5px}
+.refs ul{list-style:none;padding:0}
+.refs li{margin-bottom:10px;font-size:0.9rem;color:#8d867b;line-height:1.7}
+.refs a{color:#79a6d2;text-decoration:none;border-bottom:1px solid rgba(121,166,210,0.3)}
+.refs a:hover{color:#a6c4e2;border-bottom-color:rgba(121,166,210,0.7)}
+footer{text-align:center;padding:56px 0 10px;font-size:0.78rem;color:#57524b;font-family:"SF Mono",Menlo,monospace;border-top:1px solid rgba(255,255,255,0.06);margin-top:50px}
+footer a{color:#79a6d2;text-decoration:none}
+@media(max-width:600px){h1{font-size:1.85rem}.wrap{padding:24px 16px 60px}h2{font-size:1.22rem}}
+</style></head><body>
+<div class="wrap">
+<header>
+<span class="week-tag">TOPIC 24 · PHASE D</span>
+<h1>传播与传染<span class="h1en">SPREADING AND CONTAGION</span></h1>
+<p class="sub">观念不是病毒，别照搬病毒的打法<span class="he">（Ideas are not viruses — don't copy the virus playbook）</span></p>
+<p class="date">2026-08-10 · 网络</p>
+</header>
+<p class="pitch">"一个病人平均传给几个人"——这个数字里，没有任何一项单独属于病毒。它是病毒、你的行为、和你所在那张关系网三者相乘的结果。所以同一种病在两个城市里，可以是两种病。</p>
+<div class="intro">
+<p>一句话在办公室传开、一个 App 忽然人人都在装、一场流感、一段视频——这些都被叫做"传播"，而且都被套上了"病毒式"这个词。这个词是从流行病学借来的，借的时候把最要紧的一条前提留在了原地。</p>
+<p>丢掉的那条前提是：<b>病毒只需要碰你一次。</b>而一个要你改变做法的东西——换个工具、改个习惯、站出来说句话——通常需要好几个<em>不同的人</em>先做给你看。这一个字的差别，会把整套打法翻过来：让病毒跑得飞快的那种结构（远距离的捷径、连得广的弱关系），恰恰是让行为跑不动的结构。</p>
+<p class="dim">本 Phase 讲网络的六期各管一段：第 20 期是结构本身（度、路径、聚类），第 21 期是捷径与小世界，第 22 期是枢纽怎么长出来，第 23 期是这种结构抗什么、怕什么，第 25 期是负载重分配引发的级联失效。<b>本期只问一件事：一个东西沿着这张网跑起来之后，什么决定它停不停得下来。</b></p>
+</div>
+<h2><span class="n">01</span>一个人传给几个人<span class="he">（The Number That Runs Everything）</span></h2>
+<p class="lead">1927 年，两位苏格兰研究者 Kermack 和 McKendrick 做了一件很省事的事：不追踪任何一个具体的人，只把人群分成三堆 <a class="reflink" href="ref-sir.html">→ 参考 · SIR 模型</a>。</p>
+<p>第一堆是<b>易感者</b>（susceptible），还没得过、碰上就会中招；第二堆是<b>感染者</b>（infectious），正在往外传；第三堆是<b>移出者</b>（removed），康复了或者死了，反正不再参与传播。三堆的英文首字母连起来就是这个模型的名字：<b>SIR</b>。规则也只有两条：易感者碰到感染者，按某个概率变成感染者；感染者过一阵子变成移出者。</p>
+<p>从这两条规则里能挤出一个数，叫<b>基本再生数</b>（basic reproduction number），写作 <b>R₀</b>：把一个感染者丢进一个所有人都还易感的人群里，他平均能传给几个。R₀ 大于 1 就会涨，小于 1 就会自己熄掉。这个分界线干净得几乎不像真的。</p>
+<p>但真正值得停下来看一眼的是它的组成。R₀ 是三件事的乘积：<em>你每单位时间接触多少人</em> × <em>接触一次传过去的概率</em> × <em>你能传多久</em>。三项里只有中间那项主要由病原体决定，另外两项是行为和环境。所以"这个病的 R₀ 是 3"这句话，严格说是不完整的——必须补上"在哪儿、什么时候、什么人之间"。</p>
+<figure>
+<svg aria-label="SIR 三个分室与两条转移，以及 R₀ 的三因子分解" role="img" viewBox="0 0 720 280" xmlns="http://www.w3.org/2000/svg">
+<defs>
+<marker id="t24a" markerHeight="10" markerUnits="userSpaceOnUse" markerWidth="10" orient="auto" refX="9" refY="5" viewBox="0 0 10 10">
+<path d="M0,1 L9,5 L0,9 z" fill="#9fbc7a"></path>
+</marker>
+</defs>
+<text fill="#aba498" font-family="-apple-system,sans-serif" font-size="13" text-anchor="middle" x="360" y="26">三堆人，两条箭头，一个数</text>
+<rect fill="rgba(99,179,166,0.10)" height="56" rx="10" stroke="rgba(99,179,166,0.5)" width="120" x="40" y="60"></rect>
+<text fill="#63b3a6" font-family="-apple-system,sans-serif" font-size="15" font-weight="600" text-anchor="middle" x="100" y="85">易感 S</text>
+<text fill="#8d867b" font-family="-apple-system,sans-serif" font-size="10.5" text-anchor="middle" x="100" y="103">Susceptible</text>
+<rect fill="rgba(224,137,94,0.12)" height="56" rx="10" stroke="rgba(224,137,94,0.55)" width="120" x="290" y="60"></rect>
+<text fill="#e0895e" font-family="-apple-system,sans-serif" font-size="15" font-weight="600" text-anchor="middle" x="350" y="85">感染中 I</text>
+<text fill="#8d867b" font-family="-apple-system,sans-serif" font-size="10.5" text-anchor="middle" x="350" y="103">Infectious</text>
+<rect fill="rgba(168,164,156,0.10)" height="56" rx="10" stroke="rgba(168,164,156,0.45)" width="120" x="540" y="60"></rect>
+<text fill="#a8a49c" font-family="-apple-system,sans-serif" font-size="15" font-weight="600" text-anchor="middle" x="600" y="85">移出 R</text>
+<text fill="#8d867b" font-family="-apple-system,sans-serif" font-size="10.5" text-anchor="middle" x="600" y="103">Removed</text>
+<line marker-end="url(#t24a)" stroke="#9fbc7a" stroke-width="2" x1="170" x2="282" y1="88" y2="88"></line>
+<text fill="#9fbc7a" font-family="SF Mono,monospace" font-size="12" text-anchor="middle" x="226" y="74">β</text>
+<text fill="#787268" font-family="-apple-system,sans-serif" font-size="11" text-anchor="middle" x="226" y="110">碰上了，中招</text>
+<line marker-end="url(#t24a)" stroke="#9fbc7a" stroke-width="2" x1="420" x2="532" y1="88" y2="88"></line>
+<text fill="#9fbc7a" font-family="SF Mono,monospace" font-size="12" text-anchor="middle" x="476" y="74">γ</text>
+<text fill="#787268" font-family="-apple-system,sans-serif" font-size="11" text-anchor="middle" x="476" y="110">不再传了</text>
+<line stroke="rgba(255,255,255,0.08)" stroke-width="1" x1="60" x2="660" y1="150" y2="150"></line>
+<text fill="#e0895e" font-family="SF Mono,monospace" font-size="17" font-weight="700" x="46" y="214">R₀ =</text>
+<rect fill="rgba(217,180,95,0.07)" height="52" rx="8" stroke="rgba(217,180,95,0.4)" width="146" x="106" y="182"></rect>
+<text fill="#d9b45f" font-family="-apple-system,sans-serif" font-size="14" text-anchor="middle" x="179" y="204">接触率</text>
+<text fill="#8d867b" font-family="-apple-system,sans-serif" font-size="10" text-anchor="middle" x="179" y="222">每天见几个人</text>
+<text fill="#8d867b" font-family="SF Mono,monospace" font-size="15" text-anchor="middle" x="266" y="214">×</text>
+<rect fill="rgba(224,137,94,0.10)" height="52" rx="8" stroke="rgba(224,137,94,0.55)" width="146" x="280" y="182"></rect>
+<text fill="#e0895e" font-family="-apple-system,sans-serif" font-size="14" text-anchor="middle" x="353" y="204">每次传过去的概率</text>
+<text fill="#c0703f" font-family="-apple-system,sans-serif" font-size="10" text-anchor="middle" x="353" y="222">只有这一项主要归病原体</text>
+<text fill="#8d867b" font-family="SF Mono,monospace" font-size="15" text-anchor="middle" x="440" y="214">×</text>
+<rect fill="rgba(217,180,95,0.07)" height="52" rx="8" stroke="rgba(217,180,95,0.4)" width="146" x="454" y="182"></rect>
+<text fill="#d9b45f" font-family="-apple-system,sans-serif" font-size="14" text-anchor="middle" x="527" y="204">传染期</text>
+<text fill="#8d867b" font-family="-apple-system,sans-serif" font-size="10" text-anchor="middle" x="527" y="222">能传多久</text>
+<text fill="#57524b" font-family="-apple-system,sans-serif" font-size="11" text-anchor="middle" x="360" y="262">另外两项是行为和环境 — 所以同一种病原体在两个城市里可以有两个 R₀</text>
+</svg>
+<figcaption>SIR 的全部内容：三堆人、两条转移。R₀ 是三个因子的乘积，其中两个不属于病毒。</figcaption>
+</figure>
+<p>还有一个数比 R₀ 更常用，叫<b>有效再生数</b>（effective reproduction number），写作 <b>R_eff</b>：现在这一刻，一个感染者实际传给几个。它等于 R₀ 乘上"还剩多少人是易感的"。这句话不起眼，但它是本期后面所有内容的种子——<b>传播会自己吃掉自己的燃料</b>。感染过的人从易感堆里被拿走，同样的病毒、同样的行为，传得就慢了。</p>
+<div class="decide">
+<span class="lb">🎯 决策线</span>
+<p>"降低传播"不是一件事，是三件可以分开定价的事。把 R₀ 拆成接触率、单次传染概率、传染期三项，分别问：把这一项砍掉三成要花多少钱？口罩和加密砍的是中间那项，限流和隔离砍的是第一项，早发现和快下线砍的是第三项。<b>先把三张价目表摆出来再选，别直接喊"要控制传播"——那句话没有单位。</b></p>
+</div>
+<div class="crossx-inline">
+🌀 <b>工程与技术史 · SQL Slammer</b>　2003 年 1 月，一个只有 376 字节的蠕虫用随机挑 IP 地址的方式扫全网，感染数量每 8.5 秒翻一倍，不到 10 分钟就拿下了约 90% 的易感主机。它之所以能被事后精确复盘，恰恰因为"随机挑一个对象接触"这个教科书假设在它身上<b>真的成立</b>——它不认识谁，也没有社交圈。反过来推出一句不太顺耳的话：人类流行病难预测，主要不是因为病毒复杂，而是因为人不随机混合。
+</div>
+<p class="en-brief"><b>EN</b> Kermack &amp; McKendrick (1927) split a population into Susceptible, Infectious and Removed. R₀ — the average number of onward infections in a fully susceptible population — is the product of contact rate, per-contact transmission probability and infectious period; only the middle term belongs mostly to the pathogen. The effective reproduction number R_eff = R₀ · S/N falls as susceptibles are consumed: spreading eats its own fuel.</p>
+<h2><span class="n">02</span>它为什么会自己停下来<span class="he">（Why It Stops By Itself）</span></h2>
+<p class="lead">既然 R_eff = R₀ × 易感者比例，那么只要易感者比例掉到 1/R₀ 以下，R_eff 就小于 1，传播开始收缩。这个门槛有个名字叫<b>群体免疫阈值</b>（herd immunity threshold），等于 1 − 1/R₀。R₀ 是 3，阈值就是 67%。</p>
+<p>Kermack 和 McKendrick 当年真正想解决的正是这件事：为什么疫情会在<em>还剩一大堆没得过病的人</em>的时候就退潮？当时流行的解释是"病毒毒力衰减了"。他们证明了不需要这个假设——燃料被烧掉一部分，火自己就小了。</p>
+<p>但这里有个几乎所有人都会漏掉的转折。<b>疫情不是在越过阈值的那一刻结束的。</b>越过阈值只意味着<em>新增开始下降</em>；而此刻仍有大量正在传染期的人，他们不会因为跨过了一条统计上的线就停止呼吸。他们继续传，于是易感者继续减少，一路冲到阈值以下很远的地方才真的停。多出来的这一截叫<b>超调</b>（overshoot）。</p>
+<p>数字比感觉更吓人：R₀ = 3 时，阈值算出来是 67%，而让它自然烧完，最终会有约 <b>94%</b> 的人被感染过。多出的 27 个百分点，全部是超调。这就是"让它自然获得群体免疫"这个说法在算术上的问题——它把阈值当成了终点，而阈值只是转折点。</p>
+<figure>
+<svg aria-label="易感者比例随时间下降，穿过群体免疫阈值后继续下降，多出的部分是超调" role="img" viewBox="0 0 720 330" xmlns="http://www.w3.org/2000/svg">
+<defs>
+<marker id="t24b" markerHeight="9" markerUnits="userSpaceOnUse" markerWidth="9" orient="auto" refX="8" refY="5" viewBox="0 0 10 10">
+<path d="M0,1 L9,5 L0,9 z" fill="#cd7f9b"></path>
+</marker>
+<marker id="t24c" markerHeight="9" markerUnits="userSpaceOnUse" markerWidth="9" orient="auto" refX="8" refY="5" viewBox="0 0 10 10">
+<path d="M0,1 L9,5 L0,9 z" fill="#cd7f9b"></path>
+</marker>
+</defs>
+<text fill="#aba498" font-family="-apple-system,sans-serif" font-size="13" text-anchor="middle" x="360" y="26">火停下来的时候，柴还剩多少（R₀ = 3）</text>
+<rect fill="rgba(205,127,155,0.10)" height="52" width="288" x="310" y="187"></rect>
+<line stroke="rgba(255,255,255,0.18)" stroke-width="1.5" x1="90" x2="600" y1="250" y2="250"></line>
+<line stroke="rgba(255,255,255,0.18)" stroke-width="1.5" x1="90" x2="90" y1="250" y2="52"></line>
+<text fill="#8d867b" font-family="-apple-system,sans-serif" font-size="11.5" transform="rotate(-90 34 150)" x="34" y="150">还没得过病的人占比</text>
+<line stroke="#d9b45f" stroke-dasharray="6 5" stroke-width="1.6" x1="90" x2="600" y1="187" y2="187"></line>
+<text fill="#d9b45f" font-family="-apple-system,sans-serif" font-size="11.5" x="97" y="180">群体免疫阈值：剩 33% 易感（即 67% 已感染）</text>
+<line stroke="#cd7f9b" stroke-dasharray="3 5" stroke-width="1.6" x1="90" x2="600" y1="239" y2="239"></line>
+<text fill="#cd7f9b" font-family="-apple-system,sans-serif" font-size="11.5" x="97" y="232">自然烧完：只剩 6% 易感（94% 已感染）</text>
+<path d="M100,62 C250,66 320,84 365,135 C410,186 455,228 515,236 C550,240 575,239 598,239" fill="none" stroke="#63b3a6" stroke-width="2.5"></path>
+<text fill="#63b3a6" font-family="SF Mono,monospace" font-size="12" x="126" y="82">易感者 S/N</text>
+<line stroke="#9fbc7a" stroke-dasharray="4 4" stroke-width="1.6" x1="310" x2="310" y1="187" y2="256"></line>
+<circle cx="310" cy="187" fill="#9fbc7a" r="5"></circle>
+<text fill="#9fbc7a" font-family="-apple-system,sans-serif" font-size="11.5" text-anchor="middle" x="310" y="274">R_eff 刚好等于 1</text>
+<text fill="#6f8a55" font-family="-apple-system,sans-serif" font-size="11" text-anchor="middle" x="310" y="290">新增在这里见顶，不是结束</text>
+<line marker-end="url(#t24b)" stroke="#cd7f9b" stroke-width="1.8" x1="614" x2="614" y1="196" y2="237"></line>
+<line marker-end="url(#t24c)" stroke="#cd7f9b" stroke-width="1.8" x1="614" x2="614" y1="230" y2="189"></line>
+<text fill="#cd7f9b" font-family="-apple-system,sans-serif" font-size="12" x="626" y="209">超调</text>
+<text fill="#a9a096" font-family="-apple-system,sans-serif" font-size="10.5" x="626" y="226">多烧掉 27%</text>
+<text fill="#8d867b" font-family="-apple-system,sans-serif" font-size="11.5" text-anchor="middle" x="345" y="312">时间 →</text>
+</svg>
+<figcaption>阈值是新增见顶的那一刻，不是结束。红色带子里的 27 个百分点，是在"已经该停了"之后烧掉的。</figcaption>
+</figure>
+<p>超调还解释了一件更实用的事：<b>什么时候松手是个真问题。</b>如果干预正好在 R_eff 刚穿过 1 的时候撤掉，易感者比例还紧贴着阈值，撤掉的那一刻 R_eff 立刻弹回 1 以上，一切重来。所以任何"到点就停"的方案都要预留超调的余量——撤除条件不该写成一个日期，该写成"某个存量低于某个水平并维持多久"。</p>
+<div class="crossx-inline">
+🌀 <b>人口学 · Keyfitz 的人口惯性</b>　1971 年 Nathan Keyfitz 问了一个当时很多人想当然的问题：如果生育率明天就降到刚好世代更替的水平，人口会不会停止增长？答案是不会——他算出高生育率国家的人口仍会一路涨到当时的约 1.6 倍才稳住，因为过去的高生育已经把一大批人送进了育龄阶段，这个存量还得走完。这跑的正是超调那条机制：<b>驱动量穿过阈值，只让增量见顶，不让存量掉头。</b>由此推出一条对所有"到点即停"式政策都成立的判据——如果你干预的是流量而关心的是存量，那么达标那一刻永远不是收手的时刻。
+</div>
+<p class="en-brief"><b>EN</b> The herd immunity threshold is 1 − 1/R₀: at R₀ = 3, 67%. But crossing it only turns incidence over — people already infectious keep transmitting, so susceptibles fall well below the threshold. That excess is overshoot: an unmitigated R₀ = 3 epidemic infects about 94%, not 67%. Hence any exit rule should be written as a stock level sustained over time, never as a date.</p>
+<h2><span class="n">03</span>平均值不管用的地方<span class="he">（Where the Average Stops Working）</span></h2>
+<p class="lead">前面两节都偷偷做了一个假设，叫<b>均匀混合</b>（homogeneous mixing）：每个人和每个人碰上的机会都一样，就像一锅搅匀的汤。这个假设让数学变得极其干净，也让结论跟现实差出一大截。</p>
+<p>真人不是汤。有人一天见两百个人，有人一周见五个。第 22 期讲过这类接触网络的度分布常常是重尾的 <a class="reflink" href="ref-power-law.html">→ 参考 · 幂律的识别与误判</a>。而一旦度分布不均匀，决定"传得开传不开"的那个量就换了：不再是平均接触数 ⟨k⟩，而是 <b>⟨k²⟩ / ⟨k⟩</b>——分子是接触数的<em>平方</em>的平均。平方对尾巴极其敏感：一个见两百人的人，在平方里的分量是见十人者的四百倍。</p>
+<p>2001 年 Pastor-Satorras 和 Vespignani 把这条算到底，得到一个当时相当震动的结论：如果度分布是幂指数不超过 3 的重尾，那么随着网络变大，⟨k²⟩ 会发散，<b>流行阈值趋向于零</b>——不存在一个"传染性低于这个值就烧不起来"的安全区间。任何强度的传染，都能在这样的网上扎下根。</p>
+<figure>
+<svg aria-label="均匀网络与重尾网络的对比，以及各自的传播阈值位置" role="img" viewBox="0 0 720 344" xmlns="http://www.w3.org/2000/svg">
+<defs>
+<marker id="t24d" markerHeight="10" markerUnits="userSpaceOnUse" markerWidth="10" orient="auto" refX="9" refY="5" viewBox="0 0 10 10">
+<path d="M0,1 L9,5 L0,9 z" fill="#8d867b"></path>
+</marker>
+</defs>
+<text fill="#aba498" font-family="-apple-system,sans-serif" font-size="13" text-anchor="middle" x="360" y="26">同样的平均接触数，两张完全不同的网</text>
+<text fill="#63b3a6" font-family="SF Mono,monospace" font-size="12.5" text-anchor="middle" x="154" y="50">均匀网络</text>
+<g stroke="rgba(99,179,166,0.45)" stroke-width="1.6">
+<line x1="70" x2="126" y1="80" y2="80"></line><line x1="126" x2="182" y1="80" y2="80"></line><line x1="182" x2="238" y1="80" y2="80"></line>
+<line x1="70" x2="126" y1="128" y2="128"></line><line x1="126" x2="182" y1="128" y2="128"></line><line x1="182" x2="238" y1="128" y2="128"></line>
+<line x1="70" x2="126" y1="176" y2="176"></line><line x1="126" x2="182" y1="176" y2="176"></line><line x1="182" x2="238" y1="176" y2="176"></line>
+<line x1="70" x2="70" y1="80" y2="128"></line><line x1="126" x2="126" y1="80" y2="128"></line><line x1="182" x2="182" y1="80" y2="128"></line><line x1="238" x2="238" y1="80" y2="128"></line>
+<line x1="70" x2="70" y1="128" y2="176"></line><line x1="126" x2="126" y1="128" y2="176"></line><line x1="182" x2="182" y1="128" y2="176"></line><line x1="238" x2="238" y1="128" y2="176"></line>
+</g>
+<g fill="#63b3a6">
+<circle cx="70" cy="80" r="8"></circle><circle cx="126" cy="80" r="8"></circle><circle cx="182" cy="80" r="8"></circle><circle cx="238" cy="80" r="8"></circle>
+<circle cx="70" cy="128" r="8"></circle><circle cx="126" cy="128" r="8"></circle><circle cx="182" cy="128" r="8"></circle><circle cx="238" cy="128" r="8"></circle>
+<circle cx="70" cy="176" r="8"></circle><circle cx="126" cy="176" r="8"></circle><circle cx="182" cy="176" r="8"></circle><circle cx="238" cy="176" r="8"></circle>
+</g>
+<text fill="#787268" font-family="-apple-system,sans-serif" font-size="11" text-anchor="middle" x="154" y="204">每个人接触数都差不多</text>
+<text fill="#cd7f9b" font-family="SF Mono,monospace" font-size="12.5" text-anchor="middle" x="520" y="50">重尾网络</text>
+<g stroke="rgba(205,127,155,0.42)" stroke-width="1.6">
+<line x1="520" x2="586" y1="128" y2="128"></line><line x1="520" x2="567" y1="128" y2="175"></line><line x1="520" x2="520" y1="128" y2="194"></line><line x1="520" x2="473" y1="128" y2="175"></line>
+<line x1="520" x2="454" y1="128" y2="128"></line><line x1="520" x2="473" y1="128" y2="81"></line><line x1="520" x2="520" y1="128" y2="62"></line><line x1="520" x2="567" y1="128" y2="81"></line>
+<line x1="586" x2="628" y1="128" y2="104"></line><line x1="586" x2="628" y1="128" y2="152"></line>
+<line x1="454" x2="412" y1="128" y2="104"></line><line x1="454" x2="412" y1="128" y2="152"></line>
+</g>
+<g fill="#63b3a6">
+<circle cx="586" cy="128" r="7"></circle><circle cx="567" cy="175" r="7"></circle><circle cx="520" cy="194" r="7"></circle><circle cx="473" cy="175" r="7"></circle>
+<circle cx="454" cy="128" r="7"></circle><circle cx="473" cy="81" r="7"></circle><circle cx="520" cy="62" r="7"></circle><circle cx="567" cy="81" r="7"></circle>
+<circle cx="628" cy="104" r="6"></circle><circle cx="628" cy="152" r="6"></circle><circle cx="412" cy="104" r="6"></circle><circle cx="412" cy="152" r="6"></circle>
+</g>
+<circle cx="520" cy="128" fill="#cd7f9b" r="13"></circle>
+<text fill="#787268" font-family="-apple-system,sans-serif" font-size="11" text-anchor="middle" x="520" y="216">少数人接触极多，平均数看不出来</text>
+<line marker-end="url(#t24d)" stroke="#8d867b" stroke-width="1.5" x1="90" x2="638" y1="278" y2="278"></line>
+<line stroke="#63b3a6" stroke-width="2.5" x1="330" x2="330" y1="262" y2="294"></line>
+<text fill="#63b3a6" font-family="-apple-system,sans-serif" font-size="11" text-anchor="middle" x="330" y="254">均匀网的阈值在这儿</text>
+<line stroke="#cd7f9b" stroke-width="2.5" x1="98" x2="98" y1="262" y2="294"></line>
+<text fill="#cd7f9b" font-family="-apple-system,sans-serif" font-size="11" text-anchor="start" x="106" y="254">重尾网的阈值贴到 0</text>
+<text fill="#8d867b" font-family="-apple-system,sans-serif" font-size="11.5" text-anchor="middle" x="364" y="310">传染性强度 λ →</text>
+<text fill="#57524b" font-family="-apple-system,sans-serif" font-size="11" text-anchor="middle" x="364" y="330">左边这一整段，在重尾网上不存在"传不开"这回事</text>
+</svg>
+<figcaption>阈值不由平均接触数决定，由接触数<b>平方</b>的平均决定。所以尾巴上那几个人，几乎单独定义了整张网的命运。</figcaption>
+</figure>
+<p>还有一层比"有人连得多"更进一步的事实：二次感染数的<em>分布本身</em>是重尾的，行话叫<b>超离散</b>（overdispersion）。新冠的离散参数估计在 0.1 量级，意思是<b>约 10% 的病例造成了约 80% 的传播</b>。于是"平均每人传 3 个"描述的那个人，可能一个都不存在——绝大多数人传 0 个，极少数人一次传几十个。</p>
+<p>这件事直接改变干预的形状。均匀混合的世界里，干预必须普遍施加才有效，因为每个人的贡献一样；超离散的世界里，传播集中在少数<b>场景</b>里（密闭、通风差、待得久、大声说话），于是针对场景的干预便宜得离谱——你在用极小的覆盖面，买走分布尾巴上的大部分质量。</p>
+<div class="decide">
+<span class="lb">🎯 决策线</span>
+<p>凡是"人均"口径的传播指标，先问它的分布形状。如果二次传播数是重尾的，人均值几乎不含信息，该测的是<b>尾巴</b>：多少比例的事件贡献了多少比例的后果。对应的动作也换掉——不做全体的普遍性削减，去<b>枚举高传播场景并单独处理</b>。判据很直白：把历史事件按后果排序，前 10% 占了总量的多少；超过一半，就说明普遍性干预在给你买错东西。</p>
+</div>
+<div class="crossx-inline">
+🌀 <b>历史与医学 · 伤寒玛丽</b>　Mary Mallon 是纽约的厨师，本人从未发病，却被确认直接造成至少 51 例伤寒、3 人死亡，先后两次被强制隔离在北兄弟岛，前后约 26 年直到 1938 年去世。这个案子通常被当成公共卫生伦理的教材，但从本节的机制看，它还给出一条冷冰冰的判据：<b>只有在传播极度超离散的时候，针对某一个人的干预才可能有整体效果</b>；在均匀混合的世界里，隔离任何单个个体的收益必然微不足道，因而也无从证成。所以"该不该盯住某个人"这个问题，答案的一半藏在分布的形状里，而不只在伦理直觉里——同时代价也一起被算清楚了：26 年。
+</div>
+<p class="en-brief"><b>EN</b> Sections 1–2 assumed homogeneous mixing. Once contact degrees are heavy-tailed, the epidemic threshold is set by ⟨k²⟩/⟨k⟩, not by the mean; Pastor-Satorras &amp; Vespignani (2001) showed it vanishes for power-law exponents at or below 3. Transmission is also overdispersed — SARS-CoV-2's dispersion parameter is around 0.1, with roughly 10% of cases driving 80% of infections — which makes setting-targeted intervention far cheaper than uniform intervention.</p>
+<h2><span class="n">04</span>一次够不够<span class="he">（Simple and Complex Contagion）</span></h2>
+<p class="lead">现在说本期最有用的那条区分。病毒只需要接触一次：碰上了，按概率中招，跟你之前碰过几个病人无关。这叫<b>简单传染</b>（simple contagion）。</p>
+<p>而很多社会性的东西不是这样。要不要辞职去创业、要不要换掉用了十年的工具、要不要在会上第一个说"这个方向不对"——这类事情的门槛是：<b>我身边得有好几个不同的人已经这么做了</b>。一个人说，是噪声；三个互不相干的人都这么做，才是信号。这叫<b>复杂传染</b>（complex contagion）。它最早由 Centola 和 Macy 在 2007 年正式提出，而更早的雏形是 Granovetter 1978 年的阈值模型：每个人心里有一个数——"周围有 n 个人做了，我才做"——而这些数在人群里参差不齐。</p>
+<p>关键是这个区分会把网络结构的价值<em>翻过来</em>。第 21 期讲过，少数几条远距离捷径能让整张网的直径急剧缩短 <a class="reflink" href="ref-small-world.html">→ 参考 · 小世界模型</a>，这对简单传染是天大的好事：一条捷径就足以把火种送到对岸。但复杂传染缺的不是距离，是<b>落在同一个人身上的多份独立信号</b>。一条捷径只送来一份，送到就断了；而互相认识的密集小圈子会把同一件事从三个方向重复送到你面前——那恰恰是阈值要的东西。</p>
+<p>Centola 在 2010 年把这件事做成了实验：一千五百多名参与者被随机分进两种人工社交网络，一种是聚簇的格状网（邻居之间也互相是邻居，连接高度冗余），另一种是随机网（连得远、路径短）。要传播的行为是"去注册一个健康论坛"。结果和小世界的直觉正好相反：<b>聚簇网里传得又快又远</b>——最终采纳率 54% 对 38%，扩散速度约四倍。</p>
+<figure>
+<svg aria-label="同一张网上，简单传染越过捷径而复杂传染停在捷径尽头" role="img" viewBox="0 0 720 352" xmlns="http://www.w3.org/2000/svg">
+<text fill="#aba498" font-family="-apple-system,sans-serif" font-size="13" text-anchor="middle" x="360" y="26">同一张网，同一条捷径，两种结果</text>
+<text fill="#e0895e" font-family="SF Mono,monospace" font-size="12" x="40" y="48">① 简单传染：碰一次就够</text>
+<g stroke="rgba(224,137,94,0.40)" stroke-width="1.5">
+<line x1="192" x2="171" y1="105" y2="141"></line><line x1="171" x2="129" y1="141" y2="141"></line><line x1="129" x2="108" y1="141" y2="105"></line><line x1="108" x2="129" y1="105" y2="69"></line><line x1="129" x2="171" y1="69" y2="69"></line><line x1="171" x2="192" y1="69" y2="105"></line>
+<line x1="192" x2="129" y1="105" y2="141"></line><line x1="171" x2="108" y1="141" y2="105"></line><line x1="129" x2="171" y1="141" y2="69"></line>
+</g>
+<g stroke="rgba(224,137,94,0.40)" stroke-width="1.5">
+<line x1="602" x2="581" y1="105" y2="141"></line><line x1="581" x2="539" y1="141" y2="141"></line><line x1="539" x2="518" y1="141" y2="105"></line><line x1="518" x2="539" y1="105" y2="69"></line><line x1="539" x2="581" y1="69" y2="69"></line><line x1="581" x2="602" y1="69" y2="105"></line>
+<line x1="602" x2="539" y1="105" y2="141"></line><line x1="581" x2="518" y1="141" y2="105"></line><line x1="539" x2="581" y1="141" y2="69"></line>
+</g>
+<line stroke="#79a6d2" stroke-width="2" x1="192" x2="518" y1="105" y2="105"></line>
+<text fill="#79a6d2" font-family="-apple-system,sans-serif" font-size="11" text-anchor="middle" x="355" y="97">唯一的捷径</text>
+<g fill="#e0895e">
+<circle cx="192" cy="105" r="9"></circle><circle cx="171" cy="141" r="9"></circle><circle cx="129" cy="141" r="9"></circle><circle cx="108" cy="105" r="9"></circle><circle cx="129" cy="69" r="9"></circle><circle cx="171" cy="69" r="9"></circle>
+<circle cx="602" cy="105" r="9"></circle><circle cx="581" cy="141" r="9"></circle><circle cx="539" cy="141" r="9"></circle><circle cx="518" cy="105" r="9"></circle><circle cx="539" cy="69" r="9"></circle><circle cx="581" cy="69" r="9"></circle>
+</g>
+<text fill="#c0703f" font-family="-apple-system,sans-serif" font-size="11" text-anchor="middle" x="355" y="122">一份信号就足以点燃对岸</text>
+<text fill="#787268" font-family="-apple-system,sans-serif" font-size="11" text-anchor="middle" x="150" y="172">已感染</text>
+<text fill="#c0703f" font-family="-apple-system,sans-serif" font-size="11" text-anchor="middle" x="560" y="172">全部沦陷</text>
+<line stroke="rgba(255,255,255,0.07)" stroke-width="1" x1="40" x2="680" y1="192" y2="192"></line>
+<text fill="#d9b45f" font-family="SF Mono,monospace" font-size="12" x="40" y="222">② 复杂传染：要 2 个不同的邻居先做</text>
+<g stroke="rgba(217,180,95,0.38)" stroke-width="1.5">
+<line x1="192" x2="171" y1="275" y2="311"></line><line x1="171" x2="129" y1="311" y2="311"></line><line x1="129" x2="108" y1="311" y2="275"></line><line x1="108" x2="129" y1="275" y2="239"></line><line x1="129" x2="171" y1="239" y2="239"></line><line x1="171" x2="192" y1="239" y2="275"></line>
+<line x1="192" x2="129" y1="275" y2="311"></line><line x1="171" x2="108" y1="311" y2="275"></line><line x1="129" x2="171" y1="311" y2="239"></line>
+</g>
+<g stroke="rgba(120,114,104,0.45)" stroke-width="1.5">
+<line x1="602" x2="581" y1="275" y2="311"></line><line x1="581" x2="539" y1="311" y2="311"></line><line x1="539" x2="518" y1="311" y2="275"></line><line x1="518" x2="539" y1="275" y2="239"></line><line x1="539" x2="581" y1="239" y2="239"></line><line x1="581" x2="602" y1="239" y2="275"></line>
+<line x1="602" x2="539" y1="275" y2="311"></line><line x1="581" x2="518" y1="311" y2="275"></line><line x1="539" x2="581" y1="311" y2="239"></line>
+</g>
+<line stroke="#79a6d2" stroke-width="2" x1="192" x2="518" y1="275" y2="275"></line>
+<text fill="#79a6d2" font-family="-apple-system,sans-serif" font-size="11" text-anchor="middle" x="355" y="267">同一条捷径</text>
+<g fill="#d9b45f">
+<circle cx="192" cy="275" r="9"></circle><circle cx="171" cy="311" r="9"></circle><circle cx="129" cy="311" r="9"></circle><circle cx="108" cy="275" r="9"></circle><circle cx="129" cy="239" r="9"></circle><circle cx="171" cy="239" r="9"></circle>
+</g>
+<g fill="#3a352c" stroke="rgba(168,164,156,0.5)" stroke-width="1.5">
+<circle cx="602" cy="275" r="9"></circle><circle cx="581" cy="311" r="9"></circle><circle cx="539" cy="311" r="9"></circle><circle cx="539" cy="239" r="9"></circle><circle cx="581" cy="239" r="9"></circle>
+</g>
+<circle cx="518" cy="275" fill="#3a352c" r="10" stroke="#cd7f9b" stroke-width="2"></circle>
+<text fill="#cd7f9b" font-family="-apple-system,sans-serif" font-size="11" text-anchor="middle" x="355" y="292">只送来 1 份信号，门槛是 2 — 停在这里</text>
+<text fill="#787268" font-family="-apple-system,sans-serif" font-size="11" text-anchor="middle" x="150" y="338">已采纳</text>
+<text fill="#8d867b" font-family="-apple-system,sans-serif" font-size="11" text-anchor="middle" x="560" y="338">一个也没动</text>
+</svg>
+<figcaption>捷径省的是距离，而复杂传染缺的是重复。让病毒跑得快的结构，恰好让行为跑不动。</figcaption>
+</figure>
+<div class="decide">
+<span class="lb">🎯 决策线</span>
+<p>投入任何"推广"之前，先做一个判断题：<b>一次曝光够不够</b>。够（看到就会转、装上就能用）→ 买广度：捷径、跨圈、覆盖人数。不够（要改做法、要担风险）→ 买密度：在一个小圈子里做到饱和，再换下一个圈，绝不摊薄。两种投法的资源方向相反，混着投等于两头都不到位。核对办法也很具体：去问已经采纳的人一句"你是从<b>几个不同的人</b>那儿听说的"——多数人答"一个"，你要传的是简单传染；多数人答"两三个"，你在做的是复杂传染，那么所有按覆盖人数计价的投放都在浪费。</p>
+</div>
+<div class="crossx-inline">
+🌀 <b>经济与制度 · 冷启动为什么要一个城市一个城市打</b>　叫车、支付、协作工具这类产品的采纳门槛，是"我认识的人里已经有几个在用"——典型的复杂传染。所以全国铺开的广告（广度、单次曝光）几乎推不动它，而<b>逐城市、逐校园做到局部饱和</b>能推动：饱和制造的正是同一个人被多个熟人重复触达的条件。由此推出一条对预算分配很硬的结论：在复杂传染里，把预算摊到十个城市的效果<b>不是</b>集中打一个城市的十分之一，而可能是零——因为每个城市都停在门槛之下，而门槛之下的投入不产生任何存量。
+</div>
+<p class="en-brief"><b>EN</b> Viruses need one exposure (simple contagion); costly or risky behaviours need several independent adopters nearby (complex contagion — Centola &amp; Macy 2007, foreshadowed by Granovetter's 1978 threshold model). This inverts the value of network structure: shortcuts shorten distance but deliver only one signal each. Centola's 2010 experiment found behaviour spread faster and farther on clustered lattices than on random networks — 54% versus 38% adoption, roughly four times the speed.</p>
+<h2><span class="n">05</span>这套说法在哪儿不成立<span class="he">（Where This Breaks Down）</span></h2>
+<p class="lead">传染模型是复杂性科学里被搬运得最勤的一套工具，也因此最容易搬坏。用之前得知道它在哪儿会散架。</p>
+<p><b>第一，R₀ 不是一个可以查表的常数。</b>麻疹的 R₀ 长期被引作 12–18，几乎成了常识。2017 年 Guerra 等人做了一次系统综述，从 18 项研究里收集到 58 个估计值，结论是：实际估计的跨度<em>远大于</em>这个常被引用的区间，而且高度依赖人口结构、年代和估计方法。这不奇怪——R₀ 里有两项本来就是行为和环境。<b>引一个 R₀ 而不说它是在哪张网、什么行为下测出来的，等于引一个没有单位的数。</b></p>
+<p><b>第二，分室模型的假设是硬的，不是装饰。</b>它要求均匀混合（第三节已经拆过）、要求状态转移离散且不可逆（得过就终身免疫）、要求这段时间里人口构成基本不变。真实的病原体有潜伏期（得再加一个分室 E）、有再感染、有变异、有季节性。模型给的是骨架，不是身体。</p>
+<p><b>第三，把"传染"这个词套到观念上，最缺的东西是"感染"的定义。</b>什么时候算一个人"接受了某个观念"？听到的那一刻？同意的那一刻？改变行为的那一刻？没有一个可判定的时刻，R₀ 就无法测量，整套模型就退化成比喻。<b>模因论</b>（memetics）就卡在这一步——它把观念当成会自我复制的单位，可几十年过去，"复制"这个动作始终没有一个可观察的对应物；专门的《模因论学刊》（Journal of Memetics）在 2005 年停刊，缺的从来不是数据。</p>
+<p><b>第四，复杂传染自己也有边界。</b>Centola 那个漂亮的实验是在研究者搭建的在线网络上做的：网络是随机分配的，行为只有一种（注册一个健康论坛），参与者互不相识。它有力地证明了"社会强化确实存在"，但没有证明"所有社会传播都是复杂传染"。近年的工作还指出，聚簇结构存在一个<b>触达与强化之间的权衡</b>：太聚簇，强化够了但触达慢；太随机，触达快但强化不足。最优结构在两者之间，而不是越聚簇越好——所以"多建密集小圈子"这个结论，本身也是有剂量的。</p>
+<div class="decide">
+<span class="lb">🎯 决策线</span>
+<p>用任何传播模型之前，先在纸上写下三件事：①你的"感染"对应哪个<b>可观测事件</b>（下载？付费？连续用满两周？）；②你的网络里，边是什么关系；③一次曝光够不够。三件里有一件填不出来，就别报 R₀，改报你真能测到的量——比如"新用户里，此前从几个不同来源听说过本产品"的分布。<b>一个填得出来的粗指标，胜过一个填不出来的漂亮参数。</b></p>
+</div>
+<p class="en-brief"><b>EN</b> Four limits. R₀ is not a lookup constant: Guerra et al. (2017) gathered 58 measles estimates from 18 studies and found spread far wider than the familiar 12–18. Compartmental models hard-code homogeneous mixing, irreversible states and a stable population. Applied to ideas, the missing piece is an observable definition of infection — the rock memetics foundered on. And complex contagion itself trades reach against reinforcement, so clustering has a dose, not a direction.</p>
+<div class="bigcat">
+<h3>🎒 场景 · BigCat</h3>
+<ol>
+<li><span class="dm">写作与这个学习站本身</span>反复发生的情境：一期发出去，隔天看阅读量和转发数，把数字高的那期当成"写对了"。但这个站要传的东西——改变一个人看问题的方式——如果是复杂传染，那么它的采纳需要同一个人在不同场合反复撞见同一条机制，而阅读量统计的恰恰是简单传染那一侧的量：一次触达。可改的东西：把主看的数从"单期触达"换成<b>回访深度</b>——最近三个月里，有多少人读过三期以上；以及有没有人能说出"我在某个决定里用了哪一期的哪条判据"。停掉的动作：为了提高转发率去改标题——转发率优化的是捷径的数量，而你缺的是重复。</li>
+<li><span class="dm">育儿</span>反复发生的情境：希望孩子养成一个习惯（读书、运动、把事做完再玩），做法是自己多说几次、多讲几遍道理。这是在用简单传染的打法——增加<b>同一个源</b>的曝光次数。而按本期第四节，复杂传染要的是<b>多个不同的、互相独立的源</b>：同一句话由你说第十遍，在门槛计数里仍然只算一个人。可改的东西：不增加自己的重复次数，去增加"他亲眼看见在做这件事的人"的<b>个数</b>，并且这些人最好彼此不认识（否则是同一个源在复读）。可核对的判据：数一数，除了你之外，他身边有几个人是他真的看见在做这件事的？答案通常是零或一，而门槛往往是二或三。</li>
+<li><span class="dm">投资与仓位</span>反复发生的情境：看到某个东西在快速增长（用户数、门店数、渗透率），拿最近几个月的增速往前推。本期第一节的机制说明这类外推为什么系统性乐观：在易感池还没被明显消耗之前，R_eff 还没开始掉，增长曲线是纯指数的，而<b>纯指数段不含任何关于最终规模的信息</b>——它的形状对天花板完全不敏感。可改的东西：不看增速，先写下分母（这东西真正可触达的总人数/家庭数/企业数是多少），再算已经吃掉了几成；然后盯一个比增速更早的信号——<b>新增/存量的比值有没有开始下降</b>，那是 R_eff 掉头的第一个可见迹象。停掉的动作：用最近三个月的复合增速外推 24 个月。</li>
+</ol>
+</div>
+<div class="crossx">
+<h3>🌀 越界 · 跨学科的联想<span class="he">（Crossings）</span></h3>
+<ul>
+<li><b>宗教史 · 一条被算出来的增长曲线</b>：社会学家 Rodney Stark 在《基督教的兴起》里做了一件很朴素的事——假设公元 40 年有 1000 名基督徒，取每十年增长 40%（约合年增 3.4%），一路复利算到公元 350 年，得到约 3388 万人。他的论点是：这个速度一点都不神奇（摩门教 1880–1980 年就是这个量级），所以不需要用某个皇帝、某次奇迹来解释基督教的兴起。本期三条机制合起来能把这个论点做得更硬：R₀ 略大于 1 就足以产生这条曲线（第一节）；Stark 强调改宗几乎全部沿着已有的强关系发生——家人、朋友、同乡——这正是复杂传染的特征，也解释了为什么速度是"每十年 40%"而不是像瘟疫那样几年横扫（第四节）。<b>但这里不成立</b>：恒定增长率这个假设，本期第二节直接否掉了——R_eff 必然随易感池耗尽而下降，指数段不可能延续三百年。Bart Ehrman 早就指出，同样的算法推到公元 400 年会得出 1.7 亿基督徒，超过整个罗马帝国的人口；后来 Lucero 2021 干脆用一个<em>次指数</em>增长模型去拟合，效果比纯指数好。更根本的失配是：改宗没有一个可判定的时刻，也不是不可逆的——分室模型要求人一次性、单向地从一堆走到另一堆，而宗教归属可以是名义上的、可以反复、可以同时属于两边。能借走的是"这个速度不需要奇迹来解释"，借不走的是那条一路直上的曲线。</li>
+<li><b>东方思想 · 禅宗为什么把传法弄得那么慢</b>：禅宗的自我描述里，法不靠文字传，必须面授、必须由已得法者当面印可。用本期的语言看，这是把一件本可以是简单传染的事（读一本书，一次曝光即可复制）刻意改造成了受控的传染：接收方必须与已"感染"者长期共处并被确认。这样做的代价是速度——传播被限制在极窄的接触面上，法脉因此呈树状、地理高度集中；收益则是<b>抑制变异</b>：任何单点的偏离都传不出去，因为传出去需要授权，而授权者只有一个。这也顺带解释了一件看着矛盾的事——一个号称不立文字的宗派，却生产了《景德传灯录》这类庞大的文献。灯录记的主要不是教义，是<em>谁传给了谁</em>：它是网络拓扑的账本，是这套传播机制必须自己维护的那份记录。（顺带一提，"不立文字、教外别传"这十六字被归到菩提达摩名下，是宋代的追加——1108 年睦庵善卿的《祖庭事苑》是较早的一处。）<b>但这里不成立</b>：复杂传染的门槛是"多少个<em>邻居</em>已采纳"，是无向的、对称的；而印可是单一权威的、有向的授权，度为 1 就够。所以禅宗的慢不是门槛造成的，是授权者稀缺造成的。能借走的是"限制传播路径会压制变异"这个后果，借不走"需要多次曝光"这个原因。</li>
+<li><b>科学哲学 · 模因论为什么停在原地</b>：1976 年 Dawkins 提出模因（meme），把观念设想成会自我复制、变异、被选择的单位——一个明确的"观念即病毒"纲领。本期三条机制合起来，能说清它卡在哪一步，而且这个诊断比"它不够严谨"具体得多。其一，R₀ 要求"感染"是一个可观测的状态转移，而"持有一个观念"没有可判定的时刻，于是它的核心量根本测不出来。其二，复杂传染意味着采纳依赖于<em>多个邻居的同时状态</em>——传播的最小单位因此不是单个模因，而是一小片局部共识，模因论的原子化假设从一开始就选错了单位。其三，网络的异质性意味着传得开与否主要由结构决定，于是"这个模因更有传播力"这种解释会系统性地把结构的功劳记到内容头上——同一句话，从枢纽说出来和从叶子说出来，命运完全不同。三条合起来给出一个可操作的结论：想让观念传播成为一门经验科学，先要做的不是找更好的复制隐喻，而是<b>定义一个可观测的采纳事件、并把网络画出来</b>。Centola 那个实验之所以站得住，正是因为它把这两件事都做了：注册与否是可观测的，网络是研究者铺的。</li>
+</ul>
+</div>
+<div class="thinking">
+<h3>深入思考<span class="he">（Going Deeper）</span></h3>
+<details><summary>如果一个东西同时有简单和复杂两种传播路径，会怎样？</summary><p>大多数真实的东西都是混合的：知道一条消息是简单传染，采纳一个做法是复杂传染。有意思的是这两层的最优结构不同——上层（知晓）要捷径，下层（采纳）要密度。这提示一种分工式的投放：用广度制造"听说过"的存量，再用密度在局部把它转成采纳。值得追问的是：知晓层的饱和会不会反而抬高采纳的门槛（人人都听说过、但没人先做，观望本身成了一种信号）？</p></details>
+<details><summary>为什么"压平曲线"能减少总感染人数，而不只是把它摊开？</summary><p>直觉上干预只是推迟，总量不变。但超调那条机制给了另一个答案：干预降低 R_eff，而最终感染比例是 R_eff 的函数——把 R_eff 从 3 压到 1.5，终末规模从约 94% 降到约 58%。也就是说压平曲线确实改变了总量，因为它改变了系统冲过阈值的惯性。前提是干预持续到易感者被消耗到位，否则撤掉就反弹。</p></details>
+<details><summary>超离散是好消息还是坏消息？</summary><p>两面都有。坏消息：平均值不再能预测，小规模爆发的方差极大，早期数据几乎不能外推。好消息：既然大部分传播集中在少数场景，那么便宜的、局部的干预就能拿走大部分风险——这是均匀混合世界里不存在的机会。所以"这个系统是不是超离散的"应该是干预设计的第一个问题，而不是一个统计学细节。</p></details>
+<details><summary>观念传播里有没有"移出者"这一堆？</summary><p>这是把 SIR 搬到观念上最难对付的地方。得过病的人不再易感，而听过一个说法却没接受的人，下次仍然可能接受——甚至更可能，因为门槛是累计的。这意味着观念的动力学可能根本不是 SIR 而更接近有记忆的 SIS（可反复感染），而带记忆的过程里"阈值"这个概念要重新定义。谁能给这一堆人一个可观测的定义，谁就推进了这件事。</p></details>
+</div>
+<div class="refs">
+<h3>延伸阅读<span class="he">（Further Reading）</span></h3>
+<ul>
+<li>Kermack &amp; McKendrick, <a href="https://doi.org/10.1098/rspa.1927.0118">A Contribution to the Mathematical Theory of Epidemics</a>（1927，SIR 的原始论文）</li>
+<li>Pastor-Satorras &amp; Vespignani, <a href="https://doi.org/10.1103/PhysRevLett.86.3200">Epidemic Spreading in Scale-Free Networks</a>（2001，阈值消失）</li>
+<li>Centola, <a href="https://doi.org/10.1126/science.1185231">The Spread of Behavior in an Online Social Network Experiment</a>（2010，聚簇网传得更快）</li>
+<li>Centola &amp; Macy, <a href="https://doi.org/10.1086/521848">Complex Contagions and the Weakness of Long Ties</a>（2007）</li>
+<li>Granovetter, <a href="https://doi.org/10.1086/226707">Threshold Models of Collective Behavior</a>（1978）</li>
+<li>Guerra et al., <a href="https://doi.org/10.1016/S1473-3099(17)30307-9">The basic reproduction number (R₀) of measles: a systematic review</a>（2017）</li>
+<li>Endo et al., <a href="https://doi.org/10.12688/wellcomeopenres.15842.3">Estimating the overdispersion in COVID-19 transmission using outbreak sizes outside China</a>（2020）</li>
+<li>Moore et al., <a href="https://www.caida.org/catalog/papers/2003_sapphire/">The Spread of the Sapphire/Slammer Worm</a>（2003）</li>
+<li>Keyfitz, <a href="https://doi.org/10.2307/2060339">On the momentum of population growth</a>（1971）</li>
+<li><a href="https://en.wikipedia.org/wiki/Mary_Mallon">Mary Mallon</a>（伤寒玛丽的案卷）</li>
+</ul>
+</div>
+<footer>BigCat · 复杂性科学 · <a href="index.html">← 全部 Topic</a></footer>
+</div>
+<script src="https://hub.cissychen.com/comments.js" defer></script>
+<script src="https://hub.cissychen.com/search.js" defer></script>
+<script src="https://hub.cissychen.com/index-button.js" defer></script>
+<script src="https://hub.cissychen.com/i18n-tts.js" defer></script>
+</body></html>

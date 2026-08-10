@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+
+<html lang="en"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>The SIR Model · Reference Library · Complexity Science</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,"SF Pro Display","Noto Sans SC",sans-serif;color:#e4ded5;line-height:1.85;min-height:100vh;
+  background:radial-gradient(1100px 620px at 12% -6%,rgba(99,179,166,0.09),transparent 62%),radial-gradient(950px 700px at 100% 2%,rgba(166,147,205,0.08),transparent 58%),linear-gradient(168deg,#100f0d 0%,#15161b 48%,#0a0a0c 100%);background-attachment:fixed}
+.wrap{max-width:720px;margin:0 auto;padding:30px 22px 90px}
+header{padding:52px 0 8px;border-bottom:1px solid rgba(255,255,255,0.07);margin-bottom:32px}
+.rtag{font-family:"SF Mono",Menlo,monospace;font-size:0.72rem;font-weight:700;letter-spacing:2px;color:#63b3a6;border:1px solid rgba(99,179,166,0.4);background:rgba(99,179,166,0.07);padding:3px 11px;border-radius:20px}
+h1{font-size:2.15rem;font-weight:800;line-height:1.2;margin:20px 0 0;color:#f0eae0}
+.sub{font-size:0.98rem;color:#aba498;margin-top:12px}
+.meta{font-family:"SF Mono",Menlo,monospace;font-size:0.75rem;color:#57524b;margin-top:16px;letter-spacing:1px}
+h2{font-size:1.25rem;font-weight:700;color:#e9e3d9;margin:44px 0 10px}
+h2 .n{font-family:"SF Mono",Menlo,monospace;font-size:0.8rem;color:#63b3a6;display:block;margin-bottom:5px;letter-spacing:2px}
+p{margin-bottom:16px}
+b,strong{color:#f0eae0;font-weight:600}
+em{color:#d9b45f;font-style:normal;font-weight:500}
+.rule{border:1px solid rgba(99,179,166,0.3);background:rgba(99,179,166,0.05);border-radius:12px;padding:16px 20px;margin:22px 0;font-size:0.94rem;color:#d5cdc1}
+.rule ol{padding-left:20px;margin:0}
+.rule li{margin-bottom:7px}
+.rule li:last-child{margin-bottom:0}
+figure{margin:28px 0}
+figure svg{display:block;width:100%;height:auto;border-radius:12px;background:rgba(255,255,255,0.018);border:1px solid rgba(255,255,255,0.06)}
+figcaption{font-size:0.82rem;color:#787268;margin-top:10px;text-align:center;line-height:1.6}
+.cant{border:1px solid rgba(205,127,155,0.36);background:rgba(205,127,155,0.05);border-radius:12px;padding:18px 21px;margin:26px 0 10px}
+.cant h3{font-size:1rem;color:#cd7f9b;margin-bottom:12px}
+.cant ul{list-style:none;padding:0}
+.cant li{margin-bottom:13px;font-size:0.93rem;color:#d5cdc1;line-height:1.76}
+.cant li:last-child{margin-bottom:0}
+.cant li b{color:#cd7f9b}
+.refs{margin:40px 0 10px}
+.refs h3{font-size:1rem;color:#79a6d2;margin-bottom:12px}
+.refs ul{list-style:none;padding:0}
+.refs li{margin-bottom:9px;font-size:0.89rem;color:#8d867b;line-height:1.7}
+.refs a{color:#79a6d2;text-decoration:none;border-bottom:1px solid rgba(121,166,210,0.3)}
+.refs a:hover{color:#a6c4e2}
+footer{text-align:center;padding:52px 0 10px;font-size:0.78rem;color:#57524b;font-family:"SF Mono",Menlo,monospace;border-top:1px solid rgba(255,255,255,0.06);margin-top:46px}
+footer a{color:#79a6d2;text-decoration:none}
+@media(max-width:600px){h1{font-size:1.7rem}.wrap{padding:24px 16px 60px}}
+</style></head><body>
+<div class="wrap">
+<header>
+<span class="rtag">REF · CLASSIC MODEL</span>
+<h1>The SIR Model</h1>
+<p class="sub">Kermack &amp; McKendrick, 1927 — the skeleton of epidemic modelling, and where the word "spreading" gets its mathematics</p>
+<p class="meta">Cited in: Topic 24 Spreading &amp; Contagion</p>
+</header>
+<h2><span class="n">01</span>The Question It Poses</h2>
+<p>In 1927 Kermack and McKendrick set out to settle something that had been nagging: <b>why does an epidemic recede while a large crowd of people who never caught it is still standing there?</b></p>
+<p>The popular answer at the time was that the pathogen "attenuated" during the outbreak — grew milder as it went. That answer requires assuming the pathogen itself changed. The two of them wanted to know: <em>can the curve be derived assuming nothing of the sort, using only bookkeeping on head counts?</em></p>
+<p>It can. And what fell out is worth more than the original question: a single number that compresses "will this take off or not" into one test.</p>
+<h2><span class="n">02</span>The Rules</h2>
+<div class="rule">
+<ol>
+<li>Split a population of size N into three piles: <em>S</em> susceptible (can still catch it), <em>I</em> infectious (currently transmitting), <em>R</em> removed (recovered or dead, out of the process).</li>
+<li>Each infectious person makes <em>β</em> "effective contacts" per unit time. The share of those landing on susceptibles is S/N, so new infections per unit time = β·I·S/N.</li>
+<li>Infectious people leave the infectious pile at rate <em>γ</em>. The mean infectious period is therefore 1/γ.</li>
+<li>No births, no deaths other than removal, and nobody returns from R to S. The three piles always sum to N.</li>
+<li>Everyone is equally likely to meet everyone. This is <b>homogeneous mixing</b>, and it is by far the most expensive assumption in the model.</li>
+</ol>
+</div>
+<p>Divide the two parameters and you get the famous number: <b>R₀ = β / γ</b> — the basic reproduction number, how many people one infectious person infects on average in a fully susceptible population. Numerator: how fast it transmits. Denominator: how quickly transmission stops. So R₀ is inherently a <em>rate times a duration</em>, never an intrinsic property of the pathogen.</p>
+<figure>
+<svg aria-label="The three SIR compartments and the two transition rates" role="img" viewBox="0 0 700 190" xmlns="http://www.w3.org/2000/svg">
+<defs>
+<marker id="rsir1" markerHeight="10" markerUnits="userSpaceOnUse" markerWidth="10" orient="auto" refX="9" refY="5" viewBox="0 0 10 10">
+<path d="M0,1 L9,5 L0,9 z" fill="#63b3a6"></path>
+</marker>
+</defs>
+<text fill="#aba498" font-family="-apple-system,sans-serif" font-size="13" text-anchor="middle" x="350" y="26">People move one way only, and never come back</text>
+<rect fill="rgba(99,179,166,0.10)" height="58" rx="10" stroke="rgba(99,179,166,0.5)" width="128" x="40" y="58"></rect>
+<text fill="#63b3a6" font-family="-apple-system,sans-serif" font-size="16" font-weight="600" text-anchor="middle" x="104" y="84">S</text>
+<text fill="#8d867b" font-family="-apple-system,sans-serif" font-size="10.5" text-anchor="middle" x="104" y="103">Susceptible</text>
+<rect fill="rgba(224,137,94,0.12)" height="58" rx="10" stroke="rgba(224,137,94,0.55)" width="128" x="286" y="58"></rect>
+<text fill="#e0895e" font-family="-apple-system,sans-serif" font-size="16" font-weight="600" text-anchor="middle" x="350" y="84">I</text>
+<text fill="#8d867b" font-family="-apple-system,sans-serif" font-size="10.5" text-anchor="middle" x="350" y="103">Infectious</text>
+<rect fill="rgba(168,164,156,0.10)" height="58" rx="10" stroke="rgba(168,164,156,0.45)" width="128" x="532" y="58"></rect>
+<text fill="#a8a49c" font-family="-apple-system,sans-serif" font-size="16" font-weight="600" text-anchor="middle" x="596" y="84">R</text>
+<text fill="#8d867b" font-family="-apple-system,sans-serif" font-size="10.5" text-anchor="middle" x="596" y="103">Removed</text>
+<line marker-end="url(#rsir1)" stroke="#63b3a6" stroke-width="2" x1="178" x2="278" y1="87" y2="87"></line>
+<text fill="#63b3a6" font-family="SF Mono,monospace" font-size="12.5" text-anchor="middle" x="228" y="72">β·I·S/N</text>
+<line marker-end="url(#rsir1)" stroke="#63b3a6" stroke-width="2" x1="424" x2="524" y1="87" y2="87"></line>
+<text fill="#63b3a6" font-family="SF Mono,monospace" font-size="12.5" text-anchor="middle" x="474" y="72">γ·I</text>
+<text fill="#787268" font-family="-apple-system,sans-serif" font-size="11" text-anchor="middle" x="228" y="136">this term carries S/N —</text>
+<text fill="#787268" font-family="-apple-system,sans-serif" font-size="11" text-anchor="middle" x="228" y="152">less fuel, smaller fire</text>
+<text fill="#787268" font-family="-apple-system,sans-serif" font-size="11" text-anchor="middle" x="474" y="136">this term ignores S —</text>
+<text fill="#787268" font-family="-apple-system,sans-serif" font-size="11" text-anchor="middle" x="474" y="152">it always drains</text>
+<text fill="#57524b" font-family="SF Mono,monospace" font-size="12" text-anchor="middle" x="350" y="180">R₀ = β / γ</text>
+</svg>
+<figcaption>The whole model is this diagram. The S/N inside the left arrow is the source of every counter-intuitive result it produces.</figcaption>
+</figure>
+<h2><span class="n">03</span>What You See When It Runs</h2>
+<p>Drop in one infectious person. If R₀ &gt; 1, infections rise exponentially; as susceptibles are consumed, the effective reproduction number R₀·S/N slides downward; <b>when S/N reaches 1/R₀ it equals exactly 1, and new cases peak</b>. After that new cases fall — but they do not stop.</p>
+<p>The key scene comes after the peak: a large number of people are still mid-infection, and they carry on, so S keeps falling, well past 1/R₀. That extra stretch is <b>overshoot</b>. How many are ultimately infected is fixed by an equation containing only R₀: about 94% at R₀ = 3, about 80% at R₀ = 2, about 58% at R₀ = 1.5.</p>
+<figure>
+<svg aria-label="The three SIR curves: susceptibles fall, infections peak once, cumulative infections rise to the final size" role="img" viewBox="0 0 700 318" xmlns="http://www.w3.org/2000/svg">
+<text fill="#aba498" font-family="-apple-system,sans-serif" font-size="13" text-anchor="middle" x="350" y="24">A full epidemic (R₀ = 3)</text>
+<line stroke="rgba(255,255,255,0.18)" stroke-width="1.5" x1="80" x2="640" y1="250" y2="250"></line>
+<line stroke="rgba(255,255,255,0.18)" stroke-width="1.5" x1="80" x2="80" y1="250" y2="50"></line>
+<text fill="#8d867b" font-family="-apple-system,sans-serif" font-size="11.5" transform="rotate(-90 32 156)" x="32" y="156">share of population</text>
+<line stroke="#d9b45f" stroke-dasharray="6 5" stroke-width="1.4" x1="80" x2="640" y1="187" y2="187"></line>
+<text fill="#d9b45f" font-family="-apple-system,sans-serif" font-size="11" x="86" y="181">S/N = 1/R₀ = 33%</text>
+<path d="M100,62 C250,66 320,84 365,135 C410,186 460,228 520,236 C560,241 600,239 630,239" fill="none" stroke="#63b3a6" stroke-width="2.5"></path>
+<text fill="#63b3a6" font-family="SF Mono,monospace" font-size="12" x="118" y="84">S susceptible</text>
+<path d="M100,249 C210,248 305,231 352,194 C400,231 470,246 550,249 C585,250 610,250 630,250" fill="none" stroke="#e0895e" stroke-width="2.5"></path>
+<text fill="#e0895e" font-family="SF Mono,monospace" font-size="12" x="436" y="216">I infectious</text>
+<path d="M100,250 C250,246 322,226 367,175 C412,124 462,84 522,76 C562,71 600,71 630,71" fill="none" stroke="#a8a49c" stroke-width="2.5"></path>
+<text fill="#a8a49c" font-family="SF Mono,monospace" font-size="12" x="514" y="64">R ever infected</text>
+<line stroke="#9fbc7a" stroke-dasharray="4 4" stroke-width="1.4" x1="352" x2="352" y1="194" y2="250"></line>
+<circle cx="352" cy="194" fill="#9fbc7a" r="4.5"></circle>
+<text fill="#9fbc7a" font-family="-apple-system,sans-serif" font-size="11" text-anchor="middle" x="352" y="268">peak: S/N is exactly 1/R₀</text>
+<line stroke="#cd7f9b" stroke-dasharray="3 5" stroke-width="1.4" x1="80" x2="640" y1="71" y2="71"></line>
+<text fill="#cd7f9b" font-family="-apple-system,sans-serif" font-size="11" text-anchor="middle" x="350" y="310">final size 94% — the threshold only needed 67%; the rest is overshoot</text>
+<text fill="#8d867b" font-family="-apple-system,sans-serif" font-size="11.5" text-anchor="middle" x="360" y="290">time →</text>
+</svg>
+<figcaption>Read the three curves together: the peak lands the moment S/N touches 1/R₀, and the epidemic still has a long stretch to burn after that.</figcaption>
+</figure>
+<p>Two more properties only show up once you run it. First, <b>peak timing is wildly sensitive to the parameters while final size is stable</b> — shave β a little and the peak arrives much later and much lower, but unless suppression is sustained the eventual total barely moves. Second, <b>below R₀ = 1 the curve never gets going at all</b>, no matter how many initial infections you seed. That is the entire content of the word "threshold".</p>
+<h2><span class="n">04</span>What It Explains</h2>
+<p>First, <b>why epidemics are self-limiting</b>: no need to assume a weakening pathogen; burning the fuel is enough. That was the original question.</p>
+<p>Second, <b>the vaccination threshold</b>: to hold R_eff below 1 from the outset, the susceptible share must start below 1/R₀, so coverage must be at least 1 − 1/R₀. The 90%-plus requirement for high-R₀ diseases like measles comes straight from that line.</p>
+<p>Third, <b>why flattening the curve really does cut the total</b>: final size is a function of the effective reproduction number, so pushing it from 3 to 1.5 takes the eventual attack rate from about 94% to about 58%. Intervention is not merely rescheduling the same cases.</p>
+<p>Fourth, <b>it hands over a portable skeleton</b>: swap S/I/R for "hasn't heard / actively sharing / bored of it" and the same equations become a rumour model; swap in "hasn't adopted / actively recommending / churned" and you have a product diffusion model. The skeleton travels — and so does every item in the next section.</p>
+<div class="cant">
+<h3>What It Cannot Explain</h3>
+<ul>
+<li><b>It cannot handle uneven contact.</b> Homogeneous mixing is hard-coded. Real contact networks often have heavy-tailed degree distributions, where the threshold is set by ⟨k²⟩/⟨k⟩ rather than the mean degree and may approach zero — which invalidates the conclusion "R₀ &lt; 1 means safe" itself. Handling this requires a network spreading model, not a tweak.</li>
+<li><b>It cannot handle overdispersion.</b> Every infectious person in the model is an incarnation of the average, while real secondary-infection counts are wildly uneven (SARS-CoV-2's dispersion parameter was around 0.1, with roughly 10% of cases producing 80% of transmission). Consequences: outbreaks with R₀ &gt; 1 often die out anyway, early data has far more variance than the model expects, and short-term extrapolation from averages misleads systematically.</li>
+<li><b>It cannot handle reinfection, latency or mutation.</b> S→I→R is one-way with lifelong immunity. A latent period needs an extra E compartment (giving SEIR), waning immunity needs an edge back to S (SIRS/SIS), and mutation means parameters change mid-run. None of these are adjustments; each is a different model.</li>
+<li><b>It cannot be ported straight to ideas.</b> What's missing is not mathematics but <b>an observable definition of infection</b>: when exactly has a person accepted a claim? Without a decidable transition, β and γ cannot be measured and R₀ has no empirical content. Ideas are also mostly complex contagions — needing repeated exposure from several distinct sources — while SIR assumes one contact suffices, which contradicts that outright.</li>
+<li><b>It cannot tell you "when".</b> Final size is stable; peak timing is not. Asking SIR which week the peak lands is demanding precision from the quantity most sensitive to the parameters. What it answers well is "how many in the end" and "how far must this be pushed down to hold".</li>
+</ul>
+</div>
+<div class="refs">
+<h3>Further Reading</h3>
+<ul>
+<li>Kermack &amp; McKendrick, <a href="https://doi.org/10.1098/rspa.1927.0118">A Contribution to the Mathematical Theory of Epidemics</a> (1927)</li>
+<li><a href="https://en.wikipedia.org/wiki/Compartmental_models_in_epidemiology">Compartmental models in epidemiology</a> (survey of the model family)</li>
+<li>Pastor-Satorras &amp; Vespignani, <a href="https://doi.org/10.1103/PhysRevLett.86.3200">Epidemic Spreading in Scale-Free Networks</a> (2001, why the threshold vanishes)</li>
+<li>Endo et al., <a href="https://doi.org/10.12688/wellcomeopenres.15842.3">Estimating the overdispersion in COVID-19 transmission using outbreak sizes outside China</a> (2020)</li>
+<li>Guerra et al., <a href="https://doi.org/10.1016/S1473-3099(17)30307-9">The basic reproduction number (R₀) of measles: a systematic review</a> (2017, how unstable R₀ is)</li>
+</ul>
+</div>
+<footer>BigCat · Complexity Science · <a href="index.en.html">← All Topics</a></footer>
+</div>
+<script src="https://hub.cissychen.com/comments.js" defer></script>
+<script src="https://hub.cissychen.com/search.js" defer></script>
+<script src="https://hub.cissychen.com/index-button.js" defer></script>
+<script src="https://hub.cissychen.com/i18n-tts.js" defer></script>
+</body></html>
