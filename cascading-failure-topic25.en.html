@@ -1,0 +1,458 @@
+<!DOCTYPE html>
+
+<html lang="en"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Cascading Failure &amp; Systemic Risk — The Exchange Rate Between Efficiency and Resilience · Complexity Science T25</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,"SF Pro Display","Noto Sans SC",sans-serif;color:#e4ded5;line-height:1.85;min-height:100vh;
+  background:radial-gradient(1100px 620px at 12% -6%,rgba(224,137,94,0.10),transparent 62%),radial-gradient(950px 700px at 100% 2%,rgba(166,147,205,0.09),transparent 58%),linear-gradient(168deg,#100f0d 0%,#15161b 48%,#0a0a0c 100%);background-attachment:fixed}
+.wrap{max-width:760px;margin:0 auto;padding:30px 22px 90px}
+header{padding:52px 0 8px;border-bottom:1px solid rgba(255,255,255,0.07);margin-bottom:34px}
+.week-tag{font-family:"SF Mono",Menlo,monospace;font-size:0.72rem;font-weight:700;letter-spacing:2px;color:#63b3a6;border:1px solid rgba(99,179,166,0.4);background:rgba(99,179,166,0.07);padding:3px 11px;border-radius:20px}
+h1{font-size:2.5rem;font-weight:800;letter-spacing:0.5px;line-height:1.2;margin:20px 0 0;background:linear-gradient(106deg,#e0895e 0%,#d9b45f 34%,#9fbc7a 68%,#63b3a6 100%);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+.sub{font-size:1.05rem;color:#aba498;margin-top:14px;font-weight:500}
+.date{font-family:"SF Mono",Menlo,monospace;font-size:0.75rem;color:#57524b;margin-top:18px;letter-spacing:1px}
+.pitch{margin:22px 0 30px;font-size:0.97rem;color:#cd7f9b;border-left:2px solid rgba(205,127,155,0.5);padding-left:16px;font-style:italic}
+.intro{font-size:1.02rem;color:#cfc8bc;margin-bottom:14px}
+.intro p{margin-bottom:16px}
+h2{font-size:1.42rem;font-weight:700;color:#e9e3d9;margin:56px 0 8px;letter-spacing:0.3px}
+h2 .n{font-family:"SF Mono",Menlo,monospace;font-size:0.85rem;color:#63b3a6;display:block;margin-bottom:6px;letter-spacing:2px}
+p{margin-bottom:17px}
+.lead{color:#cfc8bc}
+b,strong{color:#f0eae0;font-weight:600}
+em{color:#d9b45f;font-style:normal;font-weight:500}
+.dim{color:#8d867b}
+a.reflink{display:inline-block;font-size:0.82rem;font-family:"SF Mono",Menlo,monospace;color:#63b3a6;border:1px solid rgba(99,179,166,0.38);background:rgba(99,179,166,0.07);padding:1px 9px;border-radius:20px;text-decoration:none;transition:all 0.15s;white-space:nowrap}
+a.reflink:hover{background:rgba(99,179,166,0.16);border-color:rgba(99,179,166,0.7)}
+figure{margin:30px 0}
+figure svg{display:block;width:100%;height:auto;border-radius:12px;background:rgba(255,255,255,0.018);border:1px solid rgba(255,255,255,0.06)}
+figcaption{font-size:0.82rem;color:#787268;margin-top:11px;text-align:center;line-height:1.6}
+.decide{margin:24px 0;border:1px solid rgba(224,137,94,0.36);background:rgba(224,137,94,0.055);border-radius:12px;padding:15px 19px}
+.decide .lb{font-family:"SF Mono",Menlo,monospace;font-size:0.73rem;letter-spacing:1.5px;color:#e0895e;font-weight:700;display:block;margin-bottom:7px}
+.decide p{margin:0;font-size:0.95rem;color:#ddd5c9}
+.crossx-inline{margin:20px 0 22px;border-left:2px solid rgba(205,127,155,0.55);padding:2px 0 2px 15px;font-size:0.89rem;color:#a9a096;line-height:1.72}
+.crossx-inline b{color:#cd7f9b;font-weight:600}
+.bigcat{margin:46px 0 10px;border:1px solid rgba(217,180,95,0.38);background:rgba(217,180,95,0.05);border-radius:14px;padding:20px 22px}
+.bigcat h3{font-size:1.02rem;color:#d9b45f;margin-bottom:14px;letter-spacing:0.5px}
+.bigcat ol{list-style:none;padding:0}
+.bigcat li{margin-bottom:15px;font-size:0.94rem;color:#d5cdc1;line-height:1.78}
+.bigcat li:last-child{margin-bottom:0}
+.bigcat .dm{font-family:"SF Mono",Menlo,monospace;font-size:0.73rem;color:#d9b45f;border:1px solid rgba(217,180,95,0.32);border-radius:4px;padding:1px 7px;margin-right:8px;white-space:nowrap}
+.crossx{margin:46px 0 10px;border:1px solid rgba(205,127,155,0.38);background:rgba(205,127,155,0.05);border-radius:14px;padding:20px 22px}
+.crossx h3{font-size:1.02rem;color:#cd7f9b;margin-bottom:14px;letter-spacing:0.5px}
+.crossx ul{list-style:none;padding:0}
+.crossx li{margin-bottom:16px;font-size:0.94rem;color:#d5cdc1;line-height:1.78}
+.crossx li:last-child{margin-bottom:0}
+.crossx li b{color:#cd7f9b;font-weight:600}
+.thinking{margin:46px 0 10px}
+.thinking h3{font-size:1.02rem;color:#a693cd;margin-bottom:14px;letter-spacing:0.5px}
+details{border:1px solid rgba(166,147,205,0.22);border-radius:10px;padding:12px 16px;margin-bottom:10px;background:rgba(166,147,205,0.035)}
+summary{cursor:pointer;font-size:0.93rem;color:#c9c2b6;font-weight:500}
+summary::marker{color:#a693cd}
+details p{margin:12px 0 0;font-size:0.9rem;color:#a9a096;line-height:1.75}
+.refs{margin:46px 0 10px}
+.refs h3{font-size:1.02rem;color:#79a6d2;margin-bottom:14px;letter-spacing:0.5px}
+.refs ul{list-style:none;padding:0}
+.refs li{margin-bottom:10px;font-size:0.9rem;color:#8d867b;line-height:1.7}
+.refs a{color:#79a6d2;text-decoration:none;border-bottom:1px solid rgba(121,166,210,0.3)}
+.refs a:hover{color:#a6c4e2;border-bottom-color:rgba(121,166,210,0.7)}
+footer{text-align:center;padding:56px 0 10px;font-size:0.78rem;color:#57524b;font-family:"SF Mono",Menlo,monospace;border-top:1px solid rgba(255,255,255,0.06);margin-top:50px}
+footer a{color:#79a6d2;text-decoration:none}
+@media(max-width:600px){h1{font-size:1.85rem}.wrap{padding:24px 16px 60px}h2{font-size:1.22rem}}
+</style></head><body>
+<div class="wrap">
+<header>
+<span class="week-tag">TOPIC 25 · PHASE D</span>
+<h1>Cascading Failure &amp; Systemic Risk</h1>
+<p class="sub">There is an exact exchange rate between efficiency and resilience</p>
+<p class="date">2026-08-11 · Networks</p>
+</header>
+<p class="pitch">Every post-mortem finds the first domino. But what determines how far it spreads was never that domino — it is where the load it used to carry went next.</p>
+<div class="intro">
+<p>On the afternoon of 14 August 2003, a high-voltage line in Ohio touched an overgrown tree and tripped. Four hours later about 50 million people across eight US states and the Canadian province of Ontario had no electricity.</p>
+<p>There is a question here that is easy to slide past: can a tree bring down a grid covering eight states? Obviously not. What brought it down was the grid itself. Once that line tripped, the current it had been carrying did not vanish — it had to go somewhere else. Other lines took it, became overloaded, tripped to protect themselves, and passed the burden on. <b>Not one device malfunctioned in the whole sequence. Every one of them acted exactly as designed.</b></p>
+<p class="dim">Last issue was about contagion, which transmits a <em>state</em>: you are infected, so I might become infected. This issue is about cascades, which transmit a <em>burden</em>: you went down, so I have to carry your share. The distinction is not cosmetic. Contagion has a basic reproduction number (R₀, the average number of people one infected person passes it to) and a threshold, and suppressing contact suppresses spread. A cascade has no notion of "contact" at all — it travels along the cracks in capacity, and <b>losing nodes is itself its mode of transmission</b>. Topic 18, on self-organized criticality, answered why big events need no big cause. This issue answers a different question: <b>how the road from the first domino to the last one gets laid.</b></p>
+</div>
+
+<h2><span class="n">01</span>A Cascade Carries a Burden, Not a Disease</h2>
+<p class="lead">In 2002 Adilson Motter and Ying-Cheng Lai turned that paragraph into a set of rules you can run.</p>
+<p>Give every node in a network two numbers. The first is its <b>load</b> — how much traffic passes through it. They used <em>betweenness</em>: compute the shortest path between every pair of nodes and count how many of those paths run through this node <a class="reflink" href="ref-centrality.en.html">→ ref · centrality measures</a>. The second is its <b>capacity</b>: the most it can take. Capacity is not handed out arbitrarily; it is a fixed multiple of the initial load, written C = (1 + α) × initial load. That α is the <b>slack</b>: α = 0.2 means every node carries twenty per cent more headroom than its usual workload.</p>
+<p>There is one rule: <b>a node whose load exceeds its capacity fails, its load is redistributed along shortest paths to other nodes, and then you check whether anything new is over its limit.</b> Repeat until nothing else fails.</p>
+<figure>
+<svg aria-label="Three frames of load redistribution: hub fails, neighbours overload, second wave" role="img" viewbox="0 0 720 330" xmlns="http://www.w3.org/2000/svg">
+<defs>
+<marker id="c25a" markerheight="10" markerunits="userSpaceOnUse" markerwidth="10" orient="auto" refx="9" refy="5" viewbox="0 0 10 10">
+<path d="M0,1 L9,5 L0,9 z" fill="#8d867b"></path>
+</marker>
+</defs>
+<text fill="#aba498" font-family="-apple-system,sans-serif" font-size="13" text-anchor="middle" x="360" y="26">Capacity limit 8 per node · number inside the circle = current load</text>
+
+<text fill="#63b3a6" font-family="SF Mono,monospace" font-size="12" text-anchor="middle" x="115" y="58">① Normal</text>
+<g transform="translate(25,72)">
+<line stroke="rgba(255,255,255,0.22)" stroke-width="1.6" x1="95" x2="25" y1="80" y2="25"></line>
+<line stroke="rgba(255,255,255,0.22)" stroke-width="1.6" x1="95" x2="165" y1="80" y2="25"></line>
+<line stroke="rgba(255,255,255,0.22)" stroke-width="1.6" x1="95" x2="25" y1="80" y2="135"></line>
+<line stroke="rgba(255,255,255,0.22)" stroke-width="1.6" x1="95" x2="165" y1="80" y2="135"></line>
+<line stroke="rgba(255,255,255,0.14)" stroke-width="1.4" x1="25" x2="165" y1="25" y2="25"></line>
+<line stroke="rgba(255,255,255,0.14)" stroke-width="1.4" x1="25" x2="165" y1="135" y2="135"></line>
+<circle cx="95" cy="80" fill="#3b5f5a" r="21" stroke="#63b3a6" stroke-width="1.8"></circle>
+<text fill="#d8efe9" font-family="SF Mono,monospace" font-size="13" text-anchor="middle" x="95" y="85">14</text>
+<circle cx="25" cy="25" fill="#33403a" r="16" stroke="#7f9a86" stroke-width="1.5"></circle>
+<text fill="#d5dfd6" font-family="SF Mono,monospace" font-size="12" text-anchor="middle" x="25" y="30">5</text>
+<circle cx="165" cy="25" fill="#33403a" r="16" stroke="#7f9a86" stroke-width="1.5"></circle>
+<text fill="#d5dfd6" font-family="SF Mono,monospace" font-size="12" text-anchor="middle" x="165" y="30">5</text>
+<circle cx="25" cy="135" fill="#33403a" r="16" stroke="#7f9a86" stroke-width="1.5"></circle>
+<text fill="#d5dfd6" font-family="SF Mono,monospace" font-size="12" text-anchor="middle" x="25" y="140">5</text>
+<circle cx="165" cy="135" fill="#33403a" r="16" stroke="#7f9a86" stroke-width="1.5"></circle>
+<text fill="#d5dfd6" font-family="SF Mono,monospace" font-size="12" text-anchor="middle" x="165" y="140">5</text>
+</g>
+<text fill="#787268" font-family="-apple-system,sans-serif" font-size="11" text-anchor="middle" x="120" y="246">hub capacity 20 — also within limit</text>
+
+<line marker-end="url(#c25a)" stroke="#8d867b" stroke-width="1.5" x1="216" x2="246" y1="152" y2="152"></line>
+
+<text fill="#d9b45f" font-family="SF Mono,monospace" font-size="12" text-anchor="middle" x="355" y="58">② Hub fails, load moves</text>
+<g transform="translate(265,72)">
+<line stroke="rgba(255,255,255,0.10)" stroke-dasharray="3 4" stroke-width="1.4" x1="95" x2="25" y1="80" y2="25"></line>
+<line stroke="rgba(255,255,255,0.10)" stroke-dasharray="3 4" stroke-width="1.4" x1="95" x2="165" y1="80" y2="25"></line>
+<line stroke="rgba(255,255,255,0.10)" stroke-dasharray="3 4" stroke-width="1.4" x1="95" x2="25" y1="80" y2="135"></line>
+<line stroke="rgba(255,255,255,0.10)" stroke-dasharray="3 4" stroke-width="1.4" x1="95" x2="165" y1="80" y2="135"></line>
+<line stroke="rgba(224,137,94,0.55)" stroke-width="2.2" x1="25" x2="165" y1="25" y2="25"></line>
+<line stroke="rgba(255,255,255,0.16)" stroke-width="1.4" x1="25" x2="165" y1="135" y2="135"></line>
+<circle cx="95" cy="80" fill="#232320" r="21" stroke="#57524b" stroke-dasharray="3 3" stroke-width="1.5"></circle>
+<text fill="#8d867b" font-family="SF Mono,monospace" font-size="16" text-anchor="middle" x="95" y="86">✕</text>
+<circle cx="25" cy="25" fill="#6b3226" r="16" stroke="#e0895e" stroke-width="2"></circle>
+<text fill="#ffe3d3" font-family="SF Mono,monospace" font-size="12" text-anchor="middle" x="25" y="30">9</text>
+<circle cx="165" cy="25" fill="#6b3226" r="16" stroke="#e0895e" stroke-width="2"></circle>
+<text fill="#ffe3d3" font-family="SF Mono,monospace" font-size="12" text-anchor="middle" x="165" y="30">9</text>
+<circle cx="25" cy="135" fill="#4a4326" r="16" stroke="#d9b45f" stroke-width="1.6"></circle>
+<text fill="#f0e4c4" font-family="SF Mono,monospace" font-size="12" text-anchor="middle" x="25" y="140">6</text>
+<circle cx="165" cy="135" fill="#4a4326" r="16" stroke="#d9b45f" stroke-width="1.6"></circle>
+<text fill="#f0e4c4" font-family="SF Mono,monospace" font-size="12" text-anchor="middle" x="165" y="140">6</text>
+</g>
+<text fill="#e0895e" font-family="-apple-system,sans-serif" font-size="11" text-anchor="middle" x="360" y="246">the top pair: 9 &gt; 8, over the limit</text>
+
+<line marker-end="url(#c25a)" stroke="#8d867b" stroke-width="1.5" x1="456" x2="486" y1="152" y2="152"></line>
+
+<text fill="#cd7f9b" font-family="SF Mono,monospace" font-size="12" text-anchor="middle" x="595" y="58">③ Second wave</text>
+<g transform="translate(505,72)">
+<line stroke="rgba(255,255,255,0.08)" stroke-dasharray="3 4" stroke-width="1.4" x1="95" x2="25" y1="80" y2="135"></line>
+<line stroke="rgba(255,255,255,0.08)" stroke-dasharray="3 4" stroke-width="1.4" x1="95" x2="165" y1="80" y2="135"></line>
+<line stroke="rgba(224,137,94,0.55)" stroke-width="2.2" x1="25" x2="165" y1="135" y2="135"></line>
+<circle cx="95" cy="80" fill="#232320" r="21" stroke="#57524b" stroke-dasharray="3 3" stroke-width="1.5"></circle>
+<text fill="#8d867b" font-family="SF Mono,monospace" font-size="16" text-anchor="middle" x="95" y="86">✕</text>
+<circle cx="25" cy="25" fill="#232320" r="16" stroke="#57524b" stroke-dasharray="3 3" stroke-width="1.4"></circle>
+<text fill="#8d867b" font-family="SF Mono,monospace" font-size="14" text-anchor="middle" x="25" y="31">✕</text>
+<circle cx="165" cy="25" fill="#232320" r="16" stroke="#57524b" stroke-dasharray="3 3" stroke-width="1.4"></circle>
+<text fill="#8d867b" font-family="SF Mono,monospace" font-size="14" text-anchor="middle" x="165" y="31">✕</text>
+<circle cx="25" cy="135" fill="#6b3226" r="16" stroke="#e0895e" stroke-width="2"></circle>
+<text fill="#ffe3d3" font-family="SF Mono,monospace" font-size="12" text-anchor="middle" x="25" y="140">11</text>
+<circle cx="165" cy="135" fill="#6b3226" r="16" stroke="#e0895e" stroke-width="2"></circle>
+<text fill="#ffe3d3" font-family="SF Mono,monospace" font-size="12" text-anchor="middle" x="165" y="140">11</text>
+</g>
+<text fill="#e0895e" font-family="-apple-system,sans-serif" font-size="11" text-anchor="middle" x="600" y="246">the last two are over as well</text>
+<text fill="#8d867b" font-family="-apple-system,sans-serif" font-size="11.5" text-anchor="middle" x="360" y="286">Not one node ever "broke" — each withdrew by design once load exceeded capacity</text>
+<text fill="#57524b" font-family="-apple-system,sans-serif" font-size="11" text-anchor="middle" x="360" y="310">Raise slack from 20% to 60% (capacity 8 → 12) and this cascade halts at frame ②</text>
+</svg>
+<figcaption>Load redistribution. There is one trigger; every step after it is the output of the step before.</figcaption>
+</figure>
+<p>One result from Motter and Lai's runs is worth memorising: <b>in networks where connectivity is very uneven — a few hubs carrying most of the traffic — removing a single high-load node is enough to bring down the whole system, while in networks with fairly even connectivity the same removal does almost nothing.</b></p>
+<p>This picks up directly from Topic 23. There we said hubs make a network "robust to random failure, fragile to targeted attack" — that was the view from <em>connectivity</em>. Seen through <em>load</em>, the same hub acquires a second identity: it is where the system's burden is concentrated, so its exit is not merely a few severed routes, it is a large workload handed to the neighbours all at once. <b>A hub is an asset under random failure and a fuse under load redistribution.</b></p>
+<div class="decide">
+<span class="lb">🎯 DECISION LINE</span>
+<p>Stop asking only "which component is most likely to fail first". Ask "<b>when it fails, where does its share go</b>". Write one line for each critical component: who inherits its load, and how much of their capacity is already in use. If you cannot write that line, your redundancy is nominal — you have shown a backup exists, not that it can absorb the transfer.</p>
+</div>
+<div class="crossx-inline">
+🌀 <b>Economics &amp; institutions · the quant quake of August 2007</b>　Between 7 and 9 August 2007 a group of quantitative hedge funds with no business relationship to one another lost enormous sums simultaneously, then rebounded almost as sharply on the 10th. Khandani and Lo's reconstruction points to one large fund rapidly unwinding equity positions — positions that others also held. Nothing resembling "news" was propagating. What propagated was <b>the price pressure created by forced selling</b>, which is to say the burden itself. That yields a conclusion most risk frameworks miss: "I don't know them and we have no dealings with them" is not isolation — in a cascade, a shared holding is an edge.
+</div>
+
+<h2><span class="n">02</span>The Exchange Rate of Slack</h2>
+<p class="lead">That α looks like a technical parameter, but it is really the quantified form of the slogan "efficiency versus resilience". Small α = every device working flat out = efficient. Large α = capacity sitting idle = wasteful. So the question is never whether to hold slack, but <b>what the exchange rate is</b> — how much resilience does another ten per cent of headroom buy?</p>
+<p>The answer: the rate is <em>wildly</em> uneven.</p>
+<p>The power industry has had a rule for decades called the <b>N-1 criterion</b>: with any <em>single</em> element out of service, the rest of the system must still run safely. It sounds prudent — and the system passed its N-1 checks before the 2003 blackout. The trouble is that a cascade's second and third steps are outside N-1's domain. It guarantees "one down is fine", while a cascade asks "one down, then another, then another". You cannot get to N-2 or N-3 by tightening N-1, because the number of combinations explodes.</p>
+<p>Worse, the relation between slack and cascade size is not a straight line. Over a wide range of α, cascades either barely happen or sweep the entire system, with a narrow band in between. Which means: <b>you can shave slack for a long time and feel nothing, until one cut lands past that band — and then the consequence is not "slightly worse", it is a different order of magnitude.</b></p>
+<p>Queueing theory gives the cleanest version of the same fact. Picture one service window with work arriving at random. Call the fraction of time the window is busy ρ (utilisation). The average amount of work waiting is ρ/(1−ρ). Substitute: at ρ = 0.5, one item waiting; at ρ = 0.9, nine; at ρ = 0.95, nineteen. <b>Going from half to ninety per cent buys 80% more throughput and costs a ninefold backlog; going from ninety to ninety-five buys 5% more and doubles the backlog again.</b> This is not an empirical regularity — it is what the formula says, because (1−ρ) in the denominator is heading for zero.</p>
+<figure>
+<svg aria-label="Left: slack versus cascade size, an abrupt relation. Right: utilisation versus backlog, a hyperbola" role="img" viewbox="0 0 720 310" xmlns="http://www.w3.org/2000/svg">
+<defs>
+<marker id="c25b" markerheight="9" markerunits="userSpaceOnUse" markerwidth="9" orient="auto" refx="8" refy="5" viewbox="0 0 10 10">
+<path d="M0,1 L9,5 L0,9 z" fill="#6f6a62"></path>
+</marker>
+</defs>
+<text fill="#aba498" font-family="-apple-system,sans-serif" font-size="13" text-anchor="middle" x="185" y="28">What slack buys: almost all of it in one short stretch</text>
+<line marker-end="url(#c25b)" stroke="#6f6a62" stroke-width="1.5" x1="70" x2="345" y1="240" y2="240"></line>
+<line marker-end="url(#c25b)" stroke="#6f6a62" stroke-width="1.5" x1="70" x2="70" y1="240" y2="55"></line>
+<text fill="#8d867b" font-family="-apple-system,sans-serif" font-size="11.5" text-anchor="middle" x="205" y="266">slack α →</text>
+<text fill="#8d867b" font-family="-apple-system,sans-serif" font-size="11.5" transform="rotate(-90 26 150)" x="26" y="150">fraction surviving</text>
+<path d="M70,236 C97,234 110,229 118,192 C124,142 133,89 178,79 C232,72 300,70 340,69" fill="none" stroke="#63b3a6" stroke-width="2.6"></path>
+<line opacity="0.55" stroke="#cd7f9b" stroke-dasharray="4 4" stroke-width="1.4" x1="124" x2="124" y1="240" y2="86"></line>
+<text fill="#cd7f9b" font-family="SF Mono,monospace" font-size="11.5" text-anchor="middle" x="124" y="256">αc</text>
+<text fill="#63b3a6" font-family="-apple-system,sans-serif" font-size="11" x="150" y="112">more slack buys almost nothing</text>
+<line opacity="0.5" stroke="#6f6a62" stroke-width="1.1" x1="148" x2="112" y1="230" y2="235"></line>
+<text fill="#8d867b" font-family="-apple-system,sans-serif" font-size="11" x="152" y="234">nor does it here</text>
+
+<text fill="#aba498" font-family="-apple-system,sans-serif" font-size="13" text-anchor="middle" x="545" y="28">What utilisation buys: dearer the further you go</text>
+<line marker-end="url(#c25b)" stroke="#6f6a62" stroke-width="1.5" x1="415" x2="690" y1="240" y2="240"></line>
+<line marker-end="url(#c25b)" stroke="#6f6a62" stroke-width="1.5" x1="415" x2="415" y1="240" y2="55"></line>
+<text fill="#8d867b" font-family="-apple-system,sans-serif" font-size="11.5" text-anchor="middle" x="552" y="262">utilisation ρ →</text>
+<text fill="#8d867b" font-family="-apple-system,sans-serif" font-size="11.5" transform="rotate(-90 371 150)" x="371" y="150">backlog ρ/(1−ρ)</text>
+<path d="M415,240 C470,238 518,234 560,226 C602,217 628,197 645,164 C656,141 663,95 666,62" fill="none" stroke="#e0895e" stroke-width="2.6"></path>
+<circle cx="545" cy="229" fill="#e0895e" r="3.4"></circle>
+<text fill="#aba498" font-family="SF Mono,monospace" font-size="11" text-anchor="end" x="537" y="221">0.5 → 1</text>
+<circle cx="649" cy="156" fill="#e0895e" r="3.4"></circle>
+<text fill="#aba498" font-family="SF Mono,monospace" font-size="11" text-anchor="end" x="641" y="150">0.9 → 9</text>
+<circle cx="665" cy="72" fill="#cd7f9b" r="3.8"></circle>
+<text fill="#cd7f9b" font-family="SF Mono,monospace" font-size="11" text-anchor="end" x="657" y="68">0.95 → 19</text>
+<text fill="#57524b" font-family="-apple-system,sans-serif" font-size="11" text-anchor="middle" x="360" y="296">Both panels say one thing: the rate at which efficiency converts into resilience is not constant</text>
+</svg>
+<figcaption>The left curve comes out of the cascade model; the right one is an identity from queueing theory. What they share: the short middle stretch decides everything.</figcaption>
+</figure>
+<div class="decide">
+<span class="lb">🎯 DECISION LINE</span>
+<p>Write your system's <b>target utilisation down as an explicit number</b>, with the price you pay for it next to it (queue length, idle capacity, inventory). Then stop two things: stop treating "raise utilisation a few more points" as unconditionally good — above 0.9 each point buys a multiplied backlog; and stop answering resilience questions with "we passed our N-1 checks", since N-1 by definition does not cover a cascade's second step.</p>
+</div>
+<div class="crossx-inline">
+🌀 <b>Engineering history · the recovery margin that got squeezed out</b>　Japanese railway timetables include a deliberate allowance — tens of seconds of padding per segment — so that a small delay is not inherited by everything downstream. On 25 April 2005 a JR Fukuchiyama Line train derailed at Amagasaki, killing 107 people; investigations noted that the timetable had left that padding very thin while the company punished lateness with a harsh retraining regime, and the driver was speeding into a curve to recover about eighty seconds. Apply this section's mechanism and you get an unwelcome conclusion: <b>slack that is removed does not disappear; it is converted into pressure on the operator.</b> "Our punctuality improved" and "we became more fragile" can be two halves of one sentence.
+</div>
+
+<h2><span class="n">03</span>Two Networks Stacked Are More Fragile Than Either</h2>
+<p class="lead">In the early hours of 28 September 2003 a transmission line in Switzerland tripped after a tree flashover; within minutes Italy separated from the European grid and roughly 56 million people lost power. One detail caught physicists' attention: power stations stopped, communication nodes lost power and shut down, and the electrical facilities that relied on those nodes for remote control and dispatch lost control in turn.</p>
+<p>In 2010 Buldyrev, Parshani, Paul, Stanley and Havlin turned that structure into a model in <em>Nature</em>. Take two networks: power grid A and communication network B. Each node of B needs a node of A for electricity; each node of A needs a node of B for control. Add one assumption standard in network science: a node counts as functional only if it stays in its own network's <b>giant connected component</b> — islands that break off do not count <a class="reflink" href="ref-percolation.en.html">→ ref · percolation</a>.</p>
+<p>Now remove a few nodes from A and watch.</p>
+<figure>
+<svg aria-label="Recursive pruning in interdependent networks: grid failure kills communication nodes and vice versa" role="img" viewbox="0 0 720 340" xmlns="http://www.w3.org/2000/svg">
+<defs>
+<marker id="c25c" markerheight="10" markerunits="userSpaceOnUse" markerwidth="10" orient="auto" refx="9" refy="5" viewbox="0 0 10 10">
+<path d="M0,1 L9,5 L0,9 z" fill="#8d867b"></path>
+</marker>
+</defs>
+<text fill="#aba498" font-family="-apple-system,sans-serif" font-size="13" text-anchor="middle" x="360" y="26">Vertical dashes = mutual prerequisite (top needs power, bottom needs control)</text>
+<text fill="#79a6d2" font-family="-apple-system,sans-serif" font-size="11.5" x="8" y="76">Comms</text>
+<text fill="#9fbc7a" font-family="-apple-system,sans-serif" font-size="11.5" x="8" y="200">Grid</text>
+
+<text fill="#63b3a6" font-family="SF Mono,monospace" font-size="12" text-anchor="middle" x="140" y="52">① Intact</text>
+<g transform="translate(70,0)">
+<line stroke="rgba(255,255,255,0.14)" stroke-dasharray="3 4" stroke-width="1.3" x1="20" x2="20" y1="88" y2="164"></line>
+<line stroke="rgba(255,255,255,0.14)" stroke-dasharray="3 4" stroke-width="1.3" x1="65" x2="65" y1="88" y2="164"></line>
+<line stroke="rgba(255,255,255,0.14)" stroke-dasharray="3 4" stroke-width="1.3" x1="110" x2="110" y1="88" y2="164"></line>
+<line stroke="rgba(255,255,255,0.14)" stroke-dasharray="3 4" stroke-width="1.3" x1="150" x2="150" y1="88" y2="164"></line>
+<line stroke="#4d6d8a" stroke-width="1.8" x1="20" x2="150" y1="80" y2="80"></line>
+<line stroke="#5c7a52" stroke-width="1.8" x1="20" x2="150" y1="172" y2="172"></line>
+<circle cx="20" cy="80" fill="#2c4257" r="11" stroke="#79a6d2" stroke-width="1.6"></circle>
+<circle cx="65" cy="80" fill="#2c4257" r="11" stroke="#79a6d2" stroke-width="1.6"></circle>
+<circle cx="110" cy="80" fill="#2c4257" r="11" stroke="#79a6d2" stroke-width="1.6"></circle>
+<circle cx="150" cy="80" fill="#2c4257" r="11" stroke="#79a6d2" stroke-width="1.6"></circle>
+<circle cx="20" cy="172" fill="#374a2c" r="11" stroke="#9fbc7a" stroke-width="1.6"></circle>
+<circle cx="65" cy="172" fill="#374a2c" r="11" stroke="#9fbc7a" stroke-width="1.6"></circle>
+<circle cx="110" cy="172" fill="#374a2c" r="11" stroke="#9fbc7a" stroke-width="1.6"></circle>
+<circle cx="150" cy="172" fill="#374a2c" r="11" stroke="#9fbc7a" stroke-width="1.6"></circle>
+</g>
+<text fill="#787268" font-family="-apple-system,sans-serif" font-size="11" text-anchor="middle" x="145" y="212">both layers connected</text>
+
+<line marker-end="url(#c25c)" stroke="#8d867b" stroke-width="1.5" x1="240" x2="268" y1="126" y2="126"></line>
+
+<text fill="#e0895e" font-family="SF Mono,monospace" font-size="12" text-anchor="middle" x="360" y="52">② Remove one grid node</text>
+<g transform="translate(290,0)">
+<line stroke="rgba(255,255,255,0.14)" stroke-dasharray="3 4" stroke-width="1.3" x1="20" x2="20" y1="88" y2="164"></line>
+<line stroke="rgba(224,137,94,0.6)" stroke-dasharray="3 4" stroke-width="1.6" x1="65" x2="65" y1="88" y2="164"></line>
+<line stroke="rgba(255,255,255,0.14)" stroke-dasharray="3 4" stroke-width="1.3" x1="110" x2="110" y1="88" y2="164"></line>
+<line stroke="rgba(255,255,255,0.14)" stroke-dasharray="3 4" stroke-width="1.3" x1="150" x2="150" y1="88" y2="164"></line>
+<line stroke="#4d6d8a" stroke-width="1.8" x1="20" x2="54" y1="80" y2="80"></line>
+<line stroke="#4d6d8a" stroke-width="1.8" x1="76" x2="150" y1="80" y2="80"></line>
+<line stroke="#5c7a52" stroke-width="1.8" x1="20" x2="54" y1="172" y2="172"></line>
+<line stroke="#5c7a52" stroke-width="1.8" x1="76" x2="150" y1="172" y2="172"></line>
+<circle cx="20" cy="80" fill="#2c4257" r="11" stroke="#79a6d2" stroke-width="1.6"></circle>
+<circle cx="65" cy="80" fill="#4a2f3a" r="11" stroke="#cd7f9b" stroke-dasharray="3 2" stroke-width="1.6"></circle>
+<text fill="#cd7f9b" font-family="SF Mono,monospace" font-size="12" text-anchor="middle" x="65" y="85">✕</text>
+<circle cx="110" cy="80" fill="#2c4257" r="11" stroke="#79a6d2" stroke-width="1.6"></circle>
+<circle cx="150" cy="80" fill="#2c4257" r="11" stroke="#79a6d2" stroke-width="1.6"></circle>
+<circle cx="20" cy="172" fill="#374a2c" r="11" stroke="#9fbc7a" stroke-width="1.6"></circle>
+<circle cx="65" cy="172" fill="#4a2b2b" r="11" stroke="#e0895e" stroke-width="1.8"></circle>
+<text fill="#e0895e" font-family="SF Mono,monospace" font-size="12" text-anchor="middle" x="65" y="177">✕</text>
+<circle cx="110" cy="172" fill="#374a2c" r="11" stroke="#9fbc7a" stroke-width="1.6"></circle>
+<circle cx="150" cy="172" fill="#374a2c" r="11" stroke="#9fbc7a" stroke-width="1.6"></circle>
+</g>
+<text fill="#e0895e" font-family="-apple-system,sans-serif" font-size="11" text-anchor="middle" x="360" y="212">orange = the grid node removed</text>
+<text fill="#cd7f9b" font-family="-apple-system,sans-serif" font-size="11" text-anchor="middle" x="360" y="230">crimson = the comms node that loses power</text>
+
+<line marker-end="url(#c25c)" stroke="#8d867b" stroke-width="1.5" x1="460" x2="488" y1="126" y2="126"></line>
+
+<text fill="#cd7f9b" font-family="SF Mono,monospace" font-size="12" text-anchor="middle" x="580" y="52">③ Islands pruned layer by layer</text>
+<g transform="translate(510,0)">
+<line stroke="rgba(255,255,255,0.07)" stroke-dasharray="3 4" stroke-width="1.3" x1="20" x2="20" y1="88" y2="164"></line>
+<line stroke="rgba(255,255,255,0.14)" stroke-dasharray="3 4" stroke-width="1.3" x1="110" x2="110" y1="88" y2="164"></line>
+<line stroke="rgba(255,255,255,0.14)" stroke-dasharray="3 4" stroke-width="1.3" x1="150" x2="150" y1="88" y2="164"></line>
+<line stroke="#4d6d8a" stroke-width="1.8" x1="110" x2="150" y1="80" y2="80"></line>
+<line stroke="#5c7a52" stroke-width="1.8" x1="110" x2="150" y1="172" y2="172"></line>
+<circle cx="20" cy="80" fill="#232320" r="11" stroke="#57524b" stroke-dasharray="3 3" stroke-width="1.4"></circle>
+<text fill="#8d867b" font-family="SF Mono,monospace" font-size="12" text-anchor="middle" x="20" y="85">✕</text>
+<circle cx="65" cy="80" fill="#232320" r="11" stroke="#57524b" stroke-dasharray="3 3" stroke-width="1.4"></circle>
+<text fill="#8d867b" font-family="SF Mono,monospace" font-size="12" text-anchor="middle" x="65" y="85">✕</text>
+<circle cx="110" cy="80" fill="#2c4257" r="11" stroke="#79a6d2" stroke-width="1.6"></circle>
+<circle cx="150" cy="80" fill="#2c4257" r="11" stroke="#79a6d2" stroke-width="1.6"></circle>
+<circle cx="20" cy="172" fill="#232320" r="11" stroke="#57524b" stroke-dasharray="3 3" stroke-width="1.4"></circle>
+<text fill="#8d867b" font-family="SF Mono,monospace" font-size="12" text-anchor="middle" x="20" y="177">✕</text>
+<circle cx="65" cy="172" fill="#232320" r="11" stroke="#57524b" stroke-dasharray="3 3" stroke-width="1.4"></circle>
+<text fill="#8d867b" font-family="SF Mono,monospace" font-size="12" text-anchor="middle" x="65" y="177">✕</text>
+<circle cx="110" cy="172" fill="#374a2c" r="11" stroke="#9fbc7a" stroke-width="1.6"></circle>
+<circle cx="150" cy="172" fill="#374a2c" r="11" stroke="#9fbc7a" stroke-width="1.6"></circle>
+</g>
+<text fill="#cd7f9b" font-family="-apple-system,sans-serif" font-size="11" text-anchor="middle" x="580" y="212">nodes off the giant component fail first</text>
+<text fill="#787268" font-family="-apple-system,sans-serif" font-size="11" text-anchor="middle" x="580" y="230">their dependants then fail too</text>
+<text fill="#8d867b" font-family="-apple-system,sans-serif" font-size="11.5" text-anchor="middle" x="360" y="290">The bouncing continues until nothing new fails — remove 1 node, lose 4</text>
+<text fill="#57524b" font-family="-apple-system,sans-serif" font-size="11" text-anchor="middle" x="360" y="316">Do the same on a single network and you lose exactly 1</text>
+</svg>
+<figcaption>Recursive pruning. Each round takes the previous round's output as its input, and the two layers take turns thinning each other.</figcaption>
+</figure>
+<p>That back-and-forth produces two counterintuitive consequences.</p>
+<p><b>First, the shape of the transition changes.</b> When nodes are removed at random from a single network, the giant component shrinks <em>continuously</em>: take a bit away, it gets a bit smaller, and only at some fraction does it truly disintegrate — with visible wasting beforehand. Two mutually dependent networks do not behave that way. They stay near-intact up to some fraction and then <b>collapse in one step</b>. There is no "gradually getting worse" buffer in between.</p>
+<figure>
+<svg aria-label="Single network shows a continuous transition, interdependent networks an abrupt one" role="img" viewbox="0 0 720 325" xmlns="http://www.w3.org/2000/svg">
+<defs>
+<marker id="c25d" markerheight="9" markerunits="userSpaceOnUse" markerwidth="9" orient="auto" refx="8" refy="5" viewbox="0 0 10 10">
+<path d="M0,1 L9,5 L0,9 z" fill="#6f6a62"></path>
+</marker>
+</defs>
+<text fill="#aba498" font-family="-apple-system,sans-serif" font-size="13" text-anchor="middle" x="360" y="28">Same operation — "remove nodes at random" — two entirely different shapes</text>
+<line marker-end="url(#c25d)" stroke="#6f6a62" stroke-width="1.5" x1="100" x2="640" y1="246" y2="246"></line>
+<line marker-end="url(#c25d)" stroke="#6f6a62" stroke-width="1.5" x1="100" x2="100" y1="246" y2="52"></line>
+<text fill="#8d867b" font-family="-apple-system,sans-serif" font-size="11.5" text-anchor="middle" x="370" y="290">fraction of nodes retained, p →</text>
+<text fill="#8d867b" font-family="-apple-system,sans-serif" font-size="11.5" transform="rotate(-90 44 148)" x="44" y="148">still working</text>
+<path d="M100,234 L215,234 C250,233 268,208 292,184 C330,146 400,110 640,74" fill="none" stroke="#9fbc7a" stroke-width="2.6"></path>
+<text fill="#9fbc7a" font-family="-apple-system,sans-serif" font-size="12" x="352" y="126">single network: shrinks continuously</text>
+<line stroke="#cd7f9b" stroke-width="2.6" x1="100" x2="410" y1="240" y2="240"></line>
+<line stroke="#cd7f9b" stroke-width="2.6" x1="410" x2="410" y1="240" y2="152"></line>
+<path d="M410,152 C470,140 540,124 640,106" fill="none" stroke="#cd7f9b" stroke-width="2.6"></path>
+<circle cx="410" cy="240" fill="#cd7f9b" r="4"></circle>
+<circle cx="410" cy="152" fill="#cd7f9b" r="4"></circle>
+<text fill="#cd7f9b" font-family="-apple-system,sans-serif" font-size="12" x="424" y="200">two interdependent networks: all at once</text>
+<line opacity="0.5" stroke="#9fbc7a" stroke-dasharray="4 4" stroke-width="1.3" x1="215" x2="215" y1="246" y2="260"></line>
+<text fill="#9fbc7a" font-family="SF Mono,monospace" font-size="11" text-anchor="middle" x="215" y="272">single-layer threshold</text>
+<line opacity="0.5" stroke="#cd7f9b" stroke-dasharray="4 4" stroke-width="1.3" x1="410" x2="410" y1="246" y2="260"></line>
+<text fill="#cd7f9b" font-family="SF Mono,monospace" font-size="11" text-anchor="middle" x="410" y="272">coupled threshold</text>
+<text fill="#57524b" font-family="-apple-system,sans-serif" font-size="11" text-anchor="middle" x="360" y="312">Coupling pushes the threshold right (collapse comes sooner) and deletes the gradual stretch entirely</text>
+</svg>
+<figcaption>Continuous versus abrupt. What is frightening about the right-hand curve is not that it collapses sooner, but that it looks perfectly healthy until it does.</figcaption>
+</figure>
+<p><b>Second, the role of hubs inverts.</b> Topics 22 and 23 established that within a single network, a more uneven degree distribution (more pronounced hubs) means more tolerance of random failure. Between two interdependent networks the same property becomes a liability: uneven connectivity means a great many nodes with only one or two edges, and those are the first to fall off the giant component — and each one that falls off drags its counterpart down with it, so the recursive pruning starts faster. <b>"Hubs mean robustness to random failure" does not survive coupling.</b></p>
+<p>The corollary is blunt: <b>redundancy does not compound across networks.</b> Two systems each 99.9% available cannot be multiplied into two independent lines of defence if each is a prerequisite for the other. Structurally they are one system, merely bookkept twice.</p>
+<div class="decide">
+<span class="lb">🎯 DECISION LINE</span>
+<p>Because coupled systems fail abruptly, "current health" metrics <b>are not early warning</b> — they read normal right up to the collapse. Measure <b>distance to the threshold</b> instead: how many pairs of components are mutual prerequisites, how many dependencies rest on a single component, how many disconnected islands appear if any one of them is removed. Those numbers move before the collapse; availability does not.</p>
+</div>
+<div class="crossx-inline">
+🌀 <b>Biology · co-extinction in pollination networks</b>　Plants and their pollinators form precisely a two-layer interdependent network. Memmott, Waser and Price's 2004 simulations found plant communities fairly tolerant when pollinators were removed at random, while removing the most-connected pollinators first made secondary plant extinctions accelerate sharply. Apply this section's mechanism and you get a conclusion unfavourable to conservation practice: <b>a red list assessing one species at a time is doing single-layer arithmetic</b> — "no individual species looks endangered" and "the whole network is one blow from collapse" are mathematically compatible, and the first cannot be used to deny the second.
+</div>
+
+<h2><span class="n">04</span>Normal Accidents: A Safety Device Is Also a Part</h2>
+<p class="lead">The last two sections were computed from networks. In 1984 the sociologist Charles Perrow arrived at nearly the same place from the other end — a stack of real accident investigations — and his version is more usable, because it needs only two dimensions.</p>
+<p>The first is <b>interactive complexity</b>: besides the production line the designer planned, how many unplanned paths connect the parts? A pipe running alongside another so that a leak in one scorches the other; two subsystems sharing a power supply; one sensor feeding three pieces of logic. Interactively complex means you cannot enumerate the causal chains from the drawings.</p>
+<p>The second is <b>coupling</b>: once something goes wrong, how much time and room do you have? Tight coupling means the process cannot be paused, the sequence cannot be reordered, and substitutions must have been arranged in advance — the few seconds inside a reactor, or the close of business in a settlement system.</p>
+<figure>
+<svg aria-label="Perrow's two dimensions: interactive complexity and coupling" role="img" viewbox="0 0 720 380" xmlns="http://www.w3.org/2000/svg">
+<defs>
+<marker id="c25e" markerheight="9" markerunits="userSpaceOnUse" markerwidth="9" orient="auto" refx="8" refy="5" viewbox="0 0 10 10">
+<path d="M0,1 L9,5 L0,9 z" fill="#6f6a62"></path>
+</marker>
+</defs>
+<rect fill="rgba(205,127,155,0.09)" height="130" stroke="rgba(205,127,155,0.4)" stroke-width="1.2" width="230" x="370" y="70"></rect>
+<rect fill="rgba(255,255,255,0.015)" height="130" stroke="rgba(255,255,255,0.07)" stroke-width="1" width="230" x="130" y="70"></rect>
+<rect fill="rgba(255,255,255,0.015)" height="130" stroke="rgba(255,255,255,0.07)" stroke-width="1" width="230" x="130" y="210"></rect>
+<rect fill="rgba(255,255,255,0.015)" height="130" stroke="rgba(255,255,255,0.07)" stroke-width="1" width="230" x="370" y="210"></rect>
+<line marker-end="url(#c25e)" stroke="#6f6a62" stroke-width="1.5" x1="130" x2="660" y1="345" y2="345"></line>
+<line marker-end="url(#c25e)" stroke="#6f6a62" stroke-width="1.5" x1="122" x2="122" y1="345" y2="52"></line>
+<text fill="#8d867b" font-family="-apple-system,sans-serif" font-size="12" text-anchor="middle" x="390" y="370">interactive complexity →　　linear, legible　　　　　　tangled, illegible</text>
+<text fill="#8d867b" font-family="-apple-system,sans-serif" font-size="12" transform="rotate(-90 40 250)" x="40" y="250">coupling →　loose (can pause)　　tight (cannot)</text>
+<text fill="#cd7f9b" font-family="-apple-system,sans-serif" font-size="12.5" font-weight="600" x="386" y="94">tight + complex</text>
+<text fill="#cd7f9b" font-family="-apple-system,sans-serif" font-size="11.5" x="386" y="116">nuclear plants · chemical plants</text>
+<text fill="#cd7f9b" font-family="-apple-system,sans-serif" font-size="11.5" x="386" y="136">aircraft · modern financial clearing</text>
+<text fill="#a9a096" font-family="-apple-system,sans-serif" font-size="11" x="386" y="164">Perrow: accidents in this cell are not</text>
+<text fill="#a9a096" font-family="-apple-system,sans-serif" font-size="11" x="386" y="182">deviance, they are normal output</text>
+<text fill="#aba498" font-family="-apple-system,sans-serif" font-size="12.5" font-weight="600" x="146" y="94">tight + linear</text>
+<text fill="#8d867b" font-family="-apple-system,sans-serif" font-size="11.5" x="146" y="116">dams · rail · transmission grids</text>
+<text fill="#787268" font-family="-apple-system,sans-serif" font-size="11" x="146" y="142">causality is legible, so</text>
+<text fill="#787268" font-family="-apple-system,sans-serif" font-size="11" x="146" y="160">central control works</text>
+<text fill="#aba498" font-family="-apple-system,sans-serif" font-size="12.5" font-weight="600" x="146" y="234">loose + linear</text>
+<text fill="#8d867b" font-family="-apple-system,sans-serif" font-size="11.5" x="146" y="256">assembly lines · postal services</text>
+<text fill="#787268" font-family="-apple-system,sans-serif" font-size="11" x="146" y="282">there is time to clean up</text>
+<text fill="#aba498" font-family="-apple-system,sans-serif" font-size="12.5" font-weight="600" x="386" y="234">loose + complex</text>
+<text fill="#8d867b" font-family="-apple-system,sans-serif" font-size="11.5" x="386" y="256">universities · R&amp;D labs · mining</text>
+<text fill="#787268" font-family="-apple-system,sans-serif" font-size="11" x="386" y="282">messy, but the mess is</text>
+<text fill="#787268" font-family="-apple-system,sans-serif" font-size="11" x="386" y="300">affordable — room to try</text>
+<text fill="#57524b" font-family="-apple-system,sans-serif" font-size="11" text-anchor="middle" x="390" y="42">Adding a safety device pushes the system right (new parts, new interactions) — not necessarily down</text>
+</svg>
+<figcaption>Perrow's chart. His claim is not that these systems are dangerous, but that in the top-right cell accidents are the system's normal output.</figcaption>
+</figure>
+<p>Perrow's claim: <b>in systems high on both dimensions, accidents are "normal" — not the product of someone's negligence, but the normal output of the structure.</b> His central case is the 1979 Three Mile Island accident. A pressure relief valve stuck open and coolant drained away; the indicator lamp in the control room showed the <em>close command sent to</em> the valve, not the valve's actual position. Operators concluded it was shut and throttled back the emergency injection — an action that was correct given the information they had.</p>
+<p>From which comes this issue's least intuitive point: <b>adding a safety device does not necessarily make a system safer, because the safety device is also a part.</b> It has its own failure modes, it creates new interaction paths with other parts, and it gives operators one more layer of information to interpret. In the chart above: adding protection pushes the system <em>right</em> (interactive complexity rises) without necessarily pushing it <em>down</em> (coupling has not loosened). That lamp at Three Mile Island was part of the safety design.</p>
+<p>Line Perrow's two dimensions up against the previous sections and they turn out to be the same thing seen twice: <b>interactive complexity = you do not know where the burden will flow</b> (the redistribution paths of section 1 are invisible); <b>tight coupling = you cannot get between two steps</b> (the abrupt transition of section 3 has no buffer).</p>
+<div class="decide">
+<span class="lb">🎯 DECISION LINE</span>
+<p>Before adding a layer of protection, count the interaction paths it introduces: whose data it reads, what power supply / network / credential it shares, what fires when it raises a false alarm. If you cannot count them, that layer is pushing you right. Only one class of thing pushes you down (loosens coupling): <b>seams you can cut</b> — partitions, circuit breakers, degraded modes. And you must <b>rehearse disconnecting, not only recovering</b>; most teams have never actually severed anything in production, so whether the seam exists has never been tested.</p>
+</div>
+<div class="crossx-inline">
+🌀 <b>Literature · Chekhov's gun</b>　In an 1889 letter Chekhov set down the famous rule: a rifle hung on the wall must be fired. It is usually read as an aesthetic demand — narrative economy, no idle detail. This section's mechanism supplies the reverse reading: <b>in a tightly coupled, interactively complex system the rule holds automatically; it is not an aesthetic demand.</b> Anything installed enters the interactions, including the things installed purely "just in case". So "kept but unused" does not exist in such systems — either it gets used, or it participates in the causal chain in a way nobody anticipated.
+</div>
+
+<h2><span class="n">05</span>Where This Breaks Down</h2>
+<p class="lead">Three toolkits were used above, and each carries a premise that routinely gets skipped.</p>
+<p><b>One: topology is not physics.</b> The model in section 1 assumes load travels along <em>shortest paths</em>. Electricity does not — it splits across every available path according to impedance, per Kirchhoff's laws, so when a line trips the burden may land not on its neighbours but on some line hundreds of kilometres away with the right impedance. Hines, Cotilla-Sanchez and Blumsack tested this against real grid data in 2010: rankings of "critical nodes" derived from purely topological measures such as betweenness predicted actual vulnerability rather poorly. <b>The conclusion: network models give you the <em>shape</em> of a cascade, not the <em>list</em> of names in your system.</b> Hardening things by topological rank can harden the wrong things.</p>
+<p><b>Two: "coupling makes networks more fragile" is exquisitely sensitive to <em>how</em> the coupling is wired.</b> Buldyrev's paper assumed random one-to-one dependency. Later work (Parshani, Buldyrev, Havlin and others) found that if high-degree nodes depend on high-degree nodes, or if the dependencies are geographically local, fragility drops sharply and the one-step collapse can revert to a continuous shape. So the correct statement is not "interdependence = fragility" but "<b>random</b> interdependence is fragile". The engineering implication is direct: coupling is not the sin — <em>arbitrary</em> coupling is.</p>
+<p><b>Three: Perrow's theory is hard to falsify.</b> After any accident you can attach the label "interactively complex plus tightly coupled". The real counter-evidence comes from another school: high reliability organization (HRO) theorists point to aircraft-carrier flight decks and air traffic control — equally tightly coupled, equally complex, with remarkably low accident rates — and argue that organisational practice can offset structure. Scott Sagan adjudicated between the two in 1993 using the accident history of Cold War nuclear weapons and came down closer to Perrow, but the debate has never had a decisive experiment. It grinds forward on batches of historical cases. When you use Perrow, know that <b>you are using an explanatory framework, not a predictive model.</b></p>
+<p><b>Four: the tail has too few data points.</b> North American blackout records do fit a heavy-tailed distribution, which is often taken as evidence that grids sit in a self-organized critical state <a class="reflink" href="ref-sandpile.en.html">→ ref · the sandpile model</a>. But genuinely large blackouts happen a handful of times per decade, and the tail sample is far too thin to separate a power law from other heavy-tailed distributions — Topic 19 covered that trap <a class="reflink" href="ref-power-law.en.html">→ ref · identifying power laws</a>. "Cascades follow a power law" is a useful default assumption, not an established fact.</p>
+<div class="decide">
+<span class="lb">🎯 DECISION LINE</span>
+<p>Whenever you present a cascade or systemic-risk analysis, put two things beside the conclusion: <b>its coupling assumptions</b> (who depends on whom, random or structured) and <b>a refutable number it gave before the incident happened</b>. A model with only retrospective explanatory power will explain the next one just as fluently — which is the evidence that it was not carrying information.</p>
+</div>
+<div class="crossx-inline">
+🌀 <b>Philosophy of science · the Duhem–Quine thesis</b>　Duhem and Quine observed that a hypothesis never faces experience alone; it is tested bundled with a mass of auxiliary assumptions, so when a prediction fails you can always revise an auxiliary and save the core. Cascade models are a textbook instance — prediction missed, and you can say the coupling coefficient was mis-estimated or the load function was the wrong choice, leaving the core mechanism untouched. <b>So the test cannot be "does this model explain the accident" (it always will); it can only be "did it produce a specific, refutable number beforehand".</b> That is why the decision line above insists on isolating that number.
+</div>
+
+<div class="bigcat">
+<h3>🎒 Scenarios · BigCat</h3>
+<ol>
+<li><span class="dm">Engineering &amp; system design</span>The recurring situation: every so often you map dependencies, produce a one-way table of "what I depend on", pass review, and move on. Section 3's mechanism says that table structurally cannot see the real problem: what takes both sides down at once is a pair that are <b>mutual prerequisites</b> — the storage your monitoring uses is the storage the monitored service uses; the deploy system's auth runs through the service it just deployed. What to change: add a column, "does the other side also (even indirectly) depend on me", and require a degraded path that bypasses the counterpart wherever that column says yes. What to stop: stop treating "dependencies are mapped" as evidence of resilience — a one-way table cannot mathematically discover a cycle.</li>
+<li><span class="dm">Parenting</span>The recurring situation: a child hits trouble with something (marks slipping, refusing to go to a class) and the household responds by piling on around that one thing — tutoring, talks, more supervision, usually all at once. Section 4's mechanism speaks directly to that move: each addition is a new part, and each creates new interactions with what was there — the tutoring hour comes out of sleep or free play, sleep drives mood, and mood lands back on the original problem. What to change: before adding anything, ask "which block of time does this occupy, and what was happening in it before"; then <b>add one thing at a time and watch for two weeks</b>. What to stop: stop launching three measures simultaneously — you will know neither which one is working nor which one is manufacturing new coupling.</li>
+<li><span class="dm">Practice &amp; inner life</span>The recurring situation: you set a daily routine (sitting, reading, exercise), and the moment one day is missed the whole set stops, to be "started over from scratch" some weeks later. That is not a willpower problem, it is tight coupling: several items bound into one all-or-nothing unit, so a failure in any one propagates to all, with no intermediate state. What to change: write an explicit <b>degraded mode</b> — a "minimum version" of each item (five minutes counts), with the rule that on a broken day you run the minimum rather than skip. What to stop: stop using the phrase "start over" at all; it is precisely the switch that promotes a local failure into a global reset.</li>
+</ol>
+</div>
+
+<div class="crossx">
+<h3>🌀 Crossings</h3>
+<ul>
+<li><b>History &amp; war · the mobilisation timetables of 1914</b>: the July Crisis is often described as a machine that started itself — A. J. P. Taylor even wrote a book called <em>War by Timetable</em>. This issue's three mechanisms do describe that machine's construction rather well: each mobilisation plan took "the other side has mobilised" as its input, so one country starting pushed the burden to the next (load redistribution); railway schedules, once departures began, could be neither paused nor reordered (tight coupling); and the alliance network and the railway network were two interdependent layers, each step in one thinning the options in the other (recursive pruning). The non-obvious conclusion: <b>systemic risk does not require anybody to do anything wrong — each step is locally the rational best response to the previous step, and the whole walks into an outcome no one wanted.</b> <b>But this does not hold here</b>: Perrow's tight coupling means physical timescales at which humans cannot intervene at all (seconds to minutes), whereas the July Crisis ran five weeks, every step of which someone could have halted — and someone tried, Bethmann Hollweg cabling Vienna through the night of 29–30 July urging restraint. Reading it as "the machine ran itself" erases decision latitude that genuinely existed, which is exactly what German historiography after Fritz Fischer has kept warning about. What transfers is "local rationality → global failure", not "nobody could stop it".</li>
+<li><b>Economics &amp; institutions · central clearing rewired the network</b>: after 2008 the G20 agreed at the 2009 Pittsburgh summit that standardised over-the-counter derivatives should be cleared through <b>central counterparties</b> (CCPs). Run this issue's three mechanisms over that reform and both what it achieved and what it created become visible. It replaced a dense bilateral network with a star, which genuinely <em>lowered interactive complexity</em> — the killer used to be "I don't know who my counterparty's counterparties are", and now there is a single point in the middle. But the same move concentrated the system's entire load onto that point (section 1: the hub is the fuse), and clearing margin calls are automatic, computed daily or intraday, and non-negotiable — textbook <em>tight coupling</em>. The dash for cash in March 2020 and the UK gilt turmoil triggered by liability-driven investment (LDI) funds in 2022 both showed the same loop: margin call → forced selling → worse prices → larger margin call. <b>The conclusion: the reform did not reduce the total quantity of systemic risk; it moved risk off the interactive-complexity axis and onto the tight-coupling axis.</b> Perrow's chart shows why that relocation is not free, and why regulators' attention later shifted to the procyclicality of margin.</li>
+<li><b>Medicine · multiple organ dysfunction syndrome</b>: the most common cause of death in intensive care is not the original insult but the organs that fail one after another afterwards — infection, circulation, kidney, liver, coagulation. All three mechanisms appear together. One organ's function drops and its work is compensated by others, which are then chronically overloaded (load redistribution). Circulation and kidney are each other's inputs, so weakening either recursively weakens the other (interdependence). And the whole thing runs on a timescale of hours, with no option to halt and regroup (tight coupling). Something testable follows: since the essence of a cascade is non-additivity, scoring six organ systems 0–4 each and summing them — the Sequential Organ Failure Assessment (SOFA) used clinically — structurally assumes additivity, so <b>the same total should not describe the same patient when it is "six organs down one" versus "one organ down six".</b> And critical care literature does in fact track the <em>number</em> of failing organs as a prognostic indicator separate from the total score, which is the direction this issue's mechanism predicts.</li>
+</ul>
+</div>
+
+<div class="thinking">
+<h3>Going Deeper</h3>
+<details><summary>If the exchange rate for slack only gets steep near the critical point, why not sit just to the right of it — cheap and safe?</summary><p>Because you do not know where αc is, and it drifts. αc is set jointly by topology and load distribution, so it moves whenever edges are added or traffic patterns change. The operational lesson is not "hug the threshold" but "don't let the threshold be a quantity you never measure" — at minimum, know which direction your last change pushed it.</p></details>
+<details><summary>Does modularising a system and adding partitions simply reduce cascade risk?</summary><p>It reduces the reach of spread, but usually also the ability to support one another. Partition a grid and one zone's trouble no longer drags the others down — but it can no longer draw on their reserve capacity either, so the probability of an outage within that zone rises. This is a real trade, not a free lunch. The criterion: do you care more about the frequency of incidents or the size of the worst one? Modularity buys the second with the first.</p></details>
+<details><summary>Can financial stress tests detect cascades?</summary><p>Depends what they test. Shocking each institution separately and asking whether it survives is N-1. A cascade requires treating one firm's forced selling as another firm's price input and running a second round. That kind of test (sometimes called second-round effects, or macroprudential stress testing) is much harder technically, because it needs position-level detail from every firm — precisely what firms are least willing to hand over. The binding constraint here is usually not the model but who owns the data.</p></details>
+<details><summary>If every step is a locally rational best response, where does responsibility sit?</summary><p>The mechanism cancels the inference "one step produced the total magnitude"; it does not cancel responsibility for each step itself. More precisely, responsibility relocates from "the step that triggered it" to "the decisions that set the coupling and the slack" — who set utilisation at 0.95, who approved the dependency that tied two systems together. Those decisions usually happen long before the incident, and usually leave no incident report.</p></details>
+</div>
+
+<div class="refs">
+<h3>Further Reading</h3>
+<ul>
+<li>Motter &amp; Lai, <a href="https://arxiv.org/abs/cond-mat/0301086">Cascade-based attacks on complex networks</a> (2002 — the original load-redistribution model)</li>
+<li>Buldyrev, Parshani, Paul, Stanley &amp; Havlin, <a href="https://www.nature.com/articles/nature08932">Catastrophic cascade of failures in interdependent networks</a> (Nature, 2010)</li>
+<li>Parshani, Buldyrev &amp; Havlin, <a href="https://arxiv.org/abs/1010.4498">Interdependent networks: reducing the coupling strength leads to a change from a first- to second-order percolation transition</a> (2010 — coupling structure sets the fragility)</li>
+<li>U.S.-Canada Power System Outage Task Force, <a href="https://www.energy.gov/oe/articles/blackout-2003-final-report-august-14-2003-blackout-united-states-and-canada-causes-and">Final Report on the August 14, 2003 Blackout</a></li>
+<li>Charles Perrow, <a href="https://press.princeton.edu/books/paperback/9780691004129/normal-accidents">Normal Accidents: Living with High-Risk Technologies</a> (1984/1999)</li>
+<li>Scott Sagan, <a href="https://press.princeton.edu/books/paperback/9780691021010/the-limits-of-safety">The Limits of Safety</a> (1993 — adjudicating Perrow against the high-reliability school)</li>
+<li>Hines, Cotilla-Sanchez &amp; Blumsack, <a href="https://arxiv.org/abs/1002.2268">Do topological models provide good information about electricity infrastructure vulnerability?</a> (2010)</li>
+<li>Khandani &amp; Lo, <a href="https://papers.ssrn.com/sol3/papers.cfm?abstract_id=1015987">What Happened to the Quants in August 2007?</a> (2007 — burden transmitted through shared holdings)</li>
+<li>Memmott, Waser &amp; Price, <a href="https://royalsocietypublishing.org/doi/10.1098/rspb.2004.2909">Tolerance of pollination networks to species extinctions</a> (2004)</li>
+<li><a href="https://en.wikipedia.org/wiki/Three_Mile_Island_accident">The Three Mile Island accident</a> (1979 — the lamp that showed the command, not the valve)</li>
+<li><a href="https://en.wikipedia.org/wiki/Amagasaki_derailment">The Amagasaki derailment on the JR Fukuchiyama Line</a> (2005 — the recovery margin that was squeezed out)</li>
+</ul>
+</div>
+<footer>BigCat · Complexity Science · <a href="index.en.html">← All Topics</a></footer>
+</div>
+<script src="https://hub.cissychen.com/comments.js" defer></script>
+<script src="https://hub.cissychen.com/search.js" defer></script>
+<script src="https://hub.cissychen.com/index-button.js" defer></script>
+<script src="https://hub.cissychen.com/i18n-tts.js" defer></script>
+</body></html>

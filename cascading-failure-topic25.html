@@ -1,0 +1,467 @@
+<!DOCTYPE html>
+
+<html lang="zh-CN"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>级联失效与系统性风险 — 效率与韧性的真实汇率 · 复杂性科学 T25</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,"SF Pro Display","Noto Sans SC",sans-serif;color:#e4ded5;line-height:1.85;min-height:100vh;
+  background:radial-gradient(1100px 620px at 12% -6%,rgba(224,137,94,0.10),transparent 62%),radial-gradient(950px 700px at 100% 2%,rgba(166,147,205,0.09),transparent 58%),linear-gradient(168deg,#100f0d 0%,#15161b 48%,#0a0a0c 100%);background-attachment:fixed}
+.wrap{max-width:760px;margin:0 auto;padding:30px 22px 90px}
+header{padding:52px 0 8px;border-bottom:1px solid rgba(255,255,255,0.07);margin-bottom:34px}
+.week-tag{font-family:"SF Mono",Menlo,monospace;font-size:0.72rem;font-weight:700;letter-spacing:2px;color:#63b3a6;border:1px solid rgba(99,179,166,0.4);background:rgba(99,179,166,0.07);padding:3px 11px;border-radius:20px}
+h1{font-size:2.5rem;font-weight:800;letter-spacing:0.5px;line-height:1.2;margin:20px 0 0;background:linear-gradient(106deg,#e0895e 0%,#d9b45f 34%,#9fbc7a 68%,#63b3a6 100%);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+h1 .h1en{display:block;font-size:0.40em;font-weight:600;letter-spacing:2.5px;color:#847d72;-webkit-text-fill-color:#847d72;background:none;margin-top:13px}
+.sub{font-size:1.05rem;color:#aba498;margin-top:14px;font-weight:500}
+.date{font-family:"SF Mono",Menlo,monospace;font-size:0.75rem;color:#57524b;margin-top:18px;letter-spacing:1px}
+.pitch{margin:22px 0 30px;font-size:0.97rem;color:#cd7f9b;border-left:2px solid rgba(205,127,155,0.5);padding-left:16px;font-style:italic}
+.intro{font-size:1.02rem;color:#cfc8bc;margin-bottom:14px}
+.intro p{margin-bottom:16px}
+h2{font-size:1.42rem;font-weight:700;color:#e9e3d9;margin:56px 0 8px;letter-spacing:0.3px}
+h2 .n{font-family:"SF Mono",Menlo,monospace;font-size:0.85rem;color:#63b3a6;display:block;margin-bottom:6px;letter-spacing:2px}
+.he{font-size:0.68em;color:#8d867b;font-weight:500;letter-spacing:0}
+p{margin-bottom:17px}
+.lead{color:#cfc8bc}
+b,strong{color:#f0eae0;font-weight:600}
+em{color:#d9b45f;font-style:normal;font-weight:500}
+.dim{color:#8d867b}
+a.reflink{display:inline-block;font-size:0.82rem;font-family:"SF Mono",Menlo,monospace;color:#63b3a6;border:1px solid rgba(99,179,166,0.38);background:rgba(99,179,166,0.07);padding:1px 9px;border-radius:20px;text-decoration:none;transition:all 0.15s;white-space:nowrap}
+a.reflink:hover{background:rgba(99,179,166,0.16);border-color:rgba(99,179,166,0.7)}
+figure{margin:30px 0}
+figure svg{display:block;width:100%;height:auto;border-radius:12px;background:rgba(255,255,255,0.018);border:1px solid rgba(255,255,255,0.06)}
+figcaption{font-size:0.82rem;color:#787268;margin-top:11px;text-align:center;line-height:1.6}
+.en-brief{font-size:0.85rem;color:#847d72;border-top:1px dashed rgba(255,255,255,0.09);padding-top:12px;margin-top:22px;line-height:1.65}
+.en-brief b{font-family:"SF Mono",Menlo,monospace;font-size:0.72rem;color:#63b3a6;letter-spacing:1px;margin-right:7px}
+.decide{margin:24px 0;border:1px solid rgba(224,137,94,0.36);background:rgba(224,137,94,0.055);border-radius:12px;padding:15px 19px}
+.decide .lb{font-family:"SF Mono",Menlo,monospace;font-size:0.73rem;letter-spacing:1.5px;color:#e0895e;font-weight:700;display:block;margin-bottom:7px}
+.decide p{margin:0;font-size:0.95rem;color:#ddd5c9}
+.crossx-inline{margin:20px 0 22px;border-left:2px solid rgba(205,127,155,0.55);padding:2px 0 2px 15px;font-size:0.89rem;color:#a9a096;line-height:1.72}
+.crossx-inline b{color:#cd7f9b;font-weight:600}
+.bigcat{margin:46px 0 10px;border:1px solid rgba(217,180,95,0.38);background:rgba(217,180,95,0.05);border-radius:14px;padding:20px 22px}
+.bigcat h3{font-size:1.02rem;color:#d9b45f;margin-bottom:14px;letter-spacing:0.5px}
+.bigcat ol{list-style:none;padding:0}
+.bigcat li{margin-bottom:15px;font-size:0.94rem;color:#d5cdc1;line-height:1.78}
+.bigcat li:last-child{margin-bottom:0}
+.bigcat .dm{font-family:"SF Mono",Menlo,monospace;font-size:0.73rem;color:#d9b45f;border:1px solid rgba(217,180,95,0.32);border-radius:4px;padding:1px 7px;margin-right:8px;white-space:nowrap}
+.crossx{margin:46px 0 10px;border:1px solid rgba(205,127,155,0.38);background:rgba(205,127,155,0.05);border-radius:14px;padding:20px 22px}
+.crossx h3{font-size:1.02rem;color:#cd7f9b;margin-bottom:14px;letter-spacing:0.5px}
+.crossx ul{list-style:none;padding:0}
+.crossx li{margin-bottom:16px;font-size:0.94rem;color:#d5cdc1;line-height:1.78}
+.crossx li:last-child{margin-bottom:0}
+.crossx li b{color:#cd7f9b;font-weight:600}
+.thinking{margin:46px 0 10px}
+.thinking h3{font-size:1.02rem;color:#a693cd;margin-bottom:14px;letter-spacing:0.5px}
+details{border:1px solid rgba(166,147,205,0.22);border-radius:10px;padding:12px 16px;margin-bottom:10px;background:rgba(166,147,205,0.035)}
+summary{cursor:pointer;font-size:0.93rem;color:#c9c2b6;font-weight:500}
+summary::marker{color:#a693cd}
+details p{margin:12px 0 0;font-size:0.9rem;color:#a9a096;line-height:1.75}
+.refs{margin:46px 0 10px}
+.refs h3{font-size:1.02rem;color:#79a6d2;margin-bottom:14px;letter-spacing:0.5px}
+.refs ul{list-style:none;padding:0}
+.refs li{margin-bottom:10px;font-size:0.9rem;color:#8d867b;line-height:1.7}
+.refs a{color:#79a6d2;text-decoration:none;border-bottom:1px solid rgba(121,166,210,0.3)}
+.refs a:hover{color:#a6c4e2;border-bottom-color:rgba(121,166,210,0.7)}
+footer{text-align:center;padding:56px 0 10px;font-size:0.78rem;color:#57524b;font-family:"SF Mono",Menlo,monospace;border-top:1px solid rgba(255,255,255,0.06);margin-top:50px}
+footer a{color:#79a6d2;text-decoration:none}
+@media(max-width:600px){h1{font-size:1.85rem}.wrap{padding:24px 16px 60px}h2{font-size:1.22rem}}
+</style></head><body>
+<div class="wrap">
+<header>
+<span class="week-tag">TOPIC 25 · PHASE D</span>
+<h1>级联失效与系统性风险<span class="h1en">CASCADING FAILURE &amp; SYSTEMIC RISK</span></h1>
+<p class="sub">效率与韧性之间有一个确切的汇率<span class="he">（There is an exact exchange rate between efficiency and resilience）</span></p>
+<p class="date">2026-08-11 · 网络</p>
+</header>
+<p class="pitch">事后报告总能找到第一块倒下的骨牌。但决定波及范围的从来不是它——是它倒下之后，它原来扛的那份负担落到了谁头上。</p>
+<div class="intro">
+<p>2003 年 8 月 14 日下午，美国俄亥俄州一条高压输电线碰到了长得过高的树，跳闸了。四个小时后，美国东北部八个州加上加拿大安大略省，约五千万人没了电。</p>
+<p>这里有个容易滑过去的问题：一棵树能压垮一张覆盖八个州的电网吗？当然不能。压垮它的是电网自己。那条线跳闸之后，它原来输送的电流不会凭空消失——它必须走别的线路。别的线路因此超载，为保护自己也跳闸，再把负担传给下一批。<b>整个过程里没有一个设备发生故障，每一台都在严格按设计动作。</b></p>
+<p class="dim">上一期讲传染，传的是<em>状态</em>：你被感染了，所以我也可能被感染。本期讲级联，传的是<em>负担</em>：你倒了，所以我要多扛你那一份。这个区别不是措辞上的。传染有基本再生数（basic reproduction number，写作 R₀，指一个感染者平均传给几个人）和阈值，压住接触就能压住传播；级联里根本没有"接触"这回事，它沿着容量的裂缝走，而且<b>节点变少本身就是它的传播方式</b>。第 18 期讲自组织临界，回答的是"为什么大事件不需要大原因"；本期回答另一个问题：<b>从第一块骨牌到最后一块，中间那条路是怎么铺出来的。</b></p>
+</div>
+
+<h2><span class="n">01</span>级联传的不是病，是负担<span class="he">（Load Redistribution）</span></h2>
+<p class="lead">2002 年，Adilson Motter 和黎作武（Ying-Cheng Lai）写了一个极简的模型，把上面那段话变成了可以跑的规则。</p>
+<p>先给网络里每个节点定义两个数。一个是<b>负载</b>——有多少东西正在经过它。他们用的是<em>介数</em>（betweenness，把所有节点两两之间的最短路径都算一遍，看有多少条从这个节点穿过）<a class="reflink" href="ref-centrality.html">→ 参考 · 网络中心性指标</a>。另一个是<b>容量</b>：它最多能扛多少。容量不是随便给的，而是按初始负载的固定倍数给——写成 C =（1+α）× 初始负载。这个 α 就是<b>余量</b>：α=0.2 意味着每个节点比它平时的活儿多留了两成的富余。</p>
+<p>规则只有一条：<b>负载超过容量的节点失效，它的负载按最短路径重新分配给其它节点；然后再看有没有新的节点超限。</b>循环，直到没有新的失效为止。</p>
+<figure>
+<svg aria-label="负载重分配的三帧：枢纽失效、邻居超限、第二波扩散" role="img" viewbox="0 0 720 330" xmlns="http://www.w3.org/2000/svg">
+<defs>
+<marker id="c25a" markerheight="10" markerunits="userSpaceOnUse" markerwidth="10" orient="auto" refx="9" refy="5" viewbox="0 0 10 10">
+<path d="M0,1 L9,5 L0,9 z" fill="#8d867b"></path>
+</marker>
+</defs>
+<text fill="#aba498" font-family="-apple-system,sans-serif" font-size="13" text-anchor="middle" x="360" y="26">每个节点容量上限 8 · 圆里的数字 = 当前负载</text>
+
+<text fill="#63b3a6" font-family="SF Mono,monospace" font-size="12" text-anchor="middle" x="115" y="58">① 正常运行</text>
+<g transform="translate(25,72)">
+<line stroke="rgba(255,255,255,0.22)" stroke-width="1.6" x1="95" x2="25" y1="80" y2="25"></line>
+<line stroke="rgba(255,255,255,0.22)" stroke-width="1.6" x1="95" x2="165" y1="80" y2="25"></line>
+<line stroke="rgba(255,255,255,0.22)" stroke-width="1.6" x1="95" x2="25" y1="80" y2="135"></line>
+<line stroke="rgba(255,255,255,0.22)" stroke-width="1.6" x1="95" x2="165" y1="80" y2="135"></line>
+<line stroke="rgba(255,255,255,0.14)" stroke-width="1.4" x1="25" x2="165" y1="25" y2="25"></line>
+<line stroke="rgba(255,255,255,0.14)" stroke-width="1.4" x1="25" x2="165" y1="135" y2="135"></line>
+<circle cx="95" cy="80" fill="#3b5f5a" r="21" stroke="#63b3a6" stroke-width="1.8"></circle>
+<text fill="#d8efe9" font-family="SF Mono,monospace" font-size="13" text-anchor="middle" x="95" y="85">14</text>
+<circle cx="25" cy="25" fill="#33403a" r="16" stroke="#7f9a86" stroke-width="1.5"></circle>
+<text fill="#d5dfd6" font-family="SF Mono,monospace" font-size="12" text-anchor="middle" x="25" y="30">5</text>
+<circle cx="165" cy="25" fill="#33403a" r="16" stroke="#7f9a86" stroke-width="1.5"></circle>
+<text fill="#d5dfd6" font-family="SF Mono,monospace" font-size="12" text-anchor="middle" x="165" y="30">5</text>
+<circle cx="25" cy="135" fill="#33403a" r="16" stroke="#7f9a86" stroke-width="1.5"></circle>
+<text fill="#d5dfd6" font-family="SF Mono,monospace" font-size="12" text-anchor="middle" x="25" y="140">5</text>
+<circle cx="165" cy="135" fill="#33403a" r="16" stroke="#7f9a86" stroke-width="1.5"></circle>
+<text fill="#d5dfd6" font-family="SF Mono,monospace" font-size="12" text-anchor="middle" x="165" y="140">5</text>
+</g>
+<text fill="#787268" font-family="-apple-system,sans-serif" font-size="11" text-anchor="middle" x="120" y="246">中心节点容量 20，也没超</text>
+
+<line marker-end="url(#c25a)" stroke="#8d867b" stroke-width="1.5" x1="216" x2="246" y1="152" y2="152"></line>
+
+<text fill="#d9b45f" font-family="SF Mono,monospace" font-size="12" text-anchor="middle" x="355" y="58">② 中心失效，负担转移</text>
+<g transform="translate(265,72)">
+<line stroke="rgba(255,255,255,0.10)" stroke-dasharray="3 4" stroke-width="1.4" x1="95" x2="25" y1="80" y2="25"></line>
+<line stroke="rgba(255,255,255,0.10)" stroke-dasharray="3 4" stroke-width="1.4" x1="95" x2="165" y1="80" y2="25"></line>
+<line stroke="rgba(255,255,255,0.10)" stroke-dasharray="3 4" stroke-width="1.4" x1="95" x2="25" y1="80" y2="135"></line>
+<line stroke="rgba(255,255,255,0.10)" stroke-dasharray="3 4" stroke-width="1.4" x1="95" x2="165" y1="80" y2="135"></line>
+<line stroke="rgba(224,137,94,0.55)" stroke-width="2.2" x1="25" x2="165" y1="25" y2="25"></line>
+<line stroke="rgba(255,255,255,0.16)" stroke-width="1.4" x1="25" x2="165" y1="135" y2="135"></line>
+<circle cx="95" cy="80" fill="#232320" r="21" stroke="#57524b" stroke-dasharray="3 3" stroke-width="1.5"></circle>
+<text fill="#8d867b" font-family="SF Mono,monospace" font-size="16" text-anchor="middle" x="95" y="86">✕</text>
+<circle cx="25" cy="25" fill="#6b3226" r="16" stroke="#e0895e" stroke-width="2"></circle>
+<text fill="#ffe3d3" font-family="SF Mono,monospace" font-size="12" text-anchor="middle" x="25" y="30">9</text>
+<circle cx="165" cy="25" fill="#6b3226" r="16" stroke="#e0895e" stroke-width="2"></circle>
+<text fill="#ffe3d3" font-family="SF Mono,monospace" font-size="12" text-anchor="middle" x="165" y="30">9</text>
+<circle cx="25" cy="135" fill="#4a4326" r="16" stroke="#d9b45f" stroke-width="1.6"></circle>
+<text fill="#f0e4c4" font-family="SF Mono,monospace" font-size="12" text-anchor="middle" x="25" y="140">6</text>
+<circle cx="165" cy="135" fill="#4a4326" r="16" stroke="#d9b45f" stroke-width="1.6"></circle>
+<text fill="#f0e4c4" font-family="SF Mono,monospace" font-size="12" text-anchor="middle" x="165" y="140">6</text>
+</g>
+<text fill="#e0895e" font-family="-apple-system,sans-serif" font-size="11" text-anchor="middle" x="360" y="246">上面两个 9 &gt; 8，超限</text>
+
+<line marker-end="url(#c25a)" stroke="#8d867b" stroke-width="1.5" x1="456" x2="486" y1="152" y2="152"></line>
+
+<text fill="#cd7f9b" font-family="SF Mono,monospace" font-size="12" text-anchor="middle" x="595" y="58">③ 第二波</text>
+<g transform="translate(505,72)">
+<line stroke="rgba(255,255,255,0.08)" stroke-dasharray="3 4" stroke-width="1.4" x1="95" x2="25" y1="80" y2="135"></line>
+<line stroke="rgba(255,255,255,0.08)" stroke-dasharray="3 4" stroke-width="1.4" x1="95" x2="165" y1="80" y2="135"></line>
+<line stroke="rgba(224,137,94,0.55)" stroke-width="2.2" x1="25" x2="165" y1="135" y2="135"></line>
+<circle cx="95" cy="80" fill="#232320" r="21" stroke="#57524b" stroke-dasharray="3 3" stroke-width="1.5"></circle>
+<text fill="#8d867b" font-family="SF Mono,monospace" font-size="16" text-anchor="middle" x="95" y="86">✕</text>
+<circle cx="25" cy="25" fill="#232320" r="16" stroke="#57524b" stroke-dasharray="3 3" stroke-width="1.4"></circle>
+<text fill="#8d867b" font-family="SF Mono,monospace" font-size="14" text-anchor="middle" x="25" y="31">✕</text>
+<circle cx="165" cy="25" fill="#232320" r="16" stroke="#57524b" stroke-dasharray="3 3" stroke-width="1.4"></circle>
+<text fill="#8d867b" font-family="SF Mono,monospace" font-size="14" text-anchor="middle" x="165" y="31">✕</text>
+<circle cx="25" cy="135" fill="#6b3226" r="16" stroke="#e0895e" stroke-width="2"></circle>
+<text fill="#ffe3d3" font-family="SF Mono,monospace" font-size="12" text-anchor="middle" x="25" y="140">11</text>
+<circle cx="165" cy="135" fill="#6b3226" r="16" stroke="#e0895e" stroke-width="2"></circle>
+<text fill="#ffe3d3" font-family="SF Mono,monospace" font-size="12" text-anchor="middle" x="165" y="140">11</text>
+</g>
+<text fill="#e0895e" font-family="-apple-system,sans-serif" font-size="11" text-anchor="middle" x="600" y="246">剩下两个也超了</text>
+<text fill="#8d867b" font-family="-apple-system,sans-serif" font-size="11.5" text-anchor="middle" x="360" y="286">从头到尾没有一个节点「坏掉」— 每一个都是负载超过容量后按设计退出</text>
+<text fill="#57524b" font-family="-apple-system,sans-serif" font-size="11" text-anchor="middle" x="360" y="310">如果余量从两成提到六成（容量 8 → 12），这场级联在第 ② 帧就停住了</text>
+</svg>
+<figcaption>负载重分配。触发只有一次，后面每一步都是前一步的输出。</figcaption>
+</figure>
+<p>Motter 和黎作武跑出来的结果里，有一条特别值得记住：<b>在节点连接数很不均匀的网络里（少数枢纽扛着绝大部分流量），单独拿掉一个高负载节点，就足以引发波及全网的级联；而在连接数比较均匀的网络里，同样的操作基本什么也不会发生。</b></p>
+<p>这一条正好接上第 23 期。上一次我们说枢纽的存在让网络"抗随机故障、怕定点攻击"——那是从<em>连通性</em>看的。现在从<em>负载</em>看，同一个枢纽有了第二重身份：它是全网负担的集散地，所以它的退出不只是断了几条路，是把一大笔活儿一次性推给了邻居。<b>枢纽在随机故障下是优点，在负载重分配下是引信。</b></p>
+<div class="decide">
+<span class="lb">🎯 决策线</span>
+<p>别只问"哪个部件最可能先坏"，问"<b>它坏了之后，它扛的那份去哪儿</b>"。给每个关键部件写一行：它下线后负载转给谁、那几个接手方当前用了多少容量。写不出这一行，你手上的冗余就只是名义上的——你只证明了备份存在，没证明备份接得住。</p>
+</div>
+<div class="crossx-inline">
+🌀 <b>经济与制度 · 2007 年 8 月的"量化地震"</b>　2007 年 8 月 7 日到 9 日，一批彼此毫无往来的量化对冲基金在三天里同时巨亏，10 日又几乎同幅反弹。Khandani 和 Lo 的复盘指出，最可能的机制是某家大型基金被迫快速平掉股票仓位——而它持有的东西，别人也持有。这里没有任何"消息"在传播，传播的是<b>被迫卖出所产生的价格压力</b>，也就是负担本身。由此推出一条不显然的结论：「我不认识他们、和他们没有任何业务往来」完全不构成隔离——在级联里，共享持仓就是一条连线。
+</div>
+<p class="en-brief"><b>EN</b> The Motter–Lai model: give each node a load (its betweenness) and a capacity of (1+α) times that load. Overloaded nodes fail and hand their load to others, which may overload in turn. In heterogeneous networks, removing one high-load hub can bring down the whole system; in homogeneous ones it does almost nothing. A hub is an asset under random failure and a fuse under load redistribution.</p>
+
+<h2><span class="n">02</span>余量的汇率<span class="he">（The Exchange Rate of Slack）</span></h2>
+<p class="lead">上面那个 α 看着像个技术参数，其实它就是"效率与韧性"这句口号的量化版本。α 小 = 每台设备都在满负荷干活 = 效率高；α 大 = 到处闲着 = 浪费。所以问题从来不是"要不要余量"，而是<b>余量的汇率是多少</b>——多买一成余量，买到了多少韧性？</p>
+<p>答案是：这个汇率<em>极不均匀</em>。</p>
+<p>电力行业有一条几十年的老规矩叫 <b>N-1 准则</b>：系统里任意<em>一个</em>元件退出，剩下的必须还能安全运行。听起来很稳妥，而 2003 年那次事故里，出事之前系统是通过 N-1 校核的。问题在于级联的第二步、第三步不在 N-1 的定义域里——它保证的是"少一个还行"，而级联问的是"少一个之后又少一个，再又少一个"。你没法靠加强 N-1 来覆盖 N-2、N-3，因为需要考虑的组合数会爆炸。</p>
+<p>更要命的是余量和级联规模之间的关系不是一条斜线。在很宽的一段 α 区间里，级联要么几乎不发生、要么横扫全网，中间的过渡带很窄。这意味着：<b>你可能一直在削余量而毫无感觉，直到某一次削过了那个位置，后果就不是"稍微差一点"，而是换了一个量级。</b></p>
+<p>排队论给出了同一件事最干净的一个版本。设想一个窗口，活儿随机到达。窗口的忙碌比例记作 ρ（利用率），那么排队里平均积压的活儿数量是 ρ/(1−ρ)。代进去看：ρ=0.5 时积压 1 件，ρ=0.9 时积压 9 件，ρ=0.95 时积压 19 件。<b>从五成用到九成，效率涨了 80%，积压涨了 9 倍；从九成再挪到九成半，效率只涨了 5%，积压又翻了一倍。</b>这不是经验规律，是那个公式本身——分母里的 (1−ρ) 在往零走。</p>
+<figure>
+<svg aria-label="左：余量与级联规模的突变关系；右：利用率与积压的双曲关系" role="img" viewbox="0 0 720 310" xmlns="http://www.w3.org/2000/svg">
+<defs>
+<marker id="c25b" markerheight="9" markerunits="userSpaceOnUse" markerwidth="9" orient="auto" refx="8" refy="5" viewbox="0 0 10 10">
+<path d="M0,1 L9,5 L0,9 z" fill="#6f6a62"></path>
+</marker>
+</defs>
+<text fill="#aba498" font-family="-apple-system,sans-serif" font-size="13" text-anchor="middle" x="185" y="28">余量买到的韧性：几乎全在一小段里</text>
+<line marker-end="url(#c25b)" stroke="#6f6a62" stroke-width="1.5" x1="70" x2="345" y1="240" y2="240"></line>
+<line marker-end="url(#c25b)" stroke="#6f6a62" stroke-width="1.5" x1="70" x2="70" y1="240" y2="55"></line>
+<text fill="#8d867b" font-family="-apple-system,sans-serif" font-size="11.5" text-anchor="middle" x="205" y="266">余量 α →</text>
+<text fill="#8d867b" font-family="-apple-system,sans-serif" font-size="11.5" transform="rotate(-90 26 150)" x="26" y="150">级联后存活比例</text>
+<path d="M70,236 C97,234 110,229 118,192 C124,142 133,89 178,79 C232,72 300,70 340,69" fill="none" stroke="#63b3a6" stroke-width="2.6"></path>
+<line opacity="0.55" stroke="#cd7f9b" stroke-dasharray="4 4" stroke-width="1.4" x1="124" x2="124" y1="240" y2="86"></line>
+<text fill="#cd7f9b" font-family="SF Mono,monospace" font-size="11.5" text-anchor="middle" x="124" y="256">αc</text>
+<text fill="#63b3a6" font-family="-apple-system,sans-serif" font-size="11" x="150" y="112">再加余量，几乎白花</text>
+<line opacity="0.5" stroke="#6f6a62" stroke-width="1.1" x1="148" x2="112" y1="230" y2="235"></line>
+<text fill="#8d867b" font-family="-apple-system,sans-serif" font-size="11" x="152" y="234">这一段加了也不管用</text>
+
+<text fill="#aba498" font-family="-apple-system,sans-serif" font-size="13" text-anchor="middle" x="545" y="28">利用率买到的效率：越往后越贵</text>
+<line marker-end="url(#c25b)" stroke="#6f6a62" stroke-width="1.5" x1="415" x2="690" y1="240" y2="240"></line>
+<line marker-end="url(#c25b)" stroke="#6f6a62" stroke-width="1.5" x1="415" x2="415" y1="240" y2="55"></line>
+<text fill="#8d867b" font-family="-apple-system,sans-serif" font-size="11.5" text-anchor="middle" x="552" y="262">利用率 ρ →</text>
+<text fill="#8d867b" font-family="-apple-system,sans-serif" font-size="11.5" transform="rotate(-90 371 150)" x="371" y="150">平均积压 ρ/(1−ρ)</text>
+<path d="M415,240 C470,238 518,234 560,226 C602,217 628,197 645,164 C656,141 663,95 666,62" fill="none" stroke="#e0895e" stroke-width="2.6"></path>
+<circle cx="545" cy="229" fill="#e0895e" r="3.4"></circle>
+<text fill="#aba498" font-family="SF Mono,monospace" font-size="11" text-anchor="end" x="537" y="221">0.5 → 1 件</text>
+<circle cx="649" cy="156" fill="#e0895e" r="3.4"></circle>
+<text fill="#aba498" font-family="SF Mono,monospace" font-size="11" text-anchor="end" x="641" y="150">0.9 → 9 件</text>
+<circle cx="665" cy="72" fill="#cd7f9b" r="3.8"></circle>
+<text fill="#cd7f9b" font-family="SF Mono,monospace" font-size="11" text-anchor="end" x="657" y="68">0.95 → 19 件</text>
+<text fill="#57524b" font-family="-apple-system,sans-serif" font-size="11" text-anchor="middle" x="360" y="296">两张图讲同一件事：从「效率」换到「韧性」的汇率不是常数，它在临界点附近整个翻过来</text>
+</svg>
+<figcaption>左图是级联模型跑出来的形状，右图是排队论里的恒等式。共同点：中间那一小段决定一切。</figcaption>
+</figure>
+<div class="decide">
+<span class="lb">🎯 决策线</span>
+<p>把系统的<b>目标利用率写成一个明确的数字</b>，并在旁边写清为它付的价（多长的排队、多少闲置产能、多少库存）。然后停掉两个动作：停掉把"利用率再提高几个点"当成无条件的好事——在 0.9 以上，每提一个点买到的是成倍的积压；也停掉用"我们通过了 N-1 校核"回答韧性问题——N-1 从定义上就不覆盖级联的第二步。</p>
+</div>
+<div class="crossx-inline">
+🌀 <b>工程与技术史 · 被压掉的"余裕时分"</b>　日本铁路的运行图里有一项专门的设计叫余裕时分，即在每段行程里预留几十秒的富余，好让一次小晚点不被下游继承。2005 年 4 月 25 日 JR 福知山线在尼崎脱轨，107 人死亡；调查指出当时的时刻表把这份富余压得极薄，同时公司用严厉的惩罚性再教育对待晚点，司机为追回约 80 秒的延误而超速过弯。把本节的机制套上去可以推出一条不太受欢迎的结论：<b>余量被削掉之后并没有消失，它被转成了操作者身上的压力。</b>于是"我们的准点率提高了"和"我们变脆了"可以是同一句话的两半。
+</div>
+<p class="en-brief"><b>EN</b> α is the quantified form of the efficiency-versus-resilience slogan, and its exchange rate is wildly uneven. The N-1 criterion — survive the loss of any single element — was satisfied before the 2003 blackout, because cascades live in the N-2, N-3 region that N-1 does not define. Queueing theory gives the cleanest version: average backlog is ρ/(1−ρ), so 0.5 → 1, 0.9 → 9, 0.95 → 19. The last five points of utilisation cost as much as the first ninety.</p>
+
+<h2><span class="n">03</span>两张网叠在一起，比任何一张都脆<span class="he">（Interdependent Networks）</span></h2>
+<p class="lead">2003 年 9 月 28 日凌晨，瑞士一条输电线因为树木闪络跳闸，几分钟内意大利与欧洲主网解列，全国约五千六百万人停电。这次事故有一个细节让物理学家很在意：电站停了，通信节点跟着断电停机；而通信节点停机之后，依赖它们做遥控和调度的电力设施也失去了控制。</p>
+<p>2010 年，Buldyrev、Parshani、Paul、Stanley 和 Havlin 在《自然》上把这个结构做成了模型。设两张网：电网 A 和通信网 B。B 的每个节点需要 A 里的某个节点供电，A 的每个节点需要 B 里的某个节点提供控制。再加一条在网络科学里很常规的假设：一个节点只有留在自己这张网的<b>最大连通块</b>里才算能用（掉出主体的孤岛不算数）<a class="reflink" href="ref-percolation.html">→ 参考 · 渗流模型</a>。</p>
+<p>然后拿掉 A 里的几个节点，看会发生什么。</p>
+<figure>
+<svg aria-label="相互依赖网络的递归剥离：电网失效导致通信失效，再反过来" role="img" viewbox="0 0 720 340" xmlns="http://www.w3.org/2000/svg">
+<defs>
+<marker id="c25c" markerheight="10" markerunits="userSpaceOnUse" markerwidth="10" orient="auto" refx="9" refy="5" viewbox="0 0 10 10">
+<path d="M0,1 L9,5 L0,9 z" fill="#8d867b"></path>
+</marker>
+</defs>
+<text fill="#aba498" font-family="-apple-system,sans-serif" font-size="13" text-anchor="middle" x="360" y="26">竖直虚线 = 互为前提（上面的要电，下面的要控制）</text>
+<text fill="#79a6d2" font-family="-apple-system,sans-serif" font-size="11.5" x="14" y="76">通信网</text>
+<text fill="#9fbc7a" font-family="-apple-system,sans-serif" font-size="11.5" x="14" y="200">电　网</text>
+
+<text fill="#63b3a6" font-family="SF Mono,monospace" font-size="12" text-anchor="middle" x="140" y="52">① 完好</text>
+<g transform="translate(70,0)">
+<line stroke="rgba(255,255,255,0.14)" stroke-dasharray="3 4" stroke-width="1.3" x1="20" x2="20" y1="88" y2="164"></line>
+<line stroke="rgba(255,255,255,0.14)" stroke-dasharray="3 4" stroke-width="1.3" x1="65" x2="65" y1="88" y2="164"></line>
+<line stroke="rgba(255,255,255,0.14)" stroke-dasharray="3 4" stroke-width="1.3" x1="110" x2="110" y1="88" y2="164"></line>
+<line stroke="rgba(255,255,255,0.14)" stroke-dasharray="3 4" stroke-width="1.3" x1="150" x2="150" y1="88" y2="164"></line>
+<line stroke="#4d6d8a" stroke-width="1.8" x1="20" x2="150" y1="80" y2="80"></line>
+<line stroke="#5c7a52" stroke-width="1.8" x1="20" x2="150" y1="172" y2="172"></line>
+<circle cx="20" cy="80" fill="#2c4257" r="11" stroke="#79a6d2" stroke-width="1.6"></circle>
+<circle cx="65" cy="80" fill="#2c4257" r="11" stroke="#79a6d2" stroke-width="1.6"></circle>
+<circle cx="110" cy="80" fill="#2c4257" r="11" stroke="#79a6d2" stroke-width="1.6"></circle>
+<circle cx="150" cy="80" fill="#2c4257" r="11" stroke="#79a6d2" stroke-width="1.6"></circle>
+<circle cx="20" cy="172" fill="#374a2c" r="11" stroke="#9fbc7a" stroke-width="1.6"></circle>
+<circle cx="65" cy="172" fill="#374a2c" r="11" stroke="#9fbc7a" stroke-width="1.6"></circle>
+<circle cx="110" cy="172" fill="#374a2c" r="11" stroke="#9fbc7a" stroke-width="1.6"></circle>
+<circle cx="150" cy="172" fill="#374a2c" r="11" stroke="#9fbc7a" stroke-width="1.6"></circle>
+</g>
+<text fill="#787268" font-family="-apple-system,sans-serif" font-size="11" text-anchor="middle" x="145" y="212">两张网各自连通</text>
+
+<line marker-end="url(#c25c)" stroke="#8d867b" stroke-width="1.5" x1="240" x2="268" y1="126" y2="126"></line>
+
+<text fill="#e0895e" font-family="SF Mono,monospace" font-size="12" text-anchor="middle" x="360" y="52">② 拿掉电网一个点</text>
+<g transform="translate(290,0)">
+<line stroke="rgba(255,255,255,0.14)" stroke-dasharray="3 4" stroke-width="1.3" x1="20" x2="20" y1="88" y2="164"></line>
+<line stroke="rgba(224,137,94,0.6)" stroke-dasharray="3 4" stroke-width="1.6" x1="65" x2="65" y1="88" y2="164"></line>
+<line stroke="rgba(255,255,255,0.14)" stroke-dasharray="3 4" stroke-width="1.3" x1="110" x2="110" y1="88" y2="164"></line>
+<line stroke="rgba(255,255,255,0.14)" stroke-dasharray="3 4" stroke-width="1.3" x1="150" x2="150" y1="88" y2="164"></line>
+<line stroke="#4d6d8a" stroke-width="1.8" x1="20" x2="54" y1="80" y2="80"></line>
+<line stroke="#4d6d8a" stroke-width="1.8" x1="76" x2="150" y1="80" y2="80"></line>
+<line stroke="#5c7a52" stroke-width="1.8" x1="20" x2="54" y1="172" y2="172"></line>
+<line stroke="#5c7a52" stroke-width="1.8" x1="76" x2="150" y1="172" y2="172"></line>
+<circle cx="20" cy="80" fill="#2c4257" r="11" stroke="#79a6d2" stroke-width="1.6"></circle>
+<circle cx="65" cy="80" fill="#4a2f3a" r="11" stroke="#cd7f9b" stroke-dasharray="3 2" stroke-width="1.6"></circle>
+<text fill="#cd7f9b" font-family="SF Mono,monospace" font-size="12" text-anchor="middle" x="65" y="85">✕</text>
+<circle cx="110" cy="80" fill="#2c4257" r="11" stroke="#79a6d2" stroke-width="1.6"></circle>
+<circle cx="150" cy="80" fill="#2c4257" r="11" stroke="#79a6d2" stroke-width="1.6"></circle>
+<circle cx="20" cy="172" fill="#374a2c" r="11" stroke="#9fbc7a" stroke-width="1.6"></circle>
+<circle cx="65" cy="172" fill="#4a2b2b" r="11" stroke="#e0895e" stroke-width="1.8"></circle>
+<text fill="#e0895e" font-family="SF Mono,monospace" font-size="12" text-anchor="middle" x="65" y="177">✕</text>
+<circle cx="110" cy="172" fill="#374a2c" r="11" stroke="#9fbc7a" stroke-width="1.6"></circle>
+<circle cx="150" cy="172" fill="#374a2c" r="11" stroke="#9fbc7a" stroke-width="1.6"></circle>
+</g>
+<text fill="#e0895e" font-family="-apple-system,sans-serif" font-size="11" text-anchor="middle" x="360" y="212">橙色 = 被拿掉的电网节点</text>
+<text fill="#cd7f9b" font-family="-apple-system,sans-serif" font-size="11" text-anchor="middle" x="360" y="230">绛色 = 断电后跟着停的通信节点</text>
+
+<line marker-end="url(#c25c)" stroke="#8d867b" stroke-width="1.5" x1="460" x2="488" y1="126" y2="126"></line>
+
+<text fill="#cd7f9b" font-family="SF Mono,monospace" font-size="12" text-anchor="middle" x="580" y="52">③ 孤岛被逐层剥掉</text>
+<g transform="translate(510,0)">
+<line stroke="rgba(255,255,255,0.07)" stroke-dasharray="3 4" stroke-width="1.3" x1="20" x2="20" y1="88" y2="164"></line>
+<line stroke="rgba(255,255,255,0.14)" stroke-dasharray="3 4" stroke-width="1.3" x1="110" x2="110" y1="88" y2="164"></line>
+<line stroke="rgba(255,255,255,0.14)" stroke-dasharray="3 4" stroke-width="1.3" x1="150" x2="150" y1="88" y2="164"></line>
+<line stroke="#4d6d8a" stroke-width="1.8" x1="110" x2="150" y1="80" y2="80"></line>
+<line stroke="#5c7a52" stroke-width="1.8" x1="110" x2="150" y1="172" y2="172"></line>
+<circle cx="20" cy="80" fill="#232320" r="11" stroke="#57524b" stroke-dasharray="3 3" stroke-width="1.4"></circle>
+<text fill="#8d867b" font-family="SF Mono,monospace" font-size="12" text-anchor="middle" x="20" y="85">✕</text>
+<circle cx="65" cy="80" fill="#232320" r="11" stroke="#57524b" stroke-dasharray="3 3" stroke-width="1.4"></circle>
+<text fill="#8d867b" font-family="SF Mono,monospace" font-size="12" text-anchor="middle" x="65" y="85">✕</text>
+<circle cx="110" cy="80" fill="#2c4257" r="11" stroke="#79a6d2" stroke-width="1.6"></circle>
+<circle cx="150" cy="80" fill="#2c4257" r="11" stroke="#79a6d2" stroke-width="1.6"></circle>
+<circle cx="20" cy="172" fill="#232320" r="11" stroke="#57524b" stroke-dasharray="3 3" stroke-width="1.4"></circle>
+<text fill="#8d867b" font-family="SF Mono,monospace" font-size="12" text-anchor="middle" x="20" y="177">✕</text>
+<circle cx="65" cy="172" fill="#232320" r="11" stroke="#57524b" stroke-dasharray="3 3" stroke-width="1.4"></circle>
+<text fill="#8d867b" font-family="SF Mono,monospace" font-size="12" text-anchor="middle" x="65" y="177">✕</text>
+<circle cx="110" cy="172" fill="#374a2c" r="11" stroke="#9fbc7a" stroke-width="1.6"></circle>
+<circle cx="150" cy="172" fill="#374a2c" r="11" stroke="#9fbc7a" stroke-width="1.6"></circle>
+</g>
+<text fill="#cd7f9b" font-family="-apple-system,sans-serif" font-size="11" text-anchor="middle" x="580" y="212">掉出主簇的先失效</text>
+<text fill="#787268" font-family="-apple-system,sans-serif" font-size="11" text-anchor="middle" x="580" y="230">它的依赖对象再跟着失效</text>
+<text fill="#8d867b" font-family="-apple-system,sans-serif" font-size="11.5" text-anchor="middle" x="360" y="290">来回震荡直到没有新的失效为止 — 拿掉 1 个点，最终少了 4 个</text>
+<text fill="#57524b" font-family="-apple-system,sans-serif" font-size="11" text-anchor="middle" x="360" y="316">在单独一张网上做同样的事，只会少 1 个</text>
+</svg>
+<figcaption>递归剥离。每一轮的输入都是上一轮的输出，两张网轮流把对方削薄。</figcaption>
+</figure>
+<p>这个来回震荡的过程会产生两个反直觉的后果。</p>
+<p><b>第一，相变的形状变了。</b>单独一张网被随机拿掉节点时，最大连通块是<em>连续</em>缩小的：你拿掉一点，它小一点，到某个比例才彻底散架，而且散架之前会有明显的萎缩。两张互相依赖的网不是这样——它在某个比例之前几乎完好，越过之后<b>一步塌到底</b>。中间没有那段"逐渐变差"的缓冲。</p>
+<figure>
+<svg aria-label="单层网络是连续相变，相互依赖网络是突变" role="img" viewbox="0 0 720 325" xmlns="http://www.w3.org/2000/svg">
+<defs>
+<marker id="c25d" markerheight="9" markerunits="userSpaceOnUse" markerwidth="9" orient="auto" refx="8" refy="5" viewbox="0 0 10 10">
+<path d="M0,1 L9,5 L0,9 z" fill="#6f6a62"></path>
+</marker>
+</defs>
+<text fill="#aba498" font-family="-apple-system,sans-serif" font-size="13" text-anchor="middle" x="360" y="28">同样是「随机拿掉节点」，两条曲线的形状完全不同</text>
+<line marker-end="url(#c25d)" stroke="#6f6a62" stroke-width="1.5" x1="100" x2="640" y1="246" y2="246"></line>
+<line marker-end="url(#c25d)" stroke="#6f6a62" stroke-width="1.5" x1="100" x2="100" y1="246" y2="52"></line>
+<text fill="#8d867b" font-family="-apple-system,sans-serif" font-size="11.5" text-anchor="middle" x="370" y="290">保留下来的节点比例 p →</text>
+<text fill="#8d867b" font-family="-apple-system,sans-serif" font-size="11.5" transform="rotate(-90 44 148)" x="44" y="148">还能用的部分</text>
+<path d="M100,234 L215,234 C250,233 268,208 292,184 C330,146 400,110 640,74" fill="none" stroke="#9fbc7a" stroke-width="2.6"></path>
+<text fill="#9fbc7a" font-family="-apple-system,sans-serif" font-size="12" x="352" y="126">单独一张网：连续变小</text>
+<line stroke="#cd7f9b" stroke-width="2.6" x1="100" x2="410" y1="240" y2="240"></line>
+<line stroke="#cd7f9b" stroke-width="2.6" x1="410" x2="410" y1="240" y2="152"></line>
+<path d="M410,152 C470,140 540,124 640,106" fill="none" stroke="#cd7f9b" stroke-width="2.6"></path>
+<circle cx="410" cy="240" fill="#cd7f9b" r="4"></circle>
+<circle cx="410" cy="152" fill="#cd7f9b" r="4"></circle>
+<text fill="#cd7f9b" font-family="-apple-system,sans-serif" font-size="12" x="424" y="200">两张互相依赖的网：一步到底</text>
+<line opacity="0.5" stroke="#9fbc7a" stroke-dasharray="4 4" stroke-width="1.3" x1="215" x2="215" y1="246" y2="260"></line>
+<text fill="#9fbc7a" font-family="SF Mono,monospace" font-size="11" text-anchor="middle" x="215" y="272">单层阈值</text>
+<line opacity="0.5" stroke="#cd7f9b" stroke-dasharray="4 4" stroke-width="1.3" x1="410" x2="410" y1="246" y2="260"></line>
+<text fill="#cd7f9b" font-family="SF Mono,monospace" font-size="11" text-anchor="middle" x="410" y="272">耦合后的阈值</text>
+<text fill="#57524b" font-family="-apple-system,sans-serif" font-size="11" text-anchor="middle" x="360" y="312">耦合把阈值往右推（更早崩），并且把「缓慢变差」这一段整个删掉了</text>
+</svg>
+<figcaption>连续 vs 突变。右边这条曲线的可怕之处不在它更早崩，在于崩之前它看起来一切正常。</figcaption>
+</figure>
+<p><b>第二，枢纽的作用整个反过来。</b>第 22、23 期讲过，单独一张网里连接数分布越不均匀（枢纽越突出），对随机故障就越耐受。而在相互依赖的两张网里，同一个性质变成了缺点：连接数不均匀意味着有大量只连一两条边的小节点，它们最容易掉出主簇，一掉出去就把对面的依赖对象一起拖下水，于是递归剥离启动得更快。<b>"有枢纽 = 抗随机故障"这条在耦合之后不成立。</b></p>
+<p>推论很直接：<b>冗余不能跨网叠加。</b>两个各自可用性 99.9% 的系统，如果互为对方的前提，你不能把它们乘起来当作两道独立的防线——它们在结构上是同一个系统，只是记在两本账上。</p>
+<div class="decide">
+<span class="lb">🎯 决策线</span>
+<p>既然耦合系统的崩溃是突变式的，"当前健康度"这类指标就<b>不构成预警</b>——它在崩之前一路正常。改测<b>离阈值多远</b>：有多少对组件互为前提、单个组件被多少条依赖压着、去掉任意一个之后还剩几个连通的孤岛。这几个数会在崩溃之前变化，而可用率不会。</p>
+</div>
+<div class="crossx-inline">
+🌀 <b>生物 · 传粉网络的共灭绝</b>　植物与传粉者构成的正是一张两层的互相依赖网。Memmott、Waser 和 Price 2004 年的模拟显示：随机移除传粉者时植物群落相当耐受，而从连接最多的传粉者开始移除，植物的次生灭绝会陡然加速。把本节的机制套上去可以推出一条对保育政策不利的结论：<b>红色名录逐个物种评估濒危等级，做的是单层网上的计算</b>——"每个物种单独看都不算濒危"和"整个网络一击即溃"在数学上完全兼容，前者不能用来否定后者。
+</div>
+<p class="en-brief"><b>EN</b> Buldyrev et al. (Nature, 2010) modelled a power grid and a communication network that each require the other. Removing nodes triggers recursive pruning: nodes that fall out of their own giant component fail, which kills their dependants, which fragments the other layer further. Two consequences invert earlier lessons — the percolation transition becomes abrupt rather than continuous, and a broad degree distribution now makes the coupled system more fragile, not less. Redundancy does not multiply across mutually dependent layers.</p>
+
+<h2><span class="n">04</span>正常事故：安全装置本身也是零件<span class="he">（Normal Accidents）</span></h2>
+<p class="lead">前面两节都是从网络算出来的。1984 年，社会学家 Charles Perrow 从另一头——一批真实事故的调查报告——走到了几乎相同的地方，而且他的版本更好用，因为它只需要两个维度。</p>
+<p>第一个维度叫<b>交互复杂性</b>（interactive complexity）：系统的零件之间，除了设计者规划好的那条流水线之外，还有多少条没被规划的路径？管道贴着管道走，一根漏了会烤到另一根；两个子系统共用一个电源；一个传感器同时喂给三处逻辑。交互复杂 = 你没法在图纸上把因果链数清楚。</p>
+<p>第二个维度叫<b>耦合紧密度</b>（coupling）：出事之后，你还有多少时间和多少余地。紧耦合的意思是过程不能暂停、顺序不能调换、替代方案必须事先备好——反应堆里的几秒钟，或者结算系统里的当日闭市。</p>
+<figure>
+<svg aria-label="Perrow 的二维分类：交互复杂性与耦合紧密度" role="img" viewbox="0 0 720 380" xmlns="http://www.w3.org/2000/svg">
+<defs>
+<marker id="c25e" markerheight="9" markerunits="userSpaceOnUse" markerwidth="9" orient="auto" refx="8" refy="5" viewbox="0 0 10 10">
+<path d="M0,1 L9,5 L0,9 z" fill="#6f6a62"></path>
+</marker>
+</defs>
+<rect fill="rgba(205,127,155,0.09)" height="130" stroke="rgba(205,127,155,0.4)" stroke-width="1.2" width="230" x="370" y="70"></rect>
+<rect fill="rgba(255,255,255,0.015)" height="130" stroke="rgba(255,255,255,0.07)" stroke-width="1" width="230" x="130" y="70"></rect>
+<rect fill="rgba(255,255,255,0.015)" height="130" stroke="rgba(255,255,255,0.07)" stroke-width="1" width="230" x="130" y="210"></rect>
+<rect fill="rgba(255,255,255,0.015)" height="130" stroke="rgba(255,255,255,0.07)" stroke-width="1" width="230" x="370" y="210"></rect>
+<line marker-end="url(#c25e)" stroke="#6f6a62" stroke-width="1.5" x1="130" x2="660" y1="345" y2="345"></line>
+<line marker-end="url(#c25e)" stroke="#6f6a62" stroke-width="1.5" x1="122" x2="122" y1="345" y2="52"></line>
+<text fill="#8d867b" font-family="-apple-system,sans-serif" font-size="12" text-anchor="middle" x="390" y="370">交互复杂性 →　　线性、看得清　　　　　　交错、看不清</text>
+<text fill="#8d867b" font-family="-apple-system,sans-serif" font-size="12" transform="rotate(-90 40 250)" x="40" y="250">耦合 →　松（能停）　　紧（停不下来）</text>
+<text fill="#cd7f9b" font-family="-apple-system,sans-serif" font-size="12.5" font-weight="600" x="386" y="94">紧耦合 + 交互复杂</text>
+<text fill="#cd7f9b" font-family="-apple-system,sans-serif" font-size="11.5" x="386" y="116">核电站 · 化工厂 · 航空器</text>
+<text fill="#cd7f9b" font-family="-apple-system,sans-serif" font-size="11.5" x="386" y="136">现代金融清算</text>
+<text fill="#a9a096" font-family="-apple-system,sans-serif" font-size="11" x="386" y="164">Perrow：这一格里的事故不是</text>
+<text fill="#a9a096" font-family="-apple-system,sans-serif" font-size="11" x="386" y="182">异常，是系统的正常产物</text>
+<text fill="#aba498" font-family="-apple-system,sans-serif" font-size="12.5" font-weight="600" x="146" y="94">紧耦合 + 线性</text>
+<text fill="#8d867b" font-family="-apple-system,sans-serif" font-size="11.5" x="146" y="116">水坝 · 铁路 · 输电网</text>
+<text fill="#787268" font-family="-apple-system,sans-serif" font-size="11" x="146" y="142">因果看得清，所以</text>
+<text fill="#787268" font-family="-apple-system,sans-serif" font-size="11" x="146" y="160">集中控制管用</text>
+<text fill="#aba498" font-family="-apple-system,sans-serif" font-size="12.5" font-weight="600" x="146" y="234">松耦合 + 线性</text>
+<text fill="#8d867b" font-family="-apple-system,sans-serif" font-size="11.5" x="146" y="256">流水线制造 · 邮政</text>
+<text fill="#787268" font-family="-apple-system,sans-serif" font-size="11" x="146" y="282">出了事有时间收拾</text>
+<text fill="#aba498" font-family="-apple-system,sans-serif" font-size="12.5" font-weight="600" x="386" y="234">松耦合 + 交互复杂</text>
+<text fill="#8d867b" font-family="-apple-system,sans-serif" font-size="11.5" x="386" y="256">大学 · 研发机构 · 矿业</text>
+<text fill="#787268" font-family="-apple-system,sans-serif" font-size="11" x="386" y="282">乱，但乱得起——</text>
+<text fill="#787268" font-family="-apple-system,sans-serif" font-size="11" x="386" y="300">有余地慢慢试</text>
+<text fill="#57524b" font-family="-apple-system,sans-serif" font-size="11" text-anchor="middle" x="390" y="42">加装安全装置，是把系统往右推（多了新零件、新交互）— 却不一定往下推</text>
+</svg>
+<figcaption>Perrow 的二维图。他的主张不是"这些系统很危险"，是右上角那一格里事故属于系统的正常输出。</figcaption>
+</figure>
+<p>Perrow 的主张是：<b>同时高在这两个维度上的系统，事故是"正常的"——不是有人失职的产物，是系统结构的正常输出。</b>他分析的样板是 1979 年的三哩岛（Three Mile Island）核电站事故。当时一个泄压阀卡在打开的位置，冷却水一直流失；而控制室里那盏指示灯显示的是"发给阀门的关闭指令"，不是阀门的实际位置。操作员据此认定阀门已关，于是把紧急注水关小了——这个动作在他们掌握的信息里是正确的。</p>
+<p>由此得到本期最不直觉的一条：<b>加装安全装置不必然让系统更安全，因为安全装置本身也是零件。</b>它有自己的失效模式，它和别的零件之间会产生新的交互路径，它还会给操作员多一层需要解读的信息。用上面那张图说：加安全装置把系统往<em>右</em>推（交互复杂性上升），但并不必然把它往<em>下</em>推（耦合并没有变松）。三哩岛那盏灯就是这么来的——它是安全设计的一部分。</p>
+<p>把 Perrow 的两个维度和前两节对上，会发现它们讲的是同一件事的两面：<b>交互复杂性 = 你不知道负担会流向哪儿</b>（第一节的重分配路径不可见）；<b>紧耦合 = 你来不及在两步之间插手</b>（第三节的突变没有缓冲带）。</p>
+<div class="decide">
+<span class="lb">🎯 决策线</span>
+<p>加一层防护之前，先数一数它引入了几条新的交互路径：它读谁的数据、它和谁共用电源/网络/凭证、它误报时会触发什么。如果数不清，这层防护是在往右推。真正能往下推（松开耦合）的只有一类东西：<b>可切断的接缝</b>——分区、断路器、降级模式。而且要<b>演练"断开"，不能只演练"恢复"</b>；绝大多数团队从没在生产环境真的切断过一次，于是接缝存在与否从未被验证。</p>
+</div>
+<div class="crossx-inline">
+🌀 <b>文学与艺术 · 契诃夫的枪</b>　契诃夫 1889 年在给友人的信里写下那条著名的编剧律：舞台上不该出现一把不会被打响的枪。通常大家把它读成审美要求——叙事经济，别留闲笔。本节的机制给它一个反向的读法：<b>在紧耦合、交互复杂的系统里，这条律是自动成立的，不是审美要求。</b>任何装上去的东西都会进入交互，包括你只为"以防万一"装的那些。于是"备而不用"在这类系统里并不存在——它要么被用到，要么以你没预料的方式参与进因果链。
+</div>
+<p class="en-brief"><b>EN</b> Perrow's two axes: interactive complexity (unplanned paths between parts) and tight coupling (no time or slack once something goes wrong). Systems high on both produce accidents as normal output, not as deviance. At Three Mile Island the control-room lamp showed the command sent to a relief valve, not the valve's position — a safety feature that became part of the causal chain. Adding protection moves a system right on the complexity axis without necessarily moving it down on the coupling axis.</p>
+
+<h2><span class="n">05</span>这套说法在哪儿不成立<span class="he">（Where This Breaks Down）</span></h2>
+<p class="lead">本期用了三套工具，每一套都有一处经常被跳过的前提。</p>
+<p><b>一、拓扑不等于物理。</b>第一节那个模型假设负载沿<em>最短路径</em>走。电流不这么走——它按基尔霍夫定律在所有可行路径上按阻抗分流，所以一条线跳闸之后，负担未必落在它的邻居身上，可能落在几百公里外某条阻抗合适的线路上。Hines、Cotilla-Sanchez 和 Blumsack 2010 年拿真实电网数据比对过：用介数这类纯拓扑指标排出来的"关键节点"清单，对实际脆弱性的预测能力相当有限。<b>结论是：网络模型给的是级联的<em>形状</em>，不是你系统里的<em>名单</em>。</b>照着拓扑排名去加固，可能加固错了地方。</p>
+<p><b>二、"耦合让网络更脆"这个说法，对耦合<em>怎么连</em>极其敏感。</b>Buldyrev 那篇假设的是随机的一一依赖。后续工作（Parshani、Buldyrev、Havlin 等）发现，如果让高连接数的节点依赖高连接数的节点，或者依赖关系是地理上局部的，脆性会大幅下降，那个一步到底的突变甚至可以退回连续的形状。所以正确的说法不是"相互依赖 = 更脆"，是"<b>随机的</b>相互依赖更脆"。这条差别有直接的工程含义：耦合本身不是罪，<em>乱耦合</em>才是。</p>
+<p><b>三、Perrow 的理论很难被证伪。</b>任何一起事故发生之后，你总能给它贴上"交互复杂 + 紧耦合"的标签。真正的反例来自另一派：高可靠性组织（high reliability organization，缩写 HRO）学派拿航母甲板作业、空中交通管制这类同样紧耦合、同样交互复杂却事故率极低的系统当证据，主张组织实践可以抵消结构。Scott Sagan 1993 年用冷战核武器的事故史来裁决两派，结论偏向 Perrow，但整场争论到今天也没有一个判决性的实验——它是靠一批批历史案例慢慢磨的，不是能一次性判定的命题。用 Perrow 时要意识到：<b>你在用一个解释框架，不是一个预测模型。</b></p>
+<p><b>四、级联规模的分布，尾部数据太少。</b>北美停电记录确实能拟合出重尾的分布，这常被拿来说明电网处在自组织临界状态<a class="reflink" href="ref-sandpile.html">→ 参考 · 沙堆模型</a>。但真正的大停电几十年才几次，尾部的样本量薄到无法把幂律和别的重尾分布区分开——第 19 期讲过这个坑<a class="reflink" href="ref-power-law.html">→ 参考 · 幂律的识别与误判</a>。所以"级联服从幂律"这句话可以当作一个有用的默认假设，不能当作已经确立的事实。</p>
+<div class="decide">
+<span class="lb">🎯 决策线</span>
+<p>汇报任何级联/系统性风险分析时，把两样东西和结论放在一起：<b>它的耦合假设</b>（谁依赖谁，是随机耦合还是结构化耦合）和<b>它在事故发生之前给出过的、可以被推翻的数字</b>。只有事后解释力的模型，解释下一次也一样顺畅——那正是它没在提供信息的证据。</p>
+</div>
+<div class="crossx-inline">
+🌀 <b>西方科学哲学 · 迪昂-蒯因论题</b>　迪昂（Duhem）和蒯因（Quine）指出：一个假说从来不单独面对经验，它总是和一大堆辅助假设捆在一起接受检验；预测失败时，你永远可以改某个辅助假设来保住核心。级联模型是这个论题的教科书场景——预测落空，你可以说耦合系数估错了、可以说负载函数选错了，核心机制毫发无损。<b>因此判据不能是"这个模型解释得了这次事故吗"（总能），只能是"它在事故之前给过一个具体的、会被推翻的数字吗"。</b>这也是上面那条决策线为什么要把那个数字单列出来。
+</div>
+<p class="en-brief"><b>EN</b> Four limits. Topological models route load along shortest paths; real power flows obey Kirchhoff's laws, and betweenness-based rankings predict grid vulnerability poorly (Hines et al. 2010). The fragility of interdependent networks depends sharply on how the coupling is wired — assortative or geographically localised dependency restores much of the robustness. Perrow's framework is an explanatory scheme, not a predictive model, and the high-reliability-organization school supplies real counter-cases. And the heavy-tail claim for blackout sizes rests on a tail with very few samples.</p>
+
+<div class="bigcat">
+<h3>🎒 场景 · BigCat</h3>
+<ol>
+<li><span class="dm">工程与系统设计</span>反复发生的情境：每隔一阵做一次依赖梳理，画出来的是「我依赖谁」这一张单向表，评审通过，收工。第三节的机制说明这张表在结构上看不见真正的问题：会同时把两边拖下水的，是<b>互为对方前提</b>的那一对——监控系统用的存储，正是被监控的服务在用的；发布系统的鉴权，走的是它自己刚发布的那个服务。可改的东西：给依赖表加一列「对方是否（哪怕间接）也依赖我」，这一列为是的，必须有一条不经过对方的降级路径。停掉的动作：停掉把「依赖已梳理」当作韧性证据——单向表在数学上不可能发现环。</li>
+<li><span class="dm">育儿</span>反复发生的情境：孩子在某件事上出了状况（成绩掉了、不想去某个课），家里的应对是围着这件事加码——补课、谈话、加监督，而且往往是同时上。第四节的机制正对着这个动作：每加一项都是一个新零件，都会和原来的东西产生新的交互——补课占掉的是睡眠或自由玩耍，睡眠影响情绪，情绪又落回那件事上。可改的东西：加干预之前先问一句「这一项占用的是哪一段时间，那段时间原来在干什么」；并且<b>一次只加一项，留两周观察</b>。停掉的动作：停掉同时启动三项措施——同时启动，你既不知道哪一项在起作用，也不知道哪一项在制造新的耦合。</li>
+<li><span class="dm">修行与心性</span>反复发生的情境：定了一套日课（静坐、诵读、锻炼），只要有一天断了，整套就一起停掉，过一阵再「从头开始」。这不是意志力问题，是紧耦合：几件事被绑成一个「全做完才算数」的单元，任一项失败就把失败传给全体，而且没有中间状态。可改的东西：给日课写一个明确的<b>降级模式</b>——每一项都定一个「最低限度版」（五分钟也算），并规定断的那天执行最低版，而不是跳过。停掉的动作：停掉「重新开始」这个说法本身，它就是把一次局部失败升级成全局重置的那个开关。</li>
+</ol>
+</div>
+
+<div class="crossx">
+<h3>🌀 越界 · 跨学科的联想<span class="he">（Crossings）</span></h3>
+<ul>
+<li><b>历史与军事 · 1914 年的动员表</b>：七月危机常被描述成一台自己开动的机器——A. J. P. Taylor 甚至写了一本《按时刻表开战》。本期三条机制合起来确实能说清这台机器的构造：动员计划以"对方已动员"为输入，一国启动就把负担推给下一国（负载重分配）；铁路运输的时刻表一旦发车就无法暂停或调换顺序（紧耦合）；而同盟网络与铁路网络是两层互相依赖的网，任一层的一步都会削薄另一层的选项（递归剥离）。由此推出一条不显然的结论：<b>系统性风险不需要任何人做错事——每一步在其局部都是对上一步的理性最优反应，整体却走向没人想要的结果。</b><b>但这里不成立</b>：Perrow 的紧耦合指的是人类根本来不及介入的物理时间尺度（几秒到几分钟），而七月危机持续了五周，每一步都有人可以叫停、并且确实有人试图叫停——贝特曼-霍尔韦格在 7 月 29 至 30 日夜里连发电报要维也纳克制。把它读成"机器自己开动了"会抹掉真实存在的决策余地，这正是费舍尔（Fritz Fischer）之后德国史学界反复警告的事。能借走的是"局部理性 → 全局失效"这一条，不是"无人能阻止"那一条。</li>
+<li><b>经济与制度 · 中央清算把网络重接了一遍</b>：2008 年之后，二十国集团在 2009 年匹兹堡峰会上要求标准化的场外衍生品都改由<b>中央对手方</b>（central counterparty，缩写 CCP）清算。用本期的三条机制看，这项改革做了什么、又新造了什么，就都清楚了。它把一张稠密的双边网络换成星形网络，这确实<em>降低了交互复杂性</em>——原来最要命的是"我不知道我的交易对手的交易对手是谁"，现在中间只有一个点。但同一个动作把全系统的负载集中到了那个点上（第一节：枢纽即引信），并且清算的保证金追缴是自动的、按日甚至日内计算的、不可协商的——这是标准的<em>紧耦合</em>。2020 年 3 月的抢现金和 2022 年英国负债驱动投资（liability-driven investment，缩写 LDI）引发的英债风波里，出现的都是同一个回路：追缴保证金 → 被迫卖出 → 价格更差 → 追缴更多。<b>由此推出的结论是：这场改革没有减少系统性风险的总量，它把风险从"交互复杂性"那个轴搬到了"紧耦合"这个轴上。</b>Perrow 的二维图说明这种搬家不是免费的，也说明为什么监管界后来的重点转向了保证金的顺周期性。</li>
+<li><b>医学 · 多器官功能障碍综合征</b>：重症监护里最常见的死因不是最初那个损伤，而是随后一个接一个衰竭的器官——感染、循环、肾、肝、凝血。本期三条机制在这里成套出现：一个器官功能下降，它承担的活儿由别的器官代偿，代偿方因此长期超载（负载重分配）；循环与肾互为对方的输入，任何一边被削弱都会递归削弱另一边（相互依赖）；而整个过程以小时计，没有停机重整的余地（紧耦合）。这里能推出一个可检验的东西：既然级联的要害是不可加，那么把六个器官各打 0–4 分再相加得到的总分（临床上常用的序贯器官衰竭评估，Sequential Organ Failure Assessment，缩写 SOFA），在结构上假设了可加性——<b>同样的总分，"六个器官各扣一分"和"一个器官扣六分"不该是同一种病人。</b>而重症医学文献里确实一直把"衰竭器官的<em>数目</em>"当作独立于总分的预后指标来追踪，这正是本期机制预期的方向。</li>
+</ul>
+</div>
+
+<div class="thinking">
+<h3>深入思考<span class="he">（Going Deeper）</span></h3>
+<details><summary>既然余量的汇率在临界点附近才陡，能不能干脆把系统调到临界点右边一点点，既省钱又安全？</summary><p>问题在于你不知道 αc 在哪儿，而且它会漂。αc 由拓扑和负载分布共同决定，网络加了几条边、流量结构变了，它就动了。真正的操作含义不是"贴着阈值走"，而是"别让阈值成为一个你没在测量的量"——至少要知道最近一次变更把它往哪个方向推了。</p></details>
+<details><summary>把系统模块化、加隔断，是不是就等于降低了级联风险？</summary><p>降低了扩散范围，但通常也降低了互相支援的能力。电网分区之后，一个区出问题不会拖垮别区，可它也拿不到别区的备用容量，于是本区内的停电概率上升。这是一笔真实的交换，不是免费午餐。判据是：你更在意"事故的频率"还是"最大一次事故的规模"——模块化拿前者换后者。</p></details>
+<details><summary>金融监管里的"压力测试"能发现级联吗？</summary><p>取决于它测的是什么。给每家机构单独施加一个冲击、看它扛不扛得住，测的是 N-1；而级联要求把一家的被迫卖出当作另一家的价格输入再跑一轮。后者（有时叫"二轮效应"或宏观审慎压力测试）在技术上要难得多，因为它需要各家的持仓明细，而那正是各家最不愿意交出来的东西。所以这里的瓶颈往往不是模型，是数据的产权。</p></details>
+<details><summary>如果每一步都是局部理性的最优反应，责任还落在谁身上？</summary><p>本期的机制取消的是"某一步造成了整体规模"这个推理，不取消每一步自身的责任。更准确的说法是：责任的位置从"触发的那一步"移到了"决定耦合与余量的那些决策"——谁把利用率定在 0.95，谁批准了那条把两个系统绑在一起的依赖。这些决策通常发生在事故前很久，也通常没有留下事故报告。</p></details>
+</div>
+
+<div class="refs">
+<h3>延伸阅读<span class="he">（Further Reading）</span></h3>
+<ul>
+<li>Motter &amp; Lai, <a href="https://arxiv.org/abs/cond-mat/0301086">Cascade-based attacks on complex networks</a>（2002，负载重分配模型的原始论文）</li>
+<li>Buldyrev, Parshani, Paul, Stanley &amp; Havlin, <a href="https://www.nature.com/articles/nature08932">Catastrophic cascade of failures in interdependent networks</a>（2010，《自然》）</li>
+<li>Parshani, Buldyrev &amp; Havlin, <a href="https://arxiv.org/abs/1010.4498">Interdependent networks: reducing the coupling strength leads to a change from a first- to second-order percolation transition</a>（2010，耦合方式决定脆性的那一条边界）</li>
+<li>U.S.-Canada Power System Outage Task Force, <a href="https://www.energy.gov/oe/articles/blackout-2003-final-report-august-14-2003-blackout-united-states-and-canada-causes-and">Final Report on the August 14, 2003 Blackout</a>（官方调查报告）</li>
+<li>Charles Perrow, <a href="https://press.princeton.edu/books/paperback/9780691004129/normal-accidents">Normal Accidents: Living with High-Risk Technologies</a>（1984/1999）</li>
+<li>Scott Sagan, <a href="https://press.princeton.edu/books/paperback/9780691021010/the-limits-of-safety">The Limits of Safety</a>（1993，用核武器事故史裁决 Perrow 与高可靠性组织学派）</li>
+<li>Hines, Cotilla-Sanchez &amp; Blumsack, <a href="https://arxiv.org/abs/1002.2268">Do topological models provide good information about electricity infrastructure vulnerability?</a>（2010，对纯拓扑指标的实证反驳）</li>
+<li>Khandani &amp; Lo, <a href="https://papers.ssrn.com/sol3/papers.cfm?abstract_id=1015987">What Happened to the Quants in August 2007?</a>（2007，共享持仓造成的负载传导）</li>
+<li>Memmott, Waser &amp; Price, <a href="https://royalsocietypublishing.org/doi/10.1098/rspb.2004.2909">Tolerance of pollination networks to species extinctions</a>（2004）</li>
+<li><a href="https://en.wikipedia.org/wiki/Three_Mile_Island_accident">三哩岛核事故</a>（1979，那盏显示指令而非阀位的指示灯）</li>
+<li><a href="https://en.wikipedia.org/wiki/Amagasaki_derailment">JR 福知山线尼崎脱轨事故</a>（2005，被压掉的余裕时分）</li>
+</ul>
+</div>
+<footer>BigCat · 复杂性科学 · <a href="index.html">← 全部 Topic</a></footer>
+</div>
+<script src="https://hub.cissychen.com/comments.js" defer></script>
+<script src="https://hub.cissychen.com/search.js" defer></script>
+<script src="https://hub.cissychen.com/index-button.js" defer></script>
+<script src="https://hub.cissychen.com/i18n-tts.js" defer></script>
+</body></html>
