@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+
+<html lang="en"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Complex Adaptive Systems — The Kind of System That Reads Your Model · Complexity Science T26</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,"SF Pro Display","Noto Sans SC",sans-serif;color:#e4ded5;line-height:1.85;min-height:100vh;
+  background:radial-gradient(1100px 620px at 12% -6%,rgba(224,137,94,0.10),transparent 62%),radial-gradient(950px 700px at 100% 2%,rgba(166,147,205,0.09),transparent 58%),linear-gradient(168deg,#100f0d 0%,#15161b 48%,#0a0a0c 100%);background-attachment:fixed}
+.wrap{max-width:760px;margin:0 auto;padding:30px 22px 90px}
+header{padding:52px 0 8px;border-bottom:1px solid rgba(255,255,255,0.07);margin-bottom:34px}
+.week-tag{font-family:"SF Mono",Menlo,monospace;font-size:0.72rem;font-weight:700;letter-spacing:2px;color:#79a6d2;border:1px solid rgba(121,166,210,0.4);background:rgba(121,166,210,0.07);padding:3px 11px;border-radius:20px}
+h1{font-size:2.5rem;font-weight:800;letter-spacing:0.5px;line-height:1.2;margin:20px 0 0;background:linear-gradient(106deg,#e0895e 0%,#d9b45f 34%,#9fbc7a 68%,#63b3a6 100%);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+.sub{font-size:1.05rem;color:#aba498;margin-top:14px;font-weight:500}
+.date{font-family:"SF Mono",Menlo,monospace;font-size:0.75rem;color:#57524b;margin-top:18px;letter-spacing:1px}
+.pitch{margin:22px 0 30px;font-size:0.97rem;color:#cd7f9b;border-left:2px solid rgba(205,127,155,0.5);padding-left:16px;font-style:italic}
+.intro{font-size:1.02rem;color:#cfc8bc;margin-bottom:14px}
+.intro p{margin-bottom:16px}
+h2{font-size:1.42rem;font-weight:700;color:#e9e3d9;margin:56px 0 8px;letter-spacing:0.3px}
+h2 .n{font-family:"SF Mono",Menlo,monospace;font-size:0.85rem;color:#79a6d2;display:block;margin-bottom:6px;letter-spacing:2px}
+p{margin-bottom:17px}
+.lead{color:#cfc8bc}
+b,strong{color:#f0eae0;font-weight:600}
+em{color:#d9b45f;font-style:normal;font-weight:500}
+.dim{color:#8d867b}
+a.reflink{display:inline-block;font-size:0.82rem;font-family:"SF Mono",Menlo,monospace;color:#63b3a6;border:1px solid rgba(99,179,166,0.38);background:rgba(99,179,166,0.07);padding:1px 9px;border-radius:20px;text-decoration:none;transition:all 0.15s;white-space:nowrap}
+a.reflink:hover{background:rgba(99,179,166,0.16);border-color:rgba(99,179,166,0.7)}
+figure{margin:30px 0}
+figure svg{display:block;width:100%;height:auto;border-radius:12px;background:rgba(255,255,255,0.018);border:1px solid rgba(255,255,255,0.06)}
+figcaption{font-size:0.82rem;color:#787268;margin-top:11px;text-align:center;line-height:1.6}
+.decide{margin:24px 0;border:1px solid rgba(224,137,94,0.36);background:rgba(224,137,94,0.055);border-radius:12px;padding:15px 19px}
+.decide .lb{font-family:"SF Mono",Menlo,monospace;font-size:0.73rem;letter-spacing:1.5px;color:#e0895e;font-weight:700;display:block;margin-bottom:7px}
+.decide p{margin:0;font-size:0.95rem;color:#ddd5c9}
+.crossx-inline{margin:20px 0 22px;border-left:2px solid rgba(205,127,155,0.55);padding:2px 0 2px 15px;font-size:0.89rem;color:#a9a096;line-height:1.72}
+.crossx-inline b{color:#cd7f9b;font-weight:600}
+.bigcat{margin:46px 0 10px;border:1px solid rgba(217,180,95,0.38);background:rgba(217,180,95,0.05);border-radius:14px;padding:20px 22px}
+.bigcat h3{font-size:1.02rem;color:#d9b45f;margin-bottom:14px;letter-spacing:0.5px}
+.bigcat ol{list-style:none;padding:0}
+.bigcat li{margin-bottom:15px;font-size:0.94rem;color:#d5cdc1;line-height:1.78}
+.bigcat li:last-child{margin-bottom:0}
+.bigcat .dm{font-family:"SF Mono",Menlo,monospace;font-size:0.73rem;color:#d9b45f;border:1px solid rgba(217,180,95,0.32);border-radius:4px;padding:1px 7px;margin-right:8px;white-space:nowrap}
+.crossx{margin:46px 0 10px;border:1px solid rgba(205,127,155,0.38);background:rgba(205,127,155,0.05);border-radius:14px;padding:20px 22px}
+.crossx h3{font-size:1.02rem;color:#cd7f9b;margin-bottom:14px;letter-spacing:0.5px}
+.crossx ul{list-style:none;padding:0}
+.crossx li{margin-bottom:16px;font-size:0.94rem;color:#d5cdc1;line-height:1.78}
+.crossx li:last-child{margin-bottom:0}
+.crossx li b{color:#cd7f9b;font-weight:600}
+.thinking{margin:46px 0 10px}
+.thinking h3{font-size:1.02rem;color:#a693cd;margin-bottom:14px;letter-spacing:0.5px}
+details{border:1px solid rgba(166,147,205,0.22);border-radius:10px;padding:12px 16px;margin-bottom:10px;background:rgba(166,147,205,0.035)}
+summary{cursor:pointer;font-size:0.93rem;color:#c9c2b6;font-weight:500}
+summary::marker{color:#a693cd}
+details p{margin:12px 0 0;font-size:0.9rem;color:#a9a096;line-height:1.75}
+.refs{margin:46px 0 10px}
+.refs h3{font-size:1.02rem;color:#79a6d2;margin-bottom:14px;letter-spacing:0.5px}
+.refs ul{list-style:none;padding:0}
+.refs li{margin-bottom:10px;font-size:0.9rem;color:#8d867b;line-height:1.7}
+.refs a{color:#79a6d2;text-decoration:none;border-bottom:1px solid rgba(121,166,210,0.3)}
+.refs a:hover{color:#a6c4e2;border-bottom-color:rgba(121,166,210,0.7)}
+footer{text-align:center;padding:56px 0 10px;font-size:0.78rem;color:#57524b;font-family:"SF Mono",Menlo,monospace;border-top:1px solid rgba(255,255,255,0.06);margin-top:50px}
+footer a{color:#79a6d2;text-decoration:none}
+@media(max-width:600px){h1{font-size:1.85rem}.wrap{padding:24px 16px 60px}h2{font-size:1.22rem}}
+</style></head><body>
+<div class="wrap">
+<header>
+<span class="week-tag">TOPIC 26 · PHASE E</span>
+<h1>Complex Adaptive Systems</h1>
+<p class="sub">The kind of system that reads your model</p>
+<p class="date">2026-08-12 · Adaptation &amp; Evolution</p>
+</header>
+<p class="pitch">Everything in the first twenty-five issues had one convenient property: sand does not read your paper. From this issue on, the thing being studied reads it — and then changes.</p>
+<div class="intro">
+<p>One junction jams solid every afternoon at half past five, so you widen the road by a lane. The engineering is sound; capacity really does go up. Come back six months later: the same jam, only now there are cars on it that never used to come this way.</p>
+<p>What failed was not the engineering. It was the phrase "all else being equal." Drivers reconsider which route to take, when to leave, whether to drive at all — and those decisions were the inputs to the traffic chart you started from. You changed more than the road; you changed the premises the chart rested on.</p>
+<p class="dim">The systems in earlier issues shared one feature: <b>their parts have no idea what they are participating in.</b> A grain of sand does not steepen its angle of repose because the last avalanche was too big, and a transmission line does not learn from a bad trip. The systems from here on are different: their parts carry a model of the system around with them and revise that model according to results. That single difference is enough to make some of the machinery of the previous twenty-five issues stop working. This issue draws the line and says what is available on each side of it.</p>
+</div>
+
+<h2><span class="n">01</span>Sand Does Not Learn; People Do</h2>
+<p class="lead">Start with the vocabulary. Anything that makes its own decisions, and whose decisions affect others, is an <b>agent</b>: a driver, a firm, an ant, an immune cell, a trading program. A system made of many agents that revise their own behavioural rules in response to results is a <b>complex adaptive system</b>, universally abbreviated <b>CAS</b> — the abbreviation is used below.</p>
+<p>The term is John Holland's (1929–2015), a computer scientist at Michigan and one of the earliest people at the Santa Fe Institute <a class="reflink" href="ref-santa-fe.en.html">→ ref · Santa Fe Institute</a>. He spent a career on one question: how does adaptation actually happen, and can it be written as a program you can run?</p>
+<p>The point is not that agents are clever. Ants are not clever, and immune cells much less so. The point is that <em>two</em> loops are running, orders of magnitude apart in speed:</p>
+<p>The <b>fast loop</b> is acting under the current rules — picking a route, quoting a price, striking. The <b>slow loop</b> is the rules themselves being replaced: the ones that did well are kept, copied, imitated by more agents; the ones that did badly are dropped. Physical systems have only the fast loop. Their rules hang permanently outside the system and never join the game. Adaptive systems have pulled the rules into the game.</p>
+<figure>
+<svg aria-label="A physical system has only the fast loop; an adaptive system adds a slow loop feeding results back into the rules" role="img" viewbox="0 0 720 330" xmlns="http://www.w3.org/2000/svg">
+<defs>
+<marker id="t26a" markerheight="10" markerunits="userSpaceOnUse" markerwidth="10" orient="auto" refx="9" refy="5" viewbox="0 0 10 10">
+<path d="M0,1 L9,5 L0,9 z" fill="#8d867b"></path>
+</marker>
+<marker id="t26b" markerheight="11" markerunits="userSpaceOnUse" markerwidth="11" orient="auto" refx="9" refy="5" viewbox="0 0 10 10">
+<path d="M0,1 L9,5 L0,9 z" fill="#e0895e"></path>
+</marker>
+</defs>
+<text fill="#aba498" font-family="-apple-system,sans-serif" font-size="13" text-anchor="middle" x="360" y="28">The difference is one line</text>
+<line stroke="rgba(255,255,255,0.10)" stroke-width="1" x1="360" x2="360" y1="46" y2="300"></line>
+<text fill="#79a6d2" font-family="SF Mono,monospace" font-size="12" text-anchor="middle" x="176" y="62">PHYSICAL SYSTEM</text>
+<rect fill="rgba(255,255,255,0.04)" height="38" rx="8" stroke="rgba(255,255,255,0.16)" width="180" x="86" y="78"></rect>
+<text fill="#d5cdc1" font-family="-apple-system,sans-serif" font-size="13" text-anchor="middle" x="176" y="102">Rules (hard-wired)</text>
+<line marker-end="url(#t26a)" stroke="#8d867b" stroke-width="1.6" x1="176" x2="176" y1="118" y2="152"></line>
+<rect fill="rgba(255,255,255,0.04)" height="38" rx="8" stroke="rgba(255,255,255,0.16)" width="180" x="86" y="156"></rect>
+<text fill="#d5cdc1" font-family="-apple-system,sans-serif" font-size="13" text-anchor="middle" x="176" y="180">State now</text>
+<line marker-end="url(#t26a)" stroke="#8d867b" stroke-width="1.6" x1="176" x2="176" y1="196" y2="230"></line>
+<rect fill="rgba(255,255,255,0.04)" height="38" rx="8" stroke="rgba(255,255,255,0.16)" width="180" x="86" y="234"></rect>
+<text fill="#d5cdc1" font-family="-apple-system,sans-serif" font-size="13" text-anchor="middle" x="176" y="258">State next</text>
+<text fill="#787268" font-family="-apple-system,sans-serif" font-size="11.5" text-anchor="middle" x="176" y="294">Sand keeps its angle whatever happened last time</text>
+<text fill="#e0895e" font-family="SF Mono,monospace" font-size="12" text-anchor="middle" x="520" y="62">ADAPTIVE SYSTEM</text>
+<rect fill="rgba(224,137,94,0.07)" height="38" rx="8" stroke="rgba(224,137,94,0.4)" width="200" x="420" y="78"></rect>
+<text fill="#f0d0bc" font-family="-apple-system,sans-serif" font-size="13" text-anchor="middle" x="520" y="102">Pool of candidate rules</text>
+<line marker-end="url(#t26a)" stroke="#8d867b" stroke-width="1.6" x1="520" x2="520" y1="118" y2="152"></line>
+<rect fill="rgba(255,255,255,0.04)" height="38" rx="8" stroke="rgba(255,255,255,0.16)" width="200" x="420" y="156"></rect>
+<text fill="#d5cdc1" font-family="-apple-system,sans-serif" font-size="13" text-anchor="middle" x="520" y="180">What agents do now</text>
+<line marker-end="url(#t26a)" stroke="#8d867b" stroke-width="1.6" x1="520" x2="520" y1="196" y2="230"></line>
+<rect fill="rgba(255,255,255,0.04)" height="38" rx="8" stroke="rgba(255,255,255,0.16)" width="200" x="420" y="234"></rect>
+<text fill="#d5cdc1" font-family="-apple-system,sans-serif" font-size="13" text-anchor="middle" x="520" y="258">How it turned out</text>
+<path d="M620,253 C672,253 684,150 628,100" fill="none" marker-end="url(#t26b)" stroke="#e0895e" stroke-width="2"></path>
+<text fill="#e0895e" font-family="-apple-system,sans-serif" font-size="11.5" text-anchor="middle" transform="rotate(-90 692 176)" x="692" y="176">rules rewritten by results</text>
+<text fill="#787268" font-family="-apple-system,sans-serif" font-size="11.5" text-anchor="middle" x="500" y="294">Drivers change route after one bad jam</text>
+<text fill="#57524b" font-family="-apple-system,sans-serif" font-size="11" text-anchor="middle" x="360" y="320">That copper loop on the right is the whole of this issue</text>
+</svg>
+<figcaption>Every system has the fast loop. Only adaptive systems have the slow one. The first twenty-five issues assumed it away.</figcaption>
+</figure>
+<p>So "this system adapts" is not a flourish; it is a checkable claim, and you check it by asking whether the slow loop exists: <b>where do candidate rules come from, how do results get back to the rules, and do the losing rules actually disappear?</b> If any of the three has no answer, the loop is broken and the system does not adapt on the timescale you care about — even if it is made of people. A bureaucracy welded shut by procedure, where a trial takes six months to approve and nothing is ever retired for failing, is closer to a sandpile than to an ant colony on a six-month horizon.</p>
+<div class="decide">
+<span class="lb">🎯 DECISION LINE</span>
+<p>Classify the system before acting, using those three questions. No answers → treat it as physical; the mechanisms of earlier issues (thresholds, cascades, power laws) apply directly and publishing your model costs nothing. Answers → every rule, metric or public analysis you release comes with a period before it is adapted around, and the length of that period is estimable (section 4 gives the estimate).</p>
+</div>
+<div class="crossx-inline">
+🌀 <b>Economics &amp; institutions · why the widened road still jams</b>　Duranton and Turner compared lane kilometres against vehicle kilometres travelled across US cities (<i>American Economic Review</i>, 2011) and found an elasticity close to one: <b>a 1% increase in lane kilometres brings roughly a 1% increase in driving</b>, and congestion returns. This is not failed engineering — it is the slow loop running, as commuters rewrite their own rules about route, departure time and whether to drive. The uncomfortable corollary: any benefit computed under "all else being equal" is an upper bound in a system with a slow loop, never an expected value.
+</div>
+
+<h2><span class="n">02</span>The Minimum Recipe for Adaptation</h2>
+<p class="lead">Holland's contribution was not the claim that systems adapt. It was breaking adaptation into three parts, none of which can be missing — broken down far enough to be written as code. The <b>genetic algorithm</b> of his 1975 book is the minimal implementation of exactly those three parts <a class="reflink" href="ref-genetic-algorithm.en.html">→ ref · genetic algorithms</a>.</p>
+<p><b>One: variety.</b> You need several different candidate rules on hand at once. A system with one rule has nothing to switch to and will never adapt however good its feedback is; it can only repeat.</p>
+<p><b>Two: credit assignment.</b> You need some way of attributing a good outcome to a particular rule. This is the hard part, because reward usually arrives late: the game is won on move 200 — does the credit belong to move 37? Holland designed a scheme he called the <b>bucket brigade</b> for this, in which each link passes a little of its reward back to the link before it, round after round, until the early setup moves — the ones whose value is invisible at the time — finally get scored.</p>
+<p><b>Three: replication and recombination.</b> High-scoring rules must be copied more often, and pieces of two rules must be able to combine into a new candidate, so the search is not just local tinkering.</p>
+<figure>
+<svg aria-label="The three parts of adaptation form a cycle; below, credit assignment under delayed reward" role="img" viewbox="0 0 720 360" xmlns="http://www.w3.org/2000/svg">
+<defs>
+<marker id="t26c" markerheight="10" markerunits="userSpaceOnUse" markerwidth="10" orient="auto" refx="9" refy="5" viewbox="0 0 10 10">
+<path d="M0,1 L9,5 L0,9 z" fill="#9fbc7a"></path>
+</marker>
+<marker id="t26d" markerheight="9" markerunits="userSpaceOnUse" markerwidth="9" orient="auto" refx="9" refy="5" viewbox="0 0 10 10">
+<path d="M0,1 L9,5 L0,9 z" fill="#cd7f9b"></path>
+</marker>
+<marker id="t26e" markerheight="9" markerunits="userSpaceOnUse" markerwidth="9" orient="auto" refx="9" refy="5" viewbox="0 0 10 10">
+<path d="M0,1 L9,5 L0,9 z" fill="#8d867b"></path>
+</marker>
+</defs>
+<text fill="#aba498" font-family="-apple-system,sans-serif" font-size="13" text-anchor="middle" x="360" y="26">Three parts, none optional — the missing one is where the system is stuck</text>
+<rect fill="rgba(159,188,122,0.07)" height="46" rx="9" stroke="rgba(159,188,122,0.4)" width="182" x="26" y="52"></rect>
+<text fill="#c8dbae" font-family="-apple-system,sans-serif" font-size="13" text-anchor="middle" x="117" y="72">① Varied candidates</text>
+<text fill="#787268" font-family="-apple-system,sans-serif" font-size="11" text-anchor="middle" x="117" y="90">no alternatives = no adaptation</text>
+<line marker-end="url(#t26c)" stroke="#9fbc7a" stroke-width="2" x1="214" x2="264" y1="75" y2="75"></line>
+<rect fill="rgba(159,188,122,0.07)" height="46" rx="9" stroke="rgba(159,188,122,0.4)" width="182" x="269" y="52"></rect>
+<text fill="#c8dbae" font-family="-apple-system,sans-serif" font-size="13" text-anchor="middle" x="360" y="72">② Score the rules</text>
+<text fill="#787268" font-family="-apple-system,sans-serif" font-size="11" text-anchor="middle" x="360" y="90">credit assignment · the hard part</text>
+<line marker-end="url(#t26c)" stroke="#9fbc7a" stroke-width="2" x1="457" x2="507" y1="75" y2="75"></line>
+<rect fill="rgba(159,188,122,0.07)" height="46" rx="9" stroke="rgba(159,188,122,0.4)" width="182" x="512" y="52"></rect>
+<text fill="#c8dbae" font-family="-apple-system,sans-serif" font-size="13" text-anchor="middle" x="603" y="72">③ Copy and recombine</text>
+<text fill="#787268" font-family="-apple-system,sans-serif" font-size="11" text-anchor="middle" x="603" y="90">losers must really die</text>
+<path d="M603,102 C603,132 117,132 117,104" fill="none" marker-end="url(#t26c)" stroke="#9fbc7a" stroke-width="2"></path>
+<text fill="#8d867b" font-family="-apple-system,sans-serif" font-size="11" text-anchor="middle" x="360" y="150">next generation of candidates</text>
+<text fill="#aba498" font-family="-apple-system,sans-serif" font-size="12.5" text-anchor="middle" x="360" y="192">The hard part: reward lands at the end — who gets the credit?</text>
+<rect fill="rgba(255,255,255,0.04)" height="34" rx="7" stroke="rgba(255,255,255,0.16)" width="86" x="46" y="214"></rect>
+<text fill="#aba498" font-family="-apple-system,sans-serif" font-size="12" text-anchor="middle" x="89" y="236">move 1</text>
+<line marker-end="url(#t26e)" stroke="#8d867b" stroke-width="1.4" x1="134" x2="164" y1="231" y2="231"></line>
+<rect fill="rgba(255,255,255,0.04)" height="34" rx="7" stroke="rgba(255,255,255,0.16)" width="86" x="168" y="214"></rect>
+<text fill="#aba498" font-family="-apple-system,sans-serif" font-size="12" text-anchor="middle" x="211" y="236">move 2</text>
+<line marker-end="url(#t26e)" stroke="#8d867b" stroke-width="1.4" x1="256" x2="286" y1="231" y2="231"></line>
+<rect fill="rgba(217,180,95,0.10)" height="34" rx="7" stroke="rgba(217,180,95,0.45)" width="86" x="290" y="214"></rect>
+<text fill="#e2cf9a" font-family="-apple-system,sans-serif" font-size="12" text-anchor="middle" x="333" y="236">move 37</text>
+<line marker-end="url(#t26e)" stroke="#8d867b" stroke-width="1.4" x1="378" x2="408" y1="231" y2="231"></line>
+<rect fill="rgba(255,255,255,0.04)" height="34" rx="7" stroke="rgba(255,255,255,0.16)" width="86" x="412" y="214"></rect>
+<text fill="#aba498" font-family="-apple-system,sans-serif" font-size="12" text-anchor="middle" x="455" y="236">……</text>
+<line marker-end="url(#t26e)" stroke="#8d867b" stroke-width="1.4" x1="500" x2="530" y1="231" y2="231"></line>
+<rect fill="rgba(224,137,94,0.12)" height="34" rx="7" stroke="rgba(224,137,94,0.5)" width="146" x="534" y="214"></rect>
+<text fill="#f0d0bc" font-family="-apple-system,sans-serif" font-size="12.5" text-anchor="middle" x="607" y="236">move 200: win</text>
+<path d="M534,262 C500,286 400,286 340,266" fill="none" marker-end="url(#t26d)" stroke="#cd7f9b" stroke-dasharray="5 4" stroke-width="1.6"></path>
+<path d="M290,268 C258,290 236,286 216,268" fill="none" marker-end="url(#t26d)" stroke="#cd7f9b" stroke-dasharray="5 4" stroke-width="1.6"></path>
+<path d="M168,268 C142,290 118,286 96,268" fill="none" marker-end="url(#t26d)" stroke="#cd7f9b" stroke-dasharray="5 4" stroke-width="1.6"></path>
+<text fill="#cd7f9b" font-family="-apple-system,sans-serif" font-size="11.5" text-anchor="middle" x="360" y="312">reward is passed back link by link, so setup moves can be scored at all</text>
+<text fill="#57524b" font-family="-apple-system,sans-serif" font-size="11" text-anchor="middle" x="360" y="340">The longer the chain and the noisier the outcome, the more credit lands on the wrong rule</text>
+</svg>
+<figcaption>The three parts form a cycle. Variety and retirement are hard requirements, but how fast a system learns is almost always decided by the middle one.</figcaption>
+</figure>
+<p>Laying out the three parts buys you something immediately: <b>"this organisation doesn't learn" stops being a complaint and becomes a locatable fault.</b> Is there no variety (everyone knows one way of doing it)? Is credit assignment broken (nobody sees the outcome, or good and bad both get attributed to the same person)? Or is retirement broken (failed practices are never stopped, only supplemented by new rules)? The three repairs have nothing in common, and blurring them together yields advice like "we need a learning mindset," which nobody can act on.</p>
+<div class="decide">
+<span class="lb">🎯 DECISION LINE</span>
+<p>To make a system learn faster, measure one number first: <b>the median number of days between making a decision and being able to see its result.</b> That number is the ceiling on the slow loop's speed. If it is 90 days, stop expecting anything to be calibrated within a quarter. There are only two ways to shrink it — find an earlier proxy signal that correlates with the final outcome, or cut decisions small enough to resolve sooner. Exhortation does not move this number.</p>
+</div>
+<div class="crossx-inline">
+🌀 <b>Engineering history · why machines learned Go first</b>　One core component of systems like AlphaGo is the signal that distributes a final win or loss back over every mid-game move; reinforcement learning calls it temporal credit assignment, and Holland's bucket brigade is an early scheme on that same line. Which gives a criterion that beats intuition for guessing what machines master next: <b>not how hard the task looks, but whether the final outcome can be split back over intermediate steps.</b> Go is hard, but it ends in an unambiguous result and can be self-played millions of times; "is this essay any good" is far easier for a person, yet has no clean terminal signal to send backwards — so the hard thing fell first and the easy one is still stuck, entirely because of the middle component.
+</div>
+
+<h2><span class="n">03</span>Publishing the Model Changes What It Describes</h2>
+<p class="lead">Put the first two sections together and you get the most practical result in this issue.</p>
+<p>You observe a system made of agents, find a stable regularity, write it into a model, and publish it — "we will assess people on lines of code," say, or "inflation rises once unemployment drops below 4%." At that moment the model becomes <em>a new reward signal</em> for the agents. The machinery of section 2 starts up: among the candidate rules, those that push the signal score well, and high scorers get copied. A few rounds later the regularity is gone.</p>
+<p>This is Goodhart's law. Charles Goodhart's 1975 formulation was: <b>any observed statistical regularity will tend to collapse once pressure is placed upon it for control purposes.</b> The famous one-liner — "when a measure becomes a target, it ceases to be a good measure" — is anthropologist Marilyn Strathern's 1997 rephrasing. It is catchier, and it drops the crucial words: <em>pressure placed upon it</em>. The regularity does not rot on its own; it is crushed by being leaned on.</p>
+<p>What matters most is that <b>nobody has to cheat</b>. Economics of the same decade has a colder version: in 1976 Robert Lucas pointed out that a policy model fitted to historical data has parameters encoding how people formed expectations <em>under the old policy</em>; change the policy and expectations change with it, so the parameters were never constants. That is the Lucas critique. The Phillips curve — the stable negative relationship between unemployment and inflation found in 1958 — collapsing in the 1970s is the ready-made example. Nobody lied. Firms and workers simply, honestly, priced in the fact that the government would tolerate inflation. Honest adaptation is enough to destroy a regularity.</p>
+<figure>
+<svg aria-label="After a metric is put under assessment, the metric keeps rising while the real goal decouples" role="img" viewbox="0 0 720 320" xmlns="http://www.w3.org/2000/svg">
+<defs>
+<marker id="t26f" markerheight="10" markerunits="userSpaceOnUse" markerwidth="10" orient="auto" refx="9" refy="5" viewbox="0 0 10 10">
+<path d="M0,1 L9,5 L0,9 z" fill="#8d867b"></path>
+</marker>
+</defs>
+<text fill="#aba498" font-family="-apple-system,sans-serif" font-size="13" text-anchor="middle" x="360" y="26">The correlation did not break — it was optimised away</text>
+<line marker-end="url(#t26f)" stroke="rgba(255,255,255,0.2)" stroke-width="1.5" x1="80" x2="668" y1="250" y2="250"></line>
+<line marker-end="url(#t26f)" stroke="rgba(255,255,255,0.2)" stroke-width="1.5" x1="80" x2="80" y1="250" y2="52"></line>
+<text fill="#8d867b" font-family="-apple-system,sans-serif" font-size="11.5" text-anchor="middle" x="380" y="278">time →</text>
+<text fill="#8d867b" font-family="-apple-system,sans-serif" font-size="11.5" transform="rotate(-90 34 150)" x="34" y="150">level</text>
+<line stroke="#d9b45f" stroke-dasharray="5 5" stroke-width="1.6" x1="270" x2="270" y1="66" y2="214"></line>
+<text fill="#d9b45f" font-family="SF Mono,monospace" font-size="12" text-anchor="middle" x="270" y="58">day it became a target</text>
+<path d="M100,208 C150,200 210,188 270,180" fill="none" stroke="#63b3a6" stroke-width="2.6"></path>
+<path d="M270,180 C340,176 430,178 560,186" fill="none" stroke="#63b3a6" stroke-width="2.6"></path>
+<text fill="#63b3a6" font-family="SF Mono,monospace" font-size="12.5" x="572" y="192">real goal</text>
+<path d="M100,206 C150,198 210,186 270,178" fill="none" stroke="#e0895e" stroke-width="2.6"></path>
+<path d="M270,178 C330,150 420,116 560,96" fill="none" stroke="#e0895e" stroke-width="2.6"></path>
+<text fill="#e0895e" font-family="SF Mono,monospace" font-size="12.5" x="572" y="100">the metric</text>
+<line stroke="rgba(205,127,155,0.75)" stroke-dasharray="4 4" stroke-width="1.6" x1="540" x2="540" y1="100" y2="186"></line>
+<text fill="#cd7f9b" font-family="-apple-system,sans-serif" font-size="11.5" text-anchor="middle" x="486" y="218">this gap = what got optimised</text>
+<text fill="#787268" font-family="-apple-system,sans-serif" font-size="11.5" text-anchor="middle" x="176" y="230">before the pressure, they really did move together</text>
+<text fill="#57524b" font-family="-apple-system,sans-serif" font-size="11" text-anchor="middle" x="360" y="304">A metric is only a proxy for the goal; there is always a seam, and candidate rules crawl into it</text>
+</svg>
+<figcaption>The metric was never the goal, only a stand-in. Before the pressure they walk side by side; after it, the walking happens in the seam — and the report only shows you the copper line.</figcaption>
+</figure>
+<p>Once the mechanism is stated you can also state <em>when it does not happen</em>. A metric gets optimised away because there is a seam between it and the real goal, and because agents can crawl into that seam. So Goodhart fails in three cases: the metric is the goal rather than a proxy, so there is no seam; the agents have no adjustable space; or crawling into the seam costs more than it pays. Those three are also three design strategies — the next section puts numbers on them.</p>
+<div class="decide">
+<span class="lb">🎯 DECISION LINE</span>
+<p>Whenever you publish a metric, write down two things alongside it: <b>one concrete route to raising it that does nothing for the real goal</b> (if you cannot write one, you have not yet worked out whether it is a proxy or the goal itself), and <b>a review date</b>. Add an observation-only quantity that carries no consequences, ideally collected from a source unconnected to the people being assessed. Any metric assessed for more than four consecutive quarters without review should be assumed to have drifted.</p>
+</div>
+<div class="crossx-inline">
+🌀 <b>History · the rat tails of Hanoi</b>　In 1902 the French colonial administration in Hanoi paid a bounty per rat tail; before long the sewers held plenty of live, tailless rats, and some people were simply breeding rats for the tails. There is a corollary here sharper than "people game incentives": <b>a bounty is never paid on the outcome, only on the submittable evidence.</b> Agents necessarily optimise the evidence, so the first question in designing an assessment is not "is this a good metric" but "between the evidence and the real outcome, what unchecked assumptions are still standing" — those assumptions are exactly where the seam is.
+</div>
+
+<h2><span class="n">04</span>Where This Breaks Down</h2>
+<p class="lead">"Complex adaptive system" is the most all-purpose phrase in this field. Three boundaries have to be on the table before using it.</p>
+<p><b>First, adapting is not improving.</b> The machinery in section 2 does one thing: keep the rules whose payoff is high right now. Payoff is defined by the environment, and in these systems the environment is mostly other agents — so it can perfectly well push everyone somewhere worse together (every student takes another year of tutoring, every firm adds another round of overtime; the ranking is unchanged and the costs have doubled). <b>"This is a complex adaptive system" therefore predicts no direction at all.</b> Having said it, you know nothing about whether the outcome will be good. It tells you the rules will change, not where they will go.</p>
+<p><b>Second, not everything being modelled adapts — and this can be estimated.</b> Open up the slow loop and the rate at which you get adapted around depends on two measurable quantities: <em>how long one lap takes</em> (make a change, see the result, change again) and <em>how large the adjustable space is</em> (how much the other side can alter). Together they give a rough shelf life. Influenza antigens drift fast and have room to vary, so the vaccine is reformulated every year; measles antigens are stable with almost no usable drift, so the same vaccine has worked for decades. To the same question — will the virus escape? — the answer lies not in the vaccine but in the other party.</p>
+<figure>
+<svg aria-label="Rate of being adapted around depends on cycle length and adjustable space, giving a model shelf life" role="img" viewbox="0 0 720 360" xmlns="http://www.w3.org/2000/svg">
+<defs>
+<marker id="t26g" markerheight="10" markerunits="userSpaceOnUse" markerwidth="10" orient="auto" refx="9" refy="5" viewbox="0 0 10 10">
+<path d="M0,1 L9,5 L0,9 z" fill="#8d867b"></path>
+</marker>
+</defs>
+<text fill="#aba498" font-family="-apple-system,sans-serif" font-size="13" text-anchor="middle" x="360" y="26">How long your model lasts is a measurement of the other side</text>
+<line marker-end="url(#t26g)" stroke="rgba(255,255,255,0.2)" stroke-width="1.5" x1="96" x2="660" y1="290" y2="290"></line>
+<line marker-end="url(#t26g)" stroke="rgba(255,255,255,0.2)" stroke-width="1.5" x1="96" x2="96" y1="290" y2="54"></line>
+<text fill="#8d867b" font-family="-apple-system,sans-serif" font-size="11.5" x="112" y="312">length of one lap (fast → slow)</text>
+<text fill="#8d867b" font-family="-apple-system,sans-serif" font-size="11.5" transform="rotate(-90 44 200)" x="44" y="200">adjustable space (small → large)</text>
+<rect fill="rgba(205,127,155,0.06)" height="96" width="240" x="96" y="60"></rect>
+<text fill="#cd7f9b" font-family="SF Mono,monospace" font-size="11.5" x="108" y="80">shelf life: weeks</text>
+<rect fill="rgba(99,179,166,0.06)" height="96" width="240" x="400" y="194"></rect>
+<text fill="#63b3a6" font-family="SF Mono,monospace" font-size="11.5" x="412" y="212">shelf life: decades</text>
+<circle cx="150" cy="96" fill="#cd7f9b" r="5.5"></circle>
+<text fill="#d5cdc1" font-family="-apple-system,sans-serif" font-size="12" x="162" y="100">arbitrage strategies</text>
+<circle cx="212" cy="130" fill="#cd7f9b" r="5.5"></circle>
+<text fill="#d5cdc1" font-family="-apple-system,sans-serif" font-size="12" x="224" y="134">influenza antigens</text>
+<circle cx="180" cy="196" fill="#d9b45f" r="5.5"></circle>
+<text fill="#d5cdc1" font-family="-apple-system,sans-serif" font-size="12" x="192" y="200">commuters choosing routes</text>
+<circle cx="360" cy="152" fill="#d9b45f" r="5.5"></circle>
+<text fill="#d5cdc1" font-family="-apple-system,sans-serif" font-size="12" x="372" y="156">students facing a syllabus</text>
+<circle cx="424" cy="236" fill="#63b3a6" r="5.5"></circle>
+<text fill="#d5cdc1" font-family="-apple-system,sans-serif" font-size="12" x="436" y="241">measles antigens</text>
+<circle cx="596" cy="268" fill="#63b3a6" r="5.5"></circle>
+<text fill="#d5cdc1" font-family="-apple-system,sans-serif" font-size="12" text-anchor="end" x="584" y="272">crustal stress</text>
+<text fill="#787268" font-family="-apple-system,sans-serif" font-size="11" text-anchor="middle" x="360" y="334">"Will this get adapted around?" is answered by the other side's position on this chart, not by your design</text>
+</svg>
+<figcaption>Top left: nothing that depends on the other side not knowing survives many rounds. Bottom right: the physical models of the first twenty-five issues can be used with confidence.</figcaption>
+</figure>
+<p><b>Third, the phrase itself slides easily into vacuity.</b> Saying "the economy / the organisation / the brain is a complex adaptive system" has no content unless you can follow it with the candidate rules, the credit-assignment signal, and the retirement mechanism. Without those it excludes no possibility and cannot be falsified. There is a subtler problem too: physics has universality classes (Topic 16), where wildly different systems really do share critical exponents, so conclusions travel. Adaptive systems have no such thing. <b>A result about ant colonies does not transfer to organisations</b>, because behaviour is set by the concrete form of those three components, and the forms are entirely different on the two sides.</p>
+<div class="decide">
+<span class="lb">🎯 DECISION LINE</span>
+<p>Before any plan that depends on staying a step ahead, estimate one ratio: <b>how long the other side takes to complete a try-observe-revise lap ÷ how long you take to update your rules.</b> Above 1, a plan based on information advantage is viable — but write down its expected lifetime and exit condition. Below 1, don't: switch to plans that survive being seen. Align the incentive (so that optimising your metric really does move the goal) or change the structure (so the shortcut does not exist). Both keep working after publication.</p>
+</div>
+<div class="crossx-inline">
+🌀 <b>Medicine · why the flu shot is annual and two measles shots last a lifetime</b>　The difference is not in the technology of the two vaccines but in the two viruses' slow loops: influenza's antigenic drift is continuous and its variable space large, so immune pressure selects a different variant each year; measles antigens are highly stable, with almost no way to dodge antibodies and remain infectious. The counterintuitive inference: <b>"will this intervention get adapted around" is a property of the target, not of the intervener.</b> So when estimating how long a new policy or strategy will hold, the effort belongs in measuring the other side's cycle time and adjustable space, not in admiring the ingenuity of your own design.
+</div>
+
+<div class="bigcat">
+<h3>🎒 Scenes · BigCat</h3>
+<ol>
+<li><span class="dm">Teams &amp; organisations</span>Every quarter a new metric goes into the goals (response time, coverage, release count); three months on the numbers look great and nothing feels different. It recurs because the machinery in section 3 starts up every single time. Concrete change: alongside the metric write its <b>review date</b> and one route to raising it that does nothing for the real goal, and add an <b>observation-only</b> counterpart, ideally collected from a source unconnected to the people assessed (user-side rather than self-reported). What to stop: assessing the same metric for four-plus consecutive quarters without a review.</li>
+<li><span class="dm">Investing &amp; position sizing</span>A rule that backtested beautifully goes live and decays over six months — usually explained as "the market changed." What is measurable is the ratio from section 4: how much money is running this same rule (assets in comparable products, proxies for crowding, rising correlation among similar holdings) and how long its payoff cycle is. Concrete change: treat <b>crowding as a position variable</b> alongside valuation and volatility, and <b>write the exit condition at entry</b> (N consecutive periods of underperformance, or a crowding proxy crossing a line). What to stop: explaining a run of underperformance with "let's give it more time" — that is exactly what an expired shelf life looks like.</li>
+<li><span class="dm">Health &amp; energy</span>A training or sleep protocol works well for two months, then stalls, and you put it down to slacking off. More likely the body has adapted around it: the same stimulus, diminishing returns. Concrete change: write the <b>shelf life into the plan</b> (rotate intensity, duration or modality every 6–8 weeks) with an observable trigger — switch when the same input produces no change in output for two consecutive weeks, rather than waiting until it feels dead. What to stop: applying willpower to repair a protocol that has already been adapted around.</li>
+</ol>
+</div>
+
+<div class="crossx">
+<h3>🌀 Crossings</h3>
+<ul>
+<li><b>Economics &amp; institutions · half of the Lucas critique is borrowable, half is not</b>: the Phillips curve collapsed in the 1970s, and this issue's three mechanisms together give the mechanical account — agents act on an internal model of policy (§1), credit assignment spreads the rule "price inflation in" very fast (§2), and announcing a policy is itself publishing a model (§3). That yields something stronger than "metrics get gamed": <b>the stability of an empirical regularity depends on how many agents' payoffs depend on it staying stable</b> — the more that do, the faster it goes, with or without anyone cheating. <b>But it does not hold here</b>: Lucas's prescription was to dig down to "deep parameters" — preferences and technology, presumed invariant to policy — and rebuild the model from them. This issue's mechanisms deny that such an unmoving floor exists; the rule pool itself evolves and preferences are being shaped too. His diagnosis is borrowable; his cure is not.</li>
+<li><b>Philosophy of science · Popper and the "Oedipus effect"</b>: in <i>The Poverty of Historicism</i> Popper argued that the course of history cannot be scientifically predicted, and he coined "Oedipus effect" for a prophecy that brings about (or prevents) the very thing it foretells — as the king's every act to escape the oracle laid the road to fulfilling it. This issue's mechanisms turn that from rhetoric into a usable criterion: predictions about society fail not because the data is thin or the precision poor, but because <b>the prediction is part of the system being predicted</b>, and the machinery in §2 selects for rules that respond to it. The failure is a category problem, not an accuracy problem — more data does not touch it. <b>But it does not hold here</b>: Popper draws the line between the social and the natural, and this issue's line falls elsewhere — at <em>whether the modelled party can read your model and has room to adjust</em>. Demographic momentum and the physics inside the climate stay predictable over long horizons; they are social phenomena in part, but they cannot read forecasts. Conversely a fleet of machines dispatched by a published algorithm is not a society, yet is changed by its own model. The dividing line is the slow loop, not the discipline.</li>
+<li><b>Literature &amp; art · a detective-story trick works exactly once</b>: Golden Age writers solemnly codified "fair play" rules (Van Dine's twenty in 1928, Knox's decalogue in 1929) and then broke them one by one — Agatha Christie's 1926 novel in which the narrator turns out to be the murderer was the scandal of its day. That is not aesthetic progress; it is arbitrage being used up. Readers are agents with internal models, publishing a book publishes the model, market reception does the credit assignment, and the payoff called "you didn't see it coming" gets consumed round after round, so the genre can only drift toward greater complication. The testable corollary is a division: <b>any form whose payoff depends on the audience not predicting it must inflate; any form whose payoff comes from familiarity does not decay.</b> You can play the same song a hundred times and never the same trick twice — the difference is not artistic merit but whether "surprise" appears in the payoff function.</li>
+</ul>
+</div>
+
+<div class="thinking">
+<h3>Going Deeper</h3>
+<details><summary>If every published model fails, what is left of science in the social domain?</summary><p>Two things. Results about <b>structure</b> rather than parameters: as long as the slow loop runs, certain shapes recur (metrics get optimised away, arms races, lock-in on local optima) — and knowing them does not let you escape them, so publishing does not destroy them. And predictions about quantities with <b>no adjustable space</b>. What genuinely expires is the parameter-shaped result: "under the current rules, X correlates with Y."</p></details>
+<details><summary>Conversely, can you deliberately cut the slow loop so a system stops adapting?</summary><p>Yes, and it has been done often: kill variety (only one approved way), kill credit assignment (results are not published, or good and bad both land on the same person), kill retirement (nothing failing is ever stopped, only supplemented). Each will make a system "stable" on the timescale you care about. The price is that it has no response left when the environment shifts — the stability was bought by spending the adaptive capacity in advance.</p></details>
+<details><summary>Isn't "agents carry a model of the system" assuming far too much rationality?</summary><p>It need not. An internal model in Holland's sense can be as thin as an ant's: a rule saying "follow the stronger pheromone trail" already encodes a prediction about the world. All that is required is that the rule change in response to results — not that the agent know it is predicting anything. What rationality assumptions really constrain is standard economic modelling, not this.</p></details>
+<details><summary>If metrics are inevitably optimised away, should we stop using metrics?</summary><p>No. An organisation without metrics does not become more honest; it hands evaluation to something less visible (impressions, seniority, who talks loudest). This issue points elsewhere: accept that metrics have a shelf life and give them a review date, pair them with an observation-only counterpart, and prefer metrics with a narrow seam — ones where the only route to raising them is doing the work.</p></details>
+<details><summary>Why does complexity science look like science on physical systems and often like metaphor on social ones?</summary><p>Section 4 gives one concrete answer: physics has universality classes, where critical exponents really are shared across unrelated systems, so conclusions travel. Adaptive systems have no equivalent; behaviour is set by the concrete form of the three components. What travels is the vocabulary, not the result. The cheapest guard against metaphor is to name all three components every time — if you cannot, the sentence has no content yet.</p></details>
+</div>
+
+<div class="refs">
+<h3>Further Reading</h3>
+<ul>
+<li><a href="https://en.wikipedia.org/wiki/John_Henry_Holland">John H. Holland</a> — genetic algorithms, classifier systems, and the CAS framework</li>
+<li><a href="https://en.wikipedia.org/wiki/Complex_adaptive_system">Complex adaptive system</a> — overview and criticism</li>
+<li><a href="https://en.wikipedia.org/wiki/Goodhart%27s_law">Goodhart's law</a> — the 1975 formulation and Strathern's 1997 rephrasing</li>
+<li><a href="https://en.wikipedia.org/wiki/Lucas_critique">Lucas critique</a> (1976) — why fitted policy parameters are not constants</li>
+<li><a href="https://en.wikipedia.org/wiki/Phillips_curve">Phillips curve</a> — the 1958 relationship and its 1970s collapse</li>
+<li>Duranton &amp; Turner, <a href="https://doi.org/10.1257/aer.101.6.2616">The Fundamental Law of Road Congestion</a> (2011)</li>
+<li><a href="https://en.wikipedia.org/wiki/Antigenic_drift">Antigenic drift</a> — why influenza vaccines are reformulated annually</li>
+<li><a href="https://en.wikipedia.org/wiki/The_Poverty_of_Historicism">The Poverty of Historicism</a> — Popper, including the Oedipus effect</li>
+<li>Silver et al., <a href="https://www.nature.com/articles/nature16961">Mastering the game of Go with deep neural networks and tree search</a> (2016)</li>
+<li>Melanie Mitchell, <a href="https://global.oup.com/academic/product/complexity-9780199798100">Complexity: A Guided Tour</a> — a restrained assessment of this vocabulary</li>
+</ul>
+</div>
+
+<footer>BigCat · Complexity Science · <a href="index.en.html">← All topics</a></footer>
+</div>
+<script src="https://hub.cissychen.com/comments.js" defer></script>
+<script src="https://hub.cissychen.com/search.js" defer></script>
+<script src="https://hub.cissychen.com/index-button.js" defer></script>
+<script src="https://hub.cissychen.com/i18n-tts.js" defer></script>
+</body></html>

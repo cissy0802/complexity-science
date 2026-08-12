@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+
+<html lang="zh-CN"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>复杂适应系统 — 会读你的模型的那类系统 · 复杂性科学 T26</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,"SF Pro Display","Noto Sans SC",sans-serif;color:#e4ded5;line-height:1.85;min-height:100vh;
+  background:radial-gradient(1100px 620px at 12% -6%,rgba(224,137,94,0.10),transparent 62%),radial-gradient(950px 700px at 100% 2%,rgba(166,147,205,0.09),transparent 58%),linear-gradient(168deg,#100f0d 0%,#15161b 48%,#0a0a0c 100%);background-attachment:fixed}
+.wrap{max-width:760px;margin:0 auto;padding:30px 22px 90px}
+header{padding:52px 0 8px;border-bottom:1px solid rgba(255,255,255,0.07);margin-bottom:34px}
+.week-tag{font-family:"SF Mono",Menlo,monospace;font-size:0.72rem;font-weight:700;letter-spacing:2px;color:#79a6d2;border:1px solid rgba(121,166,210,0.4);background:rgba(121,166,210,0.07);padding:3px 11px;border-radius:20px}
+h1{font-size:2.5rem;font-weight:800;letter-spacing:0.5px;line-height:1.2;margin:20px 0 0;background:linear-gradient(106deg,#e0895e 0%,#d9b45f 34%,#9fbc7a 68%,#63b3a6 100%);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+h1 .h1en{display:block;font-size:0.40em;font-weight:600;letter-spacing:2.5px;color:#847d72;-webkit-text-fill-color:#847d72;background:none;margin-top:13px}
+.sub{font-size:1.05rem;color:#aba498;margin-top:14px;font-weight:500}
+.date{font-family:"SF Mono",Menlo,monospace;font-size:0.75rem;color:#57524b;margin-top:18px;letter-spacing:1px}
+.pitch{margin:22px 0 30px;font-size:0.97rem;color:#cd7f9b;border-left:2px solid rgba(205,127,155,0.5);padding-left:16px;font-style:italic}
+.intro{font-size:1.02rem;color:#cfc8bc;margin-bottom:14px}
+.intro p{margin-bottom:16px}
+h2{font-size:1.42rem;font-weight:700;color:#e9e3d9;margin:56px 0 8px;letter-spacing:0.3px}
+h2 .n{font-family:"SF Mono",Menlo,monospace;font-size:0.85rem;color:#79a6d2;display:block;margin-bottom:6px;letter-spacing:2px}
+.he{font-size:0.68em;color:#8d867b;font-weight:500;letter-spacing:0}
+p{margin-bottom:17px}
+.lead{color:#cfc8bc}
+b,strong{color:#f0eae0;font-weight:600}
+em{color:#d9b45f;font-style:normal;font-weight:500}
+.dim{color:#8d867b}
+a.reflink{display:inline-block;font-size:0.82rem;font-family:"SF Mono",Menlo,monospace;color:#63b3a6;border:1px solid rgba(99,179,166,0.38);background:rgba(99,179,166,0.07);padding:1px 9px;border-radius:20px;text-decoration:none;transition:all 0.15s;white-space:nowrap}
+a.reflink:hover{background:rgba(99,179,166,0.16);border-color:rgba(99,179,166,0.7)}
+figure{margin:30px 0}
+figure svg{display:block;width:100%;height:auto;border-radius:12px;background:rgba(255,255,255,0.018);border:1px solid rgba(255,255,255,0.06)}
+figcaption{font-size:0.82rem;color:#787268;margin-top:11px;text-align:center;line-height:1.6}
+.en-brief{font-size:0.85rem;color:#847d72;border-top:1px dashed rgba(255,255,255,0.09);padding-top:12px;margin-top:22px;line-height:1.65}
+.en-brief b{font-family:"SF Mono",Menlo,monospace;font-size:0.72rem;color:#63b3a6;letter-spacing:1px;margin-right:7px}
+.decide{margin:24px 0;border:1px solid rgba(224,137,94,0.36);background:rgba(224,137,94,0.055);border-radius:12px;padding:15px 19px}
+.decide .lb{font-family:"SF Mono",Menlo,monospace;font-size:0.73rem;letter-spacing:1.5px;color:#e0895e;font-weight:700;display:block;margin-bottom:7px}
+.decide p{margin:0;font-size:0.95rem;color:#ddd5c9}
+.crossx-inline{margin:20px 0 22px;border-left:2px solid rgba(205,127,155,0.55);padding:2px 0 2px 15px;font-size:0.89rem;color:#a9a096;line-height:1.72}
+.crossx-inline b{color:#cd7f9b;font-weight:600}
+.bigcat{margin:46px 0 10px;border:1px solid rgba(217,180,95,0.38);background:rgba(217,180,95,0.05);border-radius:14px;padding:20px 22px}
+.bigcat h3{font-size:1.02rem;color:#d9b45f;margin-bottom:14px;letter-spacing:0.5px}
+.bigcat ol{list-style:none;padding:0}
+.bigcat li{margin-bottom:15px;font-size:0.94rem;color:#d5cdc1;line-height:1.78}
+.bigcat li:last-child{margin-bottom:0}
+.bigcat .dm{font-family:"SF Mono",Menlo,monospace;font-size:0.73rem;color:#d9b45f;border:1px solid rgba(217,180,95,0.32);border-radius:4px;padding:1px 7px;margin-right:8px;white-space:nowrap}
+.crossx{margin:46px 0 10px;border:1px solid rgba(205,127,155,0.38);background:rgba(205,127,155,0.05);border-radius:14px;padding:20px 22px}
+.crossx h3{font-size:1.02rem;color:#cd7f9b;margin-bottom:14px;letter-spacing:0.5px}
+.crossx ul{list-style:none;padding:0}
+.crossx li{margin-bottom:16px;font-size:0.94rem;color:#d5cdc1;line-height:1.78}
+.crossx li:last-child{margin-bottom:0}
+.crossx li b{color:#cd7f9b;font-weight:600}
+.thinking{margin:46px 0 10px}
+.thinking h3{font-size:1.02rem;color:#a693cd;margin-bottom:14px;letter-spacing:0.5px}
+details{border:1px solid rgba(166,147,205,0.22);border-radius:10px;padding:12px 16px;margin-bottom:10px;background:rgba(166,147,205,0.035)}
+summary{cursor:pointer;font-size:0.93rem;color:#c9c2b6;font-weight:500}
+summary::marker{color:#a693cd}
+details p{margin:12px 0 0;font-size:0.9rem;color:#a9a096;line-height:1.75}
+.refs{margin:46px 0 10px}
+.refs h3{font-size:1.02rem;color:#79a6d2;margin-bottom:14px;letter-spacing:0.5px}
+.refs ul{list-style:none;padding:0}
+.refs li{margin-bottom:10px;font-size:0.9rem;color:#8d867b;line-height:1.7}
+.refs a{color:#79a6d2;text-decoration:none;border-bottom:1px solid rgba(121,166,210,0.3)}
+.refs a:hover{color:#a6c4e2;border-bottom-color:rgba(121,166,210,0.7)}
+footer{text-align:center;padding:56px 0 10px;font-size:0.78rem;color:#57524b;font-family:"SF Mono",Menlo,monospace;border-top:1px solid rgba(255,255,255,0.06);margin-top:50px}
+footer a{color:#79a6d2;text-decoration:none}
+@media(max-width:600px){h1{font-size:1.85rem}.wrap{padding:24px 16px 60px}h2{font-size:1.22rem}}
+</style></head><body>
+<div class="wrap">
+<header>
+<span class="week-tag">TOPIC 26 · PHASE E</span>
+<h1>复杂适应系统<span class="h1en">COMPLEX ADAPTIVE SYSTEMS</span></h1>
+<p class="sub">会读你的模型的那类系统<span class="he">（Systems that read your model）</span></p>
+<p class="date">2026-08-12 · 适应与演化</p>
+</header>
+<p class="pitch">前二十五期讲的东西有一个共同的好处：沙子不看你写的论文。从这一期开始，被研究的对象会看——而且看完会改。</p>
+<div class="intro">
+<p>某个路口下午五点半堵得最狠，你把这条路拓宽了一条车道。工程做得没问题，通行能力实打实地涨了。半年后再去看：一样堵，只是路上多了一批以前不走这儿的车。</p>
+<p>失效的不是工程，是"其他条件不变"这五个字。司机会重新决定走哪条路、几点出门、要不要开车——而这些决定，正是你原来那张流量图的输入。你改的不只是路，还有画那张图所依据的前提。</p>
+<p class="dim">前面几期的系统有一个共同点：<b>组成部分不知道自己在参与什么。</b>沙粒不会因为上一次雪崩太大而改变倾倒的角度，电网里的一条线路也不会因为上次跳闸太惨而学乖。本期开始的这类系统不一样：它的组成部分自己带着一个关于系统的模型在行动，并且会按结果修改那个模型。这一条差别，足以让前面二十五期的方法在这里部分失效。本期就是把这条线划出来，并说清楚线的两边各能做什么。</p>
+</div>
+
+<h2><span class="n">01</span>沙子不会学，人会<span class="he">（Where the Ground Shifts）</span></h2>
+<p class="lead">先把词说清楚。一个能自己做决定、并且决定会影响别人的东西，叫一个<b>主体</b>（agent）：一个司机、一家公司、一只蚂蚁、一个免疫细胞、一段交易程序。由大量主体组成、而且这些主体会按结果改变自己行为规则的系统，叫<b>复杂适应系统</b>（complex adaptive system），学界通常缩写成 <b>CAS</b>——下文也这么用。</p>
+<p>这个词的提出者是 John Holland（1929–2015），密歇根大学的计算机科学家，也是圣塔菲研究所最早那批人之一 <a class="reflink" href="ref-santa-fe.html">→ 参考 · 圣塔菲研究所</a>。他一辈子在琢磨同一件事：适应到底是怎么发生的，能不能写成一段可以跑起来的程序。</p>
+<p>关键不在"主体很聪明"。蚂蚁不聪明，免疫细胞更谈不上。关键在于系统里跑着<em>两个</em>回路，转速差着好几个量级：</p>
+<p><b>快回路</b>是在给定规则下行动——按当前这套习惯选路、报价、出击。<b>慢回路</b>是规则本身在被替换：那些结果好的规则被留下、被复制、被更多主体模仿，结果差的被弃用。物理系统只有快回路，规则永远悬在系统外面，不参与游戏。适应系统把规则也拉进了游戏里。</p>
+<figure>
+<svg aria-label="物理系统只有一条快回路，适应系统多出一条把结果送回规则的慢回路" role="img" viewbox="0 0 720 330" xmlns="http://www.w3.org/2000/svg">
+<defs>
+<marker id="t26a" markerheight="10" markerunits="userSpaceOnUse" markerwidth="10" orient="auto" refx="9" refy="5" viewbox="0 0 10 10">
+<path d="M0,1 L9,5 L0,9 z" fill="#8d867b"></path>
+</marker>
+<marker id="t26b" markerheight="11" markerunits="userSpaceOnUse" markerwidth="11" orient="auto" refx="9" refy="5" viewbox="0 0 10 10">
+<path d="M0,1 L9,5 L0,9 z" fill="#e0895e"></path>
+</marker>
+</defs>
+<text fill="#aba498" font-family="-apple-system,sans-serif" font-size="13" text-anchor="middle" x="360" y="28">差别只有一条线</text>
+<line stroke="rgba(255,255,255,0.10)" stroke-width="1" x1="360" x2="360" y1="46" y2="300"></line>
+<text fill="#79a6d2" font-family="SF Mono,monospace" font-size="12" text-anchor="middle" x="176" y="62">物理系统</text>
+<rect fill="rgba(255,255,255,0.04)" height="38" rx="8" stroke="rgba(255,255,255,0.16)" width="170" x="91" y="78"></rect>
+<text fill="#d5cdc1" font-family="-apple-system,sans-serif" font-size="13" text-anchor="middle" x="176" y="102">规则（写死的）</text>
+<line marker-end="url(#t26a)" stroke="#8d867b" stroke-width="1.6" x1="176" x2="176" y1="118" y2="152"></line>
+<rect fill="rgba(255,255,255,0.04)" height="38" rx="8" stroke="rgba(255,255,255,0.16)" width="170" x="91" y="156"></rect>
+<text fill="#d5cdc1" font-family="-apple-system,sans-serif" font-size="13" text-anchor="middle" x="176" y="180">此刻的状态</text>
+<line marker-end="url(#t26a)" stroke="#8d867b" stroke-width="1.6" x1="176" x2="176" y1="196" y2="230"></line>
+<rect fill="rgba(255,255,255,0.04)" height="38" rx="8" stroke="rgba(255,255,255,0.16)" width="170" x="91" y="234"></rect>
+<text fill="#d5cdc1" font-family="-apple-system,sans-serif" font-size="13" text-anchor="middle" x="176" y="258">下一刻的状态</text>
+<text fill="#787268" font-family="-apple-system,sans-serif" font-size="11.5" text-anchor="middle" x="176" y="294">沙粒不会因为上次崩得大而改倾倒角度</text>
+<text fill="#e0895e" font-family="SF Mono,monospace" font-size="12" text-anchor="middle" x="520" y="62">适应系统</text>
+<rect fill="rgba(224,137,94,0.07)" height="38" rx="8" stroke="rgba(224,137,94,0.4)" width="200" x="420" y="78"></rect>
+<text fill="#f0d0bc" font-family="-apple-system,sans-serif" font-size="13" text-anchor="middle" x="520" y="102">一池子候选规则</text>
+<line marker-end="url(#t26a)" stroke="#8d867b" stroke-width="1.6" x1="520" x2="520" y1="118" y2="152"></line>
+<rect fill="rgba(255,255,255,0.04)" height="38" rx="8" stroke="rgba(255,255,255,0.16)" width="200" x="420" y="156"></rect>
+<text fill="#d5cdc1" font-family="-apple-system,sans-serif" font-size="13" text-anchor="middle" x="520" y="180">主体此刻的行为</text>
+<line marker-end="url(#t26a)" stroke="#8d867b" stroke-width="1.6" x1="520" x2="520" y1="196" y2="230"></line>
+<rect fill="rgba(255,255,255,0.04)" height="38" rx="8" stroke="rgba(255,255,255,0.16)" width="200" x="420" y="234"></rect>
+<text fill="#d5cdc1" font-family="-apple-system,sans-serif" font-size="13" text-anchor="middle" x="520" y="258">结果好不好</text>
+<path d="M620,253 C672,253 684,150 628,100" fill="none" marker-end="url(#t26b)" stroke="#e0895e" stroke-width="2"></path>
+<text fill="#e0895e" font-family="-apple-system,sans-serif" font-size="11.5" text-anchor="middle" transform="rotate(-90 690 176)" x="690" y="176">按结果改写规则</text>
+<text fill="#787268" font-family="-apple-system,sans-serif" font-size="11.5" text-anchor="middle" x="500" y="294">司机会因为上次堵得狠而换路线</text>
+<text fill="#57524b" font-family="-apple-system,sans-serif" font-size="11" text-anchor="middle" x="360" y="320">右边多出的那条铜色回路，就是本期全部的内容</text>
+</svg>
+<figcaption>快回路（往下）在所有系统里都有；慢回路（往上那条）只有适应系统才有。前二十五期的方法默认它不存在。</figcaption>
+</figure>
+<p>所以"这个系统会适应"不是一句形容，它是一个可以查证的断言。查法就是问这条慢回路存不存在：<b>候选规则从哪儿来、结果怎么反馈回规则、被淘汰的规则真的会消失吗。</b>三个问题里有一个答不上来，慢回路就是断的，这个系统在你关心的时间尺度上并不适应——哪怕它由人组成。一个被规章焊死、试错要审批半年、错了也没人退出的科层组织，在半年这个尺度上更接近沙堆而不是蚁群。</p>
+<div class="decide">
+<span class="lb">🎯 决策线</span>
+<p>动手之前先给你面对的系统分类，用上面那三个问题。三个都答不出来 → 按物理系统处理，前面几期的机制（阈值、级联、幂律）可以直接用，模型公开也不会失效。答得出来 → 你发布的任何规则、指标、公开分析，都要预留一段"被适应掉"的时间，而这段时间的长短，是可以估的（第 4 节给估法）。</p>
+</div>
+<div class="crossx-inline">
+🌀 <b>经济与制度 · 拓宽的路为什么还是堵</b>　Duranton 与 Turner 2011 年在《美国经济评论》上比对了美国各城市的车道里程与行驶里程，得到一个近乎 1 的弹性：<b>车道每增加 1%，行驶总里程也涨约 1%</b>，拥堵回到原点。这不是工程失败，正是慢回路在跑——通勤者按结果改写了自己"走哪条、几点走、开不开车"的规则。推论很扎人：一切以"其他条件不变"为前提算出来的收益，在有慢回路的系统里都是上限，不是预期值。
+</div>
+<p class="en-brief"><b>EN</b> A complex adaptive system (CAS) runs two loops at different speeds: a fast one where agents act under current rules, and a slow one where the rules themselves get replaced by results. Physical systems have only the fast loop — the rules sit outside the game. Whether a system "adapts" is a checkable claim: where do candidate rules come from, how do results feed back to rules, and do losing rules actually die?</p>
+
+<h2><span class="n">02</span>适应的最小配方<span class="he">（The Minimum Recipe for Adaptation）</span></h2>
+<p class="lead">Holland 的贡献不是说"系统会适应"，而是把适应拆成了三个缺一不可的零件——拆到可以写成代码的程度。他 1975 年那本书里给出的<b>遗传算法</b>（genetic algorithm）就是这三个零件的最小实现 <a class="reflink" href="ref-genetic-algorithm.html">→ 参考 · 遗传算法</a>。</p>
+<p><b>一，多样性。</b>手上得同时有好几条互不相同的候选规则。只有一条规则的系统没得可选，无论反馈多准都不会适应——它只会重复。</p>
+<p><b>二，信用分配</b>（credit assignment）。得有办法把"结果好"这件事记到某条具体规则头上。这是三件里最难的，因为回报通常来得晚：下棋赢在第 200 手，功劳该记给第 37 手那步吗？Holland 为此设计过一套叫<b>桶队列</b>（bucket brigade）的机制，让链条上后一环把到手的回报往前一环回传一点，一轮轮传下去，前面那些"看不出好在哪儿"的铺垫动作才慢慢被评上分。</p>
+<p><b>三，复制与重组。</b>得分高的规则被复制得更多，还要能把两条规则的片段拼起来产生新的候选——这样搜索才不只是在原地做微调。</p>
+<figure>
+<svg aria-label="适应的三个零件构成一个循环，下方演示延迟回报下的信用分配" role="img" viewbox="0 0 720 360" xmlns="http://www.w3.org/2000/svg">
+<defs>
+<marker id="t26c" markerheight="10" markerunits="userSpaceOnUse" markerwidth="10" orient="auto" refx="9" refy="5" viewbox="0 0 10 10">
+<path d="M0,1 L9,5 L0,9 z" fill="#9fbc7a"></path>
+</marker>
+<marker id="t26d" markerheight="9" markerunits="userSpaceOnUse" markerwidth="9" orient="auto" refx="9" refy="5" viewbox="0 0 10 10">
+<path d="M0,1 L9,5 L0,9 z" fill="#cd7f9b"></path>
+</marker>
+<marker id="t26e" markerheight="9" markerunits="userSpaceOnUse" markerwidth="9" orient="auto" refx="9" refy="5" viewbox="0 0 10 10">
+<path d="M0,1 L9,5 L0,9 z" fill="#8d867b"></path>
+</marker>
+</defs>
+<text fill="#aba498" font-family="-apple-system,sans-serif" font-size="13" text-anchor="middle" x="360" y="26">三个零件缺一不可 — 缺哪个，系统就在哪儿卡住</text>
+<rect fill="rgba(159,188,122,0.07)" height="46" rx="9" stroke="rgba(159,188,122,0.4)" width="176" x="30" y="52"></rect>
+<text fill="#c8dbae" font-family="-apple-system,sans-serif" font-size="13" text-anchor="middle" x="118" y="72">① 多样的候选规则</text>
+<text fill="#787268" font-family="-apple-system,sans-serif" font-size="11" text-anchor="middle" x="118" y="90">没有备选＝不会适应</text>
+<line marker-end="url(#t26c)" stroke="#9fbc7a" stroke-width="2" x1="212" x2="264" y1="75" y2="75"></line>
+<rect fill="rgba(159,188,122,0.07)" height="46" rx="9" stroke="rgba(159,188,122,0.4)" width="176" x="272" y="52"></rect>
+<text fill="#c8dbae" font-family="-apple-system,sans-serif" font-size="13" text-anchor="middle" x="360" y="72">② 把结果记到规则上</text>
+<text fill="#787268" font-family="-apple-system,sans-serif" font-size="11" text-anchor="middle" x="360" y="90">信用分配 · 最难的一环</text>
+<line marker-end="url(#t26c)" stroke="#9fbc7a" stroke-width="2" x1="454" x2="506" y1="75" y2="75"></line>
+<rect fill="rgba(159,188,122,0.07)" height="46" rx="9" stroke="rgba(159,188,122,0.4)" width="176" x="514" y="52"></rect>
+<text fill="#c8dbae" font-family="-apple-system,sans-serif" font-size="13" text-anchor="middle" x="602" y="72">③ 复制并重组赢家</text>
+<text fill="#787268" font-family="-apple-system,sans-serif" font-size="11" text-anchor="middle" x="602" y="90">输的那些必须真的消失</text>
+<path d="M602,102 C602,132 118,132 118,104" fill="none" marker-end="url(#t26c)" stroke="#9fbc7a" stroke-width="2"></path>
+<text fill="#8d867b" font-family="-apple-system,sans-serif" font-size="11" text-anchor="middle" x="360" y="150">新一代候选规则</text>
+<text fill="#aba498" font-family="-apple-system,sans-serif" font-size="12.5" text-anchor="middle" x="360" y="192">难在哪儿：回报在末端，功劳记给谁？</text>
+<rect fill="rgba(255,255,255,0.04)" height="34" rx="7" stroke="rgba(255,255,255,0.16)" width="86" x="46" y="214"></rect>
+<text fill="#aba498" font-family="-apple-system,sans-serif" font-size="12" text-anchor="middle" x="89" y="236">第 1 步</text>
+<line marker-end="url(#t26e)" stroke="#8d867b" stroke-width="1.4" x1="134" x2="164" y1="231" y2="231"></line>
+<rect fill="rgba(255,255,255,0.04)" height="34" rx="7" stroke="rgba(255,255,255,0.16)" width="86" x="168" y="214"></rect>
+<text fill="#aba498" font-family="-apple-system,sans-serif" font-size="12" text-anchor="middle" x="211" y="236">第 2 步</text>
+<line marker-end="url(#t26e)" stroke="#8d867b" stroke-width="1.4" x1="256" x2="286" y1="231" y2="231"></line>
+<rect fill="rgba(217,180,95,0.10)" height="34" rx="7" stroke="rgba(217,180,95,0.45)" width="86" x="290" y="214"></rect>
+<text fill="#e2cf9a" font-family="-apple-system,sans-serif" font-size="12" text-anchor="middle" x="333" y="236">第 37 步</text>
+<line marker-end="url(#t26e)" stroke="#8d867b" stroke-width="1.4" x1="378" x2="408" y1="231" y2="231"></line>
+<rect fill="rgba(255,255,255,0.04)" height="34" rx="7" stroke="rgba(255,255,255,0.16)" width="86" x="412" y="214"></rect>
+<text fill="#aba498" font-family="-apple-system,sans-serif" font-size="12" text-anchor="middle" x="455" y="236">……</text>
+<line marker-end="url(#t26e)" stroke="#8d867b" stroke-width="1.4" x1="500" x2="530" y1="231" y2="231"></line>
+<rect fill="rgba(224,137,94,0.12)" height="34" rx="7" stroke="rgba(224,137,94,0.5)" width="140" x="534" y="214"></rect>
+<text fill="#f0d0bc" font-family="-apple-system,sans-serif" font-size="12.5" text-anchor="middle" x="604" y="236">第 200 步：赢了</text>
+<path d="M534,262 C500,286 400,286 340,266" fill="none" marker-end="url(#t26d)" stroke="#cd7f9b" stroke-dasharray="5 4" stroke-width="1.6"></path>
+<path d="M290,268 C258,290 236,286 216,268" fill="none" marker-end="url(#t26d)" stroke="#cd7f9b" stroke-dasharray="5 4" stroke-width="1.6"></path>
+<path d="M168,268 C142,290 118,286 96,268" fill="none" marker-end="url(#t26d)" stroke="#cd7f9b" stroke-dasharray="5 4" stroke-width="1.6"></path>
+<text fill="#cd7f9b" font-family="-apple-system,sans-serif" font-size="11.5" text-anchor="middle" x="360" y="312">回报一环一环往前传，前面的铺垫才可能被评上分</text>
+<text fill="#57524b" font-family="-apple-system,sans-serif" font-size="11" text-anchor="middle" x="360" y="340">链条越长、噪声越大，功劳就越可能记错人 —— 于是学到的是错的规则</text>
+</svg>
+<figcaption>三个零件构成一个循环。多样性和淘汰是硬条件，而系统学得快不快，几乎总是卡在中间那一环。</figcaption>
+</figure>
+<p>把这三件事摆出来，有一个直接的好处：<b>"这个组织不会学习"从一句抱怨变成了一个可以定位的故障。</b>是没有备选方案（所有人只会一种做法），还是信用分配断了（做完不知道结果，或者好坏都归给同一个人），还是淘汰失灵（错的做法从来没人停掉，只是又加了一条新规定）？三处的修法完全不同，混着谈只会得到"要有学习心态"这种没法执行的结论。</p>
+<div class="decide">
+<span class="lb">🎯 决策线</span>
+<p>想让一个系统学得快，先量一个数：<b>从做出一个决定，到能看见这个决定的结果，中位数是多少天。</b>这个数就是慢回路的转速上限。它是 90 天，你就别指望季度内能校准任何东西；要提速，只有两条路——把结果的代理信号提前（找一个和最终结果相关、但更早出现的量），或者把决定切小到能更快见分晓。喊口号不改变这个数。</p>
+</div>
+<div class="crossx-inline">
+🌀 <b>工程与技术史 · 机器为什么先学会了围棋</b>　AlphaGo 这类系统的核心零件之一，正是把终局的胜负一步步分配回中盘每一手的信号；强化学习里管这个叫时序信用分配，Holland 的桶队列是这条线上的早期方案。于是"哪些事机器先学会"就有了一个不靠直觉的判据：<b>不取决于任务看起来多难，取决于有没有办法把最终结果拆回中间步骤。</b>围棋难，但终局黑白分明、可以自我对弈千万局；"这篇文章写得好不好"简单得多，却没有清晰终局、也没有可回传的分数——难的先被攻克，容易的反而卡着，原因全在中间那一环。
+</div>
+<p class="en-brief"><b>EN</b> Holland decomposed adaptation into three parts: a diverse pool of candidate rules, credit assignment (attributing outcomes to specific rules — his bucket brigade passes reward backwards along a chain), and replication with recombination. Missing any one stops adaptation, and the bottleneck is almost always credit assignment. This turns "this organisation doesn't learn" into a locatable fault with three different repairs.</p>
+
+<h2><span class="n">03</span>模型一旦公开，就改变了它描述的东西<span class="he">（When the Model Joins the System）</span></h2>
+<p class="lead">现在把前两节合起来，得到本期最实用的一条推论。</p>
+<p>你观察一个由主体组成的系统，找到了一条稳定的规律，写成模型，然后公开它——比如宣布"我们按人均代码行数考核"，或者"失业率低于 4% 时通胀会上来"。这一刻，模型变成了主体们的一个<em>新的回报信号</em>。第 2 节那台机器随即开动：候选规则里，凡是能推高这个信号的都得分，得分高的被复制。几轮之后，规律不再成立。</p>
+<p>这就是 Goodhart 定律（Goodhart's law）。1975 年 Charles Goodhart 的原话是：<b>任何被观察到的统计规律，一旦被用于施加管控，就倾向于崩塌。</b>后来广为流传的那句"当一个指标变成目标，它就不再是个好指标"其实是人类学家 Marilyn Strathern 1997 年的转述，比原话更顺口，但也丢掉了原话里最关键的部分——<em>施加管控</em>。规律不是自己坏掉的，是被压力压坏的。</p>
+<p>要紧的是它<b>不需要有人作弊</b>。同一年代的经济学里有一个更冷静的版本：1976 年 Robert Lucas 指出，用历史数据拟合出来的政策模型，参数里编码的是人们在<em>旧政策下</em>形成的预期；政策一换，预期跟着换，参数就不再是常数。这叫卢卡斯批判（Lucas critique）。菲利普斯曲线（Phillips curve，1958 年发现的失业率与通胀之间的稳定负相关）在 1970 年代的崩塌就是现成的例子：没有人撒谎，每个企业和工人都只是诚实地把"政府会容忍通胀"这件事算进了自己的定价和要价。诚实的适应，足够摧毁一条规律。</p>
+<figure>
+<svg aria-label="指标被写进考核之后，指标读数继续上升而真实目标脱钩" role="img" viewbox="0 0 720 320" xmlns="http://www.w3.org/2000/svg">
+<defs>
+<marker id="t26f" markerheight="10" markerunits="userSpaceOnUse" markerwidth="10" orient="auto" refx="9" refy="5" viewbox="0 0 10 10">
+<path d="M0,1 L9,5 L0,9 z" fill="#8d867b"></path>
+</marker>
+</defs>
+<text fill="#aba498" font-family="-apple-system,sans-serif" font-size="13" text-anchor="middle" x="360" y="26">相关性不是自己断的，是被优化掉的</text>
+<line marker-end="url(#t26f)" stroke="rgba(255,255,255,0.2)" stroke-width="1.5" x1="80" x2="668" y1="250" y2="250"></line>
+<line marker-end="url(#t26f)" stroke="rgba(255,255,255,0.2)" stroke-width="1.5" x1="80" x2="80" y1="250" y2="52"></line>
+<text fill="#8d867b" font-family="-apple-system,sans-serif" font-size="11.5" text-anchor="middle" x="380" y="278">时间 →</text>
+<text fill="#8d867b" font-family="-apple-system,sans-serif" font-size="11.5" transform="rotate(-90 34 150)" x="34" y="150">水平</text>
+<line stroke="#d9b45f" stroke-dasharray="5 5" stroke-width="1.6" x1="270" x2="270" y1="66" y2="250"></line>
+<text fill="#d9b45f" font-family="SF Mono,monospace" font-size="12" text-anchor="middle" x="270" y="58">写进考核的那天</text>
+<path d="M100,208 C150,200 210,188 270,180" fill="none" stroke="#63b3a6" stroke-width="2.6"></path>
+<path d="M270,180 C340,176 430,178 560,186" fill="none" stroke="#63b3a6" stroke-width="2.6"></path>
+<text fill="#63b3a6" font-family="SF Mono,monospace" font-size="12.5" x="572" y="192">真实目标</text>
+<path d="M100,206 C150,198 210,186 270,178" fill="none" stroke="#e0895e" stroke-width="2.6"></path>
+<path d="M270,178 C330,150 420,116 560,96" fill="none" stroke="#e0895e" stroke-width="2.6"></path>
+<text fill="#e0895e" font-family="SF Mono,monospace" font-size="12.5" x="572" y="100">指标读数</text>
+<line stroke="rgba(205,127,155,0.75)" stroke-dasharray="4 4" stroke-width="1.6" x1="540" x2="540" y1="100" y2="186"></line>
+<text fill="#cd7f9b" font-family="-apple-system,sans-serif" font-size="11.5" text-anchor="middle" x="490" y="218">这段缝＝被优化掉的部分</text>
+<text fill="#787268" font-family="-apple-system,sans-serif" font-size="11.5" text-anchor="middle" x="176" y="230">施压之前，两者确实一起动</text>
+<text fill="#57524b" font-family="-apple-system,sans-serif" font-size="11" text-anchor="middle" x="360" y="304">指标只是目标的代理，两者之间总有缝；施压之后，候选规则会挤进这条缝里</text>
+</svg>
+<figcaption>指标从来只是目标的代理。施压之前它们并肩走，施压之后走的是缝——而报表上你只看得见铜色那条。</figcaption>
+</figure>
+<p>说清机制之后，就能说清它<em>什么时候不发生</em>了。指标之所以会被优化掉，是因为它与真实目标之间有缝，而主体有本事挤进去。所以三种情况下 Goodhart 不成立：指标本身就是目标（不是代理），缝不存在；主体没有可调空间（改不了自己的行为）；或者挤进缝里的代价高于收益。这三条也正好是三条设计思路——下一节接着量它。</p>
+<div class="decide">
+<span class="lb">🎯 决策线</span>
+<p>发布任何一个指标时，同时写下两样东西：<b>一条"能把它做高但对真实目标毫无帮助"的具体路径</b>（写不出来说明你还没想清这个指标是代理还是目标），以及<b>一个复核日期</b>。再配一个不参与考核、只用来观察的对照量，最好由与被考核方无关的来源采集。指标一旦连续考核超过四个季度还没被复核，默认它已经开始失真。</p>
+</div>
+<div class="crossx-inline">
+🌀 <b>历史 · 河内的老鼠尾巴</b>　1902 年，法国殖民当局在河内按尾巴数量悬赏灭鼠，随后在下水道里发现了大量被割掉尾巴、放回去继续繁殖的老鼠，还有人干脆养鼠交尾。这里有一个比"人会钻空子"更有用的推论：<b>悬赏的对象从来不是结果，而是能被提交的证据。</b>主体优化的必然是证据这一项，所以设计考核时该问的第一个问题不是"这个指标好不好"，而是"从证据到真实结果之间，还需要什么没被检查的假设"——那些假设就是缝的位置。
+</div>
+<p class="en-brief"><b>EN</b> Publish a model of a system made of agents and the model becomes a new reward signal inside it; the machinery of section 2 then selects for rules that push the signal. That is Goodhart's law (1975) — "any observed statistical regularity will tend to collapse once pressure is placed upon it for control purposes"; the popular one-liner is Strathern's 1997 rephrasing. The Lucas critique (1976) is the version without cheating: honest adjustment of expectations is enough to break a fitted relationship, as the Phillips curve found in the 1970s.</p>
+
+<h2><span class="n">04</span>这套说法在哪儿不成立<span class="he">（Where This Breaks Down）</span></h2>
+<p class="lead">"复杂适应系统"是这门学科里最容易被拿来当万金油的词。用之前，三条边界必须先摆清楚。</p>
+<p><b>第一，适应不等于变好。</b>第 2 节那台机器只做一件事：把当下回报高的规则留下来。回报由环境定义，而在这类系统里环境主要是别的主体——所以它完全可能把所有人一起推到更差的地方（每个考生多补一年课、每家公司多加一轮班，位次不变、成本翻倍）。<b>"这是个复杂适应系统"因此不预测任何方向</b>，说完这句话你对结果的好坏一无所知。它只告诉你规则会变，不告诉你往哪儿变。</p>
+<p><b>第二，不是所有被建模的对象都会适应，而且这件事可以估。</b>把慢回路拆开看，被适应掉的速度取决于两个可测的量：<em>转一圈要多久</em>（做出改变、看到结果、再改一次的周期），和<em>可调空间有多大</em>（对方能改的东西有多少）。两个量给出一个粗略的保质期。流感病毒抗原变得快、变异空间大，所以流感疫苗每年重配；麻疹病毒抗原稳定、几乎没有可用的漂移空间，所以同一套疫苗用了几十年依然有效。同样一个"病毒会不会逃逸"的问题，答案不在疫苗，在对方。</p>
+<figure>
+<svg aria-label="被适应掉的速度由反馈周期和可调空间决定，据此估计模型保质期" role="img" viewbox="0 0 720 360" xmlns="http://www.w3.org/2000/svg">
+<defs>
+<marker id="t26g" markerheight="10" markerunits="userSpaceOnUse" markerwidth="10" orient="auto" refx="9" refy="5" viewbox="0 0 10 10">
+<path d="M0,1 L9,5 L0,9 z" fill="#8d867b"></path>
+</marker>
+</defs>
+<text fill="#aba498" font-family="-apple-system,sans-serif" font-size="13" text-anchor="middle" x="360" y="26">你的模型能用多久，量的是对方</text>
+<line marker-end="url(#t26g)" stroke="rgba(255,255,255,0.2)" stroke-width="1.5" x1="96" x2="660" y1="290" y2="290"></line>
+<line marker-end="url(#t26g)" stroke="rgba(255,255,255,0.2)" stroke-width="1.5" x1="96" x2="96" y1="290" y2="54"></line>
+<text fill="#8d867b" font-family="-apple-system,sans-serif" font-size="11.5" x="112" y="312">转一圈要多久（快 → 慢）</text>
+<text fill="#8d867b" font-family="-apple-system,sans-serif" font-size="11.5" transform="rotate(-90 44 190)" x="44" y="190">可调空间（小 → 大）</text>
+<rect fill="rgba(205,127,155,0.06)" height="96" width="240" x="96" y="60"></rect>
+<text fill="#cd7f9b" font-family="SF Mono,monospace" font-size="11.5" x="108" y="80">保质期以周计</text>
+<rect fill="rgba(99,179,166,0.06)" height="96" width="240" x="400" y="194"></rect>
+<text fill="#63b3a6" font-family="SF Mono,monospace" font-size="11.5" x="412" y="212">保质期以十年计</text>
+<circle cx="150" cy="96" fill="#cd7f9b" r="5.5"></circle>
+<text fill="#d5cdc1" font-family="-apple-system,sans-serif" font-size="12" x="162" y="100">套利型交易策略</text>
+<circle cx="212" cy="130" fill="#cd7f9b" r="5.5"></circle>
+<text fill="#d5cdc1" font-family="-apple-system,sans-serif" font-size="12" x="224" y="134">流感病毒抗原</text>
+<circle cx="180" cy="196" fill="#d9b45f" r="5.5"></circle>
+<text fill="#d5cdc1" font-family="-apple-system,sans-serif" font-size="12" x="192" y="200">通勤者选路线</text>
+<circle cx="360" cy="152" fill="#d9b45f" r="5.5"></circle>
+<text fill="#d5cdc1" font-family="-apple-system,sans-serif" font-size="12" x="372" y="156">考生应对考纲</text>
+<circle cx="424" cy="236" fill="#63b3a6" r="5.5"></circle>
+<text fill="#d5cdc1" font-family="-apple-system,sans-serif" font-size="12" x="436" y="240">麻疹病毒抗原</text>
+<circle cx="596" cy="268" fill="#63b3a6" r="5.5"></circle>
+<text fill="#d5cdc1" font-family="-apple-system,sans-serif" font-size="12" text-anchor="end" x="584" y="272">地壳应力</text>
+<text fill="#787268" font-family="-apple-system,sans-serif" font-size="11" text-anchor="middle" x="360" y="334">同一个问题「它会不会被适应掉」，答案不在你的方案里，在这张图上对方的位置</text>
+</svg>
+<figcaption>左上角的对象，任何依赖"对方不知道"的方案都撑不过几轮；右下角的对象，前二十五期的物理式模型可以放心使用。</figcaption>
+</figure>
+<p><b>第三，这个词本身很容易变成空话。</b>说"经济/组织/大脑是一个复杂适应系统"，如果接不上"候选规则是什么、信用分配的信号是什么、淘汰机制是什么"这三样，那句话就没有内容——它没有排除任何一种可能，也就不能被证伪。还有一个更隐蔽的问题：物理学里有普适类（第 16 期），不同系统在临界点上真的共享同一组指数，所以结论可以搬家；适应系统没有对应的东西。<b>从蚁群得出的结论不能顺手搬到组织上</b>，因为决定行为的是那三个零件的具体形态，而它们在两边完全不同。</p>
+<div class="decide">
+<span class="lb">🎯 决策线</span>
+<p>做任何"领先一步"的方案之前，先估一个比值：<b>对方走完一轮"试—看结果—再改"要多久 ÷ 你更新规则要多久。</b>比值大于 1，靠信息差的方案可以做，但要写明预期寿命和退出条件；小于 1，别做——改用不怕被看穿的方案：对齐激励（让对方优化你的指标时真实目标也涨）、改变结构（让钻空子的路径本身不存在）。这两类方案的共同点是，公开出来也不会失效。</p>
+</div>
+<div class="crossx-inline">
+🌀 <b>医学 · 为什么流感疫苗年年打，麻疹疫苗打两针管一辈子</b>　差别不在两种疫苗的技术水平，在两种病毒的慢回路：流感的抗原漂移持续、可变空间大，人群免疫压力选出的新变体年年不同；麻疹病毒抗原高度稳定，几乎没有能躲开抗体又还能致病的改法。推出来的判断很反常识：<b>"这个干预会不会被适应掉"是被干预者的属性，不是干预者的属性。</b>所以评估一个新政策、新策略能撑多久，功夫要花在测对方的世代周期和可调空间上，而不是花在自己的方案有多精巧上。
+</div>
+<p class="en-brief"><b>EN</b> Three limits. Adaptation optimises current payoff, not welfare, so calling something a CAS predicts no direction. Not everything adapts, and the rate is estimable from two measurable quantities — the length of one try-observe-revise cycle and the size of the adjustable space (influenza antigens versus measles). And unlike critical phenomena, adaptive systems have no universality classes, so conclusions do not transfer between them.</p>
+
+<div class="bigcat">
+<h3>🎒 场景 · BigCat</h3>
+<ol>
+<li><span class="dm">带团队与组织</span>每季度定目标时把一个新指标写进考核（响应时长、覆盖率、上线次数），三个月后数字漂亮、体感没变——这件事会反复发生，因为第 3 节那台机器每次都会启动。具体改法：写下这个指标的<b>复核日期</b>和一条"做高它但对真实目标无益"的路径，并额外定一个<b>只观察、不考核</b>的对照量（最好由与被考核方无关的来源采集，比如用户侧而不是自报）。停掉的动作：同一个指标连着考核四个季度以上还不复核。</li>
+<li><span class="dm">投资与仓位</span>一条回测漂亮的规则上线，半年后逐步失效——归因常常落到"市场变了"。更可测的是第 4 节那个比值：这条规则被多少钱在用（同类产品规模、该策略拥挤度的代理量、同类持仓的相关性），以及它的回报周期有多长。具体改法：把"拥挤度"当成一个必看的仓位变量，和估值、波动率并列；<b>在建仓时就写下退出条件</b>（连续 N 期跑输、或拥挤度指标越过某线）。停掉的动作：用"再等等看"来解释连续跑输——那正是保质期到了的样子。</li>
+<li><span class="dm">健康与精力</span>某套作息或训练方案前两个月很有效，之后停滞，你归因为"最近懈怠了"。更可能是身体已经把它适应掉了：同样的刺激，边际收益递减。具体改法：把<b>保质期</b>写进计划本身（比如每 6–8 周轮换一次强度、时长或项目），触发条件用一个可观察的量——"同样的投入连续两周产出不再变化"就换，而不是等到完全没感觉。停掉的动作：拿意志力去修一个已经被适应掉的方案。</li>
+</ol>
+</div>
+
+<div class="crossx">
+<h3>🌀 越界 · 跨学科的联想<span class="he">（Crossings）</span></h3>
+<ul>
+<li><b>经济与制度 · 卢卡斯批判的一半能借，另一半不能</b>：菲利普斯曲线在 1970 年代崩塌，本期三条机制合起来正好给出机制版的解释——主体带着关于政策的内部模型行动（第 1 节），信用分配让"把通胀算进定价"这条规则迅速扩散（第 2 节），而政策公开本身就是模型公开（第 3 节）。由此能推出一条比"指标会被玩坏"更强的结论：<b>一条经验规律的稳定性，取决于有多少主体的收益依赖于它保持稳定</b>——依赖的人越多，它崩得越快，与有没有人作弊无关。<b>但这里不成立</b>：卢卡斯给出的处方是往下挖到"深层参数"（偏好与技术这些被认为不随政策变的东西），再从它们出发重建模型；而本期的机制恰恰否认存在这样一个不动的底层——规则库本身在演化，偏好也在被塑造。能借走的是他的诊断，不能借的是他的解法。</li>
+<li><b>西方科学哲学 · 波普尔与"俄狄浦斯效应"</b>：波普尔在《历史决定论的贫困》里论证，历史的进程无法被科学地预测；他另造过一个词叫俄狄浦斯效应，指预言本身反过来促成或阻止了被预言的事——就像那位父王因为听信神谕而做的每一件事，恰好铺成了神谕实现的路。本期的机制让这个说法从修辞变成可操作的判据：关于社会的预测会失效，不是因为数据不够、精度不足，而是因为<b>预测是被预测系统的一部分</b>，第 2 节的机器会把"应对这个预测"的规则选出来。于是这类失效是类型问题，不是精度问题——加数据不解决。<b>但这里不成立</b>：波普尔把界线画在"社会 vs 自然"上，而本期给出的界线不在这里，在<em>被建模者能否读到你的模型、以及有没有可调空间</em>。人口结构的惯性、气候里的物理过程照样可以被长期预测，它们是社会现象，却读不了预测；反过来，一个被公开算法调度的机器群体不是社会，却会被自己的模型改变。分界线是慢回路，不是学科。</li>
+<li><b>文学与艺术 · 侦探小说的诡计只能用一次</b>：黄金时代的推理作家们曾郑重其事地立过"公平游戏"守则（Van Dine 1928 年的二十条、Knox 1929 年的十诫），随后守则被一条条打破——阿加莎·克里斯蒂 1926 年那本让叙述者本人成为凶手的小说，正是当年的丑闻。这不是审美进步，是套利耗尽：读者是有内部模型的主体，作品公开即模型公开，市场评价充当了信用分配，于是"猜不到"这一条回报被反复消耗，类型只能向更复杂的方向漂移。推论是一个可检验的分工：<b>凡是回报依赖于"对方预测不到"的形式，都必然通货膨胀；凡是回报来自熟悉本身的形式，反而不会失效。</b>同一首歌可以听一百遍，同一个诡计不能读两次——差别不在艺术高低，在回报函数里有没有"意外"这一项。</li>
+</ul>
+</div>
+
+<div class="thinking">
+<h3>深入思考<span class="he">（Going Deeper）</span></h3>
+<details><summary>如果公开的模型都会失效，那科学在社会领域还剩下什么？</summary><p>剩下两类。一类是关于<b>结构</b>而不是关于参数的结论：只要慢回路还在跑，某些形态就会反复出现（指标被优化掉、军备竞赛、局部最优的锁定）——这些不会因为被公开而消失，因为知道它们并不能让你逃出去。另一类是对<b>没有可调空间</b>的那些量的预测。真正会失效的，是"在当前规则下 X 与 Y 相关"这种参数型结论。</p></details>
+<details><summary>反过来说，有没有办法故意把慢回路掐断，让一个系统别再适应？</summary><p>有，而且历史上做得很多：断掉多样性（只许一种做法）、断掉信用分配（结果不公开、或好坏都归给同一个人）、断掉淘汰（错的做法没人叫停，只加新规定）。这三招都能让一个系统在你关心的尺度上"稳定"下来。代价是环境一变它就没有任何应对能力——你换来的稳定，是把适应能力预支掉了。</p></details>
+<details><summary>主体自己有一个"关于系统的模型"，这句话是不是把人想得太理性了？</summary><p>不必。Holland 意义上的内部模型可以低到蚂蚁的程度：一条"信息素浓就跟着走"的规则，本身就编码了关于世界的一个预测。要求只是这条规则会因结果而改变，不要求主体知道自己在预测什么。真正被理性假设卡住的是标准经济学模型，不是这里。</p></details>
+<details><summary>既然指标必然被优化掉，是不是干脆别用指标？</summary><p>不是。没有指标的组织不会因此更诚实，只会把评价交给更不透明的东西（印象、资历、谁声音大）。本期给出的是别的做法：承认指标有保质期，给它写复核日期；配不参与考核的对照量；以及优先选那些"缝很小"的指标——做高它的唯一路径就是真的把事做好。</p></details>
+<details><summary>为什么复杂性科学在物理系统上像科学，到了社会系统上常常像比喻？</summary><p>本期第 4 节给了一个具体答案：物理有普适类，临界指数在毫不相干的系统间真的相同，所以结论可以搬家；适应系统没有这种东西，行为由那三个零件的具体形态决定。搬家搬的其实是词，不是结论。要避免比喻化，最省事的自查就是每次都把三个零件说出来——说不出来，那句话就还没有内容。</p></details>
+</div>
+
+<div class="refs">
+<h3>延伸阅读<span class="he">（Further Reading）</span></h3>
+<ul>
+<li><a href="https://en.wikipedia.org/wiki/John_Henry_Holland">John H. Holland</a>（遗传算法、分类器系统与 CAS 框架的提出者）</li>
+<li><a href="https://en.wikipedia.org/wiki/Complex_adaptive_system">Complex adaptive system</a>（概念综述与批评）</li>
+<li><a href="https://en.wikipedia.org/wiki/Goodhart%27s_law">Goodhart's law</a>（含 1975 年原话与 Strathern 1997 年的转述）</li>
+<li><a href="https://en.wikipedia.org/wiki/Lucas_critique">Lucas critique</a>（1976，政策模型的参数为何不是常数）</li>
+<li><a href="https://en.wikipedia.org/wiki/Phillips_curve">Phillips curve</a>（1958 年的相关性与 1970 年代的崩塌）</li>
+<li>Duranton &amp; Turner, <a href="https://doi.org/10.1257/aer.101.6.2616">The Fundamental Law of Road Congestion</a>（2011，车道与行驶里程的弹性约为 1）</li>
+<li><a href="https://en.wikipedia.org/wiki/Antigenic_drift">Antigenic drift</a>（流感疫苗为何年年重配）</li>
+<li><a href="https://en.wikipedia.org/wiki/The_Poverty_of_Historicism">The Poverty of Historicism</a>（波普尔，含俄狄浦斯效应）</li>
+<li>Silver et al., <a href="https://www.nature.com/articles/nature16961">Mastering the game of Go with deep neural networks and tree search</a>（2016，终局回传作为信用分配）</li>
+<li>Melanie Mitchell, <a href="https://global.oup.com/academic/product/complexity-9780199798100">Complexity: A Guided Tour</a>（对 CAS 这套词汇的克制评述）</li>
+</ul>
+</div>
+
+<footer>BigCat · 复杂性科学 · <a href="index.html">← 全部 Topic</a></footer>
+</div>
+<script src="https://hub.cissychen.com/comments.js" defer></script>
+<script src="https://hub.cissychen.com/search.js" defer></script>
+<script src="https://hub.cissychen.com/index-button.js" defer></script>
+<script src="https://hub.cissychen.com/i18n-tts.js" defer></script>
+</body></html>

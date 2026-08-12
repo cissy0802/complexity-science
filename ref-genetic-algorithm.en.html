@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+
+<html lang="en"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Genetic Algorithms · Reference · Complexity Science</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,"SF Pro Display","Noto Sans SC",sans-serif;color:#e4ded5;line-height:1.85;min-height:100vh;
+  background:radial-gradient(1100px 620px at 12% -6%,rgba(99,179,166,0.09),transparent 62%),radial-gradient(950px 700px at 100% 2%,rgba(166,147,205,0.08),transparent 58%),linear-gradient(168deg,#100f0d 0%,#15161b 48%,#0a0a0c 100%);background-attachment:fixed}
+.wrap{max-width:720px;margin:0 auto;padding:30px 22px 90px}
+header{padding:52px 0 8px;border-bottom:1px solid rgba(255,255,255,0.07);margin-bottom:32px}
+.rtag{font-family:"SF Mono",Menlo,monospace;font-size:0.72rem;font-weight:700;letter-spacing:2px;color:#63b3a6;border:1px solid rgba(99,179,166,0.4);background:rgba(99,179,166,0.07);padding:3px 11px;border-radius:20px}
+h1{font-size:2.15rem;font-weight:800;line-height:1.2;margin:20px 0 0;color:#f0eae0}
+.sub{font-size:0.98rem;color:#aba498;margin-top:12px}
+.meta{font-family:"SF Mono",Menlo,monospace;font-size:0.75rem;color:#57524b;margin-top:16px;letter-spacing:1px}
+h2{font-size:1.25rem;font-weight:700;color:#e9e3d9;margin:44px 0 10px}
+h2 .n{font-family:"SF Mono",Menlo,monospace;font-size:0.8rem;color:#63b3a6;display:block;margin-bottom:5px;letter-spacing:2px}
+p{margin-bottom:16px}
+b,strong{color:#f0eae0;font-weight:600}
+em{color:#d9b45f;font-style:normal;font-weight:500}
+.rule{border:1px solid rgba(99,179,166,0.3);background:rgba(99,179,166,0.05);border-radius:12px;padding:16px 20px;margin:22px 0;font-size:0.94rem;color:#d5cdc1}
+.rule ol{padding-left:20px;margin:0}
+.rule li{margin-bottom:7px}
+.rule li:last-child{margin-bottom:0}
+figure{margin:28px 0}
+figure svg{display:block;width:100%;height:auto;border-radius:12px;background:rgba(255,255,255,0.018);border:1px solid rgba(255,255,255,0.06)}
+figcaption{font-size:0.82rem;color:#787268;margin-top:10px;text-align:center;line-height:1.6}
+.cant{border:1px solid rgba(205,127,155,0.36);background:rgba(205,127,155,0.05);border-radius:12px;padding:18px 21px;margin:26px 0 10px}
+.cant h3{font-size:1rem;color:#cd7f9b;margin-bottom:12px}
+.cant ul{list-style:none;padding:0}
+.cant li{margin-bottom:13px;font-size:0.93rem;color:#d5cdc1;line-height:1.76}
+.cant li:last-child{margin-bottom:0}
+.cant li b{color:#cd7f9b}
+.refs{margin:40px 0 10px}
+.refs h3{font-size:1rem;color:#79a6d2;margin-bottom:12px}
+.refs ul{list-style:none;padding:0}
+.refs li{margin-bottom:9px;font-size:0.89rem;color:#8d867b;line-height:1.7}
+.refs a{color:#79a6d2;text-decoration:none;border-bottom:1px solid rgba(121,166,210,0.3)}
+.refs a:hover{color:#a6c4e2}
+footer{text-align:center;padding:52px 0 10px;font-size:0.78rem;color:#57524b;font-family:"SF Mono",Menlo,monospace;border-top:1px solid rgba(255,255,255,0.06);margin-top:46px}
+footer a{color:#79a6d2;text-decoration:none}
+@media(max-width:600px){h1{font-size:1.7rem}.wrap{padding:24px 16px 60px}}
+</style></head><body>
+<div class="wrap">
+<header>
+<span class="rtag">REF · CLASSIC MODEL</span>
+<h1>Genetic Algorithms</h1>
+<p class="sub">John Holland, 1975 — lifting "variation + selection + recombination" out of biology and running it as a general-purpose search machine</p>
+<p class="meta">Referenced by: Topic 26 Complex Adaptive Systems</p>
+</header>
+
+<h2><span class="n">01</span>The Question It Poses</h2>
+<p>Some problems let you say what "good" means without giving you any route towards it. What shape should an antenna be bent into to receive best in a given band? How do you schedule three hundred flights so that every constraint holds and two fewer aircraft are needed? There is no formula to solve, and no slope to walk down — you can only try things, and the combinations run to more than you could test in the age of the universe.</p>
+<p>Nature has solved problems of this kind, by an embarrassingly dumb method: produce a batch of slightly different offspring, let the environment discard most of them, recombine the survivors, repeat. Holland's question was: <b>does the method survive being taken out of biology?</b> Written as a few dozen lines of code, can it still find good solutions to a problem nobody has ever understood?</p>
+
+<h2><span class="n">02</span>The Rules</h2>
+<div class="rule">
+<ol>
+<li>Encode a candidate answer as a string of symbols (classically a string of 0s and 1s). One string is an <b>individual</b>.</li>
+<li>Generate a group of them at random — say 100. The group is a <b>population</b>.</li>
+<li>Score every individual. The scoring function is the <b>fitness function</b> — the only thing you must supply, and the only channel through which "what counts as good" reaches the algorithm.</li>
+<li><b>Selection</b>: higher scores are more likely to be picked as parents. Not only the best, though — some middling ones must survive, or diversity is gone in a single round.</li>
+<li><b>Crossover</b>: take two parents, cut at a random point, swap the tails, and get two children.</li>
+<li><b>Mutation</b>: with small probability (often a fraction of a percent), flip some bits.</li>
+<li>Replace the old population with the children and go back to step 3. Repeat for hundreds to tens of thousands of generations.</li>
+</ol>
+</div>
+<p>Steps 3 and 5 are worth pausing on. <b>The fitness function says how good, never why</b> — the algorithm knows nothing about the structure of the problem, which is exactly why it can be pointed at problems you do not understand. And crossover is what separates this from random flailing: it assumes that <em>fragments</em> of a good solution can be found separately and then assembled. Whether that assumption holds on your problem decides whether the method is startlingly fast or absurdly slow.</p>
+<figure>
+<svg aria-label="Crossover and mutation: two parent strings cut at a random point and swapped, then one bit flipped" role="img" viewbox="0 0 700 260" xmlns="http://www.w3.org/2000/svg">
+<defs>
+<marker id="rg1" markerheight="10" markerunits="userSpaceOnUse" markerwidth="10" orient="auto" refx="9" refy="5" viewbox="0 0 10 10">
+<path d="M0,1 L9,5 L0,9 z" fill="#63b3a6"></path>
+</marker>
+</defs>
+<text fill="#aba498" font-family="-apple-system,sans-serif" font-size="13" text-anchor="middle" x="350" y="26">One crossover, one mutation</text>
+<text fill="#8d867b" font-family="SF Mono,monospace" font-size="11.5" x="34" y="66">parent A</text>
+<g font-family="SF Mono,monospace" font-size="14" text-anchor="middle">
+<rect fill="#33403c" height="26" stroke="rgba(255,255,255,0.12)" width="26" x="110" y="48"></rect><text fill="#9fd7cb" x="123" y="67">1</text>
+<rect fill="#33403c" height="26" stroke="rgba(255,255,255,0.12)" width="26" x="136" y="48"></rect><text fill="#9fd7cb" x="149" y="67">0</text>
+<rect fill="#33403c" height="26" stroke="rgba(255,255,255,0.12)" width="26" x="162" y="48"></rect><text fill="#9fd7cb" x="175" y="67">1</text>
+<rect fill="#33403c" height="26" stroke="rgba(255,255,255,0.12)" width="26" x="188" y="48"></rect><text fill="#9fd7cb" x="201" y="67">1</text>
+<rect fill="#2f2c26" height="26" stroke="rgba(255,255,255,0.12)" width="26" x="214" y="48"></rect><text fill="#aba498" x="227" y="67">0</text>
+<rect fill="#2f2c26" height="26" stroke="rgba(255,255,255,0.12)" width="26" x="240" y="48"></rect><text fill="#aba498" x="253" y="67">0</text>
+<rect fill="#2f2c26" height="26" stroke="rgba(255,255,255,0.12)" width="26" x="266" y="48"></rect><text fill="#aba498" x="279" y="67">1</text>
+</g>
+<text fill="#8d867b" font-family="SF Mono,monospace" font-size="11.5" x="34" y="112">parent B</text>
+<g font-family="SF Mono,monospace" font-size="14" text-anchor="middle">
+<rect fill="#3a3446" height="26" stroke="rgba(255,255,255,0.12)" width="26" x="110" y="94"></rect><text fill="#c6b9e0" x="123" y="113">0</text>
+<rect fill="#3a3446" height="26" stroke="rgba(255,255,255,0.12)" width="26" x="136" y="94"></rect><text fill="#c6b9e0" x="149" y="113">1</text>
+<rect fill="#3a3446" height="26" stroke="rgba(255,255,255,0.12)" width="26" x="162" y="94"></rect><text fill="#c6b9e0" x="175" y="113">0</text>
+<rect fill="#3a3446" height="26" stroke="rgba(255,255,255,0.12)" width="26" x="188" y="94"></rect><text fill="#c6b9e0" x="201" y="113">0</text>
+<rect fill="#2f2c26" height="26" stroke="rgba(255,255,255,0.12)" width="26" x="214" y="94"></rect><text fill="#aba498" x="227" y="113">1</text>
+<rect fill="#2f2c26" height="26" stroke="rgba(255,255,255,0.12)" width="26" x="240" y="94"></rect><text fill="#aba498" x="253" y="113">1</text>
+<rect fill="#2f2c26" height="26" stroke="rgba(255,255,255,0.12)" width="26" x="266" y="94"></rect><text fill="#aba498" x="279" y="113">0</text>
+</g>
+<line stroke="#d9b45f" stroke-dasharray="4 4" stroke-width="1.6" x1="214" x2="214" y1="40" y2="128"></line>
+<text fill="#d9b45f" font-family="-apple-system,sans-serif" font-size="11" text-anchor="middle" x="214" y="146">random cut</text>
+<line marker-end="url(#rg1)" stroke="#63b3a6" stroke-width="2" x1="320" x2="372" y1="84" y2="84"></line>
+<text fill="#8d867b" font-family="SF Mono,monospace" font-size="11.5" x="392" y="42">child 1</text>
+<g font-family="SF Mono,monospace" font-size="14" text-anchor="middle">
+<rect fill="#33403c" height="26" stroke="rgba(255,255,255,0.12)" width="26" x="392" y="48"></rect><text fill="#9fd7cb" x="405" y="67">1</text>
+<rect fill="#33403c" height="26" stroke="rgba(255,255,255,0.12)" width="26" x="418" y="48"></rect><text fill="#9fd7cb" x="431" y="67">0</text>
+<rect fill="#33403c" height="26" stroke="rgba(255,255,255,0.12)" width="26" x="444" y="48"></rect><text fill="#9fd7cb" x="457" y="67">1</text>
+<rect fill="#33403c" height="26" stroke="rgba(255,255,255,0.12)" width="26" x="470" y="48"></rect><text fill="#9fd7cb" x="483" y="67">1</text>
+<rect fill="#3a3446" height="26" stroke="rgba(255,255,255,0.12)" width="26" x="496" y="48"></rect><text fill="#c6b9e0" x="509" y="67">1</text>
+<rect fill="#3a3446" height="26" stroke="rgba(255,255,255,0.12)" width="26" x="522" y="48"></rect><text fill="#c6b9e0" x="535" y="67">1</text>
+<rect fill="#3a3446" height="26" stroke="rgba(255,255,255,0.12)" width="26" x="548" y="48"></rect><text fill="#c6b9e0" x="561" y="67">0</text>
+</g>
+<text fill="#8d867b" font-family="SF Mono,monospace" font-size="11.5" x="392" y="88">child 2</text>
+<g font-family="SF Mono,monospace" font-size="14" text-anchor="middle">
+<rect fill="#3a3446" height="26" stroke="rgba(255,255,255,0.12)" width="26" x="392" y="94"></rect><text fill="#c6b9e0" x="405" y="113">0</text>
+<rect fill="#3a3446" height="26" stroke="rgba(255,255,255,0.12)" width="26" x="418" y="94"></rect><text fill="#c6b9e0" x="431" y="113">1</text>
+<rect fill="#3a3446" height="26" stroke="rgba(255,255,255,0.12)" width="26" x="444" y="94"></rect><text fill="#c6b9e0" x="457" y="113">0</text>
+<rect fill="#3a3446" height="26" stroke="rgba(255,255,255,0.12)" width="26" x="470" y="94"></rect><text fill="#c6b9e0" x="483" y="113">0</text>
+<rect fill="#33403c" height="26" stroke="rgba(255,255,255,0.12)" width="26" x="496" y="94"></rect><text fill="#9fd7cb" x="509" y="113">0</text>
+<rect fill="#7a4a30" height="26" stroke="rgba(224,137,94,0.8)" width="26" x="522" y="94"></rect><text fill="#f0d0bc" x="535" y="113">1</text>
+<rect fill="#33403c" height="26" stroke="rgba(255,255,255,0.12)" width="26" x="548" y="94"></rect><text fill="#9fd7cb" x="561" y="113">1</text>
+</g>
+<text fill="#e0895e" font-family="-apple-system,sans-serif" font-size="11" text-anchor="middle" x="535" y="140">mutation flipped this bit</text>
+<text fill="#787268" font-family="-apple-system,sans-serif" font-size="11.5" text-anchor="middle" x="350" y="182">Crossover assembles fragments already found; mutation stops a position going uniform</text>
+<text fill="#57524b" font-family="-apple-system,sans-serif" font-size="11" text-anchor="middle" x="350" y="212">Mutation alone is barely better than random search; crossover alone lets the population go uniform and stall</text>
+<text fill="#57524b" font-family="-apple-system,sans-serif" font-size="11" text-anchor="middle" x="350" y="236">The algorithm never learns what any bit means — it only ever sees scores</text>
+</svg>
+<figcaption>One crossover produces two children; mutation then flips a bit with small probability. Those two steps are the entire source of novelty.</figcaption>
+</figure>
+
+<h2><span class="n">03</span>What You See When It Runs</h2>
+<p>The signature curve rises <b>steeply and then flattens</b>: dozens of early generations bring large gains (the improvements lying around loose), then progress slows. The shape itself carries information — it tells you roughly how much headroom is left.</p>
+<p>The second common event is <b>premature convergence</b>: every individual in the population becomes nearly identical and the search sits on a mediocre solution. Crossover then produces nothing new (cutting and splicing two identical strings returns the same string), leaving only mutation to make tiny random jiggles, and the curve goes flat for good. Once diversity is spent it is hard to recover — this is the classic failure mode.</p>
+<figure>
+<svg aria-label="Fitness against generations for two runs: healthy search and premature convergence" role="img" viewbox="0 0 700 280" xmlns="http://www.w3.org/2000/svg">
+<defs>
+<marker id="rg2" markerheight="10" markerunits="userSpaceOnUse" markerwidth="10" orient="auto" refx="9" refy="5" viewbox="0 0 10 10">
+<path d="M0,1 L9,5 L0,9 z" fill="#8d867b"></path>
+</marker>
+</defs>
+<text fill="#aba498" font-family="-apple-system,sans-serif" font-size="13" text-anchor="middle" x="350" y="26">Same problem, two runs</text>
+<line marker-end="url(#rg2)" stroke="rgba(255,255,255,0.2)" stroke-width="1.5" x1="70" x2="644" y1="220" y2="220"></line>
+<line marker-end="url(#rg2)" stroke="rgba(255,255,255,0.2)" stroke-width="1.5" x1="70" x2="70" y1="220" y2="48"></line>
+<text fill="#8d867b" font-family="-apple-system,sans-serif" font-size="11.5" text-anchor="middle" x="360" y="246">generations →</text>
+<text fill="#8d867b" font-family="-apple-system,sans-serif" font-size="11.5" transform="rotate(-90 28 148)" x="28" y="148">best score</text>
+<path d="M80,208 C130,150 180,110 250,96 C330,80 430,72 620,66" fill="none" stroke="#63b3a6" stroke-width="2.6"></path>
+<text fill="#63b3a6" font-family="SF Mono,monospace" font-size="12" x="482" y="56">diversity kept</text>
+<path d="M80,208 C120,160 160,138 200,134 C260,130 400,132 620,132" fill="none" stroke="#cd7f9b" stroke-width="2.6"></path>
+<text fill="#cd7f9b" font-family="SF Mono,monospace" font-size="12" x="452" y="126">premature convergence</text>
+<circle cx="200" cy="134" fill="#cd7f9b" r="5"></circle>
+<text fill="#cd7f9b" font-family="-apple-system,sans-serif" font-size="11" x="212" y="158">population now nearly identical</text>
+<text fill="#57524b" font-family="-apple-system,sans-serif" font-size="11" text-anchor="middle" x="350" y="268">A flat curve may mean "already optimal" or "nothing left to try" — two diagnoses that must be told apart</text>
+</svg>
+<figcaption>Flat curves have two quite different causes. The crude test works: measure how different the individuals still are from each other and see whether that collapsed too.</figcaption>
+</figure>
+<p>The third thing is the most interesting: <b>the solutions often look strange.</b> NASA's ST5 spacecraft flew an antenna designed by an evolutionary algorithm in 2006, shaped like a paperclip bent absent-mindedly out of true — no human antenna engineer would draw that, and it met the specification. That is the method's most honest advertisement: it does not understand the problem, so it is not constrained by what the answer is supposed to look like.</p>
+
+<h2><span class="n">04</span>What It Explains</h2>
+<p>Strictly, a genetic algorithm is a tool rather than an explanation. But it demonstrates something hard to show elsewhere: <b>design without a designer works, and needs remarkably few parts.</b> A batch of candidates, a score that reports only quality, and a procedure for copying and recombining — with those three, complex and effective structure appears, and nobody has to understand why it works.</p>
+<p>That is also its place on this site: it is the minimum runnable version of adaptation. When you suspect an organisation, a market or an ecosystem is adapting, going and finding those three parts beats any metaphor.</p>
+
+<div class="cant">
+<h3>What It Cannot Explain</h3>
+<ul>
+<li><b>It is not a model of natural selection.</b> Here the fitness function is supplied by a person, fixed, and computable; in real evolution what counts as fit is set jointly by the environment and every other organism, and it moves constantly (Topic 31, the Red Queen, is about exactly that). Arguing biology from the behaviour of a GA needs great care.</li>
+<li><b>No free lunch.</b> Wolpert and Macready proved in 1997 that averaged over all possible problems, no optimisation algorithm beats any other — random search included. A GA's advantage is never that it is cleverer; it is that its assumption (good fragments can be found separately and assembled) happens to match the structure of a certain class of problems. Where it doesn't match, you have an expensive random search.</li>
+<li><b>It guarantees no optimum and reports no distance to one.</b> When the run ends you have a solution and a curve, and no bound on how much better things could be. Where such guarantees matter — scheduling with strict optimality requirements, combinatorial problems with provable bounds — use something else.</li>
+<li><b>Expensive evaluation rules it out.</b> Tens of thousands to millions of scorings are routine. If one scoring means running a fluid simulation, performing a physical experiment, or waiting a quarter for results, the method is out on budget alone.</li>
+<li><b>The encoding decides everything, and there is no theory of encodings.</b> The same problem under a different representation can behave completely differently, and which representation makes good fragments contiguous is currently a matter of craft and trial. Users routinely underestimate this cost.</li>
+<li><b>Do not treat the schema theorem as the explanation of why it works.</b> Holland's schema theorem and the building block hypothesis give an intuitive framework, but whether they account for actual GA performance has been contested for decades. Fine as a story; not a proof.</li>
+</ul>
+</div>
+
+<div class="refs">
+<h3>Further Reading</h3>
+<ul>
+<li><a href="https://en.wikipedia.org/wiki/Genetic_algorithm">Genetic algorithm</a> — mechanics, variants and criticism</li>
+<li><a href="https://en.wikipedia.org/wiki/John_Henry_Holland">John H. Holland</a> — author of <i>Adaptation in Natural and Artificial Systems</i> (1975)</li>
+<li><a href="https://en.wikipedia.org/wiki/Holland%27s_schema_theorem">Holland's schema theorem</a> — and the dispute around it</li>
+<li><a href="https://en.wikipedia.org/wiki/No_free_lunch_theorem">No free lunch theorem</a> — Wolpert &amp; Macready, 1997</li>
+<li><a href="https://en.wikipedia.org/wiki/Evolved_antenna">Evolved antenna</a> — the oddly shaped NASA ST5 antenna</li>
+</ul>
+</div>
+
+<footer>BigCat · Complexity Science · <a href="index.en.html">← All topics</a></footer>
+</div>
+<script src="https://hub.cissychen.com/comments.js" defer></script>
+<script src="https://hub.cissychen.com/search.js" defer></script>
+<script src="https://hub.cissychen.com/index-button.js" defer></script>
+<script src="https://hub.cissychen.com/i18n-tts.js" defer></script>
+</body></html>

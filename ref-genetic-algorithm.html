@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+
+<html lang="zh-CN"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>遗传算法 · 参考库 · 复杂性科学</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,"SF Pro Display","Noto Sans SC",sans-serif;color:#e4ded5;line-height:1.85;min-height:100vh;
+  background:radial-gradient(1100px 620px at 12% -6%,rgba(99,179,166,0.09),transparent 62%),radial-gradient(950px 700px at 100% 2%,rgba(166,147,205,0.08),transparent 58%),linear-gradient(168deg,#100f0d 0%,#15161b 48%,#0a0a0c 100%);background-attachment:fixed}
+.wrap{max-width:720px;margin:0 auto;padding:30px 22px 90px}
+header{padding:52px 0 8px;border-bottom:1px solid rgba(255,255,255,0.07);margin-bottom:32px}
+.rtag{font-family:"SF Mono",Menlo,monospace;font-size:0.72rem;font-weight:700;letter-spacing:2px;color:#63b3a6;border:1px solid rgba(99,179,166,0.4);background:rgba(99,179,166,0.07);padding:3px 11px;border-radius:20px}
+h1{font-size:2.15rem;font-weight:800;line-height:1.2;margin:20px 0 0;color:#f0eae0}
+h1 .h1en{display:block;font-size:0.42em;font-weight:600;letter-spacing:2.5px;color:#847d72;margin-top:11px}
+.sub{font-size:0.98rem;color:#aba498;margin-top:12px}
+.meta{font-family:"SF Mono",Menlo,monospace;font-size:0.75rem;color:#57524b;margin-top:16px;letter-spacing:1px}
+h2{font-size:1.25rem;font-weight:700;color:#e9e3d9;margin:44px 0 10px}
+h2 .n{font-family:"SF Mono",Menlo,monospace;font-size:0.8rem;color:#63b3a6;display:block;margin-bottom:5px;letter-spacing:2px}
+.he{font-size:0.68em;color:#8d867b;font-weight:500;letter-spacing:0}
+p{margin-bottom:16px}
+b,strong{color:#f0eae0;font-weight:600}
+em{color:#d9b45f;font-style:normal;font-weight:500}
+.rule{border:1px solid rgba(99,179,166,0.3);background:rgba(99,179,166,0.05);border-radius:12px;padding:16px 20px;margin:22px 0;font-size:0.94rem;color:#d5cdc1}
+.rule ol{padding-left:20px;margin:0}
+.rule li{margin-bottom:7px}
+.rule li:last-child{margin-bottom:0}
+figure{margin:28px 0}
+figure svg{display:block;width:100%;height:auto;border-radius:12px;background:rgba(255,255,255,0.018);border:1px solid rgba(255,255,255,0.06)}
+figcaption{font-size:0.82rem;color:#787268;margin-top:10px;text-align:center;line-height:1.6}
+.cant{border:1px solid rgba(205,127,155,0.36);background:rgba(205,127,155,0.05);border-radius:12px;padding:18px 21px;margin:26px 0 10px}
+.cant h3{font-size:1rem;color:#cd7f9b;margin-bottom:12px}
+.cant ul{list-style:none;padding:0}
+.cant li{margin-bottom:13px;font-size:0.93rem;color:#d5cdc1;line-height:1.76}
+.cant li:last-child{margin-bottom:0}
+.cant li b{color:#cd7f9b}
+.refs{margin:40px 0 10px}
+.refs h3{font-size:1rem;color:#79a6d2;margin-bottom:12px}
+.refs ul{list-style:none;padding:0}
+.refs li{margin-bottom:9px;font-size:0.89rem;color:#8d867b;line-height:1.7}
+.refs a{color:#79a6d2;text-decoration:none;border-bottom:1px solid rgba(121,166,210,0.3)}
+.refs a:hover{color:#a6c4e2}
+footer{text-align:center;padding:52px 0 10px;font-size:0.78rem;color:#57524b;font-family:"SF Mono",Menlo,monospace;border-top:1px solid rgba(255,255,255,0.06);margin-top:46px}
+footer a{color:#79a6d2;text-decoration:none}
+@media(max-width:600px){h1{font-size:1.7rem}.wrap{padding:24px 16px 60px}}
+</style></head><body>
+<div class="wrap">
+<header>
+<span class="rtag">REF · 经典模型</span>
+<h1>遗传算法<span class="h1en">GENETIC ALGORITHMS</span></h1>
+<p class="sub">John Holland，1975 — 把"变异 + 选择 + 重组"从生物学里拆出来，当成一台通用的搜索机器（genetic algorithm，学界常缩写成 GA，下文也这么用）</p>
+<p class="meta">被引用于：Topic 26 复杂适应系统</p>
+</header>
+
+<h2><span class="n">01</span>它问的是什么问题<span class="he">（The Question It Poses）</span></h2>
+<p>有一类问题，你说得出什么叫"好"，却写不出通往好的路。天线该弯成什么形状才能在指定频段收得最好？三百个班次怎么排，才能既满足所有约束又少用两架飞机？这类问题没有公式可解，也没有可以顺着往下走的坡度——你只能一个个试，而可试的组合多到宇宙年龄都试不完。</p>
+<p>自然界解决过同类问题，而且用的办法笨得出奇：生一堆略有不同的后代，让环境筛掉大部分，把活下来的重新组合，再来一轮。Holland 要问的是：<b>这套办法离开生物学还成不成立？</b>把它写成几十行代码，它还能不能在一个从没被人理解过的问题上找出好解？</p>
+
+<h2><span class="n">02</span>规则本身<span class="he">（The Rules）</span></h2>
+<div class="rule">
+<ol>
+<li>把一个候选答案编码成一串符号（最经典的是一串 0 和 1），这一串叫一个<b>个体</b>。</li>
+<li>随机生成一群个体，比如 100 个，这群叫一个<b>种群</b>（population）。</li>
+<li>给每个个体打一个分。打分的那个函数叫<b>适应度函数</b>（fitness function）——它是你唯一必须提供的东西，也是你把"什么叫好"告诉算法的唯一渠道。</li>
+<li><b>选择</b>：分高的个体更可能被挑中当父代。注意不是只留最高的那个，中等的也要留一些，否则多样性一轮就没了。</li>
+<li><b>交叉</b>（crossover）：取两个父代，在随机位置剪开，互换后半段，得到两个子代。</li>
+<li><b>变异</b>（mutation）：以很小的概率（常见是千分之几）翻转某些位。</li>
+<li>用子代换掉旧种群，回到第 3 步。重复几百到几万代。</li>
+</ol>
+</div>
+<p>值得停一下的是第 3 步和第 5 步。<b>适应度函数只说"多好"，从不说"为什么好"</b>——算法对问题的结构一无所知，这正是它能用在你看不懂的问题上的原因。而交叉是这套方法区别于"随机乱试"的地方：它假设好解的一些<em>片段</em>可以被分别找到、再拼起来。这个假设成立与否，决定了它在你的问题上是快得惊人还是慢得可笑。</p>
+<figure>
+<svg aria-label="交叉与变异：两串父代在随机位置切开互换，子代再以小概率翻转某位" role="img" viewbox="0 0 700 260" xmlns="http://www.w3.org/2000/svg">
+<defs>
+<marker id="rg1" markerheight="10" markerunits="userSpaceOnUse" markerwidth="10" orient="auto" refx="9" refy="5" viewbox="0 0 10 10">
+<path d="M0,1 L9,5 L0,9 z" fill="#63b3a6"></path>
+</marker>
+</defs>
+<text fill="#aba498" font-family="-apple-system,sans-serif" font-size="13" text-anchor="middle" x="350" y="26">一次交叉 + 一次变异</text>
+<text fill="#8d867b" font-family="SF Mono,monospace" font-size="11.5" x="40" y="66">父代 A</text>
+<g font-family="SF Mono,monospace" font-size="14" text-anchor="middle">
+<rect fill="#33403c" height="26" stroke="rgba(255,255,255,0.12)" width="26" x="110" y="48"></rect><text fill="#9fd7cb" x="123" y="67">1</text>
+<rect fill="#33403c" height="26" stroke="rgba(255,255,255,0.12)" width="26" x="136" y="48"></rect><text fill="#9fd7cb" x="149" y="67">0</text>
+<rect fill="#33403c" height="26" stroke="rgba(255,255,255,0.12)" width="26" x="162" y="48"></rect><text fill="#9fd7cb" x="175" y="67">1</text>
+<rect fill="#33403c" height="26" stroke="rgba(255,255,255,0.12)" width="26" x="188" y="48"></rect><text fill="#9fd7cb" x="201" y="67">1</text>
+<rect fill="#2f2c26" height="26" stroke="rgba(255,255,255,0.12)" width="26" x="214" y="48"></rect><text fill="#aba498" x="227" y="67">0</text>
+<rect fill="#2f2c26" height="26" stroke="rgba(255,255,255,0.12)" width="26" x="240" y="48"></rect><text fill="#aba498" x="253" y="67">0</text>
+<rect fill="#2f2c26" height="26" stroke="rgba(255,255,255,0.12)" width="26" x="266" y="48"></rect><text fill="#aba498" x="279" y="67">1</text>
+</g>
+<text fill="#8d867b" font-family="SF Mono,monospace" font-size="11.5" x="40" y="112">父代 B</text>
+<g font-family="SF Mono,monospace" font-size="14" text-anchor="middle">
+<rect fill="#3a3446" height="26" stroke="rgba(255,255,255,0.12)" width="26" x="110" y="94"></rect><text fill="#c6b9e0" x="123" y="113">0</text>
+<rect fill="#3a3446" height="26" stroke="rgba(255,255,255,0.12)" width="26" x="136" y="94"></rect><text fill="#c6b9e0" x="149" y="113">1</text>
+<rect fill="#3a3446" height="26" stroke="rgba(255,255,255,0.12)" width="26" x="162" y="94"></rect><text fill="#c6b9e0" x="175" y="113">0</text>
+<rect fill="#3a3446" height="26" stroke="rgba(255,255,255,0.12)" width="26" x="188" y="94"></rect><text fill="#c6b9e0" x="201" y="113">0</text>
+<rect fill="#2f2c26" height="26" stroke="rgba(255,255,255,0.12)" width="26" x="214" y="94"></rect><text fill="#aba498" x="227" y="113">1</text>
+<rect fill="#2f2c26" height="26" stroke="rgba(255,255,255,0.12)" width="26" x="240" y="94"></rect><text fill="#aba498" x="253" y="113">1</text>
+<rect fill="#2f2c26" height="26" stroke="rgba(255,255,255,0.12)" width="26" x="266" y="94"></rect><text fill="#aba498" x="279" y="113">0</text>
+</g>
+<line stroke="#d9b45f" stroke-dasharray="4 4" stroke-width="1.6" x1="214" x2="214" y1="40" y2="128"></line>
+<text fill="#d9b45f" font-family="-apple-system,sans-serif" font-size="11" text-anchor="middle" x="214" y="146">随机切点</text>
+<line marker-end="url(#rg1)" stroke="#63b3a6" stroke-width="2" x1="320" x2="372" y1="84" y2="84"></line>
+<text fill="#8d867b" font-family="SF Mono,monospace" font-size="11.5" x="392" y="42">子代 1</text>
+<g font-family="SF Mono,monospace" font-size="14" text-anchor="middle">
+<rect fill="#33403c" height="26" stroke="rgba(255,255,255,0.12)" width="26" x="392" y="48"></rect><text fill="#9fd7cb" x="405" y="67">1</text>
+<rect fill="#33403c" height="26" stroke="rgba(255,255,255,0.12)" width="26" x="418" y="48"></rect><text fill="#9fd7cb" x="431" y="67">0</text>
+<rect fill="#33403c" height="26" stroke="rgba(255,255,255,0.12)" width="26" x="444" y="48"></rect><text fill="#9fd7cb" x="457" y="67">1</text>
+<rect fill="#33403c" height="26" stroke="rgba(255,255,255,0.12)" width="26" x="470" y="48"></rect><text fill="#9fd7cb" x="483" y="67">1</text>
+<rect fill="#3a3446" height="26" stroke="rgba(255,255,255,0.12)" width="26" x="496" y="48"></rect><text fill="#c6b9e0" x="509" y="67">1</text>
+<rect fill="#3a3446" height="26" stroke="rgba(255,255,255,0.12)" width="26" x="522" y="48"></rect><text fill="#c6b9e0" x="535" y="67">1</text>
+<rect fill="#3a3446" height="26" stroke="rgba(255,255,255,0.12)" width="26" x="548" y="48"></rect><text fill="#c6b9e0" x="561" y="67">0</text>
+</g>
+<text fill="#8d867b" font-family="SF Mono,monospace" font-size="11.5" x="392" y="88">子代 2</text>
+<g font-family="SF Mono,monospace" font-size="14" text-anchor="middle">
+<rect fill="#3a3446" height="26" stroke="rgba(255,255,255,0.12)" width="26" x="392" y="94"></rect><text fill="#c6b9e0" x="405" y="113">0</text>
+<rect fill="#3a3446" height="26" stroke="rgba(255,255,255,0.12)" width="26" x="418" y="94"></rect><text fill="#c6b9e0" x="431" y="113">1</text>
+<rect fill="#3a3446" height="26" stroke="rgba(255,255,255,0.12)" width="26" x="444" y="94"></rect><text fill="#c6b9e0" x="457" y="113">0</text>
+<rect fill="#3a3446" height="26" stroke="rgba(255,255,255,0.12)" width="26" x="470" y="94"></rect><text fill="#c6b9e0" x="483" y="113">0</text>
+<rect fill="#33403c" height="26" stroke="rgba(255,255,255,0.12)" width="26" x="496" y="94"></rect><text fill="#9fd7cb" x="509" y="113">0</text>
+<rect fill="#7a4a30" height="26" stroke="rgba(224,137,94,0.8)" width="26" x="522" y="94"></rect><text fill="#f0d0bc" x="535" y="113">1</text>
+<rect fill="#33403c" height="26" stroke="rgba(255,255,255,0.12)" width="26" x="548" y="94"></rect><text fill="#9fd7cb" x="561" y="113">1</text>
+</g>
+<text fill="#e0895e" font-family="-apple-system,sans-serif" font-size="11" text-anchor="middle" x="535" y="140">变异翻了这一位</text>
+<text fill="#787268" font-family="-apple-system,sans-serif" font-size="11.5" text-anchor="middle" x="350" y="182">交叉负责"把已经找到的好片段拼起来"，变异负责"别让某个位置全场都一样"</text>
+<text fill="#57524b" font-family="-apple-system,sans-serif" font-size="11" text-anchor="middle" x="350" y="212">两者缺一：只有变异 = 慢得像纯随机搜索；只有交叉 = 种群很快同质化，此后再拼也拼不出新东西</text>
+<text fill="#57524b" font-family="-apple-system,sans-serif" font-size="11" text-anchor="middle" x="350" y="236">算法自始至终不知道这些位代表什么 — 它只见过分数</text>
+</svg>
+<figcaption>一次交叉产生两个子代，随后小概率的变异翻掉某一位。这两步就是全部的"创新"来源。</figcaption>
+</figure>
+
+<h2><span class="n">03</span>跑起来会看到什么<span class="he">（What You See When It Runs）</span></h2>
+<p>最典型的曲线是一条<b>先陡后平</b>的上升线：前几十代分数猛涨（随便捡捡就有的改进），然后越来越慢。这条曲线的形状本身是有信息的——它告诉你剩下的改进空间大致还有多少。</p>
+<p>第二件常见的事叫<b>早熟收敛</b>（premature convergence）：种群里所有个体变得几乎一模一样，卡在一个不算好的解上。此后交叉不再产生任何新东西（两串一样的东西怎么剪都还是它自己），只剩变异在做微小的随机扰动，曲线彻底走平。多样性一旦耗尽就很难恢复，这是这类算法最常见的失败方式。</p>
+<figure>
+<svg aria-label="适应度随代数上升的两条曲线：健康的搜索与早熟收敛" role="img" viewbox="0 0 700 280" xmlns="http://www.w3.org/2000/svg">
+<defs>
+<marker id="rg2" markerheight="10" markerunits="userSpaceOnUse" markerwidth="10" orient="auto" refx="9" refy="5" viewbox="0 0 10 10">
+<path d="M0,1 L9,5 L0,9 z" fill="#8d867b"></path>
+</marker>
+</defs>
+<text fill="#aba498" font-family="-apple-system,sans-serif" font-size="13" text-anchor="middle" x="350" y="26">同一个问题，两次运行</text>
+<line marker-end="url(#rg2)" stroke="rgba(255,255,255,0.2)" stroke-width="1.5" x1="70" x2="644" y1="220" y2="220"></line>
+<line marker-end="url(#rg2)" stroke="rgba(255,255,255,0.2)" stroke-width="1.5" x1="70" x2="70" y1="220" y2="48"></line>
+<text fill="#8d867b" font-family="-apple-system,sans-serif" font-size="11.5" text-anchor="middle" x="360" y="246">代数 →</text>
+<text fill="#8d867b" font-family="-apple-system,sans-serif" font-size="11.5" transform="rotate(-90 28 140)" x="28" y="140">最好个体的分数</text>
+<path d="M80,208 C130,150 180,110 250,96 C330,80 430,72 620,66" fill="none" stroke="#63b3a6" stroke-width="2.6"></path>
+<text fill="#63b3a6" font-family="SF Mono,monospace" font-size="12" x="516" y="56">保住了多样性</text>
+<path d="M80,208 C120,160 160,138 200,134 C260,130 400,132 620,132" fill="none" stroke="#cd7f9b" stroke-width="2.6"></path>
+<text fill="#cd7f9b" font-family="SF Mono,monospace" font-size="12" x="516" y="126">早熟收敛</text>
+<circle cx="200" cy="134" fill="#cd7f9b" r="5"></circle>
+<text fill="#cd7f9b" font-family="-apple-system,sans-serif" font-size="11" x="212" y="158">此后全场基因几乎一样</text>
+<text fill="#57524b" font-family="-apple-system,sans-serif" font-size="11" text-anchor="middle" x="350" y="268">曲线走平不一定说明"已经最优"，也可能说明"没得可试了" — 这两件事必须分开诊断</text>
+</svg>
+<figcaption>走平的曲线有两种完全不同的病因。分辨方法很土：直接测种群里个体之间的差异度，看它是不是也塌了。</figcaption>
+</figure>
+<p>第三件事最有意思：<b>跑出来的解常常很怪。</b>2006 年 NASA 的 ST5 卫星上飞过一副由演化算法设计的天线，形状像一段被随手掰弯的回形针，没有任何人类天线工程师会画成那样，但它满足了那组指标。这是这类方法最诚实的广告——它不理解问题，所以也不受"看起来该是什么样"的约束。</p>
+
+<h2><span class="n">04</span>它解释了现实中的什么<span class="he">（What It Explains）</span></h2>
+<p>严格说，遗传算法首先是个工具，不是个解释。但它顺带证明了一件在别处很难演示的事：<b>"没有设计者的设计"是可行的，而且需要的零件极少。</b>一堆候选、一个只说好坏的分数、一套复制与重组的手续——三样凑齐，复杂而有效的结构就会出现，不需要任何人理解它为什么有效。</p>
+<p>这也正是它在本站的位置：它是"适应"这件事的最小可运行版本。当你怀疑某个组织、市场、生态是不是在适应，把这三样零件对着找一遍，比任何比喻都管用。</p>
+
+<div class="cant">
+<h3>它不能解释什么<span class="he">（What It Cannot Explain）</span></h3>
+<ul>
+<li><b>它不是自然选择的模型。</b>这里的适应度函数是人给的、固定的、算得出来的；真实演化里"什么算好"由环境和其他所有生物共同决定，而且随时在变（第 31 期的红皇后讲的就是这件事）。拿 GA 的行为去论证生物学结论，要非常小心。</li>
+<li><b>没有免费午餐。</b>Wolpert 与 Macready 1997 年证明：在所有可能的问题上平均，任何一个优化算法都不比别的更好，包括纯随机搜索。所以 GA 的优势从来不是"它更聪明"，而是它的假设（好片段可以分别找到再拼起来）恰好匹配了某一类问题的结构。问题不匹配时，它就是个很贵的随机搜索。</li>
+<li><b>它不保证最优，也不告诉你离最优多远。</b>跑完之后你手上有一个解和一条曲线，没有任何关于"还差多少"的界。需要这种保证的场合（有严格最优性要求的调度、有可证明界的组合优化），该用别的方法。</li>
+<li><b>评估太贵就用不起。</b>它动辄需要几万到几百万次打分。如果一次打分意味着跑一次流体仿真、做一次真实实验、等一个季度的业绩，这个方法在预算上直接出局。</li>
+<li><b>编码决定成败，而编码没有理论。</b>同一个问题，换一种编码方式，结果可以天差地别；哪种编码让"好片段"真的成片，目前只能靠试和手艺。这一条是使用者最容易低估的成本。</li>
+<li><b>别把图式定理当成"它为什么有效"的完整解释。</b>Holland 的图式定理（schema theorem）与建筑块假说（building block hypothesis）给了一个直觉框架，但学界几十年来对它能否解释 GA 的实际表现一直有争议。用它讲故事可以，当证明不行。</li>
+</ul>
+</div>
+
+<div class="refs">
+<h3>延伸阅读<span class="he">（Further Reading）</span></h3>
+<ul>
+<li><a href="https://en.wikipedia.org/wiki/Genetic_algorithm">Genetic algorithm</a>（算法细节、变体与批评）</li>
+<li><a href="https://en.wikipedia.org/wiki/John_Henry_Holland">John H. Holland</a>（1975 年《自然与人工系统中的适应》的作者）</li>
+<li><a href="https://en.wikipedia.org/wiki/Holland%27s_schema_theorem">Holland's schema theorem</a>（图式定理与围绕它的争议）</li>
+<li><a href="https://en.wikipedia.org/wiki/No_free_lunch_theorem">No free lunch theorem</a>（Wolpert &amp; Macready，1997）</li>
+<li><a href="https://en.wikipedia.org/wiki/Evolved_antenna">Evolved antenna</a>（NASA ST5 那副长得很怪的天线）</li>
+</ul>
+</div>
+
+<footer>BigCat · 复杂性科学 · <a href="index.html">← 全部 Topic</a></footer>
+</div>
+<script src="https://hub.cissychen.com/comments.js" defer></script>
+<script src="https://hub.cissychen.com/search.js" defer></script>
+<script src="https://hub.cissychen.com/index-button.js" defer></script>
+<script src="https://hub.cissychen.com/i18n-tts.js" defer></script>
+</body></html>
