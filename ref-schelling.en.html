@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+
+<html lang="en"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>The Schelling Segregation Model · Reference · Complexity Science</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,"SF Pro Display","Noto Sans SC",sans-serif;color:#e4ded5;line-height:1.85;min-height:100vh;
+  background:radial-gradient(1100px 620px at 12% -6%,rgba(99,179,166,0.09),transparent 62%),radial-gradient(950px 700px at 100% 2%,rgba(166,147,205,0.08),transparent 58%),linear-gradient(168deg,#100f0d 0%,#15161b 48%,#0a0a0c 100%);background-attachment:fixed}
+.wrap{max-width:720px;margin:0 auto;padding:30px 22px 90px}
+header{padding:52px 0 8px;border-bottom:1px solid rgba(255,255,255,0.07);margin-bottom:32px}
+.rtag{font-family:"SF Mono",Menlo,monospace;font-size:0.72rem;font-weight:700;letter-spacing:2px;color:#63b3a6;border:1px solid rgba(99,179,166,0.4);background:rgba(99,179,166,0.07);padding:3px 11px;border-radius:20px}
+h1{font-size:2.15rem;font-weight:800;line-height:1.2;margin:20px 0 0;color:#f0eae0}
+h1 .h1en{display:block;font-size:0.42em;font-weight:600;letter-spacing:2.5px;color:#847d72;margin-top:11px}
+.sub{font-size:0.98rem;color:#aba498;margin-top:12px}
+.meta{font-family:"SF Mono",Menlo,monospace;font-size:0.75rem;color:#57524b;margin-top:16px;letter-spacing:1px}
+h2{font-size:1.25rem;font-weight:700;color:#e9e3d9;margin:44px 0 10px}
+h2 .n{font-family:"SF Mono",Menlo,monospace;font-size:0.8rem;color:#63b3a6;display:block;margin-bottom:5px;letter-spacing:2px}
+.he{font-size:0.68em;color:#8d867b;font-weight:500;letter-spacing:0}
+p{margin-bottom:16px}
+b,strong{color:#f0eae0;font-weight:600}
+em{color:#d9b45f;font-style:normal;font-weight:500}
+.rule{border:1px solid rgba(99,179,166,0.3);background:rgba(99,179,166,0.05);border-radius:12px;padding:16px 20px;margin:22px 0;font-size:0.94rem;color:#d5cdc1}
+.rule ol{padding-left:20px;margin:0}
+.rule li{margin-bottom:7px}
+.rule li:last-child{margin-bottom:0}
+figure{margin:28px 0}
+figure svg{display:block;width:100%;height:auto;border-radius:12px;background:rgba(255,255,255,0.018);border:1px solid rgba(255,255,255,0.06)}
+figcaption{font-size:0.82rem;color:#787268;margin-top:10px;text-align:center;line-height:1.6}
+.cant{border:1px solid rgba(205,127,155,0.36);background:rgba(205,127,155,0.05);border-radius:12px;padding:18px 21px;margin:26px 0 10px}
+.cant h3{font-size:1rem;color:#cd7f9b;margin-bottom:12px}
+.cant ul{list-style:none;padding:0}
+.cant li{margin-bottom:13px;font-size:0.93rem;color:#d5cdc1;line-height:1.76}
+.cant li:last-child{margin-bottom:0}
+.cant li b{color:#cd7f9b}
+.refs{margin:40px 0 10px}
+.refs h3{font-size:1rem;color:#79a6d2;margin-bottom:12px}
+.refs ul{list-style:none;padding:0}
+.refs li{margin-bottom:9px;font-size:0.89rem;color:#8d867b;line-height:1.7}
+.refs a{color:#79a6d2;text-decoration:none;border-bottom:1px solid rgba(121,166,210,0.3)}
+.refs a:hover{color:#a6c4e2}
+footer{text-align:center;padding:52px 0 10px;font-size:0.78rem;color:#57524b;font-family:"SF Mono",Menlo,monospace;border-top:1px solid rgba(255,255,255,0.06);margin-top:46px}
+footer a{color:#79a6d2;text-decoration:none}
+@media(max-width:600px){h1{font-size:1.7rem}.wrap{padding:24px 16px 60px}}
+</style></head><body>
+<div class="wrap">
+<header>
+<span class="rtag">REF · CLASSIC MODEL</span>
+<h1>The Schelling Segregation Model<span class="h1en">SCHELLING, 1971</span></h1>
+<p class="sub">A checkerboard proof that mild preferences can grow an extreme pattern</p>
+<p class="meta">Cited in: Topic 27 Agent-Based Modeling</p>
+</header>
+<h2><span class="n">01</span>The Question It Poses</h2>
+<p>In the United States of the 1960s residential segregation was an obvious fact, and the default frame for explaining it had exactly one shape: <b>the degree of segregation reflects the degree of prejudice.</b> A pattern this extreme must sit on top of correspondingly strong aversion. The policy implication followed automatically — to undo segregation, first change what people feel.</p>
+<p>Schelling asked a purely structural question instead: <b>what is the weakest preference that can still produce a map like this?</b> Note that he is not asking how strong actual preferences are; he is asking for a lower bound. And lower-bound questions have a way of demolishing an entire default picture of causation.</p>
+<h2><span class="n">02</span>The Rules</h2>
+<div class="rule">
+<ol>
+<li>A square board. Each cell is either empty or holds one of two kinds of agent (call them blue and yellow).</li>
+<li>Each agent looks at its eight surrounding cells and counts, among the <em>occupied</em> ones, the share that are like itself.</li>
+<li>If that share is at least a threshold <em>T</em> (say 30%), the agent is satisfied and stays put.</li>
+<li>If it is below <em>T</em>, the agent moves to an empty cell.</li>
+<li>Repeat until nobody is unhappy. That state is called <b>frozen</b> — the board stops changing.</li>
+</ol>
+</div>
+<p>Notice that rule 4 <b>does not say which empty cell</b>. A random one? The nearest one? The best one? Schelling's own version moved agents to the nearest satisfying spot; later reimplementations each chose their own. This apparently trivial detail changes how strong the result is, and under some settings changes the result itself — so any Schelling-style claim should be quoted together with its move rule.</p>
+<p>The threshold <em>T</em> is also routinely read backwards. <em>T</em> = 30% is not the strong demand "I insist that three in ten around me are my own kind". It is the rather relaxed tolerance "<b>seven in ten around me are unlike me and that is fine</b>". The entire force of the model lies in that direction.</p>
+<h2><span class="n">03</span>What You See When It Runs</h2>
+<p>The start is scattered at random, so the average share of like neighbours is about 50% — which is what "fully mixed" means. Once it runs, unhappy agents begin to move, and every move lowers the like-share of the like neighbours left behind, manufacturing fresh unhappiness. Waves of relocation cross the board.</p>
+<p>After somewhere between ten and a few dozen rounds the movement stops. At that point <b>nobody is unhappy</b>, yet the average share of like neighbours is far above where it started — on a 16×16 board with a 30% threshold and about 10% vacancy, it typically lands between <b>0.65 and 0.85</b>.</p>
+<figure>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 700 250" role="img" aria-label="Tolerance threshold versus final homogeneity: mild input, extreme output">
+<defs>
+<marker id="sc1" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="11" markerHeight="11" markerUnits="userSpaceOnUse" orient="auto"><path d="M0,1 L9,5 L0,9 z" fill="#63b3a6"/></marker>
+</defs>
+<text x="350" y="26" text-anchor="middle" font-family="-apple-system,sans-serif" font-size="13" fill="#aba498">The demand going in vs the pattern coming out</text>
+<rect x="60" y="58" width="200" height="112" rx="12" fill="rgba(99,179,166,0.06)" stroke="rgba(99,179,166,0.32)"/>
+<text x="160" y="88" text-anchor="middle" font-family="-apple-system,sans-serif" font-size="12.5" fill="#cfc8bc">what each agent asks</text>
+<text x="160" y="124" text-anchor="middle" font-family="SF Mono,monospace" font-size="26" fill="#63b3a6">30%</text>
+<text x="160" y="150" text-anchor="middle" font-family="-apple-system,sans-serif" font-size="11" fill="#8d867b">like neighbours, no less</text>
+<line x1="282" y1="114" x2="422" y2="114" stroke="#63b3a6" stroke-width="2" marker-end="url(#sc1)"/>
+<text x="352" y="102" text-anchor="middle" font-family="-apple-system,sans-serif" font-size="11.5" fill="#8d867b">a few dozen rounds of moving</text>
+<text x="352" y="136" text-anchor="middle" font-family="-apple-system,sans-serif" font-size="11.5" fill="#8d867b">nobody ever changed the demand</text>
+<rect x="440" y="58" width="200" height="112" rx="12" fill="rgba(205,127,155,0.06)" stroke="rgba(205,127,155,0.34)"/>
+<text x="540" y="88" text-anchor="middle" font-family="-apple-system,sans-serif" font-size="12.5" fill="#cfc8bc">the frozen pattern</text>
+<text x="540" y="124" text-anchor="middle" font-family="SF Mono,monospace" font-size="26" fill="#cd7f9b">65–85%</text>
+<text x="540" y="150" text-anchor="middle" font-family="-apple-system,sans-serif" font-size="11" fill="#8d867b">actual share of like neighbours</text>
+<text x="350" y="200" text-anchor="middle" font-family="-apple-system,sans-serif" font-size="11.5" fill="#787268">The start was 50%, the random-mixing value. Nobody asked for the endpoint and nobody chose it at any step.</text>
+<text x="350" y="228" text-anchor="middle" font-family="-apple-system,sans-serif" font-size="11" fill="#57524b">The right-hand range is the scatter over 30 random seeds, not a single value</text>
+</svg>
+<figcaption>The whole force of the model is in this picture: mild at the input, extreme at the output, and no extreme step in between.</figcaption>
+</figure>
+<p>Two further properties only show up once it runs. <b>The process ratchets</b>: movers land only where they are satisfied, that is, where more of their own kind already are, so homogeneity on average only rises. And <b>the endpoint locks itself</b>: in the frozen state everyone is satisfied, so no one has any reason to move back alone. The pattern is stable — but "stable" here means only "nobody can do better by acting alone". It is neither optimal nor chosen.</p>
+<h2><span class="n">04</span>What It Explains</h2>
+<p>What it delivers is a <b>proof of existence</b>: <b>producing extreme segregation does not require extreme preferences.</b> That refutes a claim of necessity — "segregation this severe must rest on aversion equally severe". Once the lower bound falls, the inference from pattern back to sentiment is broken.</p>
+<p>The same structure runs elsewhere: office lunch tables hardening, group chats converging on one topic, academic collaboration networks splitting into blocks, interest communities stratifying on a platform. The three shared preconditions are: <b>agents see only locally</b>, <b>the response is threshold-shaped</b>, and <b>an unhappy agent can move</b>. When all three hold, expect blocks — and do not expect the participants' own accounts to contain the reason.</p>
+<p>It also has an under-used constructive side: <b>it names the intervention points.</b> If the pattern is set by thresholds and by the move rule, then the available levers are not exhortations against prejudice but the cost of moving, the distribution of available positions, and who is adjacent to whom. That is why changing the structure of encounter — seating, mixed grouping, shared facilities — so often outperforms appeals.</p>
+<div class="cant">
+<h3>What It Cannot Explain</h3>
+<ul>
+<li><b>It cannot show that real segregation arose this way.</b> A proof of existence lights one region of the space of causes and extinguishes none. Segregation in the United States has a large deliberate component — redlining, racially restrictive covenants, blockbusting, differential lending — about which the model knows nothing and which it never denied. Reading it as "so discrimination wasn't the cause" is the commonest and most damaging misuse.</li>
+<li><b>It cannot weigh the causes against each other.</b> Nothing in it can answer "what share does self-organisation contribute?" That is a question for empirical work — for example Card, Mas and Rothstein's 2008 census-based estimates of tipping points, which land between 5% and 20% across cities, and are higher where white residents are more tolerant.</li>
+<li><b>Its conclusions are sensitive to implementation details.</b> Where movers go, who acts first, how edges are handled — all matter. Pancs and Vriend (2007) report that under best-response dynamics segregation appears even when every agent strictly prefers perfect integration, while a simplified version with a different move rule may produce no segregation at all. Quote any Schelling-style result together with its dynamics.</li>
+<li><b>There are no prices, no incomes, no coercion.</b> Moving on the board is free, there is no landlord and there is no law. All three are present in real housing choices, and any of them may dominate.</li>
+<li><b>The threshold number is not an empirical finding.</b> 0.3 is a demonstration setting. What can be treated as an empirical quantity is the <em>shape</em> — that the response jumps somewhere — not the value 0.3.</li>
+</ul>
+</div>
+<div class="refs">
+<h3>Further Reading</h3>
+<ul>
+<li>Thomas Schelling, <a href="https://doi.org/10.1080/0022250X.1971.9989794">Dynamic Models of Segregation</a> (1971, the original paper)</li>
+<li>Thomas Schelling, <a href="https://wwnorton.com/books/9780393329469">Micromotives and Macrobehavior</a> (1978, the full popular treatment)</li>
+<li><a href="https://ccl.northwestern.edu/netlogo/models/Segregation">NetLogo Segregation</a> (drag the threshold and run it in a browser)</li>
+<li>Pancs &amp; Vriend, <a href="https://nvriend.econ.qmul.ac.uk/pub/pubec.pdf">Schelling's spatial proximity model of segregation revisited</a> (2007)</li>
+<li>Card, Mas &amp; Rothstein, <a href="https://davidcard.berkeley.edu/papers/tipping-dynamics.pdf">Tipping and the Dynamics of Segregation</a> (2008, empirical tipping points)</li>
+<li><a href="https://en.wikipedia.org/wiki/Redlining">Redlining</a> (the deliberate half of segregation)</li>
+</ul>
+</div>
+<footer>BigCat · Complexity Science · <a href="index.en.html">← All Topics</a></footer>
+</div>
+<script src="https://hub.cissychen.com/comments.js" defer></script>
+<script src="https://hub.cissychen.com/search.js" defer></script>
+<script src="https://hub.cissychen.com/index-button.js" defer></script>
+<script src="https://hub.cissychen.com/i18n-tts.js" defer></script>
+</body></html>

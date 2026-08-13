@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+
+<html lang="zh-CN"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>基于主体建模 — 结果之恶不需要动机之恶 · 复杂性科学 T27</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,"SF Pro Display","Noto Sans SC",sans-serif;color:#e4ded5;line-height:1.85;min-height:100vh;
+  background:radial-gradient(1100px 620px at 12% -6%,rgba(224,137,94,0.10),transparent 62%),radial-gradient(950px 700px at 100% 2%,rgba(166,147,205,0.09),transparent 58%),linear-gradient(168deg,#100f0d 0%,#15161b 48%,#0a0a0c 100%);background-attachment:fixed}
+.wrap{max-width:760px;margin:0 auto;padding:30px 22px 90px}
+header{padding:52px 0 8px;border-bottom:1px solid rgba(255,255,255,0.07);margin-bottom:34px}
+.week-tag{font-family:"SF Mono",Menlo,monospace;font-size:0.72rem;font-weight:700;letter-spacing:2px;color:#79a6d2;border:1px solid rgba(121,166,210,0.4);background:rgba(121,166,210,0.07);padding:3px 11px;border-radius:20px}
+h1{font-size:2.5rem;font-weight:800;letter-spacing:0.5px;line-height:1.2;margin:20px 0 0;background:linear-gradient(106deg,#e0895e 0%,#d9b45f 34%,#9fbc7a 68%,#63b3a6 100%);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+h1 .h1en{display:block;font-size:0.40em;font-weight:600;letter-spacing:2.5px;color:#847d72;-webkit-text-fill-color:#847d72;background:none;margin-top:13px}
+.sub{font-size:1.05rem;color:#aba498;margin-top:14px;font-weight:500}
+.date{font-family:"SF Mono",Menlo,monospace;font-size:0.75rem;color:#57524b;margin-top:18px;letter-spacing:1px}
+.pitch{margin:22px 0 30px;font-size:0.97rem;color:#cd7f9b;border-left:2px solid rgba(205,127,155,0.5);padding-left:16px;font-style:italic}
+.intro{font-size:1.02rem;color:#cfc8bc;margin-bottom:14px}
+.intro p{margin-bottom:16px}
+h2{font-size:1.42rem;font-weight:700;color:#e9e3d9;margin:56px 0 8px;letter-spacing:0.3px}
+h2 .n{font-family:"SF Mono",Menlo,monospace;font-size:0.85rem;color:#79a6d2;display:block;margin-bottom:6px;letter-spacing:2px}
+.he{font-size:0.68em;color:#8d867b;font-weight:500;letter-spacing:0}
+p{margin-bottom:17px}
+.lead{color:#cfc8bc}
+b,strong{color:#f0eae0;font-weight:600}
+em{color:#d9b45f;font-style:normal;font-weight:500}
+.dim{color:#8d867b}
+a.reflink{display:inline-block;font-size:0.82rem;font-family:"SF Mono",Menlo,monospace;color:#63b3a6;border:1px solid rgba(99,179,166,0.38);background:rgba(99,179,166,0.07);padding:1px 9px;border-radius:20px;text-decoration:none;transition:all 0.15s;white-space:nowrap}
+a.reflink:hover{background:rgba(99,179,166,0.16);border-color:rgba(99,179,166,0.7)}
+figure{margin:30px 0}
+figure svg{display:block;width:100%;height:auto;border-radius:12px;background:rgba(255,255,255,0.018);border:1px solid rgba(255,255,255,0.06)}
+figcaption{font-size:0.82rem;color:#787268;margin-top:11px;text-align:center;line-height:1.6}
+.en-brief{font-size:0.85rem;color:#847d72;border-top:1px dashed rgba(255,255,255,0.09);padding-top:12px;margin-top:22px;line-height:1.65}
+.en-brief b{font-family:"SF Mono",Menlo,monospace;font-size:0.72rem;color:#63b3a6;letter-spacing:1px;margin-right:7px}
+.decide{margin:24px 0;border:1px solid rgba(224,137,94,0.36);background:rgba(224,137,94,0.055);border-radius:12px;padding:15px 19px}
+.decide .lb{font-family:"SF Mono",Menlo,monospace;font-size:0.73rem;letter-spacing:1.5px;color:#e0895e;font-weight:700;display:block;margin-bottom:7px}
+.decide p{margin:0;font-size:0.95rem;color:#ddd5c9}
+.crossx-inline{margin:20px 0 22px;border-left:2px solid rgba(205,127,155,0.55);padding:2px 0 2px 15px;font-size:0.89rem;color:#a9a096;line-height:1.72}
+.crossx-inline b{color:#cd7f9b;font-weight:600}
+.bigcat{margin:46px 0 10px;border:1px solid rgba(217,180,95,0.38);background:rgba(217,180,95,0.05);border-radius:14px;padding:20px 22px}
+.bigcat h3{font-size:1.02rem;color:#d9b45f;margin-bottom:14px;letter-spacing:0.5px}
+.bigcat ol{list-style:none;padding:0}
+.bigcat li{margin-bottom:15px;font-size:0.94rem;color:#d5cdc1;line-height:1.78}
+.bigcat li:last-child{margin-bottom:0}
+.bigcat .dm{font-family:"SF Mono",Menlo,monospace;font-size:0.73rem;color:#d9b45f;border:1px solid rgba(217,180,95,0.32);border-radius:4px;padding:1px 7px;margin-right:8px;white-space:nowrap}
+.crossx{margin:46px 0 10px;border:1px solid rgba(205,127,155,0.38);background:rgba(205,127,155,0.05);border-radius:14px;padding:20px 22px}
+.crossx h3{font-size:1.02rem;color:#cd7f9b;margin-bottom:14px;letter-spacing:0.5px}
+.crossx ul{list-style:none;padding:0}
+.crossx li{margin-bottom:16px;font-size:0.94rem;color:#d5cdc1;line-height:1.78}
+.crossx li:last-child{margin-bottom:0}
+.crossx li b{color:#cd7f9b;font-weight:600}
+.thinking{margin:46px 0 10px}
+.thinking h3{font-size:1.02rem;color:#a693cd;margin-bottom:14px;letter-spacing:0.5px}
+details{border:1px solid rgba(166,147,205,0.22);border-radius:10px;padding:12px 16px;margin-bottom:10px;background:rgba(166,147,205,0.035)}
+summary{cursor:pointer;font-size:0.93rem;color:#c9c2b6;font-weight:500}
+summary::marker{color:#a693cd}
+details p{margin:12px 0 0;font-size:0.9rem;color:#a9a096;line-height:1.75}
+.refs{margin:46px 0 10px}
+.refs h3{font-size:1.02rem;color:#79a6d2;margin-bottom:14px;letter-spacing:0.5px}
+.refs ul{list-style:none;padding:0}
+.refs li{margin-bottom:10px;font-size:0.9rem;color:#8d867b;line-height:1.7}
+.refs a{color:#79a6d2;text-decoration:none;border-bottom:1px solid rgba(121,166,210,0.3)}
+.refs a:hover{color:#a6c4e2;border-bottom-color:rgba(121,166,210,0.7)}
+footer{text-align:center;padding:56px 0 10px;font-size:0.78rem;color:#57524b;font-family:"SF Mono",Menlo,monospace;border-top:1px solid rgba(255,255,255,0.06);margin-top:50px}
+footer a{color:#79a6d2;text-decoration:none}
+@media(max-width:600px){h1{font-size:1.85rem}.wrap{padding:24px 16px 60px}h2{font-size:1.22rem}}
+</style></head><body>
+<div class="wrap">
+<header>
+<span class="week-tag">TOPIC 27 · PHASE E</span>
+<h1>基于主体建模<span class="h1en">AGENT-BASED MODELING</span></h1>
+<p class="sub">结果之恶不需要动机之恶<span class="he">（Bad outcomes need no bad intentions）</span></p>
+<p class="date">2026-08-13 · 适应与演化</p>
+</header>
+<p class="pitch">一条街用十年时间从混住变成泾渭分明。你挨家挨户去问为什么搬，没有一户会说"我不想跟他们住一起"——而且他们说的是真话。</p>
+<div class="intro">
+<p>你大概见过这种事：一个群刚建起来什么都聊，一年后只剩一个话题，别的人不知不觉都不说话了。没人被踢出去，也没人宣布过规矩。或者一间办公室，午饭时间的座位一开始是随机的，半年后固定成了几桌，谁也没组织过。</p>
+<p>我们解释这类事情时有一个几乎不会去质疑的默认假设：<em>结果的形状约等于动机的形状</em>。极端的格局背后应该有极端的意愿，明显的界线背后应该有人想画那条线。这个假设有时候是对的。但有一整类系统里它错得非常彻底——温和到近乎无所谓的个人要求，可以稳定地长出极端的整体格局，而且中途没有任何一个人做过极端的选择。</p>
+<p class="dim">上一期讲的是复杂适应系统（complex adaptive system）：主体会学习、规则本身在变。<b>这一期讲的是怎么把这类系统真的跑起来做一次实验</b>——基于主体建模（agent-based modeling，缩写 ABM），以及这种实验最容易骗人的地方。它既是本站后面几期（适应性景观、演化博弈、集体智能）共用的工具，也是复杂性科学里最容易被滥用的那把刀。</p>
+</div>
+<h2><span class="n">01</span>自下而上做一次实验<span class="he">（Experiments from the Bottom Up）</span></h2>
+<p class="lead">传统的建模是从整体入手的。讲传染病，你写下"有多少人还没得病、多少人正在传染、多少人已经好了"，再写三条方程描述这三个数怎么互相转化——这就是第 24 期那个易感-感染-康复模型（susceptible–infectious–recovered，缩写 SIR）。你操作的对象自始至终是<b>总量</b>，个体在方程里不存在。</p>
+<p>基于主体建模走的是相反的方向：<b>你一个方程都不写，你只写"一个个体在什么情况下做什么"，然后放几百上千个下去，让它们互相碰。</b>整体会长成什么样，你不知道——那是跑出来的结果，不是你输进去的假设。</p>
+<p>这个换向解锁了三件方程做不到的事。第一是<em>异质性</em>（heterogeneity）：每个个体可以有不同的参数、不同的耐心、不同的信息。方程里的"平均个体"是一个不存在的人，而很多现象恰恰是被少数不平均的人推动的。第二是<em>空间与网络</em>：谁挨着谁、谁认识谁。第三是<em>局部信息</em>：每个个体只看得见身边那一小圈，没有人拥有全局视野——这一条尤其重要，因为现实里的人正是这样。</p>
+<figure>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 330" role="img" aria-label="两种建模路径：自上而下写整体方程 vs 自下而上写个体规则">
+<defs>
+<marker id="ab1" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="10" markerHeight="10" markerUnits="userSpaceOnUse" orient="auto"><path d="M0,1 L9,5 L0,9 z" fill="#8d867b"/></marker>
+<marker id="ab2" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="10" markerHeight="10" markerUnits="userSpaceOnUse" orient="auto"><path d="M0,1 L9,5 L0,9 z" fill="#79a6d2"/></marker>
+</defs>
+<text x="360" y="27" text-anchor="middle" font-family="-apple-system,sans-serif" font-size="13" fill="#aba498">同一个问题，两个方向</text>
+<line x1="360" y1="46" x2="360" y2="300" stroke="rgba(255,255,255,0.09)" stroke-width="1.5"/>
+<text x="176" y="62" text-anchor="middle" font-family="SF Mono,monospace" font-size="12" fill="#8d867b">自上而下 · 写整体方程</text>
+<rect x="46" y="78" width="262" height="50" rx="8" fill="rgba(255,255,255,0.03)" stroke="rgba(255,255,255,0.14)"/>
+<text x="177" y="99" text-anchor="middle" font-family="-apple-system,sans-serif" font-size="12" fill="#cfc8bc">① 先假设整体量服从什么方程</text>
+<text x="177" y="117" text-anchor="middle" font-family="-apple-system,sans-serif" font-size="11" fill="#787268">（易感者、感染者、康复者各多少）</text>
+<line x1="177" y1="132" x2="177" y2="164" stroke="#8d867b" stroke-width="1.5" marker-end="url(#ab1)"/>
+<rect x="46" y="170" width="262" height="50" rx="8" fill="rgba(255,255,255,0.03)" stroke="rgba(255,255,255,0.14)"/>
+<text x="177" y="191" text-anchor="middle" font-family="-apple-system,sans-serif" font-size="12" fill="#cfc8bc">② 解方程，得到整体量的轨迹</text>
+<text x="177" y="209" text-anchor="middle" font-family="-apple-system,sans-serif" font-size="11" fill="#787268">快、可分析、可求出阈值</text>
+<text x="177" y="252" text-anchor="middle" font-family="-apple-system,sans-serif" font-size="11.5" fill="#cd7f9b">代价：个体不存在，只有平均值</text>
+<text x="177" y="272" text-anchor="middle" font-family="-apple-system,sans-serif" font-size="11.5" fill="#cd7f9b">空间、差异、局部视野全被抹掉</text>
+<text x="540" y="62" text-anchor="middle" font-family="SF Mono,monospace" font-size="12" fill="#79a6d2">自下而上 · 写个体规则</text>
+<rect x="412" y="78" width="262" height="44" rx="8" fill="rgba(121,166,210,0.06)" stroke="rgba(121,166,210,0.3)"/>
+<text x="543" y="105" text-anchor="middle" font-family="-apple-system,sans-serif" font-size="12" fill="#cfc8bc">① 只写：一个人在什么情况下做什么</text>
+<line x1="543" y1="126" x2="543" y2="150" stroke="#79a6d2" stroke-width="1.5" marker-end="url(#ab2)"/>
+<rect x="412" y="156" width="262" height="44" rx="8" fill="rgba(121,166,210,0.06)" stroke="rgba(121,166,210,0.3)"/>
+<text x="543" y="183" text-anchor="middle" font-family="-apple-system,sans-serif" font-size="12" fill="#cfc8bc">② 放几百个下去，让它们互相影响</text>
+<line x1="543" y1="204" x2="543" y2="228" stroke="#79a6d2" stroke-width="1.5" marker-end="url(#ab2)"/>
+<rect x="412" y="234" width="262" height="44" rx="8" fill="rgba(159,188,122,0.07)" stroke="rgba(159,188,122,0.34)"/>
+<text x="543" y="261" text-anchor="middle" font-family="-apple-system,sans-serif" font-size="12" fill="#cfe0bc">③ 整体格局是跑出来的，不是写进去的</text>
+<text x="360" y="316" text-anchor="middle" font-family="-apple-system,sans-serif" font-size="11" fill="#57524b">左边把你想解释的东西放进了假设里；右边把它留在了输出端 — 差别全在这里</text>
+</svg>
+<figcaption>两条路都合法，但只有右边这条能回答「这个格局是怎么长出来的」。</figcaption>
+</figure>
+<p>这套做法的门槛低到危险：写几十行代码就能让一屏幕小方块动起来，看上去很像那么回事。所以它需要一条自己的纪律，而且这条纪律是整个方法的命门——<b>你想解释的那个宏观现象，必须待在输出端，不许出现在输入端。</b>元胞自动机 <a class="reflink" href="ref-cellular-automata.html">→ 参考 · 元胞自动机</a> 和鸟群模型 <a class="reflink" href="ref-boids.html">→ 参考 · Boids 鸟群</a> 是这条纪律最干净的两个例子：规则里没有"群"这个词，群是跑出来的。</p>
+<div class="decide">
+<span class="lb">🎯 决策线</span>
+<p>拿到任何一个模拟（包括你自己写的），先去参数表里找一遍：<b>有没有一个参数直接叫「隔离程度」「拥堵水平」「团队氛围」</b>。如果有，这个模型不是在解释那个现象，是在换一种写法把它重述了一遍。把这类参数拆成个体层面的动作，拆不出来就说明你还没想清楚机制。</p>
+</div>
+<div class="crossx-inline">
+🌀 <b>历史与军事 · 普鲁士的兵棋</b>　1824 年，一位叫 Georg Heinrich von Reisswitz 的中尉把一套桌上推演交给了普鲁士总参谋部；参谋总长 von Müffling 看完那句评价流传至今——"这不是游戏，这是一所战争学校"。它的核心设计正是自下而上：不算双方总兵力之比，而是让每个单位按规则动、由裁判逐条判定结果。所以兵棋从来就不是用来预测谁赢的——它是用来暴露"我方计划里那个没人负责的环节"的，而这种东西在任何总量估算里都看不见。
+</div>
+<p class="en-brief"><b>EN</b> Equation-based modelling starts from aggregates: how many susceptible, how many infected. Agent-based modelling writes no aggregate equation at all — only what one individual does under what local conditions — and lets the macro pattern come out as an output. That buys heterogeneity, space and local information, at the price of a discipline: whatever you want to explain must never appear among the inputs.</p>
+<h2><span class="n">02</span>谢林的棋盘<span class="he">（Schelling's Checkerboard）</span></h2>
+<p class="lead">1971 年，托马斯·谢林（Thomas Schelling，2005 年诺贝尔经济学奖得主）发表了一篇论文，用的"计算机"是一张棋盘和一把硬币。他手推的那个模型，后来成了整个方法的招牌。<a class="reflink" href="ref-schelling.html">→ 参考 · 谢林隔离模型</a></p>
+<p>规则简单到可以一句话说完：棋盘上住着两种人，每个人环视自己周围的八格，<b>只要求同类邻居的比例不低于某个数</b>；低于了就搬到一个空格去，不低于就待着不动。就这样。</p>
+<p>我把它跑了一遍，参数摆在明处：16×16 的格子，两种人各约四成五，剩下约一成是空位，<b>阈值定成 30%</b>。请留意这个数字有多温和——它的意思是"我周围七成的邻居跟我不是一类，我也不走"。这在现实里几乎算得上宽容。</p>
+<figure>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 336" role="img" aria-label="谢林隔离模型三帧：从随机混合到分块">
+<defs><marker id="sg1" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="10" markerHeight="10" markerUnits="userSpaceOnUse" orient="auto"><path d="M0,1 L9,5 L0,9 z" fill="#8d867b"/></marker></defs>
+<text x="360" y="27" text-anchor="middle" font-family="-apple-system,sans-serif" font-size="13" fill="#aba498">同一条规则，同一批人 — 温和的要求长出极端的格局</text>
+<text x="126" y="62" text-anchor="middle" font-family="SF Mono,monospace" font-size="12" fill="#9fbc7a">① 起点 · 随机混合</text>
+<rect x="26" y="74" width="200" height="200" fill="rgba(255,255,255,0.02)" stroke="rgba(255,255,255,0.10)"/>
+<g transform="translate(30,78) scale(12)"><path d="M0 0h.88v.88h-.88zM1 0h.88v.88h-.88zM5 0h.88v.88h-.88zM6 0h.88v.88h-.88zM9 0h.88v.88h-.88zM11 0h.88v.88h-.88zM12 0h.88v.88h-.88zM13 0h.88v.88h-.88zM14 0h.88v.88h-.88zM15 0h.88v.88h-.88zM5 1h.88v.88h-.88zM9 1h.88v.88h-.88zM10 1h.88v.88h-.88zM11 1h.88v.88h-.88zM12 1h.88v.88h-.88zM14 1h.88v.88h-.88zM15 1h.88v.88h-.88zM0 2h.88v.88h-.88zM2 2h.88v.88h-.88zM6 2h.88v.88h-.88zM7 2h.88v.88h-.88zM9 2h.88v.88h-.88zM11 2h.88v.88h-.88zM12 2h.88v.88h-.88zM13 2h.88v.88h-.88zM14 2h.88v.88h-.88zM15 2h.88v.88h-.88zM1 3h.88v.88h-.88zM2 3h.88v.88h-.88zM5 3h.88v.88h-.88zM7 3h.88v.88h-.88zM9 3h.88v.88h-.88zM12 3h.88v.88h-.88zM13 3h.88v.88h-.88zM0 4h.88v.88h-.88zM1 4h.88v.88h-.88zM6 4h.88v.88h-.88zM9 4h.88v.88h-.88zM11 4h.88v.88h-.88zM13 4h.88v.88h-.88zM14 4h.88v.88h-.88zM15 4h.88v.88h-.88zM0 5h.88v.88h-.88zM2 5h.88v.88h-.88zM4 5h.88v.88h-.88zM5 5h.88v.88h-.88zM10 5h.88v.88h-.88zM11 5h.88v.88h-.88zM12 5h.88v.88h-.88zM14 5h.88v.88h-.88zM15 5h.88v.88h-.88zM0 6h.88v.88h-.88zM1 6h.88v.88h-.88zM2 6h.88v.88h-.88zM3 6h.88v.88h-.88zM4 6h.88v.88h-.88zM5 6h.88v.88h-.88zM7 6h.88v.88h-.88zM8 6h.88v.88h-.88zM11 6h.88v.88h-.88zM14 6h.88v.88h-.88zM0 7h.88v.88h-.88zM5 7h.88v.88h-.88zM7 7h.88v.88h-.88zM14 7h.88v.88h-.88zM15 7h.88v.88h-.88zM0 8h.88v.88h-.88zM2 8h.88v.88h-.88zM8 8h.88v.88h-.88zM10 8h.88v.88h-.88zM11 8h.88v.88h-.88zM13 8h.88v.88h-.88zM4 9h.88v.88h-.88zM6 9h.88v.88h-.88zM7 9h.88v.88h-.88zM10 9h.88v.88h-.88zM11 9h.88v.88h-.88zM12 9h.88v.88h-.88zM14 9h.88v.88h-.88zM0 10h.88v.88h-.88zM1 10h.88v.88h-.88zM3 10h.88v.88h-.88zM4 10h.88v.88h-.88zM5 10h.88v.88h-.88zM7 10h.88v.88h-.88zM14 10h.88v.88h-.88zM15 10h.88v.88h-.88zM6 11h.88v.88h-.88zM9 11h.88v.88h-.88zM11 11h.88v.88h-.88zM13 11h.88v.88h-.88zM3 12h.88v.88h-.88zM4 12h.88v.88h-.88zM5 12h.88v.88h-.88zM7 12h.88v.88h-.88zM15 12h.88v.88h-.88zM1 13h.88v.88h-.88zM4 13h.88v.88h-.88zM6 13h.88v.88h-.88zM10 13h.88v.88h-.88zM13 13h.88v.88h-.88zM15 13h.88v.88h-.88zM0 14h.88v.88h-.88zM2 14h.88v.88h-.88zM3 14h.88v.88h-.88zM6 14h.88v.88h-.88zM8 14h.88v.88h-.88zM11 14h.88v.88h-.88zM14 14h.88v.88h-.88zM15 14h.88v.88h-.88zM1 15h.88v.88h-.88zM2 15h.88v.88h-.88zM3 15h.88v.88h-.88zM9 15h.88v.88h-.88zM10 15h.88v.88h-.88zM12 15h.88v.88h-.88zM15 15h.88v.88h-.88z" fill="#79a6d2"/><path d="M3 0h.88v.88h-.88zM4 0h.88v.88h-.88zM8 0h.88v.88h-.88zM10 0h.88v.88h-.88zM0 1h.88v.88h-.88zM1 1h.88v.88h-.88zM2 1h.88v.88h-.88zM3 1h.88v.88h-.88zM4 1h.88v.88h-.88zM6 1h.88v.88h-.88zM8 1h.88v.88h-.88zM13 1h.88v.88h-.88zM1 2h.88v.88h-.88zM3 2h.88v.88h-.88zM4 2h.88v.88h-.88zM5 2h.88v.88h-.88zM8 2h.88v.88h-.88zM10 2h.88v.88h-.88zM0 3h.88v.88h-.88zM3 3h.88v.88h-.88zM4 3h.88v.88h-.88zM6 3h.88v.88h-.88zM8 3h.88v.88h-.88zM10 3h.88v.88h-.88zM14 3h.88v.88h-.88zM15 3h.88v.88h-.88zM2 4h.88v.88h-.88zM3 4h.88v.88h-.88zM4 4h.88v.88h-.88zM5 4h.88v.88h-.88zM7 4h.88v.88h-.88zM8 4h.88v.88h-.88zM12 4h.88v.88h-.88zM1 5h.88v.88h-.88zM3 5h.88v.88h-.88zM6 5h.88v.88h-.88zM7 5h.88v.88h-.88zM8 5h.88v.88h-.88zM9 5h.88v.88h-.88zM13 5h.88v.88h-.88zM9 6h.88v.88h-.88zM10 6h.88v.88h-.88zM12 6h.88v.88h-.88zM13 6h.88v.88h-.88zM15 6h.88v.88h-.88zM1 7h.88v.88h-.88zM2 7h.88v.88h-.88zM3 7h.88v.88h-.88zM6 7h.88v.88h-.88zM8 7h.88v.88h-.88zM9 7h.88v.88h-.88zM10 7h.88v.88h-.88zM11 7h.88v.88h-.88zM12 7h.88v.88h-.88zM13 7h.88v.88h-.88zM1 8h.88v.88h-.88zM3 8h.88v.88h-.88zM6 8h.88v.88h-.88zM7 8h.88v.88h-.88zM9 8h.88v.88h-.88zM12 8h.88v.88h-.88zM14 8h.88v.88h-.88zM15 8h.88v.88h-.88zM1 9h.88v.88h-.88zM5 9h.88v.88h-.88zM9 9h.88v.88h-.88zM13 9h.88v.88h-.88zM15 9h.88v.88h-.88zM2 10h.88v.88h-.88zM6 10h.88v.88h-.88zM8 10h.88v.88h-.88zM9 10h.88v.88h-.88zM10 10h.88v.88h-.88zM11 10h.88v.88h-.88zM13 10h.88v.88h-.88zM0 11h.88v.88h-.88zM1 11h.88v.88h-.88zM4 11h.88v.88h-.88zM5 11h.88v.88h-.88zM7 11h.88v.88h-.88zM8 11h.88v.88h-.88zM10 11h.88v.88h-.88zM12 11h.88v.88h-.88zM14 11h.88v.88h-.88zM15 11h.88v.88h-.88zM0 12h.88v.88h-.88zM1 12h.88v.88h-.88zM2 12h.88v.88h-.88zM6 12h.88v.88h-.88zM8 12h.88v.88h-.88zM9 12h.88v.88h-.88zM11 12h.88v.88h-.88zM13 12h.88v.88h-.88zM14 12h.88v.88h-.88zM0 13h.88v.88h-.88zM2 13h.88v.88h-.88zM3 13h.88v.88h-.88zM5 13h.88v.88h-.88zM7 13h.88v.88h-.88zM8 13h.88v.88h-.88zM9 13h.88v.88h-.88zM11 13h.88v.88h-.88zM12 13h.88v.88h-.88zM14 13h.88v.88h-.88zM1 14h.88v.88h-.88zM4 14h.88v.88h-.88zM5 14h.88v.88h-.88zM7 14h.88v.88h-.88zM9 14h.88v.88h-.88zM10 14h.88v.88h-.88zM12 14h.88v.88h-.88zM13 14h.88v.88h-.88zM4 15h.88v.88h-.88zM5 15h.88v.88h-.88zM6 15h.88v.88h-.88zM8 15h.88v.88h-.88zM13 15h.88v.88h-.88zM14 15h.88v.88h-.88z" fill="#d9b45f"/></g>
+<text x="126" y="294" text-anchor="middle" font-family="-apple-system,sans-serif" font-size="11.5" fill="#79a6d2">同类邻居 50%</text>
+<text x="126" y="312" text-anchor="middle" font-family="-apple-system,sans-serif" font-size="11" fill="#787268">40 人不满意</text>
+<text x="360" y="62" text-anchor="middle" font-family="SF Mono,monospace" font-size="12" fill="#9fbc7a">② 3 轮之后</text>
+<rect x="260" y="74" width="200" height="200" fill="rgba(255,255,255,0.02)" stroke="rgba(255,255,255,0.10)"/>
+<g transform="translate(264,78) scale(12)"><path d="M5 0h.88v.88h-.88zM6 0h.88v.88h-.88zM7 0h.88v.88h-.88zM9 0h.88v.88h-.88zM10 0h.88v.88h-.88zM11 0h.88v.88h-.88zM12 0h.88v.88h-.88zM13 0h.88v.88h-.88zM14 0h.88v.88h-.88zM15 0h.88v.88h-.88zM5 1h.88v.88h-.88zM6 1h.88v.88h-.88zM8 1h.88v.88h-.88zM9 1h.88v.88h-.88zM10 1h.88v.88h-.88zM11 1h.88v.88h-.88zM12 1h.88v.88h-.88zM14 1h.88v.88h-.88zM15 1h.88v.88h-.88zM0 2h.88v.88h-.88zM6 2h.88v.88h-.88zM7 2h.88v.88h-.88zM8 2h.88v.88h-.88zM9 2h.88v.88h-.88zM10 2h.88v.88h-.88zM11 2h.88v.88h-.88zM12 2h.88v.88h-.88zM13 2h.88v.88h-.88zM14 2h.88v.88h-.88zM15 2h.88v.88h-.88zM0 3h.88v.88h-.88zM1 3h.88v.88h-.88zM7 3h.88v.88h-.88zM9 3h.88v.88h-.88zM10 3h.88v.88h-.88zM12 3h.88v.88h-.88zM13 3h.88v.88h-.88zM0 4h.88v.88h-.88zM1 4h.88v.88h-.88zM6 4h.88v.88h-.88zM9 4h.88v.88h-.88zM10 4h.88v.88h-.88zM11 4h.88v.88h-.88zM12 4h.88v.88h-.88zM13 4h.88v.88h-.88zM14 4h.88v.88h-.88zM15 4h.88v.88h-.88zM0 5h.88v.88h-.88zM1 5h.88v.88h-.88zM2 5h.88v.88h-.88zM4 5h.88v.88h-.88zM5 5h.88v.88h-.88zM10 5h.88v.88h-.88zM11 5h.88v.88h-.88zM12 5h.88v.88h-.88zM14 5h.88v.88h-.88zM15 5h.88v.88h-.88zM0 6h.88v.88h-.88zM1 6h.88v.88h-.88zM2 6h.88v.88h-.88zM3 6h.88v.88h-.88zM4 6h.88v.88h-.88zM5 6h.88v.88h-.88zM8 6h.88v.88h-.88zM11 6h.88v.88h-.88zM14 6h.88v.88h-.88zM15 6h.88v.88h-.88zM0 7h.88v.88h-.88zM1 7h.88v.88h-.88zM4 7h.88v.88h-.88zM5 7h.88v.88h-.88zM14 7h.88v.88h-.88zM15 7h.88v.88h-.88zM0 8h.88v.88h-.88zM5 8h.88v.88h-.88zM10 8h.88v.88h-.88zM11 8h.88v.88h-.88zM13 8h.88v.88h-.88zM2 9h.88v.88h-.88zM4 9h.88v.88h-.88zM6 9h.88v.88h-.88zM7 9h.88v.88h-.88zM10 9h.88v.88h-.88zM11 9h.88v.88h-.88zM12 9h.88v.88h-.88zM14 9h.88v.88h-.88zM1 10h.88v.88h-.88zM3 10h.88v.88h-.88zM4 10h.88v.88h-.88zM5 10h.88v.88h-.88zM7 10h.88v.88h-.88zM15 10h.88v.88h-.88zM2 11h.88v.88h-.88zM4 11h.88v.88h-.88zM6 11h.88v.88h-.88zM3 12h.88v.88h-.88zM4 12h.88v.88h-.88zM5 12h.88v.88h-.88zM10 12h.88v.88h-.88zM1 13h.88v.88h-.88zM4 13h.88v.88h-.88zM10 13h.88v.88h-.88zM15 13h.88v.88h-.88zM0 14h.88v.88h-.88zM1 14h.88v.88h-.88zM2 14h.88v.88h-.88zM3 14h.88v.88h-.88zM6 14h.88v.88h-.88zM14 14h.88v.88h-.88zM15 14h.88v.88h-.88zM0 15h.88v.88h-.88zM1 15h.88v.88h-.88zM2 15h.88v.88h-.88zM3 15h.88v.88h-.88zM9 15h.88v.88h-.88zM10 15h.88v.88h-.88zM15 15h.88v.88h-.88z" fill="#79a6d2"/><path d="M0 0h.88v.88h-.88zM1 0h.88v.88h-.88zM2 0h.88v.88h-.88zM3 0h.88v.88h-.88zM4 0h.88v.88h-.88zM0 1h.88v.88h-.88zM1 1h.88v.88h-.88zM2 1h.88v.88h-.88zM3 1h.88v.88h-.88zM4 1h.88v.88h-.88zM1 2h.88v.88h-.88zM2 2h.88v.88h-.88zM3 2h.88v.88h-.88zM4 2h.88v.88h-.88zM5 2h.88v.88h-.88zM3 3h.88v.88h-.88zM4 3h.88v.88h-.88zM6 3h.88v.88h-.88zM11 3h.88v.88h-.88zM14 3h.88v.88h-.88zM2 4h.88v.88h-.88zM3 4h.88v.88h-.88zM4 4h.88v.88h-.88zM5 4h.88v.88h-.88zM7 4h.88v.88h-.88zM8 4h.88v.88h-.88zM3 5h.88v.88h-.88zM6 5h.88v.88h-.88zM7 5h.88v.88h-.88zM8 5h.88v.88h-.88zM9 5h.88v.88h-.88zM6 6h.88v.88h-.88zM7 6h.88v.88h-.88zM9 6h.88v.88h-.88zM10 6h.88v.88h-.88zM12 6h.88v.88h-.88zM13 6h.88v.88h-.88zM2 7h.88v.88h-.88zM3 7h.88v.88h-.88zM6 7h.88v.88h-.88zM7 7h.88v.88h-.88zM8 7h.88v.88h-.88zM9 7h.88v.88h-.88zM10 7h.88v.88h-.88zM11 7h.88v.88h-.88zM12 7h.88v.88h-.88zM13 7h.88v.88h-.88zM1 8h.88v.88h-.88zM3 8h.88v.88h-.88zM4 8h.88v.88h-.88zM6 8h.88v.88h-.88zM7 8h.88v.88h-.88zM8 8h.88v.88h-.88zM9 8h.88v.88h-.88zM12 8h.88v.88h-.88zM14 8h.88v.88h-.88zM15 8h.88v.88h-.88zM1 9h.88v.88h-.88zM5 9h.88v.88h-.88zM8 9h.88v.88h-.88zM9 9h.88v.88h-.88zM13 9h.88v.88h-.88zM15 9h.88v.88h-.88zM2 10h.88v.88h-.88zM6 10h.88v.88h-.88zM8 10h.88v.88h-.88zM9 10h.88v.88h-.88zM10 10h.88v.88h-.88zM11 10h.88v.88h-.88zM12 10h.88v.88h-.88zM13 10h.88v.88h-.88zM0 11h.88v.88h-.88zM1 11h.88v.88h-.88zM3 11h.88v.88h-.88zM7 11h.88v.88h-.88zM8 11h.88v.88h-.88zM9 11h.88v.88h-.88zM10 11h.88v.88h-.88zM12 11h.88v.88h-.88zM13 11h.88v.88h-.88zM14 11h.88v.88h-.88zM15 11h.88v.88h-.88zM0 12h.88v.88h-.88zM1 12h.88v.88h-.88zM2 12h.88v.88h-.88zM6 12h.88v.88h-.88zM8 12h.88v.88h-.88zM9 12h.88v.88h-.88zM11 12h.88v.88h-.88zM12 12h.88v.88h-.88zM13 12h.88v.88h-.88zM14 12h.88v.88h-.88zM15 12h.88v.88h-.88zM0 13h.88v.88h-.88zM2 13h.88v.88h-.88zM3 13h.88v.88h-.88zM5 13h.88v.88h-.88zM7 13h.88v.88h-.88zM8 13h.88v.88h-.88zM9 13h.88v.88h-.88zM11 13h.88v.88h-.88zM12 13h.88v.88h-.88zM14 13h.88v.88h-.88zM4 14h.88v.88h-.88zM5 14h.88v.88h-.88zM7 14h.88v.88h-.88zM9 14h.88v.88h-.88zM10 14h.88v.88h-.88zM12 14h.88v.88h-.88zM13 14h.88v.88h-.88zM4 15h.88v.88h-.88zM5 15h.88v.88h-.88zM6 15h.88v.88h-.88zM7 15h.88v.88h-.88zM8 15h.88v.88h-.88zM11 15h.88v.88h-.88zM13 15h.88v.88h-.88zM14 15h.88v.88h-.88z" fill="#d9b45f"/></g>
+<text x="360" y="294" text-anchor="middle" font-family="-apple-system,sans-serif" font-size="11.5" fill="#79a6d2">同类邻居 67%</text>
+<text x="360" y="312" text-anchor="middle" font-family="-apple-system,sans-serif" font-size="11" fill="#787268">14 人不满意</text>
+<text x="594" y="62" text-anchor="middle" font-family="SF Mono,monospace" font-size="12" fill="#cd7f9b">③ 稳定 · 第 23 轮</text>
+<rect x="494" y="74" width="200" height="200" fill="rgba(255,255,255,0.02)" stroke="rgba(255,255,255,0.10)"/>
+<g transform="translate(498,78) scale(12)"><path d="M5 0h.88v.88h-.88zM6 0h.88v.88h-.88zM7 0h.88v.88h-.88zM8 0h.88v.88h-.88zM9 0h.88v.88h-.88zM10 0h.88v.88h-.88zM11 0h.88v.88h-.88zM12 0h.88v.88h-.88zM13 0h.88v.88h-.88zM14 0h.88v.88h-.88zM15 0h.88v.88h-.88zM5 1h.88v.88h-.88zM6 1h.88v.88h-.88zM7 1h.88v.88h-.88zM8 1h.88v.88h-.88zM9 1h.88v.88h-.88zM10 1h.88v.88h-.88zM11 1h.88v.88h-.88zM12 1h.88v.88h-.88zM14 1h.88v.88h-.88zM15 1h.88v.88h-.88zM0 2h.88v.88h-.88zM6 2h.88v.88h-.88zM7 2h.88v.88h-.88zM8 2h.88v.88h-.88zM9 2h.88v.88h-.88zM10 2h.88v.88h-.88zM11 2h.88v.88h-.88zM12 2h.88v.88h-.88zM13 2h.88v.88h-.88zM14 2h.88v.88h-.88zM15 2h.88v.88h-.88zM0 3h.88v.88h-.88zM1 3h.88v.88h-.88zM7 3h.88v.88h-.88zM8 3h.88v.88h-.88zM9 3h.88v.88h-.88zM10 3h.88v.88h-.88zM11 3h.88v.88h-.88zM12 3h.88v.88h-.88zM13 3h.88v.88h-.88zM14 3h.88v.88h-.88zM15 3h.88v.88h-.88zM0 4h.88v.88h-.88zM1 4h.88v.88h-.88zM9 4h.88v.88h-.88zM10 4h.88v.88h-.88zM11 4h.88v.88h-.88zM12 4h.88v.88h-.88zM13 4h.88v.88h-.88zM14 4h.88v.88h-.88zM15 4h.88v.88h-.88zM0 5h.88v.88h-.88zM1 5h.88v.88h-.88zM2 5h.88v.88h-.88zM4 5h.88v.88h-.88zM5 5h.88v.88h-.88zM10 5h.88v.88h-.88zM11 5h.88v.88h-.88zM12 5h.88v.88h-.88zM13 5h.88v.88h-.88zM14 5h.88v.88h-.88zM15 5h.88v.88h-.88zM0 6h.88v.88h-.88zM1 6h.88v.88h-.88zM2 6h.88v.88h-.88zM3 6h.88v.88h-.88zM4 6h.88v.88h-.88zM5 6h.88v.88h-.88zM11 6h.88v.88h-.88zM14 6h.88v.88h-.88zM15 6h.88v.88h-.88zM0 7h.88v.88h-.88zM1 7h.88v.88h-.88zM4 7h.88v.88h-.88zM5 7h.88v.88h-.88zM14 7h.88v.88h-.88zM15 7h.88v.88h-.88zM0 8h.88v.88h-.88zM4 8h.88v.88h-.88zM5 8h.88v.88h-.88zM10 8h.88v.88h-.88zM11 8h.88v.88h-.88zM3 9h.88v.88h-.88zM4 9h.88v.88h-.88zM5 9h.88v.88h-.88zM6 9h.88v.88h-.88zM7 9h.88v.88h-.88zM10 9h.88v.88h-.88zM11 9h.88v.88h-.88zM3 10h.88v.88h-.88zM4 10h.88v.88h-.88zM5 10h.88v.88h-.88zM6 10h.88v.88h-.88zM7 10h.88v.88h-.88zM2 11h.88v.88h-.88zM3 11h.88v.88h-.88zM4 11h.88v.88h-.88zM5 11h.88v.88h-.88zM6 11h.88v.88h-.88zM3 12h.88v.88h-.88zM4 12h.88v.88h-.88zM5 12h.88v.88h-.88zM1 13h.88v.88h-.88zM4 13h.88v.88h-.88zM15 13h.88v.88h-.88zM0 14h.88v.88h-.88zM1 14h.88v.88h-.88zM2 14h.88v.88h-.88zM3 14h.88v.88h-.88zM14 14h.88v.88h-.88zM15 14h.88v.88h-.88zM0 15h.88v.88h-.88zM1 15h.88v.88h-.88zM2 15h.88v.88h-.88zM3 15h.88v.88h-.88zM15 15h.88v.88h-.88z" fill="#79a6d2"/><path d="M0 0h.88v.88h-.88zM1 0h.88v.88h-.88zM2 0h.88v.88h-.88zM3 0h.88v.88h-.88zM4 0h.88v.88h-.88zM0 1h.88v.88h-.88zM1 1h.88v.88h-.88zM2 1h.88v.88h-.88zM3 1h.88v.88h-.88zM4 1h.88v.88h-.88zM1 2h.88v.88h-.88zM2 2h.88v.88h-.88zM3 2h.88v.88h-.88zM4 2h.88v.88h-.88zM5 2h.88v.88h-.88zM2 3h.88v.88h-.88zM3 3h.88v.88h-.88zM4 3h.88v.88h-.88zM6 3h.88v.88h-.88zM2 4h.88v.88h-.88zM3 4h.88v.88h-.88zM4 4h.88v.88h-.88zM5 4h.88v.88h-.88zM7 4h.88v.88h-.88zM8 4h.88v.88h-.88zM3 5h.88v.88h-.88zM6 5h.88v.88h-.88zM7 5h.88v.88h-.88zM8 5h.88v.88h-.88zM9 5h.88v.88h-.88zM6 6h.88v.88h-.88zM7 6h.88v.88h-.88zM9 6h.88v.88h-.88zM10 6h.88v.88h-.88zM12 6h.88v.88h-.88zM13 6h.88v.88h-.88zM2 7h.88v.88h-.88zM3 7h.88v.88h-.88zM6 7h.88v.88h-.88zM7 7h.88v.88h-.88zM8 7h.88v.88h-.88zM9 7h.88v.88h-.88zM10 7h.88v.88h-.88zM11 7h.88v.88h-.88zM12 7h.88v.88h-.88zM13 7h.88v.88h-.88zM1 8h.88v.88h-.88zM2 8h.88v.88h-.88zM3 8h.88v.88h-.88zM6 8h.88v.88h-.88zM7 8h.88v.88h-.88zM8 8h.88v.88h-.88zM9 8h.88v.88h-.88zM12 8h.88v.88h-.88zM14 8h.88v.88h-.88zM15 8h.88v.88h-.88zM0 9h.88v.88h-.88zM1 9h.88v.88h-.88zM8 9h.88v.88h-.88zM9 9h.88v.88h-.88zM13 9h.88v.88h-.88zM15 9h.88v.88h-.88zM2 10h.88v.88h-.88zM8 10h.88v.88h-.88zM9 10h.88v.88h-.88zM10 10h.88v.88h-.88zM11 10h.88v.88h-.88zM12 10h.88v.88h-.88zM13 10h.88v.88h-.88zM14 10h.88v.88h-.88zM0 11h.88v.88h-.88zM1 11h.88v.88h-.88zM7 11h.88v.88h-.88zM8 11h.88v.88h-.88zM9 11h.88v.88h-.88zM10 11h.88v.88h-.88zM12 11h.88v.88h-.88zM13 11h.88v.88h-.88zM14 11h.88v.88h-.88zM15 11h.88v.88h-.88zM0 12h.88v.88h-.88zM1 12h.88v.88h-.88zM2 12h.88v.88h-.88zM6 12h.88v.88h-.88zM8 12h.88v.88h-.88zM9 12h.88v.88h-.88zM11 12h.88v.88h-.88zM12 12h.88v.88h-.88zM13 12h.88v.88h-.88zM14 12h.88v.88h-.88zM15 12h.88v.88h-.88zM0 13h.88v.88h-.88zM2 13h.88v.88h-.88zM3 13h.88v.88h-.88zM5 13h.88v.88h-.88zM7 13h.88v.88h-.88zM8 13h.88v.88h-.88zM9 13h.88v.88h-.88zM11 13h.88v.88h-.88zM12 13h.88v.88h-.88zM13 13h.88v.88h-.88zM14 13h.88v.88h-.88zM4 14h.88v.88h-.88zM5 14h.88v.88h-.88zM7 14h.88v.88h-.88zM9 14h.88v.88h-.88zM10 14h.88v.88h-.88zM12 14h.88v.88h-.88zM13 14h.88v.88h-.88zM4 15h.88v.88h-.88zM5 15h.88v.88h-.88zM6 15h.88v.88h-.88zM7 15h.88v.88h-.88zM8 15h.88v.88h-.88zM10 15h.88v.88h-.88zM11 15h.88v.88h-.88zM13 15h.88v.88h-.88zM14 15h.88v.88h-.88z" fill="#d9b45f"/></g>
+<text x="594" y="294" text-anchor="middle" font-family="-apple-system,sans-serif" font-size="11.5" fill="#cd7f9b">同类邻居 78%</text>
+<text x="594" y="312" text-anchor="middle" font-family="-apple-system,sans-serif" font-size="11" fill="#787268">0 人不满意</text>
+<line x1="228" y1="174" x2="258" y2="174" stroke="#8d867b" stroke-width="1.5" marker-end="url(#sg1)"/>
+<line x1="462" y1="174" x2="492" y2="174" stroke="#8d867b" stroke-width="1.5" marker-end="url(#sg1)"/>
+<text x="360" y="47" text-anchor="middle" font-family="-apple-system,sans-serif" font-size="11" fill="#787268">每个人的要求只有一条：邻居里同类不少于 30%（也就是「七成是异类我也不走」）</text>
+<text x="360" y="330" text-anchor="middle" font-family="-apple-system,sans-serif" font-size="11" fill="#57524b">没有人要求隔离，也没有人搬进一个更同质的地方 — 每次搬家只是为了不低于那 30%</text>
+</svg>
+<figcaption>起点是随机撒的，最终格局是跑出来的。中间没有任何一步是「想要隔离」。</figcaption>
+</figure>
+<p>起点是随机撒的，同类邻居比例 50%——随机混合本来就该是这个数。跑到第 23 轮，所有人都满意了，没有人再想动。此时同类邻居比例是 <b>78%</b>。</p>
+<p>值得停一下想清楚这中间发生了什么，因为它比"隔离出现了"更要紧：<b>整个过程里没有任何一个人追求过同质。</b>每个人只做了一件事——当同类邻居掉到三成以下时挪个地方，挪到刚好不低于三成为止。终局那个 78%，是每个人都没要过、也没有人在任何一步选择过的东西。它从个体的账本里查不出来。</p>
+<p>这就是"结果之恶不需要动机之恶"的确切含义。但这句话极容易被滑向另一个说法，那个说法是错的，必须在这儿把线划清楚。</p>
+<p><b>它跟阿伦特的"平庸之恶"不是一回事。</b>汉娜·阿伦特（Hannah Arendt）1963 年在《艾希曼在耶路撒冷》里提出的是关于<em>主体</em>的诊断：一个人放弃了思考、把判断交给流程和上级，于是参与了巨大的恶。谢林说的是关于<em>结构</em>的事实：即使每个人都在思考、都无恶意、每一步都为自己作出了合理的选择，那个格局照样会出现。两者的落点正好相反——阿伦特要求恢复个人的判断力（问题出在人放弃了判断），谢林指出判断力全部在线也不够（问题出在规则和空间）。</p>
+<p>把两者混起来，会导出一个双方都不同意的结论："既然是结构，那就没人有责任。"阿伦特恰恰是在<b>追究</b>责任——她主张艾希曼应当被处死；谢林也从没说过隔离无人负责。一个说的是"别拿体制替自己开脱"，另一个说的是"别以为动机清白就保证结果清白"。这是两条互补的要求，不是一条。（顺带一提：Bettina Stangneth 2014 年基于阿根廷时期档案的研究让"平庸"作为对艾希曼<em>本人</em>的描述受到了严重质疑——他远比阿伦特设想的更有意识形态自觉。这不影响那个概念作为一种类型的价值，但引用时该说清楚。）</p>
+<div class="decide">
+<span class="lb">🎯 决策线</span>
+<p>遇到一个"没人想要却稳定存在"的格局，先做一次<b>最低动机检验</b>：把每个人的偏好调到你认为最温和、最说得过去的程度，看这个格局还出不出得来。出得来，就<b>停掉"揪出是谁想要这个"的调查</b>——那条线索的信息量接近于零。把同样的时间花在两件事上：谁挨着谁（空间与网络），以及不满意时人能做什么动作（可选项）。</p>
+</div>
+<div class="crossx-inline">
+🌀 <b>生物 · 细胞的自动分层</b>　把两种胚胎细胞打散混在一起，它们会自己重新分成清清楚楚的两层。Steinberg 1960 年代的差异黏附假说给出的解释里没有任何"指挥"：仅仅因为同类细胞之间的黏附力略强，混合体就会像油和水一样分开，黏得松的那群最后包住黏得紧的那群。同一个机制、同一个数量级的温和差异。于是可以反推出一条并不显然的判据：<b>看到一条清晰的分界线，不能推出两边存在强烈的排斥</b>——界线的锐利程度由重排的自由度决定，不由偏好的强度决定。
+</div>
+<p class="en-brief"><b>EN</b> Schelling's 1971 checkerboard: agents demand only that a modest share of their eight neighbours be like them. Run here with a 30% threshold on a 16×16 board, the board froze after 23 rounds with 78% like-neighbours — a figure nobody asked for and nobody chose at any step. This is a claim about structure, and it is not Arendt's banality of evil, which is a claim about a subject who stopped thinking; conflating them yields "structure, therefore nobody is responsible", which neither author would accept.</p>
+<h2><span class="n">03</span>温和为什么会放大<span class="he">（Why Mild Demands Amplify）</span></h2>
+<p class="lead">"个体温和、整体极端"听上去像个悖论。它不是。中间有三个可以拆开看的机制，一个接一个。</p>
+<p><b>一，搬走这个动作不只关系到自己。</b>一个人离开，同时也把留下来的每一个同类邻居的比例拉低了。所以一次移动会制造下一批不满意的人——他们本来是满意的。这就是级联：不满意的人在被别人的动作生产出来。</p>
+<figure>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 312" role="img" aria-label="一次搬走如何让原本满意的邻居跌破阈值，触发下一次搬走">
+<defs>
+<marker id="cs1" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="11" markerHeight="11" markerUnits="userSpaceOnUse" orient="auto"><path d="M0,1 L9,5 L0,9 z" fill="#cd7f9b"/></marker>
+</defs>
+<text x="360" y="26" text-anchor="middle" font-family="-apple-system,sans-serif" font-size="13" fill="#aba498">一个人走，把原本满意的邻居推下阈值</text>
+<text x="116" y="58" text-anchor="middle" font-family="SF Mono,monospace" font-size="12" fill="#9fbc7a">① 三个人都满意</text>
+<g transform="translate(36,72)">
+<rect x="0" y="0" width="160" height="160" fill="none" stroke="rgba(255,255,255,0.10)"/>
+<rect x="1" y="1" width="30" height="30" rx="3" fill="#d9b45f"/><rect x="33" y="1" width="30" height="30" rx="3" fill="#79a6d2"/><rect x="65" y="1" width="30" height="30" rx="3" fill="#d9b45f"/><rect x="97" y="1" width="30" height="30" rx="3" fill="#d9b45f"/><rect x="129" y="1" width="30" height="30" rx="3" fill="#79a6d2"/>
+<rect x="1" y="33" width="30" height="30" rx="3" fill="#d9b45f"/><rect x="33" y="33" width="30" height="30" rx="3" fill="#79a6d2" stroke="#e0895e" stroke-width="2"/><rect x="65" y="33" width="30" height="30" rx="3" fill="#d9b45f"/><rect x="97" y="33" width="30" height="30" rx="3" fill="#d9b45f"/><rect x="129" y="33" width="30" height="30" rx="3" fill="#d9b45f"/>
+<rect x="1" y="65" width="30" height="30" rx="3" fill="#d9b45f"/><rect x="33" y="65" width="30" height="30" rx="3" fill="#79a6d2"/><rect x="65" y="65" width="30" height="30" rx="3" fill="#79a6d2"/><rect x="97" y="65" width="30" height="30" rx="3" fill="#d9b45f"/><rect x="129" y="65" width="30" height="30" rx="3" fill="#79a6d2"/>
+<rect x="1" y="97" width="30" height="30" rx="3" fill="#d9b45f"/><rect x="33" y="97" width="30" height="30" rx="3" fill="#79a6d2"/><rect x="65" y="97" width="30" height="30" rx="3" fill="#d9b45f"/><rect x="97" y="97" width="30" height="30" rx="3" fill="#d9b45f"/><rect x="129" y="97" width="30" height="30" rx="3" fill="#d9b45f"/>
+<rect x="1" y="129" width="30" height="30" rx="3" fill="#d9b45f"/><rect x="33" y="129" width="30" height="30" rx="3" fill="#d9b45f"/><rect x="65" y="129" width="30" height="30" rx="3" fill="#79a6d2"/><rect x="97" y="129" width="30" height="30" rx="3" fill="#d9b45f"/><rect x="129" y="129" width="30" height="30" rx="3" fill="#79a6d2"/>
+<text x="48" y="53" text-anchor="middle" font-family="SF Mono,monospace" font-size="12" fill="#2a2a26">走</text>
+<text x="48" y="85" text-anchor="middle" font-family="SF Mono,monospace" font-size="11" fill="#12212e">G</text>
+<text x="80" y="85" text-anchor="middle" font-family="SF Mono,monospace" font-size="11" fill="#12212e">F</text>
+<text x="48" y="117" text-anchor="middle" font-family="SF Mono,monospace" font-size="11" fill="#12212e">H</text>
+</g>
+<text x="116" y="252" text-anchor="middle" font-family="-apple-system,sans-serif" font-size="11.5" fill="#9fbc7a">F / G / H 各有 3 个同类邻居</text>
+<text x="116" y="270" text-anchor="middle" font-family="SF Mono,monospace" font-size="11.5" fill="#9fbc7a">3 / 8 = 37.5% ≥ 30% ✓</text>
+<line x1="206" y1="152" x2="266" y2="152" stroke="#cd7f9b" stroke-width="2" marker-end="url(#cs1)"/>
+<text x="360" y="58" text-anchor="middle" font-family="SF Mono,monospace" font-size="12" fill="#cd7f9b">② 左上角那位走了</text>
+<g transform="translate(280,72)">
+<rect x="0" y="0" width="160" height="160" fill="none" stroke="rgba(255,255,255,0.10)"/>
+<rect x="1" y="1" width="30" height="30" rx="3" fill="#d9b45f"/><rect x="33" y="1" width="30" height="30" rx="3" fill="#79a6d2"/><rect x="65" y="1" width="30" height="30" rx="3" fill="#d9b45f"/><rect x="97" y="1" width="30" height="30" rx="3" fill="#d9b45f"/><rect x="129" y="1" width="30" height="30" rx="3" fill="#79a6d2"/>
+<rect x="1" y="33" width="30" height="30" rx="3" fill="#d9b45f"/><rect x="33" y="33" width="30" height="30" rx="3" fill="#26241f" stroke="rgba(205,127,155,0.8)" stroke-width="2" stroke-dasharray="3 3"/><rect x="65" y="33" width="30" height="30" rx="3" fill="#d9b45f"/><rect x="97" y="33" width="30" height="30" rx="3" fill="#d9b45f"/><rect x="129" y="33" width="30" height="30" rx="3" fill="#d9b45f"/>
+<rect x="1" y="65" width="30" height="30" rx="3" fill="#d9b45f"/><rect x="33" y="65" width="30" height="30" rx="3" fill="#79a6d2" stroke="#cd7f9b" stroke-width="2"/><rect x="65" y="65" width="30" height="30" rx="3" fill="#79a6d2" stroke="#cd7f9b" stroke-width="2"/><rect x="97" y="65" width="30" height="30" rx="3" fill="#d9b45f"/><rect x="129" y="65" width="30" height="30" rx="3" fill="#79a6d2"/>
+<rect x="1" y="97" width="30" height="30" rx="3" fill="#d9b45f"/><rect x="33" y="97" width="30" height="30" rx="3" fill="#79a6d2"/><rect x="65" y="97" width="30" height="30" rx="3" fill="#d9b45f"/><rect x="97" y="97" width="30" height="30" rx="3" fill="#d9b45f"/><rect x="129" y="97" width="30" height="30" rx="3" fill="#d9b45f"/>
+<rect x="1" y="129" width="30" height="30" rx="3" fill="#d9b45f"/><rect x="33" y="129" width="30" height="30" rx="3" fill="#d9b45f"/><rect x="65" y="129" width="30" height="30" rx="3" fill="#79a6d2"/><rect x="97" y="129" width="30" height="30" rx="3" fill="#d9b45f"/><rect x="129" y="129" width="30" height="30" rx="3" fill="#79a6d2"/>
+<text x="48" y="85" text-anchor="middle" font-family="SF Mono,monospace" font-size="11" fill="#12212e">G</text>
+<text x="80" y="85" text-anchor="middle" font-family="SF Mono,monospace" font-size="11" fill="#12212e">F</text>
+<text x="48" y="117" text-anchor="middle" font-family="SF Mono,monospace" font-size="11" fill="#12212e">H</text>
+</g>
+<text x="360" y="252" text-anchor="middle" font-family="-apple-system,sans-serif" font-size="11.5" fill="#cd7f9b">F 和 G 什么都没做，却跌了下去</text>
+<text x="360" y="270" text-anchor="middle" font-family="SF Mono,monospace" font-size="11.5" fill="#cd7f9b">2 / 7 = 28.6% &lt; 30% ✗</text>
+<line x1="450" y1="152" x2="510" y2="152" stroke="#cd7f9b" stroke-width="2" marker-end="url(#cs1)"/>
+<text x="604" y="58" text-anchor="middle" font-family="SF Mono,monospace" font-size="12" fill="#cd7f9b">③ F 也走 → 轮到 H</text>
+<g transform="translate(524,72)">
+<rect x="0" y="0" width="160" height="160" fill="none" stroke="rgba(255,255,255,0.10)"/>
+<rect x="1" y="1" width="30" height="30" rx="3" fill="#d9b45f"/><rect x="33" y="1" width="30" height="30" rx="3" fill="#79a6d2"/><rect x="65" y="1" width="30" height="30" rx="3" fill="#d9b45f"/><rect x="97" y="1" width="30" height="30" rx="3" fill="#d9b45f"/><rect x="129" y="1" width="30" height="30" rx="3" fill="#79a6d2"/>
+<rect x="1" y="33" width="30" height="30" rx="3" fill="#d9b45f"/><rect x="33" y="33" width="30" height="30" rx="3" fill="#26241f" stroke="rgba(255,255,255,0.14)"/><rect x="65" y="33" width="30" height="30" rx="3" fill="#d9b45f"/><rect x="97" y="33" width="30" height="30" rx="3" fill="#d9b45f"/><rect x="129" y="33" width="30" height="30" rx="3" fill="#d9b45f"/>
+<rect x="1" y="65" width="30" height="30" rx="3" fill="#d9b45f"/><rect x="33" y="65" width="30" height="30" rx="3" fill="#79a6d2"/><rect x="65" y="65" width="30" height="30" rx="3" fill="#26241f" stroke="rgba(205,127,155,0.8)" stroke-width="2" stroke-dasharray="3 3"/><rect x="97" y="65" width="30" height="30" rx="3" fill="#d9b45f"/><rect x="129" y="65" width="30" height="30" rx="3" fill="#79a6d2"/>
+<rect x="1" y="97" width="30" height="30" rx="3" fill="#d9b45f"/><rect x="33" y="97" width="30" height="30" rx="3" fill="#79a6d2" stroke="#cd7f9b" stroke-width="2"/><rect x="65" y="97" width="30" height="30" rx="3" fill="#d9b45f"/><rect x="97" y="97" width="30" height="30" rx="3" fill="#d9b45f"/><rect x="129" y="97" width="30" height="30" rx="3" fill="#d9b45f"/>
+<rect x="1" y="129" width="30" height="30" rx="3" fill="#d9b45f"/><rect x="33" y="129" width="30" height="30" rx="3" fill="#d9b45f"/><rect x="65" y="129" width="30" height="30" rx="3" fill="#79a6d2"/><rect x="97" y="129" width="30" height="30" rx="3" fill="#d9b45f"/><rect x="129" y="129" width="30" height="30" rx="3" fill="#79a6d2"/>
+<text x="48" y="85" text-anchor="middle" font-family="SF Mono,monospace" font-size="11" fill="#12212e">G</text>
+<text x="48" y="117" text-anchor="middle" font-family="SF Mono,monospace" font-size="11" fill="#12212e">H</text>
+</g>
+<text x="604" y="252" text-anchor="middle" font-family="-apple-system,sans-serif" font-size="11.5" fill="#cd7f9b">H 本来一直是满意的</text>
+<text x="604" y="270" text-anchor="middle" font-family="SF Mono,monospace" font-size="11.5" fill="#cd7f9b">现在也 28.6% ✗ — 队伍在变长</text>
+<text x="360" y="300" text-anchor="middle" font-family="-apple-system,sans-serif" font-size="11" fill="#57524b">阈值 30%，八个邻居；虚线格 = 刚空出来的位置。每一次搬走都在生产下一个要搬走的人</text>
+</svg>
+<figcaption>不满意的人不是天生的，是被别人的动作制造出来的 — 这就是温和偏好能级联的原因。</figcaption>
+</figure>
+<p><b>二，这个过程带棘轮。</b>搬家的人只会落在让自己满意的位置上，也就是同类比较多的地方。所以平均而言每一次移动都在<em>提高</em>整体的同质度，而相反方向的移动——主动搬进一个同类更少的地方——在规则下根本不会发生。棘轮只往一个方向转。</p>
+<p><b>三，终局自己锁死。</b>跑完之后，没有一个人不满意，因此没有一个人有单方面改变的动机。这个格局是稳定的——但请注意"稳定"这个词在这里的含义窄得可怕：它只表示<b>没有人能靠自己一个人的动作变得更好</b>。它不表示大家满意，不表示这是好结果，更不表示有谁选了它。稳定、最优、有人想要，是三件完全不同的事，日常语言把它们混成了一团。</p>
+<div class="decide">
+<span class="lb">🎯 决策线</span>
+<p>面对一个锁死的坏格局，<b>一对一的说服必然失败</b>——因为对每个人来说，单独改变确实更糟，你说服的是一个正确的判断。有效的干预只有两类：让一批人的处境<b>同时</b>改变（凑够临界质量再一起动，而不是逐个动员），或者改变"搬家"这个动作本身的成本与可见性。具体到会议上：别再单独找人问"你怎么看"，改成让所有人同时写下判断再一起亮出来。</p>
+</div>
+<div class="crossx-inline">
+🌀 <b>经济与制度 · 2021 年英国的加油站</b>　一则关于卡车司机短缺的报道之后，英国各地加油站排起长队、真的断供了——而油本身并不短缺。跑的正是本节这条机制：每个人只是"提前加一点"（温和），但这个动作让别人的处境变差（油枪前的队伍变长），于是下一批人也去加。所以官方那句"油是够的"注定没用：<b>人担心的从来不是油够不够，是别人会不会去加</b>。能起作用的干预只在动作层——限量、限时、按车牌分流，也就是改变搬家的成本，而不是改变信息。
+</div>
+<p class="en-brief"><b>EN</b> Three mechanisms turn mild into extreme. One departure lowers the like-share of everyone it leaves behind, so unhappiness is manufactured by other people's moves. Movers only land where they are satisfied, so every move ratchets homogeneity upward and the reverse move never happens. And the frozen state is stable only in the narrow sense that no single agent can improve alone — stable, optimal, and wanted are three different things.</p>
+<h2><span class="n">04</span>建模的诚实<span class="he">（The Honesty of a Model）</span></h2>
+<p class="lead">现在说这套方法的问题，而且要说得比它的好处更长——因为基于主体建模最大的毛病恰恰是它太好用了。</p>
+<p>你手上有四个旋钮：规则、参数、初始条件、随机种子。四个旋钮一起转，你几乎总能调出一张你想看的图。所以"我的模型复现了这个现象"这句话，作为证据，价值接近于零。任何足够灵活的机器都能复现任何东西。</p>
+<p><b>第一条纪律：跑一批，不是跑一次。</b>上面那张棋盘图是一次运行的结果。我把同一条规则换了 30 个随机种子重跑，最终的同类邻居比例落在 0.65 到 0.85 之间，均值 0.75。也就是说，上面那个"78%"不是一个结论，它是分布里的一个点，而且是偏中上的一个点。只报一个数、不报这条带子，报的其实是运气。</p>
+<figure>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 250" role="img" aria-label="同一条规则重跑 30 次的结果分布">
+<defs><marker id="dp1" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="10" markerHeight="10" markerUnits="userSpaceOnUse" orient="auto"><path d="M0,1 L9,5 L0,9 z" fill="#8d867b"/></marker></defs>
+<text x="360" y="28" text-anchor="middle" font-family="-apple-system,sans-serif" font-size="13" fill="#aba498">同一条规则跑 30 次（只换随机种子）</text>
+<rect x="338.9" y="72" width="248.9" height="76" fill="rgba(121,166,210,0.10)" stroke="rgba(121,166,210,0.28)"/>
+<line x1="70" y1="176" x2="678" y2="176" stroke="rgba(255,255,255,0.18)" stroke-width="1.5" marker-end="url(#dp1)"/>
+<line x1="152.2" y1="176" x2="152.2" y2="183" stroke="rgba(255,255,255,0.22)" stroke-width="1.5"/><text x="152.2" y="200" text-anchor="middle" font-family="SF Mono,monospace" font-size="11" fill="#787268">0.5</text>
+<line x1="276.7" y1="176" x2="276.7" y2="183" stroke="rgba(255,255,255,0.22)" stroke-width="1.5"/><text x="276.7" y="200" text-anchor="middle" font-family="SF Mono,monospace" font-size="11" fill="#787268">0.6</text>
+<line x1="401.1" y1="176" x2="401.1" y2="183" stroke="rgba(255,255,255,0.22)" stroke-width="1.5"/><text x="401.1" y="200" text-anchor="middle" font-family="SF Mono,monospace" font-size="11" fill="#787268">0.7</text>
+<line x1="525.6" y1="176" x2="525.6" y2="183" stroke="rgba(255,255,255,0.22)" stroke-width="1.5"/><text x="525.6" y="200" text-anchor="middle" font-family="SF Mono,monospace" font-size="11" fill="#787268">0.8</text>
+<line x1="650.0" y1="176" x2="650.0" y2="183" stroke="rgba(255,255,255,0.22)" stroke-width="1.5"/><text x="650.0" y="200" text-anchor="middle" font-family="SF Mono,monospace" font-size="11" fill="#787268">0.9</text>
+<text x="674" y="216" text-anchor="end" font-family="-apple-system,sans-serif" font-size="11" fill="#57524b">最终同类邻居比例 →</text>
+<line x1="152.2" y1="60" x2="152.2" y2="176" stroke="#57524b" stroke-width="1.5" stroke-dasharray="4 4"/>
+<text x="158.2" y="56" font-family="-apple-system,sans-serif" font-size="11" fill="#8d867b">起点 0.50</text>
+<circle cx="426.0" cy="140" r="5" fill="#79a6d2" fill-opacity="0.85"/><circle cx="401.1" cy="140" r="5" fill="#79a6d2" fill-opacity="0.85"/><circle cx="562.9" cy="140" r="5" fill="#79a6d2" fill-opacity="0.85"/><circle cx="413.6" cy="140" r="5" fill="#79a6d2" fill-opacity="0.85"/><circle cx="401.1" cy="127" r="5" fill="#79a6d2" fill-opacity="0.85"/><circle cx="338.9" cy="140" r="5" fill="#79a6d2" fill-opacity="0.85"/><circle cx="500.7" cy="140" r="5" fill="#79a6d2" fill-opacity="0.85"/><circle cx="587.8" cy="140" r="5" fill="#79a6d2" fill-opacity="0.85"/><circle cx="401.1" cy="114" r="5" fill="#79a6d2" fill-opacity="0.85"/><circle cx="450.9" cy="140" r="5" fill="#79a6d2" fill-opacity="0.85"/><circle cx="450.9" cy="127" r="5" fill="#79a6d2" fill-opacity="0.85"/><circle cx="513.1" cy="140" r="5" fill="#79a6d2" fill-opacity="0.85"/><circle cx="401.1" cy="101" r="5" fill="#79a6d2" fill-opacity="0.85"/><circle cx="450.9" cy="114" r="5" fill="#79a6d2" fill-opacity="0.85"/><circle cx="463.3" cy="140" r="5" fill="#79a6d2" fill-opacity="0.85"/><circle cx="488.2" cy="140" r="5" fill="#79a6d2" fill-opacity="0.85"/><circle cx="438.4" cy="140" r="5" fill="#79a6d2" fill-opacity="0.85"/><circle cx="488.2" cy="127" r="5" fill="#79a6d2" fill-opacity="0.85"/><circle cx="388.7" cy="140" r="5" fill="#79a6d2" fill-opacity="0.85"/><circle cx="438.4" cy="127" r="5" fill="#79a6d2" fill-opacity="0.85"/><circle cx="475.8" cy="140" r="5" fill="#79a6d2" fill-opacity="0.85"/><circle cx="475.8" cy="127" r="5" fill="#79a6d2" fill-opacity="0.85"/><circle cx="475.8" cy="114" r="5" fill="#79a6d2" fill-opacity="0.85"/><circle cx="550.4" cy="140" r="5" fill="#79a6d2" fill-opacity="0.85"/><circle cx="500.7" cy="127" r="5" fill="#79a6d2" fill-opacity="0.85"/><circle cx="488.2" cy="114" r="5" fill="#79a6d2" fill-opacity="0.85"/><circle cx="475.8" cy="101" r="5" fill="#79a6d2" fill-opacity="0.85"/><circle cx="376.2" cy="140" r="5" fill="#79a6d2" fill-opacity="0.85"/><circle cx="550.4" cy="127" r="5" fill="#79a6d2" fill-opacity="0.85"/><circle cx="413.6" cy="127" r="5" fill="#79a6d2" fill-opacity="0.85"/>
+<line x1="460.8" y1="64" x2="460.8" y2="176" stroke="#e0895e" stroke-width="2"/>
+<text x="452.8" y="58" text-anchor="end" font-family="SF Mono,monospace" font-size="12" fill="#e0895e">均值 0.75</text>
+<circle cx="495.7" cy="153" r="6" fill="none" stroke="#cd7f9b" stroke-width="2"/>
+<text x="507.7" y="168" font-family="-apple-system,sans-serif" font-size="11" fill="#cd7f9b">上图那一次 0.78</text>
+<text x="338.9" y="66" text-anchor="middle" font-family="-apple-system,sans-serif" font-size="11" fill="#79a6d2">最低 0.65</text>
+<text x="587.8" y="66" text-anchor="middle" font-family="-apple-system,sans-serif" font-size="11" fill="#79a6d2">最高 0.85</text>
+<text x="360" y="240" text-anchor="middle" font-family="-apple-system,sans-serif" font-size="11" fill="#57524b">单次结果是分布里的一个点，不是「结论」。报一个数而不报这条带，就是在报运气。</text>
+</svg>
+<figcaption>一次运行不是结论。同一条规则换 30 个种子，结果散在这条带子里。</figcaption>
+</figure>
+<p><b>第二条纪律：说清楚你扫过哪些参数。</b>阈值改成 37.5% 会怎样？空位从一成变成一成四会怎样？如果一篇结论只在阈值恰好等于 0.3、空位恰好等于 0.1 时成立，那它讲的是这两个数字，不是讲机制。</p>
+<p><b>第三条纪律，也是最容易被跳过的：问这个模型<em>禁止</em>什么。</b>一个只会生成、不会禁止的模型，没有被推翻的可能，因而也没有被支持的可能。谢林模型在这一点上其实很克制——它给出的是一个<b>存在性证明</b>（proof of existence）：极端的隔离不需要极端的偏好作为前提。存在性证明只干一件事，就是推翻一个"必要条件"的说法。<b>它不指认原因。</b>说"隔离可以在没有恶意的情况下产生"，和说"现实中的隔离是这么产生的"，中间隔着一整个实证研究领域。</p>
+<p>说到这儿，我该交代一次自己的失败，因为它比上面三条纪律更能说明问题。</p>
+<p>我把规则改成"每个人都<em>严格偏好</em> 50 对 50 的完美融合"——同类比例离一半越远越不舒服——然后跑了 30 次。隔离没有出现，同类邻居比例稳稳停在 0.48 到 0.50。可是 Pancs 与 Vriend 2007 年在《Journal of Public Economics》上报告的结果正好相反：在最优响应动态（best-response dynamics，每个人搬到当前可得的最优位置）下，<b>即使所有人都严格偏好完美融合，隔离照样出现</b>；他们还顺带指出，谢林模型的一维版本和二维版本其实是两个性质不同的模型。</p>
+<p>两边都不是算错了。差别在效用函数的具体形状、邻域怎么定义、以及"搬去哪儿"这条规则怎么写——我那个版本是"搬到一个随机的、比现在好的空位"，他们那个是"搬到全场最优"。<b>结论挂在了这些细节上。而在通俗转述里，这些细节从来不会被提到。</b>下次你读到"模拟表明……"，要问的第一句话就是：搬去哪儿这条规则是怎么写的。</p>
+<div class="decide">
+<span class="lb">🎯 决策线</span>
+<p>看到任何基于模拟的结论，先问三句：<b>跑了多少次？参数扫过没有？这个模型禁止什么？</b>三句里有一句答不上来，就把这个结论降级——它可以进你的"可能性清单"，不能进决策依据。这条对你自己写的模拟同样有效，而且尤其有效。</p>
+</div>
+<div class="crossx-inline">
+🌀 <b>天文学史 · 本轮</b>　托勒密体系用"圆上套圆"描述行星轨迹，只要肯加，本轮可以把任意复杂的观测轨迹拟合到任意精度。它错在哪儿？不错在拟合得不好——它拟合得很好。它错在<b>没有任何一种观测结果是它生成不出来的</b>，因而没有任何一种观测能推翻它。这正是本节那条纪律的最老版本：一个模型的力量不在它能画出什么，在它<b>画不出什么</b>。基于主体建模的旋钮比本轮还多，所以这一问要问得更凶。
+</div>
+<p class="en-brief"><b>EN</b> Four knobs — rules, parameters, initial conditions, random seed — mean almost any pattern can be produced, so "my model reproduces the phenomenon" is nearly zero evidence. Report the distribution over seeds, report the parameter sweep, and ask what the model forbids. Schelling's contribution is a proof of existence: extreme segregation needs no extreme preference. That refutes a claimed necessary condition; it names no cause.</p>
+<h2><span class="n">05</span>这套说法在哪儿不成立<span class="he">（Where This Breaks Down）</span></h2>
+<p class="lead">这一节最要紧，因为本期的机制是本站到目前为止<b>最容易被拿去当挡箭牌</b>的一个。</p>
+<p><b>第一，"不需要恶意"绝不等于"没有恶意"。</b>这是最常见也最有害的误读。美国的居住隔离有大量蓄意的、制度化的成因：1930 年代起房主贷款公司（HOLC）绘制的分级地图把黑人聚居区整片划成拒贷区（这就是"红线"redlining 一词的来历）；房契里写着不得转售给特定族裔的种族限制性条款，直到 1948 年 Shelley v. Kraemer 一案才判定法院不得强制执行；此外还有中介的"撬盘"（blockbusting）、贷款与保险的差别定价。谢林模型说的是"即使这些统统不存在，隔离也可能出现"。它没有、也不可能说这些不存在。<b>存在性证明只点亮成因空间里的一块，它不熄灭别的块。</b></p>
+<figure>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 268" role="img" aria-label="模型只点亮了成因空间的一块，不排除其他成因">
+<text x="360" y="28" text-anchor="middle" font-family="-apple-system,sans-serif" font-size="13" fill="#aba498">现实中一个格局的成因空间</text>
+<rect x="46" y="48" width="628" height="150" rx="14" fill="rgba(255,255,255,0.02)" stroke="rgba(255,255,255,0.12)"/>
+<rect x="72" y="78" width="176" height="92" rx="10" fill="rgba(121,166,210,0.10)" stroke="#79a6d2" stroke-width="2"/>
+<text x="160" y="108" text-anchor="middle" font-family="-apple-system,sans-serif" font-size="12.5" fill="#cfe3f2">同类偏好的自组织</text>
+<text x="160" y="130" text-anchor="middle" font-family="-apple-system,sans-serif" font-size="11" fill="#9dbdd8">谢林模型点亮的</text>
+<text x="160" y="150" text-anchor="middle" font-family="-apple-system,sans-serif" font-size="11" fill="#9dbdd8">就是这一块</text>
+<rect x="266" y="78" width="128" height="92" rx="10" fill="rgba(255,255,255,0.025)" stroke="rgba(255,255,255,0.16)"/>
+<text x="330" y="112" text-anchor="middle" font-family="-apple-system,sans-serif" font-size="12.5" fill="#cfc8bc">制度性歧视</text>
+<text x="330" y="136" text-anchor="middle" font-family="-apple-system,sans-serif" font-size="11" fill="#8d867b">红线、限制性条款</text>
+<rect x="412" y="78" width="118" height="92" rx="10" fill="rgba(255,255,255,0.025)" stroke="rgba(255,255,255,0.16)"/>
+<text x="471" y="112" text-anchor="middle" font-family="-apple-system,sans-serif" font-size="12.5" fill="#cfc8bc">收入与房价</text>
+<text x="471" y="136" text-anchor="middle" font-family="-apple-system,sans-serif" font-size="11" fill="#8d867b">买得起哪儿</text>
+<rect x="548" y="78" width="100" height="92" rx="10" fill="rgba(255,255,255,0.025)" stroke="rgba(255,255,255,0.16)"/>
+<text x="598" y="112" text-anchor="middle" font-family="-apple-system,sans-serif" font-size="12.5" fill="#cfc8bc">中介行为</text>
+<text x="598" y="136" text-anchor="middle" font-family="-apple-system,sans-serif" font-size="11" fill="#8d867b">带你去看哪套房</text>
+<text x="360" y="224" text-anchor="middle" font-family="-apple-system,sans-serif" font-size="12" fill="#cd7f9b">模型证明的是：光靠蓝色这一块，格局也出得来。</text>
+<text x="360" y="246" text-anchor="middle" font-family="-apple-system,sans-serif" font-size="12" fill="#cd7f9b">它没有证明另外三块不存在，更没有测量过它们各占多少。</text>
+<text x="360" y="264" text-anchor="middle" font-family="-apple-system,sans-serif" font-size="10.5" fill="#57524b">方块大小是排版，不是比例 — 各块的实际占比要靠实证研究去量，模型量不出来</text>
+</svg>
+<figcaption>存在性证明的边界：点亮一块，不熄灭别的块，也不称量任何一块。</figcaption>
+</figure>
+<p><b>第二，模型和证据之间还隔着很远。</b>好消息是这段距离有人在走。Card、Mas 与 Rothstein 2008 年用 1970–2000 年的普查数据做了一件很直接的事：他们在大多数城市找到了<b>临界点式</b>的行为——某个街区的少数族裔比例一旦越过某个门槛，白人的外迁速度会明显跳一下。各城市的门槛落在 <b>5% 到 20%</b> 之间。这既支持了"阈值"这个核心结构，也立刻把它拉回地面：<b>更宽容的城市，门槛更高。</b>阈值不是一个万能常数，它是被真实的态度决定的量。所以"改变偏好没用"这句话说过了头——偏好挪不动格局的<em>形状</em>，但它挪得动那个门槛。</p>
+<p><b>第三，这一行的复制情况不好。</b>照着一篇论文的文字重新实现它的模型，跑不出同样结果是常事——因为"搬去哪儿""谁先动""边界怎么处理"这类决定往往没写在纸上。生态学界 2006 年提出 ODD 描述规范（Overview, Design concepts, Details）正是为了治这个病，而它至今没被治好。上面我自己那次没能复现的"偏好融合仍然隔离"，就是这个病的一个标本。</p>
+<p><b>第四，别让结构性解释变成万能钥匙。</b>有些格局就是有人要的，去给它编一套自组织的故事既不诚实也不聪明。判据其实很好用：<b>如果存在明确的强制、明文的规则或可查的定价差别，先解释这些；只有在找不到这些、而一组温和的个体规则就能生成这个格局时，自组织的解释才是该优先的那个。</b>顺序错了，模型就从工具变成了修辞。</p>
+<div class="decide">
+<span class="lb">🎯 决策线</span>
+<p>凡是用"不需要恶意也能产生 X"来论证的场合，<b>必须同时说出现实中的 X 有多少来自蓄意</b>——哪怕只能给出一个粗糙的量级和它的来源。给不出这个数，这条论证就只能用于"理解机制"，不能用于"判定责任"。这两个用途之间的那条线，是本期唯一不能跨的线。</p>
+</div>
+<div class="crossx-inline">
+🌀 <b>法律 · 过失与责任的分层</b>　侵权法几百年前就不再把责任建立在"有没有恶意"上了：故意、过失、严格责任是三层，越往下越不问动机。产品责任更极端——厂商可以没有任何害人的意图，只要产品有缺陷、损害发生了，责任照样成立。这恰好是本期机制在制度上的镜像：<b>法律早就承认了后果不需要动机</b>。所以谢林式的解释非但不是免责声明，它还指出了责任该落在哪儿——从"谁想要这个结果"转到"谁在维持这套规则、谁有能力改它"。
+</div>
+<p class="en-brief"><b>EN</b> Four limits. "Needs no malice" is not "there was no malice": redlining, racial covenants and blockbusting were deliberate and documented. Card, Mas &amp; Rothstein (2008) found real tipping points between 5% and 20% minority share — and higher tipping points in more tolerant cities, so preferences move the threshold even if they cannot change the shape. Agent-based results replicate poorly because the unwritten choices matter. And a structural story must not be the first story when explicit rules, force or pricing are on the table.</p>
+<div class="bigcat">
+<h3>🎒 场景 · BigCat</h3>
+<ol>
+<li><span class="dm">带团队与组织</span>招人时打的那个"文化契合度"分数，就是一个 30% 阈值：每个面试官只是想"至少能聊得来"，没有人在挑同类。可几轮之后团队的来路会窄得惊人，而复盘时你翻遍每一份评估都找不到那个决定。<b>具体动作</b>：把"文化契合"这一栏拆成两三条可以写出来的行为要求（能不能在会上推翻上级的判断、交接文档写不写），拆不出来就删掉这一栏；看的指标从"团队氛围评分"换成<b>过去四个季度新人来源渠道的分布</b>——那才是能看出棘轮有没有在转的那张表。</li>
+<li><span class="dm">工程与系统设计</span>做容量预案时，几乎所有人都在用一个自上而下的模型：预估总请求量、除以单机容量、乘个余量。这个模型里没有个体，于是它结构性地看不见重试风暴——因为雪崩恰恰来自"每个客户端按自己那条重试规则行动"，而不是来自总量。<b>具体动作</b>：预案评审里加一项主体级模拟，把真实的重试次数、退避策略、超时时间放进去跑一遍；并且<b>停掉</b>用平均请求速率反推容量这个动作——要留的余量应该按"所有客户端同时重试"那一档来定。</li>
+<li><span class="dm">修行与心性</span>每次被谁惹到之后，复盘时脑子里第一句话通常是"他是不是故意的"。这句问话本身就把结果的解释锁死在了动机上——问出来只有两个答案，一个让你更气，一个让你憋着。<b>具体动作</b>：把这句话换成"<b>这个结果需要有人故意吗？如果不需要，是什么让它反复发生</b>"。前一句指向一个人，后一句指向一个可以改的安排：谁在什么时间点拿到什么信息、谁必须先开口。<b>停掉</b>的动作是在心里给对方定性——那是最占地方、也最没有产出的一项。</li>
+</ol>
+</div>
+<div class="crossx">
+<h3>🌀 越界 · 跨学科的联想<span class="he">（Crossings）</span></h3>
+<ul>
+<li><b>东方思想 · 佛教的「共业」</b>：佛教把业分为别业与共业——别业是各人自作自受，共业是众生共同造作、共同承受的那部分，比如一个时代的风气、一方水土的兴衰。本期三条机制合起来，正好给"共业"这个说法补上了一副可拆的机制：温和的个体规则能生成极端的整体格局，每个人的动作改变着别人的处境因而级联，最后的格局自我锁死、无人能单方面退出。于是"共业"不必只是一个道德修辞，它可以是一个能算的结构，甚至能指出干预点在哪儿。<b>但这里不成立</b>：佛教的共业最终仍把果报追溯到每个个体的业因，而且以意业（起心动念）为先——它本质上仍是"个体动机的总和"。谢林机制的要害恰恰是<em>结果与动机脱钩</em>：阈值 30% 的人群和阈值 50% 的人群可以给出同一张隔离图，从格局反推不出心念。用共业去解释隔离，会把责任重新摊回每个人的起心动念，而结构性的解释要求你去看规则和空间。能借走的是"没有单一作者的结果"这个直觉，不是它的因果学说。</li>
+<li><b>经济与制度 · 把「看不见的手」倒过来读</b>：斯密说每个人追求自己的利益，可以汇成公共之善。本期的机制说明这条推理链是<em>对称</em>的——同一套"局部规则长出整体格局"的机器，既能长出价格发现，也能长出没人想要的隔离和抢购。所以"看不见的手"从来不是一条定理，它是一族可能结果里的一个；决定落到哪一端的不是动机的善恶，而是第三节那几个结构条件：一个人的动作对别人是正外部性还是负外部性、动作可不可见、格局能不能被单方面打破。由此能推出一个反直觉的结论：<b>要让"看不见的手"成立，需要的不是更纯粹的利己心，是把这几个结构条件补齐</b>——市场设计这门学科基本上就是在做这件事。<b>但这里不成立</b>：斯密的论证里有一样棋盘上没有的东西，就是<em>交换</em>。买卖双方都变好，那是正和的；而棋盘上的搬家不产生任何价值，纯粹是位置的再分配，是零和甚至负和的。把两者合并成"都是自下而上"会抹掉最关键的那条结构条件——互动本身是不是正和的。</li>
+<li><b>制度设计与科学社会学 · 跨学科为什么得靠一栋楼</b>：学者选合作者时的偏好也很温和——"我希望合作者里至少有几个人能听懂我在说什么"，跟 30% 阈值是同一个量级。而合作网络里的位置一旦形成就带棘轮：你越是跟同行合作，下一次找同行的成本就越低。于是学科的分块不需要任何门户之见就能长出来，并且长成之后没有人有单方面跨出去的动机——跨出去的第一个人要承担全部的翻译成本。这解释了一件看上去很土的事：像圣塔菲研究所这类以跨学科为纲的机构，靠的不是倡议和口号，而是把人塞进同一栋楼、把下午茶写成制度。<b>因为在这套机制下，能改的从来不是偏好，是相遇的概率。</b>推论也很实用：任何"加强跨部门协作"的倡议，如果没有同时改动谁坐在哪儿、谁必须出席什么会，那它是在跟一个结构性问题讲道理。</li>
+</ul>
+</div>
+<div class="thinking">
+<h3>深入思考<span class="he">（Going Deeper）</span></h3>
+<details><summary>如果格局是结构性的，那"改变偏好"的教育和倡议还有意义吗？</summary><p>有，但作用点跟直觉不同。Card 他们的数据显示，更宽容的城市临界点更高——偏好改变不了"越过门槛就翻转"这个形状，但它把门槛往上推了。所以倡议的效果应该按"门槛移动了多少"来衡量，而不是按"隔离有没有消失"。用错了尺子，一个真实有效的干预会被判成无效。</p></details>
+<details><summary>棋盘上没有钱。把房价加进去，结论会变吗？</summary><p>会变得更复杂，也更真实：价格本身就是一个反馈——搬走的人多了价格就跌，跌了又吸引另一类人进来。这可能加速隔离，也可能在某些参数下阻止它。值得注意的是，加进价格之后模型的旋钮又多了几个，于是第四节那三条纪律的要求也随之提高：新增的解释力必须大于新增的自由度，否则你只是拟合得更好看了。</p></details>
+<details><summary>什么时候该相信一个基于主体的模拟？</summary><p>一个可用的判据：当它<b>预言了一件你没有拿来调参的事</b>，而那件事后来被观察到了。仅仅"能复现已知现象"是最弱的证据等级——因为你是照着那个现象调的。存在性证明是第二等：它推翻某个"必须有 X 才会有 Y"的说法。预言新现象才是第一等，而在社会系统里这一等相当罕见。</p></details>
+<details><summary>阈值 30% 这个数字本身有意义吗？</summary><p>作为一个具体数值，几乎没有——它是一个演示用的设定，换成 25% 或 37.5% 结论的方向不变。有意义的是"阈值"这个<b>形状</b>：反应不是随比例平滑变化的，而是在某处突然跳。真正的经验工作是去测那个跳变点在哪儿（Card 等人做的正是这件事），而不是去论证 0.3 这个数对不对。把演示参数当成经验发现，是读模型时最常见的一类错误。</p></details>
+</div>
+<div class="refs">
+<h3>延伸阅读<span class="he">（Further Reading）</span></h3>
+<ul>
+<li>Thomas Schelling, <a href="https://doi.org/10.1080/0022250X.1971.9989794">Dynamic Models of Segregation</a>（1971，原始论文）；通俗版见 <a href="https://wwnorton.com/books/9780393329469">Micromotives and Macrobehavior</a>（1978）</li>
+<li><a href="https://ccl.northwestern.edu/netlogo/models/Segregation">NetLogo Segregation</a>（浏览器里就能自己拖阈值跑一遍）</li>
+<li>Pancs &amp; Vriend, <a href="https://nvriend.econ.qmul.ac.uk/pub/pubec.pdf">Schelling's spatial proximity model of segregation revisited</a>（2007，偏好完美融合也会隔离）</li>
+<li>Card, Mas &amp; Rothstein, <a href="https://davidcard.berkeley.edu/papers/tipping-dynamics.pdf">Tipping and the Dynamics of Segregation</a>（2008，实证的临界点：5%–20%）</li>
+<li>Epstein &amp; Axtell, <a href="https://mitpress.mit.edu/9780262550253/growing-artificial-societies/">Growing Artificial Societies</a>（1996，Sugarscape，自下而上造社会的野心之作）</li>
+<li>Grimm et al., <a href="https://doi.org/10.1016/j.ecolmodel.2006.04.023">A standard protocol for describing individual-based and agent-based models</a>（2006，ODD 规范，为复制而生）</li>
+<li><a href="https://en.wikipedia.org/wiki/Redlining">Redlining</a> · <a href="https://en.wikipedia.org/wiki/Shelley_v._Kraemer">Shelley v. Kraemer (1948)</a>（隔离里蓄意的那一半）</li>
+<li>Hannah Arendt, <a href="https://en.wikipedia.org/wiki/Eichmann_in_Jerusalem">Eichmann in Jerusalem</a>（1963）；反面的档案研究见 Bettina Stangneth, <a href="https://en.wikipedia.org/wiki/Eichmann_Before_Jerusalem">Eichmann Before Jerusalem</a>（2014）</li>
+</ul>
+</div>
+<footer>BigCat · 复杂性科学 · <a href="index.html">← 全部 Topic</a></footer>
+</div>
+<script src="https://hub.cissychen.com/comments.js" defer></script>
+<script src="https://hub.cissychen.com/search.js" defer></script>
+<script src="https://hub.cissychen.com/index-button.js" defer></script>
+<script src="https://hub.cissychen.com/i18n-tts.js" defer></script>
+</body></html>

@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+
+<html lang="zh-CN"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>谢林隔离模型 · 参考库 · 复杂性科学</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,"SF Pro Display","Noto Sans SC",sans-serif;color:#e4ded5;line-height:1.85;min-height:100vh;
+  background:radial-gradient(1100px 620px at 12% -6%,rgba(99,179,166,0.09),transparent 62%),radial-gradient(950px 700px at 100% 2%,rgba(166,147,205,0.08),transparent 58%),linear-gradient(168deg,#100f0d 0%,#15161b 48%,#0a0a0c 100%);background-attachment:fixed}
+.wrap{max-width:720px;margin:0 auto;padding:30px 22px 90px}
+header{padding:52px 0 8px;border-bottom:1px solid rgba(255,255,255,0.07);margin-bottom:32px}
+.rtag{font-family:"SF Mono",Menlo,monospace;font-size:0.72rem;font-weight:700;letter-spacing:2px;color:#63b3a6;border:1px solid rgba(99,179,166,0.4);background:rgba(99,179,166,0.07);padding:3px 11px;border-radius:20px}
+h1{font-size:2.15rem;font-weight:800;line-height:1.2;margin:20px 0 0;color:#f0eae0}
+h1 .h1en{display:block;font-size:0.42em;font-weight:600;letter-spacing:2.5px;color:#847d72;margin-top:11px}
+.sub{font-size:0.98rem;color:#aba498;margin-top:12px}
+.meta{font-family:"SF Mono",Menlo,monospace;font-size:0.75rem;color:#57524b;margin-top:16px;letter-spacing:1px}
+h2{font-size:1.25rem;font-weight:700;color:#e9e3d9;margin:44px 0 10px}
+h2 .n{font-family:"SF Mono",Menlo,monospace;font-size:0.8rem;color:#63b3a6;display:block;margin-bottom:5px;letter-spacing:2px}
+.he{font-size:0.68em;color:#8d867b;font-weight:500;letter-spacing:0}
+p{margin-bottom:16px}
+b,strong{color:#f0eae0;font-weight:600}
+em{color:#d9b45f;font-style:normal;font-weight:500}
+.rule{border:1px solid rgba(99,179,166,0.3);background:rgba(99,179,166,0.05);border-radius:12px;padding:16px 20px;margin:22px 0;font-size:0.94rem;color:#d5cdc1}
+.rule ol{padding-left:20px;margin:0}
+.rule li{margin-bottom:7px}
+.rule li:last-child{margin-bottom:0}
+figure{margin:28px 0}
+figure svg{display:block;width:100%;height:auto;border-radius:12px;background:rgba(255,255,255,0.018);border:1px solid rgba(255,255,255,0.06)}
+figcaption{font-size:0.82rem;color:#787268;margin-top:10px;text-align:center;line-height:1.6}
+.cant{border:1px solid rgba(205,127,155,0.36);background:rgba(205,127,155,0.05);border-radius:12px;padding:18px 21px;margin:26px 0 10px}
+.cant h3{font-size:1rem;color:#cd7f9b;margin-bottom:12px}
+.cant ul{list-style:none;padding:0}
+.cant li{margin-bottom:13px;font-size:0.93rem;color:#d5cdc1;line-height:1.76}
+.cant li:last-child{margin-bottom:0}
+.cant li b{color:#cd7f9b}
+.refs{margin:40px 0 10px}
+.refs h3{font-size:1rem;color:#79a6d2;margin-bottom:12px}
+.refs ul{list-style:none;padding:0}
+.refs li{margin-bottom:9px;font-size:0.89rem;color:#8d867b;line-height:1.7}
+.refs a{color:#79a6d2;text-decoration:none;border-bottom:1px solid rgba(121,166,210,0.3)}
+.refs a:hover{color:#a6c4e2}
+footer{text-align:center;padding:52px 0 10px;font-size:0.78rem;color:#57524b;font-family:"SF Mono",Menlo,monospace;border-top:1px solid rgba(255,255,255,0.06);margin-top:46px}
+footer a{color:#79a6d2;text-decoration:none}
+@media(max-width:600px){h1{font-size:1.7rem}.wrap{padding:24px 16px 60px}}
+</style></head><body>
+<div class="wrap">
+<header>
+<span class="rtag">REF · 经典模型</span>
+<h1>谢林隔离模型<span class="h1en">THE SCHELLING SEGREGATION MODEL</span></h1>
+<p class="sub">Thomas Schelling，1971 — 用一张棋盘证明「温和的偏好也能长出极端的格局」</p>
+<p class="meta">被引用于：Topic 27 基于主体建模</p>
+</header>
+<h2><span class="n">01</span>它问的是什么问题<span class="he">（The Question It Poses）</span></h2>
+<p>1960 年代的美国，居住隔离是一个明摆着的事实，而解释它的默认框架只有一个：<b>隔离的程度反映了偏见的程度。</b>格局这么极端，那么人们的排斥心理一定也很强烈。政策含义随之而来——要消除隔离，就得先改变人心。</p>
+<p>谢林要问的是一个纯粹结构性的问题：<b>产生这样一张地图，最低需要多强的偏好？</b>注意他问的不是"实际的偏好有多强"，而是"最低需要多强"。这是一个下限问题，而下限问题往往能推翻一整套关于因果的默认想象。</p>
+<h2><span class="n">02</span>规则本身<span class="he">（The Rules）</span></h2>
+<div class="rule">
+<ol>
+<li>一张方格棋盘。每格要么空着，要么住着两种主体之一（下面叫蓝方和黄方）。</li>
+<li>每个主体环视自己周围的八格，数一数其中<em>有人的</em>格子里，跟自己同类的占多少。</li>
+<li>如果这个比例不低于一个阈值 <em>T</em>（比如 30%），它满意，不动。</li>
+<li>如果低于 <em>T</em>，它搬到一个空格去。</li>
+<li>反复执行，直到没有人不满意为止。这个状态叫<b>冻结</b>（frozen）——从此棋盘不再变化。</li>
+</ol>
+</div>
+<p>要留心的是第 4 条<b>没有说清"搬到哪个空格"</b>——随机挑一个？挑最近的？挑最好的？谢林原文用的是就近搬到第一个满意的位置，后来的复现各有各的写法。这个看似无关紧要的细节其实会改变结论的强弱，甚至在某些设定下改变结论本身，所以引用任何谢林类结果时都该先问一句这条规则怎么写的。</p>
+<p>另外，阈值 <em>T</em> 的含义常被读反。<em>T</em> = 30% 不是"我要求周围三成是自己人"这种强烈诉求，它是"<b>周围七成不是自己人我也接受</b>"这种相当宽松的容忍度。整个模型的冲击力全在这个方向上。</p>
+<h2><span class="n">03</span>跑起来会看到什么<span class="he">（What You See When It Runs）</span></h2>
+<p>起点是随机撒的，所以同类邻居的平均比例大约是 50%——这正是"完全混合"应有的样子。开跑之后，不满意的主体开始移动，而每一次移动都会让被留下的同类邻居的比例掉一点，于是制造出新的不满意者。棋盘上出现一波一波的挪动。</p>
+<p>十几到几十轮之后，移动停下来。此时<b>没有一个人不满意</b>，同类邻居的平均比例却远高于起点——在 16×16、阈值 30%、约一成空位的设定下，通常落在 <b>0.65 到 0.85</b> 之间。</p>
+<figure>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 700 250" role="img" aria-label="容忍阈值与最终同质度的关系：输入温和，输出极端">
+<defs>
+<marker id="sc1" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="11" markerHeight="11" markerUnits="userSpaceOnUse" orient="auto"><path d="M0,1 L9,5 L0,9 z" fill="#63b3a6"/></marker>
+</defs>
+<text x="350" y="26" text-anchor="middle" font-family="-apple-system,sans-serif" font-size="13" fill="#aba498">输入的要求 vs 输出的格局</text>
+<rect x="60" y="58" width="200" height="112" rx="12" fill="rgba(99,179,166,0.06)" stroke="rgba(99,179,166,0.32)"/>
+<text x="160" y="88" text-anchor="middle" font-family="-apple-system,sans-serif" font-size="12.5" fill="#cfc8bc">每个人的要求</text>
+<text x="160" y="124" text-anchor="middle" font-family="SF Mono,monospace" font-size="26" fill="#63b3a6">30%</text>
+<text x="160" y="150" text-anchor="middle" font-family="-apple-system,sans-serif" font-size="11" fill="#8d867b">同类邻居不低于此即可</text>
+<line x1="282" y1="114" x2="422" y2="114" stroke="#63b3a6" stroke-width="2" marker-end="url(#sc1)"/>
+<text x="352" y="102" text-anchor="middle" font-family="-apple-system,sans-serif" font-size="11.5" fill="#8d867b">几十轮搬家</text>
+<text x="352" y="136" text-anchor="middle" font-family="-apple-system,sans-serif" font-size="11.5" fill="#8d867b">没有人改变过要求</text>
+<rect x="440" y="58" width="200" height="112" rx="12" fill="rgba(205,127,155,0.06)" stroke="rgba(205,127,155,0.34)"/>
+<text x="540" y="88" text-anchor="middle" font-family="-apple-system,sans-serif" font-size="12.5" fill="#cfc8bc">冻结后的实际格局</text>
+<text x="540" y="124" text-anchor="middle" font-family="SF Mono,monospace" font-size="26" fill="#cd7f9b">65–85%</text>
+<text x="540" y="150" text-anchor="middle" font-family="-apple-system,sans-serif" font-size="11" fill="#8d867b">同类邻居的实际比例</text>
+<text x="350" y="200" text-anchor="middle" font-family="-apple-system,sans-serif" font-size="11.5" fill="#787268">起点是随机混合的 50%。终点没有人要求过，也没有人在任何一步选择过。</text>
+<text x="350" y="228" text-anchor="middle" font-family="-apple-system,sans-serif" font-size="11" fill="#57524b">右边这个区间是换 30 个随机种子跑出来的散布，不是一个定值</text>
+</svg>
+<figcaption>模型的全部冲击力在这张图上：输入端温和，输出端极端，中间没有任何一步是极端的。</figcaption>
+</figure>
+<p>还有两个跑起来才看得见的性质。<b>一是过程带棘轮</b>：搬家的人只会落到让自己满意的地方，也就是同类较多处，所以同质度平均而言只升不降。<b>二是终局自锁</b>：冻结状态里每个人都满意，因此没有任何人有单方面搬回去的动机——这个格局稳定，但"稳定"在这里只意味着"没人能靠自己变得更好"，它既不是最优，也不是有人选的。</p>
+<h2><span class="n">04</span>它解释了现实中的什么<span class="he">（What It Explains）</span></h2>
+<p>它给出的是一个<b>存在性证明</b>（proof of existence）：<b>产生极端的隔离，并不需要极端的偏好作为前提。</b>这一句话推翻的是一个"必要条件"式的断言——"这么严重的隔离，背后一定有同样严重的排斥"。下限被打掉之后，从格局反推人心这条路就断了。</p>
+<p>同一套结构在很多别的地方也跑：办公室午餐桌的固化、群聊话题的收敛、学术合作网络的分块、平台上兴趣社群的分层。共同的三个前提是：<b>个体只看得见局部</b>、<b>有一个阈值式的反应</b>、<b>不满意时可以移动</b>。三条都在，就该预期分块，而且不该指望能从当事人的自述里找出原因。</p>
+<p>它还有一个常被忽略的正面用途：<b>指出干预点。</b>既然格局由阈值和移动规则决定，那么可动的杠杆就不是"劝人别有偏见"，而是移动的成本、可选位置的分布、以及谁跟谁挨着。这也解释了为什么"改变相遇结构"（换座位、混合分组、共享设施）常常比呼吁更有效。</p>
+<div class="cant">
+<h3>它不能解释什么<span class="he">（What It Cannot Explain）</span></h3>
+<ul>
+<li><b>不能说明现实中的隔离是这么来的。</b>存在性证明只点亮成因空间里的一块，不熄灭别的块。美国的居住隔离有大量蓄意成因——红线（redlining）、房契里的种族限制性条款、中介撬盘、贷款差别定价——模型对这些一无所知，也从没否认过它们。把它读成"所以不是歧视造成的"是最常见也最有害的误用。</li>
+<li><b>不能称量各种成因各占多少。</b>它没有任何机制去回答"自组织贡献了几成"。这个问题只能靠实证研究回答（例如 Card、Mas 与 Rothstein 2008 年用普查数据估计的临界点：各城市在 5%–20% 之间，且更宽容的城市门槛更高）。</li>
+<li><b>结论对实现细节敏感。</b>"搬去哪儿""谁先动""边界怎么处理"都会影响结果。Pancs 与 Vriend 2007 年报告：在最优响应动态下，即使所有主体都严格偏好完美融合，隔离仍然出现；而换一种搬家规则的简化版本跑出来可能完全不隔离。引用任何一条谢林类结论，都要连着它的动力学一起引。</li>
+<li><b>没有价格、没有收入、没有强制。</b>棋盘上搬家不花钱、没有房东、没有法律。真实的居住选择里这三样都在，而且很可能是主导项。</li>
+<li><b>阈值那个数字不是经验发现。</b>0.3 是演示用的设定值。可以当经验量的是"阈值"这个形状（反应在某处跳变），而不是 0.3 这个数。</li>
+</ul>
+</div>
+<div class="refs">
+<h3>延伸阅读<span class="he">（Further Reading）</span></h3>
+<ul>
+<li>Thomas Schelling, <a href="https://doi.org/10.1080/0022250X.1971.9989794">Dynamic Models of Segregation</a>（1971，原始论文）</li>
+<li>Thomas Schelling, <a href="https://wwnorton.com/books/9780393329469">Micromotives and Macrobehavior</a>（1978，面向大众的完整论述）</li>
+<li><a href="https://ccl.northwestern.edu/netlogo/models/Segregation">NetLogo Segregation</a>（浏览器里拖动阈值自己跑）</li>
+<li>Pancs &amp; Vriend, <a href="https://nvriend.econ.qmul.ac.uk/pub/pubec.pdf">Schelling's spatial proximity model of segregation revisited</a>（2007）</li>
+<li>Card, Mas &amp; Rothstein, <a href="https://davidcard.berkeley.edu/papers/tipping-dynamics.pdf">Tipping and the Dynamics of Segregation</a>（2008，实证的临界点）</li>
+<li><a href="https://en.wikipedia.org/wiki/Redlining">Redlining</a>（隔离里蓄意的那一半）</li>
+</ul>
+</div>
+<footer>BigCat · 复杂性科学 · <a href="index.html">← 全部 Topic</a></footer>
+</div>
+<script src="https://hub.cissychen.com/comments.js" defer></script>
+<script src="https://hub.cissychen.com/search.js" defer></script>
+<script src="https://hub.cissychen.com/index-button.js" defer></script>
+<script src="https://hub.cissychen.com/i18n-tts.js" defer></script>
+</body></html>
