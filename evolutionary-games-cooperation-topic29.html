@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+
+<html lang="zh-CN"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>演化博弈与合作的起源 — 想要合作，先改结构 · 复杂性科学 T29</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,"SF Pro Display","Noto Sans SC",sans-serif;color:#e4ded5;line-height:1.85;min-height:100vh;
+  background:radial-gradient(1100px 620px at 12% -6%,rgba(224,137,94,0.10),transparent 62%),radial-gradient(950px 700px at 100% 2%,rgba(166,147,205,0.09),transparent 58%),linear-gradient(168deg,#100f0d 0%,#15161b 48%,#0a0a0c 100%);background-attachment:fixed}
+.wrap{max-width:760px;margin:0 auto;padding:30px 22px 90px}
+header{padding:52px 0 8px;border-bottom:1px solid rgba(255,255,255,0.07);margin-bottom:34px}
+.week-tag{font-family:"SF Mono",Menlo,monospace;font-size:0.72rem;font-weight:700;letter-spacing:2px;color:#79a6d2;border:1px solid rgba(121,166,210,0.4);background:rgba(121,166,210,0.07);padding:3px 11px;border-radius:20px}
+h1{font-size:2.5rem;font-weight:800;letter-spacing:0.5px;line-height:1.2;margin:20px 0 0;background:linear-gradient(106deg,#e0895e 0%,#d9b45f 34%,#9fbc7a 68%,#63b3a6 100%);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+h1 .h1en{display:block;font-size:0.40em;font-weight:600;letter-spacing:2.5px;color:#847d72;-webkit-text-fill-color:#847d72;background:none;margin-top:13px}
+.sub{font-size:1.05rem;color:#aba498;margin-top:14px;font-weight:500}
+.date{font-family:"SF Mono",Menlo,monospace;font-size:0.75rem;color:#57524b;margin-top:18px;letter-spacing:1px}
+.pitch{margin:22px 0 30px;font-size:0.97rem;color:#cd7f9b;border-left:2px solid rgba(205,127,155,0.5);padding-left:16px;font-style:italic}
+.intro{font-size:1.02rem;color:#cfc8bc;margin-bottom:14px}
+.intro p{margin-bottom:16px}
+h2{font-size:1.42rem;font-weight:700;color:#e9e3d9;margin:56px 0 8px;letter-spacing:0.3px}
+h2 .n{font-family:"SF Mono",Menlo,monospace;font-size:0.85rem;color:#79a6d2;display:block;margin-bottom:6px;letter-spacing:2px}
+.he{font-size:0.68em;color:#8d867b;font-weight:500;letter-spacing:0}
+p{margin-bottom:17px}
+.lead{color:#cfc8bc}
+b,strong{color:#f0eae0;font-weight:600}
+em{color:#d9b45f;font-style:normal;font-weight:500}
+.dim{color:#8d867b}
+a.reflink{display:inline-block;font-size:0.82rem;font-family:"SF Mono",Menlo,monospace;color:#63b3a6;border:1px solid rgba(99,179,166,0.38);background:rgba(99,179,166,0.07);padding:1px 9px;border-radius:20px;text-decoration:none;transition:all 0.15s;white-space:nowrap}
+a.reflink:hover{background:rgba(99,179,166,0.16);border-color:rgba(99,179,166,0.7)}
+figure{margin:30px 0}
+figure svg{display:block;width:100%;height:auto;border-radius:12px;background:rgba(255,255,255,0.018);border:1px solid rgba(255,255,255,0.06)}
+figcaption{font-size:0.82rem;color:#787268;margin-top:11px;text-align:center;line-height:1.6}
+.en-brief{font-size:0.85rem;color:#847d72;border-top:1px dashed rgba(255,255,255,0.09);padding-top:12px;margin-top:22px;line-height:1.65}
+.en-brief b{font-family:"SF Mono",Menlo,monospace;font-size:0.72rem;color:#63b3a6;letter-spacing:1px;margin-right:7px}
+.decide{margin:24px 0;border:1px solid rgba(224,137,94,0.36);background:rgba(224,137,94,0.055);border-radius:12px;padding:15px 19px}
+.decide .lb{font-family:"SF Mono",Menlo,monospace;font-size:0.73rem;letter-spacing:1.5px;color:#e0895e;font-weight:700;display:block;margin-bottom:7px}
+.decide p{margin:0;font-size:0.95rem;color:#ddd5c9}
+.crossx-inline{margin:20px 0 22px;border-left:2px solid rgba(205,127,155,0.55);padding:2px 0 2px 15px;font-size:0.89rem;color:#a9a096;line-height:1.72}
+.crossx-inline b{color:#cd7f9b;font-weight:600}
+.bigcat{margin:46px 0 10px;border:1px solid rgba(217,180,95,0.38);background:rgba(217,180,95,0.05);border-radius:14px;padding:20px 22px}
+.bigcat h3{font-size:1.02rem;color:#d9b45f;margin-bottom:14px;letter-spacing:0.5px}
+.bigcat ol{list-style:none;padding:0}
+.bigcat li{margin-bottom:15px;font-size:0.94rem;color:#d5cdc1;line-height:1.78}
+.bigcat li:last-child{margin-bottom:0}
+.bigcat .dm{font-family:"SF Mono",Menlo,monospace;font-size:0.73rem;color:#d9b45f;border:1px solid rgba(217,180,95,0.32);border-radius:4px;padding:1px 7px;margin-right:8px;white-space:nowrap}
+.crossx{margin:46px 0 10px;border:1px solid rgba(205,127,155,0.38);background:rgba(205,127,155,0.05);border-radius:14px;padding:20px 22px}
+.crossx h3{font-size:1.02rem;color:#cd7f9b;margin-bottom:14px;letter-spacing:0.5px}
+.crossx ul{list-style:none;padding:0}
+.crossx li{margin-bottom:16px;font-size:0.94rem;color:#d5cdc1;line-height:1.78}
+.crossx li:last-child{margin-bottom:0}
+.crossx li b{color:#cd7f9b;font-weight:600}
+.thinking{margin:46px 0 10px}
+.thinking h3{font-size:1.02rem;color:#a693cd;margin-bottom:14px;letter-spacing:0.5px}
+details{border:1px solid rgba(166,147,205,0.22);border-radius:10px;padding:12px 16px;margin-bottom:10px;background:rgba(166,147,205,0.035)}
+summary{cursor:pointer;font-size:0.93rem;color:#c9c2b6;font-weight:500}
+summary::marker{color:#a693cd}
+details p{margin:12px 0 0;font-size:0.9rem;color:#a9a096;line-height:1.75}
+.refs{margin:46px 0 10px}
+.refs h3{font-size:1.02rem;color:#79a6d2;margin-bottom:14px;letter-spacing:0.5px}
+.refs ul{list-style:none;padding:0}
+.refs li{margin-bottom:10px;font-size:0.9rem;color:#8d867b;line-height:1.7}
+.refs a{color:#79a6d2;text-decoration:none;border-bottom:1px solid rgba(121,166,210,0.3)}
+.refs a:hover{color:#a6c4e2;border-bottom-color:rgba(121,166,210,0.7)}
+footer{text-align:center;padding:56px 0 10px;font-size:0.78rem;color:#57524b;font-family:"SF Mono",Menlo,monospace;border-top:1px solid rgba(255,255,255,0.06);margin-top:50px}
+footer a{color:#79a6d2;text-decoration:none}
+@media(max-width:600px){h1{font-size:1.85rem}.wrap{padding:24px 16px 60px}h2{font-size:1.22rem}}
+</style></head><body>
+
+<div class="wrap">
+<header>
+<span class="week-tag">TOPIC 29 · PHASE E</span>
+<h1>演化博弈与合作的起源<span class="h1en">EVOLUTIONARY GAMES &amp; THE ORIGIN OF COOPERATION</span></h1>
+<p class="sub">想要合作，先改结构<span class="he">（To get cooperation, change the structure）</span></p>
+<p class="date">2026-08-15 · 适应与演化</p>
+<p class="pitch">凡是稳住了的合作，背后都有一个把背叛做成亏本买卖的结构。找到那个结构里的参数，你既能把合作调出来，也能一道命令把它抹掉——1918 年的西线就是这么干的。</p>
+</header>
+
+<div class="intro">
+<p>合作这件事，最常见的解释是道德：好人多，风气正，人心齐。这个解释有个麻烦——它预测不了任何东西。同一批人，在小区门口的饭馆和在景区门口的饭馆，行为可以差得离谱；同一支军队，在这段战线上默契停火，换个防区就往死里打。人没变，变的是别的东西。</p>
+<p>这一期要说的就是那个"别的东西"。它不是隐喻，是几个能写下来、能算的量：<b>下一次还会不会发生</b>、<b>你的行为别人看不看得见</b>、<b>你要面对多少人</b>。这三个量一动，合作会自己长出来，也会自己塌掉——不需要任何人的心变好或变坏。</p>
+<p>更别扭的一层在后面：一旦你接受合作是结构的产物，那么"提高道德水平"作为一种干预手段，就从主要方案降级成了效率最低的那个。</p>
+</div>
+
+<h2><span class="n">01</span>一次性买卖里，背叛是算出来的<span class="he">（The One-Shot Game）</span></h2>
+<p class="lead">先把最简单的情况摆出来。两个人各自选一次：合作，或者背叛。四种组合，每种给你一个结果。</p>
+<p>用一组经典的数字：两人都合作，各拿 3；两人都背叛，各拿 1；一方背叛而另一方合作，背叛的那个拿 5，合作的那个拿 0。这四个数只要满足一个排序——<b>我背叛他合作（5）＞ 双方合作（3）＞ 双方背叛（1）＞ 我合作他背叛（0）</b>——这局就叫<b>囚徒困境</b>（prisoner's dilemma）。具体数值不重要，排序才重要。</p>
+<figure>
+<svg aria-label="囚徒困境收益矩阵：两列的箭头都指向背叛那一行" role="img" viewBox="0 0 720 312" xmlns="http://www.w3.org/2000/svg">
+<defs>
+<marker id="t29a" markerHeight="9" markerUnits="userSpaceOnUse" markerWidth="9" orient="auto" refX="8" refY="4.5" viewBox="0 0 9 9">
+<path d="M0,1 L8,4.5 L0,8 z" fill="#cd7f9b"></path>
+</marker>
+</defs>
+<text fill="#aba498" font-family="-apple-system,sans-serif" font-size="13" text-anchor="middle" x="360" y="26">四种结果 — 格子里的数字是「我」拿到的</text>
+<text fill="#8d867b" font-family="-apple-system,sans-serif" font-size="12.5" text-anchor="middle" x="280" y="62">他合作</text>
+<text fill="#8d867b" font-family="-apple-system,sans-serif" font-size="12.5" text-anchor="middle" x="420" y="62">他背叛</text>
+<text fill="#8d867b" font-family="-apple-system,sans-serif" font-size="12.5" text-anchor="end" x="198" y="118">我合作</text>
+<text fill="#8d867b" font-family="-apple-system,sans-serif" font-size="12.5" text-anchor="end" x="198" y="194">我背叛</text>
+<rect fill="#26241f" height="76" stroke="rgba(255,255,255,0.13)" width="140" x="210" y="74"></rect>
+<rect fill="#26241f" height="76" stroke="rgba(255,255,255,0.13)" width="140" x="350" y="74"></rect>
+<rect fill="#2e2a25" height="76" stroke="rgba(255,255,255,0.13)" width="140" x="210" y="150"></rect>
+<rect fill="#33262c" height="76" stroke="rgba(205,127,155,0.75)" stroke-width="2" width="140" x="350" y="150"></rect>
+<text fill="#9fbc7a" font-family="SF Mono,monospace" font-size="24" text-anchor="middle" x="262" y="121">3</text>
+<text fill="#8d867b" font-family="SF Mono,monospace" font-size="24" text-anchor="middle" x="402" y="121">0</text>
+<text fill="#e4ded5" font-family="SF Mono,monospace" font-size="24" text-anchor="middle" x="262" y="197">5</text>
+<text fill="#e4ded5" font-family="SF Mono,monospace" font-size="24" text-anchor="middle" x="402" y="197">1</text>
+<line marker-end="url(#t29a)" stroke="#cd7f9b" stroke-width="2.4" x1="320" x2="320" y1="128" y2="176"></line>
+<line marker-end="url(#t29a)" stroke="#cd7f9b" stroke-width="2.4" x1="460" x2="460" y1="128" y2="176"></line>
+<text fill="#cd7f9b" font-family="SF Mono,monospace" font-size="12" x="330" y="158">+2</text>
+<text fill="#cd7f9b" font-family="SF Mono,monospace" font-size="12" x="470" y="158">+1</text>
+<text fill="#cd7f9b" font-family="-apple-system,sans-serif" font-size="11.5" x="508" y="182">两人都会停在这格</text>
+<text fill="#a06478" font-family="-apple-system,sans-serif" font-size="11.5" x="508" y="200">各拿 1</text>
+<text fill="#787268" font-family="-apple-system,sans-serif" font-size="11.5" text-anchor="middle" x="360" y="258">两列的箭头都朝下：不管他选什么，我背叛都多拿一点。他那边完全对称。</text>
+<text fill="#787268" font-family="-apple-system,sans-serif" font-size="11.5" text-anchor="middle" x="360" y="280">于是双方都背叛、各拿 1。左上角那格——都合作、各拿 3——没有人守得住。</text>
+</svg>
+<figcaption>没有人算错，也没有人使坏。两个各自做最优选择的人，一起走进了对两人都更差的格子。</figcaption>
+</figure>
+<p>请注意这张图真正说的是什么。它不是说人自私，而是说：<b>在这个收益排序下，"背叛"是不管对方怎么选都更好的选择。</b>这种选择叫<b>占优策略</b>（dominant strategy）。有占优策略的时候，你甚至不需要猜对方在想什么——猜不猜结果都一样。</p>
+<p>所以"我们互相多点信任就好了"在这里是无效的。信任解决的是"我不知道他会怎么做"，而这局里我知道，而且知道了也没用。双方都背叛这个结果，还是一个<b>纳什均衡</b>（Nash equilibrium）——意思是站在这个格子里，任何一个人单方面改主意，只会让自己更差。它稳，只是稳在一个坏地方。</p>
+<div class="decide">
+<span class="lb">🎯 决策线</span>
+<p>判断一件事是不是囚徒困境，别看双方关系好不好，把四种结果对自己的好坏排一遍序。排完发现「我背叛他合作」排第一、「双方背叛」排第三，才是它。排不出这个序就别用这个词——大多数被叫做囚徒困境的冲突，其实是另一种结构，要用另一套办法。</p>
+</div>
+<div class="crossx-inline">
+🌀 <b>经济与制度 · 景区门口的那家饭馆</b>　同一个老板，在自家小区门口开店和在景区门口开店，端出来的东西可以差得离谱。差别不在良心，在收益排序里有没有"下一次"这一项：景区那家一辈子只见你一面，宰一次的 5 分是实打实拿到手的，而"回头客"那 3 分根本不在它的矩阵里。由此推出一个能当场用的判断——走进一家陌生的店，先看有没有熟客在跟老板搭话。这比看评分快，因为它直接测的是收益结构本身，而评分是平台事后加上去的一层修补。
+</div>
+<p class="en-brief"><b>EN</b> A prisoner's dilemma is defined by an ordering, not by numbers: defect-while-they-cooperate &gt; mutual cooperation &gt; mutual defection &gt; cooperate-while-they-defect. Under that ordering defection is dominant — you don't even need to guess what the other side will do. Appeals to trust are useless here, because the problem is not uncertainty.</p>
+
+<h2><span class="n">02</span>复制动态：不看谁有理，只看谁留下更多副本<span class="he">（Replicator Dynamics）</span></h2>
+<p class="lead">上一节讲的是一次、两个人。真实世界里是一大群人反复地互相碰，而且没人"想清楚"该怎么办——大多数时候人是在模仿身边混得好的那个，细菌和动物则根本不会想。</p>
+<p>处理这种情况的标准工具叫<b>复制动态</b>（replicator dynamics，Taylor 与 Jonker 1978 年写下）。它的规则短到一句话：<b>一种策略在人群里的占比，增长速度正比于它的收益减去全场平均收益。</b>比平均高就变多，比平均低就变少，等于平均就不动。<a class="reflink" href="ref-replicator-dynamics.html">→ 复制动态</a></p>
+<p>这里有个容易滑过去的点：<b>某个策略的收益，取决于此刻人群里各种策略各占多少。</b>一个抢地盘的策略，在满是软柿子的人群里收益极高，在满是硬茬的人群里就是自杀。所以"最优策略"这个说法在这里是可疑的——最优是随比例漂移的。</p>
+<p>拿它跑一下上一节那个囚徒困境：背叛者的收益在任何比例下都高于合作者，也就永远高于平均。于是合作者的占比一路掉到 0，中途不会停。这就是问题的严重程度——不是"合作难维持"，是<b>在这个结构里合作根本不可能存在</b>。</p>
+<p>但换一个收益结构，结局立刻不同。<b>鹰鸽博弈</b>（Hawk-Dove game，Maynard Smith 与 Price 1973 年提出）说的是两只动物争一份资源：鹰见谁都打，鸽只会虚张声势、对方一硬就让。资源值 V，打起来受的伤值 C。当受伤比资源更贵（C &gt; V），鹰多了会互相打得头破血流，鸽多了又会被鹰白拿。结果是两者停在一个固定比例：鹰占 V/C。取 V = 2、C = 5，就是四成鹰、六成鸽。</p>
+<figure>
+<svg aria-label="两种收益结构下的复制动态相线：囚徒困境流向全背叛，鹰鸽博弈流向内部混合点" role="img" viewBox="0 0 720 306" xmlns="http://www.w3.org/2000/svg">
+<defs>
+<marker id="t29b" markerHeight="9" markerUnits="userSpaceOnUse" markerWidth="9" orient="auto" refX="8" refY="4.5" viewBox="0 0 9 9">
+<path d="M0,1 L8,4.5 L0,8 z" fill="#cd7f9b"></path>
+</marker>
+<marker id="t29c" markerHeight="9" markerUnits="userSpaceOnUse" markerWidth="9" orient="auto" refX="8" refY="4.5" viewBox="0 0 9 9">
+<path d="M0,1 L8,4.5 L0,8 z" fill="#63b3a6"></path>
+</marker>
+</defs>
+<text fill="#aba498" font-family="-apple-system,sans-serif" font-size="13" text-anchor="middle" x="360" y="24">同一条复制动态，两种收益结构，两种命运</text>
+<text fill="#cd7f9b" font-family="-apple-system,sans-serif" font-size="12.5" x="52" y="66">① 囚徒困境 — 背叛者永远高于平均，比例只能一路掉</text>
+<line stroke="rgba(255,255,255,0.2)" stroke-width="1.5" x1="120" x2="656" y1="112" y2="112"></line>
+<line stroke="rgba(255,255,255,0.2)" stroke-width="1.5" x1="120" x2="120" y1="104" y2="120"></line>
+<line stroke="rgba(255,255,255,0.2)" stroke-width="1.5" x1="650" x2="650" y1="104" y2="120"></line>
+<g marker-end="url(#t29b)" stroke="#cd7f9b" stroke-width="2.2">
+<line x1="620" x2="556" y1="94" y2="94"></line>
+<line x1="500" x2="436" y1="94" y2="94"></line>
+<line x1="380" x2="316" y1="94" y2="94"></line>
+<line x1="260" x2="196" y1="94" y2="94"></line>
+</g>
+<circle cx="120" cy="112" fill="#cd7f9b" r="6.5"></circle>
+<circle cx="650" cy="112" fill="#15161b" r="6.5" stroke="#8d867b" stroke-width="1.8"></circle>
+<text fill="#8d867b" font-family="-apple-system,sans-serif" font-size="11.5" text-anchor="middle" x="130" y="136">0 · 全是背叛者</text>
+<text fill="#8d867b" font-family="-apple-system,sans-serif" font-size="11.5" text-anchor="middle" x="640" y="136">1 · 全是合作者</text>
+<text fill="#787268" font-family="-apple-system,sans-serif" font-size="11" text-anchor="middle" x="385" y="136">合作者占比 →</text>
+<text fill="#63b3a6" font-family="-apple-system,sans-serif" font-size="12.5" x="52" y="192">② 鹰鸽博弈 — 谁多了谁吃亏，于是停在中间</text>
+<line stroke="rgba(255,255,255,0.2)" stroke-width="1.5" x1="120" x2="656" y1="240" y2="240"></line>
+<line stroke="rgba(255,255,255,0.2)" stroke-width="1.5" x1="120" x2="120" y1="232" y2="248"></line>
+<line stroke="rgba(255,255,255,0.2)" stroke-width="1.5" x1="650" x2="650" y1="232" y2="248"></line>
+<g marker-end="url(#t29c)" stroke="#63b3a6" stroke-width="2.2">
+<line x1="176" x2="248" y1="222" y2="222"></line>
+<line x1="292" x2="364" y1="222" y2="222"></line>
+<line x1="616" x2="552" y1="222" y2="222"></line>
+<line x1="516" x2="470" y1="222" y2="222"></line>
+</g>
+<circle cx="438" cy="240" fill="#63b3a6" r="6.5"></circle>
+<text fill="#8d867b" font-family="-apple-system,sans-serif" font-size="11.5" text-anchor="middle" x="130" y="264">0 · 全是鹰</text>
+<text fill="#8d867b" font-family="-apple-system,sans-serif" font-size="11.5" text-anchor="middle" x="640" y="264">1 · 全是鸽</text>
+<text fill="#63b3a6" font-family="-apple-system,sans-serif" font-size="11.5" text-anchor="middle" x="438" y="200">停在六成鸽（V=2, C=5）</text>
+<text fill="#787268" font-family="-apple-system,sans-serif" font-size="11" text-anchor="middle" x="360" y="292">实心点＝推一下会自己回来；空心点＝推一下就再也回不去</text>
+</svg>
+<figcaption>相线上的箭头就是复制动态的方向。左边那条没有中途的落脚点，右边那条有一个，而且它自己会找回去。</figcaption>
+</figure>
+<p>那个停住的比例有个名字：<b>演化稳定策略</b>（evolutionarily stable strategy），缩写 <b>ESS</b>。定义很朴素——一群都用这个策略的个体，任何一小撮换用别的策略的闯入者都占不到便宜，于是被挤出去。ESS 不是"最好的策略"，是"挤不走的策略"。这两件事经常不是同一件。</p>
+<div class="decide">
+<span class="lb">🎯 决策线</span>
+<p>别问「哪个策略最好」，改问「在当前这个比例下，哪个策略比平均高」。前一个问题在收益随比例漂移的系统里常常无解，后一个永远有解，而且只要你能估出各类人现在各占多少，就能算。</p>
+</div>
+<div class="crossx-inline">
+🌀 <b>生物 · 侧斑鬣蜥的石头剪刀布</b>　加州的侧斑鬣蜥（<em>Uta stansburiana</em>）雄性有三种：橙喉抢大片地盘、蓝喉死守一只配偶、黄喉伪装成雌性偷偷交配。橙压蓝、蓝压黄、黄压橙，谁多了谁就被自己的克星吃掉。Sinervo 与 Lively 1996 年在《自然》上报告了这套大约六年转一圈的循环。复制动态在这里根本停不下来——没有 ESS，只有一个转个不停的圈。由此推出一个反直觉的结论：「最优策略是什么」在有些系统里不是难题，是<b>无解</b>；不是我们算不动，是答案本身随着大家的选择在转。能求的只有转速和现在转到哪儿了。
+</div>
+<p class="en-brief"><b>EN</b> Replicator dynamics: a strategy's share grows in proportion to its payoff minus the population average. Under prisoner's dilemma payoffs cooperators fall monotonically to zero — cooperation is not merely fragile, it is impossible. Change the payoff structure to Hawk-Dove and the same dynamic settles at an interior mix (hawks at V/C), which is an ESS: not the best strategy, but the one nothing can displace.</p>
+
+<h2><span class="n">03</span>未来的影子<span class="he">（The Shadow of the Future）</span></h2>
+<p class="lead">第一个真正管用的修改是：别只打一局。</p>
+<p>设一个量 <em>w</em>：这一局结束后，你俩还会再碰一次的概率。<em>w</em> 是 0 就是一次性买卖，<em>w</em> 是 0.9 就意味着平均还要再打 10 局（局数的期望是 1 ÷ (1 − w)）。</p>
+<p>现在拿一个笨到极点的策略试试：<b>一报还一报</b>（tit-for-tat，缩写 <b>TFT</b>）——第一局合作，之后每一局照抄对方上一局的动作。它就四个字：以牙还牙，但先伸手。Anatol Rapoport 在 1980 年把它交给了 Robert Axelrod 举办的策略比赛，这个只有几行的程序赢了第一届（14 个参赛策略），Axelrod 公布结果、把它为什么会赢也讲清楚之后又办了第二届，62 个来自六个国家的策略里，它还是第一。</p>
+<p>为什么？拿上一节的数字算一遍。一群 TFT 里混进一个死不合作的人（叫它"永远背叛"）：</p>
+<p>两个 TFT 相遇，局局合作，总收益是 3 + 3w + 3w² + … = 3 ÷ (1 − w)。<br/>"永远背叛"碰上 TFT，第一局白拿 5，之后 TFT 就再也不合作了，双方每局各得 1，总收益是 5 + w ÷ (1 − w)。</p>
+<p>让前者不小于后者，解出来是 <b>w ≥ (5 − 3) ÷ (5 − 1) = 0.5</b>。也就是说，只要"还有下一次"的概率过半——平均还要再打两局——那个占便宜的人在总账上就已经亏了。</p>
+<figure>
+<svg aria-label="总收益随延续概率 w 变化：两条曲线在 w 等于 0.5 处交叉" role="img" viewBox="0 0 720 312" xmlns="http://www.w3.org/2000/svg">
+<text fill="#aba498" font-family="-apple-system,sans-serif" font-size="13" text-anchor="middle" x="360" y="24">同一个人，同一套收益 — 唯一变的是「还会不会有下一次」</text>
+<line stroke="rgba(255,255,255,0.2)" stroke-width="1.5" x1="90" x2="668" y1="250" y2="250"></line>
+<line stroke="rgba(255,255,255,0.2)" stroke-width="1.5" x1="90" x2="90" y1="250" y2="52"></line>
+<line stroke="rgba(205,127,155,0.45)" stroke-dasharray="5 5" stroke-width="1.5" x1="419" x2="419" y1="250" y2="96"></line>
+<polyline fill="none" points="90,221.5 155.9,218.3 221.8,214.4 287.6,209.3 353.5,202.5 419.4,193 485.3,178.8 551.2,155 617,107.5 650,60" stroke="#9fbc7a" stroke-width="2.6"></polyline>
+<polyline fill="none" points="90,202.5 155.9,201.4 221.8,200.1 287.6,198.4 353.5,196.2 419.4,193 485.3,188.3 551.2,180.3 617,164.5 650,148.7" stroke="#cd7f9b" stroke-width="2.6"></polyline>
+<circle cx="419.4" cy="193" fill="#15161b" r="5" stroke="#e4ded5" stroke-width="1.8"></circle>
+<text fill="#9fbc7a" font-family="-apple-system,sans-serif" font-size="11.5" text-anchor="end" x="592" y="92">一直互相合作</text>
+<text fill="#cd7f9b" font-family="-apple-system,sans-serif" font-size="11.5" text-anchor="end" x="646" y="140">占一次便宜，然后一直挨报复</text>
+<text fill="#e4ded5" font-family="SF Mono,monospace" font-size="12.5" text-anchor="end" x="408" y="122">w = 0.5</text>
+<text fill="#8d867b" font-family="-apple-system,sans-serif" font-size="11" text-anchor="end" x="408" y="140">平均还要再打 2 局</text>
+<text fill="#a06478" font-family="-apple-system,sans-serif" font-size="11.5" text-anchor="middle" x="230" y="172">这一段占便宜划算</text>
+<text fill="#7d9660" font-family="-apple-system,sans-serif" font-size="11.5" text-anchor="middle" x="560" y="232">这一段老实合作划算</text>
+<text fill="#8d867b" font-family="-apple-system,sans-serif" font-size="11.5" text-anchor="middle" x="380" y="284">w ＝ 这一局之后你俩还会再碰一次的概率 →</text>
+<text fill="#8d867b" font-family="-apple-system,sans-serif" font-size="11.5" transform="rotate(-90 32 152)" x="32" y="152">往后所有局加起来的总收益</text>
+</svg>
+<figcaption>绿线的形状是关键：合作的收益随 w 复利式地涨，而占便宜那 2 分是一次性的、不复利。w 一过 0.5，一次性的好处就被复利追上了。</figcaption>
+</figure>
+<p>这条门槛值得咂摸一下。它没有出现任何关于人品的量。<b>同一个人、同一套收益，w 从 0.4 挪到 0.6，理性的做法就从背叛翻成了合作。</b>所以"这个行业风气坏"和"这个行业 w 低"，很多时候在描述同一件事，只是后者能算，也能改。</p>
+<p>顺带说清 TFT 的短处，免得把它当灵药：它不宽容。两个 TFT 之间只要有一次误会（他其实想合作，但信号传歪了），就会进入你打我我打你的死循环，谁也停不下来。Nowak 与 Sigmund 1993 年给出的<b>赢就守、输就改</b>（win-stay, lose-shift）在有噪声的环境里表现更好——上一局结果自己满意就重复，不满意就换。另外 Press 与 Dyson 2012 年证明了重复囚徒困境里存在一类"敲诈型"策略，能强行让对方的收益按自己定的比例走。<b>TFT 从来不是最优解，它只是说明了一件事：把 w 做高之后，非常笨的策略也能守住合作。</b></p>
+<div class="decide">
+<span class="lb">🎯 决策线</span>
+<p>想让对方守规矩，先把「还有下一次」变成他能确认的事实：把一份大合同拆成几批、每批之间留明确的续约点，把结算周期缩短，把退出条款写清楚写具体。这几件事对行为的改变，远大于在合同里加一条诚信条款——后者不改变 w，前者直接把它抬上去。</p>
+</div>
+<div class="crossx-inline">
+🌀 <b>西方哲学 · 霍布斯少算了一项</b>　霍布斯说，没有绝对主权者，人的处境就是「孤独、贫困、龌龊、野蛮而短寿」，所以必须把权力全部交出去。但那段推理默认每个人算的都是这一局：在自然状态里你随时可能被杀，w 约等于 0。把 w 补进去，他的结论就从「必然」降级为「一种实现」——利维坦是把 w 做高的一种手段（让报复变得可信、可持续），不是唯一的手段。由此推出一个不同的争论焦点：关于秩序该吵的不是要不要一个主权者，而是<b>还有哪些手段能把 w 抬过门槛</b>，以及每种手段各自的代价。
+</div>
+<p class="en-brief"><b>EN</b> Let w be the probability the pair meets again. With the standard payoffs, tit-for-tat resists an always-defect invader once w ≥ (T−R)/(T−P) = 0.5 — the one-off gain of 2 does not compound, while mutual cooperation does. No moral term appears in that inequality. TFT is not optimal (it is unforgiving under noise, and extortionate zero-determinant strategies exist); it merely shows that once w is high, even a very stupid rule can hold cooperation in place.</p>
+
+<h2><span class="n">04</span>空间：只跟邻居玩，合作就活了<span class="he">（Spatial Structure）</span></h2>
+<p class="lead">第二个修改更奇怪：什么都别改，只把"和所有人玩"改成"只和身边几个玩"。</p>
+<p>Nowak 与 May 1992 年做了这么件事：把合作者和背叛者摆在一张方格纸上，每个格子只跟周围八个邻居玩上一节那种局，算完总分之后，每个格子照抄周围（含自己）得分最高那个的策略。没有记忆，没有报复，没有认人——纯粹是"跟着身边混得最好的学"。<a class="reflink" href="ref-cellular-automata.html">→ 元胞自动机</a></p>
+<p>在完全混合的人群里，这套收益的结局上一节算过了：合作者一路掉到 0，没有例外。放到格子上，同样的收益、同样的起点，结局完全不同。</p>
+<figure>
+<svg aria-label="格子上的囚徒困境三帧：从九成合作者崩到两成四，然后稳定在三成上下的斑块态" role="img" viewBox="0 0 720 318" xmlns="http://www.w3.org/2000/svg">
+<text fill="#aba498" font-family="-apple-system,sans-serif" font-size="13" text-anchor="middle" x="360" y="26">同一套收益、同一群人 — 唯一的改动是「只和身边八个玩」</text>
+<text fill="#9fbc7a" font-family="-apple-system,sans-serif" font-size="11.5" text-anchor="middle" x="122" y="52">起点：90% 合作者</text>
+<text fill="#c0703f" font-family="-apple-system,sans-serif" font-size="11.5" text-anchor="middle" x="362" y="52">第 2 步：崩到 24%</text>
+<text fill="#63b3a6" font-family="-apple-system,sans-serif" font-size="11.5" text-anchor="middle" x="602" y="52">第 60 步：稳在 30% 上下</text>
+<rect x="26" y="64" width="192" height="192" fill="#232128" stroke="rgba(255,255,255,0.10)"></rect>
+<g fill="#9fbc7a" shape-rendering="crispEdges"><rect x="26" y="64" width="24" height="24"></rect><rect x="58" y="64" width="24" height="72"></rect><rect x="90" y="64" width="8" height="64"></rect><rect x="106" y="64" width="16" height="32"></rect><rect x="130" y="64" width="40" height="32"></rect><rect x="178" y="64" width="40" height="48"></rect><rect x="50" y="72" width="8" height="32"></rect><rect x="82" y="72" width="8" height="72"></rect><rect x="98" y="72" width="8" height="88"></rect><rect x="122" y="72" width="8" height="72"></rect><rect x="170" y="72" width="8" height="184"></rect><rect x="34" y="88" width="16" height="24"></rect><rect x="26" y="96" width="8" height="8"></rect><rect x="106" y="96" width="8" height="64"></rect><rect x="130" y="96" width="32" height="48"></rect><rect x="114" y="104" width="8" height="64"></rect><rect x="162" y="104" width="8" height="8"></rect><rect x="26" y="112" width="8" height="40"></rect><rect x="50" y="112" width="8" height="64"></rect><rect x="186" y="112" width="32" height="16"></rect><rect x="34" y="120" width="16" height="56"></rect><rect x="162" y="120" width="8" height="112"></rect><rect x="178" y="120" width="8" height="136"></rect><rect x="186" y="128" width="8" height="128"></rect><rect x="202" y="128" width="16" height="40"></rect><rect x="66" y="136" width="16" height="24"></rect><rect x="90" y="136" width="8" height="24"></rect><rect x="194" y="136" width="8" height="40"></rect><rect x="58" y="144" width="8" height="112"></rect><rect x="130" y="144" width="16" height="8"></rect><rect x="82" y="152" width="8" height="104"></rect><rect x="122" y="152" width="16" height="40"></rect><rect x="146" y="152" width="16" height="8"></rect><rect x="26" y="160" width="8" height="24"></rect><rect x="74" y="160" width="8" height="96"></rect><rect x="138" y="160" width="16" height="16"></rect><rect x="66" y="168" width="8" height="88"></rect><rect x="90" y="168" width="24" height="48"></rect><rect x="154" y="168" width="8" height="8"></rect><rect x="202" y="168" width="8" height="64"></rect><rect x="34" y="176" width="8" height="16"></rect><rect x="114" y="176" width="8" height="32"></rect><rect x="146" y="176" width="8" height="72"></rect><rect x="210" y="176" width="8" height="24"></rect><rect x="42" y="184" width="16" height="8"></rect><rect x="138" y="184" width="8" height="72"></rect><rect x="154" y="184" width="8" height="16"></rect><rect x="194" y="184" width="8" height="32"></rect><rect x="26" y="192" width="8" height="16"></rect><rect x="42" y="192" width="8" height="24"></rect><rect x="130" y="192" width="8" height="64"></rect><rect x="34" y="200" width="8" height="32"></rect><rect x="50" y="200" width="8" height="32"></rect><rect x="154" y="208" width="8" height="48"></rect><rect x="210" y="208" width="8" height="48"></rect><rect x="26" y="216" width="8" height="40"></rect><rect x="98" y="216" width="32" height="8"></rect><rect x="42" y="224" width="8" height="32"></rect><rect x="90" y="224" width="24" height="8"></rect><rect x="194" y="224" width="8" height="32"></rect><rect x="90" y="232" width="8" height="24"></rect><rect x="106" y="232" width="24" height="8"></rect><rect x="34" y="240" width="8" height="16"></rect><rect x="50" y="240" width="8" height="16"></rect><rect x="98" y="240" width="8" height="16"></rect><rect x="114" y="240" width="16" height="16"></rect><rect x="162" y="240" width="8" height="16"></rect><rect x="202" y="240" width="8" height="16"></rect><rect x="106" y="248" width="8" height="8"></rect></g>
+<rect x="266" y="64" width="192" height="192" fill="#232128" stroke="rgba(255,255,255,0.10)"></rect>
+<g fill="#9fbc7a" shape-rendering="crispEdges"><rect x="266" y="64" width="16" height="8"></rect><rect x="386" y="64" width="8" height="16"></rect><rect x="434" y="64" width="24" height="8"></rect><rect x="274" y="72" width="8" height="8"></rect><rect x="330" y="72" width="16" height="8"></rect><rect x="370" y="72" width="16" height="8"></rect><rect x="394" y="72" width="8" height="8"></rect><rect x="434" y="72" width="8" height="24"></rect><rect x="330" y="80" width="8" height="32"></rect><rect x="378" y="80" width="8" height="64"></rect><rect x="314" y="88" width="16" height="24"></rect><rect x="426" y="88" width="8" height="8"></rect><rect x="274" y="96" width="16" height="8"></rect><rect x="442" y="96" width="16" height="16"></rect><rect x="386" y="104" width="16" height="8"></rect><rect x="410" y="104" width="8" height="8"></rect><rect x="306" y="112" width="8" height="16"></rect><rect x="282" y="120" width="8" height="16"></rect><rect x="354" y="120" width="24" height="8"></rect><rect x="426" y="120" width="8" height="8"></rect><rect x="370" y="128" width="8" height="16"></rect><rect x="386" y="136" width="8" height="8"></rect><rect x="442" y="144" width="8" height="24"></rect><rect x="402" y="152" width="40" height="8"></rect><rect x="290" y="160" width="16" height="16"></rect><rect x="402" y="160" width="16" height="40"></rect><rect x="274" y="168" width="16" height="8"></rect><rect x="306" y="168" width="40" height="32"></rect><rect x="298" y="176" width="8" height="16"></rect><rect x="346" y="176" width="8" height="32"></rect><rect x="442" y="184" width="8" height="32"></rect><rect x="298" y="200" width="16" height="32"></rect><rect x="338" y="200" width="8" height="16"></rect><rect x="370" y="216" width="8" height="8"></rect><rect x="314" y="224" width="16" height="16"></rect><rect x="306" y="232" width="8" height="8"></rect><rect x="266" y="240" width="24" height="16"></rect><rect x="298" y="240" width="8" height="8"></rect><rect x="330" y="240" width="8" height="16"></rect><rect x="394" y="240" width="8" height="8"></rect><rect x="450" y="240" width="8" height="16"></rect></g>
+<rect x="506" y="64" width="192" height="192" fill="#232128" stroke="rgba(255,255,255,0.10)"></rect>
+<g fill="#9fbc7a" shape-rendering="crispEdges"><rect x="506" y="64" width="16" height="8"></rect><rect x="610" y="64" width="16" height="8"></rect><rect x="634" y="64" width="40" height="8"></rect><rect x="690" y="64" width="8" height="8"></rect><rect x="538" y="72" width="32" height="8"></rect><rect x="642" y="72" width="40" height="24"></rect><rect x="506" y="80" width="24" height="24"></rect><rect x="546" y="80" width="16" height="8"></rect><rect x="690" y="80" width="8" height="16"></rect><rect x="530" y="88" width="16" height="24"></rect><rect x="634" y="96" width="16" height="8"></rect><rect x="514" y="104" width="16" height="56"></rect><rect x="666" y="120" width="16" height="40"></rect><rect x="506" y="128" width="8" height="40"></rect><rect x="682" y="128" width="16" height="32"></rect><rect x="530" y="136" width="16" height="16"></rect><rect x="570" y="136" width="16" height="16"></rect><rect x="658" y="136" width="8" height="16"></rect><rect x="586" y="144" width="24" height="32"></rect><rect x="538" y="152" width="16" height="8"></rect><rect x="578" y="152" width="8" height="24"></rect><rect x="642" y="160" width="8" height="24"></rect><rect x="690" y="160" width="8" height="8"></rect><rect x="610" y="168" width="8" height="24"></rect><rect x="626" y="168" width="16" height="56"></rect><rect x="650" y="168" width="16" height="16"></rect><rect x="618" y="176" width="8" height="40"></rect><rect x="666" y="192" width="8" height="8"></rect><rect x="554" y="208" width="16" height="16"></rect><rect x="578" y="208" width="8" height="32"></rect><rect x="642" y="208" width="16" height="24"></rect><rect x="658" y="224" width="8" height="16"></rect><rect x="610" y="232" width="32" height="8"></rect><rect x="650" y="232" width="8" height="8"></rect><rect x="690" y="232" width="8" height="24"></rect><rect x="610" y="240" width="16" height="16"></rect><rect x="506" y="248" width="16" height="8"></rect></g>
+<text fill="#787268" font-family="-apple-system,sans-serif" font-size="11" text-anchor="middle" x="360" y="278">绿＝合作者，深色＝背叛者。24×24 格，收益里背叛方拿 b = 1.85，周期边界，同步更新。</text>
+<text fill="#787268" font-family="-apple-system,sans-serif" font-size="11" text-anchor="middle" x="360" y="298">此后一直在 24%–45% 之间晃，再没有归零。完全混合的同一套收益，此时早已是 0。</text>
+</svg>
+<figcaption>合作者先被打崩，然后剩下的抱成块——块的内部彼此合作、拿满分，边缘被啃掉一圈，又从内部长回来。这三帧是真跑出来的，不是画的。</figcaption>
+</figure>
+<p>机制其实一句话就能说清：<b>合作者只要抱成团，团内部的每个人都在和合作者打交道，拿的是满分；而背叛者只能在边缘上啃，啃完周围就没人可啃了。</b>好处被局限在了本地，代价也是——这就够了。Nowak 把它叫<b>网络互惠</b>（network reciprocity）。</p>
+<p>它还能被量化。Ohtsuki、Hauert、Lieberman 与 Nowak 2006 年给出一条漂亮到不像话的近似规则：设合作一次让对方得益 <em>b</em>、让自己付出 <em>c</em>，网络里每人平均有 <em>k</em> 个邻居，那么自然选择偏向合作的条件是 <b>b / c &gt; k</b>。<b>邻居越多，合作越难长出来。</b></p>
+<p>这条规则把一个泛泛的道德话题变成了可算的工程问题。你不能改变帮人的收益比 b/c，那是事情本身决定的；但 k 你几乎总能改——把 200 个人的大群拆成二十个 10 人的小组，门槛就掉了一个数量级。</p>
+<div class="decide">
+<span class="lb">🎯 决策线</span>
+<p>想让「顺手帮一把」变成常态，先减少每个人要面对的人数，而不是加强号召和评优。拆小组、划归属、固定搭档、把大频道拆成小频道——这些看起来只是组织形式的动作，都是在把 <em>k</em> 调小，而 <em>k</em> 就在那条不等式里。</p>
+</div>
+<div class="crossx-inline">
+🌀 <b>工程与技术史 · 「两个披萨的团队」为什么真的有效</b>　这条经验法则通常被解释成沟通成本：人一多，协调开销就爆炸。b/c &gt; k 给了它另一半解释，而且是相反方向的——不是沟通变贵了，是<b>互惠的门槛变高了</b>。在一个 200 人共用的频道里，你顺手回答一个问题，收益扩散到 200 个人身上，落回你自己头上的期望值近乎为零；在 10 个人的小组里，同一件事有实实在在的回声。由此推出一个具体的取舍：当你必须在「把所有人放进一个大群方便信息流通」和「拆成小组各管一摊」之间选，你其实是在信息扩散和互惠强度之间做交换——这两件事在结构上是对立的，不存在两全的群规。
+</div>
+<p class="en-brief"><b>EN</b> Nowak &amp; May (1992): put the same game on a lattice where each cell copies the best-scoring neighbour. Cooperators crash, then survive in clusters forever — cluster interiors score full marks while defectors can only nibble at the edge. Ohtsuki et al. (2006) sharpened this into b/c &gt; k, where k is the average number of neighbours: the more people each person faces, the harder cooperation is to grow. You usually cannot change b/c, but you can nearly always change k.</p>
+
+<h2><span class="n">05</span>现实里的合作靠制度，不靠策略<span class="he">（What Ostrom Actually Found）</span></h2>
+<p class="lead">前面两节是模型。真去看人类实际怎么解决这类问题，会发现一件让模型派有点难堪的事：他们几乎从不靠什么精妙的策略，靠的是规矩。</p>
+<p>Garrett Hardin 1968 年那篇《公地悲剧》的推论是：共用的牧场必然被过度放牧，出路只有两条——收归国有，或者切成私产。Elinor Ostrom 花了几十年做的事，是去看真实的公共池塘：瑞士山村的高山牧场、西班牙的灌溉渠、菲律宾的水利组织、日本的入会地。有些确实垮了，但有一批稳定运转了几百年，既没国有化也没私有化。她 1990 年把这些案例里共同出现的东西整理成八条设计原则，2009 年因此拿了诺贝尔经济学奖。</p>
+<p>顺带纠正一个流传甚广的误读：Hardin 描述的其实是<b>无人管的开放资源</b>（谁都能进、谁都能拿），而"公地"在历史上从来是有边界、有规矩、有成员名册的东西。这两者被混为一谈，后果是几百年里许多本来运转良好的共有制度被当成注定失败的东西拆掉了。</p>
+<p>那八条原则里，跟本期机制直接对应的是这三件事：<b>边界要清楚</b>（谁在池子里、谁不在——不划边界，你根本没在玩一个重复博弈，因为对手是谁都不确定）；<b>监督要由使用者自己做</b>（背叛得看得见，看不见就没法区分谁在扛谁在推）；<b>制裁要分级</b>（第一次极轻，屡犯才加重——重罚的问题不是不狠，是狠到没人愿意执行，于是形同虚设）。</p>
+<p>惩罚这件事在实验室里有很硬的证据。Fehr 与 Gächter 2002 年做了一个<b>公共品博弈</b>（public goods game）：每人拿一笔钱，可以投一部分进公共池，池子里的钱翻倍后平分。不许惩罚时，投入从一开始的六七成一路滑到接近零——不是因为大家是坏人，是老实人被占了便宜就不肯再当老实人。加进"可以自己掏钱去罚别人"这一条之后，投入反过来一路爬到接近全额。</p>
+<figure>
+<svg aria-label="公共品博弈里平均投入随轮次变化：不能惩罚时下滑，能惩罚时上升" role="img" viewBox="0 0 720 306" xmlns="http://www.w3.org/2000/svg">
+<text fill="#aba498" font-family="-apple-system,sans-serif" font-size="13" text-anchor="middle" x="360" y="24">同一批人、同一个游戏 — 只加了一条「可以自掏腰包罚人」</text>
+<line stroke="rgba(255,255,255,0.2)" stroke-width="1.5" x1="90" x2="676" y1="250" y2="250"></line>
+<line stroke="rgba(255,255,255,0.2)" stroke-width="1.5" x1="90" x2="90" y1="250" y2="52"></line>
+<polyline fill="none" points="90,140 153,125 216,113 280,102 343,94 406,87 470,83 533,79 596,77 660,75" stroke="#9fbc7a" stroke-width="2.6"></polyline>
+<polyline fill="none" points="90,117 153,132 216,146 280,161 343,174 406,185 470,197 533,208 596,220 660,231" stroke="#cd7f9b" stroke-width="2.6"></polyline>
+<text fill="#9fbc7a" font-family="-apple-system,sans-serif" font-size="11.5" text-anchor="end" x="656" y="64">可以惩罚 → 爬到接近全额</text>
+<text fill="#cd7f9b" font-family="-apple-system,sans-serif" font-size="11.5" text-anchor="end" x="656" y="218">不能惩罚 → 一路滑坡</text>
+<text fill="#8d867b" font-family="-apple-system,sans-serif" font-size="11.5" text-anchor="middle" x="90" y="270">第 1 轮</text>
+<text fill="#8d867b" font-family="-apple-system,sans-serif" font-size="11.5" text-anchor="middle" x="660" y="270">第 10 轮</text>
+<text fill="#8d867b" font-family="-apple-system,sans-serif" font-size="11.5" transform="rotate(-90 34 168)" x="34" y="168">平均投进公共池的比例</text>
+<text fill="#787268" font-family="-apple-system,sans-serif" font-size="11" text-anchor="middle" x="380" y="294">示意图：只画趋势，形状取自 Fehr &amp; Gächter 2002 的实验结果，纵轴不标具体数值</text>
+</svg>
+<figcaption>滑坡那条线常被读成人性凉薄。它其实是老实人在正确地反应——没有惩罚，多投的人就是在补贴少投的人。</figcaption>
+</figure>
+<p>把这三节连起来看，会得到一个和常识相反的排序：<b>提高道德水平是这几种手段里最贵、最慢、最不可靠的一种。</b>划清边界、让行为可见、把惩罚做便宜——这三件事都可以由一小群人在几周内做完，而且做完之后不依赖任何人保持高尚。</p>
+<div class="decide">
+<span class="lb">🎯 决策线</span>
+<p>上惩罚之前，先检查两件事：边界清不清楚（谁在里面、谁在外面、按什么标准），以及行为看不看得见。这两条缺任何一条就上罚则，惩罚不但不管用，还会被拿去打击那些老实干活的人——下一节会说这不是假设，是实验里真出现过的事。</p>
+</div>
+<div class="crossx-inline">
+🌀 <b>历史 · 中世纪的商人法庭只干一件事</b>　12–13 世纪香槟集市上的私人法官既没有军队也没有牢房，判了也不能强制执行。Milgrom、North 与 Weingast 1990 年指出，他们真正提供的是一套查询服务：交易之前你可以花钱去问「这个人有没有被判过赖账、赔了没有」。没有人执法，但赖账者从此找不到交易对手。由此推出一条便宜得多的制度设计——在成员能自己动手惩罚的人群里，制度的最小可行形态不是执法，是<b>记账</b>：把「谁曾经背叛」变成可查的公共信息，剩下的部分分散的个体会自己完成。这也解释了为什么许多社区最先需要的不是罚则，是一份公开的记录。
+</div>
+<p class="en-brief"><b>EN</b> Ostrom went and looked: Swiss alpine meadows, Spanish irrigation canals, Japanese commons — systems that ran for centuries without either nationalisation or privatisation. Three of her eight design principles map straight onto this issue's mechanisms: clear boundaries (without them you are not in a repeated game at all), monitoring by the users themselves (defection must be visible), and graduated sanctions (a punishment too heavy to actually impose is no punishment). Fehr &amp; Gächter (2002) show the same thing in the lab.</p>
+
+<h2><span class="n">06</span>这套说法在哪儿不成立<span class="he">（Where This Breaks Down）</span></h2>
+<p class="lead">这一整套东西有一个共同的软肋：<b>它全部建立在一张收益矩阵上，而现实里那张矩阵通常是你自己填的。</b></p>
+<p><b>矩阵是编的。</b>说"这是个囚徒困境"，等于宣称你知道四种结果对双方各值多少。真实的冲突里，这四个数往往测不出来，而且双方的排序可能根本不同——你以为在打囚徒困境，对方在打鹰鸽博弈，或者对方压根不在乎输赢，只在乎不能显得输了。这种情况下，收益矩阵不是分析工具，是一件事后叙述的外衣：结论早就有了，矩阵是配上去的。这是复杂性科学最容易犯的病，博弈论这一支尤其严重。</p>
+<p><b>空间不总是帮忙。</b>"结构促进合作"几乎已经成了口号，但 Hauert 与 Doebeli 2004 年在《自然》上给了一记结实的反例：换成<b>雪堆博弈</b>（snowdrift game，两人被雪堵在路上，铲雪有成本，但只要有一个人铲两人都能走——所以对方不铲的时候你最好还是铲），格子结构<b>常常反而压低</b>合作水平。上一节那三帧图不是普适定理，它对收益结构挑得很。别把"加点空间结构"当成万能处方。</p>
+<p><b>惩罚会反着来。</b>Fehr 与 Gächter 那个结果太漂亮，以至于常被当成通则。Herrmann、Thöni 与 Fehr 2008 年在《科学》上把同一个实验搬到全球十六个受试群体里跑，发现了<b>反社会惩罚</b>（antisocial punishment）：在相当一部分社会里，人们会去惩罚那些投入<b>高于</b>自己的人。合作率于是上不去。那句"给大家一个惩罚搭便车者的渠道"在这些地方不成立，而它成不成立跟当地的法治水平和公民规范相关——这已经不是博弈论能给答案的事了。</p>
+<p><b>b/c &gt; k 有前提。</b>那条规则漂亮，但推导依赖弱选择、特定的更新规则和大致规则的网络。换一套更新规则，系数就变。把它当量级直觉可以，当公式套进具体决策要小心。</p>
+<p><b>最后一条，也是最重要的一条：这一整期讲的是合作怎么<em>维持</em>，不是合作<em>应不应该</em>。</b>一伙人合谋抬价，内部同样需要高 w、高可见性和分级制裁，机制一模一样。卡特尔、围标联盟、帮派的沉默规矩，用的是和邻里互助完全相同的那套结构。所以这套工具是<b>中性的</b>：它同样能告诉你怎么把一个你不希望存在的合作拆掉——降低 w、打乱配对、让背叛者匿名且能安全退出。1918 年协约国指挥部对付堑壕里那场休战，用的就是这三招。</p>
+<div class="decide">
+<span class="lb">🎯 决策线</span>
+<p>用这套东西之前先问自己一句：这张收益矩阵是<b>测出来</b>的，还是我<b>编出来</b>的？至少要能说出「如果我把这个数改成另一个，结论会怎么变」。答不上来，就说明你在用博弈论的词汇复述一个你本来就有的判断——那不如直接说判断，还诚实些。</p>
+</div>
+
+<div class="bigcat">
+<h3>🎒 场景 · BigCat</h3>
+<ol>
+<li><span class="dm">工程与系统设计</span>值班交接：上一班留下几个没查完的告警，原样递给下一班，谁也没记一笔。这里 <em>w</em> 其实很高（就那么几个人反复轮），配对结构也对（只和前后班次打交道），断掉的是<b>可见性</b>——没有记录就没法区分谁在扛、谁在推，于是推的人不承担任何后果。可改的一件事：交接单固定加一行「本班未处理项 + 原因」，然后在周会上按班次把数量念一遍，不点评、不排名，只让它存在。要让合作长出来，得先让背叛可见；一上来就点名批评，只会让人把精力用在把交接单写漂亮上。</li>
+<li><span class="dm">投资与仓位</span>凡是要靠对方<b>之后</b>持续做事才成立的安排（找中介、跟一支基金、参与需要长期陪跑的项目），你通常在判断这个人靠不靠谱。可改的：在尽调清单里加一条硬项——<b>这笔生意对他是第几次，他后面还剩几次</b>。基金还要募下一期、中介还要在这个片区继续接单，<em>w</em> 就高；项目做完就散伙、基金到期清算、对方明年就要退休或移民，<em>w</em> 就低。这一项比谈吐和履历更能预测他后半程会不会掉链子，而且它是可查的事实，不是印象。</li>
+<li><span class="dm">育儿</span>你说「你先把东西收好，我就陪你玩一局」，孩子照做了，你临时来了个电话，说下次一起补上。这样来上两三回，你就在无意中把 <em>w</em> 打成了 0：孩子学到的是承诺不算数，于是最优反应变成先要好处再干活——这不是性格问题，是他算对了。可改的：当天没兑现的承诺当天说明，并折算成一件当天能做完的小事，别攒到「下次一起」。攒起来的承诺是最伤 <em>w</em> 的一种，因为它把一次明确的推迟，换成了一个不确定还兑不兑现的东西。</li>
+</ol>
+</div>
+
+<div class="crossx">
+<h3>🌀 越界 · 跨学科的联想</h3>
+<ul>
+<li><b>历史与军事 · 堑壕里那场没人下令的休战</b>：1914–1918 年西线的一些地段上出现过 live-and-let-live——定点定时的炮击、故意打偏的枪、修工事时互不开火。社会学家 Tony Ashworth 1980 年把这套系统整理成了一本书，Axelrod 在《合作的进化》里拿它做过案例。本期三条机制在那儿同时跑：同一批人长期对着同一批人（<em>w</em> 很高）、每段战壕只跟正对面那段发生关系（空间结构让报复精确落在背叛者身上）、违约立刻可见（一次异常准确的射击瞒不住）。三条合起来推出一个原本看不出的结论——<b>要摧毁这种合作，指挥部不必说服任何人改变态度，拆掉任意一条就够了</b>。而他们做的正是这个：频繁轮换部队（压低 <em>w</em>），下令强制突袭并要求带回俘虏作为证据（把不合作变成可核查的军令）。<b>但这里不成立</b>：Ostrom 那八条原则在这儿一条都对不上——士兵不能退出、不能自己定规矩、没有分级制裁。这场休战是纯结构的产物，没有制度那一层，所以一道命令就能抹掉。它证明的是结构<b>能造出</b>合作，不是结构<b>能守住</b>合作。</li>
+<li><b>生物与医学 · 癌症是一次合作的崩解，而疗法可以反过来利用它</b>：多细胞生物本身就是一个合作均衡——细胞放弃无限增殖，换整体的存活。肿瘤细胞就是那个背叛者：好处全归自己，代价由全体分摊。本期三条机制在这里同时成立：复制动态（长得快的类型份额上升，和"好不好"无关）、空间结构（组织把背叛者局限在原地，这也正是原位与转移的分界）、以及收益取决于人群此刻的构成。合起来推出的结论恰好和直觉相反——<b>用最大剂量把敏感细胞杀干净，等于替抗药细胞清空了竞争对手</b>。Gatenby 一组据此提出适应性疗法：刻意留下一部分敏感细胞去占住空间和资源，用竞争替代杀戮，他们 2017 年在《自然·通讯》上报告了阿比特龙治疗转移性去势抵抗前列腺癌的一个小规模试验。<b>这里要留一句实话</b>：那份报告后来的对照方式遭到公开质疑（入组的是已经对药物有反应的病人，与历史对照并不同质）。机制讲得通，不等于疗效已被证实——这条边界要自己守住。</li>
+<li><b>东方思想 · 孔子为什么不同意「以德报怨」</b>：《论语·宪问》里有人问，以德报怨如何？孔子答：「何以报德？以直报怨，以德报德。」这段通常被读成气度问题，其实是一个策略结构问题。无条件的善意把「对合作者的响应」和「对背叛者的响应」压成了同一个动作，于是两种人在收益上不再有分别——而重复博弈里唯一让合作站得住的东西，正是「我下一步取决于你上一步」这种<b>可区分性</b>。把它抹掉，合作立刻退回到可被随意入侵的状态。孔子那句反问精确地点在这里：问题不是以德报怨太善良，是它把「报德」的位置也一并用掉了，善意于是不再传递任何信息。由此推出一个原本看不出的结论——<b>救得了合作的不是德行的强度，是响应的可区分性</b>；一报还一报赢下 Axelrod 那两届比赛，靠的从来不是善良，是分得清。<b>但这里不成立</b>：儒家的「直」按正当性判定，不按对方上一步判定，它是一条道德标准而不是一个响应函数；而且孔子谈的是个人德行如何安顿，不承诺任何关于群体演化的预测。能借走的是它对「无差别响应」的诊断，不是把《论语》读成博弈论手册。</li>
+</ul>
+</div>
+
+<div class="thinking">
+<h3>深入思考</h3>
+<details><summary>如果合作只是结构的产物，那么"这个人值得信任"这句话还剩下什么内容？</summary><p>一种可能：它压缩了一个统计——这个人在过去那些 w 很低、本来可以安全占便宜的场合里没有占。若真是这样，值得信任就是一个可测的量，而且测法很具体：只看他在没有下一次的场合怎么做。另一种可能：人确实内化了一些不依赖结构的规范，而这些规范本身是长期结构选择出来的产物。这两种解释在实验上并不容易区分。</p></details>
+<details><summary>本期的机制里，哪一条最难被人为改动？</summary><p>w 可以靠合约设计抬高，k 可以靠组织形式调小，可见性可以靠记录制度补上。收益本身的量级 b/c 通常由事情的性质决定，改不动。那么当 b/c 天然很小（帮人代价高、对别人好处也不大）时，是不是应该干脆放弃促成合作，改成别的安排？</p></details>
+<details><summary>反社会惩罚（惩罚那些贡献高于自己的人）在演化上有什么好处？</summary><p>一个候选解释是：高贡献者抬高了别人的参照标准，因此对搭便车者构成威胁；打掉他等于保住自己的相对位置。若成立，这意味着惩罚机制的方向取决于人们在比什么——绝对收益还是相对排名。那么把考核从排名改成绝对标准，是否就能减少这类惩罚？</p></details>
+<details><summary>为什么"提高道德水平"作为干预手段几乎总是失败，却几乎总是被首先提出？</summary><p>它便宜、不得罪人、不用改任何人的权力和流程，而且失败之后可以归因于人心不古。相比之下，划边界和上监督都要动具体的人和具体的权限。这本身也是一个博弈：提出结构性方案的人要独自承担成本，而好处由所有人分享。</p></details>
+<details><summary>如果这套工具同样能用来拆掉合作，那么写下它、教给别人，本身是一个什么样的决定？</summary><p>Topic 26 说过，模型一旦公开就会改变被建模的对象。合作的结构条件被广泛理解之后，最先大规模用上它的，可能是那些最有能力改动结构的一方——平台、雇主、政府。这是不是意味着这类知识的净效果取决于谁先学会？</p></details>
+</div>
+
+<div class="refs">
+<h3>延伸阅读</h3>
+<ul>
+<li>Maynard Smith &amp; Price, <a href="https://www.nature.com/articles/246015a0">The Logic of Animal Conflict</a>（1973，ESS 的出处）</li>
+<li>Axelrod &amp; Hamilton, <a href="https://www.science.org/doi/10.1126/science.7466396">The Evolution of Cooperation</a>（Science, 1981）·　<a href="https://en.wikipedia.org/wiki/The_Evolution_of_Cooperation">同名专著</a>（1984）</li>
+<li>Nowak &amp; May, <a href="https://www.nature.com/articles/359826a0">Evolutionary games and spatial chaos</a>（Nature, 1992）</li>
+<li>Nowak &amp; Sigmund, <a href="https://www.nature.com/articles/364056a0">A strategy of win-stay, lose-shift that outperforms tit-for-tat</a>（Nature, 1993）</li>
+<li>Fehr &amp; Gächter, <a href="https://www.nature.com/articles/415137a">Altruistic punishment in humans</a>（Nature, 2002）</li>
+<li>Hauert &amp; Doebeli, <a href="https://www.nature.com/articles/nature02360">Spatial structure often inhibits the evolution of cooperation in the snowdrift game</a>（Nature, 2004）</li>
+<li>Ohtsuki, Hauert, Lieberman &amp; Nowak, <a href="https://www.nature.com/articles/nature04605">A simple rule for the evolution of cooperation on graphs and social networks</a>（Nature, 2006，b/c &gt; k）</li>
+<li>Herrmann, Thöni &amp; Fehr, <a href="https://www.science.org/doi/10.1126/science.1153808">Antisocial Punishment Across Societies</a>（Science, 2008）</li>
+<li>Press &amp; Dyson, <a href="https://www.pnas.org/doi/10.1073/pnas.1206569109">Iterated Prisoner's Dilemma contains strategies that dominate any evolutionary opponent</a>（PNAS, 2012）</li>
+<li>Ostrom, <a href="https://www.cambridge.org/core/books/governing-the-commons/A8BB63BC4A1433A50A3FB92EDBBB97D5">Governing the Commons</a>（1990）·　<a href="https://en.wikipedia.org/wiki/Elinor_Ostrom#Design_principles_for_Common_Pool_Resource_(CPR)_institution">八条设计原则</a></li>
+<li>Sinervo &amp; Lively, <a href="https://www.nature.com/articles/380240a0">The rock-paper-scissors game and the evolution of polymorphic male strategies</a>（Nature, 1996）</li>
+<li>Zhang, Cunningham, Brown &amp; Gatenby, <a href="https://www.nature.com/articles/s41467-017-01968-5">Integrating evolutionary dynamics into treatment of metastatic castrate-resistant prostate cancer</a>（Nat Commun, 2017）·　<a href="https://www.nature.com/articles/s41467-020-20174-4">对其报告方式的公开质疑</a>（2020）</li>
+<li>Milgrom, North &amp; Weingast, <a href="https://onlinelibrary.wiley.com/doi/10.1111/j.1468-0343.1990.tb00020.x">The Role of Institutions in the Revival of Trade: The Law Merchant, Private Judges, and the Champagne Fairs</a>（1990）</li>
+<li>Ashworth, <a href="https://en.wikipedia.org/wiki/Live_and_let_live_(World_War_I)">Trench Warfare 1914–1918: The Live and Let Live System</a>（1980）</li>
+</ul>
+</div>
+
+<footer>BigCat · 复杂性科学 · <a href="index.html">← 全部 Topic</a></footer>
+</div>
+<script src="https://hub.cissychen.com/comments.js" defer></script>
+<script src="https://hub.cissychen.com/search.js" defer></script>
+<script src="https://hub.cissychen.com/index-button.js" defer></script>
+<script src="https://hub.cissychen.com/i18n-tts.js" defer></script>
+</body></html>

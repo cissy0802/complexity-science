@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+
+<html lang="en"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Replicator Dynamics · Reference · Complexity Science</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,"SF Pro Display","Noto Sans SC",sans-serif;color:#e4ded5;line-height:1.85;min-height:100vh;
+  background:radial-gradient(1100px 620px at 12% -6%,rgba(99,179,166,0.09),transparent 62%),radial-gradient(950px 700px at 100% 2%,rgba(166,147,205,0.08),transparent 58%),linear-gradient(168deg,#100f0d 0%,#15161b 48%,#0a0a0c 100%);background-attachment:fixed}
+.wrap{max-width:720px;margin:0 auto;padding:30px 22px 90px}
+header{padding:52px 0 8px;border-bottom:1px solid rgba(255,255,255,0.07);margin-bottom:32px}
+.rtag{font-family:"SF Mono",Menlo,monospace;font-size:0.72rem;font-weight:700;letter-spacing:2px;color:#63b3a6;border:1px solid rgba(99,179,166,0.4);background:rgba(99,179,166,0.07);padding:3px 11px;border-radius:20px}
+h1{font-size:2.15rem;font-weight:800;line-height:1.2;margin:20px 0 0;color:#f0eae0}
+h1 .h1en{display:block;font-size:0.42em;font-weight:600;letter-spacing:2.5px;color:#847d72;margin-top:11px}
+.sub{font-size:0.98rem;color:#aba498;margin-top:12px}
+.meta{font-family:"SF Mono",Menlo,monospace;font-size:0.75rem;color:#57524b;margin-top:16px;letter-spacing:1px}
+h2{font-size:1.25rem;font-weight:700;color:#e9e3d9;margin:44px 0 10px}
+h2 .n{font-family:"SF Mono",Menlo,monospace;font-size:0.8rem;color:#63b3a6;display:block;margin-bottom:5px;letter-spacing:2px}
+.he{font-size:0.68em;color:#8d867b;font-weight:500;letter-spacing:0}
+p{margin-bottom:16px}
+b,strong{color:#f0eae0;font-weight:600}
+em{color:#d9b45f;font-style:normal;font-weight:500}
+.rule{border:1px solid rgba(99,179,166,0.3);background:rgba(99,179,166,0.05);border-radius:12px;padding:16px 20px;margin:22px 0;font-size:0.94rem;color:#d5cdc1}
+.rule ol{padding-left:20px;margin:0}
+.rule li{margin-bottom:7px}
+.rule li:last-child{margin-bottom:0}
+figure{margin:28px 0}
+figure svg{display:block;width:100%;height:auto;border-radius:12px;background:rgba(255,255,255,0.018);border:1px solid rgba(255,255,255,0.06)}
+figcaption{font-size:0.82rem;color:#787268;margin-top:10px;text-align:center;line-height:1.6}
+.cant{border:1px solid rgba(205,127,155,0.36);background:rgba(205,127,155,0.05);border-radius:12px;padding:18px 21px;margin:26px 0 10px}
+.cant h3{font-size:1rem;color:#cd7f9b;margin-bottom:12px}
+.cant ul{list-style:none;padding:0}
+.cant li{margin-bottom:13px;font-size:0.93rem;color:#d5cdc1;line-height:1.76}
+.cant li:last-child{margin-bottom:0}
+.cant li b{color:#cd7f9b}
+.refs{margin:40px 0 10px}
+.refs h3{font-size:1rem;color:#79a6d2;margin-bottom:12px}
+.refs ul{list-style:none;padding:0}
+.refs li{margin-bottom:9px;font-size:0.89rem;color:#8d867b;line-height:1.7}
+.refs a{color:#79a6d2;text-decoration:none;border-bottom:1px solid rgba(121,166,210,0.3)}
+.refs a:hover{color:#a6c4e2}
+footer{text-align:center;padding:52px 0 10px;font-size:0.78rem;color:#57524b;font-family:"SF Mono",Menlo,monospace;border-top:1px solid rgba(255,255,255,0.06);margin-top:46px}
+footer a{color:#79a6d2;text-decoration:none}
+@media(max-width:600px){h1{font-size:1.7rem}.wrap{padding:24px 16px 60px}}
+</style></head><body>
+
+<div class="wrap">
+<header>
+<span class="rtag">REF · CLASSIC MODEL</span>
+<h1>Replicator Dynamics<span class="h1en">REPLICATOR DYNAMICS</span></h1>
+<p class="sub">Taylor &amp; Jonker, 1978 — writing "what catches on" as an equation</p>
+<p class="meta">Referenced from: Topic 29, Evolutionary Games &amp; the Origin of Cooperation</p>
+</header>
+
+<h2><span class="n">01</span>The Question It Poses</h2>
+<p>Classical game theory assumes rational players: they know all the options, can compute the payoffs, and can reason about what the other side is thinking. That is a workable assumption for analysing a negotiation. It is an extravagant one for a colony of bacteria, the trees in a forest, or ten thousand retail traders who mostly copy whatever is working.</p>
+<p>The latter is exactly what biologists ran into in the 1970s: animals cannot calculate, and yet the distribution of their behaviour looks suspiciously like the output of a calculation. <b>Is there a mechanism that pushes a population towards the "computed" outcome without anyone in it understanding anything?</b></p>
+<p>Replicator dynamics answers yes, and it needs only two ingredients: <b>what does well gets copied more</b>, and <b>how well something does depends on what everyone else is doing</b>. The copying can be reproduction, imitation, or capital flowing in; the mechanisms differ and the equation is the same.</p>
+
+<h2><span class="n">02</span>The Rules</h2>
+<div class="rule">
+<ol>
+<li>The population contains several strategies. Write the current share of strategy <em>i</em> as <em>x<sub>i</sub></em>; all shares sum to 1.</li>
+<li>Each strategy has a payoff <em>f<sub>i</sub></em>. <b>The crucial part:</b> <em>f<sub>i</sub></em> is not a constant. It depends on the current distribution of shares — the same strategy is worth different amounts in different populations.</li>
+<li>Compute the population average payoff <em>f̄</em> = the sum of each share times its own payoff.</li>
+<li>The rate of change of each share = <em>x<sub>i</sub></em> × (<em>f<sub>i</sub></em> − <em>f̄</em>). <b>Above average and it grows, below average and it shrinks, exactly average and it holds.</b></li>
+<li>No mutation, no innovation: a strategy already at share 0 can never appear.</li>
+</ol>
+</div>
+<p>That leading <em>x<sub>i</sub></em> factor in rule 4 is easy to skip past, and it sets the whole character of the model: <b>however excellent a strategy is, if few are playing it right now it also spreads slowly.</b> Good things do not roll out overnight — they have to survive the phase where the base is too small. The same factor explains rule 5: zero times anything is zero.</p>
+<p>One more thing worth stating plainly: this equation <b>describes no individual at all</b>. It only tracks shares. Ask it whether a particular person will switch strategies and it has no answer, and no ambition to have one.</p>
+<figure>
+<svg aria-label="One replicator update: bar width is share, bar height is payoff, above-average widens and below-average narrows" role="img" viewBox="0 0 700 300" xmlns="http://www.w3.org/2000/svg">
+<defs>
+<marker id="rr1" markerHeight="10" markerUnits="userSpaceOnUse" markerWidth="10" orient="auto" refX="9" refY="5" viewBox="0 0 10 10">
+<path d="M0,1 L9,5 L0,9 z" fill="#9fbc7a"></path>
+</marker>
+<marker id="rr2" markerHeight="10" markerUnits="userSpaceOnUse" markerWidth="10" orient="auto" refX="9" refY="5" viewBox="0 0 10 10">
+<path d="M0,1 L9,5 L0,9 z" fill="#cd7f9b"></path>
+</marker>
+</defs>
+<text fill="#aba498" font-family="-apple-system,sans-serif" font-size="13" text-anchor="middle" x="350" y="26">Bar height = the strategy's current payoff; bar width = its current share</text>
+<line stroke="rgba(255,255,255,0.18)" stroke-width="1.5" x1="80" x2="648" y1="196" y2="196"></line>
+<line stroke="rgba(217,180,95,0.6)" stroke-dasharray="6 5" stroke-width="1.6" x1="80" x2="648" y1="127" y2="127"></line>
+<text fill="#d9b45f" font-family="SF Mono,monospace" font-size="12.5" text-anchor="end" x="74" y="131">f&#772;</text>
+<rect fill="#3b4030" height="56" stroke="rgba(159,188,122,0.7)" width="160" x="90" y="140"></rect>
+<rect fill="#2e2c26" height="20" stroke="rgba(255,255,255,0.18)" width="44" x="310" y="176"></rect>
+<rect fill="#33262c" height="90" stroke="rgba(205,127,155,0.7)" width="196" x="414" y="106"></rect>
+<line marker-end="url(#rr1)" stroke="#9fbc7a" stroke-width="2.4" x1="280" x2="280" y1="146" y2="180"></line>
+<line marker-end="url(#rr1)" stroke="#9fbc7a" stroke-width="2.2" x1="382" x2="382" y1="180" y2="192"></line>
+<line marker-end="url(#rr2)" stroke="#cd7f9b" stroke-width="2.4" x1="628" x2="628" y1="100" y2="62"></line>
+<text fill="#9fbc7a" font-family="SF Mono,monospace" font-size="12" text-anchor="middle" x="170" y="216">strategy A</text>
+<text fill="#8d867b" font-family="SF Mono,monospace" font-size="12" text-anchor="middle" x="332" y="216">strategy B</text>
+<text fill="#cd7f9b" font-family="SF Mono,monospace" font-size="12" text-anchor="middle" x="512" y="216">strategy C</text>
+<text fill="#787268" font-family="-apple-system,sans-serif" font-size="11" text-anchor="middle" x="170" y="236">below average → share falls</text>
+<text fill="#787268" font-family="-apple-system,sans-serif" font-size="11" text-anchor="middle" x="332" y="236">also below, but a small base</text>
+<text fill="#787268" font-family="-apple-system,sans-serif" font-size="11" text-anchor="middle" x="512" y="236">above average → share rises</text>
+<text fill="#8d867b" font-family="-apple-system,sans-serif" font-size="11" text-anchor="middle" x="350" y="266">rate of change = share × (own payoff − population average)</text>
+<text fill="#787268" font-family="-apple-system,sans-serif" font-size="11" text-anchor="middle" x="350" y="286">So B is falling too, but more slowly than A: its base is small, and the product is small</text>
+</svg>
+<figcaption>The dashed line is the population average. Strategies above it gain share, those below lose it — and the line itself moves as the shares move, which is where all the difficulty comes from.</figcaption>
+</figure>
+
+<h2><span class="n">03</span>What You See When It Runs</h2>
+<p>With two strategies you can draw everything on a single line segment: the horizontal axis is the share of strategy A, from 0 to 1, and the arrows show which way it travels. Different payoff structures produce only four possible pictures.</p>
+<figure>
+<svg aria-label="Three typical phase lines for two-strategy replicator dynamics: dominance, coexistence, bistability" role="img" viewBox="0 0 700 340" xmlns="http://www.w3.org/2000/svg">
+<defs>
+<marker id="rr3" markerHeight="9" markerUnits="userSpaceOnUse" markerWidth="9" orient="auto" refX="8" refY="4.5" viewBox="0 0 9 9">
+<path d="M0,1 L8,4.5 L0,8 z" fill="#63b3a6"></path>
+</marker>
+</defs>
+<text fill="#aba498" font-family="-apple-system,sans-serif" font-size="13" text-anchor="middle" x="350" y="24">One equation, three payoff structures, three phase lines</text>
+<text fill="#c9c2b6" font-family="-apple-system,sans-serif" font-size="12" x="56" y="62">① Dominance — A beats B at every mix</text>
+<line stroke="rgba(255,255,255,0.2)" stroke-width="1.5" x1="110" x2="620" y1="96" y2="96"></line>
+<g marker-end="url(#rr3)" stroke="#63b3a6" stroke-width="2.2">
+<line x1="180" x2="252" y1="80" y2="80"></line>
+<line x1="320" x2="392" y1="80" y2="80"></line>
+<line x1="460" x2="532" y1="80" y2="80"></line>
+</g>
+<circle cx="110" cy="96" fill="#15161b" r="6" stroke="#8d867b" stroke-width="1.8"></circle>
+<circle cx="620" cy="96" fill="#63b3a6" r="6"></circle>
+<text fill="#8d867b" font-family="-apple-system,sans-serif" font-size="11" text-anchor="middle" x="110" y="118">all B</text>
+<text fill="#8d867b" font-family="-apple-system,sans-serif" font-size="11" text-anchor="middle" x="620" y="118">all A</text>
+<text fill="#c9c2b6" font-family="-apple-system,sans-serif" font-size="12" x="56" y="168">② Coexistence — whichever is common does worse (e.g. Hawk-Dove)</text>
+<line stroke="rgba(255,255,255,0.2)" stroke-width="1.5" x1="110" x2="620" y1="202" y2="202"></line>
+<g marker-end="url(#rr3)" stroke="#63b3a6" stroke-width="2.2">
+<line x1="166" x2="238" y1="186" y2="186"></line>
+<line x1="278" x2="330" y1="186" y2="186"></line>
+<line x1="564" x2="492" y1="186" y2="186"></line>
+<line x1="452" x2="400" y1="186" y2="186"></line>
+</g>
+<circle cx="110" cy="202" fill="#15161b" r="6" stroke="#8d867b" stroke-width="1.8"></circle>
+<circle cx="620" cy="202" fill="#15161b" r="6" stroke="#8d867b" stroke-width="1.8"></circle>
+<circle cx="365" cy="202" fill="#63b3a6" r="6"></circle>
+<text fill="#63b3a6" font-family="-apple-system,sans-serif" font-size="11" text-anchor="middle" x="365" y="224">push it away and it returns</text>
+<text fill="#c9c2b6" font-family="-apple-system,sans-serif" font-size="12" x="56" y="274">③ Bistability — whichever is common does better (e.g. a coordination game)</text>
+<line stroke="rgba(255,255,255,0.2)" stroke-width="1.5" x1="110" x2="620" y1="308" y2="308"></line>
+<g marker-end="url(#rr3)" stroke="#63b3a6" stroke-width="2.2">
+<line x1="310" x2="238" y1="292" y2="292"></line>
+<line x1="200" x2="146" y1="292" y2="292"></line>
+<line x1="420" x2="492" y1="292" y2="292"></line>
+<line x1="530" x2="584" y1="292" y2="292"></line>
+</g>
+<circle cx="110" cy="308" fill="#63b3a6" r="6"></circle>
+<circle cx="620" cy="308" fill="#63b3a6" r="6"></circle>
+<circle cx="365" cy="308" fill="#15161b" r="6" stroke="#8d867b" stroke-width="1.8"></circle>
+<text fill="#8d867b" font-family="-apple-system,sans-serif" font-size="11" text-anchor="middle" x="365" y="330">the watershed: cross it and you cannot come back</text>
+</svg>
+<figcaption>Filled dot = stable (nudge it and it returns), open dot = unstable (nudge it and it leaves). The fourth possibility is the neutral case, where both strategies always earn the same and every point on the line is a fixed point.</figcaption>
+</figure>
+<p>Add strategies and it stops being a line. Three strategies live inside a triangle (each corner is "everyone plays this one"), and the usual endings include converging to a corner, converging to a point on an edge, or <b>circling forever</b>. Rock-paper-scissors is the circling kind — it has no resting place, only a wheel that keeps turning. The three male morphs of the Californian side-blotched lizard (<em>Uta stansburiana</em>) run exactly such a cycle, with a period of roughly six years (Sinervo and Lively, 1996).</p>
+<p>With four or more strategies, replicator dynamics can even become chaotic: trajectories never repeat and long-run behaviour is unpredictable. So "evolution tends towards stability" is not a general truth — it is a special case of certain payoff structures.</p>
+
+<h2><span class="n">04</span>What It Explains</h2>
+<p>The most direct application is <b>why the proportion of a behaviour sits at some peculiar value</b>. Why an animal population always contains a small band of cheats rather than all of them or none; why a low-price strategy and a high-service strategy coexist in an industry for decades; why some bad habit that hurts everybody cannot be swept away. That is what the first phase line is about.</p>
+<p>It also explains <b>why a head start is decisive in some settings and worthless in others</b>. In the third phase line (bistability), which side of the watershed you start on determines everything: keyboard layouts, charging connectors, the early users of a social platform all have this structure. In the second (coexistence), the starting point is irrelevant — wherever you begin you return to the same mix, and spending money to win the opening is simply wasted.</p>
+<p>There is a less obvious contribution too: it demotes rationality from an assumption to a <b>result</b>. Nobody in a replicator model computes anything, and yet the final mix frequently lands exactly on the point game theory derives from rational play. That means the reach of the Nash equilibrium is wider than its derivation suggests — you do not need the players to be clever, you only need a selection mechanism to exist.</p>
+
+<div class="cant">
+<h3>What It Cannot Explain</h3>
+<ul>
+<li><b>It cannot produce new strategies.</b> There is no mutation term: a strategy at share 0 stays at 0 forever. So it says nothing about innovation, nor about how a new practice comes into existence at all. To discuss that you have to bolt on another mechanism (mutation, migration, trial and error).</li>
+<li><b>It cannot handle small populations.</b> The derivation assumes infinitely many players so shares vary continuously. In a genuinely small group randomness dominates — a strategy that is plainly worse can fix itself purely by luck. Small numbers call for different tools (stochastic models such as the Moran process).</li>
+<li><b>It tells you nothing about any individual.</b> It only tracks shares. Using it to predict a particular person, company or species is demanding something from a distribution-level model that it does not supply.</li>
+<li><b>The payoff matrix is exogenous.</b> The equation takes a payoff table and evolves it, but where that table came from, whether it is accurate, and whether both sides even share it are all outside the model. In practice this is exactly where errors enter and exactly where people fill numbers in by intuition — so the reliability of any conclusion is capped by the reliability of that table.</li>
+<li><b>The mechanism of "replication" is erased.</b> Reproduction, imitation, learning and capital inflow are all handled by the same equation, yet they differ in speed by orders of magnitude — and imitation is selective (people copy the high-status, not the high-payoff). The equation has no slot for that bias.</li>
+</ul>
+</div>
+
+<div class="refs">
+<h3>Further Reading</h3>
+<ul>
+<li>Taylor &amp; Jonker, <a href="https://doi.org/10.1016/0025-5564(78)90077-9">Evolutionary stable strategies and game dynamics</a> (1978, the origin of the equation)</li>
+<li>Maynard Smith &amp; Price, <a href="https://www.nature.com/articles/246015a0">The Logic of Animal Conflict</a> (1973, the ESS)</li>
+<li>Sinervo &amp; Lively, <a href="https://www.nature.com/articles/380240a0">The rock-paper-scissors game and the evolution of polymorphic male strategies</a> (1996)</li>
+<li><a href="https://en.wikipedia.org/wiki/Replicator_equation">Replicator equation</a> (multi-strategy cases and phase portraits on the simplex)</li>
+<li>Hofbauer &amp; Sigmund, <a href="https://www.cambridge.org/core/books/evolutionary-games-and-population-dynamics/A8D97EBD3B7A6E5B3E1A1BDC7F0A2FDC">Evolutionary Games and Population Dynamics</a> (1998, the standard textbook)</li>
+</ul>
+</div>
+
+<footer>BigCat · Complexity Science · <a href="index.en.html">← All Topics</a></footer>
+</div>
+<script src="https://hub.cissychen.com/comments.js" defer></script>
+<script src="https://hub.cissychen.com/search.js" defer></script>
+<script src="https://hub.cissychen.com/index-button.js" defer></script>
+<script src="https://hub.cissychen.com/i18n-tts.js" defer></script>
+</body></html>

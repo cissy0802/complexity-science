@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+
+<html lang="en"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Evolutionary Games &amp; the Origin of Cooperation — To Get Cooperation, Change the Structure · Complexity Science T29</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,"SF Pro Display","Noto Sans SC",sans-serif;color:#e4ded5;line-height:1.85;min-height:100vh;
+  background:radial-gradient(1100px 620px at 12% -6%,rgba(224,137,94,0.10),transparent 62%),radial-gradient(950px 700px at 100% 2%,rgba(166,147,205,0.09),transparent 58%),linear-gradient(168deg,#100f0d 0%,#15161b 48%,#0a0a0c 100%);background-attachment:fixed}
+.wrap{max-width:760px;margin:0 auto;padding:30px 22px 90px}
+header{padding:52px 0 8px;border-bottom:1px solid rgba(255,255,255,0.07);margin-bottom:34px}
+.week-tag{font-family:"SF Mono",Menlo,monospace;font-size:0.72rem;font-weight:700;letter-spacing:2px;color:#79a6d2;border:1px solid rgba(121,166,210,0.4);background:rgba(121,166,210,0.07);padding:3px 11px;border-radius:20px}
+h1{font-size:2.5rem;font-weight:800;letter-spacing:0.5px;line-height:1.2;margin:20px 0 0;background:linear-gradient(106deg,#e0895e 0%,#d9b45f 34%,#9fbc7a 68%,#63b3a6 100%);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+h1 .h1en{display:block;font-size:0.40em;font-weight:600;letter-spacing:2.5px;color:#847d72;-webkit-text-fill-color:#847d72;background:none;margin-top:13px}
+.sub{font-size:1.05rem;color:#aba498;margin-top:14px;font-weight:500}
+.date{font-family:"SF Mono",Menlo,monospace;font-size:0.75rem;color:#57524b;margin-top:18px;letter-spacing:1px}
+.pitch{margin:22px 0 30px;font-size:0.97rem;color:#cd7f9b;border-left:2px solid rgba(205,127,155,0.5);padding-left:16px;font-style:italic}
+.intro{font-size:1.02rem;color:#cfc8bc;margin-bottom:14px}
+.intro p{margin-bottom:16px}
+h2{font-size:1.42rem;font-weight:700;color:#e9e3d9;margin:56px 0 8px;letter-spacing:0.3px}
+h2 .n{font-family:"SF Mono",Menlo,monospace;font-size:0.85rem;color:#79a6d2;display:block;margin-bottom:6px;letter-spacing:2px}
+.he{font-size:0.68em;color:#8d867b;font-weight:500;letter-spacing:0}
+p{margin-bottom:17px}
+.lead{color:#cfc8bc}
+b,strong{color:#f0eae0;font-weight:600}
+em{color:#d9b45f;font-style:normal;font-weight:500}
+.dim{color:#8d867b}
+a.reflink{display:inline-block;font-size:0.82rem;font-family:"SF Mono",Menlo,monospace;color:#63b3a6;border:1px solid rgba(99,179,166,0.38);background:rgba(99,179,166,0.07);padding:1px 9px;border-radius:20px;text-decoration:none;transition:all 0.15s;white-space:nowrap}
+a.reflink:hover{background:rgba(99,179,166,0.16);border-color:rgba(99,179,166,0.7)}
+figure{margin:30px 0}
+figure svg{display:block;width:100%;height:auto;border-radius:12px;background:rgba(255,255,255,0.018);border:1px solid rgba(255,255,255,0.06)}
+figcaption{font-size:0.82rem;color:#787268;margin-top:11px;text-align:center;line-height:1.6}
+.en-brief{font-size:0.85rem;color:#847d72;border-top:1px dashed rgba(255,255,255,0.09);padding-top:12px;margin-top:22px;line-height:1.65}
+.en-brief b{font-family:"SF Mono",Menlo,monospace;font-size:0.72rem;color:#63b3a6;letter-spacing:1px;margin-right:7px}
+.decide{margin:24px 0;border:1px solid rgba(224,137,94,0.36);background:rgba(224,137,94,0.055);border-radius:12px;padding:15px 19px}
+.decide .lb{font-family:"SF Mono",Menlo,monospace;font-size:0.73rem;letter-spacing:1.5px;color:#e0895e;font-weight:700;display:block;margin-bottom:7px}
+.decide p{margin:0;font-size:0.95rem;color:#ddd5c9}
+.crossx-inline{margin:20px 0 22px;border-left:2px solid rgba(205,127,155,0.55);padding:2px 0 2px 15px;font-size:0.89rem;color:#a9a096;line-height:1.72}
+.crossx-inline b{color:#cd7f9b;font-weight:600}
+.bigcat{margin:46px 0 10px;border:1px solid rgba(217,180,95,0.38);background:rgba(217,180,95,0.05);border-radius:14px;padding:20px 22px}
+.bigcat h3{font-size:1.02rem;color:#d9b45f;margin-bottom:14px;letter-spacing:0.5px}
+.bigcat ol{list-style:none;padding:0}
+.bigcat li{margin-bottom:15px;font-size:0.94rem;color:#d5cdc1;line-height:1.78}
+.bigcat li:last-child{margin-bottom:0}
+.bigcat .dm{font-family:"SF Mono",Menlo,monospace;font-size:0.73rem;color:#d9b45f;border:1px solid rgba(217,180,95,0.32);border-radius:4px;padding:1px 7px;margin-right:8px;white-space:nowrap}
+.crossx{margin:46px 0 10px;border:1px solid rgba(205,127,155,0.38);background:rgba(205,127,155,0.05);border-radius:14px;padding:20px 22px}
+.crossx h3{font-size:1.02rem;color:#cd7f9b;margin-bottom:14px;letter-spacing:0.5px}
+.crossx ul{list-style:none;padding:0}
+.crossx li{margin-bottom:16px;font-size:0.94rem;color:#d5cdc1;line-height:1.78}
+.crossx li:last-child{margin-bottom:0}
+.crossx li b{color:#cd7f9b;font-weight:600}
+.thinking{margin:46px 0 10px}
+.thinking h3{font-size:1.02rem;color:#a693cd;margin-bottom:14px;letter-spacing:0.5px}
+details{border:1px solid rgba(166,147,205,0.22);border-radius:10px;padding:12px 16px;margin-bottom:10px;background:rgba(166,147,205,0.035)}
+summary{cursor:pointer;font-size:0.93rem;color:#c9c2b6;font-weight:500}
+summary::marker{color:#a693cd}
+details p{margin:12px 0 0;font-size:0.9rem;color:#a9a096;line-height:1.75}
+.refs{margin:46px 0 10px}
+.refs h3{font-size:1.02rem;color:#79a6d2;margin-bottom:14px;letter-spacing:0.5px}
+.refs ul{list-style:none;padding:0}
+.refs li{margin-bottom:10px;font-size:0.9rem;color:#8d867b;line-height:1.7}
+.refs a{color:#79a6d2;text-decoration:none;border-bottom:1px solid rgba(121,166,210,0.3)}
+.refs a:hover{color:#a6c4e2;border-bottom-color:rgba(121,166,210,0.7)}
+footer{text-align:center;padding:56px 0 10px;font-size:0.78rem;color:#57524b;font-family:"SF Mono",Menlo,monospace;border-top:1px solid rgba(255,255,255,0.06);margin-top:50px}
+footer a{color:#79a6d2;text-decoration:none}
+@media(max-width:600px){h1{font-size:1.85rem}.wrap{padding:24px 16px 60px}h2{font-size:1.22rem}}
+</style></head><body>
+
+<div class="wrap">
+<header>
+<span class="week-tag">TOPIC 29 · PHASE E</span>
+<h1>Evolutionary Games &amp; the Origin of Cooperation<span class="h1en">EVOLUTIONARY GAMES &amp; THE ORIGIN OF COOPERATION</span></h1>
+<p class="sub">To get cooperation, change the structure</p>
+<p class="date">2026-08-15 · Adaptation &amp; Evolution</p>
+<p class="pitch">Every cooperation that holds has a structure behind it that makes defection a losing trade. Find the parameters in that structure and you can dial cooperation up — or wipe it out with a single order, which is exactly what happened on the Western Front in 1918.</p>
+</header>
+
+<div class="intro">
+<p>The usual explanation for cooperation is moral: good people, decent norms, a community that pulls together. The trouble with that explanation is that it predicts nothing. The same owner runs a restaurant very differently outside a tourist attraction than outside their own housing block. The same army holds an unspoken truce on one stretch of front and fights viciously on the next. The people did not change. Something else did.</p>
+<p>This issue is about that something else. It is not a metaphor. It is a handful of quantities you can write down and compute: <b>whether there will be a next time</b>, <b>whether your behaviour is visible to others</b>, and <b>how many people you have to face</b>. Move those three and cooperation grows on its own — or collapses on its own — with nobody's heart getting better or worse.</p>
+<p>The awkward part comes after. Once you accept that cooperation is a product of structure, "raise the moral standard" stops being the main intervention and becomes the least efficient one available.</p>
+</div>
+
+<h2><span class="n">01</span>In a One-Shot Deal, Defection Is Arithmetic</h2>
+<p class="lead">Start with the simplest case. Two people each choose once: cooperate, or defect. Four combinations, each with a result.</p>
+<p>Use the classic numbers. Both cooperate: 3 each. Both defect: 1 each. One defects while the other cooperates: the defector takes 5, the cooperator gets 0. As long as those four numbers satisfy one ordering — <b>I defect while they cooperate (5) &gt; both cooperate (3) &gt; both defect (1) &gt; I cooperate while they defect (0)</b> — this is a <b>prisoner's dilemma</b>. The exact values do not matter; the ordering does.</p>
+<figure>
+<svg aria-label="Prisoner's dilemma payoff matrix: both columns have arrows pointing to the defect row" role="img" viewBox="0 0 720 312" xmlns="http://www.w3.org/2000/svg">
+<defs>
+<marker id="t29a" markerHeight="9" markerUnits="userSpaceOnUse" markerWidth="9" orient="auto" refX="8" refY="4.5" viewBox="0 0 9 9">
+<path d="M0,1 L8,4.5 L0,8 z" fill="#cd7f9b"></path>
+</marker>
+</defs>
+<text fill="#aba498" font-family="-apple-system,sans-serif" font-size="13" text-anchor="middle" x="360" y="26">Four outcomes — the number in each cell is what I get</text>
+<text fill="#8d867b" font-family="-apple-system,sans-serif" font-size="12.5" text-anchor="middle" x="280" y="62">They cooperate</text>
+<text fill="#8d867b" font-family="-apple-system,sans-serif" font-size="12.5" text-anchor="middle" x="420" y="62">They defect</text>
+<text fill="#8d867b" font-family="-apple-system,sans-serif" font-size="12.5" text-anchor="end" x="198" y="118">I cooperate</text>
+<text fill="#8d867b" font-family="-apple-system,sans-serif" font-size="12.5" text-anchor="end" x="198" y="194">I defect</text>
+<rect fill="#26241f" height="76" stroke="rgba(255,255,255,0.13)" width="140" x="210" y="74"></rect>
+<rect fill="#26241f" height="76" stroke="rgba(255,255,255,0.13)" width="140" x="350" y="74"></rect>
+<rect fill="#2e2a25" height="76" stroke="rgba(255,255,255,0.13)" width="140" x="210" y="150"></rect>
+<rect fill="#33262c" height="76" stroke="rgba(205,127,155,0.75)" stroke-width="2" width="140" x="350" y="150"></rect>
+<text fill="#9fbc7a" font-family="SF Mono,monospace" font-size="24" text-anchor="middle" x="262" y="121">3</text>
+<text fill="#8d867b" font-family="SF Mono,monospace" font-size="24" text-anchor="middle" x="402" y="121">0</text>
+<text fill="#e4ded5" font-family="SF Mono,monospace" font-size="24" text-anchor="middle" x="262" y="197">5</text>
+<text fill="#e4ded5" font-family="SF Mono,monospace" font-size="24" text-anchor="middle" x="402" y="197">1</text>
+<line marker-end="url(#t29a)" stroke="#cd7f9b" stroke-width="2.4" x1="320" x2="320" y1="128" y2="176"></line>
+<line marker-end="url(#t29a)" stroke="#cd7f9b" stroke-width="2.4" x1="460" x2="460" y1="128" y2="176"></line>
+<text fill="#cd7f9b" font-family="SF Mono,monospace" font-size="12" x="330" y="158">+2</text>
+<text fill="#cd7f9b" font-family="SF Mono,monospace" font-size="12" x="470" y="158">+1</text>
+<text fill="#cd7f9b" font-family="-apple-system,sans-serif" font-size="11.5" x="508" y="182">Both end up here</text>
+<text fill="#a06478" font-family="-apple-system,sans-serif" font-size="11.5" x="508" y="200">1 each</text>
+<text fill="#787268" font-family="-apple-system,sans-serif" font-size="11.5" text-anchor="middle" x="360" y="258">Both arrows point down: whatever they choose, defecting pays me more. Symmetric for them.</text>
+<text fill="#787268" font-family="-apple-system,sans-serif" font-size="11.5" text-anchor="middle" x="360" y="280">So both defect and take 1 each. The top-left cell — 3 each — is the one nobody can hold.</text>
+</svg>
+<figcaption>Nobody miscalculated and nobody was malicious. Two people each making the best available choice walk together into the cell that is worse for both.</figcaption>
+</figure>
+<p>Notice what the picture actually says. Not that people are selfish, but that <b>under this ordering, defecting is better no matter what the other side does</b>. A choice like that is called a <b>dominant strategy</b>. When one exists you do not even need to guess what the other person is thinking — guessing changes nothing.</p>
+<p>Which is why "we should just trust each other more" is inert here. Trust addresses "I don't know what they'll do," and in this game I do know, and knowing does not help. Mutual defection is also a <b>Nash equilibrium</b>: standing in that cell, either player who changes their mind alone only makes things worse for themselves. It is stable. It is just stable in a bad place.</p>
+<div class="decide">
+<span class="lb">🎯 THE DECISION LINE</span>
+<p>To decide whether something is a prisoner's dilemma, don't look at how well the two sides get along — rank the four outcomes by how good they are for you. If "I defect while they cooperate" ranks first and "both defect" ranks third, that's it. If you can't produce that ranking, don't use the term: most conflicts that get called prisoner's dilemmas have a different structure and need different tools.</p>
+</div>
+<div class="crossx-inline">
+🌀 <b>Economics &amp; institutions · the restaurant outside the tourist site</b>&nbsp;&nbsp;&nbsp;The same owner will serve very different food outside a tourist attraction than outside their own neighbourhood. The difference is not conscience, it is whether "a next time" appears in the payoff ordering at all: the tourist-site branch will see you exactly once, so the 5 points from fleecing you are real money in hand, while the 3 points from a returning customer are not in its matrix. That yields a test you can run on the spot — walk in and look for regulars talking to the owner. It beats checking the rating, because it measures the payoff structure directly, whereas ratings are a patch bolted on afterwards by a platform.
+</div>
+
+<h2><span class="n">02</span>Replicator Dynamics: Not Who Is Right, but Who Leaves More Copies</h2>
+<p class="lead">The last section had one round and two people. The real world has a crowd bumping into each other repeatedly, and most of the time nobody "works out" what to do — people copy whoever nearby seems to be doing well, and bacteria and animals do not think at all.</p>
+<p>The standard tool for this is <b>replicator dynamics</b> (Taylor and Jonker, 1978). The rule fits in one line: <b>a strategy's share of the population grows at a rate proportional to its payoff minus the population average.</b> Above average and it spreads, below average and it shrinks, exactly average and it holds still. <a class="reflink" href="ref-replicator-dynamics.en.html">→ replicator dynamics</a></p>
+<p>Here is the easy thing to skip past: <b>a strategy's payoff depends on what everyone else is currently playing.</b> A bullying strategy does spectacularly well in a crowd of pushovers and is suicide in a crowd of hard cases. So "the optimal strategy" is a suspect phrase here — the optimum drifts as the mix drifts.</p>
+<p>Run it on the previous section's prisoner's dilemma: defectors out-earn cooperators at every mix, so they are always above average, so the cooperator share falls all the way to zero without stopping. That is the real severity of the problem — not that cooperation is hard to sustain, but that <b>in this structure cooperation cannot exist at all</b>.</p>
+<p>Change the payoff structure and the ending changes immediately. The <b>Hawk-Dove game</b> (Maynard Smith and Price, 1973) has two animals contesting a resource: a hawk always fights, a dove bluffs and backs off the moment the other side gets serious. The resource is worth V, an injury costs C. When injury costs more than the prize (C &gt; V), too many hawks means they maim each other, too many doves means hawks take everything for free. The result settles at a fixed mix: hawks at V/C. With V = 2 and C = 5, that is 40% hawks and 60% doves.</p>
+<figure>
+<svg aria-label="Replicator phase lines: the prisoner's dilemma flows to all-defect, Hawk-Dove flows to an interior mix" role="img" viewBox="0 0 720 306" xmlns="http://www.w3.org/2000/svg">
+<defs>
+<marker id="t29b" markerHeight="9" markerUnits="userSpaceOnUse" markerWidth="9" orient="auto" refX="8" refY="4.5" viewBox="0 0 9 9">
+<path d="M0,1 L8,4.5 L0,8 z" fill="#cd7f9b"></path>
+</marker>
+<marker id="t29c" markerHeight="9" markerUnits="userSpaceOnUse" markerWidth="9" orient="auto" refX="8" refY="4.5" viewBox="0 0 9 9">
+<path d="M0,1 L8,4.5 L0,8 z" fill="#63b3a6"></path>
+</marker>
+</defs>
+<text fill="#aba498" font-family="-apple-system,sans-serif" font-size="13" text-anchor="middle" x="360" y="24">One replicator equation, two payoff structures, two fates</text>
+<text fill="#cd7f9b" font-family="-apple-system,sans-serif" font-size="12.5" x="52" y="66">① Prisoner's dilemma — defectors always beat the average</text>
+<line stroke="rgba(255,255,255,0.2)" stroke-width="1.5" x1="120" x2="656" y1="112" y2="112"></line>
+<line stroke="rgba(255,255,255,0.2)" stroke-width="1.5" x1="120" x2="120" y1="104" y2="120"></line>
+<line stroke="rgba(255,255,255,0.2)" stroke-width="1.5" x1="650" x2="650" y1="104" y2="120"></line>
+<g marker-end="url(#t29b)" stroke="#cd7f9b" stroke-width="2.2">
+<line x1="620" x2="556" y1="94" y2="94"></line>
+<line x1="500" x2="436" y1="94" y2="94"></line>
+<line x1="380" x2="316" y1="94" y2="94"></line>
+<line x1="260" x2="196" y1="94" y2="94"></line>
+</g>
+<circle cx="120" cy="112" fill="#cd7f9b" r="6.5"></circle>
+<circle cx="650" cy="112" fill="#15161b" r="6.5" stroke="#8d867b" stroke-width="1.8"></circle>
+<text fill="#8d867b" font-family="-apple-system,sans-serif" font-size="11.5" text-anchor="middle" x="136" y="136">0 · all defectors</text>
+<text fill="#8d867b" font-family="-apple-system,sans-serif" font-size="11.5" text-anchor="middle" x="632" y="136">1 · all cooperators</text>
+<text fill="#787268" font-family="-apple-system,sans-serif" font-size="11" text-anchor="middle" x="385" y="136">fraction of cooperators →</text>
+<text fill="#63b3a6" font-family="-apple-system,sans-serif" font-size="12.5" x="52" y="192">② Hawk-Dove — whichever type is common does worse</text>
+<line stroke="rgba(255,255,255,0.2)" stroke-width="1.5" x1="120" x2="656" y1="240" y2="240"></line>
+<line stroke="rgba(255,255,255,0.2)" stroke-width="1.5" x1="120" x2="120" y1="232" y2="248"></line>
+<line stroke="rgba(255,255,255,0.2)" stroke-width="1.5" x1="650" x2="650" y1="232" y2="248"></line>
+<g marker-end="url(#t29c)" stroke="#63b3a6" stroke-width="2.2">
+<line x1="176" x2="248" y1="222" y2="222"></line>
+<line x1="292" x2="364" y1="222" y2="222"></line>
+<line x1="616" x2="552" y1="222" y2="222"></line>
+<line x1="516" x2="470" y1="222" y2="222"></line>
+</g>
+<circle cx="438" cy="240" fill="#63b3a6" r="6.5"></circle>
+<text fill="#8d867b" font-family="-apple-system,sans-serif" font-size="11.5" text-anchor="middle" x="132" y="264">0 · all hawks</text>
+<text fill="#8d867b" font-family="-apple-system,sans-serif" font-size="11.5" text-anchor="middle" x="636" y="264">1 · all doves</text>
+<text fill="#63b3a6" font-family="-apple-system,sans-serif" font-size="11.5" text-anchor="middle" x="438" y="200">settles at 60% doves (V=2, C=5)</text>
+<text fill="#787268" font-family="-apple-system,sans-serif" font-size="11" text-anchor="middle" x="360" y="292">Filled dot = nudge it and it returns; open dot = nudge it and it never comes back</text>
+</svg>
+<figcaption>The arrows on the phase line are the direction of the replicator dynamic. The left one has no resting place along the way. The right one has exactly one, and it finds its own way back.</figcaption>
+</figure>
+<p>That resting mix has a name: an <b>evolutionarily stable strategy</b>, or <b>ESS</b>. The definition is plain — in a population all playing it, any small band of invaders playing something else does worse and gets squeezed out. An ESS is not "the best strategy," it is "the strategy nothing can dislodge." Those two are often not the same thing.</p>
+<div class="decide">
+<span class="lb">🎯 THE DECISION LINE</span>
+<p>Stop asking "which strategy is best" and ask "at the current mix, which strategy beats the average." The first question frequently has no answer in a system where payoffs drift with the mix. The second always has one, and if you can estimate what share of people are currently doing what, you can compute it.</p>
+</div>
+<div class="crossx-inline">
+🌀 <b>Biology · rock-paper-scissors in the side-blotched lizard</b>&nbsp;&nbsp;&nbsp;Californian side-blotched lizards (<em>Uta stansburiana</em>) come in three male types: orange-throats hold large territories, blue-throats guard a single mate, yellow-throats mimic females and sneak matings. Orange beats blue, blue beats yellow, yellow beats orange — whichever gets common gets eaten by its own counter. Sinervo and Lively reported this roughly six-year cycle in <em>Nature</em> in 1996. Replicator dynamics simply never stops here: there is no ESS, only a wheel that keeps turning. That yields a counterintuitive conclusion — in some systems "what is the optimal strategy" is not a hard question but a question with <b>no answer</b>. Not because we cannot do the maths, but because the answer rotates as a function of what everyone is choosing. All you can measure is the rotation rate and where the wheel is now.
+</div>
+
+<h2><span class="n">03</span>The Shadow of the Future</h2>
+<p class="lead">The first change that actually works: stop playing only one round.</p>
+<p>Define <em>w</em>: the probability that, after this round, the two of you meet again. If w is 0 this is a one-shot deal; if w is 0.9 you can expect roughly 10 more rounds (the expected number of rounds is 1 ÷ (1 − w)).</p>
+<p>Now try an almost insultingly simple strategy: <b>tit-for-tat</b>, or <b>TFT</b> — cooperate on the first round, then copy whatever the other side did last round. Reach out first, then mirror. Anatol Rapoport submitted it to the strategy tournament Robert Axelrod ran in 1980, and this handful of lines won the first round (14 entries). After Axelrod published the results — including a full account of why it won — he ran a second tournament, and among 62 entries from six countries it won again.</p>
+<p>Why? Run the numbers from the last section. Drop one incorrigible defector (call it "always defect") into a population of TFT players:</p>
+<p>Two TFT players cooperate every round: 3 + 3w + 3w² + … = 3 ÷ (1 − w).<br/>"Always defect" against TFT takes a free 5 in round one, after which TFT never cooperates again and both take 1 per round: 5 + w ÷ (1 − w).</p>
+<p>Require the first to be at least the second and you get <b>w ≥ (5 − 3) ÷ (5 − 1) = 0.5</b>. In other words, once the chance of a next round is better than even — about two more rounds on average — the person who took the free lunch is already behind on the running total.</p>
+<figure>
+<svg aria-label="Total payoff against the continuation probability w: the two curves cross at w = 0.5" role="img" viewBox="0 0 720 312" xmlns="http://www.w3.org/2000/svg">
+<text fill="#aba498" font-family="-apple-system,sans-serif" font-size="13" text-anchor="middle" x="360" y="24">Same person, same payoffs — the only variable is whether there is a next time</text>
+<line stroke="rgba(255,255,255,0.2)" stroke-width="1.5" x1="90" x2="668" y1="250" y2="250"></line>
+<line stroke="rgba(255,255,255,0.2)" stroke-width="1.5" x1="90" x2="90" y1="250" y2="52"></line>
+<line stroke="rgba(205,127,155,0.45)" stroke-dasharray="5 5" stroke-width="1.5" x1="419" x2="419" y1="250" y2="96"></line>
+<polyline fill="none" points="90,221.5 155.9,218.3 221.8,214.4 287.6,209.3 353.5,202.5 419.4,193 485.3,178.8 551.2,155 617,107.5 650,60" stroke="#9fbc7a" stroke-width="2.6"></polyline>
+<polyline fill="none" points="90,202.5 155.9,201.4 221.8,200.1 287.6,198.4 353.5,196.2 419.4,193 485.3,188.3 551.2,180.3 617,164.5 650,148.7" stroke="#cd7f9b" stroke-width="2.6"></polyline>
+<circle cx="419.4" cy="193" fill="#15161b" r="5" stroke="#e4ded5" stroke-width="1.8"></circle>
+<text fill="#9fbc7a" font-family="-apple-system,sans-serif" font-size="11.5" text-anchor="end" x="592" y="92">cooperating every round</text>
+<text fill="#cd7f9b" font-family="-apple-system,sans-serif" font-size="11.5" text-anchor="end" x="646" y="140">defect once, then be punished forever</text>
+<text fill="#e4ded5" font-family="SF Mono,monospace" font-size="12.5" text-anchor="end" x="408" y="122">w = 0.5</text>
+<text fill="#8d867b" font-family="-apple-system,sans-serif" font-size="11" text-anchor="end" x="408" y="140">about 2 more rounds</text>
+<text fill="#a06478" font-family="-apple-system,sans-serif" font-size="11.5" text-anchor="middle" x="230" y="172">defecting pays in here</text>
+<text fill="#7d9660" font-family="-apple-system,sans-serif" font-size="11.5" text-anchor="middle" x="560" y="232">cooperating pays in here</text>
+<text fill="#8d867b" font-family="-apple-system,sans-serif" font-size="11.5" text-anchor="middle" x="380" y="284">w = probability the two of you meet again after this round →</text>
+<text fill="#8d867b" font-family="-apple-system,sans-serif" font-size="11.5" transform="rotate(-90 32 152)" x="32" y="152">total payoff over all future rounds</text>
+</svg>
+<figcaption>The shape of the green curve is the whole point: the return to cooperating compounds with w, while the 2 points from cheating are a one-off that never compounds. Past w = 0.5, compounding catches up.</figcaption>
+</figure>
+<p>That threshold deserves a moment. It contains no term for character. <b>Same person, same payoffs: move w from 0.4 to 0.6 and the rational move flips from defect to cooperate.</b> So "this industry has a bad culture" and "this industry has low w" are often descriptions of the same thing — except the second one can be computed, and changed.</p>
+<p>A word on TFT's weaknesses, so nobody treats it as a cure-all: it is unforgiving. One misunderstanding between two TFT players (they meant to cooperate, the signal got garbled) and they fall into an endless retaliation loop neither can exit. <b>Win-stay, lose-shift</b> (Nowak and Sigmund, 1993) does better under noise — repeat your last move if you were happy with the outcome, switch if you were not. And Press and Dyson proved in 2012 that the iterated prisoner's dilemma contains a class of extortionate strategies that can force the other side's payoff into a ratio of their choosing. <b>TFT was never the optimum. It only demonstrates one thing: once w is high, even a very stupid rule can hold cooperation in place.</b></p>
+<div class="decide">
+<span class="lb">🎯 THE DECISION LINE</span>
+<p>To get someone to behave, first make "there will be a next time" a fact they can verify: break one large contract into several tranches with explicit renewal points, shorten the settlement cycle, write the exit terms out concretely. These change behaviour far more than adding a good-faith clause — the clause does not move w, and the structure does.</p>
+</div>
+<div class="crossx-inline">
+🌀 <b>Western philosophy · Hobbes left out a term</b>&nbsp;&nbsp;&nbsp;Hobbes argued that without an absolute sovereign life is "solitary, poor, nasty, brutish, and short," so all power must be handed over. But that argument silently assumes everyone is computing this round only: in the state of nature you might be killed at any moment, so w is roughly 0. Put w back in and his conclusion drops from <em>necessary</em> to <em>one implementation</em> — the Leviathan is a way of raising w (it makes retaliation credible and sustainable), not the only way. That relocates the real argument about order: the question is not whether to have a sovereign, but <b>what else can push w over the threshold</b>, and what each of those costs.
+</div>
+
+<h2><span class="n">04</span>Space: Play Only Your Neighbours and Cooperation Survives</h2>
+<p class="lead">The second change is stranger: change nothing at all except "play everyone" into "play the few people next to you."</p>
+<p>Nowak and May did exactly this in 1992. Put cooperators and defectors on a square grid; each cell plays the previous section's game against its eight neighbours; then each cell copies the strategy of whichever cell in its neighbourhood (including itself) scored highest. No memory, no retaliation, no recognising anyone — purely "copy whoever nearby is doing best." <a class="reflink" href="ref-cellular-automata.en.html">→ cellular automata</a></p>
+<p>In a well-mixed population, we computed the ending last section: cooperators fall to zero, no exceptions. On a lattice, with the same payoffs and the same starting mix, the ending is entirely different.</p>
+<figure>
+<svg aria-label="Three frames of the spatial prisoner's dilemma: from 90% cooperators down to 24%, then persistent patches around 30%" role="img" viewBox="0 0 720 318" xmlns="http://www.w3.org/2000/svg">
+<text fill="#aba498" font-family="-apple-system,sans-serif" font-size="13" text-anchor="middle" x="360" y="26">Same payoffs, same people — the only change is playing just the 8 neighbours</text>
+<text fill="#9fbc7a" font-family="-apple-system,sans-serif" font-size="11.5" text-anchor="middle" x="122" y="52">start: 90% cooperators</text>
+<text fill="#c0703f" font-family="-apple-system,sans-serif" font-size="11.5" text-anchor="middle" x="362" y="52">step 2: crashed to 24%</text>
+<text fill="#63b3a6" font-family="-apple-system,sans-serif" font-size="11.5" text-anchor="middle" x="602" y="52">step 60: holding near 30%</text>
+<rect x="26" y="64" width="192" height="192" fill="#232128" stroke="rgba(255,255,255,0.10)"></rect>
+<g fill="#9fbc7a" shape-rendering="crispEdges"><rect x="26" y="64" width="24" height="24"></rect><rect x="58" y="64" width="24" height="72"></rect><rect x="90" y="64" width="8" height="64"></rect><rect x="106" y="64" width="16" height="32"></rect><rect x="130" y="64" width="40" height="32"></rect><rect x="178" y="64" width="40" height="48"></rect><rect x="50" y="72" width="8" height="32"></rect><rect x="82" y="72" width="8" height="72"></rect><rect x="98" y="72" width="8" height="88"></rect><rect x="122" y="72" width="8" height="72"></rect><rect x="170" y="72" width="8" height="184"></rect><rect x="34" y="88" width="16" height="24"></rect><rect x="26" y="96" width="8" height="8"></rect><rect x="106" y="96" width="8" height="64"></rect><rect x="130" y="96" width="32" height="48"></rect><rect x="114" y="104" width="8" height="64"></rect><rect x="162" y="104" width="8" height="8"></rect><rect x="26" y="112" width="8" height="40"></rect><rect x="50" y="112" width="8" height="64"></rect><rect x="186" y="112" width="32" height="16"></rect><rect x="34" y="120" width="16" height="56"></rect><rect x="162" y="120" width="8" height="112"></rect><rect x="178" y="120" width="8" height="136"></rect><rect x="186" y="128" width="8" height="128"></rect><rect x="202" y="128" width="16" height="40"></rect><rect x="66" y="136" width="16" height="24"></rect><rect x="90" y="136" width="8" height="24"></rect><rect x="194" y="136" width="8" height="40"></rect><rect x="58" y="144" width="8" height="112"></rect><rect x="130" y="144" width="16" height="8"></rect><rect x="82" y="152" width="8" height="104"></rect><rect x="122" y="152" width="16" height="40"></rect><rect x="146" y="152" width="16" height="8"></rect><rect x="26" y="160" width="8" height="24"></rect><rect x="74" y="160" width="8" height="96"></rect><rect x="138" y="160" width="16" height="16"></rect><rect x="66" y="168" width="8" height="88"></rect><rect x="90" y="168" width="24" height="48"></rect><rect x="154" y="168" width="8" height="8"></rect><rect x="202" y="168" width="8" height="64"></rect><rect x="34" y="176" width="8" height="16"></rect><rect x="114" y="176" width="8" height="32"></rect><rect x="146" y="176" width="8" height="72"></rect><rect x="210" y="176" width="8" height="24"></rect><rect x="42" y="184" width="16" height="8"></rect><rect x="138" y="184" width="8" height="72"></rect><rect x="154" y="184" width="8" height="16"></rect><rect x="194" y="184" width="8" height="32"></rect><rect x="26" y="192" width="8" height="16"></rect><rect x="42" y="192" width="8" height="24"></rect><rect x="130" y="192" width="8" height="64"></rect><rect x="34" y="200" width="8" height="32"></rect><rect x="50" y="200" width="8" height="32"></rect><rect x="154" y="208" width="8" height="48"></rect><rect x="210" y="208" width="8" height="48"></rect><rect x="26" y="216" width="8" height="40"></rect><rect x="98" y="216" width="32" height="8"></rect><rect x="42" y="224" width="8" height="32"></rect><rect x="90" y="224" width="24" height="8"></rect><rect x="194" y="224" width="8" height="32"></rect><rect x="90" y="232" width="8" height="24"></rect><rect x="106" y="232" width="24" height="8"></rect><rect x="34" y="240" width="8" height="16"></rect><rect x="50" y="240" width="8" height="16"></rect><rect x="98" y="240" width="8" height="16"></rect><rect x="114" y="240" width="16" height="16"></rect><rect x="162" y="240" width="8" height="16"></rect><rect x="202" y="240" width="8" height="16"></rect><rect x="106" y="248" width="8" height="8"></rect></g>
+<rect x="266" y="64" width="192" height="192" fill="#232128" stroke="rgba(255,255,255,0.10)"></rect>
+<g fill="#9fbc7a" shape-rendering="crispEdges"><rect x="266" y="64" width="16" height="8"></rect><rect x="386" y="64" width="8" height="16"></rect><rect x="434" y="64" width="24" height="8"></rect><rect x="274" y="72" width="8" height="8"></rect><rect x="330" y="72" width="16" height="8"></rect><rect x="370" y="72" width="16" height="8"></rect><rect x="394" y="72" width="8" height="8"></rect><rect x="434" y="72" width="8" height="24"></rect><rect x="330" y="80" width="8" height="32"></rect><rect x="378" y="80" width="8" height="64"></rect><rect x="314" y="88" width="16" height="24"></rect><rect x="426" y="88" width="8" height="8"></rect><rect x="274" y="96" width="16" height="8"></rect><rect x="442" y="96" width="16" height="16"></rect><rect x="386" y="104" width="16" height="8"></rect><rect x="410" y="104" width="8" height="8"></rect><rect x="306" y="112" width="8" height="16"></rect><rect x="282" y="120" width="8" height="16"></rect><rect x="354" y="120" width="24" height="8"></rect><rect x="426" y="120" width="8" height="8"></rect><rect x="370" y="128" width="8" height="16"></rect><rect x="386" y="136" width="8" height="8"></rect><rect x="442" y="144" width="8" height="24"></rect><rect x="402" y="152" width="40" height="8"></rect><rect x="290" y="160" width="16" height="16"></rect><rect x="402" y="160" width="16" height="40"></rect><rect x="274" y="168" width="16" height="8"></rect><rect x="306" y="168" width="40" height="32"></rect><rect x="298" y="176" width="8" height="16"></rect><rect x="346" y="176" width="8" height="32"></rect><rect x="442" y="184" width="8" height="32"></rect><rect x="298" y="200" width="16" height="32"></rect><rect x="338" y="200" width="8" height="16"></rect><rect x="370" y="216" width="8" height="8"></rect><rect x="314" y="224" width="16" height="16"></rect><rect x="306" y="232" width="8" height="8"></rect><rect x="266" y="240" width="24" height="16"></rect><rect x="298" y="240" width="8" height="8"></rect><rect x="330" y="240" width="8" height="16"></rect><rect x="394" y="240" width="8" height="8"></rect><rect x="450" y="240" width="8" height="16"></rect></g>
+<rect x="506" y="64" width="192" height="192" fill="#232128" stroke="rgba(255,255,255,0.10)"></rect>
+<g fill="#9fbc7a" shape-rendering="crispEdges"><rect x="506" y="64" width="16" height="8"></rect><rect x="610" y="64" width="16" height="8"></rect><rect x="634" y="64" width="40" height="8"></rect><rect x="690" y="64" width="8" height="8"></rect><rect x="538" y="72" width="32" height="8"></rect><rect x="642" y="72" width="40" height="24"></rect><rect x="506" y="80" width="24" height="24"></rect><rect x="546" y="80" width="16" height="8"></rect><rect x="690" y="80" width="8" height="16"></rect><rect x="530" y="88" width="16" height="24"></rect><rect x="634" y="96" width="16" height="8"></rect><rect x="514" y="104" width="16" height="56"></rect><rect x="666" y="120" width="16" height="40"></rect><rect x="506" y="128" width="8" height="40"></rect><rect x="682" y="128" width="16" height="32"></rect><rect x="530" y="136" width="16" height="16"></rect><rect x="570" y="136" width="16" height="16"></rect><rect x="658" y="136" width="8" height="16"></rect><rect x="586" y="144" width="24" height="32"></rect><rect x="538" y="152" width="16" height="8"></rect><rect x="578" y="152" width="8" height="24"></rect><rect x="642" y="160" width="8" height="24"></rect><rect x="690" y="160" width="8" height="8"></rect><rect x="610" y="168" width="8" height="24"></rect><rect x="626" y="168" width="16" height="56"></rect><rect x="650" y="168" width="16" height="16"></rect><rect x="618" y="176" width="8" height="40"></rect><rect x="666" y="192" width="8" height="8"></rect><rect x="554" y="208" width="16" height="16"></rect><rect x="578" y="208" width="8" height="32"></rect><rect x="642" y="208" width="16" height="24"></rect><rect x="658" y="224" width="8" height="16"></rect><rect x="610" y="232" width="32" height="8"></rect><rect x="650" y="232" width="8" height="8"></rect><rect x="690" y="232" width="8" height="24"></rect><rect x="610" y="240" width="16" height="16"></rect><rect x="506" y="248" width="16" height="8"></rect></g>
+<text fill="#787268" font-family="-apple-system,sans-serif" font-size="11" text-anchor="middle" x="360" y="278">Green = cooperator, dark = defector. 24×24 lattice, defector's payoff b = 1.85, periodic boundary, synchronous update.</text>
+<text fill="#787268" font-family="-apple-system,sans-serif" font-size="11" text-anchor="middle" x="360" y="298">It then wanders between 24% and 45% and never returns to zero. Well-mixed, the same payoffs are already at 0.</text>
+</svg>
+<figcaption>Cooperators are smashed first, and what survives clumps — the interior of a clump cooperates with itself and scores full marks, the edge gets chewed off, and it grows back from inside. These three frames were actually run, not drawn.</figcaption>
+</figure>
+<p>The mechanism takes one sentence: <b>as soon as cooperators clump, everyone inside the clump is dealing only with cooperators and scoring full marks, while defectors can only nibble at the edge, and once the edge is eaten there is nobody left to eat.</b> Benefits stay local — and so do costs. That is enough. Nowak calls it <b>network reciprocity</b>.</p>
+<p>It can even be quantified. Ohtsuki, Hauert, Lieberman and Nowak gave an almost improbably clean approximation in 2006: if cooperating once gives the other person a benefit <em>b</em> and costs you <em>c</em>, and each node in the network has on average <em>k</em> neighbours, then natural selection favours cooperation when <b>b / c &gt; k</b>. <b>The more neighbours, the harder cooperation is to grow.</b></p>
+<p>That rule turns a vague moral topic into a computable engineering problem. You usually cannot change b/c — that is set by the nature of the task. But you can nearly always change k: split a 200-person channel into twenty groups of ten and the threshold drops by an order of magnitude.</p>
+<div class="decide">
+<span class="lb">🎯 THE DECISION LINE</span>
+<p>To make "lending a hand" normal, reduce the number of people each person faces rather than increasing exhortation and recognition schemes. Splitting into small teams, assigning ownership, fixing pairings, breaking a big channel into small ones — all of these look like mere organisational form, and all of them are moves on <em>k</em>, which is the term that appears in the inequality.</p>
+</div>
+<div class="crossx-inline">
+🌀 <b>Engineering &amp; technology history · why the "two-pizza team" actually works</b>&nbsp;&nbsp;&nbsp;The usual explanation is communication cost: add people and coordination overhead explodes. b/c &gt; k supplies the other half, and it points the opposite way — it is not that communication got more expensive, it is that <b>the threshold for reciprocity got higher</b>. In a 200-person shared channel, answering one question spreads the benefit across 200 people and the expected return to you is near zero; in a group of ten, the same act has an audible echo. That yields a concrete trade-off: whenever you choose between "put everyone in one channel so information flows" and "split into groups that each own their patch," you are trading information spread against reciprocity strength. Structurally those two are opposed, and no clever channel policy gets you both.
+</div>
+
+<h2><span class="n">05</span>Real Cooperation Runs on Institutions, Not Strategies</h2>
+<p class="lead">The last two sections were models. Go and look at how humans actually solve these problems and you find something slightly embarrassing for the modellers: they almost never rely on a clever strategy. They rely on rules.</p>
+<p>Garrett Hardin's 1968 "Tragedy of the Commons" concluded that a shared pasture must be overgrazed, so there are only two ways out: nationalise it or cut it into private plots. What Elinor Ostrom spent decades doing was going to look at actual common-pool resources — Swiss alpine meadows, Spanish irrigation canals, Philippine water associations, Japanese village commons. Some had indeed collapsed. But a substantial set had run stably for centuries, neither nationalised nor privatised. In 1990 she distilled what those cases had in common into eight design principles; in 2009 she received the Nobel Prize in economics for the work.</p>
+<p>One widespread misreading is worth correcting along the way: what Hardin described is an <b>unmanaged open-access resource</b> (anyone may enter, anyone may take), whereas a commons in the historical sense always had boundaries, rules and a membership roll. Conflating the two had consequences — over the centuries a great many functioning common-property institutions were dismantled as things that were doomed anyway.</p>
+<p>Three of those eight principles map directly onto this issue's mechanisms. <b>Clear boundaries</b> — who is in the pool and who is not; without them you are not playing a repeated game at all, because you cannot even tell who the opponent is. <b>Monitoring done by the users themselves</b> — defection has to be visible, or you cannot distinguish who is carrying and who is shirking. <b>Graduated sanctions</b> — trivial for the first offence, escalating for repeat offenders; the problem with a severe penalty is not that it is harsh but that it is so harsh nobody is willing to impose it, so it becomes decorative.</p>
+<p>The punishment part has hard evidence from the lab. Fehr and Gächter ran a <b>public goods game</b> in 2002: everyone gets a sum, may put some of it into a common pot, the pot is multiplied and split evenly. With no punishment allowed, contributions slide from around two-thirds down to nearly nothing — not because people are bad, but because someone who has been taken advantage of stops volunteering to be taken advantage of. Add one rule, "you may spend your own money to punish others," and contributions climb back up towards the maximum.</p>
+<figure>
+<svg aria-label="Average contribution across rounds in a public goods game: it slides without punishment and rises with it" role="img" viewBox="0 0 720 306" xmlns="http://www.w3.org/2000/svg">
+<text fill="#aba498" font-family="-apple-system,sans-serif" font-size="13" text-anchor="middle" x="360" y="24">Same people, same game — one rule added: you may pay to punish</text>
+<line stroke="rgba(255,255,255,0.2)" stroke-width="1.5" x1="90" x2="676" y1="250" y2="250"></line>
+<line stroke="rgba(255,255,255,0.2)" stroke-width="1.5" x1="90" x2="90" y1="250" y2="52"></line>
+<polyline fill="none" points="90,140 153,125 216,113 280,102 343,94 406,87 470,83 533,79 596,77 660,75" stroke="#9fbc7a" stroke-width="2.6"></polyline>
+<polyline fill="none" points="90,117 153,132 216,146 280,161 343,174 406,185 470,197 533,208 596,220 660,231" stroke="#cd7f9b" stroke-width="2.6"></polyline>
+<text fill="#9fbc7a" font-family="-apple-system,sans-serif" font-size="11.5" text-anchor="end" x="656" y="64">punishment allowed → climbs to near full</text>
+<text fill="#cd7f9b" font-family="-apple-system,sans-serif" font-size="11.5" text-anchor="end" x="656" y="216">no punishment → steady slide</text>
+<text fill="#8d867b" font-family="-apple-system,sans-serif" font-size="11.5" text-anchor="middle" x="94" y="270">round 1</text>
+<text fill="#8d867b" font-family="-apple-system,sans-serif" font-size="11.5" text-anchor="middle" x="656" y="270">round 10</text>
+<text fill="#8d867b" font-family="-apple-system,sans-serif" font-size="11.5" transform="rotate(-90 34 168)" x="34" y="168">average share put into the pot</text>
+<text fill="#787268" font-family="-apple-system,sans-serif" font-size="11" text-anchor="middle" x="380" y="294">Schematic: trends only. Shape taken from Fehr &amp; Gächter 2002; the vertical axis carries no numbers.</text>
+</svg>
+<figcaption>The sliding line is usually read as evidence that people are cold. It is actually honest people responding correctly — with no punishment available, contributing more is simply subsidising those who contribute less.</figcaption>
+</figure>
+<p>Put the three sections together and you get an ordering that runs against common sense: <b>raising the moral standard is the most expensive, slowest and least reliable of the available levers.</b> Drawing boundaries, making behaviour visible, and making punishment cheap can each be done by a small group in a few weeks — and once done, none of them depends on anybody staying virtuous.</p>
+<div class="decide">
+<span class="lb">🎯 THE DECISION LINE</span>
+<p>Before you introduce penalties, check two things: whether the boundary is clear (who is inside, who is outside, by what criterion) and whether behaviour is visible. Miss either one and penalties will not only fail to work, they will be turned on the people doing the honest work — and as the next section shows, that is not a hypothetical.</p>
+</div>
+<div class="crossx-inline">
+🌀 <b>History · the medieval Law Merchant did exactly one thing</b>&nbsp;&nbsp;&nbsp;The private judges at the twelfth- and thirteenth-century Champagne fairs had no army and no prison, and could not enforce their own rulings. Milgrom, North and Weingast argued in 1990 that what they really supplied was a lookup service: before trading, you could pay to ask whether this man had ever been ruled against for default, and whether he had paid up. Nobody enforced anything, yet defaulters found no counterparties. That yields a much cheaper piece of institutional design — in a population where members can punish for themselves, the minimum viable institution is not enforcement but <b>bookkeeping</b>: turn "who has defected before" into public, queryable information and scattered individuals will finish the job. It also explains why what many communities most need first is not a penalty code but an open record.
+</div>
+
+<h2><span class="n">06</span>Where This Breaks Down</h2>
+<p class="lead">All of it shares one soft spot: <b>the whole edifice rests on a payoff matrix, and in the real world you are usually the one who filled that matrix in.</b></p>
+<p><b>The matrix is invented.</b> Saying "this is a prisoner's dilemma" claims you know what each of the four outcomes is worth to each side. In real conflicts those numbers are rarely measurable, and the two sides may not even share an ordering — you think you are playing a prisoner's dilemma, they are playing Hawk-Dove, or they do not care about winning at all and only care about not appearing to have lost. In that situation the matrix is not an analytical tool, it is a costume put on a conclusion you already held. This is complexity science's most common disease, and the game-theory branch has it worst.</p>
+<p><b>Space does not always help.</b> "Structure promotes cooperation" has become close to a slogan, but Hauert and Doebeli landed a solid counterexample in <em>Nature</em> in 2004: switch to the <b>snowdrift game</b> (two drivers blocked by a snowdrift; shovelling costs you, but one shoveller is enough for both to drive on, so if the other refuses you are still better off shovelling) and spatial structure <b>often lowers</b> the level of cooperation. Those three frames above are not a universal theorem — they are quite fussy about the payoff structure. Do not treat "add some spatial structure" as a general prescription.</p>
+<p><b>Punishment can run backwards.</b> The Fehr and Gächter result is so tidy that it often gets treated as a general law. Herrmann, Thöni and Fehr took the same experiment to sixteen participant pools around the world and published the result in <em>Science</em> in 2008: <b>antisocial punishment</b> is real. In a substantial number of societies, people punish those who contribute <em>more</em> than they do, and cooperation consequently fails to rise. "Give people a channel for punishing free-riders" does not hold in those places, and whether it holds correlates with local rule of law and civic norms — which is no longer something game theory can answer.</p>
+<p><b>b/c &gt; k has preconditions.</b> The rule is beautiful, but the derivation assumes weak selection, a particular update rule, and roughly regular graphs. Change the update rule and the coefficient changes. Use it as an order-of-magnitude intuition; be careful about plugging it into a specific decision as a formula.</p>
+<p><b>Last and most important: this issue is about how cooperation is <em>sustained</em>, not about whether it <em>should</em> be.</b> A price-fixing ring needs exactly the same things internally — high w, high visibility, graduated sanctions. Cartels, bid-rigging pools and the code of silence in a gang run on precisely the structure that neighbourly mutual aid runs on. So the toolkit is <b>neutral</b>: it tells you just as clearly how to dismantle a cooperation you do not want — lower w, scramble the pairings, let defectors stay anonymous and exit safely. That is exactly what Allied high command did in 1918 to the truce in the trenches.</p>
+<div class="decide">
+<span class="lb">🎯 THE DECISION LINE</span>
+<p>Before using any of this, ask yourself one question: was this payoff matrix <b>measured</b>, or did I <b>invent</b> it? At minimum you should be able to say "if I changed this number to that one, here is how the conclusion would move." If you cannot, you are restating a judgement you already held in game-theoretic vocabulary — and stating the judgement plainly would at least be honest.</p>
+</div>
+
+<div class="bigcat">
+<h3>🎒 In Context · BigCat</h3>
+<ol>
+<li><span class="dm">Engineering &amp; system design</span>The on-call handover: the outgoing shift leaves a few alerts half-investigated, hands them over as-is, and nobody writes anything down. Here <em>w</em> is actually high (it is the same handful of people rotating) and the pairing structure is right (you only deal with the shift before and after you). What is broken is <b>visibility</b> — with no record you cannot tell who is carrying and who is pushing work along, so pushing costs nothing. One thing to change: add a fixed line to the handover template, "unresolved this shift + why," then read out the counts by shift at the weekly meeting — no commentary, no ranking, just let it exist. Cooperation needs defection to be visible first; open with public criticism instead and people will simply invest in writing prettier handovers.</li>
+<li><span class="dm">Investing &amp; position sizing</span>For any arrangement that only works if the other party keeps doing things <b>afterwards</b> (a broker, a fund you commit to, a project that needs long accompaniment), you are usually judging whether the person is reliable. What to change: add a hard item to the diligence checklist — <b>how many times has this counterparty done this, and how many times do they have left</b>. A fund that still has to raise its next vehicle, a broker who still has to work this neighbourhood: <em>w</em> is high. A project that dissolves on delivery, a fund at end of life, a counterparty retiring or emigrating next year: <em>w</em> is low. That single item predicts second-half follow-through better than manner or CV, and unlike an impression it is a checkable fact.</li>
+<li><span class="dm">Parenting</span>You say "put your things away and I'll play a round with you," the child does it, a call comes in, and you say you'll make it up next time. Do that two or three times and you have quietly set <em>w</em> to 0: what the child learns is that promises do not settle, so the best response becomes getting the payoff before doing the work. That is not a character flaw, it is correct arithmetic. What to change: a promise not kept that day gets acknowledged that day and converted into something small that can be finished that day. Do not let it accumulate into "next time, together" — accumulated promises damage <em>w</em> the most, because they convert a clearly specified delay into something that may never settle at all.</li>
+</ol>
+</div>
+
+<div class="crossx">
+<h3>🌀 Crossing Over · Connections Across Disciplines</h3>
+<ul>
+<li><b>History &amp; the military · the truce in the trenches that nobody ordered</b>: on some stretches of the Western Front between 1914 and 1918 a live-and-let-live system emerged — shelling at fixed times and fixed spots, rifles deliberately aimed wide, no fire while the other side repaired its works. The sociologist Tony Ashworth documented the system in a 1980 book; Axelrod used it as a case study in <em>The Evolution of Cooperation</em>. All three of this issue's mechanisms were running at once: the same men faced the same men for long stretches (<em>w</em> very high), each length of trench interacted only with the length directly opposite (spatial structure, so retaliation landed precisely on the defector), and violations were immediately visible (one unusually accurate shot cannot be hidden). Together they yield a conclusion you would not otherwise see — <b>to destroy this cooperation, headquarters did not need to change anybody's attitude; removing any one of the three was enough</b>. And that is what they did: rotate units frequently (drive <em>w</em> down) and order compulsory raids with prisoners brought back as proof (turn non-cooperation into a verifiable military order). <b>But here it does not hold</b>: not one of Ostrom's eight principles applies — the soldiers could not exit, could not set their own rules, had no graduated sanctions. That truce was purely a product of structure with no institutional layer, which is why a single order could erase it. It proves that structure <b>can create</b> cooperation, not that structure <b>can hold on to</b> it.</li>
+<li><b>Biology &amp; medicine · cancer is a cooperation breaking down, and therapy can exploit that</b>: a multicellular organism is itself a cooperative equilibrium — cells give up unlimited proliferation in exchange for the survival of the whole. A tumour cell is the defector: it keeps the gain, the cost is spread across everyone. Three of this issue's mechanisms hold simultaneously here: replicator dynamics (the faster-replicating type gains share, quite independently of "good" or "bad"), spatial structure (tissue architecture confines defectors locally — which is also the line between in-situ and metastatic disease), and payoffs that depend on the current composition of the population. Together they yield a conclusion that runs opposite to intuition — <b>killing every sensitive cell at maximum dose clears the field of competitors for the resistant ones</b>. Gatenby's group built adaptive therapy on this: deliberately keep some sensitive cells alive to occupy space and consume resources, substituting competition for killing. They reported a small trial of abiraterone in metastatic castrate-resistant prostate cancer in <em>Nature Communications</em> in 2017. <b>One honest caveat</b>: the way that report handled its comparison was later publicly challenged (the enrolled patients had already responded to the drug, making them a poor match for the historical control). A mechanism that makes sense is not the same as an efficacy that has been demonstrated, and that boundary is yours to keep.</li>
+<li><b>Eastern thought · why Confucius rejected "repay injury with kindness"</b>: in the <em>Analects</em> (Book 14) someone asks what he thinks of repaying injury with kindness. Confucius replies: "Then with what would you repay kindness? Repay injury with uprightness, and kindness with kindness." This is usually read as a question of temperament. It is in fact a question of strategy structure. Unconditional goodwill collapses "my response to a cooperator" and "my response to a defector" into the same action, so the two types stop differing in payoff — and the only thing that keeps cooperation standing in a repeated game is precisely that <b>discriminability</b>, the property that my next move depends on your last one. Erase it and cooperation reverts to being freely invadable. Confucius's counter-question lands exactly there: the problem is not that repaying injury with kindness is too generous, it is that it uses up the slot reserved for repaying kindness, after which goodwill carries no information. That yields a conclusion you would not otherwise see — <b>what saves cooperation is not the intensity of virtue but the discriminability of the response</b>; tit-for-tat won both of Axelrod's tournaments not by being nice but by being able to tell the difference. <b>But here it does not hold</b>: Confucian <em>uprightness</em> is judged by what is right, not by the other side's last move — it is a moral standard, not a response function. And Confucius is addressing how a person should conduct themselves, promising nothing about how populations evolve. What transfers is his diagnosis of undifferentiated response, not a reading of the <em>Analects</em> as a game theory manual.</li>
+</ul>
+</div>
+
+<div class="thinking">
+<h3>Going Deeper</h3>
+<details><summary>If cooperation is a product of structure, what content is left in the sentence "this person is trustworthy"?</summary><p>One possibility: it compresses a statistic — this person did not take the free lunch in past situations where w was low and taking it was safe. If so, trustworthiness is a measurable quantity with a very specific test: watch only what someone does when there is no next time. Another possibility: people really do internalise norms that do not depend on structure, and those norms are themselves what long-run structural selection produced. Distinguishing the two experimentally is not easy.</p></details>
+<details><summary>Which of this issue's mechanisms is hardest to change deliberately?</summary><p>w can be raised through contract design, k can be lowered through organisational form, visibility can be supplied by a recording system. The magnitude of b/c is usually fixed by the nature of the task. So when b/c is naturally small — helping is expensive and does not help the other person much — should you give up on engineering cooperation and arrange things some other way entirely?</p></details>
+<details><summary>What is antisocial punishment (punishing those who contribute more than you) good for, evolutionarily?</summary><p>One candidate account: high contributors raise the reference standard for everyone and therefore threaten free-riders; knocking them down protects your relative position. If that is right, the direction punishment points depends on what people are comparing — absolute payoff or relative rank. Would switching an evaluation system from ranking to absolute standards reduce this kind of punishment?</p></details>
+<details><summary>Why does "raise the moral standard" almost always fail as an intervention, and almost always get proposed first?</summary><p>It is cheap, it offends nobody, it requires changing no one's authority or workflow, and when it fails you can blame the decline of virtue. Drawing boundaries and installing monitoring both require touching specific people and specific permissions. That is itself a game: whoever proposes the structural fix bears the cost alone while the benefit is shared by everyone.</p></details>
+<details><summary>If this toolkit works equally well for dismantling cooperation, what kind of decision is writing it down and teaching it?</summary><p>Topic 26 made the point that a model changes the thing it models once it is published. Once the structural conditions for cooperation are widely understood, the first parties to deploy them at scale may well be those most able to change structure — platforms, employers, governments. Does that mean the net effect of this kind of knowledge depends mostly on who learns it first?</p></details>
+</div>
+
+<div class="refs">
+<h3>Further Reading</h3>
+<ul>
+<li>Maynard Smith &amp; Price, <a href="https://www.nature.com/articles/246015a0">The Logic of Animal Conflict</a> (1973, the origin of the ESS)</li>
+<li>Axelrod &amp; Hamilton, <a href="https://www.science.org/doi/10.1126/science.7466396">The Evolution of Cooperation</a> (Science, 1981) · <a href="https://en.wikipedia.org/wiki/The_Evolution_of_Cooperation">the book of the same name</a> (1984)</li>
+<li>Nowak &amp; May, <a href="https://www.nature.com/articles/359826a0">Evolutionary games and spatial chaos</a> (Nature, 1992)</li>
+<li>Nowak &amp; Sigmund, <a href="https://www.nature.com/articles/364056a0">A strategy of win-stay, lose-shift that outperforms tit-for-tat</a> (Nature, 1993)</li>
+<li>Fehr &amp; Gächter, <a href="https://www.nature.com/articles/415137a">Altruistic punishment in humans</a> (Nature, 2002)</li>
+<li>Hauert &amp; Doebeli, <a href="https://www.nature.com/articles/nature02360">Spatial structure often inhibits the evolution of cooperation in the snowdrift game</a> (Nature, 2004)</li>
+<li>Ohtsuki, Hauert, Lieberman &amp; Nowak, <a href="https://www.nature.com/articles/nature04605">A simple rule for the evolution of cooperation on graphs and social networks</a> (Nature, 2006, b/c &gt; k)</li>
+<li>Herrmann, Thöni &amp; Fehr, <a href="https://www.science.org/doi/10.1126/science.1153808">Antisocial Punishment Across Societies</a> (Science, 2008)</li>
+<li>Press &amp; Dyson, <a href="https://www.pnas.org/doi/10.1073/pnas.1206569109">Iterated Prisoner's Dilemma contains strategies that dominate any evolutionary opponent</a> (PNAS, 2012)</li>
+<li>Ostrom, <a href="https://www.cambridge.org/core/books/governing-the-commons/A8BB63BC4A1433A50A3FB92EDBBB97D5">Governing the Commons</a> (1990) · <a href="https://en.wikipedia.org/wiki/Elinor_Ostrom#Design_principles_for_Common_Pool_Resource_(CPR)_institution">the eight design principles</a></li>
+<li>Sinervo &amp; Lively, <a href="https://www.nature.com/articles/380240a0">The rock-paper-scissors game and the evolution of polymorphic male strategies</a> (Nature, 1996)</li>
+<li>Zhang, Cunningham, Brown &amp; Gatenby, <a href="https://www.nature.com/articles/s41467-017-01968-5">Integrating evolutionary dynamics into treatment of metastatic castrate-resistant prostate cancer</a> (Nat Commun, 2017) · <a href="https://www.nature.com/articles/s41467-020-20174-4">a published challenge to its reporting</a> (2020)</li>
+<li>Milgrom, North &amp; Weingast, <a href="https://onlinelibrary.wiley.com/doi/10.1111/j.1468-0343.1990.tb00020.x">The Role of Institutions in the Revival of Trade: The Law Merchant, Private Judges, and the Champagne Fairs</a> (1990)</li>
+<li>Ashworth, <a href="https://en.wikipedia.org/wiki/Live_and_let_live_(World_War_I)">Trench Warfare 1914–1918: The Live and Let Live System</a> (1980)</li>
+</ul>
+</div>
+
+<footer>BigCat · Complexity Science · <a href="index.en.html">← All Topics</a></footer>
+</div>
+<script src="https://hub.cissychen.com/comments.js" defer></script>
+<script src="https://hub.cissychen.com/search.js" defer></script>
+<script src="https://hub.cissychen.com/index-button.js" defer></script>
+<script src="https://hub.cissychen.com/i18n-tts.js" defer></script>
+</body></html>
