@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+
+<html lang="en"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Fitness Landscapes — When You Have to Go Downhill First · Complexity Science T28</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,"SF Pro Display","Noto Sans SC",sans-serif;color:#e4ded5;line-height:1.85;min-height:100vh;
+  background:radial-gradient(1100px 620px at 12% -6%,rgba(224,137,94,0.10),transparent 62%),radial-gradient(950px 700px at 100% 2%,rgba(166,147,205,0.09),transparent 58%),linear-gradient(168deg,#100f0d 0%,#15161b 48%,#0a0a0c 100%);background-attachment:fixed}
+.wrap{max-width:760px;margin:0 auto;padding:30px 22px 90px}
+header{padding:52px 0 8px;border-bottom:1px solid rgba(255,255,255,0.07);margin-bottom:34px}
+.week-tag{font-family:"SF Mono",Menlo,monospace;font-size:0.72rem;font-weight:700;letter-spacing:2px;color:#79a6d2;border:1px solid rgba(121,166,210,0.4);background:rgba(121,166,210,0.07);padding:3px 11px;border-radius:20px}
+h1{font-size:2.5rem;font-weight:800;letter-spacing:0.5px;line-height:1.2;margin:20px 0 0;background:linear-gradient(106deg,#e0895e 0%,#d9b45f 34%,#9fbc7a 68%,#63b3a6 100%);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+h1 .h1en{display:block;font-size:0.40em;font-weight:600;letter-spacing:2.5px;color:#847d72;-webkit-text-fill-color:#847d72;background:none;margin-top:13px}
+.sub{font-size:1.05rem;color:#aba498;margin-top:14px;font-weight:500}
+.date{font-family:"SF Mono",Menlo,monospace;font-size:0.75rem;color:#57524b;margin-top:18px;letter-spacing:1px}
+.pitch{margin:22px 0 30px;font-size:0.97rem;color:#cd7f9b;border-left:2px solid rgba(205,127,155,0.5);padding-left:16px;font-style:italic}
+.intro{font-size:1.02rem;color:#cfc8bc;margin-bottom:14px}
+.intro p{margin-bottom:16px}
+h2{font-size:1.42rem;font-weight:700;color:#e9e3d9;margin:56px 0 8px;letter-spacing:0.3px}
+h2 .n{font-family:"SF Mono",Menlo,monospace;font-size:0.85rem;color:#79a6d2;display:block;margin-bottom:6px;letter-spacing:2px}
+.he{font-size:0.68em;color:#8d867b;font-weight:500;letter-spacing:0}
+p{margin-bottom:17px}
+.lead{color:#cfc8bc}
+b,strong{color:#f0eae0;font-weight:600}
+em{color:#d9b45f;font-style:normal;font-weight:500}
+.dim{color:#8d867b}
+a.reflink{display:inline-block;font-size:0.82rem;font-family:"SF Mono",Menlo,monospace;color:#63b3a6;border:1px solid rgba(99,179,166,0.38);background:rgba(99,179,166,0.07);padding:1px 9px;border-radius:20px;text-decoration:none;transition:all 0.15s;white-space:nowrap}
+a.reflink:hover{background:rgba(99,179,166,0.16);border-color:rgba(99,179,166,0.7)}
+figure{margin:30px 0}
+figure svg{display:block;width:100%;height:auto;border-radius:12px;background:rgba(255,255,255,0.018);border:1px solid rgba(255,255,255,0.06)}
+figcaption{font-size:0.82rem;color:#787268;margin-top:11px;text-align:center;line-height:1.6}
+.decide{margin:24px 0;border:1px solid rgba(224,137,94,0.36);background:rgba(224,137,94,0.055);border-radius:12px;padding:15px 19px}
+.decide .lb{font-family:"SF Mono",Menlo,monospace;font-size:0.73rem;letter-spacing:1.5px;color:#e0895e;font-weight:700;display:block;margin-bottom:7px}
+.decide p{margin:0;font-size:0.95rem;color:#ddd5c9}
+.crossx-inline{margin:20px 0 22px;border-left:2px solid rgba(205,127,155,0.55);padding:2px 0 2px 15px;font-size:0.89rem;color:#a9a096;line-height:1.72}
+.crossx-inline b{color:#cd7f9b;font-weight:600}
+.bigcat{margin:46px 0 10px;border:1px solid rgba(217,180,95,0.38);background:rgba(217,180,95,0.05);border-radius:14px;padding:20px 22px}
+.bigcat h3{font-size:1.02rem;color:#d9b45f;margin-bottom:14px;letter-spacing:0.5px}
+.bigcat ol{list-style:none;padding:0}
+.bigcat li{margin-bottom:15px;font-size:0.94rem;color:#d5cdc1;line-height:1.78}
+.bigcat li:last-child{margin-bottom:0}
+.bigcat .dm{font-family:"SF Mono",Menlo,monospace;font-size:0.73rem;color:#d9b45f;border:1px solid rgba(217,180,95,0.32);border-radius:4px;padding:1px 7px;margin-right:8px;white-space:nowrap}
+.crossx{margin:46px 0 10px;border:1px solid rgba(205,127,155,0.38);background:rgba(205,127,155,0.05);border-radius:14px;padding:20px 22px}
+.crossx h3{font-size:1.02rem;color:#cd7f9b;margin-bottom:14px;letter-spacing:0.5px}
+.crossx ul{list-style:none;padding:0}
+.crossx li{margin-bottom:16px;font-size:0.94rem;color:#d5cdc1;line-height:1.78}
+.crossx li:last-child{margin-bottom:0}
+.crossx li b{color:#cd7f9b;font-weight:600}
+.thinking{margin:46px 0 10px}
+.thinking h3{font-size:1.02rem;color:#a693cd;margin-bottom:14px;letter-spacing:0.5px}
+details{border:1px solid rgba(166,147,205,0.22);border-radius:10px;padding:12px 16px;margin-bottom:10px;background:rgba(166,147,205,0.035)}
+summary{cursor:pointer;font-size:0.93rem;color:#c9c2b6;font-weight:500}
+summary::marker{color:#a693cd}
+details p{margin:12px 0 0;font-size:0.9rem;color:#a9a096;line-height:1.75}
+.refs{margin:46px 0 10px}
+.refs h3{font-size:1.02rem;color:#79a6d2;margin-bottom:14px;letter-spacing:0.5px}
+.refs ul{list-style:none;padding:0}
+.refs li{margin-bottom:10px;font-size:0.9rem;color:#8d867b;line-height:1.7}
+.refs a{color:#79a6d2;text-decoration:none;border-bottom:1px solid rgba(121,166,210,0.3)}
+.refs a:hover{color:#a6c4e2;border-bottom-color:rgba(121,166,210,0.7)}
+footer{text-align:center;padding:56px 0 10px;font-size:0.78rem;color:#57524b;font-family:"SF Mono",Menlo,monospace;border-top:1px solid rgba(255,255,255,0.06);margin-top:50px}
+footer a{color:#79a6d2;text-decoration:none}
+@media(max-width:600px){h1{font-size:1.85rem}.wrap{padding:24px 16px 60px}h2{font-size:1.22rem}}
+</style></head><body>
+<div class="wrap">
+<header>
+<span class="week-tag">TOPIC 28 · PHASE E</span>
+<h1>Fitness Landscapes<span class="h1en">FITNESS LANDSCAPES</span></h1>
+<p class="sub">When you have to go downhill first</p>
+<p class="date">2026-08-15 · Adaptation &amp; Evolution</p>
+</header>
+<p class="pitch">"Every step better than the last" sounds like the safest way to work. For a whole class of problems it is the one rule that guarantees you never reach the best position — not because you stopped too early, but because you followed it correctly.</p>
+<div class="intro">
+<p>You have probably lived through this. You try to move in a new direction, and for the first six months nothing goes well; you are visibly worse than you were. So you go back. Or there is a tool you have used for years, you know a better one exists, but switching means relearning and a real dip in output — so every year you decide to switch next year.</p>
+<p>The usual explanation is willpower, or sunk cost. Both are real, but they turn a <em>structural</em> fact into a psychological one. The colder version: in many systems, getting from a good position to a better one <b>necessarily</b> passes through somewhere worse. That is not bad luck; it is the shape of the problem. And the rule that sounds beyond reproach — never accept a step that makes things worse — is precisely the nail pinning you in place.</p>
+<p class="dim">The previous topic was about putting agents into a computer and letting them run. This one looks at the same picture from the other side: what kind of <b>terrain</b> are those agents searching? The shape of that terrain — how many peaks, how deep the valleys between them — decides whether "keep improving" works at all. It is the base map for the next few topics on evolutionary games and coevolution.</p>
+</div>
+<h2><span class="n">01</span>Flattening "How Good" Into a Map</h2>
+<p class="lead">In 1932 the geneticist Sewall Wright wanted to explain why species do not simply march in a straight line toward the optimum. He drew a picture that has since spread into every field: lay every possible combination of genes out on a plane, and make the height of each point its reproductive success. That is a terrain. He called it a <b>fitness landscape</b>, and the height is <b>fitness</b>.</p>
+<p>The power of the picture is not the mountain metaphor. It is that the picture forces you to make three vague things explicit.</p>
+<p><b>First, what counts as a position.</b> A position is a whole configuration: a full genome in biology, a full set of design choices in a product, the current architecture of a codebase. <b>Second, what counts as a neighbour.</b> This is the one people skip, and it matters most — it fixes how far a single step can reach. In biology it is usually "change one base"; in an organisation it might be "change one process". <b>Third, what height means.</b> Some quantity you can actually compare: reproductive success, profit, tests passed.</p>
+<p>Once those three are fixed, one move acquires a precise name: stand where you are, look at every neighbour, move to any that is higher, stop when none is. That is <b>hill climbing</b>. Strip almost any "continuous improvement" practice down and this is what is left.</p>
+<figure>
+<svg aria-label="Neighbourhood graph of three-bit configurations: hill climbing stalls at 0.71 while the global optimum is 0.83" role="img" viewbox="0 0 720 340" xmlns="http://www.w3.org/2000/svg">
+<defs>
+<marker id="t28a" markerheight="10" markerunits="userSpaceOnUse" markerwidth="10" orient="auto" refx="9" refy="5" viewbox="0 0 10 10">
+<path d="M0,1 L9,5 L0,9 z" fill="#e0895e"></path>
+</marker>
+</defs>
+<text fill="#aba498" font-family="-apple-system,sans-serif" font-size="13" text-anchor="middle" x="360" y="26">All 8 settings of three switches — an edge means "flip exactly one switch"</text>
+<g stroke="rgba(255,255,255,0.16)" stroke-width="1.4">
+<line x1="360" x2="220" y1="272" y2="204"></line><line x1="360" x2="360" y1="272" y2="204"></line><line x1="360" x2="500" y1="272" y2="204"></line>
+<line x1="220" x2="220" y1="204" y2="132"></line><line x1="220" x2="360" y1="204" y2="132"></line>
+<line x1="360" x2="220" y1="204" y2="132"></line><line x1="360" x2="500" y1="204" y2="132"></line>
+<line x1="500" x2="360" y1="204" y2="132"></line><line x1="500" x2="500" y1="204" y2="132"></line>
+<line x1="220" x2="360" y1="132" y2="66"></line><line x1="360" x2="360" y1="132" y2="66"></line><line x1="500" x2="360" y1="132" y2="66"></line>
+</g>
+<g stroke="#e0895e" stroke-width="2.6">
+<line marker-end="url(#t28a)" x1="360" x2="486" y1="266" y2="212"></line>
+<line marker-end="url(#t28a)" x1="500" x2="508" y1="196" y2="146"></line>
+</g>
+<circle cx="360" cy="272" fill="#2b2a25" r="21" stroke="rgba(255,255,255,0.22)" stroke-width="1.4"></circle>
+<text fill="#c9c2b6" font-family="SF Mono,monospace" font-size="12" text-anchor="middle" x="360" y="269">000</text>
+<text fill="#8d867b" font-family="SF Mono,monospace" font-size="10.5" text-anchor="middle" x="360" y="282">.31</text>
+<circle cx="220" cy="204" fill="#2b2a25" r="21" stroke="rgba(255,255,255,0.22)" stroke-width="1.4"></circle>
+<text fill="#c9c2b6" font-family="SF Mono,monospace" font-size="12" text-anchor="middle" x="220" y="201">100</text>
+<text fill="#8d867b" font-family="SF Mono,monospace" font-size="10.5" text-anchor="middle" x="220" y="214">.44</text>
+<circle cx="360" cy="204" fill="#2b2a25" r="21" stroke="rgba(255,255,255,0.22)" stroke-width="1.4"></circle>
+<text fill="#c9c2b6" font-family="SF Mono,monospace" font-size="12" text-anchor="middle" x="360" y="201">010</text>
+<text fill="#8d867b" font-family="SF Mono,monospace" font-size="10.5" text-anchor="middle" x="360" y="214">.28</text>
+<circle cx="500" cy="204" fill="#3a3128" r="21" stroke="rgba(224,137,94,0.6)" stroke-width="1.6"></circle>
+<text fill="#e8ded2" font-family="SF Mono,monospace" font-size="12" text-anchor="middle" x="500" y="201">001</text>
+<text fill="#c0a68e" font-family="SF Mono,monospace" font-size="10.5" text-anchor="middle" x="500" y="214">.52</text>
+<circle cx="220" cy="132" fill="#3b4030" r="21" stroke="rgba(159,188,122,0.75)" stroke-width="2"></circle>
+<text fill="#e8ede0" font-family="SF Mono,monospace" font-size="12" text-anchor="middle" x="220" y="129">110</text>
+<text fill="#9fbc7a" font-family="SF Mono,monospace" font-size="10.5" text-anchor="middle" x="220" y="142">.83</text>
+<circle cx="360" cy="132" fill="#2b2a25" r="21" stroke="rgba(255,255,255,0.22)" stroke-width="1.4"></circle>
+<text fill="#c9c2b6" font-family="SF Mono,monospace" font-size="12" text-anchor="middle" x="360" y="129">101</text>
+<text fill="#8d867b" font-family="SF Mono,monospace" font-size="10.5" text-anchor="middle" x="360" y="142">.49</text>
+<circle cx="500" cy="132" fill="#3a3128" r="21" stroke="rgba(224,137,94,0.85)" stroke-width="2"></circle>
+<text fill="#f0e2d6" font-family="SF Mono,monospace" font-size="12" text-anchor="middle" x="500" y="129">011</text>
+<text fill="#e0895e" font-family="SF Mono,monospace" font-size="10.5" text-anchor="middle" x="500" y="142">.71</text>
+<circle cx="360" cy="66" fill="#2b2a25" r="21" stroke="rgba(255,255,255,0.22)" stroke-width="1.4"></circle>
+<text fill="#c9c2b6" font-family="SF Mono,monospace" font-size="12" text-anchor="middle" x="360" y="63">111</text>
+<text fill="#8d867b" font-family="SF Mono,monospace" font-size="10.5" text-anchor="middle" x="360" y="76">.66</text>
+<text fill="#e0895e" font-family="-apple-system,sans-serif" font-size="11.5" x="556" y="118">stops here</text>
+<text fill="#c0703f" font-family="-apple-system,sans-serif" font-size="11.5" x="556" y="136">all 3 neighbours lower</text>
+<text fill="#9fbc7a" font-family="-apple-system,sans-serif" font-size="11.5" text-anchor="end" x="164" y="126">the actual highest point</text>
+<text fill="#7d9660" font-family="-apple-system,sans-serif" font-size="11.5" text-anchor="end" x="164" y="144">hill climbing never gets here</text>
+<text fill="#57524b" font-family="-apple-system,sans-serif" font-size="11" text-anchor="middle" x="360" y="316">From 000, always move to a higher neighbour: 000 → 001 → 011, then stuck. Reaching 110 requires passing 111 (.66), below .71</text>
+</svg>
+<figcaption>Draw configurations as points and "change one thing" as edges, and the terrain stops being a metaphor. Hill climbing's behaviour on this graph is fully determined.</figcaption>
+</figure>
+<p>Three switches are already enough for the damaging thing to appear. Starting from 000 and always climbing, you land squarely on <b>011</b> (height .71), while the highest point on the board is <b>110</b> (.83). You made no mistake; every step was the best available at the time. <b>What keeps you out is not error. It is the rule that no step may make things worse.</b></p>
+<div class="crossx-inline">
+🌀 <b>Literature &amp; art · Revising and rewriting are different operations</b>　When you revise a piece of writing you usually change one sentence at a time and keep only changes that read better — hill climbing, with the neighbourhood defined as "single-sentence substitution". The unsweet conclusion that follows: how good a draft can finally get is largely fixed by where the first draft landed, and the gap between revising ten times and a hundred times is far smaller than the gap between revising and starting over. So "polish it some more" and "throw it out and rewrite" are not two intensities of one activity; they are two different moves, and the first can never substitute for the second.
+</div>
+<h2><span class="n">02</span>Local Optima: What Is Stuck Is Not the Effort</h2>
+<p class="lead">That 011 has a formal name: a <b>local optimum</b> — a position no neighbour beats. The genuinely highest point on the whole terrain is the <b>global optimum</b>. A landscape can hold very many local optima and exactly one global one.</p>
+<p>The property to keep your eye on is this: <b>standing on a local optimum, local information cannot tell you whether you are on the global one.</b> The two feel identical — look around, everything slopes down. To learn the difference you must either see far away, or walk down and find out.</p>
+<p>So "getting from here to somewhere better" acquires a quantifiable cost, and it is two numbers: <b>how deep the valley is</b> (how far below today's level the worst point sits) and <b>how long the valley lasts</b> (how long you spend below today's level). Neither number has anything to do with how good the destination is. A clearly superior option can sit behind a deep, long valley; a marginally better one may be a single step away.</p>
+<figure>
+<svg aria-label="One-dimensional terrain profile: a local peak, valley depth and duration, and a higher global peak" role="img" viewbox="0 0 720 344" xmlns="http://www.w3.org/2000/svg">
+<defs>
+<marker id="t28b" markerheight="9" markerunits="userSpaceOnUse" markerwidth="9" orient="auto" refx="8" refy="5" viewbox="0 0 10 10">
+<path d="M0,1 L9,5 L0,9 z" fill="#cd7f9b"></path>
+</marker>
+<marker id="t28c" markerheight="9" markerunits="userSpaceOnUse" markerwidth="9" orient="auto" refx="8" refy="5" viewbox="0 0 10 10">
+<path d="M0,1 L9,5 L0,9 z" fill="#8d867b"></path>
+</marker>
+</defs>
+<text fill="#aba498" font-family="-apple-system,sans-serif" font-size="13" text-anchor="middle" x="360" y="26">Moving from a good position to a better one costs two numbers</text>
+<line stroke="rgba(255,255,255,0.18)" stroke-width="1.5" x1="70" x2="670" y1="266" y2="266"></line>
+<line stroke="rgba(255,255,255,0.18)" stroke-width="1.5" x1="70" x2="70" y1="266" y2="52"></line>
+<text fill="#8d867b" font-family="-apple-system,sans-serif" font-size="11.5" transform="rotate(-90 32 168)" x="32" y="168">fitness (higher is better)</text>
+<text fill="#8d867b" font-family="-apple-system,sans-serif" font-size="11.5" text-anchor="middle" x="380" y="304">configuration space (every possible way of doing it, laid on a line) →</text>
+<path d="M70,244 C120,236 150,150 210,138 C260,128 290,196 330,214 C368,231 400,222 430,196 C470,162 495,86 550,78 C605,70 640,150 670,206" fill="none" stroke="#63b3a6" stroke-opacity="0.75" stroke-width="2.6"></path>
+<line stroke="rgba(255,255,255,0.13)" stroke-dasharray="3 4" stroke-width="1.2" x1="210" x2="210" y1="138" y2="266"></line>
+<line stroke="rgba(255,255,255,0.13)" stroke-dasharray="3 4" stroke-width="1.2" x1="330" x2="330" y1="214" y2="266"></line>
+<line stroke="rgba(255,255,255,0.13)" stroke-dasharray="3 4" stroke-width="1.2" x1="550" x2="550" y1="78" y2="266"></line>
+<line stroke="rgba(255,255,255,0.20)" stroke-dasharray="5 5" stroke-width="1.3" x1="210" x2="600" y1="138" y2="138"></line>
+<text fill="#787268" font-family="-apple-system,sans-serif" font-size="10.5" x="604" y="128">today's level</text>
+<line marker-end="url(#t28b)" stroke="#cd7f9b" stroke-width="2" x1="286" x2="286" y1="140" y2="210"></line>
+<text fill="#cd7f9b" font-family="-apple-system,sans-serif" font-size="11.5" text-anchor="end" x="278" y="182">valley depth</text>
+<line marker-end="url(#t28b)" stroke="#cd7f9b" stroke-width="2" x1="216" x2="478" y1="252" y2="252"></line>
+<text fill="#cd7f9b" font-family="-apple-system,sans-serif" font-size="11.5" text-anchor="middle" x="347" y="246">valley duration (time spent below today's level)</text>
+<circle cx="210" cy="138" fill="#e0895e" r="8"></circle>
+<text fill="#e0895e" font-family="SF Mono,monospace" font-size="12" text-anchor="middle" x="210" y="116">you are here</text>
+<text fill="#c0703f" font-family="-apple-system,sans-serif" font-size="11" text-anchor="middle" x="210" y="100">local optimum</text>
+<circle cx="550" cy="78" fill="#9fbc7a" r="8"></circle>
+<text fill="#9fbc7a" font-family="SF Mono,monospace" font-size="12" text-anchor="middle" x="550" y="58">global optimum</text>
+<line marker-end="url(#t28c)" stroke="#8d867b" stroke-dasharray="6 4" stroke-width="1.8" x1="228" x2="316" y1="152" y2="204"></line>
+<line marker-end="url(#t28c)" stroke="#8d867b" stroke-dasharray="6 4" stroke-width="1.8" x1="346" x2="530" y1="212" y2="92"></line>
+<text fill="#57524b" font-family="-apple-system,sans-serif" font-size="11" text-anchor="middle" x="380" y="336">On a local optimum, local information looks exactly the same as on the global one: everything slopes down</text>
+</svg>
+<figcaption>Valley depth and valley duration are properties of the route, not of the destination.</figcaption>
+</figure>
+<p>Split those two numbers apart and a lot of "failed reform" stories read differently. Most reforms do not die on the plan; they die because <b>the mandate is shorter than the valley</b>. And from the outside the valley is a perfectly real decline, so the conclusion "this direction isn't working" is fully supported by the data.</p>
+<div class="decide">
+<span class="lb">🎯 DECISION</span>
+<p>Before starting anything that swaps one way of working for another, write down two numbers: <b>valley depth</b> (how far below today you will fall, on a metric you already track) and <b>valley duration</b> (how long until you are back to today's level). Then ask: can you get a mandate for those two numbers? If not, <b>do not start</b> — build in parallel instead: stand up a second track without dismantling the existing one, and switch only once it has climbed above today's level on its own. The commonest cause of death in the valley is not a wrong plan; it is being cancelled mid-valley by your own monthly metrics.</p>
+</div>
+<div class="crossx-inline">
+🌀 <b>Biology · The blind spot in the vertebrate eye</b>　Our photoreceptors face backwards, the nerve fibres run across the front of the light-sensitive layer, and they must punch a hole to get out — that hole is the blind spot. Octopus eyes have no such problem; their wiring sits behind the receptors. This is not evolution being lazy: two lineages climbed their own local optima, and rewiring the vertebrate retina would require passing through intermediate forms that see worse — and the intermediates have to survive. What follows is a reading rule: anatomical "bad design" should not be read as "never optimised", but as "thoroughly optimised, within whatever is reachable from this starting point".
+</div>
+<h2><span class="n">03</span>Ruggedness Is a Knob</h2>
+<p class="lead">The next question follows by itself: why do some terrains have a single summit — in which case hill climbing is all you need — while others bristle with peaks? What sets the <b>ruggedness</b> of a landscape?</p>
+<p>In 1987 Stuart Kauffman and Simon Levin gave a startlingly clean answer <a class="reflink" href="ref-santa-fe.en.html">→ ref · the Santa Fe school</a>. They built a toy model with exactly two knobs, the <b>NK model</b> <a class="reflink" href="ref-nk-landscape.en.html">→ ref · NK fitness landscape</a>:</p>
+<p><b>N</b> is how many components the system has (say 20 switches). <b>K</b> is <em>how many other components each component's own contribution depends on</em>. That is all. K is simply the degree of interdependence.</p>
+<p>The results are remarkably tidy. At <b>K = 0</b> every component minds its own business, so you can tune them one at a time without disturbing anything else — the landscape has a single peak and any climbing path reaches it. As <b>K grows</b>, changing one component scrambles the contributions of more and more others, and peaks multiply, sharpen and separate. At maximum K, where every component depends on all the others, the landscape becomes fully random and the number of local optima is 2ᴺ⁄(N+1) — for N = 20, roughly fifty thousand.</p>
+<figure>
+<svg aria-label="Three frames showing ruggedness rising with K: single peak at K=0, several peaks at moderate K, fully random at maximum K" role="img" viewbox="0 0 720 300" xmlns="http://www.w3.org/2000/svg">
+<text fill="#aba498" font-family="-apple-system,sans-serif" font-size="13" text-anchor="middle" x="360" y="26">Same number of components — only "how many others each one depends on" changes</text>
+<g>
+<text fill="#9fbc7a" font-family="SF Mono,monospace" font-size="12.5" text-anchor="middle" x="130" y="60">K = 0</text>
+<text fill="#787268" font-family="-apple-system,sans-serif" font-size="11" text-anchor="middle" x="130" y="78">components independent</text>
+<line stroke="rgba(255,255,255,0.16)" stroke-width="1.3" x1="40" x2="220" y1="212" y2="212"></line>
+<path d="M40,204 C80,200 105,110 130,106 C155,102 180,198 220,206" fill="none" stroke="#9fbc7a" stroke-width="2.4"></path>
+<circle cx="130" cy="106" fill="#9fbc7a" r="5"></circle>
+<text fill="#9fbc7a" font-family="-apple-system,sans-serif" font-size="11.5" text-anchor="middle" x="130" y="238">1 peak</text>
+<text fill="#787268" font-family="-apple-system,sans-serif" font-size="10.5" text-anchor="middle" x="130" y="256">any start reaches it</text>
+</g>
+<g>
+<text fill="#d9b45f" font-family="SF Mono,monospace" font-size="12.5" text-anchor="middle" x="360" y="60">K = moderate</text>
+<text fill="#787268" font-family="-apple-system,sans-serif" font-size="11" text-anchor="middle" x="360" y="78">each depends on two or three</text>
+<line stroke="rgba(255,255,255,0.16)" stroke-width="1.3" x1="270" x2="450" y1="212" y2="212"></line>
+<path d="M270,200 C288,196 296,138 312,136 C328,134 336,186 352,190 C366,193 376,110 392,108 C408,106 416,178 428,190 C438,199 444,202 450,204" fill="none" stroke="#d9b45f" stroke-width="2.4"></path>
+<circle cx="312" cy="136" fill="#d9b45f" r="4.5"></circle><circle cx="392" cy="108" fill="#d9b45f" r="4.5"></circle>
+<text fill="#d9b45f" font-family="-apple-system,sans-serif" font-size="11.5" text-anchor="middle" x="360" y="238">several peaks</text>
+<text fill="#787268" font-family="-apple-system,sans-serif" font-size="10.5" text-anchor="middle" x="360" y="256">the start decides which one</text>
+</g>
+<g>
+<text fill="#cd7f9b" font-family="SF Mono,monospace" font-size="12.5" text-anchor="middle" x="590" y="60">K = maximum</text>
+<text fill="#787268" font-family="-apple-system,sans-serif" font-size="11" text-anchor="middle" x="590" y="78">each depends on all</text>
+<line stroke="rgba(255,255,255,0.16)" stroke-width="1.3" x1="500" x2="680" y1="212" y2="212"></line>
+<path d="M500,196 L509,150 L518,190 L527,132 L536,186 L545,160 L554,200 L563,124 L572,192 L581,144 L590,198 L599,136 L608,188 L617,158 L626,202 L635,128 L644,190 L653,166 L662,196 L671,150 L680,188" fill="none" stroke="#cd7f9b" stroke-width="2.2"></path>
+<text fill="#cd7f9b" font-family="-apple-system,sans-serif" font-size="11.5" text-anchor="middle" x="590" y="238">peaks past meaning</text>
+<text fill="#787268" font-family="-apple-system,sans-serif" font-size="10.5" text-anchor="middle" x="590" y="256">~50,000 at N = 20</text>
+</g>
+<text fill="#57524b" font-family="-apple-system,sans-serif" font-size="11" text-anchor="middle" x="360" y="286">Ruggedness is not luck; it is a direct consequence of coupling — and coupling is often changeable</text>
+</svg>
+<figcaption>Three frames: hold the number of components fixed, turn only the dependency knob, and one mountain becomes a field of rubble.</figcaption>
+</figure>
+<p>The weight of this is that <b>ruggedness is not fate; it is a consequence of your architecture.</b> "Around here everything breaks when you touch it, incremental improvement just doesn't work" is usually heard as a complaint about capability or morale. More often it is a measurable structural parameter talking. And structural parameters can be changed: break dependencies, define interfaces, separate components that are tangled together. None of those moves improves any metric directly — what they do is <b>flatten the terrain</b> so that small improvements start working again. This is the other face of near-decomposability from Topic 3: modular systems survive because they build themselves a less rugged landscape.</p>
+<div class="decide">
+<span class="lb">🎯 DECISION</span>
+<p>When small steps stop paying, do not add people or time first — measure K. Concretely: list the components of the thing you want to change and, for each, ask how many other components a change to it would disturb; take the average. <b>Once the average is past two or three, any point improvement will be cancelled out by degradation elsewhere</b>, and the link between effort and result visibly weakens. What to do then is decouple — define interfaces, cut dependencies, kill cross-module implicit assumptions — not optimise. Decoupling raises no metric of its own. What it raises is the yield of every future optimisation.</p>
+</div>
+<div class="crossx-inline">
+🌀 <b>Engineering &amp; the history of technology · Why some codebases can be refactored and some can only be rewritten</b>　The same team at the same skill level refactors codebase A in comfortable small steps, while in codebase B every change breaks three other things until the only option left is to tear it down. The difference gets blamed on "legacy", but it can be stated more precisely: B has high K — each module's correctness depends on a scatter of implicit conventions elsewhere. The operational conclusion: to recover the ability to change things in small steps, spend first on <b>reducing dependency counts</b>, even though that step ships nothing a user can see. Higher quality raises the success rate of each step; lowering K creates the existence of a route made entirely of small steps.
+</div>
+<h2><span class="n">04</span>Explore and Exploit: Temperature as a Knob</h2>
+<p class="lead">If pure climbing gets stuck, you have to allow the occasional step downhill. But if you always step downhill you are merely wandering and never settle anywhere. The dilemma has a name: <b>exploration versus exploitation</b> — go look elsewhere, or dig deeper where you stand.</p>
+<p>The most elegant resolution came in 1983 from three IBM researchers (Kirkpatrick, Gelatt and Vecchi): <b>simulated annealing</b>. Accepting a worse position is given a probability, controlled by a parameter called <em>temperature</em>. Hot, and you are quite happy to move downhill, so you roam the whole terrain; cold, and you accept almost nothing but uphill moves. Then <b>you lower the temperature slowly over time</b>.</p>
+<p>The name comes from metallurgy: cooled slowly, atoms have time to settle into a low-energy ordered structure; quenched, they freeze wherever they happen to be. The crucial object is not the permission to get worse — it is the <b>cooling schedule</b>: when, and how fast, that permission is withdrawn.</p>
+<figure>
+<svg aria-label="Three search strategies compared: pure climbing stalls, constant high temperature never settles, annealing finds a high peak" role="img" viewbox="0 0 720 352" xmlns="http://www.w3.org/2000/svg">
+<defs>
+<marker id="t28d" markerheight="8" markerunits="userSpaceOnUse" markerwidth="8" orient="auto" refx="7" refy="4" viewbox="0 0 8 8">
+<path d="M0,1 L7,4 L0,7 z" fill="#aba498"></path>
+</marker>
+</defs>
+<text fill="#aba498" font-family="-apple-system,sans-serif" font-size="13" text-anchor="middle" x="360" y="26">Same terrain, same start, three rules about accepting a worse position</text>
+<g>
+<text fill="#e0895e" font-family="SF Mono,monospace" font-size="12" text-anchor="middle" x="128" y="58">① uphill only</text>
+<path d="M40,178 C62,174 70,120 88,118 C106,116 112,168 130,172 C146,175 156,96 174,94 C192,92 202,158 216,172" fill="none" stroke="rgba(255,255,255,0.22)" stroke-width="2"></path>
+<circle cx="52" cy="176" fill="#8d867b" r="4"></circle>
+<circle cx="88" cy="118" fill="#e0895e" r="6.5"></circle>
+<line marker-end="url(#t28d)" stroke="#aba498" stroke-width="1.6" x1="58" x2="80" y1="172" y2="128"></line>
+<text fill="#e0895e" font-family="-apple-system,sans-serif" font-size="11" text-anchor="middle" x="128" y="212">stuck on the first peak</text>
+<text fill="#787268" font-family="-apple-system,sans-serif" font-size="10.5" text-anchor="middle" x="128" y="230">converges — but where</text>
+<text fill="#787268" font-family="-apple-system,sans-serif" font-size="10.5" text-anchor="middle" x="128" y="246">depends on the start</text>
+</g>
+<g>
+<text fill="#cd7f9b" font-family="SF Mono,monospace" font-size="12" text-anchor="middle" x="360" y="58">② always hot</text>
+<path d="M272,178 C294,174 302,120 320,118 C338,116 344,168 362,172 C378,175 388,96 406,94 C424,92 434,158 448,172" fill="none" stroke="rgba(255,255,255,0.22)" stroke-width="2"></path>
+<circle cx="284" cy="176" fill="#8d867b" r="3.5"></circle><circle cx="320" cy="118" fill="#8d867b" r="3.5"></circle><circle cx="350" cy="168" fill="#8d867b" r="3.5"></circle><circle cx="406" cy="94" fill="#8d867b" r="3.5"></circle><circle cx="436" cy="162" fill="#8d867b" r="3.5"></circle><circle cx="362" cy="172" fill="#cd7f9b" r="6.5"></circle>
+<line marker-end="url(#t28d)" stroke="#aba498" stroke-width="1.4" x1="290" x2="314" y1="172" y2="126"></line>
+<line marker-end="url(#t28d)" stroke="#aba498" stroke-width="1.4" x1="326" x2="344" y1="126" y2="162"></line>
+<line marker-end="url(#t28d)" stroke="#aba498" stroke-width="1.4" x1="358" x2="400" y1="162" y2="102"></line>
+<line marker-end="url(#t28d)" stroke="#aba498" stroke-width="1.4" x1="412" x2="430" y1="102" y2="154"></line>
+<text fill="#cd7f9b" font-family="-apple-system,sans-serif" font-size="11" text-anchor="middle" x="360" y="212">covers everything, never stops</text>
+<text fill="#787268" font-family="-apple-system,sans-serif" font-size="10.5" text-anchor="middle" x="360" y="230">has seen the highest point</text>
+<text fill="#787268" font-family="-apple-system,sans-serif" font-size="10.5" text-anchor="middle" x="360" y="246">but did not stay on it</text>
+</g>
+<g>
+<text fill="#9fbc7a" font-family="SF Mono,monospace" font-size="12" text-anchor="middle" x="592" y="58">③ annealed</text>
+<path d="M504,178 C526,174 534,120 552,118 C570,116 576,168 594,172 C610,175 620,96 638,94 C656,92 666,158 680,172" fill="none" stroke="rgba(255,255,255,0.22)" stroke-width="2"></path>
+<circle cx="516" cy="176" fill="#8d867b" r="3.5"></circle><circle cx="552" cy="118" fill="#8d867b" r="3.5"></circle><circle cx="582" cy="168" fill="#8d867b" r="3.5"></circle><circle cx="638" cy="94" fill="#9fbc7a" r="6.5"></circle>
+<line marker-end="url(#t28d)" stroke="#aba498" stroke-width="1.4" x1="522" x2="546" y1="172" y2="126"></line>
+<line marker-end="url(#t28d)" stroke="#aba498" stroke-width="1.4" x1="558" x2="576" y1="126" y2="162"></line>
+<line marker-end="url(#t28d)" stroke="#aba498" stroke-width="1.4" x1="590" x2="632" y1="162" y2="102"></line>
+<text fill="#9fbc7a" font-family="-apple-system,sans-serif" font-size="11" text-anchor="middle" x="592" y="212">roams early, tightens late</text>
+<text fill="#787268" font-family="-apple-system,sans-serif" font-size="10.5" text-anchor="middle" x="592" y="230">the designed object is not</text>
+<text fill="#787268" font-family="-apple-system,sans-serif" font-size="10.5" text-anchor="middle" x="592" y="246">the permission but its withdrawal</text>
+</g>
+<line stroke="rgba(255,255,255,0.14)" stroke-width="1.2" x1="60" x2="660" y1="328" y2="328"></line>
+<path d="M60,278 C160,278 210,298 300,306 C400,314 520,316 660,317" fill="none" stroke="#79a6d2" stroke-width="2"></path>
+<text fill="#79a6d2" font-family="-apple-system,sans-serif" font-size="11" x="66" y="272">temperature</text>
+<text fill="#57524b" font-family="-apple-system,sans-serif" font-size="10.5" text-anchor="end" x="656" y="346">time →</text>
+</svg>
+<figcaption>Three frames. What actually gets designed is not whether to explore, but that cooling curve.</figcaption>
+</figure>
+<p>The same idea grows different shapes elsewhere. <a class="reflink" href="ref-genetic-algorithm.en.html">→ ref · genetic algorithms</a> use no temperature; they use <em>recombination</em>: take half of one decent configuration and half of another and stitch them, landing far away in a single move — effectively swapping in a different definition of "neighbour", so that two peaks separated by a deep valley may now be one step apart. The <b>multi-armed bandit</b> problem strips the dilemma to its purest form: several slot machines, unknown payouts, and every pull is a choice between trying the one you have barely tested and pulling the current best. One result recurs across the mathematics: <b>the optimal share of exploration rises with how many rounds you have left</b>. So the same person on the same problem should explore at different rates in January and in November — not a matter of mood, but something you can compute.</p>
+<div class="decide">
+<span class="lb">🎯 DECISION</span>
+<p>Write exploration as a <b>budget and a cooling schedule</b>, never as an attitude. Three concrete things: ① fix a share (say 20% of time or money) for directions uncorrelated with what you already do; ② give that share its own evaluation standard — judge it by <b>how many directions it ruled out</b>, not by its return, because the output of exploration is information rather than return; ③ write the cooling schedule in advance: the date after which no new directions open and resources come back. Without ③, "staying open" runs hot forever and never converges. Without ②, the exploration budget is absorbed by the main line's metrics inside one quarter.</p>
+</div>
+<div class="crossx-inline">
+🌀 <b>Biology · The immune system fences off its own hot zone</b>　In the germinal centres of a lymph node, B cells switch on somatic hypermutation, raising the mutation rate in one small stretch of antibody gene to roughly a million times the ordinary genomic rate, then screen repeatedly on binding strength. That is a genuine high-temperature search region — and the body opens it deliberately. What matters is its boundary: the elevated rate is confined to that stretch of sequence, that population of cells, that window of time, and outside it fidelity stays extremely high. The move this suggests is not "raise your error rate" but <b>fence off a place where the error rate is raised</b> — a system that raised it globally would fall apart, which is exactly why this one does not.
+</div>
+<h2><span class="n">05</span>Where This Breaks Down</h2>
+<p class="lead">The fitness landscape is the handiest picture in complexity science and the easiest to misuse. The problem is not that it is wrong; it is that the little three-dimensional hill is so pleasant to look at that you forget what it left out.</p>
+<p><b>First, the dimensions are a lie.</b> A terrain drawn on paper has two lateral degrees of freedom, so each point has a handful of neighbours and peaks must be separated by valleys. Real configuration spaces are not like that: twenty switches give twenty directions of neighbour and a million positions. In high dimensions, being <em>completely</em> surrounded by lower ground becomes rare — there is usually a near-level <em>ridge</em> around. The evolutionary biologist Sergey Gavrilets calls this a <b>holey landscape</b>: in high dimensions the high-fitness regions join into one connected web, and lineages can diverge without ever going downhill. That directly weakens Wright's classic argument that small populations and random drift are needed to cross valleys.</p>
+<figure>
+<svg aria-label="A cross-section forces a valley crossing while the full space allows a ridge detour" role="img" viewbox="0 0 720 300" xmlns="http://www.w3.org/2000/svg">
+<defs>
+<marker id="t28e" markerheight="9" markerunits="userSpaceOnUse" markerwidth="9" orient="auto" refx="8" refy="5" viewbox="0 0 10 10">
+<path d="M0,1 L9,5 L0,9 z" fill="#9fbc7a"></path>
+</marker>
+<marker id="t28f" markerheight="9" markerunits="userSpaceOnUse" markerwidth="9" orient="auto" refx="8" refy="5" viewbox="0 0 10 10">
+<path d="M0,1 L9,5 L0,9 z" fill="#cd7f9b"></path>
+</marker>
+</defs>
+<text fill="#aba498" font-family="-apple-system,sans-serif" font-size="13" text-anchor="middle" x="360" y="26">The same two peaks — on the left a slice on paper, on the right the space they live in</text>
+<text fill="#cd7f9b" font-family="SF Mono,monospace" font-size="12" text-anchor="middle" x="180" y="56">one-dimensional slice</text>
+<line stroke="rgba(255,255,255,0.16)" stroke-width="1.3" x1="60" x2="300" y1="230" y2="230"></line>
+<path d="M60,214 C86,208 96,116 122,112 C150,108 158,196 180,204 C202,212 212,102 240,98 C268,94 282,190 300,214" fill="none" stroke="#63b3a6" stroke-opacity="0.8" stroke-width="2.4"></path>
+<circle cx="122" cy="112" fill="#e0895e" r="6"></circle><circle cx="240" cy="98" fill="#9fbc7a" r="6"></circle>
+<path d="M130,122 C152,120 160,196 180,202 C200,208 212,112 230,106" fill="none" marker-end="url(#t28f)" stroke="#cd7f9b" stroke-dasharray="5 4" stroke-width="1.8"></path>
+<text fill="#cd7f9b" font-family="-apple-system,sans-serif" font-size="11" text-anchor="middle" x="180" y="252">the valley must be crossed</text>
+<text fill="#cd7f9b" font-family="SF Mono,monospace" font-size="24" text-anchor="middle" x="336" y="168">≠</text>
+<text fill="#9fbc7a" font-family="SF Mono,monospace" font-size="12" text-anchor="middle" x="540" y="56">with one more direction (top view)</text>
+<rect fill="rgba(255,255,255,0.02)" height="150" rx="8" stroke="rgba(255,255,255,0.10)" width="300" x="390" y="74"></rect>
+<ellipse cx="452" cy="176" fill="rgba(224,137,94,0.16)" rx="46" ry="32" stroke="rgba(224,137,94,0.4)"></ellipse>
+<ellipse cx="628" cy="176" fill="rgba(159,188,122,0.16)" rx="46" ry="32" stroke="rgba(159,188,122,0.4)"></ellipse>
+<path d="M452,146 C470,104 610,104 628,146" fill="rgba(99,179,166,0.10)" stroke="rgba(99,179,166,0.45)" stroke-width="1.4"></path>
+<circle cx="452" cy="176" fill="#e0895e" r="6"></circle><circle cx="628" cy="176" fill="#9fbc7a" r="6"></circle>
+<line marker-end="url(#t28f)" stroke="#cd7f9b" stroke-dasharray="5 4" stroke-width="1.6" x1="464" x2="614" y1="176" y2="176"></line>
+<text fill="#cd7f9b" font-family="-apple-system,sans-serif" font-size="10.5" text-anchor="middle" x="540" y="194">straight line: through the valley</text>
+<path d="M456,160 C474,120 606,120 624,160" fill="none" marker-end="url(#t28e)" stroke="#9fbc7a" stroke-width="2"></path>
+<text fill="#9fbc7a" font-family="-apple-system,sans-serif" font-size="10.5" text-anchor="middle" x="540" y="108">around: never downhill</text>
+<text fill="#787268" font-family="-apple-system,sans-serif" font-size="10.5" text-anchor="middle" x="540" y="246">the more dimensions, the likelier such a detour exists</text>
+<text fill="#57524b" font-family="-apple-system,sans-serif" font-size="11" text-anchor="middle" x="360" y="284">"You must go downhill first" is a statement about a slice. From another direction the valley may be a ridge you never drew</text>
+</svg>
+<figcaption>The cost of low-dimensional intuition: reading "a valley along this direction" as "a valley".</figcaption>
+</figure>
+<p><b>Second, the terrain is not dead.</b> An NK landscape fixes every height before the run starts. In reality others are moving too: the peak you climbed can sink because a competitor, a regulator or a change in taste sank it, and can rise because someone else opened a route to it. That is <b>coevolution</b>, the subject of Topic 31. Once the terrain moves, "reaching the optimum" stops being the goal and speed of movement — plus distance to the nearest ridge — takes its place. It is also why "we are already the best in the industry" carries no information about next year.</p>
+<p><b>Third, height may not exist.</b> A landscape assumes one scalar you can compare. Real "good" is usually several incommensurable things: fast and stable, growth and margin, coverage and precision. Multi-objective problems have no highest point at all, only a whole set of solutions none of which beats another on everything (the Pareto front). Compressing them into one "overall score" does not solve the problem; it hides the choice of weights inside a formula.</p>
+<p><b>Fourth, the picture was contested from the start.</b> The historian of science William Provine argued in 1986 that Wright's landscape diagrams silently mixed two incompatible coordinate systems — the space of genotypes and the space of gene frequencies — and do not stand up as mathematical objects. That does not stop them being useful for thinking, but it does flag something: <b>this is a visualisation of a metaphor, not a model you can put numbers into.</b> Whenever you hear "we're at a local optimum in our fitness landscape", ask first: how is your neighbourhood defined, and which quantity is the height? Without answers, the sentence is just an expensive way of saying "we're stuck".</p>
+<p>One more thing worth separating out: ruggedness is not a property of the terrain alone either. It is a <b>joint property of terrain and move set</b>. The same set of configurations may be brutally rugged if you can only flip one bit at a time, and lose half its peaks if you are allowed to swap two whole modules. So being stuck leaves a third option besides trying harder and descending: <em>change the move set</em>.</p>
+<div class="decide">
+<span class="lb">🎯 DECISION</span>
+<p>Before diagnosing yourself as being at a local optimum, fill in three blanks: <b>neighbourhood</b> (what one step can change), <b>height</b> (which specific metric), and <b>whether the terrain moves</b> (how often you re-estimate it). With all three filled, "go downhill first" is an executable judgement; without them, drop the vocabulary — at that point it explains nothing and merely supplies a handsome picture for "we're stuck". And when stuck, try in this order: first see whether the neighbourhood can change (different tools, different collaboration, cross-domain recombination), then consider crossing the valley. Changing the neighbourhood is usually far cheaper.</p>
+</div>
+<div class="bigcat">
+<h3>🎒 Scenario · BigCat</h3>
+<ol>
+<li><span class="dm">writing &amp; this site itself</span>Every issue follows the layout of the last one, and it gets smoother each time: stable section counts, stable figure types, crossings that start landing in the same places. That is a textbook climbing path — each issue is more practised than the last, and practice is exactly the force pinning you to one peak. The changeable thing is concrete: pull the <b>structural parameters</b> of the last ten issues (section count, figure count, the distribution of length across sections) and check whether their variance is widening or narrowing. Narrowing means climbing the same peak. Then run a cooling schedule: every fixed number of issues, force one with a different structure (two sections only, or a single long argument), and <b>declare in advance that its reception does not count</b> toward topic selection — otherwise the exploration is eaten on the spot by the main line's metrics.</li>
+<li><span class="dm">parenting</span>The recurring situation: doubling down on the thing a child is already good at, because a bit of progress shows up every week — while anything genuinely new will, for its first few months, look worse than what they already do. The filter "visible progress" quietly narrows every choice onto the peak already being climbed. What to change: stop letting "did it get better this week" be the only observed quantity, and add a quarterly one — <b>has there been a clear, temporary decline this quarter</b>. Not once means the current mix contains no exploration at all. What to stop: withdrawing support in the first weeks of something new, when the results dip. Those weeks are the valley, and withdrawing there means turning back at the bottom every single time.</li>
+<li><span class="dm">leading a team</span>Every review cycle replays it: the person working on something new scores below the person keeping the existing system in good shape, because the former has nothing finished to show inside this cycle. That is not unfairness in the reviewers; it is a single ruler being used for two things — exploitation's yardstick applied to exploration. What to change is not the weighting (a heavier weight just reads the same ruler differently) but the <b>definition of output that can settle within the cycle</b>: which three directions were ruled out, which uncertainty moved from "unknown" to "known not to work". What to stop: ranking the two kinds of work on one sheet.</li>
+</ol>
+</div>
+<div class="crossx">
+<h3>🌀 Crossings</h3>
+<ul>
+<li><b>Economics &amp; institutions · the transformational recession</b>: Almost every country in the post-1989 transitions of Eastern Europe and the former Soviet Union went through a steep fall in output before recovery; the economist János Kornai named it the <b>transformational recession</b>. This topic's three mechanisms together explain why it was <em>necessary</em> rather than <em>unlucky</em>: the planned system was a real local optimum, internally mutually consistent; K between institutional components is extremely high (prices, ownership, courts and social insurance presuppose one another), so no smooth "change one thing" path exists; therefore the only route runs through a valley. The conclusion this yields sits oddly against the debate of the time — "gradualism versus shock therapy" argued about step size, whereas the mechanism says what decides the outcome is <b>the ratio of valley duration to the political mandate</b>: a correct plan whose valley outlasts a term will be demonstrated, in the data, to have failed, and then actually reversed. <b>But here it does not hold</b>: a landscape assumes one comparable height, while output, employment, fairness and sovereignty are incommensurable, and a valley on one axis may be a climb on another. Compressing them into a single "reform performance" height is exactly what went wrong in many contemporary policy assessments. What transfers is the structure of a mandatory dip; what does not is the idea that the dip has a single reading.</li>
+<li><b>History &amp; the military · two interwar armies</b>: After 1918 the French army took the approach that had demonstrably worked at the end of the war — coordinated firepower, methodical advance, depth and fortification to grind an opponent down — and refined it step by careful step, each improvement valid inside its own frame. The German army was cut by the Treaty of Versailles to a hundred thousand men, stripped of equipment and numbers, and forced to rethink from "if we can keep only the minimum, what must it be". The result in 1940 is usually credited to German genius or French rigidity; this topic's mechanisms give a flatter and more unsettling version: <b>strict hill climbing plus high K</b> is sufficient to produce it. Every incremental improvement by the victors made nothing worse, so they were locked onto their own peak; and because an army's components (doctrine, unit structure, communications, training, logistics) are heavily interdependent, "new tanks, same organisation" was bound to be cancelled out elsewhere — which is why France's substantial tank numbers did not help. The operational conclusion is that since "staying humble" cannot change the terrain, you <b>manufacture local restarts</b>: independent formations, red teams, experimental units exempt from the main line's evaluation. Structure in place of self-awareness.</li>
+<li><b>Sociology of science · "ideas are getting harder to find"</b>: Bloom, Jones, Van Reenen and Webb published solid numbers in 2020: across semiconductors, crop yields and pharmaceuticals, the research effort needed to sustain the same rate of progress keeps rising. The standard reading is that the low-hanging fruit is gone — the problems themselves got harder. Lay this topic's three mechanisms on top and a different, testable reading appears: a field's <b>neighbourhood</b> is defined by the methods it accepts (what counts as a publishable paper), its K by how strongly its variables depend on one another, and its explore/exploit ratio by grant cycles and tenure structure — and all three reward increments inside existing methods. So part of "getting harder" may not be a changed terrain at all, but a field <b>parked on the local optimum its own methods can reach</b>. That version yields a conclusion the first cannot: if the fruit really is gone, more of the same labour is the only answer; if the neighbourhood is too narrow, importing foreign methods (changing the move set) is an order of magnitude cheaper than adding people — and the two cases are separable in the data, by looking at the output elasticity of cross-field method transfer.</li>
+</ul>
+</div>
+<div class="thinking">
+<h3>Going Deeper</h3>
+<details><summary>If ridges are everywhere in high dimensions, is "you must go downhill first" simply a false problem?</summary><p>No, but it applies more narrowly than usually assumed. What matters is how rich your <b>neighbourhood</b> is: biological evolution has thousands of mutable sites, so detours abound; an organisation can typically change two or three things at once, so its effective dimensionality is low and the valley is a real valley. The test is therefore not "is this system complex" but "how many things can I change in one step". It also explains why the same transition is a gentle slope when you can move people, process and incentives together, and a cliff when you can only move one.</p></details>
+<details><summary>Is a "20% exploration budget" grounded in anything, or just a number?</summary><p>There is no universal optimum — the bandit-optimal exploration rate depends on rounds remaining, the variance of payoffs, and switching costs, all of which differ by situation. The value of a fixed share is not that it is optimal but that it <b>converts something that gets eaten by short-term pressure into a default</b>. The part worth arguing over is not the percentage but whether there is a separate evaluation standard and an explicit cooling date; without those two, any percentage goes to zero in the first tense quarter.</p></details>
+<details><summary>How do you tell "I'm in the valley, hold on" from "this direction is simply wrong"?</summary><p>This topic's mechanisms cannot help, and that is the honest part: a landscape's shape is only clear afterwards. What you can do is fix the criteria beforehand — at launch, write down the expected valley depth and duration plus a <b>falsifying condition</b> (if by time X sign Y has not appeared, withdraw). The difference is not whether you can foresee, but whether the withdrawal rule was set before the valley or during it. Set during it, any rule gets rewritten by how much it currently hurts.</p></details>
+<details><summary>Does lowering K have a cost? Is decoupling everything optimal?</summary><p>It does, and a real one. Lowering K means giving up synergy between components — a highly tailored, tightly coupled design often sits on a higher peak than a modular one. So this is an explicit trade: <b>peak height for terrain smoothness</b>. When the environment is stable and the goal fixed, coupling pays; when the terrain itself moves and you must re-aim often, smoothness is what is worth money. Treating decoupling as a universally correct principle means dismantling your building blocks precisely when you should be digging in.</p></details>
+<details><summary>"Ruggedness is a joint property of terrain and move set" — what does that let you do?</summary><p>It means there is a commonly overlooked third option when stuck. Besides trying harder (same move set) and crossing the valley (paying the cost), you can change the neighbourhood: different tools, different collaboration, or some way of altering several components at once — recombination in a genetic algorithm, or handing a problem to an entirely different team in an organisation. Changing the neighbourhood usually costs far less than crossing a valley, but it requires noticing that "what one step can change" is designable rather than given.</p></details>
+</div>
+<div class="refs">
+<h3>Further Reading</h3>
+<ul>
+<li>Sewall Wright, <a href="https://en.wikipedia.org/wiki/Fitness_landscape">The roles of mutation, inbreeding, crossbreeding and selection in evolution</a> (1932, where the landscape comes from)</li>
+<li>Kauffman &amp; Levin, <a href="https://doi.org/10.1016/S0022-5193(87)80029-2">Towards a general theory of adaptive walks on rugged landscapes</a> (1987, the NK model)</li>
+<li>Kirkpatrick, Gelatt &amp; Vecchi, <a href="https://www.science.org/doi/10.1126/science.220.4598.671">Optimization by Simulated Annealing</a> (1983)</li>
+<li>Weinreich et al., <a href="https://www.science.org/doi/10.1126/science.1123539">Darwinian evolution can follow only very few mutational paths to fitter proteins</a> (2006 — of 120 orderings of five mutations, only 18 are accessible)</li>
+<li>Sergey Gavrilets, <a href="https://press.princeton.edu/books/paperback/9780691119830/fitness-landscapes-and-the-origin-of-species-mpb-41">Fitness Landscapes and the Origin of Species</a> (2004, holey landscapes and high-dimensional intuition)</li>
+<li>William Provine, <a href="https://press.uchicago.edu/ucp/books/book/chicago/S/bo5966465.html">Sewall Wright and Evolutionary Biology</a> (1986, the classic objection to Wright's diagrams)</li>
+<li>James March, <a href="https://doi.org/10.1287/orsc.2.1.71">Exploration and Exploitation in Organizational Learning</a> (1991)</li>
+<li>Bloom, Jones, Van Reenen &amp; Webb, <a href="https://www.aeaweb.org/articles?id=10.1257/aer.20180338">Are Ideas Getting Harder to Find?</a> (2020)</li>
+<li>János Kornai, <a href="https://doi.org/10.1006/jcec.1994.1062">Transformational Recession</a> (1994)</li>
+</ul>
+</div>
+<footer>BigCat · Complexity Science · <a href="index.en.html">← All Topics</a></footer>
+</div>
+<script src="https://hub.cissychen.com/comments.js" defer></script>
+<script src="https://hub.cissychen.com/search.js" defer></script>
+<script src="https://hub.cissychen.com/index-button.js" defer></script>
+<script src="https://hub.cissychen.com/i18n-tts.js" defer></script>
+</body></html>

@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+
+<html lang="zh-CN"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>适应性景观 — 什么时候必须先下山 · 复杂性科学 T28</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,"SF Pro Display","Noto Sans SC",sans-serif;color:#e4ded5;line-height:1.85;min-height:100vh;
+  background:radial-gradient(1100px 620px at 12% -6%,rgba(224,137,94,0.10),transparent 62%),radial-gradient(950px 700px at 100% 2%,rgba(166,147,205,0.09),transparent 58%),linear-gradient(168deg,#100f0d 0%,#15161b 48%,#0a0a0c 100%);background-attachment:fixed}
+.wrap{max-width:760px;margin:0 auto;padding:30px 22px 90px}
+header{padding:52px 0 8px;border-bottom:1px solid rgba(255,255,255,0.07);margin-bottom:34px}
+.week-tag{font-family:"SF Mono",Menlo,monospace;font-size:0.72rem;font-weight:700;letter-spacing:2px;color:#79a6d2;border:1px solid rgba(121,166,210,0.4);background:rgba(121,166,210,0.07);padding:3px 11px;border-radius:20px}
+h1{font-size:2.5rem;font-weight:800;letter-spacing:0.5px;line-height:1.2;margin:20px 0 0;background:linear-gradient(106deg,#e0895e 0%,#d9b45f 34%,#9fbc7a 68%,#63b3a6 100%);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+h1 .h1en{display:block;font-size:0.40em;font-weight:600;letter-spacing:2.5px;color:#847d72;-webkit-text-fill-color:#847d72;background:none;margin-top:13px}
+.sub{font-size:1.05rem;color:#aba498;margin-top:14px;font-weight:500}
+.date{font-family:"SF Mono",Menlo,monospace;font-size:0.75rem;color:#57524b;margin-top:18px;letter-spacing:1px}
+.pitch{margin:22px 0 30px;font-size:0.97rem;color:#cd7f9b;border-left:2px solid rgba(205,127,155,0.5);padding-left:16px;font-style:italic}
+.intro{font-size:1.02rem;color:#cfc8bc;margin-bottom:14px}
+.intro p{margin-bottom:16px}
+h2{font-size:1.42rem;font-weight:700;color:#e9e3d9;margin:56px 0 8px;letter-spacing:0.3px}
+h2 .n{font-family:"SF Mono",Menlo,monospace;font-size:0.85rem;color:#79a6d2;display:block;margin-bottom:6px;letter-spacing:2px}
+.he{font-size:0.68em;color:#8d867b;font-weight:500;letter-spacing:0}
+p{margin-bottom:17px}
+.lead{color:#cfc8bc}
+b,strong{color:#f0eae0;font-weight:600}
+em{color:#d9b45f;font-style:normal;font-weight:500}
+.dim{color:#8d867b}
+a.reflink{display:inline-block;font-size:0.82rem;font-family:"SF Mono",Menlo,monospace;color:#63b3a6;border:1px solid rgba(99,179,166,0.38);background:rgba(99,179,166,0.07);padding:1px 9px;border-radius:20px;text-decoration:none;transition:all 0.15s;white-space:nowrap}
+a.reflink:hover{background:rgba(99,179,166,0.16);border-color:rgba(99,179,166,0.7)}
+figure{margin:30px 0}
+figure svg{display:block;width:100%;height:auto;border-radius:12px;background:rgba(255,255,255,0.018);border:1px solid rgba(255,255,255,0.06)}
+figcaption{font-size:0.82rem;color:#787268;margin-top:11px;text-align:center;line-height:1.6}
+.en-brief{font-size:0.85rem;color:#847d72;border-top:1px dashed rgba(255,255,255,0.09);padding-top:12px;margin-top:22px;line-height:1.65}
+.en-brief b{font-family:"SF Mono",Menlo,monospace;font-size:0.72rem;color:#63b3a6;letter-spacing:1px;margin-right:7px}
+.decide{margin:24px 0;border:1px solid rgba(224,137,94,0.36);background:rgba(224,137,94,0.055);border-radius:12px;padding:15px 19px}
+.decide .lb{font-family:"SF Mono",Menlo,monospace;font-size:0.73rem;letter-spacing:1.5px;color:#e0895e;font-weight:700;display:block;margin-bottom:7px}
+.decide p{margin:0;font-size:0.95rem;color:#ddd5c9}
+.crossx-inline{margin:20px 0 22px;border-left:2px solid rgba(205,127,155,0.55);padding:2px 0 2px 15px;font-size:0.89rem;color:#a9a096;line-height:1.72}
+.crossx-inline b{color:#cd7f9b;font-weight:600}
+.bigcat{margin:46px 0 10px;border:1px solid rgba(217,180,95,0.38);background:rgba(217,180,95,0.05);border-radius:14px;padding:20px 22px}
+.bigcat h3{font-size:1.02rem;color:#d9b45f;margin-bottom:14px;letter-spacing:0.5px}
+.bigcat ol{list-style:none;padding:0}
+.bigcat li{margin-bottom:15px;font-size:0.94rem;color:#d5cdc1;line-height:1.78}
+.bigcat li:last-child{margin-bottom:0}
+.bigcat .dm{font-family:"SF Mono",Menlo,monospace;font-size:0.73rem;color:#d9b45f;border:1px solid rgba(217,180,95,0.32);border-radius:4px;padding:1px 7px;margin-right:8px;white-space:nowrap}
+.crossx{margin:46px 0 10px;border:1px solid rgba(205,127,155,0.38);background:rgba(205,127,155,0.05);border-radius:14px;padding:20px 22px}
+.crossx h3{font-size:1.02rem;color:#cd7f9b;margin-bottom:14px;letter-spacing:0.5px}
+.crossx ul{list-style:none;padding:0}
+.crossx li{margin-bottom:16px;font-size:0.94rem;color:#d5cdc1;line-height:1.78}
+.crossx li:last-child{margin-bottom:0}
+.crossx li b{color:#cd7f9b;font-weight:600}
+.thinking{margin:46px 0 10px}
+.thinking h3{font-size:1.02rem;color:#a693cd;margin-bottom:14px;letter-spacing:0.5px}
+details{border:1px solid rgba(166,147,205,0.22);border-radius:10px;padding:12px 16px;margin-bottom:10px;background:rgba(166,147,205,0.035)}
+summary{cursor:pointer;font-size:0.93rem;color:#c9c2b6;font-weight:500}
+summary::marker{color:#a693cd}
+details p{margin:12px 0 0;font-size:0.9rem;color:#a9a096;line-height:1.75}
+.refs{margin:46px 0 10px}
+.refs h3{font-size:1.02rem;color:#79a6d2;margin-bottom:14px;letter-spacing:0.5px}
+.refs ul{list-style:none;padding:0}
+.refs li{margin-bottom:10px;font-size:0.9rem;color:#8d867b;line-height:1.7}
+.refs a{color:#79a6d2;text-decoration:none;border-bottom:1px solid rgba(121,166,210,0.3)}
+.refs a:hover{color:#a6c4e2;border-bottom-color:rgba(121,166,210,0.7)}
+footer{text-align:center;padding:56px 0 10px;font-size:0.78rem;color:#57524b;font-family:"SF Mono",Menlo,monospace;border-top:1px solid rgba(255,255,255,0.06);margin-top:50px}
+footer a{color:#79a6d2;text-decoration:none}
+@media(max-width:600px){h1{font-size:1.85rem}.wrap{padding:24px 16px 60px}h2{font-size:1.22rem}}
+</style></head><body>
+<div class="wrap">
+<header>
+<span class="week-tag">TOPIC 28 · PHASE E</span>
+<h1>适应性景观<span class="h1en">FITNESS LANDSCAPES</span></h1>
+<p class="sub">什么时候必须先下山<span class="he">（When you have to go downhill first）</span></p>
+<p class="date">2026-08-15 · 适应与演化</p>
+</header>
+<p class="pitch">「每一步都比上一步好」听起来是最稳妥的做事方式。而在一整类问题里，它恰恰是唯一能保证你到不了最好位置的做法——不是因为你走得不够久，是因为你走对了。</p>
+<div class="intro">
+<p>你大概经历过这样的事：想换个方向，结果发现新方向头半年干什么都不顺，比原来差远了。于是你退回去了。或者一个用了很多年的工具，明知道有更好的替代品，但一换就得重学，短期内产出直接掉一截，所以年年都说明年换。</p>
+<p>常见的解释是意志力不够、或者沉没成本作祟。这些当然存在，但它们把一个<em>结构问题</em>说成了心理问题。真实的情况更冷硬一点：在很多系统里，从一个好位置去往一个更好的位置，中间<b>必然</b>要经过一段更差的地方。这不是运气不好，是这类问题的形状决定的。而"每一步都要比上一步好"这条看起来无可指摘的规矩，正是把你钉在原地的那颗钉子。</p>
+<p class="dim">上一期讲的是怎么把一群主体放进电脑里跑起来（基于主体建模）。本期换个角度看同一件事：这些主体是在什么样的<b>地形</b>上搜索？地形的形状——有几个山头、山头之间隔多深的谷——决定了"努力改进"这件事到底管不管用。这是接下来几期（演化博弈、共演化）共用的底图。</p>
+</div>
+<h2><span class="n">01</span>把「好不好」摊成一张地图<span class="he">（The Landscape as a Map）</span></h2>
+<p class="lead">1932 年，遗传学家 Sewall Wright 想解释一件事：物种为什么不是简单地朝"最优"直线前进。他画了一张后来传遍所有学科的图——把每一种可能的基因组合摆在平面上，把这种组合的繁殖成功率画成高度。地形就这么出来了。他管它叫<b>适应性景观</b>（fitness landscape），高度那个量叫<b>适应度</b>（fitness）。</p>
+<p>这张图的力气不在"山"这个比喻，在它强迫你把三件本来含糊的事说清楚：</p>
+<p><b>第一，什么算一个"位置"。</b>一个位置就是一整套配置：生物学里是全套基因，做产品时是全套设计选择，写代码时是当前这版架构。<b>第二，什么算"相邻"。</b>这一条最容易被跳过，却最要命——它规定了你一步能走多远。生物学里通常是"改一个碱基"，组织里可能是"改一条流程"。<b>第三，高度是什么。</b>某个可以比大小的量：繁殖成功率、利润、通过的测试数。</p>
+<p>三件事定下来，一个动作就有了名字：站在当前位置，看看所有邻居，谁比我高就搬过去，没有比我高的就停。这叫<b>爬山法</b>（hill climbing）。绝大多数"持续改进"的做法，剥到底就是它。</p>
+<figure>
+<svg aria-label="三位配置的邻域图：一次改一位，爬山路径卡在 0.71 而全局最优是 0.83" role="img" viewbox="0 0 720 340" xmlns="http://www.w3.org/2000/svg">
+<defs>
+<marker id="t28a" markerheight="10" markerunits="userSpaceOnUse" markerwidth="10" orient="auto" refx="9" refy="5" viewbox="0 0 10 10">
+<path d="M0,1 L9,5 L0,9 z" fill="#e0895e"></path>
+</marker>
+</defs>
+<text fill="#aba498" font-family="-apple-system,sans-serif" font-size="13" text-anchor="middle" x="360" y="26">三个开关的全部 8 种配置 — 连线 = 只改动其中一个开关</text>
+<g stroke="rgba(255,255,255,0.16)" stroke-width="1.4">
+<line x1="360" x2="220" y1="272" y2="204"></line><line x1="360" x2="360" y1="272" y2="204"></line><line x1="360" x2="500" y1="272" y2="204"></line>
+<line x1="220" x2="220" y1="204" y2="132"></line><line x1="220" x2="360" y1="204" y2="132"></line>
+<line x1="360" x2="220" y1="204" y2="132"></line><line x1="360" x2="500" y1="204" y2="132"></line>
+<line x1="500" x2="360" y1="204" y2="132"></line><line x1="500" x2="500" y1="204" y2="132"></line>
+<line x1="220" x2="360" y1="132" y2="66"></line><line x1="360" x2="360" y1="132" y2="66"></line><line x1="500" x2="360" y1="132" y2="66"></line>
+</g>
+<g stroke="#e0895e" stroke-width="2.6">
+<line marker-end="url(#t28a)" x1="360" x2="486" y1="266" y2="212"></line>
+<line marker-end="url(#t28a)" x1="500" x2="508" y1="196" y2="146"></line>
+</g>
+<circle cx="360" cy="272" fill="#2b2a25" r="21" stroke="rgba(255,255,255,0.22)" stroke-width="1.4"></circle>
+<text fill="#c9c2b6" font-family="SF Mono,monospace" font-size="12" text-anchor="middle" x="360" y="269">000</text>
+<text fill="#8d867b" font-family="SF Mono,monospace" font-size="10.5" text-anchor="middle" x="360" y="282">.31</text>
+<circle cx="220" cy="204" fill="#2b2a25" r="21" stroke="rgba(255,255,255,0.22)" stroke-width="1.4"></circle>
+<text fill="#c9c2b6" font-family="SF Mono,monospace" font-size="12" text-anchor="middle" x="220" y="201">100</text>
+<text fill="#8d867b" font-family="SF Mono,monospace" font-size="10.5" text-anchor="middle" x="220" y="214">.44</text>
+<circle cx="360" cy="204" fill="#2b2a25" r="21" stroke="rgba(255,255,255,0.22)" stroke-width="1.4"></circle>
+<text fill="#c9c2b6" font-family="SF Mono,monospace" font-size="12" text-anchor="middle" x="360" y="201">010</text>
+<text fill="#8d867b" font-family="SF Mono,monospace" font-size="10.5" text-anchor="middle" x="360" y="214">.28</text>
+<circle cx="500" cy="204" fill="#3a3128" r="21" stroke="rgba(224,137,94,0.6)" stroke-width="1.6"></circle>
+<text fill="#e8ded2" font-family="SF Mono,monospace" font-size="12" text-anchor="middle" x="500" y="201">001</text>
+<text fill="#c0a68e" font-family="SF Mono,monospace" font-size="10.5" text-anchor="middle" x="500" y="214">.52</text>
+<circle cx="220" cy="132" fill="#3b4030" r="21" stroke="rgba(159,188,122,0.75)" stroke-width="2"></circle>
+<text fill="#e8ede0" font-family="SF Mono,monospace" font-size="12" text-anchor="middle" x="220" y="129">110</text>
+<text fill="#9fbc7a" font-family="SF Mono,monospace" font-size="10.5" text-anchor="middle" x="220" y="142">.83</text>
+<circle cx="360" cy="132" fill="#2b2a25" r="21" stroke="rgba(255,255,255,0.22)" stroke-width="1.4"></circle>
+<text fill="#c9c2b6" font-family="SF Mono,monospace" font-size="12" text-anchor="middle" x="360" y="129">101</text>
+<text fill="#8d867b" font-family="SF Mono,monospace" font-size="10.5" text-anchor="middle" x="360" y="142">.49</text>
+<circle cx="500" cy="132" fill="#3a3128" r="21" stroke="rgba(224,137,94,0.85)" stroke-width="2"></circle>
+<text fill="#f0e2d6" font-family="SF Mono,monospace" font-size="12" text-anchor="middle" x="500" y="129">011</text>
+<text fill="#e0895e" font-family="SF Mono,monospace" font-size="10.5" text-anchor="middle" x="500" y="142">.71</text>
+<circle cx="360" cy="66" fill="#2b2a25" r="21" stroke="rgba(255,255,255,0.22)" stroke-width="1.4"></circle>
+<text fill="#c9c2b6" font-family="SF Mono,monospace" font-size="12" text-anchor="middle" x="360" y="63">111</text>
+<text fill="#8d867b" font-family="SF Mono,monospace" font-size="10.5" text-anchor="middle" x="360" y="76">.66</text>
+<text fill="#e0895e" font-family="-apple-system,sans-serif" font-size="11.5" x="556" y="118">停在这里</text>
+<text fill="#c0703f" font-family="-apple-system,sans-serif" font-size="11.5" x="556" y="136">三个邻居都更低</text>
+<text fill="#9fbc7a" font-family="-apple-system,sans-serif" font-size="11.5" text-anchor="end" x="164" y="126">真正的最高点</text>
+<text fill="#7d9660" font-family="-apple-system,sans-serif" font-size="11.5" text-anchor="end" x="164" y="144">爬山法永远到不了</text>
+<text fill="#57524b" font-family="-apple-system,sans-serif" font-size="11" text-anchor="middle" x="360" y="316">从 000 出发，每次搬去更高的邻居：000 → 001 → 011，然后卡住。去 110 要先经过 111（.66），比 .71 低</text>
+</svg>
+<figcaption>把配置画成点、把「改一处」画成连线，「地形」就不再是比喻了。爬山法在这张图上的行为完全确定。</figcaption>
+</figure>
+<p>图里只有三个开关，就已经出现了那个要命的现象：从 000 一路往高处走，你会稳稳地停在 <b>011</b>（高度 .71），而全场最高的是 <b>110</b>（.83）。你没走错任何一步，每一步都是当时可选项里最好的。<b>把你挡在外面的不是失误，是"每一步都不许变差"这条规矩本身。</b></p>
+<div class="crossx-inline">
+🌀 <b>文学与艺术 · 改稿与重写是两种操作</b>　修改一篇文章时，你通常一次只动一句、且只接受"改完更顺"的改动——这正好是爬山法，邻域被定义成"单句替换"。由此推出一个不太甜的结论：一篇稿子最终能到什么水平，很大程度上在初稿落点时就定了，改一百遍和改十遍的差别远小于"另起一稿"和"接着改"的差别。所以"再打磨打磨"和"推倒重写"不是程度不同的同一件事，是两种不同的走法，前者永远替代不了后者。
+</div>
+<p class="en-brief"><b>EN</b> A fitness landscape makes three vague things explicit: what counts as a position (a full configuration), what counts as a neighbour (how far one step reaches), and what counts as height (some comparable quantity). Once those are fixed, "continuous improvement" has a precise name — hill climbing — and its failure mode becomes visible even on a three-switch example.</p>
+<h2><span class="n">02</span>局部最优：卡住的不是努力<span class="he">（Local Optima）</span></h2>
+<p class="lead">上面那个 011 有个正式名字：<b>局部最优</b>（local optimum）——所有邻居都不比它高的位置。全场真正的最高点叫<b>全局最优</b>（global optimum）。一张地形上局部最优可以有很多个，全局最优只有一个。</p>
+<p>局部最优的性质里，最需要盯住的是这一条：<b>站在局部最优上，你从本地信息里看不出自己是不是全局最优。</b>两者的本地感受完全一样——环顾四周，都往下。想知道差别，你要么得看到远处，要么得先走下去试试。</p>
+<p>于是"从这里到更好的地方"这件事，就有了一个可以量化的代价。它是两个数：<b>谷底有多深</b>（最差的时候比现在低多少），和<b>谷底有多长</b>（要在低于现状的地方待多久）。这两个数跟"新方案好不好"完全无关——一个明显更优的方案，可能有一道又深又长的谷；一个只好一点点的方案，可能一步就跨过去。</p>
+<figure>
+<svg aria-label="一维地形剖面：局部峰、谷底深度与谷底时长、更高的全局峰" role="img" viewbox="0 0 720 344" xmlns="http://www.w3.org/2000/svg">
+<defs>
+<marker id="t28b" markerheight="9" markerunits="userSpaceOnUse" markerwidth="9" orient="auto" refx="8" refy="5" viewbox="0 0 10 10">
+<path d="M0,1 L9,5 L0,9 z" fill="#cd7f9b"></path>
+</marker>
+<marker id="t28c" markerheight="9" markerunits="userSpaceOnUse" markerwidth="9" orient="auto" refx="8" refy="5" viewbox="0 0 10 10">
+<path d="M0,1 L9,5 L0,9 z" fill="#8d867b"></path>
+</marker>
+</defs>
+<text fill="#aba498" font-family="-apple-system,sans-serif" font-size="13" text-anchor="middle" x="360" y="26">从一个好位置去往更好的位置，代价是两个数</text>
+<line stroke="rgba(255,255,255,0.18)" stroke-width="1.5" x1="70" x2="670" y1="266" y2="266"></line>
+<line stroke="rgba(255,255,255,0.18)" stroke-width="1.5" x1="70" x2="70" y1="266" y2="52"></line>
+<text fill="#8d867b" font-family="-apple-system,sans-serif" font-size="11.5" transform="rotate(-90 32 168)" x="32" y="168">适应度（越高越好）</text>
+<text fill="#8d867b" font-family="-apple-system,sans-serif" font-size="11.5" text-anchor="middle" x="380" y="304">配置空间（把所有可能的做法排成一条线）→</text>
+<path d="M70,244 C120,236 150,150 210,138 C260,128 290,196 330,214 C368,231 400,222 430,196 C470,162 495,86 550,78 C605,70 640,150 670,206" fill="none" stroke="#63b3a6" stroke-opacity="0.75" stroke-width="2.6"></path>
+<line stroke="rgba(255,255,255,0.13)" stroke-dasharray="3 4" stroke-width="1.2" x1="210" x2="210" y1="138" y2="266"></line>
+<line stroke="rgba(255,255,255,0.13)" stroke-dasharray="3 4" stroke-width="1.2" x1="330" x2="330" y1="214" y2="266"></line>
+<line stroke="rgba(255,255,255,0.13)" stroke-dasharray="3 4" stroke-width="1.2" x1="550" x2="550" y1="78" y2="266"></line>
+<line stroke="rgba(255,255,255,0.20)" stroke-dasharray="5 5" stroke-width="1.3" x1="210" x2="600" y1="138" y2="138"></line>
+<text fill="#787268" font-family="-apple-system,sans-serif" font-size="10.5" x="604" y="128">现状水平线</text>
+<line marker-end="url(#t28b)" stroke="#cd7f9b" stroke-width="2" x1="286" x2="286" y1="140" y2="210"></line>
+<text fill="#cd7f9b" font-family="-apple-system,sans-serif" font-size="11.5" text-anchor="end" x="278" y="182">谷底深度</text>
+<line marker-end="url(#t28b)" stroke="#cd7f9b" stroke-width="2" x1="216" x2="478" y1="252" y2="252"></line>
+<text fill="#cd7f9b" font-family="-apple-system,sans-serif" font-size="11.5" text-anchor="middle" x="347" y="246">谷底时长（在低于现状的地方待多久）</text>
+<circle cx="210" cy="138" fill="#e0895e" r="8"></circle>
+<text fill="#e0895e" font-family="SF Mono,monospace" font-size="12" text-anchor="middle" x="210" y="116">你在这儿</text>
+<text fill="#c0703f" font-family="-apple-system,sans-serif" font-size="11" text-anchor="middle" x="210" y="100">局部最优</text>
+<circle cx="550" cy="78" fill="#9fbc7a" r="8"></circle>
+<text fill="#9fbc7a" font-family="SF Mono,monospace" font-size="12" text-anchor="middle" x="550" y="58">全局最优</text>
+<line marker-end="url(#t28c)" stroke="#8d867b" stroke-dasharray="6 4" stroke-width="1.8" x1="228" x2="316" y1="152" y2="204"></line>
+<line marker-end="url(#t28c)" stroke="#8d867b" stroke-dasharray="6 4" stroke-width="1.8" x1="346" x2="530" y1="212" y2="92"></line>
+<text fill="#57524b" font-family="-apple-system,sans-serif" font-size="11" text-anchor="middle" x="380" y="336">站在局部最优上，本地信息和站在全局最优上完全一样：四周都往下</text>
+</svg>
+<figcaption>「谷底深度」和「谷底时长」跟新方案有多好无关，它们是路的属性，不是目的地的属性。</figcaption>
+</figure>
+<p>把这两个数拆开看，很多"改革失败"的故事立刻换了一种读法。多数改革不是死在方案上，是死在<b>谷底期的授权不够长</b>——发起改革的人拿到的耐心，比谷底短。而从外面看，谷底期的表现是实实在在的变差，于是"这个方向不行"这个结论，在数据上完全站得住。</p>
+<div class="decide">
+<span class="lb">🎯 决策线</span>
+<p>启动任何"换一套做法"的事之前，先把两个数写下来：<b>谷底深度</b>（最差的时候比现在低多少，用你已经在看的那个指标）和<b>谷底时长</b>（多久能回到现状水平）。然后问一句：这两个数拿得到授权吗？拿不到就<b>别启动</b>——改做平移：在不拆掉现有系统的前提下另起一条并行的线，等它自己爬过现状水平线再切换。谷底期最常见的死法不是方案错，是中途被自己的月度指标掐掉。</p>
+</div>
+<div class="crossx-inline">
+🌀 <b>生物 · 脊椎动物眼里的那个盲点</b>　我们的视网膜光感受器朝后，神经纤维铺在感光层前面，最后要穿一个洞出去——那个洞就是盲点。章鱼的眼睛没有这个问题，布线在感光层背面。这不是"进化偷懒"，是两条谱系爬上了各自的局部最优：脊椎动物要退回去重新布线，中间必然经过一段视力更差的构型，而中间态是要活下来的。由此推出的读法是：解剖学上的"不合理设计"不该读成"没被优化过"，该读成"被优化得很彻底了，但只在从这个起点出发能到达的范围内"。
+</div>
+<p class="en-brief"><b>EN</b> A local optimum is indistinguishable from a global one using local information alone — from either, every neighbour looks worse. The cost of moving between them is two numbers: how deep the valley is and how long it lasts. Both are properties of the route, not of the destination, and most reforms die because the mandate is shorter than the valley.</p>
+<h2><span class="n">03</span>崎岖度是可以调的<span class="he">（Tunable Ruggedness）</span></h2>
+<p class="lead">下一个问题就自然了：为什么有的地形只有一个山头（那爬山法就够用了），有的却山头林立？地形的<b>崎岖度</b>（ruggedness）由什么决定？</p>
+<p>1987 年，Stuart Kauffman 和 Simon Levin 给了一个干净得出奇的答案 <a class="reflink" href="ref-santa-fe.html">→ 参考 · 圣塔菲学派</a>。他们造了一个只有两个旋钮的玩具模型，叫 <b>NK 模型</b> <a class="reflink" href="ref-nk-landscape.html">→ 参考 · NK 适应性景观</a>：</p>
+<p><b>N</b> 是系统里有几个部件（比如 20 个开关）。<b>K</b> 是<em>每个部件的好坏取决于另外几个部件的状态</em>。就这两个数。K 就是"相互依赖的程度"。</p>
+<p>结论惊人地整齐。<b>K = 0</b> 时，每个部件各管各的，你可以一个一个地把它们调到最好，互不干扰——地形只有一个山头，任何爬山路径都能到顶。<b>K 越大</b>，改动一个部件就会连带打乱越多别的部件的贡献，山头就越多、越尖、越互相隔开。当 K 达到最大（每个部件都依赖所有其他部件），地形彻底随机：局部最优的个数变成 2ᴺ⁄(N+1) 这么多——N=20 的时候就是约五万个。</p>
+<figure>
+<svg aria-label="崎岖度随 K 上升的三帧对比：K=0 单峰、K 中等多峰、K 最大时地形彻底随机" role="img" viewbox="0 0 720 300" xmlns="http://www.w3.org/2000/svg">
+<text fill="#aba498" font-family="-apple-system,sans-serif" font-size="13" text-anchor="middle" x="360" y="26">同样多的部件，只改「每个部件依赖几个别的部件」</text>
+<g>
+<text fill="#9fbc7a" font-family="SF Mono,monospace" font-size="12.5" text-anchor="middle" x="130" y="60">K = 0</text>
+<text fill="#787268" font-family="-apple-system,sans-serif" font-size="11" text-anchor="middle" x="130" y="78">部件互不影响</text>
+<line stroke="rgba(255,255,255,0.16)" stroke-width="1.3" x1="40" x2="220" y1="212" y2="212"></line>
+<path d="M40,204 C80,200 105,110 130,106 C155,102 180,198 220,206" fill="none" stroke="#9fbc7a" stroke-width="2.4"></path>
+<circle cx="130" cy="106" fill="#9fbc7a" r="5"></circle>
+<text fill="#9fbc7a" font-family="-apple-system,sans-serif" font-size="11.5" text-anchor="middle" x="130" y="238">1 个山头</text>
+<text fill="#787268" font-family="-apple-system,sans-serif" font-size="10.5" text-anchor="middle" x="130" y="256">从哪儿出发都到顶</text>
+</g>
+<g>
+<text fill="#d9b45f" font-family="SF Mono,monospace" font-size="12.5" text-anchor="middle" x="360" y="60">K = 中等</text>
+<text fill="#787268" font-family="-apple-system,sans-serif" font-size="11" text-anchor="middle" x="360" y="78">每个依赖两三个</text>
+<line stroke="rgba(255,255,255,0.16)" stroke-width="1.3" x1="270" x2="450" y1="212" y2="212"></line>
+<path d="M270,200 C288,196 296,138 312,136 C328,134 336,186 352,190 C366,193 376,110 392,108 C408,106 416,178 428,190 C438,199 444,202 450,204" fill="none" stroke="#d9b45f" stroke-width="2.4"></path>
+<circle cx="312" cy="136" fill="#d9b45f" r="4.5"></circle><circle cx="392" cy="108" fill="#d9b45f" r="4.5"></circle>
+<text fill="#d9b45f" font-family="-apple-system,sans-serif" font-size="11.5" text-anchor="middle" x="360" y="238">若干山头</text>
+<text fill="#787268" font-family="-apple-system,sans-serif" font-size="10.5" text-anchor="middle" x="360" y="256">起点决定你停在哪个</text>
+</g>
+<g>
+<text fill="#cd7f9b" font-family="SF Mono,monospace" font-size="12.5" text-anchor="middle" x="590" y="60">K = 最大</text>
+<text fill="#787268" font-family="-apple-system,sans-serif" font-size="11" text-anchor="middle" x="590" y="78">每个依赖所有</text>
+<line stroke="rgba(255,255,255,0.16)" stroke-width="1.3" x1="500" x2="680" y1="212" y2="212"></line>
+<path d="M500,196 L509,150 L518,190 L527,132 L536,186 L545,160 L554,200 L563,124 L572,192 L581,144 L590,198 L599,136 L608,188 L617,158 L626,202 L635,128 L644,190 L653,166 L662,196 L671,150 L680,188" fill="none" stroke="#cd7f9b" stroke-width="2.2"></path>
+<text fill="#cd7f9b" font-family="-apple-system,sans-serif" font-size="11.5" text-anchor="middle" x="590" y="238">山头多到没意义</text>
+<text fill="#787268" font-family="-apple-system,sans-serif" font-size="10.5" text-anchor="middle" x="590" y="256">N=20 时约 5 万个</text>
+</g>
+<text fill="#57524b" font-family="-apple-system,sans-serif" font-size="11" text-anchor="middle" x="360" y="286">崎岖度不是运气，是耦合度的直接后果 — 而耦合度往往是可以改的</text>
+</svg>
+<figcaption>三帧对比：部件数不变，只调"每个部件依赖几个别的部件"，地形从一座山变成一片碎石。</figcaption>
+</figure>
+<p>这件事的分量在于：<b>崎岖度不是命，是你系统架构的一个后果。</b>"我们这儿一动就出事、渐进改进完全没用"——这句抱怨通常被理解为团队能力或者士气问题，但它更可能是一个可测的结构参数在说话。而结构参数是可以改的：拆依赖、定接口、把互相纠缠的部件分开——这些动作不直接提升任何指标，它们做的是<b>把地形抹平</b>，让后面每一次小改进重新变得有效。这与第 3 期讲的"近可分解性"是同一件事的两面：模块化的系统之所以活得下去，是因为它给自己造了一张不那么崎岖的地形。</p>
+<div class="decide">
+<span class="lb">🎯 决策线</span>
+<p>当"小步优化不管用了"，先别加人加时间——先量 K。具体做法：把你要改的东西拆成部件清单，对每个部件问"改它会波及几个别的部件"，取平均。<b>平均波及数大于 2、3 之后，任何单点优化都会被别处的退化抵消掉</b>，努力和结果之间的关系会肉眼可见地变弱。这时该做的是解耦（定接口、拆依赖、砍掉跨模块的隐式假设），而不是优化。解耦本身不涨任何指标——它涨的是"以后每一次优化的有效率"。</p>
+</div>
+<div class="crossx-inline">
+🌀 <b>工程与技术史 · 为什么有的代码库能重构，有的只能重写</b>　同一个团队、同样的水平，在 A 库里小步重构一路顺畅，在 B 库里改一处炸三处，最后只能整块推倒。差别常被归给"历史包袱"，但可以说得更准：B 库的 K 高——每个模块的正确性依赖于一堆别处的隐式约定。由此推出的结论是操作性的：想恢复"能小步改"这个能力，投入应该先花在<b>降低依赖数</b>上（哪怕这一步没有任何用户可见的收益），而不是花在提高改动的质量上。质量提高的是每一步的成功率，降 K 提高的是"存在一条全是小步的路"这件事本身。
+</div>
+<p class="en-brief"><b>EN</b> Kauffman and Levin's NK model has two knobs: N components, and K — how many other components each one's contribution depends on. At K=0 the landscape has a single peak; as K rises, peaks multiply, reaching 2^N/(N+1) local optima when every component depends on every other. Ruggedness is therefore a consequence of coupling, and coupling is often something you can change.</p>
+<h2><span class="n">04</span>探索与利用：温度这个旋钮<span class="he">（Explore and Exploit）</span></h2>
+<p class="lead">既然纯爬山会卡住，那就得允许偶尔往下走。但如果一直往下走，你就只是在乱逛，永远不收敛。这个两难有个名字：<b>探索与利用</b>（exploration vs exploitation）——去看看别处，还是把手里这块地挖深。</p>
+<p>最漂亮的解法来自 1983 年三位 IBM 研究者（Kirkpatrick、Gelatt、Vecchi）：<b>模拟退火</b>（simulated annealing）。做法是给"接受一个更差的位置"加一个概率，这个概率由一个叫<em>温度</em>的参数控制。温度高时，你相当乐意往下走，因此在整个地形上到处跑；温度低时，你几乎只接受上坡。然后<b>让温度随时间慢慢降下来</b>。</p>
+<p>名字来自冶金：金属缓慢冷却时原子有时间排进低能量的规整结构，淬火（骤冷）则把它们冻在乱七八糟的位置上。关键不在"允许变差"这四个字，在<b>降温表</b>——什么时候、以多快的速度收掉容错。</p>
+<figure>
+<svg aria-label="三种搜索策略对比：纯爬山卡住、恒定高温不收敛、退火找到高峰" role="img" viewbox="0 0 720 352" xmlns="http://www.w3.org/2000/svg">
+<defs>
+<marker id="t28d" markerheight="8" markerunits="userSpaceOnUse" markerwidth="8" orient="auto" refx="7" refy="4" viewbox="0 0 8 8">
+<path d="M0,1 L7,4 L0,7 z" fill="#aba498"></path>
+</marker>
+</defs>
+<text fill="#aba498" font-family="-apple-system,sans-serif" font-size="13" text-anchor="middle" x="360" y="26">同一张地形，同一个起点，三种「是否接受变差」的规矩</text>
+<g>
+<text fill="#e0895e" font-family="SF Mono,monospace" font-size="12" text-anchor="middle" x="128" y="58">① 只上坡</text>
+<path d="M40,178 C62,174 70,120 88,118 C106,116 112,168 130,172 C146,175 156,96 174,94 C192,92 202,158 216,172" fill="none" stroke="rgba(255,255,255,0.22)" stroke-width="2"></path>
+<circle cx="52" cy="176" fill="#8d867b" r="4"></circle>
+<circle cx="88" cy="118" fill="#e0895e" r="6.5"></circle>
+<line marker-end="url(#t28d)" stroke="#aba498" stroke-width="1.6" x1="58" x2="80" y1="172" y2="128"></line>
+<text fill="#e0895e" font-family="-apple-system,sans-serif" font-size="11" text-anchor="middle" x="128" y="212">卡在第一个山头</text>
+<text fill="#787268" font-family="-apple-system,sans-serif" font-size="10.5" text-anchor="middle" x="128" y="230">收敛，但收敛到哪儿</text>
+<text fill="#787268" font-family="-apple-system,sans-serif" font-size="10.5" text-anchor="middle" x="128" y="246">全看起点</text>
+</g>
+<g>
+<text fill="#cd7f9b" font-family="SF Mono,monospace" font-size="12" text-anchor="middle" x="360" y="58">② 一直高温</text>
+<path d="M272,178 C294,174 302,120 320,118 C338,116 344,168 362,172 C378,175 388,96 406,94 C424,92 434,158 448,172" fill="none" stroke="rgba(255,255,255,0.22)" stroke-width="2"></path>
+<circle cx="284" cy="176" fill="#8d867b" r="3.5"></circle><circle cx="320" cy="118" fill="#8d867b" r="3.5"></circle><circle cx="350" cy="168" fill="#8d867b" r="3.5"></circle><circle cx="406" cy="94" fill="#8d867b" r="3.5"></circle><circle cx="436" cy="162" fill="#8d867b" r="3.5"></circle><circle cx="362" cy="172" fill="#cd7f9b" r="6.5"></circle>
+<line marker-end="url(#t28d)" stroke="#aba498" stroke-width="1.4" x1="290" x2="314" y1="172" y2="126"></line>
+<line marker-end="url(#t28d)" stroke="#aba498" stroke-width="1.4" x1="326" x2="344" y1="126" y2="162"></line>
+<line marker-end="url(#t28d)" stroke="#aba498" stroke-width="1.4" x1="358" x2="400" y1="162" y2="102"></line>
+<line marker-end="url(#t28d)" stroke="#aba498" stroke-width="1.4" x1="412" x2="430" y1="102" y2="154"></line>
+<text fill="#cd7f9b" font-family="-apple-system,sans-serif" font-size="11" text-anchor="middle" x="360" y="212">走遍全场，不停下</text>
+<text fill="#787268" font-family="-apple-system,sans-serif" font-size="10.5" text-anchor="middle" x="360" y="230">见过最高点，</text>
+<text fill="#787268" font-family="-apple-system,sans-serif" font-size="10.5" text-anchor="middle" x="360" y="246">但没有留在那儿</text>
+</g>
+<g>
+<text fill="#9fbc7a" font-family="SF Mono,monospace" font-size="12" text-anchor="middle" x="592" y="58">③ 退火</text>
+<path d="M504,178 C526,174 534,120 552,118 C570,116 576,168 594,172 C610,175 620,96 638,94 C656,92 666,158 680,172" fill="none" stroke="rgba(255,255,255,0.22)" stroke-width="2"></path>
+<circle cx="516" cy="176" fill="#8d867b" r="3.5"></circle><circle cx="552" cy="118" fill="#8d867b" r="3.5"></circle><circle cx="582" cy="168" fill="#8d867b" r="3.5"></circle><circle cx="638" cy="94" fill="#9fbc7a" r="6.5"></circle>
+<line marker-end="url(#t28d)" stroke="#aba498" stroke-width="1.4" x1="522" x2="546" y1="172" y2="126"></line>
+<line marker-end="url(#t28d)" stroke="#aba498" stroke-width="1.4" x1="558" x2="576" y1="126" y2="162"></line>
+<line marker-end="url(#t28d)" stroke="#aba498" stroke-width="1.4" x1="590" x2="632" y1="162" y2="102"></line>
+<text fill="#9fbc7a" font-family="-apple-system,sans-serif" font-size="11" text-anchor="middle" x="592" y="212">早期乱走，后期收紧</text>
+<text fill="#787268" font-family="-apple-system,sans-serif" font-size="10.5" text-anchor="middle" x="592" y="230">关键不是「允许变差」，</text>
+<text fill="#787268" font-family="-apple-system,sans-serif" font-size="10.5" text-anchor="middle" x="592" y="246">是变差的容忍度何时收掉</text>
+</g>
+<line stroke="rgba(255,255,255,0.14)" stroke-width="1.2" x1="60" x2="660" y1="328" y2="328"></line>
+<path d="M60,278 C160,278 210,298 300,306 C400,314 520,316 660,317" fill="none" stroke="#79a6d2" stroke-width="2"></path>
+<text fill="#79a6d2" font-family="-apple-system,sans-serif" font-size="11" x="66" y="272">温度</text>
+<text fill="#57524b" font-family="-apple-system,sans-serif" font-size="10.5" text-anchor="end" x="656" y="346">时间 →</text>
+</svg>
+<figcaption>三帧对比。真正被设计的东西不是"要不要探索"，是那条降温曲线。</figcaption>
+</figure>
+<p>同一个思路在别的地方长出别的形状。<a class="reflink" href="ref-genetic-algorithm.html">→ 参考 · 遗传算法</a>不靠温度，靠<em>重组</em>：把两个各自不错的配置各取一半拼起来，一步跳到很远的地方——相当于换了一套"相邻"的定义，原来隔着深谷的两个山头可能一步就到。<b>多臂老虎机</b>（multi-armed bandit）问题则把这件事收缩到最纯粹的形式：手上有几台老虎机，不知道哪台更好，每一次拉杆都是在"再试试那台没怎么试过的"和"继续拉目前最好的那台"之间选。数学上有一个反复出现的结论：<b>探索的最优比例随着"你还要玩多少轮"上升</b>——剩下的时间越长，越该探索。所以同一个人在同一件事上，年初和年末该有不同的探索比例，这不是心态问题，是算出来的。</p>
+<div class="decide">
+<span class="lb">🎯 决策线</span>
+<p>把探索写成<b>预算和降温表</b>，不要写成态度。三件具体的事：① 固定一个比例（比如 20% 的时间/资金）投给"和现有做法不相关"的方向；② 给这部分单独设考核口径——考核它<b>排除了多少个方向</b>，不考核它的收益，因为探索的产出本来就是信息不是收益；③ 事先写下降温表：哪个时间点起不再开新方向、把资源收回来。没有第三条的"保持开放"会一直高温、永不收敛；没有第二条的探索预算会在第一个季度被主线的指标同化掉。</p>
+</div>
+<div class="crossx-inline">
+🌀 <b>生物 · 免疫系统自己圈了一个高温区</b>　B 细胞在淋巴结的生发中心里会启动体细胞超突变，把抗体基因那一小段的突变率抬到常规基因组的约一百万倍，然后按结合力反复筛选——这是一个货真价实的高温探索区，而且是被身体<em>主动打开</em>的。要紧的是它的边界：高突变率被严格限制在那一小段序列、那一小群细胞、那一段时间里，出了这个范围仍是极低的错误率。由此推出的做法不是"提高试错率"，而是<b>划一块围起来的地方把试错率调高</b>——全局调高的系统会散架，这正是它没有那么做的原因。
+</div>
+<p class="en-brief"><b>EN</b> Pure hill climbing gets stuck; pure wandering never settles. Simulated annealing resolves this with a temperature that controls how willingly you accept a worse position, then lowers it over time — the designed object is the cooling schedule, not the willingness itself. Bandit theory adds a quantitative rule: the optimal share of exploration rises with how many rounds you have left.</p>
+<h2><span class="n">05</span>这套说法在哪儿不成立<span class="he">（Where This Breaks Down）</span></h2>
+<p class="lead">适应性景观是复杂性科学里最好用、也最容易被用歪的一张图。它的问题不在于错，在于那张三维小山丘的画面太顺眼了，顺眼到你会忘记它省略了什么。</p>
+<p><b>第一，维度是骗人的。</b>画在纸上的地形只有两个横向自由度，所以每个点只有前后左右几个邻居，山与山之间必然隔着谷。真实的配置空间不是这样：20 个开关就有 20 个方向的邻居，一百万个位置。而在高维空间里，"被谷完全包围"这件事会变得罕见——你往往能找到一条几乎不下降的<em>山脊</em>绕过去。演化生物学家 Sergey Gavrilets 把这个图景叫<b>多孔景观</b>（holey landscape）：高适应度的区域在高维里连成一张贯通的网，物种可以一路不下山地分化开。这直接削弱了 Wright 当年那个"必须靠小种群随机漂变跨过谷"的经典论证。</p>
+<figure>
+<svg aria-label="低维截面上必须过谷，高维里可以沿山脊绕行" role="img" viewbox="0 0 720 300" xmlns="http://www.w3.org/2000/svg">
+<defs>
+<marker id="t28e" markerheight="9" markerunits="userSpaceOnUse" markerwidth="9" orient="auto" refx="8" refy="5" viewbox="0 0 10 10">
+<path d="M0,1 L9,5 L0,9 z" fill="#9fbc7a"></path>
+</marker>
+<marker id="t28f" markerheight="9" markerunits="userSpaceOnUse" markerwidth="9" orient="auto" refx="8" refy="5" viewbox="0 0 10 10">
+<path d="M0,1 L9,5 L0,9 z" fill="#cd7f9b"></path>
+</marker>
+</defs>
+<text fill="#aba498" font-family="-apple-system,sans-serif" font-size="13" text-anchor="middle" x="360" y="26">同样两个山头 — 左边是纸上的切面，右边是它真实所在的空间</text>
+<text fill="#cd7f9b" font-family="SF Mono,monospace" font-size="12" text-anchor="middle" x="180" y="56">纸上的一维切面</text>
+<line stroke="rgba(255,255,255,0.16)" stroke-width="1.3" x1="60" x2="300" y1="230" y2="230"></line>
+<path d="M60,214 C86,208 96,116 122,112 C150,108 158,196 180,204 C202,212 212,102 240,98 C268,94 282,190 300,214" fill="none" stroke="#63b3a6" stroke-opacity="0.8" stroke-width="2.4"></path>
+<circle cx="122" cy="112" fill="#e0895e" r="6"></circle><circle cx="240" cy="98" fill="#9fbc7a" r="6"></circle>
+<path d="M130,122 C152,120 160,196 180,202 C200,208 212,112 230,106" fill="none" marker-end="url(#t28f)" stroke="#cd7f9b" stroke-dasharray="5 4" stroke-width="1.8"></path>
+<text fill="#cd7f9b" font-family="-apple-system,sans-serif" font-size="11" text-anchor="middle" x="180" y="252">中间必须下到谷底</text>
+<text fill="#cd7f9b" font-family="SF Mono,monospace" font-size="24" text-anchor="middle" x="336" y="168">≠</text>
+<text fill="#9fbc7a" font-family="SF Mono,monospace" font-size="12" text-anchor="middle" x="540" y="56">加一个方向之后（俯视）</text>
+<rect fill="rgba(255,255,255,0.02)" height="150" rx="8" stroke="rgba(255,255,255,0.10)" width="300" x="390" y="74"></rect>
+<ellipse cx="452" cy="176" fill="rgba(224,137,94,0.16)" rx="46" ry="32" stroke="rgba(224,137,94,0.4)"></ellipse>
+<ellipse cx="628" cy="176" fill="rgba(159,188,122,0.16)" rx="46" ry="32" stroke="rgba(159,188,122,0.4)"></ellipse>
+<path d="M452,146 C470,104 610,104 628,146" fill="rgba(99,179,166,0.10)" stroke="rgba(99,179,166,0.45)" stroke-width="1.4"></path>
+<circle cx="452" cy="176" fill="#e0895e" r="6"></circle><circle cx="628" cy="176" fill="#9fbc7a" r="6"></circle>
+<line marker-end="url(#t28f)" stroke="#cd7f9b" stroke-dasharray="5 4" stroke-width="1.6" x1="464" x2="614" y1="176" y2="176"></line>
+<text fill="#cd7f9b" font-family="-apple-system,sans-serif" font-size="10.5" text-anchor="middle" x="540" y="194">直线走：过谷</text>
+<path d="M456,160 C474,120 606,120 624,160" fill="none" marker-end="url(#t28e)" stroke="#9fbc7a" stroke-width="2"></path>
+<text fill="#9fbc7a" font-family="-apple-system,sans-serif" font-size="10.5" text-anchor="middle" x="540" y="108">绕着走：全程不下降</text>
+<text fill="#787268" font-family="-apple-system,sans-serif" font-size="10.5" text-anchor="middle" x="540" y="246">维度越多，这种「绕过去」的路越容易存在</text>
+<text fill="#57524b" font-family="-apple-system,sans-serif" font-size="11" text-anchor="middle" x="360" y="284">「必须先下山」是切面里的结论。换个方向看，谷可能根本不是谷，是一道你没画出来的山脊</text>
+</svg>
+<figcaption>低维直觉的最大代价：把"在这个方向上是谷"读成了"这里是谷"。</figcaption>
+</figure>
+<p><b>第二，地形本身不是死的。</b>NK 模型跑之前就把所有位置的高度定死了。现实中，别人也在动：你爬到的那个山头，会因为竞争者、监管、客户口味的变化而塌下去，也可能因为别人开辟的路而升起来。这叫<b>共演化</b>（coevolution，第 31 期的正题）。地形一旦会动，"到达最优"就不再是目标，"移动速度"和"到山脊的距离"才是。这也是为什么"我们已经做到行业最好"这句话不含任何关于明年的信息。</p>
+<p><b>第三，高度未必存在。</b>景观假设有一个可以比大小的标量。现实里的"好"通常是几个不通约的东西：快和稳、增长和利润、覆盖和精度。多目标问题里根本没有"最高点"，只有一整片谁也不比谁全面更好的解（帕累托前沿，Pareto front）。硬压成一个数——"综合得分"——不是把问题解决了，是把权重的选择藏进了公式里。</p>
+<p><b>第四，历史上这张图本身就有争议。</b>科学史学者 William Provine 在 1986 年指出，Wright 的那几张地形图其实混用了两套互不兼容的坐标（基因型的空间 vs 基因频率的空间），作为数学对象站不住。这不妨碍它作为思考工具好用，但它提醒一件事：<b>这是一个比喻的可视化，不是一个可以往里代数字的模型。</b>凡是听到"我们处在适应性景观的某个局部最优"这种说法，先问一句：你的邻域是怎么定义的、高度是哪个量？答不上来，这句话就只是"我们卡住了"的一种更贵的说法。</p>
+<p>顺带说清一件容易混的事：崎岖度也不是地形单方面的属性，它是<b>地形和走法的联合属性</b>。同一批配置，如果你允许"一次改一位"，可能崎岖不堪；允许"交换两个模块"，山头就少了一大半。所以卡住的时候还有第三个选项——既不是更努力，也不是先下山，而是<em>换一套走法</em>。</p>
+<div class="decide">
+<span class="lb">🎯 决策线</span>
+<p>用"局部最优"给自己的处境定性之前，把三个空填掉：<b>邻域</b>（一步能改什么）、<b>高度</b>（哪一个具体指标）、<b>地形会不会动</b>（多久重估一次）。三个都填得出，"先下山"才是一个可执行的判断；填不出就别用这套词——那时它不解释任何东西，只是给"我们卡住了"配了一张好看的图。另外，卡住时按这个顺序试：先看能不能换邻域（换走法、换工具、跨界重组），再考虑跳谷底——换邻域通常便宜得多。</p>
+</div>
+<p class="en-brief"><b>EN</b> Four limits. Low-dimensional pictures manufacture valleys that high-dimensional spaces often route around (Gavrilets' holey landscapes). NK landscapes are static while real ones move under coevolution. Multi-objective problems have no single height at all. And Provine showed Wright's original diagrams conflated two incompatible coordinate systems — it is a visualisation of a metaphor, not a model you can put numbers into.</p>
+<div class="bigcat">
+<h3>🎒 场景 · BigCat</h3>
+<ol>
+<li><span class="dm">写作与这个学习站本身</span>每期都照上一期的版式来，越写越顺手：节数稳定、图的类型稳定、越界的落点也开始重复。这就是一条标准的爬山路径——每一期都比上一期"更熟练"，而熟练正是把你钉在同一个山头上的力。可改的东西很具体：拉出最近十期的<b>结构参数</b>（节数、图数、每节的字数分布），看它们的方差是在扩大还是在收窄；方差在收窄就是在爬同一个峰。然后按降温表办事——每隔固定几期，强制做一期结构不同的（比如只有两节，或者整期就一个长论证），并且<b>事先声明这一期的反响不计入选题判断</b>，否则探索会被主线的指标当场吃掉。</li>
+<li><span class="dm">育儿</span>反复出现的情境是：在孩子已经做得不错的那件事上继续加码，因为每周都能看到一点进步；而一件全新的事，头几个月的表现一定不如现在。于是"看得见进步"这个筛选条件，自动把选择收敛到了已经在爬的那个山头上。可改的：把"这周有没有变好"从唯一的观察量里拿掉，换一个季度尺度的问题——<b>这个季度有没有出现过一次明确的、暂时的退步</b>；一次都没有，说明现在的活动组合里没有任何探索。要停掉的动作是：在新东西刚开始、成绩下滑的那几周撤回支持——那正是谷底，撤回支持等于每次都在谷底掉头。</li>
+<li><span class="dm">带团队与组织</span>每个绩效周期都会重演一次：做新方向的人评分低于把现有系统维护得很好的人，因为前者在这个周期里还拿不出成形的产出。这不是评分的人不公，是尺子只有一把——用"利用"的口径去量"探索"，结果必然如此。可改的不是给探索加权重（加权重只是把同一把尺子上的读数改大），而是给它换一个<b>能在本周期内结算的产出定义</b>：这个周期排除了哪三个方向、把哪个不确定性从"不知道"推到了"知道不行"。要停掉的动作是：把这两类工作放在同一张评分表上排序。</li>
+</ol>
+</div>
+<div class="crossx">
+<h3>🌀 越界 · 跨学科的联想<span class="he">（Crossings）</span></h3>
+<ul>
+<li><b>经济与制度 · 转型性衰退</b>：1990 年代初的东欧与前苏联转轨，几乎每个国家都先经历了产出的大幅下滑再回升，经济学家 János Kornai 给它起名<b>转型性衰退</b>（transformational recession）。本期三条机制合起来解释了它为什么<em>必然</em>而不是<em>偶然</em>：计划体制是一个真实的局部最优（它内部各部件互相配套）；制度部件之间的 K 极高（价格、所有权、司法、社保互为前提），所以不存在"只改一项"的平滑路径；于是唯一的路要穿过一段谷。由此推出的结论跟当年的辩论错位得很有意思——"渐进还是休克"争的是步子大小，而按本期的机制，真正决定成败的是<b>谷底时长与政治授权周期的比值</b>：一个正确但谷底长于一届任期的方案，会在数据上被证明为"失败"，然后被真正推翻。<b>但这里不成立</b>：景观假设有一个可比大小的高度，而转轨里产出、就业、公平、主权是几个不通约的量，某个轴的谷底可能正是另一个轴的爬升。把它们压成一个"改革成效"的高度，恰恰是当年很多政策评估的错误来源。能借走的是"必须经过一段变差"这个结构，借不走的是"变差"有唯一读数。</li>
+<li><b>历史与军事 · 战间期两支陆军</b>：1918 年之后，法军把一战末期那套已经验证有效的打法——火力协同、有节制的推进、以要塞与纵深消耗对手——一步步做得更精细，每一步改进在自己的框架内都成立。德军则被凡尔赛条约压到十万人，装备与员额都被剥掉，被迫从"如果只能留下最少的东西，该留什么"重新想。1940 年的结果常被归因于德国人的天才或法国人的僵化，但本期的机制给出一个更平淡也更可怕的版本：<b>严格爬山 + 高 K</b> 就足够产生它——胜利者的每一步渐进改进都不变差，因此被锁在自己的峰上；而陆军的部件（学说、编制、通信、训练、后勤）互相依赖度极高，"只换坦克不换编制"注定被别处的退化抵消掉，这正是法军坦克数量并不少却仍然失效的原因。真正有操作性的推论是：既然"保持谦逊"改变不了地形，那就<b>主动制造局部重启</b>——独立编制、红队、不受主线考核的实验单位，用结构去替代自觉。</li>
+<li><b>科学社会学 · 「好想法越来越难找」</b>：Bloom、Jones、Van Reenen 与 Webb 在 2020 年的一项研究里给出一组扎实的数字：在半导体、农作物育种、医药等领域，维持同样的进步速度所需的研究人力在持续上升。通行解释是"低垂的果实摘完了"——问题本身变难了。把本期三条机制叠上去，会得到一个不同且可检验的解释：一个领域的<b>邻域</b>是由它认可的方法定义的（什么算一篇能发表的论文），K 由它的变量互相依赖的程度决定，而探索与利用的比例由经费周期和聘期结构决定——这三者都奖励"在既有方法内做增量"。于是"变难"的一部分可能不是地形变了，而是这个领域<b>停在了自己方法所能到达的那个局部最优上</b>。这个版本推出了一个前者推不出的结论：如果真是果实摘完了，投入更多同类人力就是唯一解；如果是邻域太窄，那么引进外来方法（换走法）会比加人便宜一个数量级——而这两种情形在数据上是可以分开的，看的是跨领域方法迁移带来的产出弹性。</li>
+</ul>
+</div>
+<div class="thinking">
+<h3>深入思考<span class="he">（Going Deeper）</span></h3>
+<details><summary>如果高维空间里山脊到处都是，那"必须先下山"是不是根本就是个伪问题？</summary><p>不是，但它的适用范围比通常以为的窄。关键在于你的<b>邻域</b>有多丰富：生物演化里可动的位点成千上万，所以绕路的机会多；而一个组织能同时改的东西往往只有两三样，有效维度极低，谷就是真的谷。所以判据不是"这个系统复杂不复杂"，是"我一步能同时改几件事"。这也解释了为什么同一个转型，在能同时动人事、流程与激励的时候是斜坡，在只能动一样的时候是悬崖。</p></details>
+<details><summary>"探索预算 20%" 这种数字有依据吗，还是拍脑袋？</summary><p>没有一个普适的最优比例——多臂老虎机的最优探索率依赖于剩余轮数、回报的方差、以及切换成本，这三样每个场景都不同。固定比例的价值不在于它最优，在于它<b>把一个会被临时压力吃掉的东西变成了默认值</b>。真正该较真的不是比例的数值，是有没有单独的考核口径和明确的降温时点；没有这两样，写多少比例都会在第一个紧张的季度归零。</p></details>
+<details><summary>怎么区分"我在谷底，坚持一下就好"和"这个方向根本是错的"？</summary><p>本期的机制帮不上忙——景观的形状在事后才看得清，这是它诚实的地方。能做的是事前把判据写死：启动时就写下预期的谷底深度与时长，以及一个<b>反驳条件</b>（如果到 X 时间还没出现 Y 迹象，就撤）。区别不在于你能否预知，在于撤退的标准是在谷底之前定的还是在谷底之中定的——在谷底之中，任何标准都会被当时的痛苦重写。</p></details>
+<details><summary>降低 K 有代价吗？把所有东西都解耦是不是最优？</summary><p>有，而且不小。降 K 意味着放弃部件之间的协同——高度定制、深度耦合的方案在自己那个峰上往往比模块化方案更高。所以这是一笔明确的交易：<b>用峰的高度换取地形的平滑</b>。当环境稳定、目标明确时，耦合的方案更划算；当地形本身会动、需要频繁重找方向时，平滑才值钱。把它当成一条永远正确的原则，就会在该深耕的时候一直在拆积木。</p></details>
+<details><summary>"崎岖度是地形和走法的联合属性"，这句话有什么可操作的含义？</summary><p>它意味着卡住的时候有一个常被忽略的第三选项。除了更努力（同一走法）和跳谷底（承受代价），还可以换邻域：换工具、换协作方式、引入一个能一次改动多个部件的手段（比如遗传算法里的重组，或者组织里的"整建制换一个团队来做"）。换邻域的成本通常远低于跳谷，但它需要先意识到"一步能改什么"是个可以设计的东西，而不是给定的约束。</p></details>
+</div>
+<div class="refs">
+<h3>延伸阅读<span class="he">（Further Reading）</span></h3>
+<ul>
+<li>Sewall Wright, <a href="https://en.wikipedia.org/wiki/Fitness_landscape">The roles of mutation, inbreeding, crossbreeding and selection in evolution</a>（1932，适应性景观的出处）</li>
+<li>Kauffman &amp; Levin, <a href="https://doi.org/10.1016/S0022-5193(87)80029-2">Towards a general theory of adaptive walks on rugged landscapes</a>（1987，NK 模型）</li>
+<li>Kirkpatrick, Gelatt &amp; Vecchi, <a href="https://www.science.org/doi/10.1126/science.220.4598.671">Optimization by Simulated Annealing</a>（1983，退火）</li>
+<li>Weinreich et al., <a href="https://www.science.org/doi/10.1126/science.1123539">Darwinian evolution can follow only very few mutational paths to fitter proteins</a>（2006，五个突变的 120 条路径里只有 18 条走得通）</li>
+<li>Sergey Gavrilets, <a href="https://press.princeton.edu/books/paperback/9780691119830/fitness-landscapes-and-the-origin-of-species-mpb-41">Fitness Landscapes and the Origin of Species</a>（2004，多孔景观与高维直觉）</li>
+<li>William Provine, <a href="https://press.uchicago.edu/ucp/books/book/chicago/S/bo5966465.html">Sewall Wright and Evolutionary Biology</a>（1986，对 Wright 那几张图的经典质疑）</li>
+<li>James March, <a href="https://doi.org/10.1287/orsc.2.1.71">Exploration and Exploitation in Organizational Learning</a>（1991，把探索/利用引进组织研究）</li>
+<li>Bloom, Jones, Van Reenen &amp; Webb, <a href="https://www.aeaweb.org/articles?id=10.1257/aer.20180338">Are Ideas Getting Harder to Find?</a>（2020）</li>
+<li>János Kornai, <a href="https://doi.org/10.1006/jcec.1994.1062">Transformational Recession</a>（1994）</li>
+</ul>
+</div>
+<footer>BigCat · 复杂性科学 · <a href="index.html">← 全部 Topic</a></footer>
+</div>
+<script src="https://hub.cissychen.com/comments.js" defer></script>
+<script src="https://hub.cissychen.com/search.js" defer></script>
+<script src="https://hub.cissychen.com/index-button.js" defer></script>
+<script src="https://hub.cissychen.com/i18n-tts.js" defer></script>
+</body></html>
