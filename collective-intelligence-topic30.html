@@ -1,0 +1,452 @@
+<!DOCTYPE html>
+
+<html lang="zh-CN"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>集体智能与群体愚蠢 — 人多管用是有条件的 · 复杂性科学 T30</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,"SF Pro Display","Noto Sans SC",sans-serif;color:#e4ded5;line-height:1.85;min-height:100vh;
+  background:radial-gradient(1100px 620px at 12% -6%,rgba(224,137,94,0.10),transparent 62%),radial-gradient(950px 700px at 100% 2%,rgba(166,147,205,0.09),transparent 58%),linear-gradient(168deg,#100f0d 0%,#15161b 48%,#0a0a0c 100%);background-attachment:fixed}
+.wrap{max-width:760px;margin:0 auto;padding:30px 22px 90px}
+header{padding:52px 0 8px;border-bottom:1px solid rgba(255,255,255,0.07);margin-bottom:34px}
+.week-tag{font-family:"SF Mono",Menlo,monospace;font-size:0.72rem;font-weight:700;letter-spacing:2px;color:#79a6d2;border:1px solid rgba(121,166,210,0.4);background:rgba(121,166,210,0.07);padding:3px 11px;border-radius:20px}
+h1{font-size:2.5rem;font-weight:800;letter-spacing:0.5px;line-height:1.2;margin:20px 0 0;background:linear-gradient(106deg,#e0895e 0%,#d9b45f 34%,#9fbc7a 68%,#63b3a6 100%);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+h1 .h1en{display:block;font-size:0.40em;font-weight:600;letter-spacing:2.5px;color:#847d72;-webkit-text-fill-color:#847d72;background:none;margin-top:13px}
+.sub{font-size:1.05rem;color:#aba498;margin-top:14px;font-weight:500}
+.date{font-family:"SF Mono",Menlo,monospace;font-size:0.75rem;color:#57524b;margin-top:18px;letter-spacing:1px}
+.pitch{margin:22px 0 30px;font-size:0.97rem;color:#cd7f9b;border-left:2px solid rgba(205,127,155,0.5);padding-left:16px;font-style:italic}
+.intro{font-size:1.02rem;color:#cfc8bc;margin-bottom:14px}
+.intro p{margin-bottom:16px}
+h2{font-size:1.42rem;font-weight:700;color:#e9e3d9;margin:56px 0 8px;letter-spacing:0.3px}
+h2 .n{font-family:"SF Mono",Menlo,monospace;font-size:0.85rem;color:#79a6d2;display:block;margin-bottom:6px;letter-spacing:2px}
+.he{font-size:0.68em;color:#8d867b;font-weight:500;letter-spacing:0}
+p{margin-bottom:17px}
+.lead{color:#cfc8bc}
+b,strong{color:#f0eae0;font-weight:600}
+em{color:#d9b45f;font-style:normal;font-weight:500}
+.dim{color:#8d867b}
+a.reflink{display:inline-block;font-size:0.82rem;font-family:"SF Mono",Menlo,monospace;color:#63b3a6;border:1px solid rgba(99,179,166,0.38);background:rgba(99,179,166,0.07);padding:1px 9px;border-radius:20px;text-decoration:none;transition:all 0.15s;white-space:nowrap}
+a.reflink:hover{background:rgba(99,179,166,0.16);border-color:rgba(99,179,166,0.7)}
+figure{margin:30px 0}
+figure svg{display:block;width:100%;height:auto;border-radius:12px;background:rgba(255,255,255,0.018);border:1px solid rgba(255,255,255,0.06)}
+figcaption{font-size:0.82rem;color:#787268;margin-top:11px;text-align:center;line-height:1.6}
+.eq{font-family:"SF Mono",Menlo,monospace;font-size:0.92rem;color:#9fbc7a;background:rgba(159,188,122,0.06);border:1px solid rgba(159,188,122,0.2);border-radius:10px;padding:14px 18px;margin:22px 0;text-align:center;line-height:1.9;overflow-x:auto}
+.eq small{display:block;font-family:-apple-system,sans-serif;font-size:0.78rem;color:#8d867b;margin-top:6px}
+.en-brief{font-size:0.85rem;color:#847d72;border-top:1px dashed rgba(255,255,255,0.09);padding-top:12px;margin-top:22px;line-height:1.65}
+.en-brief b{font-family:"SF Mono",Menlo,monospace;font-size:0.72rem;color:#63b3a6;letter-spacing:1px;margin-right:7px}
+.decide{margin:24px 0;border:1px solid rgba(224,137,94,0.36);background:rgba(224,137,94,0.055);border-radius:12px;padding:15px 19px}
+.decide .lb{font-family:"SF Mono",Menlo,monospace;font-size:0.73rem;letter-spacing:1.5px;color:#e0895e;font-weight:700;display:block;margin-bottom:7px}
+.decide p{margin:0;font-size:0.95rem;color:#ddd5c9}
+.crossx-inline{margin:20px 0 22px;border-left:2px solid rgba(205,127,155,0.55);padding:2px 0 2px 15px;font-size:0.89rem;color:#a9a096;line-height:1.72}
+.crossx-inline b{color:#cd7f9b;font-weight:600}
+.bigcat{margin:46px 0 10px;border:1px solid rgba(217,180,95,0.38);background:rgba(217,180,95,0.05);border-radius:14px;padding:20px 22px}
+.bigcat h3{font-size:1.02rem;color:#d9b45f;margin-bottom:14px;letter-spacing:0.5px}
+.bigcat ol{list-style:none;padding:0}
+.bigcat li{margin-bottom:15px;font-size:0.94rem;color:#d5cdc1;line-height:1.78}
+.bigcat li:last-child{margin-bottom:0}
+.bigcat .dm{font-family:"SF Mono",Menlo,monospace;font-size:0.73rem;color:#d9b45f;border:1px solid rgba(217,180,95,0.32);border-radius:4px;padding:1px 7px;margin-right:8px;white-space:nowrap}
+.crossx{margin:46px 0 10px;border:1px solid rgba(205,127,155,0.38);background:rgba(205,127,155,0.05);border-radius:14px;padding:20px 22px}
+.crossx h3{font-size:1.02rem;color:#cd7f9b;margin-bottom:14px;letter-spacing:0.5px}
+.crossx ul{list-style:none;padding:0}
+.crossx li{margin-bottom:16px;font-size:0.94rem;color:#d5cdc1;line-height:1.78}
+.crossx li:last-child{margin-bottom:0}
+.crossx li b{color:#cd7f9b;font-weight:600}
+.thinking{margin:46px 0 10px}
+.thinking h3{font-size:1.02rem;color:#a693cd;margin-bottom:14px;letter-spacing:0.5px}
+details{border:1px solid rgba(166,147,205,0.22);border-radius:10px;padding:12px 16px;margin-bottom:10px;background:rgba(166,147,205,0.035)}
+summary{cursor:pointer;font-size:0.93rem;color:#c9c2b6;font-weight:500}
+summary::marker{color:#a693cd}
+details p{margin:12px 0 0;font-size:0.9rem;color:#a9a096;line-height:1.75}
+.refs{margin:46px 0 10px}
+.refs h3{font-size:1.02rem;color:#79a6d2;margin-bottom:14px;letter-spacing:0.5px}
+.refs ul{list-style:none;padding:0}
+.refs li{margin-bottom:10px;font-size:0.9rem;color:#8d867b;line-height:1.7}
+.refs a{color:#79a6d2;text-decoration:none;border-bottom:1px solid rgba(121,166,210,0.3)}
+.refs a:hover{color:#a6c4e2;border-bottom-color:rgba(121,166,210,0.7)}
+footer{text-align:center;padding:56px 0 10px;font-size:0.78rem;color:#57524b;font-family:"SF Mono",Menlo,monospace;border-top:1px solid rgba(255,255,255,0.06);margin-top:50px}
+footer a{color:#79a6d2;text-decoration:none}
+@media(max-width:600px){h1{font-size:1.85rem}.wrap{padding:24px 16px 60px}h2{font-size:1.22rem}}
+</style></head><body>
+
+<div class="wrap">
+<header>
+<span class="week-tag">TOPIC 30 · PHASE E</span>
+<h1>集体智能与群体愚蠢<span class="h1en">COLLECTIVE INTELLIGENCE AND COLLECTIVE STUPIDITY</span></h1>
+<p class="sub">人多管用是有条件的<span class="he">（Crowds are wise only under conditions）</span></p>
+<p class="date">2026-08-16 · 适应与演化</p>
+<p class="pitch">同一群人，能把一头牛的重量猜到 0.75% 以内，也能整整齐齐地一起错两千年。中间隔的不是道德，也不是智商，是两三个可以写下来的参数。</p>
+</header>
+
+<div class="intro">
+<p>「三个臭皮匠顶个诸葛亮」和「乌合之众」是两句互相打架的老话，麻烦的是它们各自都有一大堆例子撑腰。集市上一群人猜一头牛多重，中位数能压进真值的百分之一以内；同样这批人凑到一起抢盐、追涨、传谣，蠢得让人不忍细看。</p>
+<p>常见的调和办法是「看情况」——有时候人聪明，有时候人蠢。这等于什么都没说。真实情况要具体得多：聪明和愚蠢是<b>同一台机器</b>在两组参数下的两种输出。机器只有一台，参数就那么两三个。参数对了，一屋子普通人比其中最聪明的那个还准；参数一变，同一屋子人会以极高的效率把一个错误固化下来——而且每个人都在做理性的事，没有一个人犯傻。</p>
+<p>所以「该不该相信群体」这个问法从一开始就错了。该问的是：<b>这一次，那两三个参数各是什么值。</b></p>
+</div>
+
+<h2><span class="n">01</span>一群人为什么能比每个人都准<span class="he">（The Error-Cancelling Machine）</span></h2>
+<p class="lead">1906 年，英国普利茅斯的一场家畜展上有个有奖竞猜：一头肥牛，宰杀去脏之后净重多少。参赛的既有屠夫和农民，也有纯凑热闹的路人，每人在卡片上写一个数。</p>
+<p>Francis Galton 后来把这些卡片要了过来算了一遍，1907 年把结果发在《自然》上：787 张有效卡片，中位数 1207 磅，而牛的实际净重是 1198 磅。差 9 磅，0.75%。</p>
+<p>这个故事被讲滥了，通常讲成「群众的眼睛是雪亮的」。但那是一句结论不是机制，而且它是错的——群众的眼睛一点都不雪亮，787 个人里绝大多数都错得很离谱。真正发生的事是：<b>他们错的方向互相抵消了。</b></p>
+<p>这句话可以写成一个精确的等式，不是比喻。设真值是 θ，第 i 个人给出的估计是 sᵢ，群体的答案取算术平均 s̄：</p>
+
+<div class="eq">
+( s̄ − θ )² &nbsp;=&nbsp; ave[ (sᵢ − θ)² ] &nbsp;−&nbsp; ave[ (sᵢ − s̄)² ]
+<small>群体误差 ＝ 平均个体误差 − 分歧度</small>
+</div>
+
+<p>左边是群体这一个答案的平方误差；右边第一项是每个人各自平方误差的平均；第二项是这群人彼此之间的方差，也就是<b>他们分歧有多大</b>。三项之间是恒等式——随便找一组数字代进去都成立，不需要任何假设、不需要谁「足够独立」，纯代数。Scott Page 把它叫做<b>多样性预测定理</b>（diversity prediction theorem）。</p>
+
+<figure>
+<svg aria-label="上半：787 个估计散落在真值两侧，中位数落在真值附近；下半：平均个体误差被分解成分歧度与群体误差两段" role="img" viewBox="0 0 720 452" xmlns="http://www.w3.org/2000/svg">
+<defs>
+<marker id="t30a" markerHeight="9" markerUnits="userSpaceOnUse" markerWidth="9" orient="auto" refX="8" refY="4.5" viewBox="0 0 9 9">
+<path d="M0,1 L8,4.5 L0,8 z" fill="#8d867b"></path>
+</marker>
+</defs>
+<text fill="#aba498" font-family="-apple-system,sans-serif" font-size="13.5" text-anchor="middle" x="360" y="28">787 张卡片，猜同一头牛的净重</text>
+
+<circle cx="132" cy="118" fill="#5d6f7f" r="3.4"></circle><circle cx="168" cy="96" fill="#5d6f7f" r="3.4"></circle><circle cx="196" cy="130" fill="#5d6f7f" r="3.4"></circle><circle cx="221" cy="80" fill="#5d6f7f" r="3.4"></circle><circle cx="242" cy="112" fill="#5d6f7f" r="3.4"></circle><circle cx="259" cy="136" fill="#5d6f7f" r="3.4"></circle><circle cx="276" cy="90" fill="#5d6f7f" r="3.4"></circle><circle cx="291" cy="124" fill="#5d6f7f" r="3.4"></circle><circle cx="303" cy="102" fill="#5d6f7f" r="3.4"></circle><circle cx="316" cy="138" fill="#5d6f7f" r="3.4"></circle><circle cx="327" cy="84" fill="#5d6f7f" r="3.4"></circle><circle cx="337" cy="116" fill="#5d6f7f" r="3.4"></circle><circle cx="346" cy="98" fill="#5d6f7f" r="3.4"></circle><circle cx="355" cy="132" fill="#5d6f7f" r="3.4"></circle><circle cx="366" cy="106" fill="#5d6f7f" r="3.4"></circle><circle cx="376" cy="88" fill="#5d6f7f" r="3.4"></circle><circle cx="386" cy="128" fill="#5d6f7f" r="3.4"></circle><circle cx="397" cy="110" fill="#5d6f7f" r="3.4"></circle><circle cx="409" cy="94" fill="#5d6f7f" r="3.4"></circle><circle cx="422" cy="134" fill="#5d6f7f" r="3.4"></circle><circle cx="437" cy="114" fill="#5d6f7f" r="3.4"></circle><circle cx="454" cy="86" fill="#5d6f7f" r="3.4"></circle><circle cx="474" cy="126" fill="#5d6f7f" r="3.4"></circle><circle cx="498" cy="100" fill="#5d6f7f" r="3.4"></circle><circle cx="527" cy="120" fill="#5d6f7f" r="3.4"></circle><circle cx="563" cy="92" fill="#5d6f7f" r="3.4"></circle><circle cx="606" cy="130" fill="#5d6f7f" r="3.4"></circle>
+
+<line stroke="rgba(255,255,255,0.16)" stroke-width="1.2" x1="90" x2="660" y1="160" y2="160"></line>
+<line stroke="#9fbc7a" stroke-width="2" x1="360" x2="360" y1="66" y2="176"></line>
+<line stroke="#e0895e" stroke-width="2" stroke-dasharray="4 3" x1="392" x2="392" y1="66" y2="176"></line>
+<text fill="#9fbc7a" font-family="-apple-system,sans-serif" font-size="12" text-anchor="end" x="352" y="196">真值 1198 磅</text>
+<text fill="#e0895e" font-family="-apple-system,sans-serif" font-size="12" x="400" y="196">中位数 1207 磅</text>
+<text fill="#787268" font-family="-apple-system,sans-serif" font-size="11.5" x="96" y="182">← 猜轻了</text>
+<text fill="#787268" font-family="-apple-system,sans-serif" font-size="11.5" text-anchor="end" x="654" y="182">猜重了 →</text>
+<text fill="#8d867b" font-family="-apple-system,sans-serif" font-size="11.5" text-anchor="middle" x="360" y="222">几乎每个点都错得不轻。准的不是任何一个人，是这堆点的中间位置。</text>
+
+<line stroke="rgba(255,255,255,0.08)" stroke-width="1" x1="60" x2="660" y1="250" y2="250"></line>
+<text fill="#aba498" font-family="-apple-system,sans-serif" font-size="13.5" x="60" y="284">同一堆点，误差是这样被吃掉的</text>
+
+<text fill="#8d867b" font-family="-apple-system,sans-serif" font-size="12" text-anchor="end" x="196" y="330">平均个体误差</text>
+<rect fill="#4a4038" height="26" rx="4" width="440" x="210" y="312"></rect>
+<text fill="#cfc8bc" font-family="SF Mono,monospace" font-size="12.5" text-anchor="middle" x="430" y="330">每个人各自错多少，取平均</text>
+
+<text fill="#8d867b" font-family="-apple-system,sans-serif" font-size="12" text-anchor="end" x="196" y="382">减去 分歧度</text>
+<rect fill="#3d5545" height="26" rx="4" stroke="rgba(159,188,122,0.55)" width="390" x="210" y="364"></rect>
+<rect fill="#5a3a30" height="26" rx="4" stroke="rgba(224,137,94,0.7)" width="50" x="600" y="364"></rect>
+<text fill="#9fbc7a" font-family="SF Mono,monospace" font-size="12.5" text-anchor="middle" x="405" y="382">彼此错的方向不同 → 抵消掉</text>
+
+<line marker-end="url(#t30a)" stroke="#8d867b" stroke-width="1.4" x1="596" x2="626" y1="428" y2="392"></line>
+<text fill="#e0895e" font-family="-apple-system,sans-serif" font-size="12" text-anchor="middle" x="566" y="444">剩下的这一小段，才是群体的误差</text>
+</svg>
+<figcaption>群体准不准，取决于两件事：大家各自有多准，以及大家<b>错得有多不一样</b>。第二项在式子里被整块减掉——它是收益，不是噪声。</figcaption>
+</figure>
+
+<p>这个等式有两个后果，都比「群众智慧」四个字硬得多。</p>
+<p><b>第一，群体永远不会比平均个体差。</b>因为减掉的那一项是方差，非负。所以「人一多就互相拖累」这件事，在「取平均」这条规则下根本不可能发生。注意它没说群体比<b>最好的那个人</b>强——那是完全另一回事，而且经常不成立。</p>
+<p><b>第二，分歧本身是收益，不是成本。</b>你想把群体误差压小，有两条路：让每个人更准（缩小第一项），或者让他们错得更不一样（放大第二项）。这两条路在式子里的地位完全对等。于是能推出一个反直觉的结果——<b>往一群人里加一个水平低于平均、但错法完全不同的人，可以让整体变准。</b>他自己那份误差进第一项，他和别人的分歧进第二项，后者可以更大。</p>
+
+<div class="decide"><span class="lb">🎯 决策线</span>
+<p>决定要不要再拉一个人进来评估某件事时，别问「他懂不懂这个」，问<b>「他会不会和屋里已有的人错在同一个地方」</b>。这是可查的事实，不是印象：看他的训练背景、主要信息来源、以及过去几次判断失误的<b>方向</b>。三项都和现有的人重合，他就只增加成本不增加精度——分歧度那一项没动。要停掉的动作：按资历高低往评审名单里加人。资历相近的人往往是同一批书、同一批经历教出来的，那等于在系统性地压缩第二项。</p>
+</div>
+
+<p class="crossx-inline">🌀 <b>工程与技术史 · 随机森林故意把每棵树弄笨</b>　随机森林（random forest）在训练每棵决策树时，只准它在每次分裂处看随机抽出的一小部分特征。单看一棵，它明显不如一棵允许看全部特征的树。Breiman 2001 年给出的泛化误差上界把理由写死了：误差被 ρ̄(1−s²)/s² 压着，其中 s 是单棵树的强度、ρ̄ 是树与树之间的平均相关性——<b>分子里那一项要的就是「不相关」</b>。由此推出一个在人身上同样成立、但几乎没人这么干的结论：提高成员平均水平和提高整体准确率，是两个可以互相打架的目标；当成员之间已经高度相关时，正确的做法是给他们<b>蒙上不同的眼睛</b>，而不是给所有人补同一批资料。</p>
+
+<p class="en-brief"><b>EN</b> Galton's 1907 ox-weighing data (787 cards, median 1207 lb vs. 1198 lb actual) is usually told as "crowds are wise." The mechanism is sharper and is an exact algebraic identity: crowd error = average individual error − prediction diversity. Two consequences follow: the crowd can never be worse than the average member, and disagreement is a benefit term, not noise — so adding a below-average but differently-wrong member can improve the group.</p>
+
+<h2><span class="n">02</span>独立性一断，同一台机器开始反着跑<span class="he">（Information Cascades）</span></h2>
+<p class="lead">上面那个等式里藏了一个前提：它算的是「每个人<b>各自</b>给出 sᵢ」。如果第二个人是看着第一个人的答案写的，第二项——分歧度——会自己塌下去。</p>
+<p>要命的是，这件事不需要谁盲从。理性的人也会这么干，而且非这么干不可。</p>
+<p>1992 年，Bikhchandani、Hirshleifer 和 Welch 三人给出了这个过程最干净的模型，叫<b>信息级联</b>（information cascade）。它的实验室版本长这样：</p>
+<p>桌上有两个罐子。A 罐里 2 红 1 蓝，B 罐里 2 蓝 1 红。主持人随机挑一个（各 50%），不告诉任何人挑的是哪个。参与者一个接一个上来，从罐里私下摸出一个球看一眼——这是他的<b>私人信息</b>——放回去，然后<b>公开宣布</b>他猜是哪个罐子。后面的人听得见前面所有人的宣布，但看不见他们摸到了什么。</p>
+
+<figure>
+<svg aria-label="四个人依次宣布：前两人的私人信号进入公共池，从第三人起私人信号被理性地丢弃，新增信息量降为零" role="img" viewBox="0 0 720 400" xmlns="http://www.w3.org/2000/svg">
+<defs>
+<marker id="t30b" markerHeight="9" markerUnits="userSpaceOnUse" markerWidth="9" orient="auto" refX="8" refY="4.5" viewBox="0 0 9 9">
+<path d="M0,1 L8,4.5 L0,8 z" fill="#79a6d2"></path>
+</marker>
+<marker id="t30c" markerHeight="9" markerUnits="userSpaceOnUse" markerWidth="9" orient="auto" refX="8" refY="4.5" viewBox="0 0 9 9">
+<path d="M0,1 L8,4.5 L0,8 z" fill="#cd7f9b"></path>
+</marker>
+</defs>
+<text fill="#aba498" font-family="-apple-system,sans-serif" font-size="13.5" text-anchor="middle" x="360" y="28">真实的罐子是 B（2 蓝 1 红），但头两个人偏巧都摸到了红球</text>
+
+<text fill="#8d867b" font-family="SF Mono,monospace" font-size="11.5" text-anchor="end" x="96" y="80">私人信号</text>
+<text fill="#8d867b" font-family="SF Mono,monospace" font-size="11.5" text-anchor="end" x="96" y="132">公开宣布</text>
+<text fill="#8d867b" font-family="SF Mono,monospace" font-size="11.5" text-anchor="end" x="96" y="236">新进入公共池</text>
+<text fill="#8d867b" font-family="SF Mono,monospace" font-size="11.5" text-anchor="end" x="96" y="254">的信息量</text>
+
+<text fill="#787268" font-family="-apple-system,sans-serif" font-size="12" text-anchor="middle" x="180" y="50">第 1 人</text>
+<circle cx="180" cy="76" fill="#8e4a4a" r="14" stroke="rgba(255,255,255,0.25)"></circle>
+<text fill="#e4ded5" font-family="-apple-system,sans-serif" font-size="11" text-anchor="middle" x="180" y="81">红</text>
+<rect fill="#2a3540" height="30" rx="5" stroke="rgba(121,166,210,0.6)" width="72" x="144" y="118"></rect>
+<text fill="#79a6d2" font-family="SF Mono,monospace" font-size="15" text-anchor="middle" x="180" y="139">A</text>
+
+<text fill="#787268" font-family="-apple-system,sans-serif" font-size="12" text-anchor="middle" x="330" y="50">第 2 人</text>
+<circle cx="330" cy="76" fill="#8e4a4a" r="14" stroke="rgba(255,255,255,0.25)"></circle>
+<text fill="#e4ded5" font-family="-apple-system,sans-serif" font-size="11" text-anchor="middle" x="330" y="81">红</text>
+<rect fill="#2a3540" height="30" rx="5" stroke="rgba(121,166,210,0.6)" width="72" x="294" y="118"></rect>
+<text fill="#79a6d2" font-family="SF Mono,monospace" font-size="15" text-anchor="middle" x="330" y="139">A</text>
+
+<text fill="#787268" font-family="-apple-system,sans-serif" font-size="12" text-anchor="middle" x="480" y="50">第 3 人</text>
+<circle cx="480" cy="76" fill="#3f5b74" r="14" stroke="rgba(255,255,255,0.25)"></circle>
+<text fill="#e4ded5" font-family="-apple-system,sans-serif" font-size="11" text-anchor="middle" x="480" y="81">蓝</text>
+<rect fill="#33262c" height="30" rx="5" stroke="rgba(205,127,155,0.75)" stroke-width="2" width="72" x="444" y="118"></rect>
+<text fill="#cd7f9b" font-family="SF Mono,monospace" font-size="15" text-anchor="middle" x="480" y="139">A</text>
+
+<text fill="#787268" font-family="-apple-system,sans-serif" font-size="12" text-anchor="middle" x="630" y="50">第 4 人</text>
+<circle cx="630" cy="76" fill="#3f5b74" r="14" stroke="rgba(255,255,255,0.25)"></circle>
+<text fill="#e4ded5" font-family="-apple-system,sans-serif" font-size="11" text-anchor="middle" x="630" y="81">蓝</text>
+<rect fill="#33262c" height="30" rx="5" stroke="rgba(205,127,155,0.75)" stroke-width="2" width="72" x="594" y="118"></rect>
+<text fill="#cd7f9b" font-family="SF Mono,monospace" font-size="15" text-anchor="middle" x="630" y="139">A</text>
+
+<line marker-end="url(#t30b)" stroke="#79a6d2" stroke-width="1.8" x1="222" x2="286" y1="133" y2="133"></line>
+<line marker-end="url(#t30c)" stroke="#cd7f9b" stroke-width="1.8" x1="372" x2="436" y1="133" y2="133"></line>
+<line marker-end="url(#t30c)" stroke="#cd7f9b" stroke-width="1.8" x1="522" x2="586" y1="133" y2="133"></line>
+
+<text fill="#cd7f9b" font-family="-apple-system,sans-serif" font-size="11.5" text-anchor="middle" x="555" y="176">从这里起，他自己摸到什么已经不影响他说什么</text>
+
+<line stroke="rgba(255,255,255,0.08)" stroke-width="1" x1="60" x2="660" y1="198" y2="198"></line>
+<rect fill="#3d5545" height="20" rx="3" stroke="rgba(159,188,122,0.55)" width="72" x="144" y="228"></rect>
+<rect fill="#3d5545" height="20" rx="3" stroke="rgba(159,188,122,0.55)" width="72" x="294" y="228"></rect>
+<rect fill="#221f1d" height="20" rx="3" stroke="rgba(255,255,255,0.13)" width="72" x="444" y="228"></rect>
+<rect fill="#221f1d" height="20" rx="3" stroke="rgba(255,255,255,0.13)" width="72" x="594" y="228"></rect>
+<text fill="#9fbc7a" font-family="SF Mono,monospace" font-size="12" text-anchor="middle" x="180" y="243">1 个球</text>
+<text fill="#9fbc7a" font-family="SF Mono,monospace" font-size="12" text-anchor="middle" x="330" y="243">1 个球</text>
+<text fill="#6b665e" font-family="SF Mono,monospace" font-size="12" text-anchor="middle" x="480" y="243">0</text>
+<text fill="#6b665e" font-family="SF Mono,monospace" font-size="12" text-anchor="middle" x="630" y="243">0</text>
+
+<text fill="#8d867b" font-family="-apple-system,sans-serif" font-size="12" x="60" y="292">第 3 人的算盘：他听到两个「A」，自己摸到一个蓝球。两个真信号压过一个，</text>
+<text fill="#8d867b" font-family="-apple-system,sans-serif" font-size="12" x="60" y="314">于是他理性地宣布 A —— 而这句「A」不携带他那个蓝球的任何消息。</text>
+<text fill="#cfc8bc" font-family="-apple-system,sans-serif" font-size="12.5" x="60" y="348">后面排一百个人说 A，这一百句话加起来的信息量，等于最前面那两个红球。</text>
+<text fill="#787268" font-family="-apple-system,sans-serif" font-size="11.5" x="60" y="374">而真实的罐子是 B。没有人算错，没有人从众，全场一致地错下去。</text>
+</svg>
+<figcaption>级联锁上的那一刻，队伍看起来最整齐——因为从那一刻起，队伍里不再有新东西进来。</figcaption>
+</figure>
+
+<p>这个模型有三个后果，条条能对上现实。</p>
+<p><b>级联很容易起。</b>只要头两个信号偶然一致，它就锁上了。起因可以纯粹是运气——罐子本来是 B，头两个人偏巧都摸到红球，全场就一路错到底。所以「这么多人都这么说，总有点道理吧」这句话，在有级联的地方一点道理都没有。</p>
+<p><b>级联很脆。</b>因为后面那九十八个人身上根本没有信息在支撑，只要有一条真正的新证据被公开，整条队伍可以当场翻面。<b>看起来铁板一块的共识往往一推就倒——它的稳固和它的脆弱是同一件事的两面。</b></p>
+<p><b>没有人做错。</b>每个人都在做贝叶斯最优决策。这不是从众心理，不是懦弱，不是没主见。把这类现象诊断成「独立思考能力差」，等于把一个结构问题写成了品格问题——而品格改不动，结构能改。<a class="reflink" href="ref-information-cascade.html">→ 信息级联模型</a></p>
+<p>现实里最干净的一次测量，来自 Salganik、Dodds 和 Watts 2006 年发在《科学》上的音乐实验。他们建了一个下载站，放上 48 首来自无名乐队的歌，把 14341 名参与者随机分进 18 个互相看不见的平行「世界」：其中 16 个世界里你能看到每首歌被前面的人下载了多少次，另外 2 个世界里看不到，只能自己听完再决定。</p>
+<p>结果有两条。第一条不奇怪：能看见下载数的世界里，<b>不平等被放大了</b>，赢家赢得更多。第二条才要命——那 16 个世界<b>互相之间也对不上</b>。同一首歌在这个世界排第 1，在那个世界排第 40。歌的质量不是完全没用（在无影响世界里最好的那几首很少垫底，最差的也很少爬到顶），但中间的名次基本是随机的，由最早几个人的偶然点击决定。</p>
+<p>于是有一条能直接用的读法：<b>把「热度」当成质量的代理量，你测到的其实是那几个早到者的口味被放大了多少倍。</b></p>
+
+<div class="decide"><span class="lb">🎯 决策线</span>
+<p>任何要收集判断的场合，把<b>实时计数关掉</b>：投票前不公示当前票数，评审时不显示已提交的评分分布，讨论前不通报「多数人的意见是」。非要公示的时候，公示<b>理由</b>而不是<b>计数</b>——理由是新信息，计数不是。另一个能马上做的动作：评估一个共识有多强时，数的是<b>互相独立的信息源有几个</b>，不是持这个看法的人有几个。在有级联的地方，这两个数能差两个数量级。</p>
+</div>
+
+<p class="crossx-inline">🌀 <b>西方科学哲学 · 引用数不是证据数</b>　Greenberg 2009 年在《英国医学杂志》上把一条医学信念的整张引文网络拆开摊平：关于 β 淀粉样蛋白与包涵体肌炎关系的 242 篇论文、675 条引用。他发现「权威」是这么长出来的——反驳性的论文被系统性地少引，而大量本身不含任何数据的论文靠互相引用，把这个信念撑成了共识。这正是罐子实验的学术版本：每一篇后来的论文都在合理地引用前人，但从第三篇起就不再有新的观测进入。由此推出一条能直接上手的判据——<b>「被引 500 次」和「被 500 组独立数据支持」是两个数量级不同的东西</b>；要估一个说法的证据强度，得沿着引用一路往回走，数最后还剩几篇真的做过测量。</p>
+
+<p class="en-brief"><b>EN</b> The identity in section 1 silently assumes each estimate is formed independently. Bikhchandani, Hirshleifer &amp; Welch's information-cascade model shows that rational Bayesians stop contributing information after the first two or three actors: everyone downstream copies, no one is irrational, and the public pool stops growing. Salganik, Dodds &amp; Watts's MusicLab experiment (14,341 participants, 48 songs, 18 parallel worlds) measured this directly — social influence raised both inequality and unpredictability, and the influence worlds disagreed wildly with one another.</p>
+
+<h2><span class="n">03</span>聚合规则不是细节，它就是结论<span class="he">（The Aggregation Rule Is the Answer）</span></h2>
+<p class="lead">前两节说的都是<b>输入</b>：人和人之间独不独立、错法一不一样。这一节说<b>出口</b>——这些判断最后是被怎么拧成一个答案的。</p>
+<p>会议上、工程上、制度上，这一步几乎总是被当成手续：「那就投个票吧」「取个平均吧」。它不是手续。同一批意见，换一条聚合规则，答案能差一个数量级。</p>
+<p>举个具体的。七个人估同一个项目还要几周，给出的数字是 2、3、3、4、4、26、30。</p>
+
+<figure>
+<svg aria-label="同一批七个估计，四种聚合规则给出从四周到二十八周的四个不同答案" role="img" viewBox="0 0 720 330" xmlns="http://www.w3.org/2000/svg">
+<text fill="#aba498" font-family="-apple-system,sans-serif" font-size="13.5" text-anchor="middle" x="360" y="28">七个人的估计（周）</text>
+
+<circle cx="126" cy="64" fill="#79a6d2" r="6"></circle>
+<circle cx="143" cy="64" fill="#79a6d2" r="6"></circle>
+<circle cx="143" cy="50" fill="#79a6d2" r="6"></circle>
+<circle cx="161" cy="64" fill="#79a6d2" r="6"></circle>
+<circle cx="161" cy="50" fill="#79a6d2" r="6"></circle>
+<circle cx="553" cy="64" fill="#79a6d2" r="6"></circle>
+<circle cx="624" cy="64" fill="#79a6d2" r="6"></circle>
+
+<line stroke="rgba(255,255,255,0.16)" stroke-width="1.2" x1="90" x2="668" y1="86" y2="86"></line>
+<line stroke="rgba(255,255,255,0.16)" stroke-width="1" x1="90" x2="90" y1="82" y2="92"></line>
+<line stroke="rgba(255,255,255,0.16)" stroke-width="1" x1="268" x2="268" y1="82" y2="92"></line>
+<line stroke="rgba(255,255,255,0.16)" stroke-width="1" x1="446" x2="446" y1="82" y2="92"></line>
+<line stroke="rgba(255,255,255,0.16)" stroke-width="1" x1="624" x2="624" y1="82" y2="92"></line>
+<text fill="#6b665e" font-family="SF Mono,monospace" font-size="11" text-anchor="middle" x="90" y="106">0</text>
+<text fill="#6b665e" font-family="SF Mono,monospace" font-size="11" text-anchor="middle" x="268" y="106">10</text>
+<text fill="#6b665e" font-family="SF Mono,monospace" font-size="11" text-anchor="middle" x="446" y="106">20</text>
+<text fill="#6b665e" font-family="SF Mono,monospace" font-size="11" text-anchor="middle" x="624" y="106">30</text>
+
+<text fill="#8d867b" font-family="-apple-system,sans-serif" font-size="11.5" text-anchor="middle" x="150" y="40">五个人挤在这儿</text>
+<text fill="#8d867b" font-family="-apple-system,sans-serif" font-size="11.5" text-anchor="middle" x="588" y="40">两个人在这儿</text>
+
+<line stroke="rgba(159,188,122,0.45)" stroke-dasharray="3 4" stroke-width="1.2" x1="161" x2="161" y1="92" y2="134"></line>
+<line stroke="rgba(159,188,122,0.3)" stroke-dasharray="2 4" stroke-width="1" x1="169" x2="292" y1="134" y2="134"></line>
+<circle cx="161" cy="134" fill="#9fbc7a" r="6"></circle>
+<text fill="#9fbc7a" font-family="-apple-system,sans-serif" font-size="12.5" x="300" y="139">中位数 → <tspan font-family="SF Mono,monospace">4 周</tspan></text>
+
+<line stroke="rgba(217,180,95,0.45)" stroke-dasharray="3 4" stroke-width="1.2" x1="232" x2="232" y1="92" y2="170"></line>
+<line stroke="rgba(217,180,95,0.3)" stroke-dasharray="2 4" stroke-width="1" x1="240" x2="292" y1="170" y2="170"></line>
+<circle cx="232" cy="170" fill="#d9b45f" r="6"></circle>
+<text fill="#d9b45f" font-family="-apple-system,sans-serif" font-size="12.5" x="300" y="175">去掉一头一尾再平均 → <tspan font-family="SF Mono,monospace">8 周</tspan></text>
+
+<line stroke="rgba(99,179,166,0.45)" stroke-dasharray="3 4" stroke-width="1.2" x1="273" x2="273" y1="92" y2="206"></line>
+<line stroke="rgba(99,179,166,0.3)" stroke-dasharray="2 4" stroke-width="1" x1="281" x2="292" y1="206" y2="206"></line>
+<circle cx="273" cy="206" fill="#63b3a6" r="6"></circle>
+<text fill="#63b3a6" font-family="-apple-system,sans-serif" font-size="12.5" x="300" y="211">算术平均 → <tspan font-family="SF Mono,monospace">10.3 周</tspan></text>
+
+<line stroke="rgba(205,127,155,0.45)" stroke-dasharray="3 4" stroke-width="1.2" x1="588" x2="588" y1="92" y2="242"></line>
+<line stroke="rgba(205,127,155,0.3)" stroke-dasharray="2 4" stroke-width="1" x1="540" x2="580" y1="242" y2="242"></line>
+<circle cx="588" cy="242" fill="#cd7f9b" r="6"></circle>
+<text fill="#cd7f9b" font-family="-apple-system,sans-serif" font-size="12.5" text-anchor="end" x="532" y="247">听做过这件事的那两个人 → <tspan font-family="SF Mono,monospace">28 周</tspan></text>
+
+<text fill="#cfc8bc" font-family="-apple-system,sans-serif" font-size="12.5" text-anchor="middle" x="360" y="296">没有人改动过任何一个判断。答案从 4 周走到 28 周，全靠换了一条规则。</text>
+</svg>
+<figcaption>问「哪个规则对」是问错了。这批数字的要害不在它们的中心在哪儿，在它们<b>分成了两团</b>。</figcaption>
+</figure>
+
+<p>那么哪个答案对？这个问题本身问错了。正确的问法是：<b>这批数字里的分歧长什么形状。</b>它不是围着一个中心的抖动，是两个团块——五个人在 2 到 4 周，两个人在 26 到 30 周。这种形状说明屋里存在两套互不相容的世界观（大概率是：做过这件事的人知道中间有一道坎，没做过的人不知道），而任何一条把它们压成一个数的规则，都在销毁这条最重要的信息。</p>
+<p><b>分歧的形状比分歧的大小值钱得多。</b>单峰的分散是噪声，可以放心平均掉；双峰的分散是有人知道你不知道的事，平均掉它等于把唯一的预警扔进垃圾桶。</p>
+
+<div class="decide"><span class="lb">🎯 决策线</span>
+<p>在收集判断<b>之前</b>把聚合规则写下来，并且和规则一起写下一条停止条件：<b>分布出现双峰就不许聚合</b>，先分别去问两个峰里的人同一句话——「你假设了什么，而别人可能没假设」。要停掉的动作：先看到数字、再挑一条能得出你想要的答案的规则。这是所有聚合环节里最常见也最难自查的作弊，因为每一步单看都很合理。</p>
+</div>
+
+<p>接下来是这一节真正硬的部分：<b>有没有一种聚合规则，能一边保住独立性、一边不销毁分歧？</b>有，而且不是人想出来的。</p>
+<p>蜜蜂分家的时候要选新巢。几百只侦察蜂飞出去，找到候选地点的回来跳摇摆舞，舞蹈的<b>时长</b>大致正比于它对那个地点的评价——评价越高跳得越久，也就招来更多同伴去看。这一步是正反馈，和蚂蚁的信息素同构。<a class="reflink" href="ref-ant-colony.html">→ 蚁群与去中心共识</a></p>
+<p>但光有正反馈会出事：两个都不错的候选地各自吸引一批拥趸，谁也压不倒谁，蜂群僵在半路。对蜜蜂来说这等于死。</p>
+<p>Seeley 等人 2012 年在《科学》上报告了缺的那个零件：<b>交叉抑制</b>（cross inhibition）。为 A 地跳舞的侦察蜂会用一种「停止信号」（头撞加一下短促振动）去打断为 B 地跳舞的蜂，反过来也一样。关键在于抑制是<b>跨选项</b>的——你不去加固自己人，你去压制对手的鼓吹者。有了这一条，两个势均力敌的选项不会僵住，一点微小的优势会被放大成压倒性的结果。</p>
+<p>第二个零件是<b>法定数</b>（quorum）：侦察蜂不数全局票数，它数的是<b>自己此刻站着的这个地点上有多少同伴</b>。超过一个阈值（大致二三十只）就切换到「准备起飞」。Seeley 与 Visscher 2004 年做过一个漂亮的验证：人为延迟法定数的形成，起飞就相应推迟。</p>
+
+<figure>
+<svg aria-label="左图无交叉抑制时两个候选地的支持者数量僵持在中间；右图有交叉抑制时迅速分开并越过法定数阈值" role="img" viewBox="0 0 720 300" xmlns="http://www.w3.org/2000/svg">
+<text fill="#aba498" font-family="-apple-system,sans-serif" font-size="13" text-anchor="middle" x="185" y="26">只有正反馈</text>
+<text fill="#aba498" font-family="-apple-system,sans-serif" font-size="13" text-anchor="middle" x="535" y="26">正反馈 ＋ 交叉抑制</text>
+
+<line stroke="rgba(255,255,255,0.18)" stroke-width="1.2" x1="66" x2="66" y1="52" y2="222"></line>
+<line stroke="rgba(255,255,255,0.18)" stroke-width="1.2" x1="66" x2="316" y1="222" y2="222"></line>
+<line stroke="rgba(217,180,95,0.4)" stroke-dasharray="4 4" stroke-width="1.2" x1="66" x2="316" y1="70" y2="70"></line>
+<text fill="#d9b45f" font-family="-apple-system,sans-serif" font-size="10.5" x="72" y="64">法定数阈值</text>
+<path d="M66,214 C120,196 170,152 230,132 S290,124 314,122" fill="none" stroke="#63b3a6" stroke-width="2.4"></path>
+<path d="M66,214 C122,200 172,158 232,138 S292,130 314,128" fill="none" stroke="#a693cd" stroke-width="2.4"></path>
+<text fill="#63b3a6" font-family="-apple-system,sans-serif" font-size="11.5" x="238" y="112">巢址 A</text>
+<text fill="#a693cd" font-family="-apple-system,sans-serif" font-size="11.5" x="238" y="152">巢址 B</text>
+<text fill="#8d867b" font-family="-apple-system,sans-serif" font-size="11" text-anchor="middle" x="191" y="244">时间 →</text>
+<text fill="#cd7f9b" font-family="-apple-system,sans-serif" font-size="11.5" text-anchor="middle" x="191" y="270">两边各占一半，谁都够不到阈值</text>
+<text fill="#787268" font-family="-apple-system,sans-serif" font-size="11" text-anchor="middle" x="191" y="288">蜂群僵在原地，或者分裂成两半</text>
+
+<line stroke="rgba(255,255,255,0.18)" stroke-width="1.2" x1="416" x2="416" y1="52" y2="222"></line>
+<line stroke="rgba(255,255,255,0.18)" stroke-width="1.2" x1="416" x2="666" y1="222" y2="222"></line>
+<line stroke="rgba(217,180,95,0.4)" stroke-dasharray="4 4" stroke-width="1.2" x1="416" x2="666" y1="70" y2="70"></line>
+<text fill="#d9b45f" font-family="-apple-system,sans-serif" font-size="10.5" x="422" y="64">法定数阈值</text>
+<path d="M416,214 C470,192 512,140 556,96 S620,60 664,58" fill="none" stroke="#63b3a6" stroke-width="2.4"></path>
+<path d="M416,214 C466,204 500,196 536,200 S610,216 664,220" fill="none" stroke="#a693cd" stroke-width="2.4"></path>
+<circle cx="580" cy="70" fill="#d9b45f" r="5"></circle>
+<text fill="#63b3a6" font-family="-apple-system,sans-serif" font-size="11.5" x="600" y="92">巢址 A</text>
+<text fill="#a693cd" font-family="-apple-system,sans-serif" font-size="11.5" x="600" y="212">巢址 B</text>
+<text fill="#d9b45f" font-family="-apple-system,sans-serif" font-size="11" text-anchor="end" x="572" y="60">越线 → 起飞</text>
+<text fill="#8d867b" font-family="-apple-system,sans-serif" font-size="11" text-anchor="middle" x="541" y="244">时间 →</text>
+<text fill="#9fbc7a" font-family="-apple-system,sans-serif" font-size="11.5" text-anchor="middle" x="541" y="270">A 的鼓吹者去打断 B 的鼓吹者，反之亦然</text>
+<text fill="#787268" font-family="-apple-system,sans-serif" font-size="11" text-anchor="middle" x="541" y="288">微小优势被放大成压倒性结果，僵局消失</text>
+</svg>
+<figcaption>差别只在一件事上：抑制是<b>朝对方去</b>的，不是各自加固自己。少了这个零件，剩下的正反馈只会把两边一起抬高。</figcaption>
+</figure>
+
+<p>这两个零件合起来，做的事在数学上有个名字：<b>序贯概率比检验</b>（sequential probability ratio test，缩写 SPRT）——在给定错误率下，用最少的证据做出判断的那个最优检验。Marshall 等人 2009 年把蜂群与蚁群的这套机制和灵长类大脑里的证据累积过程放进同一个决策论框架比对，指出两者逼近的是同一个最优解。</p>
+<p>要点在于：<b>蜂群不投票、不表决、不取平均。</b>它做的是累积证据 ＋ 跨选项抑制 ＋ 阈值触发。这三件事，在标准会议流程里一件对应物都没有。</p>
+
+<div class="decide"><span class="lb">🎯 决策线</span>
+<p>设计群体决策流程之前，先分清你要的是<b>估计一个量</b>还是<b>在几个选项里挑一个</b>。估一个量，用第 1 节那套（独立收集、取中位数或平均）；挑一个选项，用蜂群那套：让每个选项的支持者去<b>说服对方的支持者</b>（跨选项，不是各自加固自己的论据），并且事先定一个<b>绝对阈值</b>——「支持 A 的独立论据攒到 N 条就定 A」，而不是「支持 A 的人比支持 B 的多就定 A」。相对多数会在两个都不错的选项之间僵住，绝对阈值不会。</p>
+</div>
+
+<p class="crossx-inline">🌀 <b>文学与艺术 · 奥斯卡换了一次计票方式</b>　美国电影艺术与科学学院从 2009 年那届起，把最佳影片的评选从简单多数改回<b>偏好排序</b>（preferential ballot）：选民排出名次，反复淘汰垫底者并把票转移给下一顺位。这条规则系统性地偏好「多数人都还挺喜欢」的片子，而不利于「一小撮人爱到极致、其余人反感」的片子——同一批评委，规则一换，赢家的类型跟着换。由此推出一条读奖项的方法：拿不同年份的获奖名单去谈「口味变了」「风向变了」之前，先查那年用的是哪套计票规则。<b>很多被当成集体品味变迁的东西，其实是聚合规则的变迁。</b></p>
+
+<p class="en-brief"><b>EN</b> Aggregation is not a formality. Seven estimates (2, 3, 3, 4, 4, 26, 30) yield 4, 8, 10.3 or 28 weeks depending on the rule — and the bimodal shape of the disagreement is the real signal, which every rule destroys. Honeybee swarms solve the option-choice version with three parts absent from ordinary meetings: evidence accumulation via waggle-dance duration, cross-inhibition via stop signals (Seeley et al., 2012), and an absolute quorum threshold (Seeley &amp; Visscher, 2004). Marshall et al. (2009) show this approximates the sequential probability ratio test, the same optimum primate brains approach.</p>
+
+<h2><span class="n">04</span>这套说法在哪儿不成立<span class="he">（Where This Breaks Down）</span></h2>
+<p class="lead">到这里为止的三条机制——误差抵消、独立性、聚合规则——听着已经可以合成一份操作手册了。它不能。下面五条是这套说法真正的边界，其中至少两条足以让它整个失效。</p>
+
+<p><b>一、误差要能抵消，前提是没有共同的偏向。</b>第 1 节那个等式永远成立，但它算的是「相对真值的平方误差」。如果所有人都朝同一个方向错——用了同一个锚、同一份数据、同一套培训——那么第一项里有一大块误差是<b>共同的</b>，而第二项（分歧度）抓不到它，因为大家在那个方向上并不分歧。极端情况：一屋子人全都相信同一个错的模型，分歧度可以是零，群体误差就精确等于那个共同的错误，人再多也一样。<b>群体智慧压得住随机误差，压不住系统偏差。</b></p>
+
+<p><b>二、个体准确率低于随机时，人越多事情越糟。</b>孔多塞陪审团定理（Condorcet's jury theorem）通常只被引用一半。它说：若每个人独立地以概率 p 判断正确，则多数表决的正确率随人数上升——<b>当 p &gt; 1/2 时</b>趋向 1。被略掉的下半句是：<b>当 p &lt; 1/2 时它趋向 0</b>。也就是说，在一类你的团队系统性地不擅长的判断上，扩大规模不是稀释错误，是把错误加固到近乎确定。</p>
+
+<figure>
+<svg aria-label="孔多塞定理两条曲线：个体正确率高于一半时多数表决正确率随人数升向一，低于一半时降向零" role="img" viewBox="0 0 720 320" xmlns="http://www.w3.org/2000/svg">
+<text fill="#aba498" font-family="-apple-system,sans-serif" font-size="13.5" text-anchor="middle" x="360" y="26">多数表决的正确率，随人数变化</text>
+<line stroke="rgba(255,255,255,0.18)" stroke-width="1.2" x1="96" x2="96" y1="48" y2="248"></line>
+<line stroke="rgba(255,255,255,0.18)" stroke-width="1.2" x1="96" x2="656" y1="248" y2="248"></line>
+<line stroke="rgba(255,255,255,0.12)" stroke-dasharray="4 5" stroke-width="1.1" x1="96" x2="656" y1="148" y2="148"></line>
+<text fill="#6b665e" font-family="SF Mono,monospace" font-size="11" text-anchor="end" x="88" y="53">1.0</text>
+<text fill="#6b665e" font-family="SF Mono,monospace" font-size="11" text-anchor="end" x="88" y="152">0.5</text>
+<text fill="#6b665e" font-family="SF Mono,monospace" font-size="11" text-anchor="end" x="88" y="252">0</text>
+<text fill="#6b665e" font-family="SF Mono,monospace" font-size="11" text-anchor="middle" x="96" y="268">1</text>
+<text fill="#6b665e" font-family="SF Mono,monospace" font-size="11" text-anchor="middle" x="222" y="268">11</text>
+<text fill="#6b665e" font-family="SF Mono,monospace" font-size="11" text-anchor="middle" x="348" y="268">21</text>
+<text fill="#6b665e" font-family="SF Mono,monospace" font-size="11" text-anchor="middle" x="502" y="268">51</text>
+<text fill="#6b665e" font-family="SF Mono,monospace" font-size="11" text-anchor="middle" x="656" y="268">101</text>
+<text fill="#8d867b" font-family="-apple-system,sans-serif" font-size="11.5" text-anchor="middle" x="376" y="290">参与人数（奇数）</text>
+
+<path d="M96,128 C150,118 190,105 222,99 S300,80 348,83 C440,68 560,55 656,52" fill="none" stroke="#9fbc7a" stroke-width="2.6"></path>
+<path d="M96,168 C150,178 190,191 222,197 S300,216 348,213 C440,228 560,241 656,244" fill="none" stroke="#cd7f9b" stroke-width="2.6"></path>
+<circle cx="656" cy="52" fill="#9fbc7a" r="5"></circle>
+<circle cx="656" cy="244" fill="#cd7f9b" r="5"></circle>
+<text fill="#9fbc7a" font-family="-apple-system,sans-serif" font-size="12" text-anchor="end" x="644" y="42">每人 60% 准 → 101 人时约 98%</text>
+<text fill="#cd7f9b" font-family="-apple-system,sans-serif" font-size="12" text-anchor="end" x="640" y="208">每人 40% 准 → 101 人时约 2%</text>
+<text fill="#787268" font-family="-apple-system,sans-serif" font-size="11.5" x="104" y="140">五五开这条线</text>
+<text fill="#cfc8bc" font-family="-apple-system,sans-serif" font-size="12.5" text-anchor="middle" x="360" y="312">同一条定理，同一个人数轴。个体准确率跨过 50% 那一刻，「人多」从解药变成毒药。</text>
+</svg>
+<figcaption>常被引用的是上面那条绿线。下面那条粉线是同一个公式的另一半，它描述的情况一点也不罕见。</figcaption>
+</figure>
+
+<p class="crossx-inline">🌀 <b>医学史 · 放血</b>　放血疗法在西方医学里持续了两千年，期间几乎从未遭遇职业内部的实质异议。这不是因为医生们蠢，是因为他们共享同一套体液学说——于是对「放血有没有用」这个判断，整个职业群体的 p 低于 1/2，而独立性接近零。孔多塞那被略掉的半句于是全额生效：从业者越多、共识越强，错误越牢。直到 1835 年，Pierre Charles Alexandre Louis 用他的「数值方法」统计肺炎病人放血与不放血的结局，才第一次从外部把这个共识撬开一道缝。由此推出一条今天同样有效的判据：<b>专业共识的强度不能当证据强度用</b>——共识既可能来自独立收敛，也可能来自共同的先验；能区分这两者的只有一个问题，即这些人的信息来源彼此独立到什么程度。</p>
+
+<p><b>三、那个等式保证的东西，比宣传的少。</b>「群体不比平均个体差」是恒等式，白送的；「群体比最好的个体强」不是，而且经常不成立。这两句话在通俗写作里常被混着用。另外那个等式只在<b>平方误差</b>下成立——换一个损失函数（比如你真正在乎的是「有没有超过某条红线」而不是「差了多少」），「减掉方差」这条性质就不一定还在。</p>
+
+<p><b>四、「多样性胜过能力」这个定理受过严肃的技术批评。</b>Hong 与 Page 2004 年在《美国科学院院刊》上给出一个结果，通俗版本被概括成「随机挑出的多样化团队能胜过挑选出来的高能力团队」。数学家 Abigail Thompson 2014 年在《美国数学会通讯》上逐条检查了这个定理，认为它在成立的条件下要么是平凡的，要么支撑不起那个流行的解读。这场争论至今没有干净的收场。<b>能安全借走的是第 1 节那个恒等式（它是代数，不会错），借不走的是「所以多样性比能力更重要」这个排序。</b></p>
+
+<p><b>五、蜜蜂那套能成立，靠的是利益完全一致。</b>一个蜂群是一个繁殖单位，所有侦察蜂的目标函数是同一个，所以「跳久一点」这个信号可以被当成诚实的。人不是。只要参与者的收益取决于结果，任何聚合规则都会被反过来利用——投票会有策略性投票，评分会有互相抬轿，预测市场会有人为了对冲而下反向注。而这不是执行不力：吉巴德-萨特斯韦特定理（Gibbard–Satterthwaite theorem）证明了，在三个及以上选项、允许任意偏好排序的前提下，<b>不存在</b>一条既非独裁、又不可被策略性操纵的投票规则。所以「设计一条防作弊的聚合规则」这个任务在一般情形下无解，能做的只是把作弊变贵。</p>
+
+<p>顺带说说预测市场。它常被当成聚合规则里的优等生，也确实有战绩：Berg、Nelson 与 Rietz 拿爱荷华电子市场（Iowa Electronic Markets，缩写 IEM）对 1988 至 2004 年五届美国总统大选的 964 次同期民调做过比对，市场价格更接近最终结果的比例约为 74%。它赢在两点——<b>按信心加权</b>（越确定下注越重）和<b>为正确付钱</b>（错了要赔）。但它一样吃上面第一条和第五条：所有交易者读同一批公开数据时，共同偏差照样过不去；此外它另有一个自己的老毛病，长期赔率偏差（对小概率事件的系统性高估）在几乎每个真实的下注市场里都能测到。</p>
+
+<div class="decide"><span class="lb">🎯 决策线</span>
+<p>在用「人多」当理由之前，过一遍这张单子，四条全过才成立：① 个体准确率高于随机（p &gt; 1/2）；② 判断是<b>独立</b>产生的（没看到别人的答案）；③ 错法互不相同（不共享同一个数据源、同一套培训）；④ 聚合规则事先定好，且和问题类型匹配（估量用平均，选项用阈值）。任一条不满足，就把「我们讨论过了、大家都同意」这句话从证据栏里划掉——它此刻携带的信息量，可能就等于第一个发言的人那一句。</p>
+</div>
+
+<p class="en-brief"><b>EN</b> Five boundaries. The identity cancels random error but never shared bias. Condorcet's theorem has a second half: with individual accuracy below 1/2, larger groups converge on being certainly wrong. "Never worse than the average member" is free algebra; "better than the best member" is not, and holds only under squared loss. Hong &amp; Page's diversity-trumps-ability theorem drew a serious technical rebuttal from Abigail Thompson (2014). And bee-style aggregation rests on identical interests — with divergent payoffs, Gibbard–Satterthwaite rules out any non-dictatorial, strategy-proof aggregation at all.</p>
+
+<div class="bigcat">
+<h3>🎒 场景 · BigCat</h3>
+<ol>
+<li><span class="dm">修行与心性</span>拿不定主意的时候找几个人聊一圈，聊完更确信了——但确信度涨的多半不是精度。你通常先问最亲近、最可能同意你的那个；而且会带着上一个人的说法去问下一个（「我跟他聊过，他觉得……你怎么看」）。于是三个「独立意见」其实是同一个意见被复述了三遍，第 1 节那个分歧度项等于零，而你的心却安了。可改的动作很具体：问之前把问题写成一句固定的话，对每个人一字不改地问，<b>不透露</b>已经问过谁、他们说了什么；问完之后不数有几个人同意，而是列<b>互不相同的理由</b>有几条——三个人同意同一条理由，那就是一条。要停掉的动作：先说出自己倾向哪边，再问对方看法。这一句一说，后面所有人的回答都不再是数据。</li>
+<li><span class="dm">工程与系统设计</span>技术方案评审最后总是收在同一句话上：「大家还有没有意见？没有就这么定了。」这等于把聚合规则定成了「沉默即通过」，而沉默是零信息——第 3 节说的就是这一步不是手续，它就是结论。可改的动作：把收尾问句换成一个要求每人交东西的动作——每人写下「这个方案上线后最可能出问题的那一处」，外加一个 0 到 5 的信心分；只要有人给出 ≤2，就不通过。这是把规则从「数支持」改成「找反例」，需要的信息量小得多。要停掉的动作：让方案作者主持评审会——主持人控制发言顺序，而顺序就是结论。</li>
+<li><span class="dm">投资与仓位</span>对一个标的形成看法的过程通常是这样的：几份研报、几个播客、几个群，说法互相印证，于是下手。但这些来源之间的相关性极高——都在读同一批公开数据、互相引用、跟同一批人聊。第 1 节那个式子讲得很直白：多看几份能买到的精度提升，恰好等于这些来源<b>彼此不同的程度</b>；它们越像，提升越接近零，而确信度照涨不误。可改的动作：在建仓笔记里给每条理由标上它的原始出处，然后把同源的合并；合并之后独立理由少于两条，仓位就按「一条理由」的规格来定，而不是按你读了多少材料来定。要停掉的动作：把「我看了很多」当成加仓的依据。</li>
+</ol>
+</div>
+
+<div class="crossx">
+<h3>🌀 越界 · 跨学科的联想<span class="he">（Crossings）</span></h3>
+<ul>
+<li><b>东方思想 · 僧团的羯磨</b>：佛教僧团处理公共事务的程序叫<b>羯磨</b>（karman 的音译）。最正式的一类是「白四羯磨」：先由一人陈述议案（白），再把同一个问题连问三遍（三羯磨），三遍之内无人出声反对，即告成立。它另有两个硬条件：一是<b>如法僧数</b>——不同事项要求不同的最低出席人数，越重大的事要求越多；二是<b>结界</b>——事先划出一块地理边界，界内所有有资格的成员必须到场，来不了的要先托人表示同意（与欲），否则不成立。本期三条机制在这套程序里同时跑，而且给出的组合和现代会议完全不同：它的<b>聚合规则不是数支持，是数反对</b>，一票异议即否决。按第 3 节的框架看，这压根不是一个估计量，是一个<b>证伪检验</b>——要推翻「这件事没问题」只需要一个反例，所以它对信息的需求量远小于统计多数意见；而「如法僧数」那一条和蜂群的阈值同构，触发条件是一个绝对数而非相对多数。由此推出一条不显然的结论：<b>一票否决在利益一致、且异议成本低的群体里是省信息的规则；在利益分裂的群体里它是最贵的规则</b>——每个人的否决权都值钱，于是全被拿去交易。同一条规则在两种前提下的效率之差，不是执行问题。<b>但这里不成立</b>：「沉默默认为同意」恰好把第 2 节的独立性条件破坏在了最要紧的地方。在一个有辈分、有师承的僧团里，沉默既可能是赞同，也可能是不愿第一个出声，而这两者在程序上完全不可区分。羯磨挡得住「少数人擅自决定」，挡不住「全体沉默着一起走错」——因为后者在它的记录里长得和全体赞同一模一样。能借走的是「把聚合规则从数支持改成找反例」，借不走的是「无人出声即为通过」。</li>
+<li><b>历史与制度 · 雅典的抽签</b>：雅典把绝大多数公职交给抽签，五百人议事会按部落与德莫（demos，基层行政区）配额抽出，用一种叫 kleroterion 的石制抽签机现场执行。通常的辩护是「公平」和「防止少数人把持」。按本期的机制看，它其实是一个<b>估计量设计</b>：随机抽样是让样本相对总体不带系统偏差的最便宜办法（正好对着第 4 节第一条边界），而抽签取消了竞选，也就一并取消了「看别人怎么选再决定」的那个通道（第 2 节的级联失去入口）。陶片放逐则另配了一个法定票数门槛才算数——古代史料对那个数究竟是「总票数」还是「针对某人的票数」有分歧，但门槛是绝对数而非相对多数这一点是清楚的。由此推出一个原本看不出的结论：<b>抽签制真正的对手不是「选举能选出更能干的人」，是样本量与独立性</b>。五百人的议事会有统计意义；今天流行的三十人「公民陪审团」要面对的麻烦不只是代表性不足，更是三十个人围坐几天之后，第 2 节那台机器会把有效独立样本进一步压到远小于三十。所以这类设计最该花钱的地方是<b>分组独立表决与匿名记录</b>，而不是把人数从三十扩到六十。</li>
+<li><b>生物与神经科学 · 蜂群和大脑在解同一道题</b>：灵长类做知觉判断时（比如判断一片随机运动的点整体朝哪边走），顶叶一些神经元群的放电率会随证据<b>累积</b>上升，触到一个阈值就出决定，而竞争的选项之间存在相互抑制。Marshall 等人 2009 年把这套结构和蜜蜂、蚂蚁选巢的机制放进同一个决策论框架比对，指出两边逼近的是同一个最优检验。第 3 节那三个零件在两边都齐了：证据累积（不是一次表决）、跨选项抑制（不是各自加固）、阈值触发（不是相对多数）。由此推出一条能直接用的结论：<b>速度与准确率的权衡不是意志力问题，是阈值这一个参数</b>——阈值放低，决定得快、错得多；放高，反过来；两端之间不存在「又快又准」的点。而且蚂蚁那边已经把这个参数的可调性做实了：旧巢被毁、必须马上搬走时，蚁群会主动降低法定数，拿准确度换速度。所以对一个团队说「这次要又快又好」，是在要一个模型里不存在的东西；能谈的只是「这次阈值放在哪儿，以及放低之后错误率大概升到多少」。<b>但这里不成立</b>：大脑里的交叉抑制是解剖上的硬连线，蜂群里靠的是停止信号的物理接触——两边都有一个<b>结构性</b>的零件在强制执行「你必须去压制对手的鼓吹者」。人类会议里没有任何东西扮演这个角色，通常还正好相反：声音最大的一方强化的是自己这边，而提反对意见的成本由反对者独自承担。所以「我们像蜂群一样决策」这个说法，在缺了这个零件的情况下是空的——剩下的那部分，恰好就是第 2 节那个级联。</li>
+</ul>
+</div>
+
+<div class="thinking">
+<h3>🧠 深入思考</h3>
+<details><summary>如果分歧度是收益，为什么现实中的组织几乎都在系统性地压缩它？</summary><p>招聘看「文化契合」、晋升看「像不像现在这批人」、开会追求「达成一致」——每一条单看都有合理性，合起来正好是在减少第二项。一个可能的解释是：分歧的收益落在<b>群体的判断精度</b>上，而分歧的成本落在<b>具体某个人的协调工作量</b>上。收益和成本记在不同的账上，于是谁付账谁说了算。如果这个解释对，那么修复的方向就不是宣传多样性的好处，而是把这两笔账并到一处——让为精度负责的人同时承担协调成本。</p></details>
+<details><summary>怎么在事后区分「共识来自独立收敛」和「共识来自级联」？</summary><p>事前很容易（看有没有互相观察的通道），事后极难，因为两者留下的痕迹几乎一样：一大群人说同一句话。可能的抓手有三个——一是查<b>时间顺序</b>，级联的采纳曲线通常在早期有一段异常陡的跳跃；二是查<b>理由的多样性</b>，独立收敛的人给出的理由五花八门，级联的人给出的理由高度雷同甚至用词一致；三是查<b>脆性</b>，往里丢一条新证据看它塌不塌。第三个最可靠，但只能用一次。</p></details>
+<details><summary>「先独立写下再讨论」这个办法能撑多久？</summary><p>它确实截断了第一轮的级联，但只截断了第一轮。第二轮讨论一开始，所有人就都看见了彼此的答案，后面的修正过程仍然是级联的。更麻烦的是它可能制造一种虚假的安全感——「我们做过独立预填了」，于是后面的环节反而更放松。一个更硬的版本或许是：把独立环节和聚合环节之间的<b>那次公示</b>做成不可逆的（写下来就不许改），代价是丢掉了讨论本该带来的真实修正。这里似乎存在一个无法两全的权衡，值得想清楚它到底是什么形状。</p></details>
+<details><summary>大语言模型算是一个「群体」吗？如果算，它的分歧度是多少？</summary><p>它的训练语料来自数以亿计的人，看上去像一次巨大的聚合。但按本期的框架，要问的是那些来源之间独立到什么程度——而互联网文本本身正是级联的产物（互相转载、互相引用、共享同一批源头）。更尖锐的一层是：当模型生成的文本反过来进入下一轮训练语料时，第 2 节那台机器就闭环了。这时「多数说法」和「独立证据」之间的距离会如何演变，是一个能测但还没被好好测的问题。</p></details>
+<details><summary>第 4 节说「预测市场按信心加权」，可信心和财力在市场里是分不开的。这算不算一个致命缺陷？</summary><p>市场实际加权的是「下注额」，而下注额 ＝ 信心 × 可动用资金。对信息聚合来说，前者是想要的，后者是污染。常见的辩护是套利：如果价格偏离，有钱且知情的人会把它推回去。但这个辩护要求「知情」和「有钱」正相关，而这恰恰是需要证明的东西。play-money 市场（用虚拟货币）的表现在一些研究里并不比真钱市场差，这条经验证据往哪边倒，值得单独查一次。</p></details>
+</div>
+
+<div class="refs">
+<h3>📚 延伸阅读</h3>
+<ul>
+<li>Galton, <a href="https://www.nature.com/articles/075450a0">Vox Populi</a>（Nature, 1907，那 787 张卡片）·　<a href="https://arxiv.org/abs/1410.3989">Wallis 对原始数据的重新核算</a>（2014）</li>
+<li>Page, <a href="https://press.princeton.edu/books/paperback/9780691138541/the-difference">The Difference</a>（2007，多样性预测定理）·　<a href="https://en.wikipedia.org/wiki/Diversity_prediction_theorem">词条</a></li>
+<li>Hong &amp; Page, <a href="https://www.pnas.org/doi/10.1073/pnas.0403723101">Groups of diverse problem solvers can outperform groups of high-ability problem solvers</a>（PNAS, 2004）·　<a href="https://www.ams.org/notices/201409/rnoti-p1024.pdf">Thompson 的技术反驳</a>（Notices of the AMS, 2014）</li>
+<li>Bikhchandani, Hirshleifer &amp; Welch, <a href="https://www.journals.uchicago.edu/doi/10.1086/261849">A Theory of Fads, Fashion, Custom, and Cultural Change as Informational Cascades</a>（JPE, 1992）</li>
+<li>Anderson &amp; Holt, <a href="https://www.jstor.org/stable/2951343">Information Cascades in the Laboratory</a>（AER, 1997，实验室复现）</li>
+<li>Salganik, Dodds &amp; Watts, <a href="https://www.science.org/doi/10.1126/science.1121066">Experimental Study of Inequality and Unpredictability in an Artificial Cultural Market</a>（Science, 2006）</li>
+<li>Seeley, Visscher, Schlegel, Hogan, Franks &amp; Marshall, <a href="https://www.science.org/doi/10.1126/science.1210361">Stop Signals Provide Cross Inhibition in Collective Decision-Making by Honeybee Swarms</a>（Science, 2012）</li>
+<li>Seeley &amp; Visscher, <a href="https://link.springer.com/article/10.1007/s00265-004-0814-5">Quorum sensing during nest-site selection by honeybee swarms</a>（Behav Ecol Sociobiol, 2004）·　<a href="https://link.springer.com/article/10.1007/s00265-005-0067-y">速度与准确率的权衡</a>（2006）</li>
+<li>Marshall, Bogacz, Dornhaus, Planqué, Kovacs &amp; Franks, <a href="https://royalsocietypublishing.org/doi/10.1098/rsif.2008.0511">On optimal decision-making in brains and social insect colonies</a>（J R Soc Interface, 2009）</li>
+<li>Greenberg, <a href="https://www.bmj.com/content/339/bmj.b2680">How citation distortions create unfounded authority: analysis of a citation network</a>（BMJ, 2009）</li>
+<li>Berg, Nelson &amp; Rietz, <a href="https://www.sciencedirect.com/science/article/abs/pii/S0169207008000320">Prediction market accuracy in the long run</a>（Int J Forecasting, 2008，IEM 对 964 次民调）</li>
+<li>Breiman, <a href="https://link.springer.com/article/10.1023/A:1010933404324">Random Forests</a>（Machine Learning, 2001，强度与相关性的那个上界）</li>
+<li><a href="https://en.wikipedia.org/wiki/Condorcet%27s_jury_theorem">Condorcet's jury theorem</a> ·　<a href="https://en.wikipedia.org/wiki/Gibbard%E2%80%93Satterthwaite_theorem">Gibbard–Satterthwaite theorem</a> ·　<a href="https://en.wikipedia.org/wiki/Kleroterion">Kleroterion</a></li>
+<li>Morens, <a href="https://pubmed.ncbi.nlm.nih.gov/10484017/">Death of a President</a>（1999，放血与华盛顿之死）·　<a href="https://en.wikipedia.org/wiki/Pierre_Charles_Alexandre_Louis">Pierre Charles Alexandre Louis 与数值方法</a></li>
+</ul>
+</div>
+
+<footer>BigCat · 复杂性科学 · <a href="index.html">← 全部 Topic</a></footer>
+</div>
+<script src="https://hub.cissychen.com/comments.js" defer></script>
+<script src="https://hub.cissychen.com/search.js" defer></script>
+<script src="https://hub.cissychen.com/index-button.js" defer></script>
+<script src="https://hub.cissychen.com/i18n-tts.js" defer></script>
+</body></html>

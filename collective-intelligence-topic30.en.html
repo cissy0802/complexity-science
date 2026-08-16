@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+
+<html lang="en"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Collective Intelligence and Collective Stupidity — Crowds Are Wise Only Under Conditions · Complexity Science T30</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,"SF Pro Display","Noto Sans SC",sans-serif;color:#e4ded5;line-height:1.85;min-height:100vh;
+  background:radial-gradient(1100px 620px at 12% -6%,rgba(224,137,94,0.10),transparent 62%),radial-gradient(950px 700px at 100% 2%,rgba(166,147,205,0.09),transparent 58%),linear-gradient(168deg,#100f0d 0%,#15161b 48%,#0a0a0c 100%);background-attachment:fixed}
+.wrap{max-width:760px;margin:0 auto;padding:30px 22px 90px}
+header{padding:52px 0 8px;border-bottom:1px solid rgba(255,255,255,0.07);margin-bottom:34px}
+.week-tag{font-family:"SF Mono",Menlo,monospace;font-size:0.72rem;font-weight:700;letter-spacing:2px;color:#79a6d2;border:1px solid rgba(121,166,210,0.4);background:rgba(121,166,210,0.07);padding:3px 11px;border-radius:20px}
+h1{font-size:2.5rem;font-weight:800;letter-spacing:0.5px;line-height:1.2;margin:20px 0 0;background:linear-gradient(106deg,#e0895e 0%,#d9b45f 34%,#9fbc7a 68%,#63b3a6 100%);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+h1 .h1en{display:block;font-size:0.40em;font-weight:600;letter-spacing:2.5px;color:#847d72;-webkit-text-fill-color:#847d72;background:none;margin-top:13px}
+.sub{font-size:1.05rem;color:#aba498;margin-top:14px;font-weight:500}
+.date{font-family:"SF Mono",Menlo,monospace;font-size:0.75rem;color:#57524b;margin-top:18px;letter-spacing:1px}
+.pitch{margin:22px 0 30px;font-size:0.97rem;color:#cd7f9b;border-left:2px solid rgba(205,127,155,0.5);padding-left:16px;font-style:italic}
+.intro{font-size:1.02rem;color:#cfc8bc;margin-bottom:14px}
+.intro p{margin-bottom:16px}
+h2{font-size:1.42rem;font-weight:700;color:#e9e3d9;margin:56px 0 8px;letter-spacing:0.3px}
+h2 .n{font-family:"SF Mono",Menlo,monospace;font-size:0.85rem;color:#79a6d2;display:block;margin-bottom:6px;letter-spacing:2px}
+.he{font-size:0.68em;color:#8d867b;font-weight:500;letter-spacing:0}
+p{margin-bottom:17px}
+.lead{color:#cfc8bc}
+b,strong{color:#f0eae0;font-weight:600}
+em{color:#d9b45f;font-style:normal;font-weight:500}
+.dim{color:#8d867b}
+a.reflink{display:inline-block;font-size:0.82rem;font-family:"SF Mono",Menlo,monospace;color:#63b3a6;border:1px solid rgba(99,179,166,0.38);background:rgba(99,179,166,0.07);padding:1px 9px;border-radius:20px;text-decoration:none;transition:all 0.15s;white-space:nowrap}
+a.reflink:hover{background:rgba(99,179,166,0.16);border-color:rgba(99,179,166,0.7)}
+figure{margin:30px 0}
+figure svg{display:block;width:100%;height:auto;border-radius:12px;background:rgba(255,255,255,0.018);border:1px solid rgba(255,255,255,0.06)}
+figcaption{font-size:0.82rem;color:#787268;margin-top:11px;text-align:center;line-height:1.6}
+.eq{font-family:"SF Mono",Menlo,monospace;font-size:0.92rem;color:#9fbc7a;background:rgba(159,188,122,0.06);border:1px solid rgba(159,188,122,0.2);border-radius:10px;padding:14px 18px;margin:22px 0;text-align:center;line-height:1.9;overflow-x:auto}
+.eq small{display:block;font-family:-apple-system,sans-serif;font-size:0.78rem;color:#8d867b;margin-top:6px}
+.decide{margin:24px 0;border:1px solid rgba(224,137,94,0.36);background:rgba(224,137,94,0.055);border-radius:12px;padding:15px 19px}
+.decide .lb{font-family:"SF Mono",Menlo,monospace;font-size:0.73rem;letter-spacing:1.5px;color:#e0895e;font-weight:700;display:block;margin-bottom:7px}
+.decide p{margin:0;font-size:0.95rem;color:#ddd5c9}
+.crossx-inline{margin:20px 0 22px;border-left:2px solid rgba(205,127,155,0.55);padding:2px 0 2px 15px;font-size:0.89rem;color:#a9a096;line-height:1.72}
+.crossx-inline b{color:#cd7f9b;font-weight:600}
+.bigcat{margin:46px 0 10px;border:1px solid rgba(217,180,95,0.38);background:rgba(217,180,95,0.05);border-radius:14px;padding:20px 22px}
+.bigcat h3{font-size:1.02rem;color:#d9b45f;margin-bottom:14px;letter-spacing:0.5px}
+.bigcat ol{list-style:none;padding:0}
+.bigcat li{margin-bottom:15px;font-size:0.94rem;color:#d5cdc1;line-height:1.78}
+.bigcat li:last-child{margin-bottom:0}
+.bigcat .dm{font-family:"SF Mono",Menlo,monospace;font-size:0.73rem;color:#d9b45f;border:1px solid rgba(217,180,95,0.32);border-radius:4px;padding:1px 7px;margin-right:8px;white-space:nowrap}
+.crossx{margin:46px 0 10px;border:1px solid rgba(205,127,155,0.38);background:rgba(205,127,155,0.05);border-radius:14px;padding:20px 22px}
+.crossx h3{font-size:1.02rem;color:#cd7f9b;margin-bottom:14px;letter-spacing:0.5px}
+.crossx ul{list-style:none;padding:0}
+.crossx li{margin-bottom:16px;font-size:0.94rem;color:#d5cdc1;line-height:1.78}
+.crossx li:last-child{margin-bottom:0}
+.crossx li b{color:#cd7f9b;font-weight:600}
+.thinking{margin:46px 0 10px}
+.thinking h3{font-size:1.02rem;color:#a693cd;margin-bottom:14px;letter-spacing:0.5px}
+details{border:1px solid rgba(166,147,205,0.22);border-radius:10px;padding:12px 16px;margin-bottom:10px;background:rgba(166,147,205,0.035)}
+summary{cursor:pointer;font-size:0.93rem;color:#c9c2b6;font-weight:500}
+summary::marker{color:#a693cd}
+details p{margin:12px 0 0;font-size:0.9rem;color:#a9a096;line-height:1.75}
+.refs{margin:46px 0 10px}
+.refs h3{font-size:1.02rem;color:#79a6d2;margin-bottom:14px;letter-spacing:0.5px}
+.refs ul{list-style:none;padding:0}
+.refs li{margin-bottom:10px;font-size:0.9rem;color:#8d867b;line-height:1.7}
+.refs a{color:#79a6d2;text-decoration:none;border-bottom:1px solid rgba(121,166,210,0.3)}
+.refs a:hover{color:#a6c4e2;border-bottom-color:rgba(121,166,210,0.7)}
+footer{text-align:center;padding:56px 0 10px;font-size:0.78rem;color:#57524b;font-family:"SF Mono",Menlo,monospace;border-top:1px solid rgba(255,255,255,0.06);margin-top:50px}
+footer a{color:#79a6d2;text-decoration:none}
+@media(max-width:600px){h1{font-size:1.85rem}.wrap{padding:24px 16px 60px}h2{font-size:1.22rem}}
+</style></head><body>
+
+<div class="wrap">
+<header>
+<span class="week-tag">TOPIC 30 · PHASE E</span>
+<h1>Collective Intelligence and Collective Stupidity</h1>
+<p class="sub">Crowds are wise only under conditions</p>
+<p class="date">2026-08-16 · Adaptation &amp; Evolution</p>
+<p class="pitch">The same group of people can guess an ox's weight to within 0.75% — and can also be wrong together, in perfect unison, for two thousand years. What separates the two isn't morality or intelligence. It's two or three parameters you can write down.</p>
+</header>
+
+<div class="intro">
+<p>"Two heads are better than one" and "the madness of crowds" are two proverbs that flatly contradict each other, and the awkward part is that each has a mountain of examples behind it. A crowd at a country fair guesses the weight of an ox and their median lands within one percent of the truth. The same people, pooled together, panic-buy salt, chase a rally, and pass on a rumour with an efficiency that is painful to watch.</p>
+<p>The usual way of reconciling this is "it depends" — sometimes crowds are smart, sometimes they're stupid. That says nothing. The real situation is far more specific: smart and stupid are two outputs of <b>the same machine</b> under two settings of its parameters. There is one machine, and there are only two or three parameters. Set them right and a room of ordinary people beats the sharpest person in it. Change one and that same room will lock in an error with remarkable efficiency — with everybody behaving rationally and nobody being foolish.</p>
+<p>So "should we trust the crowd?" is the wrong question from the start. The question is: <b>this time, what are those two or three parameters set to?</b></p>
+</div>
+
+<h2><span class="n">01</span>Why a Group Can Beat Every Member of It</h2>
+<p class="lead">In 1906, at a livestock fair in Plymouth, England, there was a prize competition: guess the weight of a fat ox after it had been slaughtered and dressed. Butchers and farmers entered, and so did passers-by with no idea what they were looking at. Each wrote a number on a card.</p>
+<p>Francis Galton later borrowed those cards and ran the numbers, publishing the result in <em>Nature</em> in 1907: 787 valid entries, median 1207 lb, against an actual dressed weight of 1198 lb. Nine pounds off. 0.75%.</p>
+<p>The story has been told to death, usually as "the crowd knows best." But that's a conclusion, not a mechanism — and it's wrong. The crowd did not know best; the overwhelming majority of those 787 people were badly off. What actually happened is that <b>their errors pointed in opposite directions and cancelled.</b></p>
+<p>That sentence can be written as an exact equation — not a metaphor. Let θ be the truth, sᵢ the estimate of person i, and s̄ the arithmetic mean:</p>
+
+<div class="eq">
+( s̄ − θ )² &nbsp;=&nbsp; ave[ (sᵢ − θ)² ] &nbsp;−&nbsp; ave[ (sᵢ − s̄)² ]
+<small>crowd error = average individual error − prediction diversity</small>
+</div>
+
+<p>The left side is the squared error of the crowd's single answer. The first term on the right is the average of everyone's individual squared errors. The second is the variance among them — <b>how much they disagree</b>. These three quantities form an identity: plug in any numbers you like and it holds. No assumptions, no requirement that anyone be "independent enough." Pure algebra. Scott Page calls it the <b>diversity prediction theorem</b>.</p>
+
+<figure>
+<svg aria-label="Top: 787 estimates scattered on both sides of the truth, with the median landing close to it. Bottom: average individual error decomposed into diversity and crowd error" role="img" viewBox="0 0 720 452" xmlns="http://www.w3.org/2000/svg">
+<defs>
+<marker id="t30a" markerHeight="9" markerUnits="userSpaceOnUse" markerWidth="9" orient="auto" refX="8" refY="4.5" viewBox="0 0 9 9">
+<path d="M0,1 L8,4.5 L0,8 z" fill="#8d867b"></path>
+</marker>
+</defs>
+<text fill="#aba498" font-family="-apple-system,sans-serif" font-size="13.5" text-anchor="middle" x="360" y="28">787 cards, all guessing the dressed weight of one ox</text>
+
+<circle cx="132" cy="118" fill="#5d6f7f" r="3.4"></circle><circle cx="168" cy="96" fill="#5d6f7f" r="3.4"></circle><circle cx="196" cy="130" fill="#5d6f7f" r="3.4"></circle><circle cx="221" cy="80" fill="#5d6f7f" r="3.4"></circle><circle cx="242" cy="112" fill="#5d6f7f" r="3.4"></circle><circle cx="259" cy="136" fill="#5d6f7f" r="3.4"></circle><circle cx="276" cy="90" fill="#5d6f7f" r="3.4"></circle><circle cx="291" cy="124" fill="#5d6f7f" r="3.4"></circle><circle cx="303" cy="102" fill="#5d6f7f" r="3.4"></circle><circle cx="316" cy="138" fill="#5d6f7f" r="3.4"></circle><circle cx="327" cy="84" fill="#5d6f7f" r="3.4"></circle><circle cx="337" cy="116" fill="#5d6f7f" r="3.4"></circle><circle cx="346" cy="98" fill="#5d6f7f" r="3.4"></circle><circle cx="355" cy="132" fill="#5d6f7f" r="3.4"></circle><circle cx="366" cy="106" fill="#5d6f7f" r="3.4"></circle><circle cx="376" cy="88" fill="#5d6f7f" r="3.4"></circle><circle cx="386" cy="128" fill="#5d6f7f" r="3.4"></circle><circle cx="397" cy="110" fill="#5d6f7f" r="3.4"></circle><circle cx="409" cy="94" fill="#5d6f7f" r="3.4"></circle><circle cx="422" cy="134" fill="#5d6f7f" r="3.4"></circle><circle cx="437" cy="114" fill="#5d6f7f" r="3.4"></circle><circle cx="454" cy="86" fill="#5d6f7f" r="3.4"></circle><circle cx="474" cy="126" fill="#5d6f7f" r="3.4"></circle><circle cx="498" cy="100" fill="#5d6f7f" r="3.4"></circle><circle cx="527" cy="120" fill="#5d6f7f" r="3.4"></circle><circle cx="563" cy="92" fill="#5d6f7f" r="3.4"></circle><circle cx="606" cy="130" fill="#5d6f7f" r="3.4"></circle>
+
+<line stroke="rgba(255,255,255,0.16)" stroke-width="1.2" x1="90" x2="660" y1="160" y2="160"></line>
+<line stroke="#9fbc7a" stroke-width="2" x1="360" x2="360" y1="66" y2="176"></line>
+<line stroke="#e0895e" stroke-width="2" stroke-dasharray="4 3" x1="392" x2="392" y1="66" y2="176"></line>
+<text fill="#9fbc7a" font-family="-apple-system,sans-serif" font-size="12" text-anchor="end" x="352" y="196">truth: 1198 lb</text>
+<text fill="#e0895e" font-family="-apple-system,sans-serif" font-size="12" x="400" y="196">median: 1207 lb</text>
+<text fill="#787268" font-family="-apple-system,sans-serif" font-size="11.5" x="96" y="182">← guessed too light</text>
+<text fill="#787268" font-family="-apple-system,sans-serif" font-size="11.5" text-anchor="end" x="654" y="182">guessed too heavy →</text>
+<text fill="#8d867b" font-family="-apple-system,sans-serif" font-size="11.5" text-anchor="middle" x="360" y="222">Nearly every point is badly wrong. What is accurate is not any person — it is where the cloud is centred.</text>
+
+<line stroke="rgba(255,255,255,0.08)" stroke-width="1" x1="60" x2="660" y1="250" y2="250"></line>
+<text fill="#aba498" font-family="-apple-system,sans-serif" font-size="13.5" x="60" y="284">Same cloud of points — here is how the error gets eaten</text>
+
+<text fill="#8d867b" font-family="-apple-system,sans-serif" font-size="12" text-anchor="end" x="196" y="330">avg individual error</text>
+<rect fill="#4a4038" height="26" rx="4" width="440" x="210" y="312"></rect>
+<text fill="#cfc8bc" font-family="SF Mono,monospace" font-size="12.5" text-anchor="middle" x="430" y="330">how wrong each person is, averaged</text>
+
+<text fill="#8d867b" font-family="-apple-system,sans-serif" font-size="12" text-anchor="end" x="196" y="382">minus diversity</text>
+<rect fill="#3d5545" height="26" rx="4" stroke="rgba(159,188,122,0.55)" width="390" x="210" y="364"></rect>
+<rect fill="#5a3a30" height="26" rx="4" stroke="rgba(224,137,94,0.7)" width="50" x="600" y="364"></rect>
+<text fill="#9fbc7a" font-family="SF Mono,monospace" font-size="12.5" text-anchor="middle" x="405" y="382">wrong in different directions → cancels out</text>
+
+<line marker-end="url(#t30a)" stroke="#8d867b" stroke-width="1.4" x1="596" x2="626" y1="428" y2="392"></line>
+<text fill="#e0895e" font-family="-apple-system,sans-serif" font-size="12" text-anchor="middle" x="566" y="444">this sliver is the crowd's error</text>
+</svg>
+<figcaption>How accurate a crowd is depends on two things: how accurate its members are, and <b>how differently they are wrong</b>. The second term is subtracted whole — it is a benefit, not noise.</figcaption>
+</figure>
+
+<p>Two consequences follow, and both are far harder-edged than the phrase "wisdom of crowds."</p>
+<p><b>First, the crowd is never worse than the average member.</b> The subtracted term is a variance, hence non-negative. So "people drag each other down" is, under the averaging rule, strictly impossible. Note what this does <em>not</em> say: it says nothing about the crowd beating its <b>best</b> member. That is a different claim, and it often fails.</p>
+<p><b>Second, disagreement is a benefit, not a cost.</b> There are two routes to a smaller crowd error: make each person more accurate (shrink the first term), or make them wrong in more different ways (grow the second). In the equation the two routes have exactly equal standing. Which yields a counterintuitive result: <b>adding a below-average person who is wrong in a completely different way can make the group more accurate.</b> Their own error enters the first term; their disagreement with everyone else enters the second, and the second can be larger.</p>
+
+<div class="decide"><span class="lb">🎯 DECISION</span>
+<p>When deciding whether to pull one more person into an assessment, don't ask "do they know this area?" Ask <b>"will they be wrong in the same place as everyone already in the room?"</b> That is a checkable fact rather than an impression: look at their training, their main information sources, and the <b>direction</b> of their last few misjudgments. If all three overlap with people already present, they add cost without adding accuracy — the diversity term didn't move. Stop doing this: adding reviewers in order of seniority. People of similar seniority were usually taught by the same books and the same experiences, which is a systematic way of shrinking the second term.</p>
+</div>
+
+<p class="crossx-inline">🌀 <b>Engineering &amp; the history of technology · Random forests deliberately make each tree worse</b>　A random forest trains each decision tree while allowing it to look at only a small random subset of features at each split. Any single tree is clearly worse than one permitted to see everything. Breiman's 2001 generalization bound nails down why: the error is capped by ρ̄(1−s²)/s², where s is the strength of a single tree and ρ̄ is the average correlation between trees — <b>the numerator is asking for decorrelation</b>. Which yields a conclusion that holds for people too and that almost nobody acts on: raising the average quality of members and raising the accuracy of the group are goals that can fight each other. When members are already highly correlated, the right move is to <b>blindfold them differently</b>, not to hand everyone the same additional briefing.</p>
+
+<h2><span class="n">02</span>Break Independence and the Same Machine Runs Backwards</h2>
+<p class="lead">The identity above hides a premise: it assumes each person produces their sᵢ <b>on their own</b>. If the second person writes their number while looking at the first person's, the second term — diversity — collapses on its own.</p>
+<p>And the damning part is that this requires nobody to be a follower. A rational person does it too, and has to.</p>
+<p>In 1992, Bikhchandani, Hirshleifer and Welch gave the cleanest model of this process, the <b>information cascade</b>. Its laboratory version runs like this.</p>
+<p>There are two urns on the table. Urn A holds 2 red balls and 1 blue; urn B holds 2 blue and 1 red. The experimenter picks one at random (50/50) and tells nobody which. Participants come up one at a time, privately draw a ball and look at it — that is their <b>private signal</b> — put it back, and then <b>announce publicly</b> which urn they think it is. Everyone downstream hears all previous announcements but never sees anyone's ball.</p>
+
+<figure>
+<svg aria-label="Four people announce in sequence: the first two contribute their private signals, from the third onward the private signal is rationally discarded and no new information enters" role="img" viewBox="0 0 720 400" xmlns="http://www.w3.org/2000/svg">
+<defs>
+<marker id="t30b" markerHeight="9" markerUnits="userSpaceOnUse" markerWidth="9" orient="auto" refX="8" refY="4.5" viewBox="0 0 9 9">
+<path d="M0,1 L8,4.5 L0,8 z" fill="#79a6d2"></path>
+</marker>
+<marker id="t30c" markerHeight="9" markerUnits="userSpaceOnUse" markerWidth="9" orient="auto" refX="8" refY="4.5" viewBox="0 0 9 9">
+<path d="M0,1 L8,4.5 L0,8 z" fill="#cd7f9b"></path>
+</marker>
+</defs>
+<text fill="#aba498" font-family="-apple-system,sans-serif" font-size="13.5" text-anchor="middle" x="360" y="28">The urn really is B (2 blue, 1 red) — but the first two both happened to draw red</text>
+
+<text fill="#8d867b" font-family="SF Mono,monospace" font-size="11.5" text-anchor="end" x="96" y="80">private signal</text>
+<text fill="#8d867b" font-family="SF Mono,monospace" font-size="11.5" text-anchor="end" x="96" y="132">announces</text>
+<text fill="#8d867b" font-family="SF Mono,monospace" font-size="11.5" text-anchor="end" x="96" y="236">new info entering</text>
+<text fill="#8d867b" font-family="SF Mono,monospace" font-size="11.5" text-anchor="end" x="96" y="254">the public pool</text>
+
+<text fill="#787268" font-family="-apple-system,sans-serif" font-size="12" text-anchor="middle" x="180" y="50">person 1</text>
+<circle cx="180" cy="76" fill="#8e4a4a" r="14" stroke="rgba(255,255,255,0.25)"></circle>
+<text fill="#e4ded5" font-family="-apple-system,sans-serif" font-size="10.5" text-anchor="middle" x="180" y="80">red</text>
+<rect fill="#2a3540" height="30" rx="5" stroke="rgba(121,166,210,0.6)" width="72" x="144" y="118"></rect>
+<text fill="#79a6d2" font-family="SF Mono,monospace" font-size="15" text-anchor="middle" x="180" y="139">A</text>
+
+<text fill="#787268" font-family="-apple-system,sans-serif" font-size="12" text-anchor="middle" x="330" y="50">person 2</text>
+<circle cx="330" cy="76" fill="#8e4a4a" r="14" stroke="rgba(255,255,255,0.25)"></circle>
+<text fill="#e4ded5" font-family="-apple-system,sans-serif" font-size="10.5" text-anchor="middle" x="330" y="80">red</text>
+<rect fill="#2a3540" height="30" rx="5" stroke="rgba(121,166,210,0.6)" width="72" x="294" y="118"></rect>
+<text fill="#79a6d2" font-family="SF Mono,monospace" font-size="15" text-anchor="middle" x="330" y="139">A</text>
+
+<text fill="#787268" font-family="-apple-system,sans-serif" font-size="12" text-anchor="middle" x="480" y="50">person 3</text>
+<circle cx="480" cy="76" fill="#3f5b74" r="14" stroke="rgba(255,255,255,0.25)"></circle>
+<text fill="#e4ded5" font-family="-apple-system,sans-serif" font-size="10.5" text-anchor="middle" x="480" y="80">blue</text>
+<rect fill="#33262c" height="30" rx="5" stroke="rgba(205,127,155,0.75)" stroke-width="2" width="72" x="444" y="118"></rect>
+<text fill="#cd7f9b" font-family="SF Mono,monospace" font-size="15" text-anchor="middle" x="480" y="139">A</text>
+
+<text fill="#787268" font-family="-apple-system,sans-serif" font-size="12" text-anchor="middle" x="630" y="50">person 4</text>
+<circle cx="630" cy="76" fill="#3f5b74" r="14" stroke="rgba(255,255,255,0.25)"></circle>
+<text fill="#e4ded5" font-family="-apple-system,sans-serif" font-size="10.5" text-anchor="middle" x="630" y="80">blue</text>
+<rect fill="#33262c" height="30" rx="5" stroke="rgba(205,127,155,0.75)" stroke-width="2" width="72" x="594" y="118"></rect>
+<text fill="#cd7f9b" font-family="SF Mono,monospace" font-size="15" text-anchor="middle" x="630" y="139">A</text>
+
+<line marker-end="url(#t30b)" stroke="#79a6d2" stroke-width="1.8" x1="222" x2="286" y1="133" y2="133"></line>
+<line marker-end="url(#t30c)" stroke="#cd7f9b" stroke-width="1.8" x1="372" x2="436" y1="133" y2="133"></line>
+<line marker-end="url(#t30c)" stroke="#cd7f9b" stroke-width="1.8" x1="522" x2="586" y1="133" y2="133"></line>
+
+<text fill="#cd7f9b" font-family="-apple-system,sans-serif" font-size="11.5" text-anchor="middle" x="545" y="176">from here on, what they draw no longer affects what they say</text>
+
+<line stroke="rgba(255,255,255,0.08)" stroke-width="1" x1="60" x2="660" y1="198" y2="198"></line>
+<rect fill="#3d5545" height="20" rx="3" stroke="rgba(159,188,122,0.55)" width="72" x="144" y="228"></rect>
+<rect fill="#3d5545" height="20" rx="3" stroke="rgba(159,188,122,0.55)" width="72" x="294" y="228"></rect>
+<rect fill="#221f1d" height="20" rx="3" stroke="rgba(255,255,255,0.13)" width="72" x="444" y="228"></rect>
+<rect fill="#221f1d" height="20" rx="3" stroke="rgba(255,255,255,0.13)" width="72" x="594" y="228"></rect>
+<text fill="#9fbc7a" font-family="SF Mono,monospace" font-size="12" text-anchor="middle" x="180" y="243">1 ball</text>
+<text fill="#9fbc7a" font-family="SF Mono,monospace" font-size="12" text-anchor="middle" x="330" y="243">1 ball</text>
+<text fill="#6b665e" font-family="SF Mono,monospace" font-size="12" text-anchor="middle" x="480" y="243">0</text>
+<text fill="#6b665e" font-family="SF Mono,monospace" font-size="12" text-anchor="middle" x="630" y="243">0</text>
+
+<text fill="#8d867b" font-family="-apple-system,sans-serif" font-size="12" x="60" y="292">Person 3 does the arithmetic: two announcements of "A" against one blue ball of their own.</text>
+<text fill="#8d867b" font-family="-apple-system,sans-serif" font-size="12" x="60" y="314">Two real signals outweigh one, so they rationally say A — carrying no news about their blue ball.</text>
+<text fill="#cfc8bc" font-family="-apple-system,sans-serif" font-size="12.5" x="60" y="348">Queue up a hundred more people saying A: those hundred statements together carry two red balls.</text>
+<text fill="#787268" font-family="-apple-system,sans-serif" font-size="11.5" x="60" y="374">And the urn is B. Nobody miscalculated, nobody conformed, and everybody was wrong together.</text>
+</svg>
+<figcaption>The moment a cascade locks in is the moment the queue looks most unanimous — because from then on nothing new is entering it.</figcaption>
+</figure>
+
+<p>The model has three consequences, and each maps onto something real.</p>
+<p><b>Cascades start easily.</b> All it takes is the first two signals happening to agree. The trigger can be pure luck — the urn is B, the first two people happen to draw red, and the whole room goes wrong to the end. So "surely there must be something to it, look how many people say so" carries no weight at all wherever cascades are possible.</p>
+<p><b>Cascades are brittle.</b> Because the ninety-eight people behind carry no information at all, one genuinely new piece of public evidence can flip the entire queue on the spot. <b>Consensus that looks monolithic often falls at a push — its solidity and its fragility are the same fact seen twice.</b></p>
+<p><b>Nobody did anything wrong.</b> Every participant made the Bayes-optimal choice. This is not conformity, cowardice, or a lack of backbone. Diagnosing it as "poor independent thinking" turns a structural problem into a character problem — and character can't be changed, while structure can. <a class="reflink" href="ref-information-cascade.en.html">→ Information cascades</a></p>
+<p>The cleanest real-world measurement comes from the music experiment Salganik, Dodds and Watts published in <em>Science</em> in 2006. They built a download site stocked with 48 songs by unknown bands and randomly assigned 14,341 participants across 18 mutually invisible parallel "worlds": in 16 of them you could see how many times each song had already been downloaded, and in 2 of them you couldn't — you had to listen and decide.</p>
+<p>Two results. The first is unsurprising: in the worlds where download counts were visible, <b>inequality was amplified</b> — winners won bigger. The second is the damaging one: those 16 worlds <b>disagreed with each other</b>. The same song ranked 1st in one world and 40th in another. Quality was not irrelevant (in the independent worlds, the best songs rarely sank and the worst rarely rose), but everything in the middle was essentially arbitrary, decided by the accidental clicks of the earliest arrivals.</p>
+<p>Which gives a reading you can apply immediately: <b>use "popularity" as a proxy for quality and what you are actually measuring is how many times over the taste of a few early arrivals got amplified.</b></p>
+
+<div class="decide"><span class="lb">🎯 DECISION</span>
+<p>Wherever you collect judgments, <b>turn off the live counter</b>: no running vote tally before the vote, no distribution of submitted scores during review, no "the majority view is…" before the discussion. When something must be shown, show <b>reasons</b>, not <b>counts</b> — a reason is new information, a count is not. One more thing you can do today: when gauging how strong a consensus is, count <b>how many mutually independent information sources</b> exist, not how many people hold the view. Where cascades run, those two numbers can differ by two orders of magnitude.</p>
+</div>
+
+<p class="crossx-inline">🌀 <b>Philosophy of science · A citation count is not an evidence count</b>　In 2009, in the <em>BMJ</em>, Greenberg flattened out the entire citation network behind one medical belief: 242 papers and 675 citations on the claimed relationship between β-amyloid and inclusion body myositis. He found that "authority" grew like this — papers that refuted the claim were systematically under-cited, while a mass of papers containing no data at all propped the belief up by citing each other. This is the academic edition of the urn experiment: every later paper cites its predecessors perfectly reasonably, but from the third one onward no new observation enters. Which yields a directly usable test: <b>"cited 500 times" and "supported by 500 independent datasets" differ by orders of magnitude</b>. To gauge the strength of a claim, walk back along the citations and count how many papers at the bottom actually measured anything.</p>
+
+<h2><span class="n">03</span>The Aggregation Rule Is Not a Detail — It Is the Answer</h2>
+<p class="lead">The first two sections were about <b>inputs</b>: whether people are independent, and whether they are wrong in different ways. This one is about the <b>exit</b> — how those judgments get twisted into a single answer.</p>
+<p>In meetings, in engineering, in institutions, this step is almost always treated as a formality: "let's take a vote," "let's average it." It isn't. Give the same set of opinions a different aggregation rule and the answer moves by an order of magnitude.</p>
+<p>Concretely. Seven people estimate how many more weeks a project needs: 2, 3, 3, 4, 4, 26, 30.</p>
+
+<figure>
+<svg aria-label="The same seven estimates produce four different answers, from four weeks to twenty-eight, depending on the aggregation rule" role="img" viewBox="0 0 720 330" xmlns="http://www.w3.org/2000/svg">
+<text fill="#aba498" font-family="-apple-system,sans-serif" font-size="13.5" text-anchor="middle" x="360" y="28">Seven estimates (weeks)</text>
+
+<circle cx="126" cy="64" fill="#79a6d2" r="6"></circle>
+<circle cx="143" cy="64" fill="#79a6d2" r="6"></circle>
+<circle cx="143" cy="50" fill="#79a6d2" r="6"></circle>
+<circle cx="161" cy="64" fill="#79a6d2" r="6"></circle>
+<circle cx="161" cy="50" fill="#79a6d2" r="6"></circle>
+<circle cx="553" cy="64" fill="#79a6d2" r="6"></circle>
+<circle cx="624" cy="64" fill="#79a6d2" r="6"></circle>
+
+<line stroke="rgba(255,255,255,0.16)" stroke-width="1.2" x1="90" x2="668" y1="86" y2="86"></line>
+<line stroke="rgba(255,255,255,0.16)" stroke-width="1" x1="90" x2="90" y1="82" y2="92"></line>
+<line stroke="rgba(255,255,255,0.16)" stroke-width="1" x1="268" x2="268" y1="82" y2="92"></line>
+<line stroke="rgba(255,255,255,0.16)" stroke-width="1" x1="446" x2="446" y1="82" y2="92"></line>
+<line stroke="rgba(255,255,255,0.16)" stroke-width="1" x1="624" x2="624" y1="82" y2="92"></line>
+<text fill="#6b665e" font-family="SF Mono,monospace" font-size="11" text-anchor="middle" x="90" y="106">0</text>
+<text fill="#6b665e" font-family="SF Mono,monospace" font-size="11" text-anchor="middle" x="268" y="106">10</text>
+<text fill="#6b665e" font-family="SF Mono,monospace" font-size="11" text-anchor="middle" x="446" y="106">20</text>
+<text fill="#6b665e" font-family="SF Mono,monospace" font-size="11" text-anchor="middle" x="624" y="106">30</text>
+
+<text fill="#8d867b" font-family="-apple-system,sans-serif" font-size="11.5" text-anchor="middle" x="150" y="40">five people here</text>
+<text fill="#8d867b" font-family="-apple-system,sans-serif" font-size="11.5" text-anchor="middle" x="588" y="40">two people here</text>
+
+<line stroke="rgba(159,188,122,0.45)" stroke-dasharray="3 4" stroke-width="1.2" x1="161" x2="161" y1="92" y2="134"></line>
+<line stroke="rgba(159,188,122,0.3)" stroke-dasharray="2 4" stroke-width="1" x1="169" x2="316" y1="134" y2="134"></line>
+<circle cx="161" cy="134" fill="#9fbc7a" r="6"></circle>
+<text fill="#9fbc7a" font-family="-apple-system,sans-serif" font-size="12.5" x="324" y="139">median → <tspan font-family="SF Mono,monospace">4 weeks</tspan></text>
+
+<line stroke="rgba(217,180,95,0.45)" stroke-dasharray="3 4" stroke-width="1.2" x1="232" x2="232" y1="92" y2="170"></line>
+<line stroke="rgba(217,180,95,0.3)" stroke-dasharray="2 4" stroke-width="1" x1="240" x2="316" y1="170" y2="170"></line>
+<circle cx="232" cy="170" fill="#d9b45f" r="6"></circle>
+<text fill="#d9b45f" font-family="-apple-system,sans-serif" font-size="12.5" x="324" y="175">drop high and low, average → <tspan font-family="SF Mono,monospace">8 weeks</tspan></text>
+
+<line stroke="rgba(99,179,166,0.45)" stroke-dasharray="3 4" stroke-width="1.2" x1="273" x2="273" y1="92" y2="206"></line>
+<line stroke="rgba(99,179,166,0.3)" stroke-dasharray="2 4" stroke-width="1" x1="281" x2="316" y1="206" y2="206"></line>
+<circle cx="273" cy="206" fill="#63b3a6" r="6"></circle>
+<text fill="#63b3a6" font-family="-apple-system,sans-serif" font-size="12.5" x="324" y="211">arithmetic mean → <tspan font-family="SF Mono,monospace">10.3 weeks</tspan></text>
+
+<line stroke="rgba(205,127,155,0.45)" stroke-dasharray="3 4" stroke-width="1.2" x1="588" x2="588" y1="92" y2="242"></line>
+<line stroke="rgba(205,127,155,0.3)" stroke-dasharray="2 4" stroke-width="1" x1="540" x2="580" y1="242" y2="242"></line>
+<circle cx="588" cy="242" fill="#cd7f9b" r="6"></circle>
+<text fill="#cd7f9b" font-family="-apple-system,sans-serif" font-size="12.5" text-anchor="end" x="532" y="247">the two who have done this before → <tspan font-family="SF Mono,monospace">28 weeks</tspan></text>
+
+<text fill="#cfc8bc" font-family="-apple-system,sans-serif" font-size="12.5" text-anchor="middle" x="360" y="296">Nobody changed a single judgment. The answer moved from 4 weeks to 28 purely by swapping rules.</text>
+</svg>
+<figcaption>Asking "which rule is right?" is the wrong question. What matters about these numbers is not where their centre sits but that they <b>fall into two clumps</b>.</figcaption>
+</figure>
+
+<p>So which answer is right? The question is malformed. The right question is: <b>what shape does the disagreement have?</b> It is not scatter around a centre; it is two clumps — five people at 2–4 weeks, two at 26–30. That shape says there are two incompatible world-models in the room (most likely: the people who have done this before know about an obstacle the others don't), and every rule that squashes them into one number destroys exactly that information.</p>
+<p><b>The shape of the disagreement is worth far more than its size.</b> Unimodal spread is noise and can safely be averaged away. Bimodal spread means somebody knows something you don't, and averaging it away throws the only warning in the bin.</p>
+
+<div class="decide"><span class="lb">🎯 DECISION</span>
+<p>Write down the aggregation rule <b>before</b> collecting judgments, and write a stopping condition alongside it: <b>if the distribution comes out bimodal, aggregation is forbidden</b> — first go to each clump separately and ask the same question, "what are you assuming that the others might not be?" Stop doing this: seeing the numbers first, then picking the rule that produces the answer you wanted. It is the most common and least self-detectable cheat in the whole aggregation step, because every individual move looks reasonable.</p>
+</div>
+
+<p>Now the hard part of this section: <b>is there an aggregation rule that preserves independence without destroying disagreement?</b> There is, and no human designed it.</p>
+<p>When a honeybee colony swarms, it has to choose a new home. Hundreds of scouts fly out; those that find a candidate site come back and waggle-dance, and the <b>duration</b> of the dance is roughly proportional to how highly that scout rates the site — a better site earns a longer dance, which recruits more scouts to go and look. That step is positive feedback, structurally the same as an ant's pheromone. <a class="reflink" href="ref-ant-colony.en.html">→ Ant colonies and decentralized consensus</a></p>
+<p>But positive feedback alone breaks down: two decent candidate sites each accumulate their own following, neither overwhelms the other, and the swarm stalls halfway. For bees, stalling is death.</p>
+<p>Seeley and colleagues reported the missing part in <em>Science</em> in 2012: <b>cross inhibition</b>. A scout dancing for site A delivers a "stop signal" — a head-butt plus a brief vibration — to interrupt a scout dancing for site B, and vice versa. The crucial feature is that the inhibition is <b>across options</b>: you do not reinforce your own side, you suppress the other side's advocates. With that in place, two evenly matched options cannot deadlock, and a tiny advantage gets amplified into a decisive one.</p>
+<p>The second part is the <b>quorum</b>: a scout does not count votes globally. It counts <b>how many colleagues are present at the site it is standing on right now</b>. Above a threshold (roughly twenty to thirty bees) it switches to "prepare for takeoff." Seeley and Visscher published a neat confirmation in 2004: artificially delay the formation of the quorum and takeoff is delayed accordingly.</p>
+
+<figure>
+<svg aria-label="Left: without cross inhibition the two candidate sites deadlock in the middle. Right: with cross inhibition they separate quickly and one crosses the quorum threshold" role="img" viewBox="0 0 720 300" xmlns="http://www.w3.org/2000/svg">
+<text fill="#aba498" font-family="-apple-system,sans-serif" font-size="13" text-anchor="middle" x="185" y="26">positive feedback only</text>
+<text fill="#aba498" font-family="-apple-system,sans-serif" font-size="13" text-anchor="middle" x="535" y="26">positive feedback + cross inhibition</text>
+
+<line stroke="rgba(255,255,255,0.18)" stroke-width="1.2" x1="66" x2="66" y1="52" y2="222"></line>
+<line stroke="rgba(255,255,255,0.18)" stroke-width="1.2" x1="66" x2="316" y1="222" y2="222"></line>
+<line stroke="rgba(217,180,95,0.4)" stroke-dasharray="4 4" stroke-width="1.2" x1="66" x2="316" y1="70" y2="70"></line>
+<text fill="#d9b45f" font-family="-apple-system,sans-serif" font-size="10.5" x="72" y="64">quorum threshold</text>
+<path d="M66,214 C120,196 170,152 230,132 S290,124 314,122" fill="none" stroke="#63b3a6" stroke-width="2.4"></path>
+<path d="M66,214 C122,200 172,158 232,138 S292,130 314,128" fill="none" stroke="#a693cd" stroke-width="2.4"></path>
+<text fill="#63b3a6" font-family="-apple-system,sans-serif" font-size="11.5" x="238" y="112">site A</text>
+<text fill="#a693cd" font-family="-apple-system,sans-serif" font-size="11.5" x="238" y="152">site B</text>
+<text fill="#8d867b" font-family="-apple-system,sans-serif" font-size="11" text-anchor="middle" x="191" y="244">time →</text>
+<text fill="#cd7f9b" font-family="-apple-system,sans-serif" font-size="11.5" text-anchor="middle" x="191" y="270">half and half — neither reaches the threshold</text>
+<text fill="#787268" font-family="-apple-system,sans-serif" font-size="11" text-anchor="middle" x="191" y="288">the swarm stalls, or splits in two</text>
+
+<line stroke="rgba(255,255,255,0.18)" stroke-width="1.2" x1="416" x2="416" y1="52" y2="222"></line>
+<line stroke="rgba(255,255,255,0.18)" stroke-width="1.2" x1="416" x2="666" y1="222" y2="222"></line>
+<line stroke="rgba(217,180,95,0.4)" stroke-dasharray="4 4" stroke-width="1.2" x1="416" x2="666" y1="70" y2="70"></line>
+<text fill="#d9b45f" font-family="-apple-system,sans-serif" font-size="10.5" x="422" y="64">quorum threshold</text>
+<path d="M416,214 C470,192 512,140 556,96 S620,60 664,58" fill="none" stroke="#63b3a6" stroke-width="2.4"></path>
+<path d="M416,214 C466,204 500,196 536,200 S610,216 664,220" fill="none" stroke="#a693cd" stroke-width="2.4"></path>
+<circle cx="580" cy="70" fill="#d9b45f" r="5"></circle>
+<text fill="#63b3a6" font-family="-apple-system,sans-serif" font-size="11.5" x="600" y="92">site A</text>
+<text fill="#a693cd" font-family="-apple-system,sans-serif" font-size="11.5" x="600" y="212">site B</text>
+<text fill="#d9b45f" font-family="-apple-system,sans-serif" font-size="11" text-anchor="end" x="572" y="60">crossed → takeoff</text>
+<text fill="#8d867b" font-family="-apple-system,sans-serif" font-size="11" text-anchor="middle" x="541" y="244">time →</text>
+<text fill="#9fbc7a" font-family="-apple-system,sans-serif" font-size="11.5" text-anchor="middle" x="541" y="270">A's advocates interrupt B's advocates, and vice versa</text>
+<text fill="#787268" font-family="-apple-system,sans-serif" font-size="11" text-anchor="middle" x="541" y="288">a small edge is amplified into a decisive one; no deadlock</text>
+</svg>
+<figcaption>The whole difference is one thing: the inhibition points <b>at the other side</b> rather than reinforcing one's own. Without that part, positive feedback simply lifts both camps together.</figcaption>
+</figure>
+
+<p>Put those two parts together and what they perform has a name in mathematics: the <b>sequential probability ratio test</b> (SPRT) — the test that reaches a decision on the least evidence for a given error rate. In 2009 Marshall and colleagues placed the bee and ant mechanisms and the evidence-accumulation process in primate brains inside a single decision-theoretic framework and showed both approximate the same optimum.</p>
+<p>The point being: <b>a swarm does not vote, does not poll, does not average.</b> It accumulates evidence, inhibits across options, and fires on a threshold. Not one of those three has any counterpart in a standard meeting.</p>
+
+<div class="decide"><span class="lb">🎯 DECISION</span>
+<p>Before designing a group decision process, work out whether you are <b>estimating a quantity</b> or <b>choosing among options</b>. To estimate a quantity, use section 1's machinery: collect independently, take the median or the mean. To choose an option, use the swarm's: make each option's supporters <b>argue at the other option's supporters</b> (across options, not fortifying their own case), and fix an <b>absolute threshold</b> in advance — "when N independent arguments for A have accumulated, A wins" rather than "whoever has more supporters wins." A relative majority can deadlock between two good options; an absolute threshold cannot.</p>
+</div>
+
+<p class="crossx-inline">🌀 <b>Literature &amp; the arts · The Oscars changed how they count</b>　From the 2009 awards onward, the Academy of Motion Picture Arts and Sciences moved Best Picture from plurality voting back to a <b>preferential ballot</b>: voters rank the nominees, the lowest is repeatedly eliminated and its votes transferred. That rule systematically favours films that most voters quite like and penalises films a small faction adores while the rest recoil — same voters, different rule, different kind of winner. Which yields a method for reading awards: before talking about how "tastes shifted" or "the mood changed" across years, check which counting rule was in force that year. <b>A great deal of what gets read as a shift in collective taste is a shift in the aggregation rule.</b></p>
+
+<h2><span class="n">04</span>Where This Breaks Down</h2>
+<p class="lead">By now the three mechanisms — error cancellation, independence, aggregation rule — sound ready to be assembled into a handbook. They aren't. Below are five boundaries, at least two of which are enough to void the whole thing.</p>
+
+<p><b>One: errors can only cancel if there is no shared bias.</b> The identity in section 1 always holds, but what it computes is squared error relative to the truth. If everyone is wrong in the same direction — same anchor, same dataset, same training — then a large chunk of the first term is <b>common</b>, and the second term cannot catch it, because on that dimension nobody disagrees. In the extreme: a room where everyone believes the same wrong model can have zero diversity, and the crowd error equals that shared error exactly, no matter how many people you add. <b>Crowd wisdom suppresses random error; it does nothing to systematic bias.</b></p>
+
+<p><b>Two: when individual accuracy is below chance, more people makes it worse.</b> Condorcet's jury theorem is usually quoted at half length. It says: if each person is independently correct with probability p, then the accuracy of a majority vote rises with group size, converging to 1 — <b>when p &gt; 1/2</b>. The omitted second half: <b>when p &lt; 1/2 it converges to 0</b>. That is, on a class of judgment your team is systematically bad at, scaling up does not dilute the error — it hardens it towards certainty.</p>
+
+<figure>
+<svg aria-label="Two Condorcet curves: with individual accuracy above one half the majority's accuracy rises toward one, below one half it falls toward zero" role="img" viewBox="0 0 720 320" xmlns="http://www.w3.org/2000/svg">
+<text fill="#aba498" font-family="-apple-system,sans-serif" font-size="13.5" text-anchor="middle" x="360" y="26">Accuracy of a majority vote, as group size grows</text>
+<line stroke="rgba(255,255,255,0.18)" stroke-width="1.2" x1="96" x2="96" y1="48" y2="248"></line>
+<line stroke="rgba(255,255,255,0.18)" stroke-width="1.2" x1="96" x2="656" y1="248" y2="248"></line>
+<line stroke="rgba(255,255,255,0.12)" stroke-dasharray="4 5" stroke-width="1.1" x1="96" x2="656" y1="148" y2="148"></line>
+<text fill="#6b665e" font-family="SF Mono,monospace" font-size="11" text-anchor="end" x="88" y="53">1.0</text>
+<text fill="#6b665e" font-family="SF Mono,monospace" font-size="11" text-anchor="end" x="88" y="152">0.5</text>
+<text fill="#6b665e" font-family="SF Mono,monospace" font-size="11" text-anchor="end" x="88" y="252">0</text>
+<text fill="#6b665e" font-family="SF Mono,monospace" font-size="11" text-anchor="middle" x="96" y="268">1</text>
+<text fill="#6b665e" font-family="SF Mono,monospace" font-size="11" text-anchor="middle" x="222" y="268">11</text>
+<text fill="#6b665e" font-family="SF Mono,monospace" font-size="11" text-anchor="middle" x="348" y="268">21</text>
+<text fill="#6b665e" font-family="SF Mono,monospace" font-size="11" text-anchor="middle" x="502" y="268">51</text>
+<text fill="#6b665e" font-family="SF Mono,monospace" font-size="11" text-anchor="middle" x="656" y="268">101</text>
+<text fill="#8d867b" font-family="-apple-system,sans-serif" font-size="11.5" text-anchor="middle" x="376" y="290">number of people (odd)</text>
+
+<path d="M96,128 C150,118 190,105 222,99 S300,80 348,83 C440,68 560,55 656,52" fill="none" stroke="#9fbc7a" stroke-width="2.6"></path>
+<path d="M96,168 C150,178 190,191 222,197 S300,216 348,213 C440,228 560,241 656,244" fill="none" stroke="#cd7f9b" stroke-width="2.6"></path>
+<circle cx="656" cy="52" fill="#9fbc7a" r="5"></circle>
+<circle cx="656" cy="244" fill="#cd7f9b" r="5"></circle>
+<text fill="#9fbc7a" font-family="-apple-system,sans-serif" font-size="12" text-anchor="end" x="644" y="42">each person 60% right → ~98% at n=101</text>
+<text fill="#cd7f9b" font-family="-apple-system,sans-serif" font-size="12" text-anchor="end" x="640" y="208">each person 40% right → ~2% at n=101</text>
+<text fill="#787268" font-family="-apple-system,sans-serif" font-size="11.5" x="104" y="140">the coin-flip line</text>
+<text fill="#cfc8bc" font-family="-apple-system,sans-serif" font-size="12.5" text-anchor="middle" x="360" y="312">One theorem, one axis. The moment individual accuracy crosses 50%, "more people" turns from cure to poison.</text>
+</svg>
+<figcaption>The green curve is the half that gets quoted. The pink curve is the other half of the same formula, and the situation it describes is not rare.</figcaption>
+</figure>
+
+<p class="crossx-inline">🌀 <b>History of medicine · Bloodletting</b>　Bloodletting persisted in Western medicine for two millennia with essentially no substantive dissent from inside the profession. Not because physicians were stupid, but because they shared one humoral theory — so on the judgment "does bleeding help?", the profession's p was below 1/2 and its independence was near zero. Condorcet's omitted half then applied in full: more practitioners and stronger consensus meant a more firmly fixed error. Not until 1835, when Pierre Charles Alexandre Louis applied his "numerical method" to the outcomes of pneumonia patients bled and not bled, was the consensus prised open from outside. Which yields a test that still works today: <b>the strength of a professional consensus cannot be used as the strength of the evidence</b> — consensus can come from independent convergence or from a shared prior, and only one question separates them: how independent are these people's information sources?</p>
+
+<p><b>Three: the identity guarantees less than the marketing implies.</b> "The crowd is never worse than the average member" is an identity, free of charge. "The crowd beats the best member" is not, and often fails. Popular writing routinely runs the two together. Also, the identity holds under <b>squared error</b> — change the loss function (say what you actually care about is whether a red line got crossed, not by how much) and the "subtract the variance" property may no longer be there.</p>
+
+<p><b>Four: "diversity trumps ability" has drawn a serious technical rebuttal.</b> Hong and Page published a result in <em>PNAS</em> in 2004, popularly summarised as "a randomly chosen diverse team can beat a team of selected high performers." The mathematician Abigail Thompson went through the theorem line by line in the <em>Notices of the AMS</em> in 2014 and argued that, under the conditions where it holds, it is either trivial or cannot support the popular reading. The dispute has never been cleanly resolved. <b>What can safely be borrowed is section 1's identity — it is algebra and cannot be wrong. What cannot be borrowed is the ranking "therefore diversity matters more than ability."</b></p>
+
+<p><b>Five: the bee machinery works because interests are perfectly aligned.</b> A colony is one reproductive unit; every scout has the same objective function, which is why "dance longer" can be taken as an honest signal. People are not like that. As soon as participants' payoffs depend on the outcome, any aggregation rule gets played back at you — votes attract strategic voting, ratings attract mutual back-scratching, prediction markets attract hedgers betting against their own beliefs. And this is not an implementation failure: the Gibbard–Satterthwaite theorem proves that with three or more options and unrestricted preference rankings, <b>no</b> voting rule is both non-dictatorial and strategy-proof. "Design a cheat-proof aggregation rule" has no general solution; all you can do is make cheating expensive.</p>
+
+<p>A word on prediction markets. They get treated as the honour student of aggregation rules, and they do have a record: Berg, Nelson and Rietz compared the Iowa Electronic Markets (IEM) against 964 contemporaneous polls across the five US presidential elections from 1988 to 2004, and the market price was closer to the final outcome roughly 74% of the time. Their two advantages are real — they <b>weight by confidence</b> (the surer you are, the more you stake) and they <b>pay for being right</b> (being wrong costs money). But they are just as exposed to boundaries one and five: when every trader reads the same public data, the shared bias survives untouched. And they carry an affliction of their own — the longshot bias, a systematic overpricing of low-probability events, measurable in nearly every real betting market.</p>
+
+<div class="decide"><span class="lb">🎯 DECISION</span>
+<p>Before invoking "there were a lot of us" as a reason, run this checklist; all four must pass. ① Individual accuracy is above chance (p &gt; 1/2). ② Judgments were formed <b>independently</b> (nobody saw anyone else's answer). ③ People are wrong in different ways (no shared dataset, no shared training). ④ The aggregation rule was fixed in advance and matches the problem type (average for quantities, threshold for options). If any one fails, strike "we discussed it and everyone agreed" from the evidence column — the information it carries may be exactly equal to whatever the first speaker said.</p>
+</div>
+
+<div class="bigcat">
+<h3>🎒 Scenarios · BigCat</h3>
+<ol>
+<li><span class="dm">practice &amp; mind</span>You can't decide, so you talk it over with a few people, and afterwards you feel more certain — but what went up is mostly not accuracy. You typically ask the closest, most likely-to-agree person first, and you carry the previous person's view into the next conversation ("I talked to him, he thinks… what do you reckon?"). So three "independent opinions" are one opinion restated three times: section 1's diversity term is zero and what you gained is peace of mind. The concrete fix: write the question as one fixed sentence before you start, put it to each person word for word, and <b>don't reveal</b> who you've already asked or what they said. Afterwards, don't count how many agreed — count how many <b>distinct reasons</b> you got. Three people agreeing on the same reason is one reason. Stop doing this: stating which way you're leaning before asking. The moment you say it, nothing anyone says afterwards is data.</li>
+<li><span class="dm">engineering &amp; systems</span>Design reviews always close on the same sentence: "any other concerns? No? Then it's settled." That sets the aggregation rule to "silence equals approval," and silence is zero information — section 3 is exactly about this step not being a formality. The fix: replace the closing question with something that requires each person to submit an artefact — write down "the one place this is most likely to break after launch," plus a confidence score from 0 to 5. If anyone submits ≤2, it does not pass. That converts the rule from "count support" to "find a counterexample," which needs far less information to be decisive. Stop doing this: letting the proposal's author chair its review. The chair controls speaking order, and speaking order is the conclusion.</li>
+<li><span class="dm">investing &amp; position sizing</span>A view on a position usually forms like this: a few research notes, a few podcasts, a few group chats, all corroborating each other, and then you act. But those sources are enormously correlated — reading the same public data, citing each other, talking to the same people. Section 1's identity is blunt about it: the accuracy you buy by reading one more piece equals exactly <b>how different that source is</b> from the others. The more alike they are, the closer the gain is to zero — while confidence rises regardless. The fix: in the position note, tag every reason with its original source, then merge the ones that trace back to the same place. If fewer than two independent reasons survive the merge, size the position as if you had one reason, not as if you had read a stack of material. Stop doing this: treating "I've read a lot on this" as grounds for adding to a position.</li>
+</ol>
+</div>
+
+<div class="crossx">
+<h3>🌀 Crossings</h3>
+<ul>
+<li><b>Eastern thought · The sangha's karman procedure</b>: Buddhist monastic communities handle collective business through a procedure called <b>karman</b> (Chinese <em>jiemo</em>). The most formal type puts a motion once and then asks the same question three times; if nobody speaks against it within those three askings, it carries. It has two hard conditions besides. First, a <b>quorum</b> — different classes of business require different minimum attendance, with graver matters requiring more. Second, a <b>bounded precinct</b>: a geographic boundary is fixed in advance, every eligible member inside it must be present, and anyone who cannot attend must send consent beforehand, or the act is invalid. All three of this issue's mechanisms run inside that procedure, and the combination differs sharply from a modern meeting: its <b>aggregation rule counts objections, not support</b> — a single dissent blocks. In section 3's terms this is not an estimator at all; it is a <b>falsification test</b>. Overturning "there is no problem here" needs only one counterexample, so it demands far less information than tallying a majority; and the quorum condition is structurally the swarm's threshold, firing on an absolute count rather than a relative majority. Which yields a non-obvious conclusion: <b>a single-veto rule is information-cheap in a group whose interests align and whose cost of dissent is low, and is the most expensive rule of all in a group whose interests are split</b> — every member's veto is now valuable, so all of them get traded. The efficiency gap between those two settings is not an implementation problem. <b>But here it fails</b>: "silence means consent" breaks section 2's independence condition at precisely the worst point. In a community with seniority and lines of teaching, silence may be agreement or may be unwillingness to be the first to speak — and the procedure cannot tell those apart. Karman blocks a small group deciding unilaterally; it cannot block everyone walking into an error together in silence, because in its record the latter looks identical to universal assent. What you can borrow is turning the aggregation rule from counting support into hunting counterexamples. What you cannot borrow is "no objection heard means passed."</li>
+<li><b>History &amp; institutions · Sortition in Athens</b>: Athens filled most public offices by lot; the Council of Five Hundred was drawn by tribal and deme quota, allocated on the spot by a stone machine called a kleroterion. The usual defence is fairness and the prevention of capture by a few. Read through this issue's mechanisms, it is really an <b>estimator design</b>: random sampling is the cheapest way to get a sample with no systematic bias relative to the population (precisely boundary one of section 4), and drawing lots abolishes campaigning, which abolishes the channel through which you would watch others before choosing (section 2's cascade loses its entry point). Ostracism, for its part, was only valid above a threshold number of votes — ancient sources disagree over whether that number was the total cast or the number against one man, but that it was an absolute threshold rather than a relative majority is clear. Which yields a conclusion you would not otherwise see: <b>sortition's real rival is not "elections select more capable people" — it is sample size and independence</b>. A council of five hundred is statistically meaningful; the fashionable thirty-person "citizens' jury" faces not only thin representativeness but the fact that after thirty people sit together for several days, section 2's machine has compressed the effective independent sample to well below thirty. So the place to spend money in such designs is <b>independent voting in separate subgroups, with anonymous records</b> — not raising the number from thirty to sixty.</li>
+<li><b>Biology &amp; neuroscience · Swarms and brains are solving the same problem</b>: When a primate makes a perceptual judgment — say, which way a field of randomly moving dots is drifting overall — the firing rate of certain parietal neuron populations rises as evidence <b>accumulates</b>, and a decision is emitted when it hits a threshold; competing options mutually inhibit. In 2009, Marshall and colleagues put that structure and the bee/ant nest-site mechanism in one decision-theoretic frame and showed both approximate the same optimal test. All three parts from section 3 are present on each side: accumulation (not a single ballot), cross-option inhibition (not self-reinforcement), threshold firing (not relative majority). Which yields something directly usable: <b>the speed–accuracy trade-off is not a matter of willpower; it is one parameter, the threshold</b>. Lower it and you decide fast and wrong more often; raise it and the reverse. There is no point between the two ends that is both fast and accurate — and the ants have already demonstrated the parameter is adjustable: when the old nest has been destroyed and the colony must move now, it lowers its quorum, buying speed with accuracy. So telling a team "this time let's be both fast and right" is asking for something that does not exist in the model; what can be discussed is where the threshold goes this time, and roughly how far the error rate rises if it comes down. <b>But here it fails</b>: cross inhibition in a brain is anatomical hardwiring, and in a swarm it rides on the physical contact of a stop signal — both sides have a <b>structural</b> component enforcing "you must go and suppress the other side's advocates." Nothing in a human meeting plays that role, and usually the opposite holds: the loudest voice reinforces its own camp, while the cost of objecting is borne by the objector alone. So "let's decide like a swarm" is empty without that missing part — what remains is exactly section 2's cascade.</li>
+</ul>
+</div>
+
+<div class="thinking">
+<h3>🧠 Going Deeper</h3>
+<details><summary>If diversity is a benefit term, why do real organizations systematically shrink it?</summary><p>Hiring for "culture fit," promoting people who resemble the incumbents, running meetings towards consensus — each is defensible alone, and together they reduce the second term. One possible explanation: the benefit of disagreement lands on <b>the group's accuracy</b> while its cost lands on <b>one particular person's coordination workload</b>. Benefit and cost are booked to different accounts, so whoever pays decides. If that explanation is right, the repair is not to advertise the value of diversity but to merge the two accounts — make whoever answers for accuracy also carry the coordination cost.</p></details>
+<details><summary>After the fact, how do you tell "consensus by independent convergence" from "consensus by cascade"?</summary><p>Beforehand it is easy (look for channels of mutual observation). Afterwards it is very hard, because both leave nearly the same trace: a lot of people saying the same thing. Three possible handles. Check the <b>timing</b> — a cascade's adoption curve usually has an abnormally steep early jump. Check the <b>variety of reasons</b> — independent converts give wildly different reasons, cascaded ones give near-identical reasons, sometimes in identical words. Check the <b>brittleness</b> — drop in one new piece of evidence and see whether it collapses. The third is the most reliable and can only be used once.</p></details>
+<details><summary>How long does "write it down independently first, then discuss" actually hold?</summary><p>It genuinely cuts off the first round of cascade, but only the first. From the moment discussion opens, everyone can see everyone's answer, and the revision process that follows is cascaded again. Worse, it may manufacture false safety — "we did the independent pre-fill" — leaving later stages more relaxed than they should be. A harder version might make the <b>single disclosure</b> between the independent stage and the aggregation stage irreversible (once written, no edits), at the cost of losing the genuine correction that discussion is supposed to provide. There seems to be a trade-off here that cannot be had both ways, and it is worth working out its exact shape.</p></details>
+<details><summary>Does a large language model count as a "crowd"? If so, what is its diversity term?</summary><p>Its training corpus comes from hundreds of millions of people, which looks like an enormous aggregation. But by this issue's framework the question is how independent those sources are from one another — and internet text is itself a product of cascades (reposting, cross-citation, shared origins). The sharper layer: once model-generated text flows back into the next round of training data, section 2's machine closes its loop. How the distance between "the majority claim" and "independent evidence" then evolves is measurable and has not yet been measured well.</p></details>
+<details><summary>Section 4 says prediction markets weight by confidence — but confidence and wealth are inseparable in a market. Is that fatal?</summary><p>What a market actually weights is stake size, and stake size = confidence × available capital. For information aggregation, the first factor is what you want and the second is contamination. The standard defence is arbitrage: if the price is off, informed people with money will push it back. But that defence requires "informed" and "wealthy" to be positively correlated, which is exactly the thing needing proof. Play-money markets have performed no worse than real-money ones in some studies; which way that evidence actually falls is worth checking properly on its own.</p></details>
+</div>
+
+<div class="refs">
+<h3>📚 Further Reading</h3>
+<ul>
+<li>Galton, <a href="https://www.nature.com/articles/075450a0">Vox Populi</a> (Nature, 1907 — the 787 cards) ·　<a href="https://arxiv.org/abs/1410.3989">Wallis's re-audit of the original data</a> (2014)</li>
+<li>Page, <a href="https://press.princeton.edu/books/paperback/9780691138541/the-difference">The Difference</a> (2007, the diversity prediction theorem) ·　<a href="https://en.wikipedia.org/wiki/Diversity_prediction_theorem">entry</a></li>
+<li>Hong &amp; Page, <a href="https://www.pnas.org/doi/10.1073/pnas.0403723101">Groups of diverse problem solvers can outperform groups of high-ability problem solvers</a> (PNAS, 2004) ·　<a href="https://www.ams.org/notices/201409/rnoti-p1024.pdf">Thompson's technical rebuttal</a> (Notices of the AMS, 2014)</li>
+<li>Bikhchandani, Hirshleifer &amp; Welch, <a href="https://www.journals.uchicago.edu/doi/10.1086/261849">A Theory of Fads, Fashion, Custom, and Cultural Change as Informational Cascades</a> (JPE, 1992)</li>
+<li>Anderson &amp; Holt, <a href="https://www.jstor.org/stable/2951343">Information Cascades in the Laboratory</a> (AER, 1997, the lab replication)</li>
+<li>Salganik, Dodds &amp; Watts, <a href="https://www.science.org/doi/10.1126/science.1121066">Experimental Study of Inequality and Unpredictability in an Artificial Cultural Market</a> (Science, 2006)</li>
+<li>Seeley, Visscher, Schlegel, Hogan, Franks &amp; Marshall, <a href="https://www.science.org/doi/10.1126/science.1210361">Stop Signals Provide Cross Inhibition in Collective Decision-Making by Honeybee Swarms</a> (Science, 2012)</li>
+<li>Seeley &amp; Visscher, <a href="https://link.springer.com/article/10.1007/s00265-004-0814-5">Quorum sensing during nest-site selection by honeybee swarms</a> (Behav Ecol Sociobiol, 2004) ·　<a href="https://link.springer.com/article/10.1007/s00265-005-0067-y">the speed–accuracy trade-off</a> (2006)</li>
+<li>Marshall, Bogacz, Dornhaus, Planqué, Kovacs &amp; Franks, <a href="https://royalsocietypublishing.org/doi/10.1098/rsif.2008.0511">On optimal decision-making in brains and social insect colonies</a> (J R Soc Interface, 2009)</li>
+<li>Greenberg, <a href="https://www.bmj.com/content/339/bmj.b2680">How citation distortions create unfounded authority: analysis of a citation network</a> (BMJ, 2009)</li>
+<li>Berg, Nelson &amp; Rietz, <a href="https://www.sciencedirect.com/science/article/abs/pii/S0169207008000320">Prediction market accuracy in the long run</a> (Int J Forecasting, 2008 — IEM against 964 polls)</li>
+<li>Breiman, <a href="https://link.springer.com/article/10.1023/A:1010933404324">Random Forests</a> (Machine Learning, 2001 — the strength/correlation bound)</li>
+<li><a href="https://en.wikipedia.org/wiki/Condorcet%27s_jury_theorem">Condorcet's jury theorem</a> ·　<a href="https://en.wikipedia.org/wiki/Gibbard%E2%80%93Satterthwaite_theorem">Gibbard–Satterthwaite theorem</a> ·　<a href="https://en.wikipedia.org/wiki/Kleroterion">Kleroterion</a></li>
+<li>Morens, <a href="https://pubmed.ncbi.nlm.nih.gov/10484017/">Death of a President</a> (1999, bloodletting and Washington) ·　<a href="https://en.wikipedia.org/wiki/Pierre_Charles_Alexandre_Louis">Pierre Charles Alexandre Louis and the numerical method</a></li>
+</ul>
+</div>
+
+<footer>BigCat · Complexity Science · <a href="index.en.html">← All Topics</a></footer>
+</div>
+<script src="https://hub.cissychen.com/comments.js" defer></script>
+<script src="https://hub.cissychen.com/search.js" defer></script>
+<script src="https://hub.cissychen.com/index-button.js" defer></script>
+<script src="https://hub.cissychen.com/i18n-tts.js" defer></script>
+</body></html>
