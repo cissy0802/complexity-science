@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+
+<html lang="en"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Coevolution and the Red Queen — Running to Stay in Place · Complexity Science T31</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,"SF Pro Display","Noto Sans SC",sans-serif;color:#e4ded5;line-height:1.85;min-height:100vh;
+  background:radial-gradient(1100px 620px at 12% -6%,rgba(224,137,94,0.10),transparent 62%),radial-gradient(950px 700px at 100% 2%,rgba(166,147,205,0.09),transparent 58%),linear-gradient(168deg,#100f0d 0%,#15161b 48%,#0a0a0c 100%);background-attachment:fixed}
+.wrap{max-width:760px;margin:0 auto;padding:30px 22px 90px}
+header{padding:52px 0 8px;border-bottom:1px solid rgba(255,255,255,0.07);margin-bottom:34px}
+.week-tag{font-family:"SF Mono",Menlo,monospace;font-size:0.72rem;font-weight:700;letter-spacing:2px;color:#79a6d2;border:1px solid rgba(121,166,210,0.4);background:rgba(121,166,210,0.07);padding:3px 11px;border-radius:20px}
+h1{font-size:2.5rem;font-weight:800;letter-spacing:0.5px;line-height:1.2;margin:20px 0 0;background:linear-gradient(106deg,#e0895e 0%,#d9b45f 34%,#9fbc7a 68%,#63b3a6 100%);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+h1 .h1en{display:block;font-size:0.40em;font-weight:600;letter-spacing:2.5px;color:#847d72;-webkit-text-fill-color:#847d72;background:none;margin-top:13px}
+.sub{font-size:1.05rem;color:#aba498;margin-top:14px;font-weight:500}
+.date{font-family:"SF Mono",Menlo,monospace;font-size:0.75rem;color:#57524b;margin-top:18px;letter-spacing:1px}
+.pitch{margin:22px 0 30px;font-size:0.97rem;color:#cd7f9b;border-left:2px solid rgba(205,127,155,0.5);padding-left:16px;font-style:italic}
+.intro{font-size:1.02rem;color:#cfc8bc;margin-bottom:14px}
+.intro p{margin-bottom:16px}
+h2{font-size:1.42rem;font-weight:700;color:#e9e3d9;margin:56px 0 8px;letter-spacing:0.3px}
+h2 .n{font-family:"SF Mono",Menlo,monospace;font-size:0.85rem;color:#79a6d2;display:block;margin-bottom:6px;letter-spacing:2px}
+.he{font-size:0.68em;color:#8d867b;font-weight:500;letter-spacing:0}
+p{margin-bottom:17px}
+.lead{color:#cfc8bc}
+b,strong{color:#f0eae0;font-weight:600}
+em{color:#d9b45f;font-style:normal;font-weight:500}
+.dim{color:#8d867b}
+a.reflink{display:inline-block;font-size:0.82rem;font-family:"SF Mono",Menlo,monospace;color:#63b3a6;border:1px solid rgba(99,179,166,0.38);background:rgba(99,179,166,0.07);padding:1px 9px;border-radius:20px;text-decoration:none;transition:all 0.15s;white-space:nowrap}
+a.reflink:hover{background:rgba(99,179,166,0.16);border-color:rgba(99,179,166,0.7)}
+figure{margin:30px 0}
+figure svg{display:block;width:100%;height:auto;border-radius:12px;background:rgba(255,255,255,0.018);border:1px solid rgba(255,255,255,0.06)}
+figcaption{font-size:0.82rem;color:#787268;margin-top:11px;text-align:center;line-height:1.6}
+.eq{font-family:"SF Mono",Menlo,monospace;font-size:0.92rem;color:#9fbc7a;background:rgba(159,188,122,0.06);border:1px solid rgba(159,188,122,0.2);border-radius:10px;padding:14px 18px;margin:22px 0;text-align:center;line-height:1.9;overflow-x:auto}
+.eq small{display:block;font-family:-apple-system,sans-serif;font-size:0.78rem;color:#8d867b;margin-top:6px}
+.decide{margin:24px 0;border:1px solid rgba(224,137,94,0.36);background:rgba(224,137,94,0.055);border-radius:12px;padding:15px 19px}
+.decide .lb{font-family:"SF Mono",Menlo,monospace;font-size:0.73rem;letter-spacing:1.5px;color:#e0895e;font-weight:700;display:block;margin-bottom:7px}
+.decide p{margin:0;font-size:0.95rem;color:#ddd5c9}
+.crossx-inline{margin:20px 0 22px;border-left:2px solid rgba(205,127,155,0.55);padding:2px 0 2px 15px;font-size:0.89rem;color:#a9a096;line-height:1.72}
+.crossx-inline b{color:#cd7f9b;font-weight:600}
+.bigcat{margin:46px 0 10px;border:1px solid rgba(217,180,95,0.38);background:rgba(217,180,95,0.05);border-radius:14px;padding:20px 22px}
+.bigcat h3{font-size:1.02rem;color:#d9b45f;margin-bottom:14px;letter-spacing:0.5px}
+.bigcat ol{list-style:none;padding:0}
+.bigcat li{margin-bottom:15px;font-size:0.94rem;color:#d5cdc1;line-height:1.78}
+.bigcat li:last-child{margin-bottom:0}
+.bigcat .dm{font-family:"SF Mono",Menlo,monospace;font-size:0.73rem;color:#d9b45f;border:1px solid rgba(217,180,95,0.32);border-radius:4px;padding:1px 7px;margin-right:8px;white-space:nowrap}
+.crossx{margin:46px 0 10px;border:1px solid rgba(205,127,155,0.38);background:rgba(205,127,155,0.05);border-radius:14px;padding:20px 22px}
+.crossx h3{font-size:1.02rem;color:#cd7f9b;margin-bottom:14px;letter-spacing:0.5px}
+.crossx ul{list-style:none;padding:0}
+.crossx li{margin-bottom:16px;font-size:0.94rem;color:#d5cdc1;line-height:1.78}
+.crossx li:last-child{margin-bottom:0}
+.crossx li b{color:#cd7f9b;font-weight:600}
+.thinking{margin:46px 0 10px}
+.thinking h3{font-size:1.02rem;color:#a693cd;margin-bottom:14px;letter-spacing:0.5px}
+details{border:1px solid rgba(166,147,205,0.22);border-radius:10px;padding:12px 16px;margin-bottom:10px;background:rgba(166,147,205,0.035)}
+summary{cursor:pointer;font-size:0.93rem;color:#c9c2b6;font-weight:500}
+summary::marker{color:#a693cd}
+details p{margin:12px 0 0;font-size:0.9rem;color:#a9a096;line-height:1.75}
+.refs{margin:46px 0 10px}
+.refs h3{font-size:1.02rem;color:#79a6d2;margin-bottom:14px;letter-spacing:0.5px}
+.refs ul{list-style:none;padding:0}
+.refs li{margin-bottom:10px;font-size:0.9rem;color:#8d867b;line-height:1.7}
+.refs a{color:#79a6d2;text-decoration:none;border-bottom:1px solid rgba(121,166,210,0.3)}
+.refs a:hover{color:#a6c4e2;border-bottom-color:rgba(121,166,210,0.7)}
+footer{text-align:center;padding:56px 0 10px;font-size:0.78rem;color:#57524b;font-family:"SF Mono",Menlo,monospace;border-top:1px solid rgba(255,255,255,0.06);margin-top:50px}
+footer a{color:#79a6d2;text-decoration:none}
+@media(max-width:600px){h1{font-size:1.85rem}.wrap{padding:24px 16px 60px}h2{font-size:1.22rem}}
+</style></head><body>
+<div class="wrap">
+<header>
+<span class="week-tag">TOPIC 31 · PHASE E</span>
+<h1>Coevolution and the Red Queen</h1>
+<p class="sub">Running to stay in place</p>
+<p class="date">2026-08-17 · Adaptation &amp; Evolution</p>
+<p class="pitch">The word "progress" quietly assumes a frame of reference that holds still. In a large class of systems the frame is assembled out of your opponents — take a step forward and it steps with you. The improvement is real; the payoff can be exactly zero.</p>
+</header>
+<div class="intro">
+<p>In any neighbourhood, the first family to enrol their child in weekend tutoring genuinely gains something. Three years later everyone has enrolled, the rankings are back where they started, and every family is spending six extra hours a week plus the fees. Nobody cheated, nobody blundered, every single step was rational — and the collective result is a higher cost floor with the ordering untouched.</p>
+<p>That structure is more common than it looks: antibiotics and bacteria, spam filters and spammers, advertising and attention, defence and offence, even you and your own tolerance to a drug. They all share one mechanism — <b>how well you are doing depends not on how good you are, but on how much better you are than your opponent right now; and your opponent is changing too.</b> That is <em>coevolution</em>.</p>
+<p class="dim">The adaptation in the previous few topics faced a stationary opponent: Topic 28 climbed a fixed fitness landscape, Topic 29's payoff table was handed to the players. This topic removes that last assumption — <b>the landscape is worn into shape by everybody else's adaptation, and it shifts the moment you move.</b> With that one change, equilibrium goes from being the normal state to being the rare one.</p>
+</div>
+
+<h2><span class="n">01</span>You Are Not Climbing a Hill; the Hill Is Moving</h2>
+<p class="lead">Start with the word "fitness". It does not mean strong, good, or advanced. It means one thing: in <b>this round</b>, how many more offspring (or units of market share, or surviving machines) you leave than the others do. It is a ratio by construction, never an absolute quantity.</p>
+<p>Topic 28 drew it as a terrain map: your strategy or trait on the horizontal axis, the fitness of that position on the vertical, and you walk uphill <a class="reflink" href="ref-nk-landscape.en.html">→ ref · NK fitness landscape</a>. That picture carries an inconspicuous assumption — <b>the terrain was drawn once and holds still.</b> As long as it holds still, reaching a summit means permanently owning the best position available.</p>
+<p>Coevolution deletes that assumption. Your fitness depends on your opponent's current state, and your opponent is climbing its own slope; every step it takes redraws <em>your</em> terrain. The result is a distinctly uncomfortable situation: your traits have not regressed at all, your absolute capability is still rising, and yet the ground beneath you has dropped — because what changed was the hill, not you.</p>
+<figure>
+<svg aria-label="Two worlds compared: on a fixed landscape climbing ends at the summit; under coevolution the peak slides away" role="img" viewBox="0 0 720 300" xmlns="http://www.w3.org/2000/svg">
+<defs>
+<marker id="t31a1" markerHeight="10" markerUnits="userSpaceOnUse" markerWidth="10" orient="auto" refX="9" refY="5" viewBox="0 0 10 10"><path d="M0,1 L9,5 L0,9 z" fill="#9fbc7a"></path></marker>
+<marker id="t31a2" markerHeight="10" markerUnits="userSpaceOnUse" markerWidth="10" orient="auto" refX="9" refY="5" viewBox="0 0 10 10"><path d="M0,1 L9,5 L0,9 z" fill="#cd7f9b"></path></marker>
+</defs>
+<text fill="#aba498" font-family="-apple-system,sans-serif" font-size="13" text-anchor="middle" x="360" y="26">The same improvement is worth different amounts in the two worlds</text>
+<text fill="#79a6d2" font-family="SF Mono,monospace" font-size="12" text-anchor="middle" x="125" y="52">① Start: mid-slope</text>
+<text fill="#9fbc7a" font-family="SF Mono,monospace" font-size="12" text-anchor="middle" x="360" y="52">② Fixed terrain</text>
+<text fill="#cd7f9b" font-family="SF Mono,monospace" font-size="12" text-anchor="middle" x="595" y="52">③ Opponent evolves</text>
+<g transform="translate(40,60)">
+<line stroke="rgba(255,255,255,0.13)" stroke-width="1.5" x1="0" x2="170" y1="148" y2="148"></line>
+<path d="M0,148 C15,148 30,45 60,45 C90,45 105,148 170,148" fill="none" stroke="#6f6a60" stroke-width="2"></path>
+<circle cx="24.4" cy="96.5" fill="#e0895e" r="6.5"></circle>
+<line marker-end="url(#t31a1)" stroke="#9fbc7a" stroke-width="2" x1="33" x2="50" y1="86" y2="58"></line>
+</g>
+<g transform="translate(275,60)">
+<line stroke="rgba(255,255,255,0.13)" stroke-width="1.5" x1="0" x2="170" y1="148" y2="148"></line>
+<path d="M0,148 C15,148 30,45 60,45 C90,45 105,148 170,148" fill="none" stroke="#6f6a60" stroke-width="2"></path>
+<circle cx="60" cy="45" fill="#e0895e" r="6.5"></circle>
+<text fill="#9fbc7a" font-family="-apple-system,sans-serif" font-size="11" text-anchor="middle" x="60" y="31">held</text>
+</g>
+<g transform="translate(510,60)">
+<line stroke="rgba(255,255,255,0.13)" stroke-width="1.5" x1="0" x2="170" y1="148" y2="148"></line>
+<path d="M0,148 C15,148 30,45 60,45 C90,45 105,148 170,148" fill="none" opacity="0.42" stroke="#6f6a60" stroke-dasharray="5 5" stroke-width="2"></path>
+<path d="M0,148 C65,148 80,45 110,45 C140,45 155,148 170,148" fill="none" stroke="#cd7f9b" stroke-width="2"></path>
+<line marker-end="url(#t31a2)" stroke="#cd7f9b" stroke-width="2" x1="68" x2="102" y1="34" y2="34"></line>
+<circle cx="60" cy="108.7" fill="#e0895e" r="6.5"></circle>
+<line marker-end="url(#t31a2)" stroke="#cd7f9b" stroke-width="1.8" x1="60" x2="60" y1="56" y2="98"></line>
+<text fill="#8d867b" font-family="-apple-system,sans-serif" font-size="10.5" text-anchor="middle" x="30" y="30">old terrain</text>
+</g>
+<text fill="#787268" font-family="-apple-system,sans-serif" font-size="11" text-anchor="middle" x="125" y="232">climbing = improving</text>
+<text fill="#787268" font-family="-apple-system,sans-serif" font-size="11" text-anchor="middle" x="360" y="232">summit reached and held</text>
+<text fill="#c98ba4" font-family="-apple-system,sans-serif" font-size="11" text-anchor="middle" x="595" y="232">same improvement, back mid-slope</text>
+<text fill="#57524b" font-family="-apple-system,sans-serif" font-size="11" text-anchor="middle" x="360" y="266">horizontal = your strategy or trait　vertical = what it is worth right now (fitness)</text>
+<text fill="#57524b" font-family="-apple-system,sans-serif" font-size="11" text-anchor="middle" x="360" y="284">In ③ you never stepped back — the height fell because the hill moved, not you</text>
+</svg>
+<figcaption>Delete the assumption that the terrain holds still, and "reaching the summit" stops being something you can finish.</figcaption>
+</figure>
+<p>That picture is exactly what Lewis Carroll's much-quoted line means. In <i>Through the Looking-Glass</i> (1871) the Red Queen drags Alice along at a sprint, and when they stop Alice finds they have not moved: <b>"Now, here, you see, it takes all the running you can do, to keep in the same place."</b> In 1973 the palaeontologist Leigh Van Valen borrowed the line to name a statistical pattern — across large numbers of fossil taxa, how long a group had already existed barely changed its probability of going extinct in the next interval. Experience had not accumulated into safety. That is the <em>Red Queen hypothesis</em>: every species keeps getting better, and precisely because everyone is getting better, nobody ends up safer.</p>
+<div class="crossx-inline">
+🌀 <b>Literature &amp; art · why fashion has to keep changing</b>　In 1904 the sociologist Georg Simmel explained fashion like this: an elite adopts a marker to set itself apart, those below imitate it, and once the marker is widespread it no longer separates anyone, so the elite must switch. That is this section's mechanism exactly — the "height" is distinctiveness, and it is set by where the imitators stand, so when they move the hill collapses. The non-obvious consequence: the pace of fashion is not set by taste, it is set by <b>the speed of copying</b>. Fast fashion did not adapt to a faster cycle; it manufactured one.
+</div>
+
+<h2><span class="n">02</span>The Smallest Model: Why Two Equations Go in Circles</h2>
+<p class="lead">In 1926 the Italian mathematician Vito Volterra was handed a puzzle from the fisheries. During the First World War fishing in the Adriatic all but stopped, so every kind of fish should have become more plentiful; yet the statistics compiled by his son-in-law, the biologist Umberto D'Ancona, showed that <b>the share of sharks and other predatory fish in the catch had gone up.</b> Why should fishing less benefit the eaters rather than the eaten?</p>
+<p>He wrote down two lines (Alfred Lotka in the United States had reached the same equations a year earlier, coming from chemical reactions). They are now called the <em>Lotka-Volterra equations</em> <a class="reflink" href="ref-lotka-volterra.en.html">→ ref · Lotka-Volterra model</a>:</p>
+<div class="eq">
+d<i>x</i>/d<i>t</i> = α<i>x</i> − β<i>xy</i>　　　d<i>y</i>/d<i>t</i> = δ<i>xy</i> − γ<i>y</i>
+<small><i>x</i> is the number of prey (say snowshoe hares), <i>y</i> the number of predators (say lynx). α is how fast hares breed, γ how fast lynx starve, and β and δ set how often the two run into each other — the two counts are multiplied, because they have to meet for anything to happen.</small>
+</div>
+<p>Four parameters, two variables, no randomness, no weather, no seasons. Run it and it starts going in circles all by itself: hares increase → lynx increase after them → hares get eaten down → lynx starve → lynx decline → hares recover.</p>
+<figure>
+<svg aria-label="Lotka-Volterra time series and phase plane: the predator peak lags, and the orbits never converge" role="img" viewBox="0 0 720 330" xmlns="http://www.w3.org/2000/svg">
+<defs>
+<marker id="t31b1" markerHeight="9" markerUnits="userSpaceOnUse" markerWidth="9" orient="auto" refX="8" refY="5" viewBox="0 0 10 10"><path d="M0,1 L9,5 L0,9 z" fill="#d9b45f"></path></marker>
+<marker id="t31b2" markerHeight="10" markerUnits="userSpaceOnUse" markerWidth="10" orient="auto" refX="9" refY="5" viewBox="0 0 10 10"><path d="M0,1 L9,5 L0,9 z" fill="#79a6d2"></path></marker>
+</defs>
+<text fill="#aba498" font-family="-apple-system,sans-serif" font-size="13" text-anchor="middle" x="360" y="26">Four parameters, zero coincidences — the cycle is forced by the lag</text>
+<text fill="#9fbc7a" font-family="SF Mono,monospace" font-size="12" text-anchor="middle" x="225" y="48">① In time: the predator peak lags</text>
+<text fill="#79a6d2" font-family="SF Mono,monospace" font-size="12" text-anchor="middle" x="568" y="48">② Phase plane: loops, never rest</text>
+<line stroke="rgba(255,255,255,0.18)" stroke-width="1.5" x1="62" x2="388" y1="248" y2="248"></line>
+<line stroke="rgba(255,255,255,0.18)" stroke-width="1.5" x1="62" x2="62" y1="248" y2="66"></line>
+<line stroke="#9fbc7a" stroke-width="2.5" x1="70" x2="90" y1="70" y2="70"></line>
+<text fill="#9fbc7a" font-family="-apple-system,sans-serif" font-size="11" x="96" y="74">prey (hare)</text>
+<line stroke="#cd7f9b" stroke-width="2.5" x1="200" x2="220" y1="70" y2="70"></line>
+<text fill="#cd7f9b" font-family="-apple-system,sans-serif" font-size="11" x="226" y="74">predator (lynx)</text>
+<line stroke="#8d867b" stroke-dasharray="5 4" stroke-width="1.6" x1="70" x2="90" y1="88" y2="88"></line>
+<text fill="#8d867b" font-family="-apple-system,sans-serif" font-size="11" x="96" y="92">each one's long-run mean</text>
+<line opacity="0.6" stroke="#9fbc7a" stroke-dasharray="5 4" stroke-width="1.4" x1="62" x2="388" y1="154.3" y2="154.3"></line>
+<line opacity="0.6" stroke="#cd7f9b" stroke-dasharray="5 4" stroke-width="1.4" x1="62" x2="388" y1="201.2" y2="201.2"></line>
+<path d="M62.0,130.9L63.7,127.6L65.4,124.5L67.1,121.4L68.8,118.4L70.5,115.7L72.2,113.2L73.9,110.9L75.6,109.0L77.3,107.5L79.0,106.5L80.7,105.9L82.4,105.8L84.1,106.3L85.8,107.3L87.5,108.9L89.2,111.1L90.9,113.8L92.6,117.1L94.3,120.7L96.0,124.7L97.7,129.0L99.4,133.5L101.1,138.1L102.8,142.8L104.5,147.3L106.2,151.8L107.9,156.1L109.6,160.2L111.3,164.1L113.0,167.6L114.7,170.9L116.4,174.0L118.2,176.7L119.9,179.1L121.6,181.3L123.3,183.2L125.0,184.8L126.7,186.2L128.4,187.4L130.1,188.4L131.8,189.1L133.5,189.7L135.2,190.1L136.9,190.3L138.6,190.3L140.3,190.2L142.0,189.9L143.7,189.5L145.4,188.9L147.1,188.2L148.8,187.3L150.5,186.3L152.2,185.2L153.9,183.9L155.6,182.5L157.3,181.0L159.0,179.4L160.7,177.6L162.4,175.7L164.1,173.6L165.8,171.4L167.5,169.1L169.2,166.7L170.9,164.2L172.6,161.5L174.3,158.8L176.0,155.9L177.7,152.9L179.4,149.8L181.1,146.7L182.8,143.5L184.5,140.2L186.2,136.9L187.9,133.6L189.6,130.4L191.3,127.1L193.0,123.9L194.7,120.9L196.4,118.0L198.1,115.3L199.8,112.8L201.5,110.6L203.2,108.8L204.9,107.3L206.6,106.3L208.3,105.8L210.0,105.8L211.7,106.4L213.4,107.5L215.1,109.2L216.8,111.5L218.5,114.3L220.2,117.6L221.9,121.3L223.6,125.4L225.3,129.7L227.0,134.3L228.8,138.9L230.5,143.5L232.2,148.1L233.9,152.5L235.6,156.8L237.3,160.9L239.0,164.7L240.7,168.2L242.4,171.5L244.1,174.4L245.8,177.1L247.5,179.5L249.2,181.6L250.9,183.5L252.6,185.1L254.3,186.4L256.0,187.6L257.7,188.5L259.4,189.2L261.1,189.8L262.8,190.1L264.5,190.3L266.2,190.3L267.9,190.2L269.6,189.9L271.3,189.4L273.0,188.8L274.7,188.1L276.4,187.2L278.1,186.2L279.8,185.0L281.5,183.7L283.2,182.3L284.9,180.8L286.6,179.1L288.3,177.3L290.0,175.3L291.7,173.3L293.4,171.1L295.1,168.8L296.8,166.3L298.5,163.8L300.2,161.1L301.9,158.3L303.6,155.4L305.3,152.4L307.0,149.3L308.7,146.2L310.4,143.0L312.1,139.7L313.8,136.4L315.5,133.1L317.2,129.8L318.9,126.6L320.6,123.4L322.3,120.4L324.0,117.5L325.7,114.8L327.4,112.4L329.1,110.3L330.8,108.5L332.5,107.1L334.2,106.2L335.9,105.8L337.6,105.9L339.4,106.5L341.1,107.8L342.8,109.6L344.5,112.0L346.2,114.8L347.9,118.2L349.6,122.0L351.3,126.1L353.0,130.5L354.7,135.0L356.4,139.7L358.1,144.3L359.8,148.8L361.5,153.3L363.2,157.5L364.9,161.5L366.6,165.3L368.3,168.8L370.0,172.0L371.7,174.9L373.4,177.5L375.1,179.9L376.8,181.9" fill="none" stroke="#9fbc7a" stroke-width="2.2"></path>
+<path d="M62.0,219.9L63.7,219.1L65.4,218.2L67.1,217.1L68.8,215.9L70.5,214.5L72.2,213.0L73.9,211.3L75.6,209.4L77.3,207.4L79.0,205.1L80.7,202.8L82.4,200.2L84.1,197.6L85.8,194.8L87.5,192.0L89.2,189.1L90.9,186.3L92.6,183.6L94.3,180.9L96.0,178.5L97.7,176.3L99.4,174.5L101.1,172.9L102.8,171.8L104.5,171.0L106.2,170.5L107.9,170.5L109.6,170.9L111.3,171.5L113.0,172.5L114.7,173.8L116.4,175.3L118.2,177.0L119.9,178.8L121.6,180.8L123.3,182.9L125.0,185.0L126.7,187.2L128.4,189.3L130.1,191.5L131.8,193.7L133.5,195.8L135.2,197.8L136.9,199.8L138.6,201.7L140.3,203.5L142.0,205.3L143.7,206.9L145.4,208.5L147.1,210.0L148.8,211.4L150.5,212.7L152.2,213.9L153.9,215.1L155.6,216.1L157.3,217.1L159.0,218.0L160.7,218.8L162.4,219.5L164.1,220.1L165.8,220.7L167.5,221.2L169.2,221.6L170.9,221.9L172.6,222.2L174.3,222.3L176.0,222.4L177.7,222.4L179.4,222.3L181.1,222.2L182.8,221.9L184.5,221.5L186.2,221.0L187.9,220.5L189.6,219.8L191.3,218.9L193.0,218.0L194.7,216.9L196.4,215.7L198.1,214.3L199.8,212.7L201.5,211.0L203.2,209.1L204.9,207.0L206.6,204.8L208.3,202.4L210.0,199.8L211.7,197.1L213.4,194.4L215.1,191.5L216.8,188.7L218.5,185.8L220.2,183.1L221.9,180.5L223.6,178.1L225.3,176.0L227.0,174.2L228.8,172.7L230.5,171.6L232.2,170.9L233.9,170.5L235.6,170.6L237.3,170.9L239.0,171.7L240.7,172.7L242.4,174.0L244.1,175.5L245.8,177.3L247.5,179.1L249.2,181.1L250.9,183.2L252.6,185.4L254.3,187.5L256.0,189.7L257.7,191.9L259.4,194.0L261.1,196.1L262.8,198.1L264.5,200.1L266.2,202.0L267.9,203.8L269.6,205.5L271.3,207.2L273.0,208.7L274.7,210.2L276.4,211.6L278.1,212.9L279.8,214.1L281.5,215.2L283.2,216.3L284.9,217.2L286.6,218.1L288.3,218.9L290.0,219.6L291.7,220.2L293.4,220.8L295.1,221.2L296.8,221.6L298.5,222.0L300.2,222.2L301.9,222.3L303.6,222.4L305.3,222.4L307.0,222.3L308.7,222.1L310.4,221.8L312.1,221.4L313.8,221.0L315.5,220.4L317.2,219.6L318.9,218.8L320.6,217.8L322.3,216.7L324.0,215.4L325.7,214.0L327.4,212.4L329.1,210.7L330.8,208.7L332.5,206.6L334.2,204.4L335.9,201.9L337.6,199.4L339.4,196.7L341.1,193.9L342.8,191.0L344.5,188.2L346.2,185.4L347.9,182.7L349.6,180.1L351.3,177.8L353.0,175.7L354.7,173.9L356.4,172.5L358.1,171.4L359.8,170.8L361.5,170.5L363.2,170.6L364.9,171.0L366.6,171.8L368.3,172.9L370.0,174.2L371.7,175.8L373.4,177.6L375.1,179.5L376.8,181.5" fill="none" stroke="#cd7f9b" stroke-width="2.2"></path>
+<line opacity="0.75" stroke="#d9b45f" stroke-dasharray="3 3" stroke-width="1.3" x1="209.2" x2="209.2" y1="100" y2="262"></line>
+<line opacity="0.75" stroke="#d9b45f" stroke-dasharray="3 3" stroke-width="1.3" x1="234.6" x2="234.6" y1="165" y2="262"></line>
+<line marker-end="url(#t31b1)" stroke="#d9b45f" stroke-width="1.6" x1="209.2" x2="232" y1="270" y2="270"></line>
+<text fill="#d9b45f" font-family="-apple-system,sans-serif" font-size="11" text-anchor="middle" x="222" y="290">lag</text>
+<text fill="#8d867b" font-family="-apple-system,sans-serif" font-size="11" text-anchor="middle" x="330" y="290">time →</text>
+<text fill="#57524b" font-family="-apple-system,sans-serif" font-size="11" text-anchor="middle" x="225" y="312">The lynx peak trails the hare peak by ~1/4 cycle</text>
+<line stroke="rgba(255,255,255,0.18)" stroke-width="1.5" x1="448" x2="694" y1="258" y2="258"></line>
+<line stroke="rgba(255,255,255,0.18)" stroke-width="1.5" x1="448" x2="448" y1="258" y2="66"></line>
+<path d="M573.7,197.2L575.5,196.2L577.2,195.0L578.6,193.7L579.8,192.3L580.8,190.7L581.4,189.0L581.7,187.3L581.7,185.4L581.3,183.6L580.6,181.7L579.6,179.9L578.2,178.2L576.6,176.6L574.7,175.2L572.6,173.9L570.3,172.9L568.0,172.1L565.5,171.6L563.1,171.4L560.7,171.4L558.4,171.7L556.2,172.3L554.1,173.1L552.2,174.1L550.5,175.3L549.0,176.7L547.8,178.1L546.7,179.7L545.9,181.3L545.3,183.0L544.9,184.7L544.8,186.3L544.9,187.9L545.2,189.5L545.7,191.0L546.4,192.4L547.4,193.7L548.5,194.9L549.7,196.0L551.2,197.0L552.8,197.8L554.5,198.5L556.3,199.0L558.3,199.4L560.3,199.6L562.4,199.7L564.5,199.6L566.7,199.3L568.8,198.9L570.9,198.3L572.9,197.6Z" fill="none" opacity="0.55" stroke="#79a6d2" stroke-width="1.8"></path>
+<path d="M590.9,215.1L596.5,213.3L601.9,211.0L607.0,208.4L611.6,205.2L615.6,201.5L618.6,197.3L620.7,192.6L621.5,187.3L621.0,181.6L619.1,175.5L615.8,169.3L611.1,163.2L605.3,157.3L598.4,151.9L590.8,147.3L582.9,143.7L574.8,141.1L566.9,139.8L559.3,139.7L552.4,140.7L546.0,142.7L540.4,145.6L535.5,149.1L531.2,153.2L527.7,157.6L524.8,162.3L522.5,167.0L520.7,171.7L519.5,176.4L518.7,180.9L518.4,185.2L518.5,189.3L518.9,193.1L519.8,196.7L521.0,199.9L522.5,202.9L524.4,205.7L526.6,208.2L529.2,210.4L532.0,212.3L535.2,214.0L538.7,215.4L542.6,216.6L546.7,217.6L551.2,218.3L555.9,218.7L560.9,218.9L566.1,218.9L571.6,218.5L577.2,217.9L582.9,217.0L588.7,215.7Z" fill="none" stroke="#79a6d2" stroke-width="2.2"></path>
+<path d="M613.7,232.2L624.4,230.3L635.2,227.7L645.9,224.4L656.1,220.2L665.4,215.0L673.3,208.5L679.1,200.5L682.1,190.9L681.8,179.4L677.4,166.3L668.8,151.9L656.2,136.9L640.3,122.4L622.2,109.6L603.3,99.4L584.8,92.6L567.7,89.6L552.5,90.1L539.6,93.7L528.7,99.7L519.9,107.4L512.8,116.3L507.1,125.7L502.7,135.3L499.2,144.8L496.6,154.0L494.8,162.7L493.5,170.9L492.8,178.4L492.5,185.4L492.6,191.7L493.1,197.5L494.0,202.7L495.2,207.4L496.8,211.6L498.7,215.4L500.9,218.8L503.4,221.7L506.3,224.4L509.6,226.7L513.3,228.7L517.3,230.5L521.8,232.0L526.7,233.2L532.1,234.3L538.0,235.1L544.4,235.7L551.3,236.2L558.7,236.4L566.7,236.4L575.3,236.1L584.4,235.6L594.0,234.8L604.1,233.7Z" fill="none" opacity="0.55" stroke="#79a6d2" stroke-width="1.8"></path>
+<line marker-end="url(#t31b2)" stroke="#79a6d2" stroke-width="2" x1="593.7" x2="613.7" y1="214.2" y2="203.4"></line>
+<line marker-end="url(#t31b2)" stroke="#79a6d2" stroke-width="2" x1="535.7" x2="522.5" y1="148.9" y2="167.0"></line>
+<circle cx="562.3" cy="186.5" fill="#d9b45f" r="5.5"></circle>
+<circle cx="528" cy="80" fill="#d9b45f" r="5"></circle>
+<text fill="#d9b45f" font-family="-apple-system,sans-serif" font-size="11" x="538" y="84">fixed point = long-run mean</text>
+<text fill="#8d867b" font-family="-apple-system,sans-serif" font-size="11" text-anchor="middle" x="571" y="282">prey →</text>
+<text fill="#8d867b" font-family="-apple-system,sans-serif" font-size="11" transform="rotate(-90 428 170)" x="428" y="170">predators</text>
+<text fill="#57524b" font-family="-apple-system,sans-serif" font-size="11" text-anchor="middle" x="568" y="312">Three starts; none spirals in, none flies out</text>
+</svg>
+<figcaption>Time series on the left, the same run plotted on the prey-predator plane on the right. What drives the cycle is not an external cause — it is the lag.</figcaption>
+</figure>
+<p>Two results are worth keeping. The first is the <b>lag</b>: the predator peak always follows the prey peak by roughly a quarter of a cycle, which means the current predator count is a report on <em>past</em> prey. It is chasing a target that has already left. The second is stranger. Work out the long-run averages and <b>the mean number of prey depends only on the predator's parameters</b> (it equals γ/δ) — it has nothing to do with how fast the hares breed. If you want more hares on average, change something about the lynx; changing the hares does nothing.</p>
+<p>That is how the fisheries puzzle resolves. Apply an <em>indiscriminate</em> kill to both sides (nets that take small fish and sharks alike) and the mean prey number falls while the mean predator number rises; stop that indiscriminate kill and <b>the prey side is what gains</b> — hence the wartime rise in the shark share. The result is now called <em>Volterra's principle</em>: an intervention applied without discrimination has opposite effects on parties at different levels of the chain.</p>
+<div class="decide">
+<span class="lb">🎯 THE DECISION LINE</span>
+<p>When you see a rival's scale peak, do not treat it as news. In a lag-coupled system it is most likely the echo of your own expansion one round ago. A concrete test: correlate the rival's scale metric against your own metric <b>at the same time</b> and against your metric <b>a quarter-cycle earlier</b>. If the lagged correlation is clearly higher, you are looking at an echo — and reacting to it means firing at something that no longer exists.</p>
+</div>
+<div class="crossx-inline">
+🌀 <b>Agriculture &amp; ecological engineering · the pests that spraying multiplies</b>　After broad-spectrum insecticide is applied at scale, certain pests come back worse than before — the brown planthopper in rice is the classic case. The reason is Volterra's principle: the spray is indiscriminate, killing both the pest and the things that eat the pest, and an indiscriminate kill structurally favours the party lower down the chain. The practical and counterintuitive consequence: <b>failed pest control may mean the spray was too broad, not too weak</b>; what needs replacing is the target, not the potency.
+</div>
+
+<h2><span class="n">03</span>Why Sex Exists: the Red Queen's Best Evidence</h2>
+<p class="lead">Biology has an embarrassingly blunt problem: sexual reproduction is a terrible deal. An asexual population that produces only daughters reproduces about twice as fast, because males do not bear young — half the productive capacity is spent maintaining individuals who do not produce. On arithmetic alone, asexual lineages should have swept the board long ago. They did not.</p>
+<p>The Red Queen's answer is that <b>diversity in your offspring is not a luxury, it is fortification.</b> Parasites (and bacteria, and viruses) reproduce far faster than their hosts, and they track whichever host genotype is <em>commonest</em>, cutting a key to fit it. Copy yourself exactly and you are the lock that key already opens. Sex reshuffles the genome every generation, so the lock you hand over is a new one.</p>
+<p>The mechanism has a name: <em>negative frequency-dependent selection</em> — a type's advantage falls as it becomes common and returns as it becomes rare. Note how this differs from a vague "diversity is good": here the causal claim is sharp and measurable — <b>a type's fitness is a decreasing function of its own frequency one step earlier.</b></p>
+<figure>
+<svg aria-label="Negative frequency dependence: as a host genotype becomes common, parasites specialised on it catch up and push it back down" role="img" viewBox="0 0 720 280" xmlns="http://www.w3.org/2000/svg">
+<defs>
+<marker id="t31c1" markerHeight="9" markerUnits="userSpaceOnUse" markerWidth="9" orient="auto" refX="8" refY="5" viewBox="0 0 10 10"><path d="M0,1 L9,5 L0,9 z" fill="#d9b45f"></path></marker>
+</defs>
+<text fill="#aba498" font-family="-apple-system,sans-serif" font-size="13" text-anchor="middle" x="360" y="24">Being ahead is itself the reason you get tracked</text>
+<line stroke="#63b3a6" stroke-width="2.5" x1="80" x2="100" y1="44" y2="44"></line>
+<text fill="#63b3a6" font-family="-apple-system,sans-serif" font-size="11" x="106" y="48">share of host genotype A</text>
+<line stroke="#cd7f9b" stroke-dasharray="6 4" stroke-width="2.5" x1="330" x2="350" y1="44" y2="44"></line>
+<text fill="#cd7f9b" font-family="-apple-system,sans-serif" font-size="11" x="356" y="48">share of parasites specialised on A</text>
+<line stroke="rgba(255,255,255,0.18)" stroke-width="1.5" x1="70" x2="668" y1="220" y2="220"></line>
+<line stroke="rgba(255,255,255,0.18)" stroke-width="1.5" x1="70" x2="70" y1="220" y2="58"></line>
+<line opacity="0.5" stroke="rgba(255,255,255,0.14)" stroke-dasharray="3 4" stroke-width="1.2" x1="70" x2="668" y1="140" y2="140"></line>
+<path d="M70.0,140.0L79.1,128.1L88.2,116.9L97.2,107.1L106.3,99.5L115.4,94.3L124.5,92.1L133.5,92.9L142.6,96.6L151.7,103.0L160.8,111.8L169.8,122.3L178.9,134.0L188.0,146.0L197.1,157.7L206.2,168.2L215.2,177.0L224.3,183.4L233.4,187.1L242.5,187.9L251.5,185.7L260.6,180.5L269.7,172.9L278.8,163.1L287.8,151.9L296.9,140.0L306.0,128.1L315.1,116.9L324.2,107.1L333.2,99.5L342.3,94.3L351.4,92.1L360.5,92.9L369.5,96.6L378.6,103.0L387.7,111.8L396.8,122.3L405.8,134.0L414.9,146.0L424.0,157.7L433.1,168.2L442.2,177.0L451.2,183.4L460.3,187.1L469.4,187.9L478.5,185.7L487.5,180.5L496.6,172.9L505.7,163.1L514.8,151.9L523.8,140.0L532.9,128.1L542.0,116.9L551.1,107.1L560.2,99.5L569.2,94.3L578.3,92.1L587.4,92.9L596.5,96.6L605.5,103.0L614.6,111.8L623.7,122.3L632.8,134.0L641.8,146.0L650.9,157.7L660.0,168.2" fill="none" stroke="#63b3a6" stroke-width="2.4"></path>
+<path d="M70.0,188.0L79.1,186.5L88.2,182.1L97.2,175.0L106.3,165.7L115.4,154.8L124.5,143.0L133.5,131.0L142.6,119.6L151.7,109.4L160.8,101.2L169.8,95.4L178.9,92.4L188.0,92.4L197.1,95.4L206.2,101.2L215.2,109.4L224.3,119.6L233.4,131.0L242.5,143.0L251.5,154.8L260.6,165.7L269.7,175.0L278.8,182.1L287.8,186.5L296.9,188.0L306.0,186.5L315.1,182.1L324.2,175.0L333.2,165.7L342.3,154.8L351.4,143.0L360.5,131.0L369.5,119.6L378.6,109.4L387.7,101.2L396.8,95.4L405.8,92.4L414.9,92.4L424.0,95.4L433.1,101.2L442.2,109.4L451.2,119.6L460.3,131.0L469.4,143.0L478.5,154.8L487.5,165.7L496.6,175.0L505.7,182.1L514.8,186.5L523.8,188.0L532.9,186.5L542.0,182.1L551.1,175.0L560.2,165.7L569.2,154.8L578.3,143.0L587.4,131.0L596.5,119.6L605.5,109.4L614.6,101.2L623.7,95.4L632.8,92.4L641.8,92.4L650.9,95.4L660.0,101.2" fill="none" stroke="#cd7f9b" stroke-dasharray="6 4" stroke-width="2.4"></path>
+<line marker-end="url(#t31c1)" stroke="#d9b45f" stroke-width="1.6" x1="353.7" x2="404" y1="76" y2="76"></line>
+<text fill="#d9b45f" font-family="-apple-system,sans-serif" font-size="11" text-anchor="middle" x="379" y="68">parasites catch up</text>
+<circle cx="353.7" cy="92" fill="#63b3a6" r="4.5"></circle>
+<circle cx="410.4" cy="92" fill="#cd7f9b" r="4.5"></circle>
+<circle cx="240.2" cy="188" fill="#63b3a6" r="4.5"></circle>
+<text fill="#8d867b" font-family="-apple-system,sans-serif" font-size="11" text-anchor="middle" x="240" y="208">A is rare = safest right now</text>
+<text fill="#8d867b" font-family="-apple-system,sans-serif" font-size="11" text-anchor="middle" x="370" y="244">time →</text>
+<text fill="#57524b" font-family="-apple-system,sans-serif" font-size="11" text-anchor="middle" x="370" y="266">No type stays ahead; the advantage comes from being uncommon, not from being better</text>
+</svg>
+<figcaption>Schematic. Real data is never this tidy, but the phase relation is measurable: the parasite infection profile lags the host's prevailing type.</figcaption>
+</figure>
+<p>This is not just paper reasoning; two bodies of evidence carry it. One comes from a New Zealand freshwater snail (<i>Potamopyrgus antipodarum</i>) in which sexual and asexual individuals coexist. Curtis Lively found in 1987 that <b>the heavier the trematode parasite load in a body of water, the higher the proportion of sexual individuals</b>; where parasite pressure is low, asexual clones nearly monopolise — exactly what the twofold advantage predicts. The other is a causal test in the lab: in 2011 Morran and colleagues coevolved nematodes with a bacterial pathogen and found that <b>when the pathogen was allowed to evolve alongside, the worms shifted to outcrossing, while populations forced to self-fertilise were driven extinct.</b> Freeze the pathogen so it cannot evolve, and the effect disappears.</p>
+<div class="decide">
+<span class="lb">🎯 THE DECISION LINE</span>
+<p>Anywhere an opponent is watching you, standardising everything onto the single currently-best option is slow suicide — it hands the whole system over as one lock. Concretely: in critical positions (suppliers, crop varieties, mirrored systems, authentication methods) <b>keep at least one option that is worse but different</b>, and book its cost as an insurance premium rather than as waste. The warning sign is easy to spot: the moment you can say "we use X for everything," you are the commonest genotype. Bananas are the standing lesson — a fungus erased the previous dominant cultivar, and its replacement, the Cavendish, is again a single clone, so the same play is running again.</p>
+</div>
+<div class="crossx-inline">
+🌀 <b>Economics &amp; institutions · what happens after a strategy is published</b>　McLean and Pontiff examined 97 variables that academic papers had shown to predict stock returns. After publication, the portfolios' returns fell by an average of about 58%, and their correlations with each other rose. That is negative frequency dependence in a market. The actionable shift is in the question you ask: stop asking "does the logic still hold?" and start asking "<b>how much money is currently running it?</b>" — the decay tracks crowding, not correctness.
+</div>
+
+<h2><span class="n">04</span>Two Kinds of Coevolution, Not to Be Confused</h2>
+<p class="lead">The snails and their parasites never got more "powerful"; they only took turns being the common type. But other coevolution looks nothing like that — both sides raise the stakes step by step and never go back. These are two regimes, and applying the wrong one leads to opposite decisions.</p>
+<p>The escalating kind is an <em>arms race</em>. The rough-skinned newt of western North America carries <em>tetrodotoxin</em> (TTX, the pufferfish poison) in quantities that could kill a roomful of people, and the local garter snakes eat them anyway, thanks to a handful of amino-acid changes in a sodium channel. Where the newts are more toxic, the snakes are more resistant, each side ratcheting the other upward. The signature of this regime: <b>the trait has a direction, the cost rises monotonically, and retreat is not available.</b></p>
+<p>The other kind is <em>fluctuating selection</em> — the previous section's picture, where frequencies oscillate with no net direction, and an old model can win again a few generations later. Coevolution experiments with bacteria and their phages have produced both regimes, depending on conditions.</p>
+<figure>
+<svg aria-label="Two coevolutionary regimes compared: traits escalating in one direction versus frequencies oscillating" role="img" viewBox="0 0 720 300" xmlns="http://www.w3.org/2000/svg">
+<defs>
+<marker id="t31d1" markerHeight="9" markerUnits="userSpaceOnUse" markerWidth="9" orient="auto" refX="8" refY="5" viewBox="0 0 10 10"><path d="M0,1 L9,5 L0,9 z" fill="#8d867b"></path></marker>
+</defs>
+<text fill="#aba498" font-family="-apple-system,sans-serif" font-size="13" text-anchor="middle" x="360" y="24">Watch the vertical axis: one climbs, the other only circles</text>
+<text fill="#d9b45f" font-family="SF Mono,monospace" font-size="12" text-anchor="middle" x="198" y="48">① Arms race</text>
+<text fill="#63b3a6" font-family="SF Mono,monospace" font-size="12" text-anchor="middle" x="532" y="48">② Fluctuating selection</text>
+<line stroke="rgba(255,255,255,0.18)" stroke-width="1.5" x1="66" x2="340" y1="226" y2="226"></line>
+<line stroke="rgba(255,255,255,0.18)" stroke-width="1.5" x1="66" x2="66" y1="226" y2="62"></line>
+<path d="M66.0,191.7L70.4,189.0L74.8,186.3L79.2,183.6L83.6,181.0L88.0,178.5L92.4,176.1L96.8,173.8L101.2,171.6L105.6,169.5L110.0,167.6L114.4,165.8L118.8,164.1L123.2,162.6L127.6,161.2L132.0,160.0L136.4,158.8L140.8,157.8L145.2,156.9L149.6,156.0L154.0,155.2L158.4,154.5L162.8,153.8L167.2,153.0L171.6,152.3L176.0,151.5L180.4,150.7L184.8,149.8L189.2,148.8L193.6,147.7L198.0,146.5L202.4,145.1L206.8,143.7L211.2,142.1L215.6,140.3L220.0,138.4L224.4,136.4L228.8,134.2L233.2,132.0L237.6,129.6L242.0,127.1L246.4,124.5L250.8,121.9L255.2,119.2L259.6,116.5L264.0,113.8L268.4,111.1L272.8,108.5L277.2,105.8L281.6,103.3L286.0,100.8L290.4,98.5L294.8,96.2L299.2,94.1L303.6,92.1L308.0,90.3L312.4,88.6L316.8,87.0L321.2,85.6L325.6,84.3L330.0,83.1" fill="none" stroke="#d9b45f" stroke-width="2.4"></path>
+<path d="M66.0,219.8L70.4,217.1L74.8,214.4L79.2,211.7L83.6,209.1L88.0,206.6L92.4,204.2L96.8,201.9L101.2,199.7L105.6,197.6L110.0,195.7L114.4,193.9L118.8,192.2L123.2,190.7L127.6,189.3L132.0,188.1L136.4,186.9L140.8,185.9L145.2,185.0L149.6,184.1L154.0,183.3L158.4,182.6L162.8,181.8L167.2,181.1L171.6,180.4L176.0,179.6L180.4,178.8L184.8,177.9L189.2,176.9L193.6,175.8L198.0,174.6L202.4,173.2L206.8,171.8L211.2,170.1L215.6,168.4L220.0,166.5L224.4,164.5L228.8,162.3L233.2,160.1L237.6,157.7L242.0,155.2L246.4,152.6L250.8,150.0L255.2,147.3L259.6,144.6L264.0,141.9L268.4,139.2L272.8,136.5L277.2,133.9L281.6,131.4L286.0,128.9L290.4,126.6L294.8,124.3L299.2,122.2L303.6,120.2L308.0,118.4L312.4,116.7L316.8,115.1L321.2,113.7L325.6,112.4L330.0,111.2" fill="none" stroke="#63b3a6" stroke-width="2.4"></path>
+<line stroke="#d9b45f" stroke-width="2.5" x1="78" x2="96" y1="74" y2="74"></line>
+<text fill="#d9b45f" font-family="-apple-system,sans-serif" font-size="11" x="102" y="78">prey toxicity</text>
+<line stroke="#63b3a6" stroke-width="2.5" x1="186" x2="204" y1="74" y2="74"></line>
+<text fill="#63b3a6" font-family="-apple-system,sans-serif" font-size="11" x="210" y="78">predator resistance</text>
+<line stroke="#8d867b" stroke-width="1.4" x1="336" x2="336" y1="83" y2="111"></line>
+<line stroke="#8d867b" stroke-width="1.4" x1="331" x2="341" y1="83" y2="83"></line>
+<line stroke="#8d867b" stroke-width="1.4" x1="331" x2="341" y1="111" y2="111"></line>
+<text fill="#8d867b" font-family="-apple-system,sans-serif" font-size="10.5" text-anchor="end" x="330" y="130">gap unchanged</text>
+<text fill="#8d867b" font-family="-apple-system,sans-serif" font-size="11" transform="rotate(-90 46 150)" x="46" y="150">absolute trait value →</text>
+<line stroke="rgba(255,255,255,0.18)" stroke-width="1.5" x1="400" x2="674" y1="226" y2="226"></line>
+<line stroke="rgba(255,255,255,0.18)" stroke-width="1.5" x1="400" x2="400" y1="226" y2="62"></line>
+<path d="M400.0,148.0L404.4,139.5L408.8,131.2L413.2,123.5L417.6,116.7L422.0,110.9L426.4,106.3L430.8,103.1L435.2,101.5L439.6,101.3L444.0,102.8L448.4,105.8L452.8,110.2L457.2,115.8L461.6,122.6L466.0,130.1L470.4,138.3L474.8,146.8L479.2,155.4L483.6,163.7L488.0,171.5L492.4,178.4L496.8,184.4L501.2,189.2L505.6,192.5L510.0,194.4L514.4,194.7L518.8,193.5L523.2,190.7L527.6,186.5L532.0,181.0L536.4,174.4L540.8,166.9L545.2,158.8L549.6,150.3L554.0,141.8L558.4,133.4L562.8,125.6L567.2,118.4L571.6,112.3L576.0,107.4L580.4,103.8L584.8,101.8L589.2,101.2L593.6,102.3L598.0,104.8L602.4,108.8L606.8,114.2L611.2,120.6L615.6,128.0L620.0,136.1L624.4,144.5L628.8,153.1L633.2,161.5L637.6,169.4L642.0,176.6L646.4,182.9L650.8,188.0L655.2,191.8L659.6,194.1L664.0,194.8" fill="none" stroke="#63b3a6" stroke-width="2.4"></path>
+<path d="M400.0,194.8L404.4,194.2L408.8,192.2L413.2,188.6L417.6,183.7L422.0,177.5L426.4,170.4L430.8,162.6L435.2,154.2L439.6,145.7L444.0,137.2L448.4,129.1L452.8,121.6L457.2,115.0L461.6,109.5L466.0,105.3L470.4,102.5L474.8,101.3L479.2,101.6L483.6,103.5L488.0,106.8L492.4,111.6L496.8,117.6L501.2,124.5L505.6,132.3L510.0,140.6L514.4,149.2L518.8,157.7L523.2,165.9L527.6,173.5L532.0,180.2L536.4,185.8L540.8,190.2L545.2,193.2L549.6,194.7L554.0,194.5L558.4,192.9L562.8,189.7L567.2,185.1L571.6,179.3L576.0,172.5L580.4,164.8L584.8,156.5L589.2,148.0L593.6,139.5L598.0,131.2L602.4,123.5L606.8,116.7L611.2,110.9L615.6,106.3L620.0,103.1L624.4,101.5L628.8,101.3L633.2,102.8L637.6,105.8L642.0,110.2L646.4,115.8L650.8,122.6L655.2,130.1L659.6,138.3L664.0,146.8" fill="none" stroke="#cd7f9b" stroke-width="2.4"></path>
+<line opacity="0.5" stroke="rgba(255,255,255,0.14)" stroke-dasharray="3 4" stroke-width="1.2" x1="400" x2="674" y1="148" y2="148"></line>
+<text fill="#8d867b" font-family="-apple-system,sans-serif" font-size="11" transform="rotate(-90 380 150)" x="380" y="150">share of each type →</text>
+<line marker-end="url(#t31d1)" stroke="#8d867b" stroke-width="1.4" x1="600" x2="660" y1="248" y2="248"></line>
+<line marker-end="url(#t31d1)" stroke="#8d867b" stroke-width="1.4" x1="266" x2="326" y1="248" y2="248"></line>
+<text fill="#8d867b" font-family="-apple-system,sans-serif" font-size="10.5" text-anchor="middle" x="296" y="264">time</text>
+<text fill="#8d867b" font-family="-apple-system,sans-serif" font-size="10.5" text-anchor="middle" x="630" y="264">time</text>
+<text fill="#c9a55e" font-family="-apple-system,sans-serif" font-size="11" text-anchor="middle" x="170" y="264">cost rises monotonically, no way back</text>
+<text fill="#63b3a6" font-family="-apple-system,sans-serif" font-size="11" text-anchor="middle" x="504" y="264">no direction; old models win again</text>
+<text fill="#57524b" font-family="-apple-system,sans-serif" font-size="11" text-anchor="middle" x="360" y="288">The test is not "how fierce is the competition" but "after two years off, how long to get back to today"</text>
+</svg>
+<figcaption>Stop in the left regime and you fall behind permanently; stop in the right one and you have merely changed position. Knowing which side you are on matters more than knowing how fast you are running.</figcaption>
+</figure>
+<p>One more thing that often gets skipped: coevolution has a geography. John Thompson's <em>geographic mosaic</em> theory holds that the same pair of species is coupled with wildly different intensity in different places — some sites are hot spots where the two are locked together, others are cold spots where they barely interact. Broad sampling of the newts and snakes bears this out: in many populations toxicity and resistance simply do not match, and snakes occasionally leap, via a single decisive mutation, far above the local toxin level and <b>escape</b> the race entirely (while the prey side is never observed to get ahead). So "we are in fierce competition" is a claim that first has to say where.</p>
+<div class="decide">
+<span class="lb">🎯 THE DECISION LINE</span>
+<p>Classify every competition you are funding, using one question: <b>"If we stopped this for two years, how long would it take to get back to where we are today?"</b> If a few weeks, it is fluctuating — you can start and stop with the rhythm. If more than a year, it is an arms race: it will only get more expensive, and winning it does not buy safety. For that kind, what ends it is never running faster. It is moving to a dimension the coupling does not cover, or a mutual limit both sides can verify.</p>
+</div>
+<div class="crossx-inline">
+🌀 <b>Medicine · the flu vaccine is reformulated yearly, the measles one is not</b>　The usual explanation is that flu is "craftier", but the mechanism is not craft: influenza's surface proteins tolerate a great many changes that cost it nothing functionally, so under immune tracking it can keep drifting; measles has its critical sites locked down by function, so decades on there is still essentially one serotype. That yields a usable test: <b>what forces annual reformulation is not how dangerous a pathogen is, but how many dimensions it is free to vary in.</b> The same question transfers to any detection-versus-evasion contest — start by counting the dimensions your opponent can move in for free.
+</div>
+
+<h2><span class="n">05</span>Where This Breaks Down</h2>
+<p class="lead">"Red Queen" is one of the most useful and most abused phrases in complexity science — it slides very easily into being a decorative way of saying "competition is fierce, so keep innovating," which is empty. Here are its four real boundaries.</p>
+<p><b>First, Van Valen's law of constant extinction is not uniformly supported by later data.</b> Palaeontology now runs two explanations side by side: the Red Queen (organisms pressing on each other) and the <em>Court Jester</em> (climate, tectonics, and other indifferent external events). Michael Benton's 2009 review concluded that they operate at <b>different scales in space and time</b>: biotic interaction dominates locally and over short spans, while climatic and geological events dominate regionally and over millions of years. Explaining a mass extinction with the Red Queen is usually reaching for the wrong level.</p>
+<p><b>Second, Lotka-Volterra's "eternal cycle" is an artefact.</b> Those closed orbits are <em>structurally unstable</em>: add one realistic touch — a ceiling on the hares' food supply — and the neutral loops immediately collapse into a spiral converging on the fixed point, or into a <em>limit cycle</em> of fixed amplitude. Do not read the loops as a prediction. The textbook hare-lynx cycle is not evidence for them either: Charles Krebs's team ran an eight-year field manipulation in the Yukon and found that <b>excluding predators doubled hare density, adding food tripled it, and doing both raised it elevenfold</b> — far more than additive, which says the cycle involves at least three trophic levels and does not fit inside two equations.</p>
+<p><b>Third, not all coevolution is a fight.</b> Mutualism is coevolution too — figs and fig wasps, legumes and rhizobia — and its direction is not escalation but deepening mutual dependence. Treating coevolution as a synonym for arms race is where the concept is most often misapplied. The test is the same one: look at whether each side's cost curve is climbing or falling.</p>
+<p><b>Fourth, and most important: it has to be falsifiable.</b> What the Red Queen actually claims is narrow — absolute improvement fails to convert into relative position, an advantage decays as it spreads, costs rise monotonically. All three are measurable. "Competition makes everyone better" excludes nothing; any outcome can be fitted into it. A concept that answers every counterexample with one more auxiliary clause ("that region was Court Jester", "that site is a cold spot") while issuing no new predictions has stopped being a tool and become rhetoric.</p>
+<div class="decide">
+<span class="lb">🎯 THE DECISION LINE</span>
+<p>Before saying "this is a Red Queen situation", clear three bars: ① is your fitness genuinely a function of <b>your opponent's current state</b> rather than of a fixed external environment (if you are not sure, go look — did your results change during the year the opponent sat still?); ② is there a <b>measurable quantity</b> in motion — a frequency, a cost, a relative gap, any one of them; ③ what <b>new prediction</b> does the claim make, and what result would count as refuting it. If you cannot answer the third, delete the phrase and describe your mechanism in plain words.</p>
+</div>
+<div class="crossx-inline">
+🌀 <b>Western philosophy of science · Lakatos on degenerating programmes</b>　Imre Lakatos distinguished progressive from degenerating research programmes, and the difference is not whether counterexamples exist — they always do — but whether the programme grows by making new predictions or survives by patching counterexamples away. That is precisely the ruler the fourth point needs, and it yields a hard rule for every concept on this site: <b>judge whether it is still worth using not by how much it explains, but by what its most recent novel prediction was.</b> Explanatory power can grow without limit, and that is exactly the bad news.
+</div>
+
+<div class="bigcat">
+<h3>🎒 Scenarios · BigCat</h3>
+<ol>
+<li><span class="dm">Health &amp; energy</span>The recurring situation: something "doesn't work as well as it used to," so you raise the dose — a third coffee, two painkillers instead of one, another notch of training load. Two very different couplings are mixed together here and are worth separating. <b>Receptor tolerance</b> (caffeine, analgesics) is reversible: stop for a couple of weeks and the baseline washes back. <b>Resistance</b> (a microbial community shaped by repeated antibiotic courses) is not: stopping does not send it back. What to change: replace "did it work this time?" with a record of <b>the slope of the dose required to get an effect over time</b>, and tag each item as reversible or not — only the reversible kind can be solved by taking a break, and the irreversible kind has to change dimension now (sleep, load scheduling, narrow-spectrum as the default).</li>
+<li><span class="dm">Leading teams &amp; organisations</span>The recurring situation: quarterly planning goes down the competitor's feature list item by item, every item gets shipped, and a year later the relative position is unmoved while the surface you must maintain has permanently grown. What to change: add a column to roadmap review, replacing "does the competitor have it?" with "<b>after this ships, has our relative position changed? What does it cost per year to keep?</b>" What to stop: delete every item whose only justification is "because they shipped it." Use the test above — if the capability could be paused for two years and rebuilt in a few weeks, it does not belong in this quarter.</li>
+<li><span class="dm">Writing &amp; this learning site itself</span>The recurring situation: one issue's structure or diagram style lands well, so the next few issues quietly reuse it. Negative frequency dependence eats it: the more fluent a form becomes, the lower the reader's marginal response, while your own fluency makes reaching for it again more tempting. What to change: stop reading each issue's response in absolute terms and start recording <b>the response to the nth use of a form as a ratio to its first use</b>; when that ratio falls twice in a row, force a change of form — even though the first attempt at the new one will be rougher.</li>
+</ol>
+</div>
+
+<div class="crossx">
+<h3>🌀 Crossings</h3>
+<ul>
+<li><b>History &amp; military · the Anglo-German dreadnought race</b>: HMS Dreadnought, launched in 1906, rendered every existing battleship obsolete overnight, and Britain and Germany entered a decade-long building race. This topic's three mechanisms together explain how it ended: arms-race coupling (costs rising monotonically, no way back) + fitness as a ratio (both fleets multiplied, the balance of naval power barely moved) + the lag (each building programme answered the other side's <em>previous</em> programme, so both were chasing an obsolete target). That yields a conclusion usually skipped: Britain <b>won</b> the race — by 1913 its capital-ship margin had grown, not shrunk — and got no security for it, because Germany shifted its marginal resources into expanding the army. <b>Winning one dimension only pushes the competition into the dimension you are not watching.</b> <b>But this does not hold here</b>: biological arms races have no negotiating table and human ones do. The Haldane Mission of 1912 failed to agree mutual limits, but the Washington Naval Treaty of 1922 genuinely capped capital-ship tonnage by ratio for well over a decade. So the borrowed biological conclusion — that only changing dimension can end escalation — is wrong wherever verifiable mutual commitment is available. That is a third road, and biology does not have it.</li>
+<li><b>Economics &amp; institutions · why credentials inflate</b>: Michael Spence's 1973 signalling theory holds that part of a degree's value lies in separating people; Fred Hirsch called such things positional goods — their value comes from rank, and the supply of rank is fixed. Two of this topic's mechanisms apply directly: negative frequency dependence (a signal is worth less the more widespread it is) + relative fitness (everyone studies three more years, the ordering is unchanged and every cost has risen). Add Volterra's principle and you get a policy conclusion that runs against intuition: <b>expanding the supply of degrees does not deliver the old payoff to more people, it dilutes the signal itself</b>; what can move the equilibrium is changing the ranking rule, or reducing the input <b>indiscriminately and verifiably</b> — a unilateral reduction is just unilateral disarmament. <b>But this does not hold here</b>: education is not only a signal, it really does produce usable skill, and that part is an absolute return which does not evaporate as it spreads. The Red Queen eats the rank component and cannot touch the other one. Blur the two and you slide from "credentials are inflating" to "education is worthless" — those are two entirely different accounts.</li>
+<li><b>Engineering &amp; the history of technology · anti-spam and anti-abuse rules</b>: spam filters, fraud rules, CAPTCHAs — their history is this topic's three mechanisms performed together: arms race (each round of detection costs more) + negative frequency dependence (the more widely a rule is deployed, the more worthwhile it becomes to engineer around it, so its value decays with deployment density) + geographic mosaic (different platforms are different hot and cold spots, and one rule set cannot cover them all). The combined conclusion differs from the instinct to "make the model more accurate": <b>a set of heterogeneous, frequently rotated, undisclosed weak rules beats one stronger public rule</b> — because what you are defending against is targeted adaptation, not an error rate. <b>But this does not hold here</b>: cryptography demands the opposite. Kerckhoffs's principle says the algorithm should be public and only the key secret, and it is right. The difference is that cryptography outsources rarity to a key that can be rotated at will, which is what lets the algorithm itself survive decades of worldwide study. The comparison actually suggests something better: <b>rather than keeping detection rules secret, give them a "key"</b> — a rotatable random component. Secrecy decays as people move between jobs; rotatable things do not.</li>
+</ul>
+</div>
+
+<div class="thinking">
+<h3>🧠 Going Deeper</h3>
+<details><summary>If equilibrium is rare, why do so many industries hold the same shape for years?</summary><p>Be careful not to read "the outcome is unchanged" as "nobody is running." The Red Queen describes exactly this case: stable positions with continually rising inputs. So the test is not in the outcome but in the cost. Plot relative share and absolute investment on one chart over several years: share flat, investment climbing, is a textbook Red Queen, not a steady state. A real steady state has both lines flat.</p></details>
+<details><summary>Isn't "changing dimension" just starting another arms race?</summary><p>Often it is. The meaningful difference lies in what the new dimension's <b>coupling strength</b> and <b>cost slope</b> look like: how fast the opponent can follow, and what following costs them. If both match the old dimension, you have only changed the venue. A genuinely valuable move finds a dimension where the opponent's adaptation is hard-constrained — the way the measles virus cannot move its critical sites.</p></details>
+<details><summary>If sex is for defeating parasites, shouldn't asexuality return wherever parasite pressure is low?</summary><p>It does happen, and that is one of the Red Queen's falsifiable predictions — the New Zealand snail data broadly fits. But other explanations for sex are competing for the same job: purging the accumulation of harmful mutations (Muller's ratchet), and recombining beneficial mutations into one lineage. These are not mutually exclusive and probably stack. It is also a good illustration of what makes an explanation worth having: one that predicts a geographic difference is worth far more than "diversity is good."</p></details>
+<details><summary>Is the Red Queen the same thing as a rat race?</summary><p>Not quite. The Red Queen is descriptive: absolute improvement does not convert into relative position. "Rat race" usually carries two extra claims — that participants cannot exit, and that total output has not increased. The second is often false: arms races frequently do produce real technology (radar, antibiotics, the dreadnought's propulsion). Keeping them apart clarifies a great deal: mechanism is one thing, value judgement is another.</p></details>
+</div>
+
+<div class="refs">
+<h3>📚 Further Reading</h3>
+<ul>
+<li>Lewis Carroll, <a href="https://www.gutenberg.org/ebooks/12">Through the Looking-Glass</a> (1871; the Red Queen's race is in chapter 2)</li>
+<li><a href="https://en.wikipedia.org/wiki/Red_Queen_hypothesis">Red Queen hypothesis</a> (background to Van Valen's 1973 "A New Evolutionary Law" and the debate since)</li>
+<li>Volterra, <a href="https://www.nature.com/articles/118558a0">Fluctuations in the abundance of a species considered mathematically</a> (1926; where the two equations come from)</li>
+<li>Lively, <a href="https://www.nature.com/articles/328519a0">Evidence from a New Zealand snail for the maintenance of sex by parasitism</a> (1987)</li>
+<li>Morran et al., <a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC3402160/">Running with the Red Queen</a> (2011; coevolving pathogens select for outcrossing in nematodes)</li>
+<li>Hanifin, Brodie &amp; Brodie, <a href="https://journals.plos.org/plosbiology/article?id=10.1371/journal.pbio.0060060">Phenotypic mismatches reveal escape from arms-race coevolution</a> (2008; newts and garter snakes across their range)</li>
+<li>Benton, <a href="https://www.science.org/doi/10.1126/science.1157719">The Red Queen and the Court Jester</a> (2009; which scales biotic and abiotic drivers own)</li>
+<li>Krebs et al., <a href="https://www.science.org/doi/10.1126/science.269.5227.1112">Impact of food and predation on the snowshoe hare cycle</a> (1995; the eight-year Yukon manipulation)</li>
+<li>Barnett &amp; Hansen, <a href="https://sms.onlinelibrary.wiley.com/doi/abs/10.1002/smj.4250171010">The Red Queen in organizational evolution</a> (1996; the organisational version)</li>
+<li>McLean &amp; Pontiff, <a href="https://onlinelibrary.wiley.com/doi/10.1111/jofi.12365">Does Academic Research Destroy Stock Return Predictability?</a> (2016; publication as decay)</li>
+</ul>
+</div>
+<footer>BigCat · Complexity Science · <a href="index.en.html">← All Topics</a></footer>
+</div>
+<script src="https://hub.cissychen.com/comments.js" defer></script>
+<script src="https://hub.cissychen.com/search.js" defer></script>
+<script src="https://hub.cissychen.com/index-button.js" defer></script>
+<script src="https://hub.cissychen.com/i18n-tts.js" defer></script>
+<script src="https://hub.cissychen.com/lightbox.js" defer></script>
+</body></html>

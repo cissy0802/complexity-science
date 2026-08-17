@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+
+<html lang="zh-CN"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>共演化与红皇后 — 跑得快只是为了留在原地 · 复杂性科学 T31</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,"SF Pro Display","Noto Sans SC",sans-serif;color:#e4ded5;line-height:1.85;min-height:100vh;
+  background:radial-gradient(1100px 620px at 12% -6%,rgba(224,137,94,0.10),transparent 62%),radial-gradient(950px 700px at 100% 2%,rgba(166,147,205,0.09),transparent 58%),linear-gradient(168deg,#100f0d 0%,#15161b 48%,#0a0a0c 100%);background-attachment:fixed}
+.wrap{max-width:760px;margin:0 auto;padding:30px 22px 90px}
+header{padding:52px 0 8px;border-bottom:1px solid rgba(255,255,255,0.07);margin-bottom:34px}
+.week-tag{font-family:"SF Mono",Menlo,monospace;font-size:0.72rem;font-weight:700;letter-spacing:2px;color:#79a6d2;border:1px solid rgba(121,166,210,0.4);background:rgba(121,166,210,0.07);padding:3px 11px;border-radius:20px}
+h1{font-size:2.5rem;font-weight:800;letter-spacing:0.5px;line-height:1.2;margin:20px 0 0;background:linear-gradient(106deg,#e0895e 0%,#d9b45f 34%,#9fbc7a 68%,#63b3a6 100%);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+h1 .h1en{display:block;font-size:0.40em;font-weight:600;letter-spacing:2.5px;color:#847d72;-webkit-text-fill-color:#847d72;background:none;margin-top:13px}
+.sub{font-size:1.05rem;color:#aba498;margin-top:14px;font-weight:500}
+.date{font-family:"SF Mono",Menlo,monospace;font-size:0.75rem;color:#57524b;margin-top:18px;letter-spacing:1px}
+.pitch{margin:22px 0 30px;font-size:0.97rem;color:#cd7f9b;border-left:2px solid rgba(205,127,155,0.5);padding-left:16px;font-style:italic}
+.intro{font-size:1.02rem;color:#cfc8bc;margin-bottom:14px}
+.intro p{margin-bottom:16px}
+h2{font-size:1.42rem;font-weight:700;color:#e9e3d9;margin:56px 0 8px;letter-spacing:0.3px}
+h2 .n{font-family:"SF Mono",Menlo,monospace;font-size:0.85rem;color:#79a6d2;display:block;margin-bottom:6px;letter-spacing:2px}
+.he{font-size:0.68em;color:#8d867b;font-weight:500;letter-spacing:0}
+p{margin-bottom:17px}
+.lead{color:#cfc8bc}
+b,strong{color:#f0eae0;font-weight:600}
+em{color:#d9b45f;font-style:normal;font-weight:500}
+.dim{color:#8d867b}
+a.reflink{display:inline-block;font-size:0.82rem;font-family:"SF Mono",Menlo,monospace;color:#63b3a6;border:1px solid rgba(99,179,166,0.38);background:rgba(99,179,166,0.07);padding:1px 9px;border-radius:20px;text-decoration:none;transition:all 0.15s;white-space:nowrap}
+a.reflink:hover{background:rgba(99,179,166,0.16);border-color:rgba(99,179,166,0.7)}
+figure{margin:30px 0}
+figure svg{display:block;width:100%;height:auto;border-radius:12px;background:rgba(255,255,255,0.018);border:1px solid rgba(255,255,255,0.06)}
+figcaption{font-size:0.82rem;color:#787268;margin-top:11px;text-align:center;line-height:1.6}
+.eq{font-family:"SF Mono",Menlo,monospace;font-size:0.92rem;color:#9fbc7a;background:rgba(159,188,122,0.06);border:1px solid rgba(159,188,122,0.2);border-radius:10px;padding:14px 18px;margin:22px 0;text-align:center;line-height:1.9;overflow-x:auto}
+.eq small{display:block;font-family:-apple-system,sans-serif;font-size:0.78rem;color:#8d867b;margin-top:6px}
+.en-brief{font-size:0.85rem;color:#847d72;border-top:1px dashed rgba(255,255,255,0.09);padding-top:12px;margin-top:22px;line-height:1.65}
+.en-brief b{font-family:"SF Mono",Menlo,monospace;font-size:0.72rem;color:#63b3a6;letter-spacing:1px;margin-right:7px}
+.decide{margin:24px 0;border:1px solid rgba(224,137,94,0.36);background:rgba(224,137,94,0.055);border-radius:12px;padding:15px 19px}
+.decide .lb{font-family:"SF Mono",Menlo,monospace;font-size:0.73rem;letter-spacing:1.5px;color:#e0895e;font-weight:700;display:block;margin-bottom:7px}
+.decide p{margin:0;font-size:0.95rem;color:#ddd5c9}
+.crossx-inline{margin:20px 0 22px;border-left:2px solid rgba(205,127,155,0.55);padding:2px 0 2px 15px;font-size:0.89rem;color:#a9a096;line-height:1.72}
+.crossx-inline b{color:#cd7f9b;font-weight:600}
+.bigcat{margin:46px 0 10px;border:1px solid rgba(217,180,95,0.38);background:rgba(217,180,95,0.05);border-radius:14px;padding:20px 22px}
+.bigcat h3{font-size:1.02rem;color:#d9b45f;margin-bottom:14px;letter-spacing:0.5px}
+.bigcat ol{list-style:none;padding:0}
+.bigcat li{margin-bottom:15px;font-size:0.94rem;color:#d5cdc1;line-height:1.78}
+.bigcat li:last-child{margin-bottom:0}
+.bigcat .dm{font-family:"SF Mono",Menlo,monospace;font-size:0.73rem;color:#d9b45f;border:1px solid rgba(217,180,95,0.32);border-radius:4px;padding:1px 7px;margin-right:8px;white-space:nowrap}
+.crossx{margin:46px 0 10px;border:1px solid rgba(205,127,155,0.38);background:rgba(205,127,155,0.05);border-radius:14px;padding:20px 22px}
+.crossx h3{font-size:1.02rem;color:#cd7f9b;margin-bottom:14px;letter-spacing:0.5px}
+.crossx ul{list-style:none;padding:0}
+.crossx li{margin-bottom:16px;font-size:0.94rem;color:#d5cdc1;line-height:1.78}
+.crossx li:last-child{margin-bottom:0}
+.crossx li b{color:#cd7f9b;font-weight:600}
+.thinking{margin:46px 0 10px}
+.thinking h3{font-size:1.02rem;color:#a693cd;margin-bottom:14px;letter-spacing:0.5px}
+details{border:1px solid rgba(166,147,205,0.22);border-radius:10px;padding:12px 16px;margin-bottom:10px;background:rgba(166,147,205,0.035)}
+summary{cursor:pointer;font-size:0.93rem;color:#c9c2b6;font-weight:500}
+summary::marker{color:#a693cd}
+details p{margin:12px 0 0;font-size:0.9rem;color:#a9a096;line-height:1.75}
+.refs{margin:46px 0 10px}
+.refs h3{font-size:1.02rem;color:#79a6d2;margin-bottom:14px;letter-spacing:0.5px}
+.refs ul{list-style:none;padding:0}
+.refs li{margin-bottom:10px;font-size:0.9rem;color:#8d867b;line-height:1.7}
+.refs a{color:#79a6d2;text-decoration:none;border-bottom:1px solid rgba(121,166,210,0.3)}
+.refs a:hover{color:#a6c4e2;border-bottom-color:rgba(121,166,210,0.7)}
+footer{text-align:center;padding:56px 0 10px;font-size:0.78rem;color:#57524b;font-family:"SF Mono",Menlo,monospace;border-top:1px solid rgba(255,255,255,0.06);margin-top:50px}
+footer a{color:#79a6d2;text-decoration:none}
+@media(max-width:600px){h1{font-size:1.85rem}.wrap{padding:24px 16px 60px}h2{font-size:1.22rem}}
+</style></head><body>
+<div class="wrap">
+<header>
+<span class="week-tag">TOPIC 31 · PHASE E</span>
+<h1>共演化与红皇后<span class="h1en">COEVOLUTION AND THE RED QUEEN</span></h1>
+<p class="sub">跑得快只是为了留在原地<span class="he">（Running to stay in place）</span></p>
+<p class="date">2026-08-17 · 适应与演化</p>
+</header>
+<p class="pitch">「进步」这个词偷偷假设了一个不动的参照系。而在一大类系统里，参照系正是由你的对手拼出来的——你每往前走一步，它就跟着挪一步。于是绝对的进步是真的，收益却可以一分都拿不到。</p>
+<div class="intro">
+<p>同一个小区里，第一个给孩子报周末补习班的家庭，确实占到了便宜。三年后所有人都报了，排名回到原样，而每个家庭每周多花了六个小时和一笔钱。没有人作弊，没有人失误，每一步都是理性的，结果是所有人一起把成本抬高、位次原封不动。</p>
+<p>这件事的结构比它看起来更普遍：抗生素与细菌、杀毒软件与病毒、广告与注意力、防守与进攻、甚至你和你自己的耐受性。它们共享同一条机制——<b>你的处境好坏，不取决于你做得多好，而取决于你比"当下的对手"好多少；而对手也在改。</b>这就是<em>共演化</em>（coevolution）。</p>
+<p class="dim">前面几期讲的适应，对手都是不动的：第 28 期爬的是一张固定的适应度地形，第 29 期的博弈收益表也是给定的。本期把最后这个假设也拿掉——<b>地形本身由别人的适应踩出来，你一动它就跟着变。</b>这一改，"均衡"从常态变成了罕见状态。</p>
+</div>
+
+<h2><span class="n">01</span>你不是在爬山，山在动<span class="he">（Your Landscape Is Moving）</span></h2>
+<p class="lead">先说清楚"适应度"（fitness）这个词。它不是"强""好""先进"，它只是一件事：在<b>当前这一轮</b>里，你留下的后代（或市场份额、或存活的机器）比别人多多少。它天生是个比值，不是一个绝对量。</p>
+<p>第 28 期我们把它画成一张地形图：横轴是你的策略或性状，纵轴是这个位置的适应度，你顺着坡往上爬 <a class="reflink" href="ref-nk-landscape.html">→ 参考 · NK 适应性景观</a>。那张图里有个不显眼的前提——<b>地形是画好的、不动的。</b>只要地形不动，爬到山顶就意味着永久占住了最好的位置。</p>
+<p>共演化把这个前提删掉了。你的适应度取决于对手当前的状态，而对手也在爬它自己的坡，它每爬一步，就把<em>你的</em>地形改了一遍。于是会出现一件很别扭的事：你的性状一点没退步，绝对能力还在上升，但你脚下的高度掉了——因为山峰挪到别处去了。</p>
+<figure>
+<svg aria-label="两种世界的对比：固定地形上登顶即止，共演化地形上山峰会跟着挪走" role="img" viewBox="0 0 720 300" xmlns="http://www.w3.org/2000/svg">
+<defs>
+<marker id="t31a1" markerHeight="10" markerUnits="userSpaceOnUse" markerWidth="10" orient="auto" refX="9" refY="5" viewBox="0 0 10 10"><path d="M0,1 L9,5 L0,9 z" fill="#9fbc7a"></path></marker>
+<marker id="t31a2" markerHeight="10" markerUnits="userSpaceOnUse" markerWidth="10" orient="auto" refX="9" refY="5" viewBox="0 0 10 10"><path d="M0,1 L9,5 L0,9 z" fill="#cd7f9b"></path></marker>
+</defs>
+<text fill="#aba498" font-family="-apple-system,sans-serif" font-size="13" text-anchor="middle" x="360" y="26">同一次改进，在两种世界里值不同的钱</text>
+<text fill="#79a6d2" font-family="SF Mono,monospace" font-size="12" text-anchor="middle" x="125" y="52">① 出发：半山腰</text>
+<text fill="#9fbc7a" font-family="SF Mono,monospace" font-size="12" text-anchor="middle" x="360" y="52">② 地形不动：登顶即止</text>
+<text fill="#cd7f9b" font-family="SF Mono,monospace" font-size="12" text-anchor="middle" x="595" y="52">③ 对手在演化：山挪走了</text>
+<g transform="translate(40,60)">
+<line stroke="rgba(255,255,255,0.13)" stroke-width="1.5" x1="0" x2="170" y1="148" y2="148"></line>
+<path d="M0,148 C15,148 30,45 60,45 C90,45 105,148 170,148" fill="none" stroke="#6f6a60" stroke-width="2"></path>
+<circle cx="24.4" cy="96.5" fill="#e0895e" r="6.5"></circle>
+<line marker-end="url(#t31a1)" stroke="#9fbc7a" stroke-width="2" x1="33" x2="50" y1="86" y2="58"></line>
+</g>
+<g transform="translate(275,60)">
+<line stroke="rgba(255,255,255,0.13)" stroke-width="1.5" x1="0" x2="170" y1="148" y2="148"></line>
+<path d="M0,148 C15,148 30,45 60,45 C90,45 105,148 170,148" fill="none" stroke="#6f6a60" stroke-width="2"></path>
+<circle cx="60" cy="45" fill="#e0895e" r="6.5"></circle>
+<text fill="#9fbc7a" font-family="-apple-system,sans-serif" font-size="11" text-anchor="middle" x="60" y="31">占住了</text>
+</g>
+<g transform="translate(510,60)">
+<line stroke="rgba(255,255,255,0.13)" stroke-width="1.5" x1="0" x2="170" y1="148" y2="148"></line>
+<path d="M0,148 C15,148 30,45 60,45 C90,45 105,148 170,148" fill="none" opacity="0.42" stroke="#6f6a60" stroke-dasharray="5 5" stroke-width="2"></path>
+<path d="M0,148 C65,148 80,45 110,45 C140,45 155,148 170,148" fill="none" stroke="#cd7f9b" stroke-width="2"></path>
+<line marker-end="url(#t31a2)" stroke="#cd7f9b" stroke-width="2" x1="68" x2="102" y1="34" y2="34"></line>
+<circle cx="60" cy="108.7" fill="#e0895e" r="6.5"></circle>
+<line marker-end="url(#t31a2)" stroke="#cd7f9b" stroke-width="1.8" x1="60" x2="60" y1="56" y2="98"></line>
+<text fill="#8d867b" font-family="-apple-system,sans-serif" font-size="10.5" text-anchor="middle" x="30" y="30">旧地形</text>
+</g>
+<text fill="#787268" font-family="-apple-system,sans-serif" font-size="11" text-anchor="middle" x="125" y="232">往上爬 = 改进</text>
+<text fill="#787268" font-family="-apple-system,sans-serif" font-size="11" text-anchor="middle" x="360" y="232">改进兑现成永久位置</text>
+<text fill="#c98ba4" font-family="-apple-system,sans-serif" font-size="11" text-anchor="middle" x="595" y="232">同样的改进，只换来原地</text>
+<text fill="#57524b" font-family="-apple-system,sans-serif" font-size="11" text-anchor="middle" x="360" y="266">横轴 = 你的策略或性状　纵轴 = 它现在值多少（适应度）</text>
+<text fill="#57524b" font-family="-apple-system,sans-serif" font-size="11" text-anchor="middle" x="360" y="284">③ 里你一步没退，高度却掉了 — 因为改的是山，不是你</text>
+</svg>
+<figcaption>把「地形不动」这个前提删掉，「爬到山顶」就不再是一件可以完成的事。</figcaption>
+</figure>
+<p>这幅画正是刘易斯·卡罗尔那句被引用了一百多年的话的意思。《爱丽丝镜中奇遇记》（1871）里，红皇后拉着爱丽丝拼命跑，跑完发现还在原地，红皇后说：<b>"在我们这儿，你得拼命地跑，才能留在原地。"</b>1973 年，古生物学家 Leigh Van Valen 借这句话给一个统计现象命了名——他统计大量化石类群发现，一个类群已经存在了多久，几乎不改变它下一段时间灭绝的概率。经验没有累积成安全。这就是<em>红皇后假说</em>（Red Queen hypothesis）：每个物种都在变好，而因为大家都在变好，谁也没变得更安全。</p>
+<div class="crossx-inline">
+🌀 <b>文学与艺术 · 时尚为什么非变不可</b>　社会学家齐美尔（Georg Simmel）1904 年解释时尚：上层用某个标志把自己和别人区分开，下层模仿，标志一旦普及就不再区分人，上层只好再换一个。这正是本节的机制——区分度这个"高度"由模仿者的位置决定，模仿者一动，山就塌了。由此能推出一个原本看不出的结论：时尚的更替速度不由审美决定，而由<b>复制速度</b>决定。所以快时尚不是迎合了潮流变快，是它自己把潮流变快的。
+</div>
+<p class="en-brief"><b>EN</b> Fitness is a ratio against the current opponent, not an absolute score. Topic 28's landscape was drawn once and held still; under coevolution your opponent's adaptation redraws your landscape, so climbing has no terminal state. Van Valen's 1973 Red Queen: across fossil taxa, how long a group has already survived barely changes its extinction probability — everyone improves, nobody gets safer.</p>
+
+<h2><span class="n">02</span>最小的模型：两个方程为什么会转圈<span class="he">（The Smallest Model）</span></h2>
+<p class="lead">1926 年，意大利数学家沃尔泰拉（Vito Volterra）被一个渔业数据难住了：一战期间亚得里亚海的捕捞几乎停摆，按常理鱼应该全面变多，可他女婿、生物学家 D'Ancona 的统计显示，<b>渔获里鲨鱼这类掠食性鱼的比例反而涨了。</b>少捕鱼，为什么受益的是捕食者的<em>占比</em>而不是被吃的那一方？</p>
+<p>他写下了两行方程（美国的 Alfred Lotka 一年前从化学反应出发得到了同样的东西），今天叫<em>洛特卡-沃尔泰拉方程</em>（Lotka-Volterra equations）<a class="reflink" href="ref-lotka-volterra.html">→ 参考 · Lotka-Volterra 模型</a>：</p>
+<div class="eq">
+d<i>x</i>/d<i>t</i> = α<i>x</i> − β<i>xy</i>　　　d<i>y</i>/d<i>t</i> = δ<i>xy</i> − γ<i>y</i>
+<small><i>x</i> 是猎物（比如雪兔）的数量，<i>y</i> 是捕食者（比如猞猁）的数量。α 是兔子的繁殖速度，γ 是猞猁饿死的速度，β 和 δ 描述"撞上"的频率：两边数量相乘，因为要碰面才吃得着。</small>
+</div>
+<p>四个参数，两个变量，没有任何随机、没有天气、没有季节。跑起来却自己转起了圈：兔子多 → 猞猁跟着变多 → 兔子被吃到变少 → 猞猁饿 → 猞猁变少 → 兔子又起来。</p>
+<figure>
+<svg aria-label="Lotka-Volterra 的时间序列与相平面：捕食者峰值滞后，轨道闭合不收敛" role="img" viewBox="0 0 720 330" xmlns="http://www.w3.org/2000/svg">
+<defs>
+<marker id="t31b1" markerHeight="9" markerUnits="userSpaceOnUse" markerWidth="9" orient="auto" refX="8" refY="5" viewBox="0 0 10 10"><path d="M0,1 L9,5 L0,9 z" fill="#d9b45f"></path></marker>
+<marker id="t31b2" markerHeight="10" markerUnits="userSpaceOnUse" markerWidth="10" orient="auto" refX="9" refY="5" viewBox="0 0 10 10"><path d="M0,1 L9,5 L0,9 z" fill="#79a6d2"></path></marker>
+</defs>
+<text fill="#aba498" font-family="-apple-system,sans-serif" font-size="13" text-anchor="middle" x="360" y="26">四个参数、零个巧合 — 循环是被滞后逼出来的</text>
+<text fill="#9fbc7a" font-family="SF Mono,monospace" font-size="12" text-anchor="middle" x="225" y="48">① 时间上：捕食者的峰总是晚一步</text>
+<text fill="#79a6d2" font-family="SF Mono,monospace" font-size="12" text-anchor="middle" x="568" y="48">② 相平面上：一圈一圈，回不到静止</text>
+<line stroke="rgba(255,255,255,0.18)" stroke-width="1.5" x1="62" x2="388" y1="248" y2="248"></line>
+<line stroke="rgba(255,255,255,0.18)" stroke-width="1.5" x1="62" x2="62" y1="248" y2="66"></line>
+<line stroke="#9fbc7a" stroke-width="2.5" x1="70" x2="90" y1="70" y2="70"></line>
+<text fill="#9fbc7a" font-family="-apple-system,sans-serif" font-size="11" x="96" y="74">猎物（雪兔）</text>
+<line stroke="#cd7f9b" stroke-width="2.5" x1="200" x2="220" y1="70" y2="70"></line>
+<text fill="#cd7f9b" font-family="-apple-system,sans-serif" font-size="11" x="226" y="74">捕食者（猞猁）</text>
+<line stroke="#8d867b" stroke-dasharray="5 4" stroke-width="1.6" x1="70" x2="90" y1="88" y2="88"></line>
+<text fill="#8d867b" font-family="-apple-system,sans-serif" font-size="11" x="96" y="92">各自的长期平均值</text>
+<line opacity="0.6" stroke="#9fbc7a" stroke-dasharray="5 4" stroke-width="1.4" x1="62" x2="388" y1="154.3" y2="154.3"></line>
+<line opacity="0.6" stroke="#cd7f9b" stroke-dasharray="5 4" stroke-width="1.4" x1="62" x2="388" y1="201.2" y2="201.2"></line>
+<path d="M62.0,130.9L63.7,127.6L65.4,124.5L67.1,121.4L68.8,118.4L70.5,115.7L72.2,113.2L73.9,110.9L75.6,109.0L77.3,107.5L79.0,106.5L80.7,105.9L82.4,105.8L84.1,106.3L85.8,107.3L87.5,108.9L89.2,111.1L90.9,113.8L92.6,117.1L94.3,120.7L96.0,124.7L97.7,129.0L99.4,133.5L101.1,138.1L102.8,142.8L104.5,147.3L106.2,151.8L107.9,156.1L109.6,160.2L111.3,164.1L113.0,167.6L114.7,170.9L116.4,174.0L118.2,176.7L119.9,179.1L121.6,181.3L123.3,183.2L125.0,184.8L126.7,186.2L128.4,187.4L130.1,188.4L131.8,189.1L133.5,189.7L135.2,190.1L136.9,190.3L138.6,190.3L140.3,190.2L142.0,189.9L143.7,189.5L145.4,188.9L147.1,188.2L148.8,187.3L150.5,186.3L152.2,185.2L153.9,183.9L155.6,182.5L157.3,181.0L159.0,179.4L160.7,177.6L162.4,175.7L164.1,173.6L165.8,171.4L167.5,169.1L169.2,166.7L170.9,164.2L172.6,161.5L174.3,158.8L176.0,155.9L177.7,152.9L179.4,149.8L181.1,146.7L182.8,143.5L184.5,140.2L186.2,136.9L187.9,133.6L189.6,130.4L191.3,127.1L193.0,123.9L194.7,120.9L196.4,118.0L198.1,115.3L199.8,112.8L201.5,110.6L203.2,108.8L204.9,107.3L206.6,106.3L208.3,105.8L210.0,105.8L211.7,106.4L213.4,107.5L215.1,109.2L216.8,111.5L218.5,114.3L220.2,117.6L221.9,121.3L223.6,125.4L225.3,129.7L227.0,134.3L228.8,138.9L230.5,143.5L232.2,148.1L233.9,152.5L235.6,156.8L237.3,160.9L239.0,164.7L240.7,168.2L242.4,171.5L244.1,174.4L245.8,177.1L247.5,179.5L249.2,181.6L250.9,183.5L252.6,185.1L254.3,186.4L256.0,187.6L257.7,188.5L259.4,189.2L261.1,189.8L262.8,190.1L264.5,190.3L266.2,190.3L267.9,190.2L269.6,189.9L271.3,189.4L273.0,188.8L274.7,188.1L276.4,187.2L278.1,186.2L279.8,185.0L281.5,183.7L283.2,182.3L284.9,180.8L286.6,179.1L288.3,177.3L290.0,175.3L291.7,173.3L293.4,171.1L295.1,168.8L296.8,166.3L298.5,163.8L300.2,161.1L301.9,158.3L303.6,155.4L305.3,152.4L307.0,149.3L308.7,146.2L310.4,143.0L312.1,139.7L313.8,136.4L315.5,133.1L317.2,129.8L318.9,126.6L320.6,123.4L322.3,120.4L324.0,117.5L325.7,114.8L327.4,112.4L329.1,110.3L330.8,108.5L332.5,107.1L334.2,106.2L335.9,105.8L337.6,105.9L339.4,106.5L341.1,107.8L342.8,109.6L344.5,112.0L346.2,114.8L347.9,118.2L349.6,122.0L351.3,126.1L353.0,130.5L354.7,135.0L356.4,139.7L358.1,144.3L359.8,148.8L361.5,153.3L363.2,157.5L364.9,161.5L366.6,165.3L368.3,168.8L370.0,172.0L371.7,174.9L373.4,177.5L375.1,179.9L376.8,181.9" fill="none" stroke="#9fbc7a" stroke-width="2.2"></path>
+<path d="M62.0,219.9L63.7,219.1L65.4,218.2L67.1,217.1L68.8,215.9L70.5,214.5L72.2,213.0L73.9,211.3L75.6,209.4L77.3,207.4L79.0,205.1L80.7,202.8L82.4,200.2L84.1,197.6L85.8,194.8L87.5,192.0L89.2,189.1L90.9,186.3L92.6,183.6L94.3,180.9L96.0,178.5L97.7,176.3L99.4,174.5L101.1,172.9L102.8,171.8L104.5,171.0L106.2,170.5L107.9,170.5L109.6,170.9L111.3,171.5L113.0,172.5L114.7,173.8L116.4,175.3L118.2,177.0L119.9,178.8L121.6,180.8L123.3,182.9L125.0,185.0L126.7,187.2L128.4,189.3L130.1,191.5L131.8,193.7L133.5,195.8L135.2,197.8L136.9,199.8L138.6,201.7L140.3,203.5L142.0,205.3L143.7,206.9L145.4,208.5L147.1,210.0L148.8,211.4L150.5,212.7L152.2,213.9L153.9,215.1L155.6,216.1L157.3,217.1L159.0,218.0L160.7,218.8L162.4,219.5L164.1,220.1L165.8,220.7L167.5,221.2L169.2,221.6L170.9,221.9L172.6,222.2L174.3,222.3L176.0,222.4L177.7,222.4L179.4,222.3L181.1,222.2L182.8,221.9L184.5,221.5L186.2,221.0L187.9,220.5L189.6,219.8L191.3,218.9L193.0,218.0L194.7,216.9L196.4,215.7L198.1,214.3L199.8,212.7L201.5,211.0L203.2,209.1L204.9,207.0L206.6,204.8L208.3,202.4L210.0,199.8L211.7,197.1L213.4,194.4L215.1,191.5L216.8,188.7L218.5,185.8L220.2,183.1L221.9,180.5L223.6,178.1L225.3,176.0L227.0,174.2L228.8,172.7L230.5,171.6L232.2,170.9L233.9,170.5L235.6,170.6L237.3,170.9L239.0,171.7L240.7,172.7L242.4,174.0L244.1,175.5L245.8,177.3L247.5,179.1L249.2,181.1L250.9,183.2L252.6,185.4L254.3,187.5L256.0,189.7L257.7,191.9L259.4,194.0L261.1,196.1L262.8,198.1L264.5,200.1L266.2,202.0L267.9,203.8L269.6,205.5L271.3,207.2L273.0,208.7L274.7,210.2L276.4,211.6L278.1,212.9L279.8,214.1L281.5,215.2L283.2,216.3L284.9,217.2L286.6,218.1L288.3,218.9L290.0,219.6L291.7,220.2L293.4,220.8L295.1,221.2L296.8,221.6L298.5,222.0L300.2,222.2L301.9,222.3L303.6,222.4L305.3,222.4L307.0,222.3L308.7,222.1L310.4,221.8L312.1,221.4L313.8,221.0L315.5,220.4L317.2,219.6L318.9,218.8L320.6,217.8L322.3,216.7L324.0,215.4L325.7,214.0L327.4,212.4L329.1,210.7L330.8,208.7L332.5,206.6L334.2,204.4L335.9,201.9L337.6,199.4L339.4,196.7L341.1,193.9L342.8,191.0L344.5,188.2L346.2,185.4L347.9,182.7L349.6,180.1L351.3,177.8L353.0,175.7L354.7,173.9L356.4,172.5L358.1,171.4L359.8,170.8L361.5,170.5L363.2,170.6L364.9,171.0L366.6,171.8L368.3,172.9L370.0,174.2L371.7,175.8L373.4,177.6L375.1,179.5L376.8,181.5" fill="none" stroke="#cd7f9b" stroke-width="2.2"></path>
+<line opacity="0.75" stroke="#d9b45f" stroke-dasharray="3 3" stroke-width="1.3" x1="209.2" x2="209.2" y1="100" y2="262"></line>
+<line opacity="0.75" stroke="#d9b45f" stroke-dasharray="3 3" stroke-width="1.3" x1="234.6" x2="234.6" y1="165" y2="262"></line>
+<line marker-end="url(#t31b1)" stroke="#d9b45f" stroke-width="1.6" x1="209.2" x2="232" y1="270" y2="270"></line>
+<text fill="#d9b45f" font-family="-apple-system,sans-serif" font-size="11" text-anchor="middle" x="222" y="290">滞后</text>
+<text fill="#8d867b" font-family="-apple-system,sans-serif" font-size="11" text-anchor="middle" x="330" y="290">时间 →</text>
+<text fill="#57524b" font-family="-apple-system,sans-serif" font-size="11" text-anchor="middle" x="225" y="312">猞猁的高峰约落后雪兔四分之一个周期 — 它追的是已经过去的兔子</text>
+<line stroke="rgba(255,255,255,0.18)" stroke-width="1.5" x1="448" x2="694" y1="258" y2="258"></line>
+<line stroke="rgba(255,255,255,0.18)" stroke-width="1.5" x1="448" x2="448" y1="258" y2="66"></line>
+<path d="M573.7,197.2L575.5,196.2L577.2,195.0L578.6,193.7L579.8,192.3L580.8,190.7L581.4,189.0L581.7,187.3L581.7,185.4L581.3,183.6L580.6,181.7L579.6,179.9L578.2,178.2L576.6,176.6L574.7,175.2L572.6,173.9L570.3,172.9L568.0,172.1L565.5,171.6L563.1,171.4L560.7,171.4L558.4,171.7L556.2,172.3L554.1,173.1L552.2,174.1L550.5,175.3L549.0,176.7L547.8,178.1L546.7,179.7L545.9,181.3L545.3,183.0L544.9,184.7L544.8,186.3L544.9,187.9L545.2,189.5L545.7,191.0L546.4,192.4L547.4,193.7L548.5,194.9L549.7,196.0L551.2,197.0L552.8,197.8L554.5,198.5L556.3,199.0L558.3,199.4L560.3,199.6L562.4,199.7L564.5,199.6L566.7,199.3L568.8,198.9L570.9,198.3L572.9,197.6Z" fill="none" opacity="0.55" stroke="#79a6d2" stroke-width="1.8"></path>
+<path d="M590.9,215.1L596.5,213.3L601.9,211.0L607.0,208.4L611.6,205.2L615.6,201.5L618.6,197.3L620.7,192.6L621.5,187.3L621.0,181.6L619.1,175.5L615.8,169.3L611.1,163.2L605.3,157.3L598.4,151.9L590.8,147.3L582.9,143.7L574.8,141.1L566.9,139.8L559.3,139.7L552.4,140.7L546.0,142.7L540.4,145.6L535.5,149.1L531.2,153.2L527.7,157.6L524.8,162.3L522.5,167.0L520.7,171.7L519.5,176.4L518.7,180.9L518.4,185.2L518.5,189.3L518.9,193.1L519.8,196.7L521.0,199.9L522.5,202.9L524.4,205.7L526.6,208.2L529.2,210.4L532.0,212.3L535.2,214.0L538.7,215.4L542.6,216.6L546.7,217.6L551.2,218.3L555.9,218.7L560.9,218.9L566.1,218.9L571.6,218.5L577.2,217.9L582.9,217.0L588.7,215.7Z" fill="none" stroke="#79a6d2" stroke-width="2.2"></path>
+<path d="M613.7,232.2L624.4,230.3L635.2,227.7L645.9,224.4L656.1,220.2L665.4,215.0L673.3,208.5L679.1,200.5L682.1,190.9L681.8,179.4L677.4,166.3L668.8,151.9L656.2,136.9L640.3,122.4L622.2,109.6L603.3,99.4L584.8,92.6L567.7,89.6L552.5,90.1L539.6,93.7L528.7,99.7L519.9,107.4L512.8,116.3L507.1,125.7L502.7,135.3L499.2,144.8L496.6,154.0L494.8,162.7L493.5,170.9L492.8,178.4L492.5,185.4L492.6,191.7L493.1,197.5L494.0,202.7L495.2,207.4L496.8,211.6L498.7,215.4L500.9,218.8L503.4,221.7L506.3,224.4L509.6,226.7L513.3,228.7L517.3,230.5L521.8,232.0L526.7,233.2L532.1,234.3L538.0,235.1L544.4,235.7L551.3,236.2L558.7,236.4L566.7,236.4L575.3,236.1L584.4,235.6L594.0,234.8L604.1,233.7Z" fill="none" opacity="0.55" stroke="#79a6d2" stroke-width="1.8"></path>
+<line marker-end="url(#t31b2)" stroke="#79a6d2" stroke-width="2" x1="593.7" x2="613.7" y1="214.2" y2="203.4"></line>
+<line marker-end="url(#t31b2)" stroke="#79a6d2" stroke-width="2" x1="535.7" x2="522.5" y1="148.9" y2="167.0"></line>
+<circle cx="562.3" cy="186.5" fill="#d9b45f" r="5.5"></circle>
+<circle cx="600" cy="80" fill="#d9b45f" r="5"></circle>
+<text fill="#d9b45f" font-family="-apple-system,sans-serif" font-size="11" x="610" y="84">不动点 = 长期平均</text>
+<text fill="#8d867b" font-family="-apple-system,sans-serif" font-size="11" text-anchor="middle" x="571" y="282">猎物数量 →</text>
+<text fill="#8d867b" font-family="-apple-system,sans-serif" font-size="11" transform="rotate(-90 428 170)" x="428" y="170">捕食者数量</text>
+<text fill="#57524b" font-family="-apple-system,sans-serif" font-size="11" text-anchor="middle" x="568" y="312">三条圈 = 三组不同的起点：谁也不往中心收，谁也不甩出去</text>
+</svg>
+<figcaption>左边是时间序列，右边是同一件事画在「猎物-捕食者」平面上。转圈的动力不是外因，是滞后。</figcaption>
+</figure>
+<p>两个结论值得记住。第一个是<b>滞后</b>：捕食者的高峰总在猎物高峰之后，差不多晚四分之一个周期。这意味着捕食者的当前数量，讲的是<em>过去</em>的猎物有多少——它在追一个已经走掉的目标。第二个更反直觉：把方程的长期平均值算出来，<b>猎物的平均数量只由捕食者那一侧的参数决定</b>（等于 γ/δ），跟兔子自己繁殖得多快毫无关系。想让兔子平均更多，去动猞猁的参数，动兔子的没用。</p>
+<p>沃尔泰拉的渔业问题就是这么解开的。假如你对两边<em>无差别</em>地施加杀伤（捕捞既捞鱼也捞鲨），猎物的平均数量会下降、捕食者的平均数量会上升；反过来，<b>停止这种无差别的杀伤，得利的是猎物那一方</b>——一战停捕，鲨鱼占比就该上去。这条推论后来叫<em>沃尔泰拉原理</em>（Volterra's principle）：无差别的干预，对处在链条不同位置的两方，效果是相反的。</p>
+<div class="decide">
+<span class="lb">🎯 决策线</span>
+<p>看到"对手/竞争对手的规模见顶"时，先别当成新信息。在有滞后耦合的系统里，那多半是你自己上一轮扩张的回声。可执行的检验：把对方的规模指标，分别与你自己<b>当期</b>的指标和<b>四分之一周期前</b>的指标做相关；如果后者明显更高，你看到的就是回声，不是对手的新动作——针对它做反应，等于对着已经消失的东西开火。</p>
+</div>
+<div class="crossx-inline">
+🌀 <b>农业与生态工程 · 越打药越多的害虫</b>　大面积喷广谱杀虫剂之后，某些害虫反而暴发得更凶（水稻褐飞虱是最有名的一例）。原因正是沃尔泰拉原理：药是无差别的，它同时杀害虫和吃害虫的天敌，而这种无差别杀伤在结构上偏向食物链下游的一方。推论很实用也很违反直觉——<b>治虫失败未必是药力不够，可能恰恰是药打得太广</b>；该换的不是更强的药，是更窄的靶。
+</div>
+<p class="en-brief"><b>EN</b> Volterra (1926) wrote two equations to explain why WWI's fishing halt raised the share of sharks in Adriatic catches. Predator peaks lag prey peaks by about a quarter cycle, so predator abundance reports the past. And mean prey abundance depends only on the predator's parameters (γ/δ): uniform harvesting of both sides helps the predator's mean and hurts the prey's — Volterra's principle.</p>
+
+<h2><span class="n">03</span>为什么要有性别：红皇后最硬的证据<span class="he">（Why Sex Exists）</span></h2>
+<p class="lead">生物学里有个尴尬到不像话的问题：有性繁殖太亏了。一个只生女儿的无性种群，每一代的繁殖力大约是有性种群的两倍——雄性不生孩子，等于把一半产能拿去养一群不产出的个体。按纯粹的算术，无性繁殖应该早就把有性的扫光了。可它没有。</p>
+<p>红皇后给的答案是：<b>后代的多样性不是奢侈品，是防御工事。</b>寄生虫（还有细菌、病毒）繁殖快得多，它们会紧盯着宿主里<em>最常见</em>的那个基因型，把钥匙配好。如果你原样复制自己，你就是那把已经被配好的锁。有性繁殖每一代把基因重新洗牌，交出去的锁是新的。</p>
+<p>这条机制有个名字：<em>负频率依赖选择</em>（negative frequency-dependent selection）——一个类型的好处随着它变常见而下降，随着它变稀有而回升。注意它和一般的"多样性有好处"不是一回事：这里的因果是明确的、可测的——<b>某个类型的适应度，是它自己上一轮频率的减函数。</b></p>
+<figure>
+<svg aria-label="负频率依赖：宿主某基因型的比例上升后，专门感染它的寄生虫随后追上，把它压回去" role="img" viewBox="0 0 720 280" xmlns="http://www.w3.org/2000/svg">
+<defs>
+<marker id="t31c1" markerHeight="9" markerUnits="userSpaceOnUse" markerWidth="9" orient="auto" refX="8" refY="5" viewBox="0 0 10 10"><path d="M0,1 L9,5 L0,9 z" fill="#d9b45f"></path></marker>
+</defs>
+<text fill="#aba498" font-family="-apple-system,sans-serif" font-size="13" text-anchor="middle" x="360" y="24">领先本身，就是被追踪的理由</text>
+<line stroke="#63b3a6" stroke-width="2.5" x1="80" x2="100" y1="44" y2="44"></line>
+<text fill="#63b3a6" font-family="-apple-system,sans-serif" font-size="11" x="106" y="48">宿主里 A 型的比例</text>
+<line stroke="#cd7f9b" stroke-dasharray="6 4" stroke-width="2.5" x1="290" x2="310" y1="44" y2="44"></line>
+<text fill="#cd7f9b" font-family="-apple-system,sans-serif" font-size="11" x="316" y="48">专门感染 A 型的寄生虫比例</text>
+<line stroke="rgba(255,255,255,0.18)" stroke-width="1.5" x1="70" x2="668" y1="220" y2="220"></line>
+<line stroke="rgba(255,255,255,0.18)" stroke-width="1.5" x1="70" x2="70" y1="220" y2="58"></line>
+<line opacity="0.5" stroke="rgba(255,255,255,0.14)" stroke-dasharray="3 4" stroke-width="1.2" x1="70" x2="668" y1="140" y2="140"></line>
+<path d="M70.0,140.0L79.1,128.1L88.2,116.9L97.2,107.1L106.3,99.5L115.4,94.3L124.5,92.1L133.5,92.9L142.6,96.6L151.7,103.0L160.8,111.8L169.8,122.3L178.9,134.0L188.0,146.0L197.1,157.7L206.2,168.2L215.2,177.0L224.3,183.4L233.4,187.1L242.5,187.9L251.5,185.7L260.6,180.5L269.7,172.9L278.8,163.1L287.8,151.9L296.9,140.0L306.0,128.1L315.1,116.9L324.2,107.1L333.2,99.5L342.3,94.3L351.4,92.1L360.5,92.9L369.5,96.6L378.6,103.0L387.7,111.8L396.8,122.3L405.8,134.0L414.9,146.0L424.0,157.7L433.1,168.2L442.2,177.0L451.2,183.4L460.3,187.1L469.4,187.9L478.5,185.7L487.5,180.5L496.6,172.9L505.7,163.1L514.8,151.9L523.8,140.0L532.9,128.1L542.0,116.9L551.1,107.1L560.2,99.5L569.2,94.3L578.3,92.1L587.4,92.9L596.5,96.6L605.5,103.0L614.6,111.8L623.7,122.3L632.8,134.0L641.8,146.0L650.9,157.7L660.0,168.2" fill="none" stroke="#63b3a6" stroke-width="2.4"></path>
+<path d="M70.0,188.0L79.1,186.5L88.2,182.1L97.2,175.0L106.3,165.7L115.4,154.8L124.5,143.0L133.5,131.0L142.6,119.6L151.7,109.4L160.8,101.2L169.8,95.4L178.9,92.4L188.0,92.4L197.1,95.4L206.2,101.2L215.2,109.4L224.3,119.6L233.4,131.0L242.5,143.0L251.5,154.8L260.6,165.7L269.7,175.0L278.8,182.1L287.8,186.5L296.9,188.0L306.0,186.5L315.1,182.1L324.2,175.0L333.2,165.7L342.3,154.8L351.4,143.0L360.5,131.0L369.5,119.6L378.6,109.4L387.7,101.2L396.8,95.4L405.8,92.4L414.9,92.4L424.0,95.4L433.1,101.2L442.2,109.4L451.2,119.6L460.3,131.0L469.4,143.0L478.5,154.8L487.5,165.7L496.6,175.0L505.7,182.1L514.8,186.5L523.8,188.0L532.9,186.5L542.0,182.1L551.1,175.0L560.2,165.7L569.2,154.8L578.3,143.0L587.4,131.0L596.5,119.6L605.5,109.4L614.6,101.2L623.7,95.4L632.8,92.4L641.8,92.4L650.9,95.4L660.0,101.2" fill="none" stroke="#cd7f9b" stroke-dasharray="6 4" stroke-width="2.4"></path>
+<line marker-end="url(#t31c1)" stroke="#d9b45f" stroke-width="1.6" x1="353.7" x2="404" y1="76" y2="76"></line>
+<text fill="#d9b45f" font-family="-apple-system,sans-serif" font-size="11" text-anchor="middle" x="379" y="68">寄生虫追上来</text>
+<circle cx="353.7" cy="92" fill="#63b3a6" r="4.5"></circle>
+<circle cx="410.4" cy="92" fill="#cd7f9b" r="4.5"></circle>
+<circle cx="240.2" cy="188" fill="#63b3a6" r="4.5"></circle>
+<text fill="#8d867b" font-family="-apple-system,sans-serif" font-size="11" text-anchor="middle" x="240" y="208">A 稀有 = 此刻最安全</text>
+<text fill="#8d867b" font-family="-apple-system,sans-serif" font-size="11" text-anchor="middle" x="370" y="244">时间 →</text>
+<text fill="#57524b" font-family="-apple-system,sans-serif" font-size="11" text-anchor="middle" x="370" y="266">没有哪个型能长期领先；优势不来自"更好"，只来自"此刻不常见"</text>
+</svg>
+<figcaption>示意图。真实数据不会这么规整，但相位关系是可测的：寄生虫的感染谱总是滞后于宿主的流行型。</figcaption>
+</figure>
+<p>这不只是纸上推演，有两组硬证据。一组来自新西兰的一种淡水螺（<i>Potamopyrgus antipodarum</i>），它有性和无性个体共存：Curtis Lively 1987 年发现，<b>吸虫寄生越重的水体里，有性个体的比例越高</b>；寄生压力低的地方，无性个体几乎垄断——正是那两倍繁殖优势该有的样子。另一组是实验室里的因果检验：Morran 等人 2011 年拿线虫和一种细菌病原做共演化实验，<b>让病原跟着一起演化，线虫种群就转向异体交配；强制自交的种群则被病原逼到灭绝。</b>把病原固定住不让它演化，这个效果就消失。</p>
+<div class="decide">
+<span class="lb">🎯 决策线</span>
+<p>凡是有对手在盯着你的地方，"全都换成当前最优的那一个"是一步慢性自杀——那正好把整个系统交成一把锁。具体动作：在关键环节（供应商、作物品种、镜像系统、认证方式）里<b>留下至少一个次优但不同的选项</b>，并且在账上把它记成保费，不记成浪费。触发信号很好认：当你能一口说出"我们全都用 X"，你已经是那个最常见的基因型了。香蕉的教训是现成的——上一代主栽品种被一种真菌抹掉，接班的 Cavendish 又是单一克隆，于是同一出戏正在重演。</p>
+</div>
+<div class="crossx-inline">
+🌀 <b>经济与制度 · 策略被公开之后</b>　McLean 与 Pontiff 2016 年查了 97 个被学术论文证实能预测股票收益的指标：论文发表之后，这些策略的收益平均下降约 58%，而且它们彼此之间的相关性上升了。这就是负频率依赖在市场上的样子。由此能推出一个改问法的动作：不要再问"这个策略逻辑还成立吗"，改问"<b>现在有多少钱在用它</b>"——衰减跟踪的是使用密度，不是逻辑对错。
+</div>
+<p class="en-brief"><b>EN</b> Sex costs roughly half the reproductive output, yet persists. The Red Queen answer: parasites track the commonest host genotype, so a rare type is fitter simply for being rare — negative frequency-dependent selection. Evidence: Lively (1987) found sexual New Zealand snails concentrated where trematode infection is heavy; Morran et al. (2011) showed coevolving bacteria drove nematodes toward outcrossing and drove obligate selfers extinct.</p>
+
+<h2><span class="n">04</span>两种共演化，别混为一谈<span class="he">（Two Kinds of Coevolution）</span></h2>
+<p class="lead">上一节的螺和寄生虫，谁也没变得更"厉害"，只是轮流当常见型。但另一些共演化完全不是这个样子——双方的性状一路往上加码，从不回头。这是两种模式，套错了会做出完全相反的决定。</p>
+<p>加码的那一种叫<em>军备竞赛</em>（arms race，生物学里也叫 escalation）。北美西部的粗皮渍螈体内含<em>河豚毒素</em>（tetrodotoxin，缩写 TTX，就是河豚身上那种），足以毒死一屋子人；而当地的束带蛇却能吃它，靠的是钠离子通道上几个氨基酸的改变。毒性越高的地方，蛇的抗性越高，双方一级级往上顶。这类竞赛的标志是：<b>性状有方向、成本单调上升、而且退不回去。</b></p>
+<p>此消彼长的那一种叫<em>波动选择</em>（fluctuating selection）——就是上一节的样子，频率来回摆，没有净方向，几年后旧型号照样能赢。细菌和噬菌体的共演化实验里两种模式都能观察到，取决于条件。</p>
+<figure>
+<svg aria-label="两种共演化模式对照：性状单向升级 vs 频率来回摆动" role="img" viewBox="0 0 720 300" xmlns="http://www.w3.org/2000/svg">
+<defs>
+<marker id="t31d1" markerHeight="9" markerUnits="userSpaceOnUse" markerWidth="9" orient="auto" refX="8" refY="5" viewBox="0 0 10 10"><path d="M0,1 L9,5 L0,9 z" fill="#8d867b"></path></marker>
+</defs>
+<text fill="#aba498" font-family="-apple-system,sans-serif" font-size="13" text-anchor="middle" x="360" y="24">看纵轴：一边一路往上，一边原地打转</text>
+<text fill="#d9b45f" font-family="SF Mono,monospace" font-size="12" text-anchor="middle" x="198" y="48">① 军备竞赛型</text>
+<text fill="#63b3a6" font-family="SF Mono,monospace" font-size="12" text-anchor="middle" x="532" y="48">② 波动选择型</text>
+<line stroke="rgba(255,255,255,0.18)" stroke-width="1.5" x1="66" x2="340" y1="226" y2="226"></line>
+<line stroke="rgba(255,255,255,0.18)" stroke-width="1.5" x1="66" x2="66" y1="226" y2="62"></line>
+<path d="M66.0,191.7L70.4,189.0L74.8,186.3L79.2,183.6L83.6,181.0L88.0,178.5L92.4,176.1L96.8,173.8L101.2,171.6L105.6,169.5L110.0,167.6L114.4,165.8L118.8,164.1L123.2,162.6L127.6,161.2L132.0,160.0L136.4,158.8L140.8,157.8L145.2,156.9L149.6,156.0L154.0,155.2L158.4,154.5L162.8,153.8L167.2,153.0L171.6,152.3L176.0,151.5L180.4,150.7L184.8,149.8L189.2,148.8L193.6,147.7L198.0,146.5L202.4,145.1L206.8,143.7L211.2,142.1L215.6,140.3L220.0,138.4L224.4,136.4L228.8,134.2L233.2,132.0L237.6,129.6L242.0,127.1L246.4,124.5L250.8,121.9L255.2,119.2L259.6,116.5L264.0,113.8L268.4,111.1L272.8,108.5L277.2,105.8L281.6,103.3L286.0,100.8L290.4,98.5L294.8,96.2L299.2,94.1L303.6,92.1L308.0,90.3L312.4,88.6L316.8,87.0L321.2,85.6L325.6,84.3L330.0,83.1" fill="none" stroke="#d9b45f" stroke-width="2.4"></path>
+<path d="M66.0,219.8L70.4,217.1L74.8,214.4L79.2,211.7L83.6,209.1L88.0,206.6L92.4,204.2L96.8,201.9L101.2,199.7L105.6,197.6L110.0,195.7L114.4,193.9L118.8,192.2L123.2,190.7L127.6,189.3L132.0,188.1L136.4,186.9L140.8,185.9L145.2,185.0L149.6,184.1L154.0,183.3L158.4,182.6L162.8,181.8L167.2,181.1L171.6,180.4L176.0,179.6L180.4,178.8L184.8,177.9L189.2,176.9L193.6,175.8L198.0,174.6L202.4,173.2L206.8,171.8L211.2,170.1L215.6,168.4L220.0,166.5L224.4,164.5L228.8,162.3L233.2,160.1L237.6,157.7L242.0,155.2L246.4,152.6L250.8,150.0L255.2,147.3L259.6,144.6L264.0,141.9L268.4,139.2L272.8,136.5L277.2,133.9L281.6,131.4L286.0,128.9L290.4,126.6L294.8,124.3L299.2,122.2L303.6,120.2L308.0,118.4L312.4,116.7L316.8,115.1L321.2,113.7L325.6,112.4L330.0,111.2" fill="none" stroke="#63b3a6" stroke-width="2.4"></path>
+<line stroke="#d9b45f" stroke-width="2.5" x1="78" x2="96" y1="74" y2="74"></line>
+<text fill="#d9b45f" font-family="-apple-system,sans-serif" font-size="11" x="102" y="78">猎物的毒性</text>
+<line stroke="#63b3a6" stroke-width="2.5" x1="186" x2="204" y1="74" y2="74"></line>
+<text fill="#63b3a6" font-family="-apple-system,sans-serif" font-size="11" x="210" y="78">捕食者的抗性</text>
+<line stroke="#8d867b" stroke-width="1.4" x1="336" x2="336" y1="83" y2="111"></line>
+<line stroke="#8d867b" stroke-width="1.4" x1="331" x2="341" y1="83" y2="83"></line>
+<line stroke="#8d867b" stroke-width="1.4" x1="331" x2="341" y1="111" y2="111"></line>
+<text fill="#8d867b" font-family="-apple-system,sans-serif" font-size="10.5" text-anchor="middle" x="336" y="130">差距不变</text>
+<text fill="#8d867b" font-family="-apple-system,sans-serif" font-size="11" transform="rotate(-90 46 150)" x="46" y="150">性状的绝对量 →</text>
+<line stroke="rgba(255,255,255,0.18)" stroke-width="1.5" x1="400" x2="674" y1="226" y2="226"></line>
+<line stroke="rgba(255,255,255,0.18)" stroke-width="1.5" x1="400" x2="400" y1="226" y2="62"></line>
+<path d="M400.0,148.0L404.4,139.5L408.8,131.2L413.2,123.5L417.6,116.7L422.0,110.9L426.4,106.3L430.8,103.1L435.2,101.5L439.6,101.3L444.0,102.8L448.4,105.8L452.8,110.2L457.2,115.8L461.6,122.6L466.0,130.1L470.4,138.3L474.8,146.8L479.2,155.4L483.6,163.7L488.0,171.5L492.4,178.4L496.8,184.4L501.2,189.2L505.6,192.5L510.0,194.4L514.4,194.7L518.8,193.5L523.2,190.7L527.6,186.5L532.0,181.0L536.4,174.4L540.8,166.9L545.2,158.8L549.6,150.3L554.0,141.8L558.4,133.4L562.8,125.6L567.2,118.4L571.6,112.3L576.0,107.4L580.4,103.8L584.8,101.8L589.2,101.2L593.6,102.3L598.0,104.8L602.4,108.8L606.8,114.2L611.2,120.6L615.6,128.0L620.0,136.1L624.4,144.5L628.8,153.1L633.2,161.5L637.6,169.4L642.0,176.6L646.4,182.9L650.8,188.0L655.2,191.8L659.6,194.1L664.0,194.8" fill="none" stroke="#63b3a6" stroke-width="2.4"></path>
+<path d="M400.0,194.8L404.4,194.2L408.8,192.2L413.2,188.6L417.6,183.7L422.0,177.5L426.4,170.4L430.8,162.6L435.2,154.2L439.6,145.7L444.0,137.2L448.4,129.1L452.8,121.6L457.2,115.0L461.6,109.5L466.0,105.3L470.4,102.5L474.8,101.3L479.2,101.6L483.6,103.5L488.0,106.8L492.4,111.6L496.8,117.6L501.2,124.5L505.6,132.3L510.0,140.6L514.4,149.2L518.8,157.7L523.2,165.9L527.6,173.5L532.0,180.2L536.4,185.8L540.8,190.2L545.2,193.2L549.6,194.7L554.0,194.5L558.4,192.9L562.8,189.7L567.2,185.1L571.6,179.3L576.0,172.5L580.4,164.8L584.8,156.5L589.2,148.0L593.6,139.5L598.0,131.2L602.4,123.5L606.8,116.7L611.2,110.9L615.6,106.3L620.0,103.1L624.4,101.5L628.8,101.3L633.2,102.8L637.6,105.8L642.0,110.2L646.4,115.8L650.8,122.6L655.2,130.1L659.6,138.3L664.0,146.8" fill="none" stroke="#cd7f9b" stroke-width="2.4"></path>
+<line opacity="0.5" stroke="rgba(255,255,255,0.14)" stroke-dasharray="3 4" stroke-width="1.2" x1="400" x2="674" y1="148" y2="148"></line>
+<text fill="#8d867b" font-family="-apple-system,sans-serif" font-size="11" transform="rotate(-90 380 150)" x="380" y="150">各型的频率 →</text>
+<line marker-end="url(#t31d1)" stroke="#8d867b" stroke-width="1.4" x1="600" x2="660" y1="248" y2="248"></line>
+<line marker-end="url(#t31d1)" stroke="#8d867b" stroke-width="1.4" x1="266" x2="326" y1="248" y2="248"></line>
+<text fill="#8d867b" font-family="-apple-system,sans-serif" font-size="10.5" text-anchor="middle" x="296" y="264">时间</text>
+<text fill="#8d867b" font-family="-apple-system,sans-serif" font-size="10.5" text-anchor="middle" x="630" y="264">时间</text>
+<text fill="#c9a55e" font-family="-apple-system,sans-serif" font-size="11" text-anchor="middle" x="170" y="264">成本单调上升、退不回去</text>
+<text fill="#63b3a6" font-family="-apple-system,sans-serif" font-size="11" text-anchor="middle" x="504" y="264">没有方向，旧型号还能赢</text>
+<text fill="#57524b" font-family="-apple-system,sans-serif" font-size="11" text-anchor="middle" x="360" y="288">判据不是"竞争激不激烈"，是"停两年之后，回到今天要多久"</text>
+</svg>
+<figcaption>左边这种停下来就永久落后，右边这种停下来只是换个位置。判断自己在哪一边，比判断自己跑得快不快重要。</figcaption>
+</figure>
+<p>还有一件事常被忽略：共演化是有地理的。生态学家 John Thompson 提出的<em>地理镶嵌</em>（geographic mosaic）说，同一对物种在不同地方的耦合强度完全不同——有些地方是"热点"，双方咬得死紧；有些地方是"冷点"，几乎各过各的。渍螈和蛇的大范围采样正好印证了这一点：很多地方双方的毒性与抗性根本对不上号，蛇有时靠一次关键突变一步蹿到远高于当地毒性的水平，直接<b>跳出</b>了竞赛（而猎物那一侧从没出现过反向的领先）。所以"我们处在激烈竞争中"这句话，得先问是在哪块地上。</p>
+<div class="decide">
+<span class="lb">🎯 决策线</span>
+<p>给你正在投入的每一项竞争做一次归类，用一个问题就够：<b>"如果我们在这件事上停两年，两年后要回到今天的水平，需要多久？"</b>——几周内能追回的，是波动型，可以按节奏停停打打；要一年以上的，是军备竞赛型，它只会越来越贵，而且赢下它不产生安全感。对后者，能终结它的从来不是跑得更快，是换一个不被这条耦合覆盖的维度，或者是一个双方都能核查的相互限制。</p>
+</div>
+<div class="crossx-inline">
+🌀 <b>医学 · 流感疫苗年年换，麻疹疫苗不用</b>　常见的解释是"流感更狡猾"，但机制不在狡猾：流感表面蛋白允许大量不影响功能的改动，于是被免疫追踪时它可以持续漂移；麻疹病毒的关键位点被功能锁死，改了就活不成，于是几十年只有一个血清型。由此得到一条可用的判据：<b>要不要年年换的，不是病原多"厉害"，而是它有没有可以自由变动的维度。</b>同样的问法可以搬到任何检测/规避的对局上——先数对手能自由改的地方有几个。
+</div>
+<p class="en-brief"><b>EN</b> Two regimes, opposite implications. Escalation: traits ratchet in one direction, costs rise monotonically, retreat is impossible (rough-skinned newts' tetrodotoxin versus garter snakes' sodium-channel resistance). Fluctuating selection: frequencies oscillate with no net direction. Thompson's geographic mosaic adds that coupling strength varies by locality — and Hanifin et al. (2008) found snakes sometimes escape the arms race outright, while the prey side never gets ahead.</p>
+
+<h2><span class="n">05</span>这套说法在哪儿不成立<span class="he">（Where This Breaks Down）</span></h2>
+<p class="lead">"红皇后"是复杂性科学里最好用也最好滥用的词之一——它太容易被当成"竞争很激烈所以要不停创新"的花哨说法。那个用法是空的。下面四条是它真实的边界。</p>
+<p><b>第一，Van Valen 那条灭绝定律，后来的数据没有一边倒地支持它。</b>古生物学里现在有一对并列的解释：红皇后（生物之间互相逼）和<em>宫廷弄臣</em>（Court Jester，气候、构造这类不讲道理的外部事件）。Michael Benton 2009 年梳理后给出的判断是——两者作用在<b>不同的时空尺度</b>：小尺度、短时段里生物之间的相互作用占上风；大区域、百万年量级上，气候和地质事件才是主导。所以拿红皇后去解释一次大灭绝，多半是找错了层。</p>
+<p><b>第二，Lotka-Volterra 的"永恒循环"是个假象。</b>那些闭合轨道是<em>结构不稳定</em>（structurally unstable）的：只要往模型里加一点现实——比如给兔子加上一个食物上限——中性的圈就立刻塌成一个螺旋，收敛到不动点或变成一个固定振幅的<em>极限环</em>（limit cycle）。所以别把那些圈当成预言。教科书里的雪兔-猞猁十年周期也不是它的证据：Charles Krebs 团队在育空做了八年的野外操控实验，结果是<b>排除捕食者让兔子密度翻倍、加食物让它变成三倍，两样一起做则是十一倍</b>——远超两者相加，说明这个循环至少是三个营养层级共同拧出来的，不是两个方程能装下的。</p>
+<p><b>第三，不是所有共演化都是打架。</b>互利共生（mutualism）也是共演化——榕树和榕小蜂、豆科植物和根瘤菌——它们的演化方向不是升级，而是越来越互相依赖、越来越离不开。把共演化默认成军备竞赛，是这个概念被误用得最多的地方。判据仍然是那条：看双方的成本曲线是往上顶还是往下省。</p>
+<p><b>第四，也是最要紧的：它必须能被证伪。</b>红皇后的可检验内容其实很窄——绝对改进不兑现成相对位置、优势随普及而衰减、代价单调上升。这些都能测。而"竞争会让大家不断进步"这种说法什么都没排除，任何结果都能塞进去。一个概念如果每次遇到反例就往上加一层辅助解释（"这里是弄臣主导""这里是冷点"）却不给新预测，它就从工具退化成了修辞。</p>
+<div class="decide">
+<span class="lb">🎯 决策线</span>
+<p>说"这是红皇后"之前，先过三关：① 你的适应度是不是真的依赖<b>对手当前的状态</b>，而不是一个固定的外部环境（分不清就先去看，去年对手不动的时候你的结果变了没有）；② 有没有一个<b>能测的量</b>在动——频率、成本、相对差距，随便哪个；③ 它给出的<b>新预测</b>是什么，什么结果会算它错。第三条答不上来，就把这个词删掉，说人话讲你的机制。</p>
+</div>
+<div class="crossx-inline">
+🌀 <b>西方科学哲学 · 拉卡托斯的「退化纲领」</b>　拉卡托斯（Imre Lakatos）区分过进步的与退化的研究纲领：区别不在有没有反例（都有），而在遇到反例时，它是靠新预测往前长，还是靠打补丁把反例吸收掉。这正是上面第四条要的尺子。由此可以给复杂性科学的每个概念定一条硬规矩：<b>判断它还值不值得用，不看它能解释多少现象，看它最近一次做出的新预测是什么。</b>解释力是可以无限增长的，那恰恰是坏消息。
+</div>
+<p class="en-brief"><b>EN</b> Four limits. Red Queen versus Court Jester: Benton (2009) places biotic drivers at small scales and abiotic ones at large scales. Lotka-Volterra's closed orbits are structurally unstable, and the hare-lynx cycle turned out to be a three-trophic-level phenomenon (Krebs et al. 1995: food plus predator exclusion raised density elevenfold). Mutualism coevolves too, without escalation. And a Red Queen claim that makes no new prediction is rhetoric, not mechanism.</p>
+
+<div class="bigcat">
+<h3>🎒 场景 · BigCat</h3>
+<ol>
+<li><span class="dm">健康与精力</span>反复发生的那件事：某个东西"效果不如以前了"，于是加量——咖啡加到三杯、止痛药加到两片、训练强度往上再加一档。这里其实混着两种完全不同的耦合，值得分开：<b>受体耐受</b>（咖啡因、镇痛）是可逆的，停两周基线就洗回去；<b>抗药性</b>（反复用抗生素养出来的菌群）是不可逆的，停用不会让它退回去。可改的动作：把"这次管不管用"换成记录<b>起效所需的剂量随时间的斜率</b>，并对每一项标注它属于可逆还是不可逆——只有可逆的那类才可以用"停一阵"来解决，不可逆的那类必须现在就换维度（改睡眠、改负荷安排、把窄谱当默认）。</li>
+<li><span class="dm">带团队与组织</span>反复发生的那件事：季度规划会上，一条条对着竞品补齐功能，每条都补上了，一年后相对位置没动，而维护面积永久变大了。可改的动作：给 roadmap 评审加一栏，问题从"竞品有没有"改成"<b>这条做完之后，我们的相对位置改变了吗？它每年的维护成本是多少？</b>"；停掉的动作：删掉所有理由只是"因为对方发了"的条目。判据用上面那条——如果这项能力停两年、两年后几周就能追回来，它就不值得进本季度。</li>
+<li><span class="dm">写作与这个学习站本身</span>反复发生的那件事：某一期的结构或图式反响好，于是接下来几期不自觉复用它。负频率依赖会吃掉它：同一个形式用得越熟，读者的边际反应越低，而你自己因为熟练反而越倾向于再用一次。可改的动作：不看单期的绝对反响，记录<b>同一形式第 n 次使用时的反响相对第一次的比值</b>；当这个比值连续两次下降，就强制换形式——哪怕换过去的第一次会做得更糙。</li>
+</ol>
+</div>
+
+<div class="crossx">
+<h3>🌀 越界 · 跨学科的联想<span class="he">（Crossings）</span></h3>
+<ul>
+<li><b>历史与军事 · 英德无畏舰竞赛</b>：1906 年英国下水的无畏号让全世界的战列舰一夜作废，英德随即进入十年造舰竞赛。本期三条机制合起来解释了它的结局：军备竞赛型耦合（成本单调上升、退不回去）+ 适应度是相对量（双方主力舰都翻了几倍，海上力量对比几乎没变）+ 滞后（每一轮建造计划都是对对方<em>上一轮</em>计划的回应，双方都在追一个已经过时的目标）。于是能推出一个通常被忽略的结论：英国其实<b>赢下了</b>这场竞赛——到 1913 年它的主力舰优势不减反增——却没有换来安全，因为德国把边际资源转去扩陆军了。<b>赢下某一个维度，只是把竞争挤到你没在看的那个维度上。</b><b>但这里不成立</b>：生物的军备竞赛没有谈判桌，人类这边有。1912 年霍尔丹使团试图谈相互限制失败了，但 1922 年的华盛顿海军条约真的把主力舰吨位按比例摁住了十几年。所以"只有换赛道才能终结升级"这个从生物学借来的结论，在存在可核查的相互承诺的地方是错的——那是第三条路，生物学里没有。</li>
+<li><b>经济与制度 · 学历为什么会通胀</b>：Michael Spence 1973 年的信号理论说，学历的一部分价值在于它把人区分开；Fred Hirsch 则把这类东西叫"位置性商品"——它的价值来自排序，而排序的总量是固定的。这正好套上本期两条机制：负频率依赖（一个信号越普及越不值钱）+ 相对适应度（所有人多读三年，排序不变、成本全涨）。再叠上沃尔泰拉原理，可以推出一个反常识的政策判断：<b>增加学位供给并不能让更多人拿到学历原有的那份收益，它只是稀释了信号本身</b>；真正能改变均衡的是换掉排序规则，或者<b>无差别地、可核查地压低投入</b>——单边减少投入就等于单方裁军。<b>但这里不成立</b>：教育不只是信号，它确实生产能用的技能，那部分是绝对收益，不会因为人人都会而消失。红皇后只吃掉排序的那一份，吃不掉那一份。把两者混在一起，就会从"文凭在通胀"滑到"读书没用"——那是两笔完全不同的账。</li>
+<li><b>工程与技术史 · 反垃圾与反作弊规则</b>：垃圾邮件过滤、风控规则、验证码，这些系统的历史是本期三条机制的合演：军备竞赛（每一轮识别都更贵）+ 负频率依赖（一条规则部署得越广，专门绕过它的手法就越值得开发，规则的价值随部署密度衰减）+ 地理镶嵌（不同平台是不同的热点与冷点，一套规则通吃不了）。合起来推出的结论跟"把模型做得更准"这条直觉不一样：<b>一堆异质的、频繁轮换的、不公开的弱规则，胜过一条更强的公开规则</b>——因为你要防的不是错误率，是被针对性适应。<b>但这里不成立</b>：密码学恰恰要求公开。Kerckhoffs 原则说算法应当公开、只有密钥保密，而且它是对的。差别在于密码学把"稀有性"外包给了一个可以随时轮换的密钥，于是算法本身经得起全世界研究几十年。这个对照给出的其实是更好的做法：<b>与其让检测规则保密，不如给它设计一个"密钥"</b>——一个可轮换的随机成分。保密会随人员流动衰减，可轮换的东西不会。</li>
+</ul>
+</div>
+
+<div class="thinking">
+<h3>🧠 深入思考<span class="he">（Going Deeper）</span></h3>
+<details><summary>如果均衡是罕见状态，为什么我们看到那么多年格局不变的行业？</summary><p>要小心把"结果不变"读成"没在跑"。红皇后描述的恰恰是这种情形：位次稳定、投入持续上升。所以判据不在结果上，在成本上——把这几年的相对份额和绝对投入画在一张图上，份额一条平线、投入一路上扬，那就是典型的红皇后，而不是稳态。真正的稳态是两条都平。</p></details>
+<details><summary>「换赛道」是不是只是换一场军备竞赛？</summary><p>常常是。有意义的区别在于换过去之后的<b>耦合强度</b>和<b>成本斜率</b>：新维度上对手能多快跟过来、跟过来的代价多大。如果两者都和原来一样，那你只是换了个地方接着跑。真正值钱的换赛道，是找到一个对手的适应受到硬约束的维度——就像麻疹病毒改不动它的关键位点那样。</p></details>
+<details><summary>既然有性繁殖是为了对付寄生虫，那没有寄生虫压力的地方该恢复无性才对？</summary><p>确实有这种情形，而且这正是红皇后的一个可证伪预测——新西兰螺的数据大致符合。但"性"的维持还有别的解释在竞争：清除有害突变的积累（Muller 棘轮）、把有利突变重组到一起。这些机制不互斥，多半是叠加的。这也是判断一个解释成色的好例子：能给出地理上的差异预测，就比"多样性有好处"值钱得多。</p></details>
+<details><summary>红皇后和「内卷」是同一件事吗？</summary><p>不完全是。红皇后是描述性的：绝对改进不兑现成相对位置。"内卷"通常还多带两个断言——参与者无法退出，以及总产出没有增加。第二点常常不成立：军备竞赛期间技术往往真的进步了（雷达、抗生素、无畏舰的动力系统）。分开说会清楚得多：机制归机制，价值判断归价值判断。</p></details>
+</div>
+
+<div class="refs">
+<h3>📚 延伸阅读<span class="he">（Further Reading）</span></h3>
+<ul>
+<li>Lewis Carroll, <a href="https://www.gutenberg.org/ebooks/12">Through the Looking-Glass</a>（1871，红皇后那段在第二章）</li>
+<li><a href="https://en.wikipedia.org/wiki/Red_Queen_hypothesis">Red Queen hypothesis</a>（Van Valen 1973「A New Evolutionary Law」的来龙去脉与后续争论）</li>
+<li>Volterra, <a href="https://www.nature.com/articles/118558a0">Fluctuations in the abundance of a species considered mathematically</a>（1926，两个方程的原始出处）</li>
+<li>Lively, <a href="https://www.nature.com/articles/328519a0">Evidence from a New Zealand snail for the maintenance of sex by parasitism</a>（1987）</li>
+<li>Morran et al., <a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC3402160/">Running with the Red Queen</a>（2011，线虫实验：共演化的病原逼出异体交配）</li>
+<li>Hanifin, Brodie &amp; Brodie, <a href="https://journals.plos.org/plosbiology/article?id=10.1371/journal.pbio.0060060">Phenotypic mismatches reveal escape from arms-race coevolution</a>（2008，渍螈与束带蛇的大范围失配）</li>
+<li>Benton, <a href="https://www.science.org/doi/10.1126/science.1157719">The Red Queen and the Court Jester</a>（2009，生物因素与非生物因素各管哪个尺度）</li>
+<li>Krebs et al., <a href="https://www.science.org/doi/10.1126/science.269.5227.1112">Impact of food and predation on the snowshoe hare cycle</a>（1995，育空八年野外操控实验）</li>
+<li>Barnett &amp; Hansen, <a href="https://sms.onlinelibrary.wiley.com/doi/abs/10.1002/smj.4250171010">The Red Queen in organizational evolution</a>（1996，组织版红皇后）</li>
+<li>McLean &amp; Pontiff, <a href="https://onlinelibrary.wiley.com/doi/10.1111/jofi.12365">Does Academic Research Destroy Stock Return Predictability?</a>（2016，公开即衰减）</li>
+</ul>
+</div>
+<footer>BigCat · 复杂性科学 · <a href="index.html">← 全部 Topic</a></footer>
+</div>
+<script src="https://hub.cissychen.com/comments.js" defer></script>
+<script src="https://hub.cissychen.com/search.js" defer></script>
+<script src="https://hub.cissychen.com/index-button.js" defer></script>
+<script src="https://hub.cissychen.com/i18n-tts.js" defer></script>
+<script src="https://hub.cissychen.com/lightbox.js" defer></script>
+</body></html>

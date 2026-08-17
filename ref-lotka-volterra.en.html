@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+
+<html lang="en"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>The Lotka-Volterra Model · Reference · Complexity Science</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,"SF Pro Display","Noto Sans SC",sans-serif;color:#e4ded5;line-height:1.85;min-height:100vh;
+  background:radial-gradient(1100px 620px at 12% -6%,rgba(99,179,166,0.09),transparent 62%),radial-gradient(950px 700px at 100% 2%,rgba(166,147,205,0.08),transparent 58%),linear-gradient(168deg,#100f0d 0%,#15161b 48%,#0a0a0c 100%);background-attachment:fixed}
+.wrap{max-width:720px;margin:0 auto;padding:30px 22px 90px}
+header{padding:52px 0 8px;border-bottom:1px solid rgba(255,255,255,0.07);margin-bottom:32px}
+.rtag{font-family:"SF Mono",Menlo,monospace;font-size:0.72rem;font-weight:700;letter-spacing:2px;color:#63b3a6;border:1px solid rgba(99,179,166,0.4);background:rgba(99,179,166,0.07);padding:3px 11px;border-radius:20px}
+h1{font-size:2.15rem;font-weight:800;line-height:1.2;margin:20px 0 0;color:#f0eae0}
+h1 .h1en{display:block;font-size:0.42em;font-weight:600;letter-spacing:2.5px;color:#847d72;margin-top:11px}
+.sub{font-size:0.98rem;color:#aba498;margin-top:12px}
+.meta{font-family:"SF Mono",Menlo,monospace;font-size:0.75rem;color:#57524b;margin-top:16px;letter-spacing:1px}
+h2{font-size:1.25rem;font-weight:700;color:#e9e3d9;margin:44px 0 10px}
+h2 .n{font-family:"SF Mono",Menlo,monospace;font-size:0.8rem;color:#63b3a6;display:block;margin-bottom:5px;letter-spacing:2px}
+.he{font-size:0.68em;color:#8d867b;font-weight:500;letter-spacing:0}
+p{margin-bottom:16px}
+b,strong{color:#f0eae0;font-weight:600}
+em{color:#d9b45f;font-style:normal;font-weight:500}
+.rule{border:1px solid rgba(99,179,166,0.3);background:rgba(99,179,166,0.05);border-radius:12px;padding:16px 20px;margin:22px 0;font-size:0.94rem;color:#d5cdc1}
+.rule ol{padding-left:20px;margin:0}
+.rule li{margin-bottom:7px}
+.rule li:last-child{margin-bottom:0}
+.eq{font-family:"SF Mono",Menlo,monospace;font-size:0.92rem;color:#9fbc7a;background:rgba(159,188,122,0.06);border:1px solid rgba(159,188,122,0.2);border-radius:10px;padding:14px 18px;margin:22px 0;text-align:center;line-height:1.9;overflow-x:auto}
+.eq small{display:block;font-family:-apple-system,sans-serif;font-size:0.78rem;color:#8d867b;margin-top:6px}
+figure{margin:28px 0}
+figure svg{display:block;width:100%;height:auto;border-radius:12px;background:rgba(255,255,255,0.018);border:1px solid rgba(255,255,255,0.06)}
+figcaption{font-size:0.82rem;color:#787268;margin-top:10px;text-align:center;line-height:1.6}
+.cant{border:1px solid rgba(205,127,155,0.36);background:rgba(205,127,155,0.05);border-radius:12px;padding:18px 21px;margin:26px 0 10px}
+.cant h3{font-size:1rem;color:#cd7f9b;margin-bottom:12px}
+.cant ul{list-style:none;padding:0}
+.cant li{margin-bottom:13px;font-size:0.93rem;color:#d5cdc1;line-height:1.76}
+.cant li:last-child{margin-bottom:0}
+.cant li b{color:#cd7f9b}
+.refs{margin:40px 0 10px}
+.refs h3{font-size:1rem;color:#79a6d2;margin-bottom:12px}
+.refs ul{list-style:none;padding:0}
+.refs li{margin-bottom:9px;font-size:0.89rem;color:#8d867b;line-height:1.7}
+.refs a{color:#79a6d2;text-decoration:none;border-bottom:1px solid rgba(121,166,210,0.3)}
+.refs a:hover{color:#a6c4e2}
+footer{text-align:center;padding:52px 0 10px;font-size:0.78rem;color:#57524b;font-family:"SF Mono",Menlo,monospace;border-top:1px solid rgba(255,255,255,0.06);margin-top:46px}
+footer a{color:#79a6d2;text-decoration:none}
+@media(max-width:600px){h1{font-size:1.7rem}.wrap{padding:24px 16px 60px}}
+</style></head><body>
+<div class="wrap">
+<header>
+<span class="rtag">REF · CLASSIC MODEL</span>
+<h1>The Lotka-Volterra Model</h1>
+<p class="sub">Lotka 1925 / Volterra 1926 — a predator-prey cycle drawn by two equations</p>
+<p class="meta">Referenced from: Topic 31, Coevolution &amp; the Red Queen</p>
+</header>
+<h2><span class="n">01</span>The Question It Poses</h2>
+<p>In the 1920s the Italian biologist Umberto D'Ancona, going through catch records from Adriatic ports, ran into something odd: fishing had almost stopped during the First World War, and yet when the war ended <b>the share of sharks and other predatory fish in the catch had risen, not fallen.</b> Why should fishing less benefit the fish-eaters?</p>
+<p>He took the problem to his father-in-law, the mathematician Vito Volterra. The general question behind it is this: population numbers in nature often swing periodically — does that period <b>require an external cause</b> (climate, seasons, solar activity), or can the single interaction of eating and being eaten set it turning on its own?</p>
+<p>The Lotka-Volterra model is the minimal answer to the second half — a device as dumb and as assumption-free as possible, built to show that "cycles need no external cause" holds in principle.</p>
+<h2><span class="n">02</span>The Rules</h2>
+<div class="rule">
+<ol>
+<li>The whole world is two numbers: the prey count <em>x</em> and the predator count <em>y</em>.</li>
+<li>With no predators, prey grow at a fixed rate α (unlimited grass, exponential increase).</li>
+<li>Both sides wander at random, so <b>the number of encounters is proportional to x·y</b> — the product of the two counts. This is the model's only source of nonlinearity.</li>
+<li>Each encounter removes prey in proportion β; a fraction δ of what is eaten becomes new predators.</li>
+<li>With no prey, predators starve at a fixed rate γ.</li>
+</ol>
+</div>
+<div class="eq">
+d<i>x</i>/d<i>t</i> = α<i>x</i> − β<i>xy</i>　　　d<i>y</i>/d<i>t</i> = δ<i>xy</i> − γ<i>y</i>
+<small>All four parameters are positive. Note what is absent: no space, no age structure, no randomness, no ceiling on the prey's food supply, and no moment at which a predator is full.</small>
+</div>
+<figure>
+<svg aria-label="The four flows of Lotka-Volterra: prey birth, encounter and predation, conversion into predators, predator starvation" role="img" viewBox="0 0 700 230" xmlns="http://www.w3.org/2000/svg">
+<defs>
+<marker id="rlv1" markerHeight="10" markerUnits="userSpaceOnUse" markerWidth="10" orient="auto" refX="9" refY="5" viewBox="0 0 10 10"><path d="M0,1 L9,5 L0,9 z" fill="#9fbc7a"></path></marker>
+<marker id="rlv2" markerHeight="10" markerUnits="userSpaceOnUse" markerWidth="10" orient="auto" refX="9" refY="5" viewBox="0 0 10 10"><path d="M0,1 L9,5 L0,9 z" fill="#63b3a6"></path></marker>
+<marker id="rlv3" markerHeight="10" markerUnits="userSpaceOnUse" markerWidth="10" orient="auto" refX="9" refY="5" viewBox="0 0 10 10"><path d="M0,1 L9,5 L0,9 z" fill="#cd7f9b"></path></marker>
+</defs>
+<text fill="#aba498" font-family="-apple-system,sans-serif" font-size="13" text-anchor="middle" x="350" y="26">Four flows, two stocks</text>
+<rect fill="rgba(159,188,122,0.09)" height="58" rx="10" stroke="rgba(159,188,122,0.45)" width="150" x="105" y="88"></rect>
+<text fill="#9fbc7a" font-family="-apple-system,sans-serif" font-size="14" text-anchor="middle" x="180" y="112">prey x</text>
+<text fill="#787268" font-family="-apple-system,sans-serif" font-size="11" text-anchor="middle" x="180" y="132">hares / small fish</text>
+<rect fill="rgba(205,127,155,0.09)" height="58" rx="10" stroke="rgba(205,127,155,0.45)" width="150" x="445" y="88"></rect>
+<text fill="#cd7f9b" font-family="-apple-system,sans-serif" font-size="14" text-anchor="middle" x="520" y="112">predators y</text>
+<text fill="#787268" font-family="-apple-system,sans-serif" font-size="11" text-anchor="middle" x="520" y="132">lynx / sharks</text>
+<line marker-end="url(#rlv1)" stroke="#9fbc7a" stroke-width="2" x1="180" x2="180" y1="52" y2="84"></line>
+<text fill="#9fbc7a" font-family="SF Mono,monospace" font-size="12" text-anchor="middle" x="180" y="44">births +αx</text>
+<line marker-end="url(#rlv2)" stroke="#63b3a6" stroke-width="2" x1="259" x2="441" y1="117" y2="117"></line>
+<text fill="#63b3a6" font-family="SF Mono,monospace" font-size="12" text-anchor="middle" x="350" y="104">eaten on encounter −βxy</text>
+<text fill="#8d867b" font-family="-apple-system,sans-serif" font-size="11.5" text-anchor="middle" x="350" y="140">+δxy of it becomes predators</text>
+<line marker-end="url(#rlv3)" stroke="#cd7f9b" stroke-width="2" x1="520" x2="520" y1="150" y2="184"></line>
+<text fill="#cd7f9b" font-family="SF Mono,monospace" font-size="12" text-anchor="middle" x="520" y="200">starvation −γy</text>
+<text fill="#57524b" font-family="-apple-system,sans-serif" font-size="11" text-anchor="middle" x="350" y="220">Both middle flows carry xy — they need a meeting, and that is the whole nonlinearity</text>
+</svg>
+<figcaption>Two stocks and four flows. The left one involves only x, the right one only y; the two in the middle need both parties present.</figcaption>
+</figure>
+<h2><span class="n">03</span>What You See When It Runs</h2>
+<p>Whatever the starting point, the two numbers begin to circle: prey increase → predators follow → prey are eaten down → predators starve → predators decline → prey recover. <b>The predator peak always falls after the prey peak, by roughly a quarter of a cycle.</b></p>
+<p>Plot the same run on the prey-predator plane and you get a closed orbit. The crucial part: <b>the loops neither spiral inward nor spread outward.</b> Wherever you start is the loop you stay on forever — the amplitude is set entirely by the initial condition, and the model has no preference of its own. Such loops are called neutral cycles, and behind them sits a conserved quantity (δ<i>x</i> − γ ln <i>x</i> + β<i>y</i> − α ln <i>y</i> stays constant along an orbit) that locks the trajectory the way a pendulum's energy does.</p>
+<figure>
+<svg aria-label="Lotka-Volterra closed orbits in the phase plane and the corresponding time series" role="img" viewBox="0 0 700 300" xmlns="http://www.w3.org/2000/svg">
+<defs>
+<marker id="rlv4" markerHeight="10" markerUnits="userSpaceOnUse" markerWidth="10" orient="auto" refX="9" refY="5" viewBox="0 0 10 10"><path d="M0,1 L9,5 L0,9 z" fill="#79a6d2"></path></marker>
+</defs>
+<text fill="#79a6d2" font-family="SF Mono,monospace" font-size="12" text-anchor="middle" x="247" y="30">Phase plane: three starts, three loops that never cross</text>
+<text fill="#9fbc7a" font-family="SF Mono,monospace" font-size="12" text-anchor="middle" x="547" y="30">In time: two offset waves</text>
+<line stroke="rgba(255,255,255,0.18)" stroke-width="1.5" x1="120" x2="378" y1="236" y2="236"></line>
+<line stroke="rgba(255,255,255,0.18)" stroke-width="1.5" x1="120" x2="120" y1="236" y2="48"></line>
+<path d="M251.0,178.5L252.8,177.5L254.6,176.4L256.1,175.2L257.3,173.8L258.3,172.3L259.0,170.7L259.3,169.1L259.3,167.3L258.9,165.6L258.1,163.8L257.1,162.1L255.7,160.5L253.9,159.0L252.0,157.6L249.8,156.4L247.4,155.5L245.0,154.7L242.4,154.3L239.9,154.0L237.4,154.1L235.0,154.4L232.7,154.9L230.5,155.7L228.6,156.6L226.8,157.8L225.2,159.0L223.9,160.4L222.8,161.9L222.0,163.4L221.4,165.0L221.0,166.6L220.8,168.2L220.9,169.7L221.3,171.2L221.8,172.6L222.6,173.9L223.5,175.2L224.7,176.3L226.0,177.3L227.5,178.2L229.1,179.0L230.9,179.7L232.8,180.2L234.9,180.5L237.0,180.8L239.2,180.8L241.4,180.7L243.6,180.5L245.8,180.1L248.0,179.5L250.1,178.8Z" fill="none" opacity="0.55" stroke="#79a6d2" stroke-width="1.8"></path>
+<path d="M268.8,195.4L274.7,193.7L280.4,191.6L285.7,189.0L290.5,186.0L294.5,182.6L297.7,178.6L299.9,174.1L300.7,169.1L300.2,163.7L298.3,158.0L294.8,152.1L289.9,146.3L283.8,140.7L276.7,135.6L268.8,131.2L260.5,127.8L252.1,125.4L243.8,124.2L236.0,124.1L228.7,125.0L222.1,126.9L216.2,129.6L211.1,133.0L206.7,136.8L203.0,141.0L200.0,145.4L197.6,149.9L195.8,154.4L194.5,158.8L193.7,163.0L193.3,167.1L193.4,171.0L193.9,174.6L194.8,177.9L196.0,181.1L197.6,183.9L199.6,186.5L201.9,188.8L204.5,190.9L207.5,192.8L210.9,194.4L214.5,195.7L218.5,196.8L222.8,197.7L227.5,198.4L232.4,198.8L237.6,199.0L243.0,199.0L248.7,198.7L254.6,198.1L260.5,197.2L266.5,195.9Z" fill="none" stroke="#79a6d2" stroke-width="2.2"></path>
+<path d="M292.6,211.6L303.8,209.7L315.0,207.3L326.2,204.2L336.8,200.3L346.5,195.3L354.7,189.2L360.7,181.6L363.9,172.5L363.5,161.6L359.0,149.2L350.0,135.6L336.9,121.4L320.3,107.7L301.5,95.5L281.8,85.9L262.5,79.5L244.7,76.7L228.9,77.2L215.4,80.6L204.1,86.2L194.9,93.5L187.5,101.9L181.6,110.8L176.9,119.9L173.4,128.9L170.7,137.6L168.7,145.8L167.4,153.6L166.6,160.7L166.3,167.3L166.5,173.3L167.0,178.8L167.9,183.7L169.2,188.1L170.8,192.1L172.8,195.7L175.1,198.9L177.7,201.7L180.8,204.2L184.2,206.4L188.0,208.3L192.2,209.9L196.9,211.4L202.0,212.6L207.6,213.6L213.7,214.3L220.4,214.9L227.6,215.3L235.3,215.5L243.7,215.5L252.6,215.3L262.1,214.8L272.1,214.0L282.6,213.0Z" fill="none" opacity="0.55" stroke="#79a6d2" stroke-width="1.8"></path>
+<line marker-end="url(#rlv4)" stroke="#79a6d2" stroke-width="2" x1="271.8" x2="292.6" y1="194.6" y2="184.4"></line>
+<line marker-end="url(#rlv4)" stroke="#79a6d2" stroke-width="2" x1="211.3" x2="197.6" y1="132.8" y2="149.9"></line>
+<circle cx="239" cy="168.3" fill="#d9b45f" r="5.5"></circle>
+<text fill="#d9b45f" font-family="-apple-system,sans-serif" font-size="11" text-anchor="middle" x="286" y="60">fixed point (γ/δ, α/β)</text>
+<line opacity="0.7" stroke="#d9b45f" stroke-dasharray="3 3" stroke-width="1.2" x1="244" x2="278" y1="164" y2="66"></line>
+<text fill="#8d867b" font-family="-apple-system,sans-serif" font-size="11" text-anchor="middle" x="255" y="258">prey →</text>
+<text fill="#8d867b" font-family="-apple-system,sans-serif" font-size="11" transform="rotate(-90 102 150)" x="102" y="150">predators</text>
+<line stroke="rgba(255,255,255,0.18)" stroke-width="1.5" x1="420" x2="678" y1="236" y2="236"></line>
+<line stroke="rgba(255,255,255,0.18)" stroke-width="1.5" x1="420" x2="420" y1="236" y2="48"></line>
+<line opacity="0.55" stroke="#9fbc7a" stroke-dasharray="5 4" stroke-width="1.3" x1="420" x2="678" y1="148.6" y2="148.6"></line>
+<line opacity="0.55" stroke="#cd7f9b" stroke-dasharray="5 4" stroke-width="1.3" x1="420" x2="678" y1="192.3" y2="192.3"></line>
+<path d="M420.0,126.8L421.7,122.9L423.5,119.1L425.2,115.6L426.9,112.3L428.7,109.3L430.4,106.9L432.1,105.0L433.8,103.8L435.6,103.3L437.3,103.7L439.0,105.0L440.8,107.1L442.5,110.1L444.2,113.9L446.0,118.3L447.7,123.3L449.4,128.6L451.2,134.1L452.9,139.7L454.6,145.1L456.3,150.3L458.1,155.2L459.8,159.7L461.5,163.7L463.3,167.3L465.0,170.5L466.7,173.2L468.5,175.5L470.2,177.5L471.9,179.0L473.7,180.3L475.4,181.2L477.1,181.8L478.8,182.1L480.6,182.2L482.3,182.0L484.0,181.6L485.8,181.0L487.5,180.1L489.2,179.0L491.0,177.8L492.7,176.3L494.4,174.6L496.2,172.7L497.9,170.6L499.6,168.3L501.3,165.8L503.1,163.1L504.8,160.2L506.5,157.1L508.3,153.9L510.0,150.5L511.7,146.9L513.5,143.2L515.2,139.4L516.9,135.5L518.7,131.6L520.4,127.6L522.1,123.7L523.8,119.9L525.6,116.3L527.3,112.9L529.0,109.9L530.8,107.3L532.5,105.3L534.2,104.0L536.0,103.4L537.7,103.6L539.4,104.6L541.2,106.6L542.9,109.4L544.6,113.0L546.3,117.4L548.1,122.2L549.8,127.5L551.5,133.0L553.3,138.6L555.0,144.0L556.7,149.3L558.5,154.2L560.2,158.8L561.9,162.9L563.7,166.6L565.4,169.9L567.1,172.7L568.8,175.1L570.6,177.1L572.3,178.8L574.0,180.1L575.8,181.0L577.5,181.7L579.2,182.1L581.0,182.2L582.7,182.1L584.4,181.7L586.2,181.1L587.9,180.3L589.6,179.3L591.3,178.0L593.1,176.6L594.8,174.9L596.5,173.1L598.3,171.0L600.0,168.8L601.7,166.3L603.5,163.7L605.2,160.8L606.9,157.8L608.7,154.6L610.4,151.2L612.1,147.7L613.8,144.0L615.6,140.2L617.3,136.3L619.0,132.4L620.8,128.4L622.5,124.5L624.2,120.7L626.0,117.0L627.7,113.6L629.4,110.5L631.2,107.8L632.9,105.7L634.6,104.2L636.3,103.4L638.1,103.5L639.8,104.4L641.5,106.1L643.3,108.8L645.0,112.2L646.7,116.4L648.5,121.2L650.2,126.4L651.9,131.9L653.7,137.4L655.4,142.9L657.1,148.2L658.8,153.2L660.6,157.9L662.3,162.1L664.0,165.9L665.8,169.2L667.5,172.2L669.2,174.6" fill="none" stroke="#9fbc7a" stroke-width="2.2"></path>
+<path d="M420.0,209.8L421.7,208.8L423.5,207.6L425.2,206.2L426.9,204.6L428.7,202.7L430.4,200.5L432.1,198.1L433.8,195.4L435.6,192.5L437.3,189.3L439.0,186.0L440.8,182.6L442.5,179.2L444.2,175.9L446.0,172.8L447.7,170.0L449.4,167.7L451.2,165.8L452.9,164.5L454.6,163.8L456.3,163.7L458.1,164.2L459.8,165.2L461.5,166.6L463.3,168.4L465.0,170.5L466.7,172.8L468.5,175.3L470.2,177.8L471.9,180.4L473.7,183.0L475.4,185.6L477.1,188.1L478.8,190.5L480.6,192.8L482.3,195.0L484.0,197.0L485.8,199.0L487.5,200.7L489.2,202.4L491.0,203.9L492.7,205.3L494.4,206.5L496.2,207.6L497.9,208.6L499.6,209.5L501.3,210.2L503.1,210.9L504.8,211.4L506.5,211.7L508.3,212.0L510.0,212.1L511.7,212.1L513.5,212.0L515.2,211.7L516.9,211.3L518.7,210.7L520.4,210.0L522.1,209.0L523.8,207.9L525.6,206.5L527.3,204.9L529.0,203.1L530.8,201.0L532.5,198.6L534.2,196.0L536.0,193.1L537.7,190.0L539.4,186.7L541.2,183.3L542.9,179.9L544.6,176.6L546.3,173.4L548.1,170.6L549.8,168.1L551.5,166.1L553.3,164.7L555.0,163.9L556.7,163.7L558.5,164.1L560.2,164.9L561.9,166.3L563.7,168.0L565.4,170.0L567.1,172.3L568.8,174.7L570.6,177.3L572.3,179.9L574.0,182.5L575.8,185.1L577.5,187.6L579.2,190.0L581.0,192.3L582.7,194.5L584.4,196.6L586.2,198.6L587.9,200.4L589.6,202.1L591.3,203.6L593.1,205.0L594.8,206.3L596.5,207.4L598.3,208.4L600.0,209.3L601.7,210.1L603.5,210.7L605.2,211.3L606.9,211.7L608.7,212.0L610.4,212.1L612.1,212.1L613.8,212.0L615.6,211.8L617.3,211.4L619.0,210.9L620.8,210.1L622.5,209.2L624.2,208.1L626.0,206.8L627.7,205.3L629.4,203.5L631.2,201.4L632.9,199.1L634.6,196.5L636.3,193.7L638.1,190.6L639.8,187.4L641.5,184.0L643.3,180.6L645.0,177.2L646.7,174.0L648.5,171.1L650.2,168.6L651.9,166.5L653.7,165.0L655.4,164.1L657.1,163.7L658.8,164.0L660.6,164.7L662.3,166.0L664.0,167.6L665.8,169.6L667.5,171.8L669.2,174.2" fill="none" stroke="#cd7f9b" stroke-width="2.2"></path>
+<line stroke="#9fbc7a" stroke-width="2.5" x1="430" x2="446" y1="60" y2="60"></line>
+<text fill="#9fbc7a" font-family="-apple-system,sans-serif" font-size="11" x="452" y="64">prey</text>
+<line stroke="#cd7f9b" stroke-width="2.5" x1="510" x2="526" y1="60" y2="60"></line>
+<text fill="#cd7f9b" font-family="-apple-system,sans-serif" font-size="11" x="532" y="64">predators</text>
+<text fill="#8d867b" font-family="-apple-system,sans-serif" font-size="11" text-anchor="middle" x="549" y="258">time →</text>
+<text fill="#57524b" font-family="-apple-system,sans-serif" font-size="11" text-anchor="middle" x="350" y="286">The dashed lines are the long-run means — they are exactly the coordinates of that fixed point</text>
+</svg>
+<figcaption>Closed orbits mean the amplitude is set by where you start: this model never picks an amplitude the system "ought" to have.</figcaption>
+</figure>
+<p>There is one more elegant and genuinely useful result: <b>average the counts over time and the averages land exactly on the fixed point</b> — the long-run mean of the prey is γ/δ and of the predators α/β. Say it out loud and the strangeness shows: <b>how many prey there are on average is decided entirely by the predator's parameters</b>, and not at all by how fast the prey breed (α). All α does is change the predators' average number.</p>
+<h2><span class="n">04</span>What It Explains</h2>
+<p>The first thing is a matter of principle: <b>cycles need no external cause.</b> The model has no seasons, no climate, no periodic input of any kind; the cycle is forced purely by the time lag in "predators can only be built out of last round's prey." Finding a period in your data does not mean there is a periodic hand outside pushing.</p>
+<p>The second is D'Ancona's puzzle. Take the two average formulas and apply an <em>indiscriminate</em> kill of strength h to both sides (nets that take small fish and sharks alike): the prey growth rate becomes α−h and the predator death rate γ+h. The prey's long-run mean (γ+h)/δ therefore <b>rises</b>, and the predators' long-run mean (α−h)/β <b>falls</b>. Reverse it — stop the indiscriminate kill — and the predator share is what gains, which is the wartime pattern in the Adriatic. This result is called <em>Volterra's principle</em>.</p>
+<figure>
+<svg aria-label="Volterra's principle: an indiscriminate kill raises the prey mean and lowers the predator mean" role="img" viewBox="0 0 700 250" xmlns="http://www.w3.org/2000/svg">
+<text fill="#aba498" font-family="-apple-system,sans-serif" font-size="13" text-anchor="middle" x="350" y="26">Kill both sides alike → the two means move in opposite directions</text>
+<line stroke="rgba(255,255,255,0.18)" stroke-width="1.5" x1="70" x2="640" y1="200" y2="200"></line>
+<rect fill="#5d5850" height="70" width="54" x="120" y="130"></rect>
+<text fill="#aba498" font-family="SF Mono,monospace" font-size="12" text-anchor="middle" x="147" y="122">γ/δ</text>
+<rect fill="#9fbc7a" height="84" width="54" x="196" y="116"></rect>
+<text fill="#9fbc7a" font-family="SF Mono,monospace" font-size="12" text-anchor="middle" x="223" y="108">(γ+h)/δ</text>
+<text fill="#9fbc7a" font-family="-apple-system,sans-serif" font-size="12.5" text-anchor="middle" x="185" y="76">prey long-run mean ↑</text>
+<text fill="#787268" font-family="-apple-system,sans-serif" font-size="11" text-anchor="middle" x="147" y="220">baseline</text>
+<text fill="#787268" font-family="-apple-system,sans-serif" font-size="11" text-anchor="middle" x="223" y="220">uniform kill</text>
+<rect fill="#5d5850" height="70" width="54" x="420" y="130"></rect>
+<text fill="#aba498" font-family="SF Mono,monospace" font-size="12" text-anchor="middle" x="447" y="122">α/β</text>
+<rect fill="#cd7f9b" height="49" width="54" x="496" y="151"></rect>
+<text fill="#cd7f9b" font-family="SF Mono,monospace" font-size="12" text-anchor="middle" x="523" y="143">(α−h)/β</text>
+<text fill="#cd7f9b" font-family="-apple-system,sans-serif" font-size="12.5" text-anchor="middle" x="485" y="76">predator long-run mean ↓</text>
+<text fill="#787268" font-family="-apple-system,sans-serif" font-size="11" text-anchor="middle" x="447" y="220">baseline</text>
+<text fill="#787268" font-family="-apple-system,sans-serif" font-size="11" text-anchor="middle" x="523" y="220">uniform kill</text>
+<text fill="#57524b" font-family="-apple-system,sans-serif" font-size="11" text-anchor="middle" x="350" y="242">Fishing stops in wartime → shark share rises; broad-spectrum spraying → pest rebound. One formula, two directions</text>
+</svg>
+<figcaption>Each pair of bars is drawn to its own scale (prey on the left, predators on the right); what matters is the direction, not the height.</figcaption>
+</figure>
+<p>The most famous real-world version of the principle is agricultural: after broad-spectrum insecticide is sprayed at scale, some pests rebound worse than before — the spray kills the pest and the things that eat the pest alike, and an indiscriminate kill structurally favours the party lower down the chain.</p>
+<p>The model's falsifiable expectations amount to only two: <b>the predator peak should fall after the prey peak</b>, and <b>an indiscriminate intervention should move the two means in opposite directions</b>. Both can be taken to data.</p>
+<div class="cant">
+<h3>What It Cannot Explain</h3>
+<ul>
+<li><b>It cannot explain the hare-lynx cycle in the textbooks.</b> Which is ironic, since that is the figure it is usually printed next to. Charles Krebs's team ran an eight-year field manipulation in the Yukon: excluding predators doubled hare density, adding food tripled it, and doing both raised it <b>elevenfold</b> — far more than additive. So the cycle involves at least three trophic levels (plants, hares, predators) and does not fit inside two equations. More awkwardly still, fitting the model directly to the Hudson's Bay Company's pelt records sometimes yields the phase relation backwards — Gilpin's 1973 paper is literally titled "Do Hares Eat Lynx?" Pelt records reflect trapping effort; they were never a population census.</li>
+<li><b>It is not evidence that cycles persist forever.</b> Those closed orbits are <em>structurally unstable</em>: give the prey a food ceiling (a carrying capacity) and the neutral loops immediately collapse into a spiral converging on the fixed point; let predators become satiated instead and you get a <em>limit cycle</em> of fixed amplitude. The conclusions are extremely sensitive to such edits, which tells you the eternal cycle is a product of this particular formulation, not a law of nature.</li>
+<li><b>It cannot be used on small populations.</b> The model is continuous and deterministic, so it happily lets a count fall to 0.03 hares and climb back. Real small populations go extinct from random fluctuations, and extinction is irreversible. Once numbers are down to double digits, nothing this model says can be trusted.</li>
+<li><b>It cannot make quantitative predictions.</b> The four parameters are nearly impossible to measure independently in the field and are usually fitted backwards from the data, and quite different combinations generate very similar curves. Asking it how many animals there will be next year is asking a conceptual model for something it does not have.</li>
+<li><b>It cannot be transplanted directly onto human competition.</b> The equations assume both sides respond by fixed rules. People anticipate the other side's next move, change the rules, negotiate, and walk away. The coevolutionary structure transfers, and so do the intuitions about lag and about means moving in opposite directions — but the equations themselves do not.</li>
+</ul>
+</div>
+<div class="refs">
+<h3>📚 Further Reading</h3>
+<ul>
+<li>Volterra, <a href="https://www.nature.com/articles/118558a0">Fluctuations in the abundance of a species considered mathematically</a> (1926, the original paper)</li>
+<li>Lotka, <a href="https://archive.org/details/elementsofphysic017171mbp">Elements of Physical Biology</a> (1925; the same equations reached independently from chemical kinetics)</li>
+<li><a href="https://en.wikipedia.org/wiki/Lotka%E2%80%93Volterra_equations">Lotka-Volterra equations</a> (with derivations of the conserved quantity and the fixed point)</li>
+<li>Gilpin, <a href="https://www.journals.uchicago.edu/doi/abs/10.1086/282870">Do Hares Eat Lynx?</a> (1973; the famous embarrassment of fitting the pelt data)</li>
+<li>Krebs et al., <a href="https://www.science.org/doi/10.1126/science.269.5227.1112">Impact of food and predation on the snowshoe hare cycle</a> (1995; the eight-year Yukon manipulation)</li>
+<li>Rosenzweig, <a href="https://www.science.org/doi/10.1126/science.171.3969.385">Paradox of Enrichment</a> (1971; feeding the prey can destabilise the whole system)</li>
+</ul>
+</div>
+<footer>BigCat · Complexity Science · <a href="index.en.html">← All Topics</a></footer>
+</div>
+<script src="https://hub.cissychen.com/comments.js" defer></script>
+<script src="https://hub.cissychen.com/search.js" defer></script>
+<script src="https://hub.cissychen.com/index-button.js" defer></script>
+<script src="https://hub.cissychen.com/i18n-tts.js" defer></script>
+<script src="https://hub.cissychen.com/lightbox.js" defer></script>
+</body></html>
