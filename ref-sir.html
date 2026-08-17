@@ -45,15 +45,15 @@ footer a{color:#79a6d2;text-decoration:none}
 <div class="wrap">
 <header>
 <span class="rtag">REF · 经典模型</span>
-<h1>SIR 模型<span class="h1en">THE SIR MODEL</span></h1>
+<h1 data-tts="0e0da49d94f07332">SIR 模型<span class="h1en">THE SIR MODEL</span></h1>
 <p class="sub">Kermack &amp; McKendrick，1927 — 传染病建模的骨架，也是"传播"这个词的数学出处</p>
 <p class="meta">被引用于：Topic 24 传播与传染</p>
 </header>
-<h2><span class="n">01</span>它问的是什么问题<span class="he">（The Question It Poses）</span></h2>
+<h2 data-tts="e802047d59c761ff"><span class="n">01</span>它问的是什么问题<span class="he">（The Question It Poses）</span></h2>
 <p>1927 年，Kermack 和 McKendrick 想解决一个当时相当碍眼的疑问：<b>为什么流行病总是在还剩下一大批从没得过病的人的时候，就自己退潮了？</b></p>
 <p>当时最流行的解释是病原体在流行过程中"毒力衰减"了——传着传着变温和了。这个解释需要假设病原体本身发生了变化。两人想问的是：<em>能不能什么都不假设，只靠人数的加减，就把这条曲线算出来？</em></p>
 <p>答案是能。而且推导出来的东西比原问题值钱得多：一个把"传得开传不开"压缩成单一数字的判据。</p>
-<h2><span class="n">02</span>规则本身<span class="he">（The Rules）</span></h2>
+<h2 data-tts="5f21155606d70388"><span class="n">02</span>规则本身<span class="he">（The Rules）</span></h2>
 <div class="rule">
 <ol>
 <li>把总人数 N 分成三堆：<em>S</em> 易感者（susceptible，还会中招）、<em>I</em> 感染者（infectious，正在往外传）、<em>R</em> 移出者（removed，康复或死亡，不再参与）。</li>
@@ -65,9 +65,9 @@ footer a{color:#79a6d2;text-decoration:none}
 </div>
 <p>两个参数一相除就是那个著名的数：<b>R₀ = β / γ</b>——基本再生数（basic reproduction number），一个感染者在全是易感者的人群里平均传给几个。它的分子是"传得多快"，分母是"传多久停"，所以 R₀ 天然是<em>速率乘以时长</em>，不是病原体的固有属性。</p>
 <figure>
-<svg aria-label="SIR 的三个分室与两条转移速率" role="img" viewBox="0 0 700 190" xmlns="http://www.w3.org/2000/svg">
+<svg aria-label="SIR 的三个分室与两条转移速率" role="img" viewbox="0 0 700 190" xmlns="http://www.w3.org/2000/svg">
 <defs>
-<marker id="rsir1" markerHeight="10" markerUnits="userSpaceOnUse" markerWidth="10" orient="auto" refX="9" refY="5" viewBox="0 0 10 10">
+<marker id="rsir1" markerheight="10" markerunits="userSpaceOnUse" markerwidth="10" orient="auto" refx="9" refy="5" viewbox="0 0 10 10">
 <path d="M0,1 L9,5 L0,9 z" fill="#63b3a6"></path>
 </marker>
 </defs>
@@ -93,11 +93,11 @@ footer a{color:#79a6d2;text-decoration:none}
 </svg>
 <figcaption>整个模型就是这张图。左边那条箭头里的 S/N 是它全部反直觉结论的来源。</figcaption>
 </figure>
-<h2><span class="n">03</span>跑起来会看到什么<span class="he">（What You See When It Runs）</span></h2>
+<h2 data-tts="5b83713c290ae4fc"><span class="n">03</span>跑起来会看到什么<span class="he">（What You See When It Runs）</span></h2>
 <p>放一个感染者进去。如果 R₀ &gt; 1，感染人数先指数上涨；随着易感者被消耗，实际的再生数 R₀·S/N 一路下滑；<b>当 S/N 降到 1/R₀ 时，它正好等于 1，新增达到峰值</b>；此后新增下降，但仍在发生。</p>
 <p>关键的一幕在峰值之后：那一刻仍有大量人处在感染期，他们不会停下，于是 S 继续跌，一路跌到远低于 1/R₀ 的地方。这个多出来的部分叫<b>超调</b>（overshoot）。最终有多少人被感染过，由一个只含 R₀ 的方程决定：R₀ = 3 时约 94%，R₀ = 2 时约 80%，R₀ = 1.5 时约 58%。</p>
 <figure>
-<svg aria-label="SIR 三条曲线：易感者下降、感染者单峰、累计感染上升到终末规模" role="img" viewBox="0 0 700 318" xmlns="http://www.w3.org/2000/svg">
+<svg aria-label="SIR 三条曲线：易感者下降、感染者单峰、累计感染上升到终末规模" role="img" viewbox="0 0 700 318" xmlns="http://www.w3.org/2000/svg">
 <text fill="#aba498" font-family="-apple-system,sans-serif" font-size="13" text-anchor="middle" x="350" y="24">一次流行的全过程（R₀ = 3）</text>
 <line stroke="rgba(255,255,255,0.18)" stroke-width="1.5" x1="80" x2="640" y1="250" y2="250"></line>
 <line stroke="rgba(255,255,255,0.18)" stroke-width="1.5" x1="80" x2="80" y1="250" y2="50"></line>
@@ -120,13 +120,13 @@ footer a{color:#79a6d2;text-decoration:none}
 <figcaption>三条曲线一起看才对：峰值出现在 S/N 掉到 1/R₀ 的那一刻，而流行在那之后还要再烧掉一大截。</figcaption>
 </figure>
 <p>还有两个跑出来才会注意到的性质。其一，<b>峰值时间对参数极其敏感，终末规模却很稳</b>——把 β 调小一点，峰会推迟很久、变矮，但如果不持续压制，最终感染总数只小一点点。其二，<b>R₀ &lt; 1 时曲线根本起不来</b>，无论初始感染者有多少：这就是"阈值"两个字的全部含义。</p>
-<h2><span class="n">04</span>它解释了现实中的什么<span class="he">（What It Explains）</span></h2>
+<h2 data-tts="75d9b42104f7d04d"><span class="n">04</span>它解释了现实中的什么<span class="he">（What It Explains）</span></h2>
 <p>第一，<b>流行病的自限性</b>：不需要假设病原体变弱，燃料被烧掉就够了。这是它最初要回答的那个问题。</p>
 <p>第二，<b>疫苗接种阈值</b>：要让 R_eff 一开始就小于 1，需要事先把易感者比例压到 1/R₀ 以下，也就是接种覆盖率至少 1 − 1/R₀。麻疹这类高 R₀ 的病要求 90% 以上，正是从这一行来的。</p>
 <p>第三，<b>"压平曲线"为什么真的减少总量</b>：终末规模是 R₀ 的函数，把有效再生数从 3 压到 1.5，最终感染比例从约 94% 降到约 58%。干预不只是把同一堆病例摊开。</p>
 <p>第四，<b>它给了一整套可迁移的骨架</b>：把 S/I/R 换成"没听说过 / 正在转发 / 听腻了"，同一组方程就成了谣言模型；换成"未采用 / 正在推荐 / 已流失"，就成了产品扩散模型。骨架能借，但下一节的每一条也跟着一起借过去了。</p>
 <div class="cant">
-<h3>它不能解释什么<span class="he">（What It Cannot Explain）</span></h3>
+<h3 data-tts="71364a154a3865bc">它不能解释什么<span class="he">（What It Cannot Explain）</span></h3>
 <ul>
 <li><b>不能处理接触的不均匀。</b>均匀混合是硬编码进模型的。真实接触网络的度分布常常是重尾的，此时阈值由 ⟨k²⟩/⟨k⟩ 决定而不是平均接触数，甚至可能趋近于零——那意味着"R₀ &lt; 1 就安全"这条结论本身失效。要处理这个必须换成网络上的传播模型。</li>
 <li><b>不能处理超离散。</b>模型里每个感染者都是平均值的化身，而真实的二次感染数分布极度不均（新冠的离散参数约 0.1，约 10% 的病例造成约 80% 的传播）。后果是：R₀ &gt; 1 也常常自行熄灭，早期数据的方差远大于模型预期，用平均量做的短期外推会系统性地误导。</li>
@@ -136,7 +136,7 @@ footer a{color:#79a6d2;text-decoration:none}
 </ul>
 </div>
 <div class="refs">
-<h3>延伸阅读<span class="he">（Further Reading）</span></h3>
+<h3 data-tts="2bc760a837e25245">延伸阅读<span class="he">（Further Reading）</span></h3>
 <ul>
 <li>Kermack &amp; McKendrick, <a href="https://doi.org/10.1098/rspa.1927.0118">A Contribution to the Mathematical Theory of Epidemics</a>（1927）</li>
 <li><a href="https://en.wikipedia.org/wiki/Compartmental_models_in_epidemiology">Compartmental models in epidemiology</a>（各类分室模型的总览）</li>
@@ -147,9 +147,9 @@ footer a{color:#79a6d2;text-decoration:none}
 </div>
 <footer>BigCat · 复杂性科学 · <a href="index.html">← 全部 Topic</a></footer>
 </div>
-<script src="https://hub.cissychen.com/comments.js" defer></script>
-<script src="https://hub.cissychen.com/search.js" defer></script>
-<script src="https://hub.cissychen.com/index-button.js" defer></script>
-<script src="https://hub.cissychen.com/i18n-tts.js" defer></script>
-<script src="https://hub.cissychen.com/lightbox.js" defer></script>
+<script defer="" src="https://hub.cissychen.com/comments.js"></script>
+<script defer="" src="https://hub.cissychen.com/search.js"></script>
+<script defer="" src="https://hub.cissychen.com/index-button.js"></script>
+<script defer="" src="https://hub.cissychen.com/i18n-tts.js"></script>
+<script defer="" src="https://hub.cissychen.com/lightbox.js"></script>
 </body></html>

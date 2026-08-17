@@ -45,14 +45,14 @@ footer a{color:#79a6d2;text-decoration:none}
 <div class="wrap">
 <header>
 <span class="rtag">REF · 经典模型</span>
-<h1>NK 适应性景观<span class="h1en">THE NK FITNESS LANDSCAPE</span></h1>
+<h1 data-tts="10115928e5458c67">NK 适应性景观<span class="h1en">THE NK FITNESS LANDSCAPE</span></h1>
 <p class="sub">Kauffman &amp; Levin，1987 — 把「崎岖度」变成一个可以拧的旋钮</p>
 <p class="meta">被引用于：Topic 28 适应性景观</p>
 </header>
-<h2><span class="n">01</span>它问的是什么问题<span class="he">（The Question It Poses）</span></h2>
+<h2 data-tts="183973035768ddc6"><span class="n">01</span>它问的是什么问题<span class="he">（The Question It Poses）</span></h2>
 <p>有的问题，你一点一点改，最后总能改到最好；有的问题，改到某处就再也动不了了，而你明知道还有更好的方案在别处。这两类问题的差别在哪儿？</p>
 <p>把配置空间画成地形之后，问题就变成了：<b>地形的崎岖程度——有几个山头、山头之间隔多远——由什么决定？</b>Stuart Kauffman 和 Simon Levin 要的不是某个具体系统的真实地形（那通常测不出来），而是一台可以<em>调节崎岖度</em>的发生器：一个旋钮从"只有一座山"一直拧到"完全随机的碎石地"，中间连续可调。有了它，才能问"崎岖度变化时，搜索行为怎么变"这种问题。</p>
-<h2><span class="n">02</span>规则本身<span class="he">（The Rules）</span></h2>
+<h2 data-tts="ad2a83287089188d"><span class="n">02</span>规则本身<span class="he">（The Rules）</span></h2>
 <div class="rule">
 <ol>
 <li>系统由 <em>N</em> 个部件组成，每个部件取 0 或 1。所以一共有 2<sup>N</sup> 种配置。</li>
@@ -112,7 +112,7 @@ footer a{color:#79a6d2;text-decoration:none}
 </svg>
 <figcaption>K 不是"复杂度"的模糊说法，它是一个能数出来的量：改一个部件，会有几份贡献跟着被重算。</figcaption>
 </figure>
-<h2><span class="n">03</span>跑起来会看到什么<span class="he">（What You See When It Runs）</span></h2>
+<h2 data-tts="64773a868679099e"><span class="n">03</span>跑起来会看到什么<span class="he">（What You See When It Runs）</span></h2>
 <p>从一个随机配置出发，反复搬到更好的邻居去（这叫<b>适应性行走</b>，adaptive walk），直到没有更好的邻居为止。三件事会稳定地出现：</p>
 <p><b>① K = 0 时地形只有一座山。</b>每个部件的最佳状态与别人无关，你可以逐个定下来，所以从任何起点出发都能走到同一个顶点。这个顶点的适应度是每个部件"两选一取大"的平均，也就是约 <b>0.67</b>。走到顶大约要 N/2 步。</p>
 <p><b>② K = N−1 时地形彻底随机。</b>任意两个相邻配置的适应度毫无关系。此时局部最优的个数是 <b>2<sup>N</sup>⁄(N+1)</b>——N = 20 时约五万个。更要命的是行走会很快结束：每往上走一步，比当前更好的邻居数大约<b>减半</b>，所以从随机起点出发，只需要 log₂N 量级的步数就再也走不动了。N = 100 的系统，大约走七步就卡住。</p>
@@ -144,12 +144,12 @@ footer a{color:#79a6d2;text-decoration:none}
 <figcaption>K 大不只是"更难找到最优"，是连找到的那个次优也变得不值钱。</figcaption>
 </figure>
 <p>另有一条常被忽略的结果：K 介于两端之间时，最有意思的事情才发生——地形既有多个峰，峰之间又还保留着相关性（<b>相关长度</b>随 K 上升而变短）。<em>中等 K</em> 是唯一一段"既有多样的好方案、又还能靠搜索找到它们"的区间，这也是"混沌边缘"这类说法在 NK 语言里最接近可定义的地方。</p>
-<h2><span class="n">04</span>它解释了现实中的什么<span class="he">（What It Explains）</span></h2>
+<h2 data-tts="491b05af2c00837e"><span class="n">04</span>它解释了现实中的什么<span class="he">（What It Explains）</span></h2>
 <p>NK 模型的用法从来不是"代进真实数据算出答案"，而是作为一台<b>产生定性预期的机器</b>：如果某个系统的部件相互依赖变强，你应该看到什么？</p>
 <p>它给出的预期相当具体：局部最优会变多（不同的团队/物种/公司会稳定地停在不同的方案上，且都不是最优）；渐进搜索的收益会迅速衰减（同样的努力，改进幅度越来越小）；起点会变得比努力更重要（路径依赖）；模仿会变得困难——Jan Rivkin 在 2000 年用 NK 论证过这一点：<b>高 K 的战略哪怕被完全看见也难以被抄走</b>，因为抄错一两个部件就会掉进谷里，而部件的数量让穷举变得不可行。</p>
 <p>同一台机器还解释了为什么<b>模块化</b>是一种如此普遍的演化产物：把系统切成模块，就是在人为地把 K 压低，代价是放弃跨模块的协同（峰会矮一点），换来的是"小步改进重新有效"。这正是第 3 期近可分解性那条论证的定量版本。</p>
 <div class="cant">
-<h3>它不能解释什么<span class="he">（What It Cannot Explain）</span></h3>
+<h3 data-tts="87aaf3b872dfff36">它不能解释什么<span class="he">（What It Cannot Explain）</span></h3>
 <ul>
 <li><b>K 在现实中量不出来。</b>模型里 K 是给定的整数；真实系统里没有人能数清"这个部件的好坏取决于另外几个"。所以任何"我们公司的 K 大概是 4"的说法都是修辞。NK 给的是趋势的方向，不是可标定的数值。</li>
 <li><b>它假设依赖关系是随机撒的。</b>真实的相互依赖有结构——模块化的、层级的、局部的。同样的 K，依赖关系聚成几团和均匀撒开，地形完全不同。所以拿 NK 的结论去评价一个已知是模块化的系统，会系统性地高估它的崎岖度。</li>
@@ -160,7 +160,7 @@ footer a{color:#79a6d2;text-decoration:none}
 </ul>
 </div>
 <div class="refs">
-<h3>延伸阅读<span class="he">（Further Reading）</span></h3>
+<h3 data-tts="933fd28fb91f0d51">延伸阅读<span class="he">（Further Reading）</span></h3>
 <ul>
 <li>Kauffman &amp; Levin, <a href="https://doi.org/10.1016/S0022-5193(87)80029-2">Towards a general theory of adaptive walks on rugged landscapes</a>（1987，原始论文）</li>
 <li>Stuart Kauffman, <a href="https://global.oup.com/academic/product/the-origins-of-order-9780195079517">The Origins of Order</a>（1993，复杂性灾难与中等 K 的完整论述）</li>
@@ -172,9 +172,9 @@ footer a{color:#79a6d2;text-decoration:none}
 </div>
 <footer>BigCat · 复杂性科学 · <a href="index.html">← 全部 Topic</a></footer>
 </div>
-<script src="https://hub.cissychen.com/comments.js" defer></script>
-<script src="https://hub.cissychen.com/search.js" defer></script>
-<script src="https://hub.cissychen.com/index-button.js" defer></script>
-<script src="https://hub.cissychen.com/i18n-tts.js" defer></script>
-<script src="https://hub.cissychen.com/lightbox.js" defer></script>
+<script defer="" src="https://hub.cissychen.com/comments.js"></script>
+<script defer="" src="https://hub.cissychen.com/search.js"></script>
+<script defer="" src="https://hub.cissychen.com/index-button.js"></script>
+<script defer="" src="https://hub.cissychen.com/i18n-tts.js"></script>
+<script defer="" src="https://hub.cissychen.com/lightbox.js"></script>
 </body></html>

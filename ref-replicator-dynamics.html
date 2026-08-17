@@ -42,21 +42,18 @@ footer{text-align:center;padding:52px 0 10px;font-size:0.78rem;color:#57524b;fon
 footer a{color:#79a6d2;text-decoration:none}
 @media(max-width:600px){h1{font-size:1.7rem}.wrap{padding:24px 16px 60px}}
 </style></head><body>
-
 <div class="wrap">
 <header>
 <span class="rtag">REF · 经典模型</span>
-<h1>复制动态<span class="h1en">REPLICATOR DYNAMICS</span></h1>
+<h1 data-tts="0e6fdfeabaa8bc18">复制动态<span class="h1en">REPLICATOR DYNAMICS</span></h1>
 <p class="sub">Taylor 与 Jonker，1978 — 把"谁会流行起来"写成一个方程</p>
 <p class="meta">被引用于：Topic 29 演化博弈与合作的起源</p>
 </header>
-
-<h2><span class="n">01</span>它问的是什么问题<span class="he">（The Question It Poses）</span></h2>
+<h2 data-tts="850ade2393986139"><span class="n">01</span>它问的是什么问题<span class="he">（The Question It Poses）</span></h2>
 <p>传统博弈论假设参与者是理性的：知道所有选项、算得清收益、能推测对方在想什么。这套假设用来分析一场谈判还行，用来解释一群细菌、一片森林里的树、或者一万个只会跟风的散户，就太奢侈了。</p>
 <p>1970 年代生物学家碰到的正是后一类问题：动物不会算，可它们的行为分布看起来偏偏像是算过的。<b>有没有一种机制，不需要任何一方懂道理，也能把人群推向那个"算出来"的结果？</b></p>
 <p>复制动态给的答案是：有，而且它只需要两件事——<b>做得好的会被更多地复制</b>，以及<b>做得好不好取决于别人在做什么</b>。前者可以是繁殖，可以是模仿，也可以是资金流向；机制不同，方程一样。</p>
-
-<h2><span class="n">02</span>规则本身<span class="he">（The Rules）</span></h2>
+<h2 data-tts="a4caf897e937989d"><span class="n">02</span>规则本身<span class="he">（The Rules）</span></h2>
 <div class="rule">
 <ol>
 <li>人群里有若干种策略。记第 <em>i</em> 种策略此刻占的比例为 <em>x<sub>i</sub></em>，所有比例加起来等于 1。</li>
@@ -69,19 +66,19 @@ footer a{color:#79a6d2;text-decoration:none}
 <p>第 4 条前面那个 <em>x<sub>i</sub></em> 因子容易被忽略，但它决定了整个模型的性格：<b>一个策略再优秀，只要它现在人少，扩张也慢。</b>好东西不会一夜之间铺开——它得先熬过基数太小的阶段。这一条同时也解释了第 5 条：0 乘任何数都是 0。</p>
 <p>还有一件事要说清楚：这个方程<b>不描述任何一个个体</b>。它只讲比例。问"某某会不会改用这个策略"，它答不上来，也不打算答。</p>
 <figure>
-<svg aria-label="复制动态一步更新：柱宽是比例、柱高是收益，高于平均的变宽、低于平均的变窄" role="img" viewBox="0 0 700 300" xmlns="http://www.w3.org/2000/svg">
+<svg aria-label="复制动态一步更新：柱宽是比例、柱高是收益，高于平均的变宽、低于平均的变窄" role="img" viewbox="0 0 700 300" xmlns="http://www.w3.org/2000/svg">
 <defs>
-<marker id="rr1" markerHeight="10" markerUnits="userSpaceOnUse" markerWidth="10" orient="auto" refX="9" refY="5" viewBox="0 0 10 10">
+<marker id="rr1" markerheight="10" markerunits="userSpaceOnUse" markerwidth="10" orient="auto" refx="9" refy="5" viewbox="0 0 10 10">
 <path d="M0,1 L9,5 L0,9 z" fill="#9fbc7a"></path>
 </marker>
-<marker id="rr2" markerHeight="10" markerUnits="userSpaceOnUse" markerWidth="10" orient="auto" refX="9" refY="5" viewBox="0 0 10 10">
+<marker id="rr2" markerheight="10" markerunits="userSpaceOnUse" markerwidth="10" orient="auto" refx="9" refy="5" viewbox="0 0 10 10">
 <path d="M0,1 L9,5 L0,9 z" fill="#cd7f9b"></path>
 </marker>
 </defs>
 <text fill="#aba498" font-family="-apple-system,sans-serif" font-size="13" text-anchor="middle" x="350" y="26">柱高＝这个策略现在的收益，柱宽＝它现在占的比例</text>
 <line stroke="rgba(255,255,255,0.18)" stroke-width="1.5" x1="80" x2="648" y1="196" y2="196"></line>
 <line stroke="rgba(217,180,95,0.6)" stroke-dasharray="6 5" stroke-width="1.6" x1="80" x2="648" y1="127" y2="127"></line>
-<text fill="#d9b45f" font-family="SF Mono,monospace" font-size="12.5" text-anchor="end" x="74" y="131">f&#772;</text>
+<text fill="#d9b45f" font-family="SF Mono,monospace" font-size="12.5" text-anchor="end" x="74" y="131">f̄</text>
 <rect fill="#3b4030" height="56" stroke="rgba(159,188,122,0.7)" width="160" x="90" y="140"></rect>
 <rect fill="#2e2c26" height="20" stroke="rgba(255,255,255,0.18)" width="44" x="310" y="176"></rect>
 <rect fill="#33262c" height="90" stroke="rgba(205,127,155,0.7)" width="196" x="414" y="106"></rect>
@@ -99,13 +96,12 @@ footer a{color:#79a6d2;text-decoration:none}
 </svg>
 <figcaption>虚线是全场平均。在它上面的策略比例上升，在它下面的下降——而虚线本身会随比例变化上下移动，这就是麻烦的来源。</figcaption>
 </figure>
-
-<h2><span class="n">03</span>跑起来会看到什么<span class="he">（What You See When It Runs）</span></h2>
+<h2 data-tts="500d888b3befc34e"><span class="n">03</span>跑起来会看到什么<span class="he">（What You See When It Runs）</span></h2>
 <p>两种策略的情况可以画在一条线段上：横轴是策略 A 的占比，从 0 到 1，箭头表示它往哪边走。收益结构不同，只会出现四种图形之一。</p>
 <figure>
-<svg aria-label="两策略复制动态的三种典型相线：支配、共存、双稳" role="img" viewBox="0 0 700 340" xmlns="http://www.w3.org/2000/svg">
+<svg aria-label="两策略复制动态的三种典型相线：支配、共存、双稳" role="img" viewbox="0 0 700 340" xmlns="http://www.w3.org/2000/svg">
 <defs>
-<marker id="rr3" markerHeight="9" markerUnits="userSpaceOnUse" markerWidth="9" orient="auto" refX="8" refY="4.5" viewBox="0 0 9 9">
+<marker id="rr3" markerheight="9" markerunits="userSpaceOnUse" markerwidth="9" orient="auto" refx="8" refy="4.5" viewbox="0 0 9 9">
 <path d="M0,1 L8,4.5 L0,8 z" fill="#63b3a6"></path>
 </marker>
 </defs>
@@ -150,14 +146,12 @@ footer a{color:#79a6d2;text-decoration:none}
 </figure>
 <p>策略一多，情况就不再是线段。三种策略要画在一个三角形里（每个角代表全是某一种），常见的结局包括：收敛到某个角、收敛到某条边上的一点、或者<b>永远绕圈</b>。石头剪刀布就是绕圈的那种——它没有稳定的落点，只有一个转个不停的环。加州侧斑鬣蜥（<em>Uta stansburiana</em>）的三种雄性形态就跑着这样一个大约六年一周期的循环（Sinervo 与 Lively，1996）。</p>
 <p>四种及以上策略时，复制动态甚至可以出现混沌——轨迹永不重复，长期不可预测。所以"演化会趋于稳定"这句话本身就不成立，它只是某些收益结构下的特例。</p>
-
-<h2><span class="n">04</span>它解释了现实中的什么<span class="he">（What It Explains）</span></h2>
+<h2 data-tts="3439202b372b647a"><span class="n">04</span>它解释了现实中的什么<span class="he">（What It Explains）</span></h2>
 <p>最直接的应用是<b>行为的比例为什么稳在某个奇怪的值上</b>。动物种群里为什么总有一小撮"骗子"而不是全部或者没有；一个行业里为什么低价策略和高服务策略能长期并存；为什么某些坏习惯明明大家都吃亏，却怎么也扫不掉——第一种相线说的正是这件事。</p>
 <p>它也解释<b>先发优势为什么在某些场合是决定性的、在另一些场合毫无意义</b>。第三种相线（双稳）里，起点落在分水岭哪一侧决定一切：键盘布局、充电接口、社交平台的早期用户，都是这种结构。而第二种相线（共存）里，起点完全不重要，从哪儿出发都会回到同一个比例——在这种系统里砸钱抢开局是浪费。</p>
 <p>还有一层不那么显眼的贡献：它把"理性"从假设降级成了<b>结果</b>。复制动态里没有人算过任何东西，可最终的比例往往正好落在博弈论用理性假设算出来的那个点上。这说明纳什均衡的适用范围比它的推导过程看起来要宽——你不需要参与者聪明，只需要淘汰机制存在。</p>
-
 <div class="cant">
-<h3>它不能解释什么<span class="he">（What It Cannot Explain）</span></h3>
+<h3 data-tts="cb35b3e7ac1d5bfb">它不能解释什么<span class="he">（What It Cannot Explain）</span></h3>
 <ul>
 <li><b>不能凭空产生新策略。</b>方程里没有变异项：比例为 0 的策略永远是 0。所以它讲不了创新，也讲不了一个新做法怎么从无到有。要谈这个得另外加机制（变异、迁入、试错）。</li>
 <li><b>不能处理小群体。</b>推导假设人数无穷多，比例可以连续变化。真实的小群体里随机性会主导——一个明明更差的策略可以纯靠运气固定下来。人数少的时候要用别的工具（Moran 过程之类的随机模型）。</li>
@@ -166,9 +160,8 @@ footer a{color:#79a6d2;text-decoration:none}
 <li><b>"复制"的机制被抹掉了。</b>繁殖、模仿、学习、资金流入被同一个方程一视同仁地处理。可它们的速度差着几个数量级，而且模仿会挑对象（人倾向于模仿地位高的，而不是收益高的）。这种偏差方程里没有位置。</li>
 </ul>
 </div>
-
 <div class="refs">
-<h3>延伸阅读<span class="he">（Further Reading）</span></h3>
+<h3 data-tts="bcd3c3bebeee3625">延伸阅读<span class="he">（Further Reading）</span></h3>
 <ul>
 <li>Taylor &amp; Jonker, <a href="https://doi.org/10.1016/0025-5564(78)90077-9">Evolutionary stable strategies and game dynamics</a>（1978，方程的出处）</li>
 <li>Maynard Smith &amp; Price, <a href="https://www.nature.com/articles/246015a0">The Logic of Animal Conflict</a>（1973，ESS）</li>
@@ -177,12 +170,11 @@ footer a{color:#79a6d2;text-decoration:none}
 <li>Hofbauer &amp; Sigmund, <a href="https://www.cambridge.org/core/books/evolutionary-games-and-population-dynamics/A8D97EBD3B7A6E5B3E1A1BDC7F0A2FDC">Evolutionary Games and Population Dynamics</a>（1998，标准教材）</li>
 </ul>
 </div>
-
 <footer>BigCat · 复杂性科学 · <a href="index.html">← 全部 Topic</a></footer>
 </div>
-<script src="https://hub.cissychen.com/comments.js" defer></script>
-<script src="https://hub.cissychen.com/search.js" defer></script>
-<script src="https://hub.cissychen.com/index-button.js" defer></script>
-<script src="https://hub.cissychen.com/i18n-tts.js" defer></script>
-<script src="https://hub.cissychen.com/lightbox.js" defer></script>
+<script defer="" src="https://hub.cissychen.com/comments.js"></script>
+<script defer="" src="https://hub.cissychen.com/search.js"></script>
+<script defer="" src="https://hub.cissychen.com/index-button.js"></script>
+<script defer="" src="https://hub.cissychen.com/i18n-tts.js"></script>
+<script defer="" src="https://hub.cissychen.com/lightbox.js"></script>
 </body></html>

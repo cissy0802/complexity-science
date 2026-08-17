@@ -47,15 +47,15 @@ footer a{color:#79a6d2;text-decoration:none}
 <div class="wrap">
 <header>
 <span class="rtag">REF · 经典模型</span>
-<h1>Lotka-Volterra 模型<span class="h1en">THE LOTKA-VOLTERRA MODEL</span></h1>
+<h1 data-tts="4805fc0c7696ac5d">Lotka-Volterra 模型<span class="h1en">THE LOTKA-VOLTERRA MODEL</span></h1>
 <p class="sub">Lotka 1925 / Volterra 1926 — 两个方程画出的捕食者-猎物循环</p>
 <p class="meta">被引用于：Topic 31 共演化与红皇后</p>
 </header>
-<h2><span class="n">01</span>它问的是什么问题<span class="he">（The Question It Poses）</span></h2>
+<h2 data-tts="32dc637224ab95eb"><span class="n">01</span>它问的是什么问题<span class="he">（The Question It Poses）</span></h2>
 <p>1920 年代，意大利生物学家 Umberto D'Ancona 在整理亚得里亚海各港口的渔获记录时撞上一个反常：一战期间捕捞几乎停摆，可等战争结束一看，<b>渔获里鲨鱼这类掠食性鱼的占比不降反升。</b>少捞鱼，为什么获利的是吃鱼的那一方？</p>
 <p>他把问题带给了岳父、数学家 Vito Volterra。更一般的问题其实是：自然界里种群数量的涨落常常带周期性，这种周期<b>必须有外部原因吗</b>（气候、季节、太阳活动）？还是"吃与被吃"这一条互动就足以自己转起来？</p>
 <p>Lotka-Volterra 模型是对后一半的最小回答——一个尽可能笨、尽可能少假设的装置，用来证明"循环不需要外因"这件事在原则上成立。</p>
-<h2><span class="n">02</span>规则本身<span class="he">（The Rules）</span></h2>
+<h2 data-tts="8a1b0ad863868aad"><span class="n">02</span>规则本身<span class="he">（The Rules）</span></h2>
 <div class="rule">
 <ol>
 <li>整个世界只有两个数：猎物的数量 <em>x</em>，捕食者的数量 <em>y</em>。</li>
@@ -70,11 +70,11 @@ d<i>x</i>/d<i>t</i> = α<i>x</i> − β<i>xy</i>　　　d<i>y</i>/d<i>t</i> = �
 <small>四个参数全是正数。注意模型里没有的东西：没有空间、没有年龄、没有随机、没有猎物的食物上限、也没有捕食者吃饱的那一刻。</small>
 </div>
 <figure>
-<svg aria-label="Lotka-Volterra 的四条流：猎物出生、相遇被吃、转化为捕食者、捕食者饿死" role="img" viewBox="0 0 700 230" xmlns="http://www.w3.org/2000/svg">
+<svg aria-label="Lotka-Volterra 的四条流：猎物出生、相遇被吃、转化为捕食者、捕食者饿死" role="img" viewbox="0 0 700 230" xmlns="http://www.w3.org/2000/svg">
 <defs>
-<marker id="rlv1" markerHeight="10" markerUnits="userSpaceOnUse" markerWidth="10" orient="auto" refX="9" refY="5" viewBox="0 0 10 10"><path d="M0,1 L9,5 L0,9 z" fill="#9fbc7a"></path></marker>
-<marker id="rlv2" markerHeight="10" markerUnits="userSpaceOnUse" markerWidth="10" orient="auto" refX="9" refY="5" viewBox="0 0 10 10"><path d="M0,1 L9,5 L0,9 z" fill="#63b3a6"></path></marker>
-<marker id="rlv3" markerHeight="10" markerUnits="userSpaceOnUse" markerWidth="10" orient="auto" refX="9" refY="5" viewBox="0 0 10 10"><path d="M0,1 L9,5 L0,9 z" fill="#cd7f9b"></path></marker>
+<marker id="rlv1" markerheight="10" markerunits="userSpaceOnUse" markerwidth="10" orient="auto" refx="9" refy="5" viewbox="0 0 10 10"><path d="M0,1 L9,5 L0,9 z" fill="#9fbc7a"></path></marker>
+<marker id="rlv2" markerheight="10" markerunits="userSpaceOnUse" markerwidth="10" orient="auto" refx="9" refy="5" viewbox="0 0 10 10"><path d="M0,1 L9,5 L0,9 z" fill="#63b3a6"></path></marker>
+<marker id="rlv3" markerheight="10" markerunits="userSpaceOnUse" markerwidth="10" orient="auto" refx="9" refy="5" viewbox="0 0 10 10"><path d="M0,1 L9,5 L0,9 z" fill="#cd7f9b"></path></marker>
 </defs>
 <text fill="#aba498" font-family="-apple-system,sans-serif" font-size="13" text-anchor="middle" x="350" y="26">四条流，两个存量</text>
 <rect fill="rgba(159,188,122,0.09)" height="58" rx="10" stroke="rgba(159,188,122,0.45)" width="150" x="105" y="88"></rect>
@@ -94,13 +94,13 @@ d<i>x</i>/d<i>t</i> = α<i>x</i> − β<i>xy</i>　　　d<i>y</i>/d<i>t</i> = �
 </svg>
 <figcaption>两个存量、四条流。左边那条只跟 x 有关，右边那条只跟 y 有关，中间两条要两边都在场。</figcaption>
 </figure>
-<h2><span class="n">03</span>跑起来会看到什么<span class="he">（What You See When It Runs）</span></h2>
+<h2 data-tts="16eb0aeb25b148c1"><span class="n">03</span>跑起来会看到什么<span class="he">（What You See When It Runs）</span></h2>
 <p>不管从哪个起点出发，两个数就开始转圈：猎物多起来 → 捕食者跟着变多 → 猎物被吃到变少 → 捕食者饿 → 捕食者变少 → 猎物又起来。<b>捕食者的高峰总是落在猎物高峰之后，差不多晚四分之一个周期。</b></p>
 <p>把同一段过程画在"猎物-捕食者"平面上，得到的是一圈闭合的轨道。关键在于：<b>这些圈既不往里收，也不往外散。</b>起点在哪，就永远在那一圈上转——振幅完全由初始条件决定，模型自己不挑。这类循环叫中性循环，它背后有个守恒量（δ<i>x</i> − γ ln <i>x</i> + β<i>y</i> − α ln <i>y</i> 沿轨道恒定），像单摆的能量一样把轨道锁死。</p>
 <figure>
-<svg aria-label="Lotka-Volterra 的相平面闭合轨道与时间序列" role="img" viewBox="0 0 700 300" xmlns="http://www.w3.org/2000/svg">
+<svg aria-label="Lotka-Volterra 的相平面闭合轨道与时间序列" role="img" viewbox="0 0 700 300" xmlns="http://www.w3.org/2000/svg">
 <defs>
-<marker id="rlv4" markerHeight="10" markerUnits="userSpaceOnUse" markerWidth="10" orient="auto" refX="9" refY="5" viewBox="0 0 10 10"><path d="M0,1 L9,5 L0,9 z" fill="#79a6d2"></path></marker>
+<marker id="rlv4" markerheight="10" markerunits="userSpaceOnUse" markerwidth="10" orient="auto" refx="9" refy="5" viewbox="0 0 10 10"><path d="M0,1 L9,5 L0,9 z" fill="#79a6d2"></path></marker>
 </defs>
 <text fill="#79a6d2" font-family="SF Mono,monospace" font-size="12" text-anchor="middle" x="247" y="30">相平面：三个起点，三条永不相交的圈</text>
 <text fill="#9fbc7a" font-family="SF Mono,monospace" font-size="12" text-anchor="middle" x="547" y="30">时间上：两条错开的波</text>
@@ -132,11 +132,11 @@ d<i>x</i>/d<i>t</i> = α<i>x</i> − β<i>xy</i>　　　d<i>y</i>/d<i>t</i> = �
 <figcaption>轨道闭合意味着振幅由起点决定：这个模型不会自己挑一个"该有的"波动幅度。</figcaption>
 </figure>
 <p>还有一个漂亮又有用的结果：<b>把数量沿时间平均，平均值正好等于那个不动点</b>——猎物的长期平均是 γ/δ，捕食者的长期平均是 α/β。念一遍就会发现它有多别扭：<b>猎物平均有多少，完全由捕食者那一侧的参数决定</b>，跟猎物自己繁殖得多快（α）一点关系都没有。α 只改变捕食者的平均数量。</p>
-<h2><span class="n">04</span>它解释了现实中的什么<span class="he">（What It Explains）</span></h2>
+<h2 data-tts="020e761ee9d4cfad"><span class="n">04</span>它解释了现实中的什么<span class="he">（What It Explains）</span></h2>
 <p>第一件是原则性的：<b>周期不需要外因。</b>在这个模型里没有季节、没有气候、没有任何周期性的输入，循环纯粹是"捕食者要靠上一轮的猎物才长得出来"这个时间滞后逼出来的。看到数据里有周期，不等于外面有个周期性的推手。</p>
 <p>第二件就是 D'Ancona 的谜题。把上面那两个平均值公式拿来用：假设你对两边<em>无差别</em>地施加杀伤（捕捞既捞小鱼也捞鲨鱼，杀伤强度 h），等于把猎物的增长率变成 α−h、把捕食者的死亡率变成 γ+h。于是猎物的长期平均 (γ+h)/δ <b>上升</b>，捕食者的长期平均 (α−h)/β <b>下降</b>。反过来，停止这种无差别杀伤，得利的就是捕食者的占比——正是一战停捕后鲨鱼比例上升的样子。这条结论叫<em>沃尔泰拉原理</em>（Volterra's principle）。</p>
 <figure>
-<svg aria-label="沃尔泰拉原理：无差别杀伤使猎物平均数上升、捕食者平均数下降" role="img" viewBox="0 0 700 250" xmlns="http://www.w3.org/2000/svg">
+<svg aria-label="沃尔泰拉原理：无差别杀伤使猎物平均数上升、捕食者平均数下降" role="img" viewbox="0 0 700 250" xmlns="http://www.w3.org/2000/svg">
 <text fill="#aba498" font-family="-apple-system,sans-serif" font-size="13" text-anchor="middle" x="350" y="26">对双方一视同仁地杀伤 → 两个平均值往相反方向动</text>
 <line stroke="rgba(255,255,255,0.18)" stroke-width="1.5" x1="70" x2="640" y1="200" y2="200"></line>
 <rect fill="#5d5850" height="70" width="54" x="120" y="130"></rect>
@@ -160,7 +160,7 @@ d<i>x</i>/d<i>t</i> = α<i>x</i> − β<i>xy</i>　　　d<i>y</i>/d<i>t</i> = �
 <p>这条原理的现实版最有名的是农业：大面积喷广谱杀虫剂之后，某些害虫反而暴发得更凶——药同时杀了害虫和吃害虫的天敌，而无差别杀伤在结构上偏向食物链下游那一方。</p>
 <p>模型给出的可证伪预期其实只有两条：<b>捕食者的峰应当落在猎物的峰之后</b>，以及<b>无差别的干预会让两边的平均值反向移动</b>。这两条都能拿数据去打。</p>
 <div class="cant">
-<h3>它不能解释什么<span class="he">（What It Cannot Explain）</span></h3>
+<h3 data-tts="b2d720cb425d7517">它不能解释什么<span class="he">（What It Cannot Explain）</span></h3>
 <ul>
 <li><b>不能解释教科书上那个雪兔-猞猁循环。</b>这有点讽刺——它就是被拿来配这张图的。Charles Krebs 团队在育空做了八年野外操控实验：排除捕食者让兔子密度翻倍，加食物让它变三倍，两样一起做则是<b>十一倍</b>，远超两者相加。也就是说这个循环至少牵扯三个营养层级（植物-兔-捕食者），两个方程装不下。更尴尬的是，直接拿模型去拟合哈德逊湾公司的毛皮记录，得到的相位关系有时是反的——Gilpin 1973 年那篇论文的标题就叫《兔子吃猞猁吗？》。毛皮记录反映的是捕猎强度，本来就不是种群普查。</li>
 <li><b>不能当成"循环会永远持续"的证据。</b>那些闭合轨道是<em>结构不稳定</em>的（structurally unstable）：只要给猎物加一个食物上限（承载力），中性的圈立刻塌成螺旋、收敛到不动点；换成"捕食者会吃饱"的饱和型捕食，又会得到一个固定振幅的<em>极限环</em>（limit cycle）。模型结论对这些改动极其敏感，说明"永恒循环"是这个特定写法的产物，不是自然规律。</li>
@@ -170,7 +170,7 @@ d<i>x</i>/d<i>t</i> = α<i>x</i> − β<i>xy</i>　　　d<i>y</i>/d<i>t</i> = �
 </ul>
 </div>
 <div class="refs">
-<h3>📚 延伸阅读<span class="he">（Further Reading）</span></h3>
+<h3 data-tts="9f2dc21a4ca46608">📚 延伸阅读<span class="he">（Further Reading）</span></h3>
 <ul>
 <li>Volterra, <a href="https://www.nature.com/articles/118558a0">Fluctuations in the abundance of a species considered mathematically</a>（1926，原始论文）</li>
 <li>Lotka, <a href="https://archive.org/details/elementsofphysic017171mbp">Elements of Physical Biology</a>（1925，从化学反应出发独立得到同一组方程）</li>
@@ -182,9 +182,9 @@ d<i>x</i>/d<i>t</i> = α<i>x</i> − β<i>xy</i>　　　d<i>y</i>/d<i>t</i> = �
 </div>
 <footer>BigCat · 复杂性科学 · <a href="index.html">← 全部 Topic</a></footer>
 </div>
-<script src="https://hub.cissychen.com/comments.js" defer></script>
-<script src="https://hub.cissychen.com/search.js" defer></script>
-<script src="https://hub.cissychen.com/index-button.js" defer></script>
-<script src="https://hub.cissychen.com/i18n-tts.js" defer></script>
-<script src="https://hub.cissychen.com/lightbox.js" defer></script>
+<script defer="" src="https://hub.cissychen.com/comments.js"></script>
+<script defer="" src="https://hub.cissychen.com/search.js"></script>
+<script defer="" src="https://hub.cissychen.com/index-button.js"></script>
+<script defer="" src="https://hub.cissychen.com/i18n-tts.js"></script>
+<script defer="" src="https://hub.cissychen.com/lightbox.js"></script>
 </body></html>

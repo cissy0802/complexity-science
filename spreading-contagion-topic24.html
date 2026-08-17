@@ -67,7 +67,7 @@ footer a{color:#79a6d2;text-decoration:none}
 <div class="wrap">
 <header>
 <span class="week-tag">TOPIC 24 · PHASE D</span>
-<h1>传播与传染<span class="h1en">SPREADING AND CONTAGION</span></h1>
+<h1 data-tts="2f8058afafecfb3c">传播与传染<span class="h1en">SPREADING AND CONTAGION</span></h1>
 <p class="sub">观念不是病毒，别照搬病毒的打法<span class="he">（Ideas are not viruses — don't copy the virus playbook）</span></p>
 <p class="date">2026-08-10 · 网络</p>
 </header>
@@ -77,15 +77,15 @@ footer a{color:#79a6d2;text-decoration:none}
 <p>丢掉的那条前提是：<b>病毒只需要碰你一次。</b>而一个要你改变做法的东西——换个工具、改个习惯、站出来说句话——通常需要好几个<em>不同的人</em>先做给你看。这一个字的差别，会把整套打法翻过来：让病毒跑得飞快的那种结构（远距离的捷径、连得广的弱关系），恰恰是让行为跑不动的结构。</p>
 <p class="dim">本 Phase 讲网络的六期各管一段：第 20 期是结构本身（度、路径、聚类），第 21 期是捷径与小世界，第 22 期是枢纽怎么长出来，第 23 期是这种结构抗什么、怕什么，第 25 期是负载重分配引发的级联失效。<b>本期只问一件事：一个东西沿着这张网跑起来之后，什么决定它停不停得下来。</b></p>
 </div>
-<h2><span class="n">01</span>一个人传给几个人<span class="he">（The Number That Runs Everything）</span></h2>
+<h2 data-tts="0a120cec8c80738f"><span class="n">01</span>一个人传给几个人<span class="he">（The Number That Runs Everything）</span></h2>
 <p class="lead">1927 年，两位苏格兰研究者 Kermack 和 McKendrick 做了一件很省事的事：不追踪任何一个具体的人，只把人群分成三堆 <a class="reflink" href="ref-sir.html">→ 参考 · SIR 模型</a>。</p>
 <p>第一堆是<b>易感者</b>（susceptible），还没得过、碰上就会中招；第二堆是<b>感染者</b>（infectious），正在往外传；第三堆是<b>移出者</b>（removed），康复了或者死了，反正不再参与传播。三堆的英文首字母连起来就是这个模型的名字：<b>SIR</b>。规则也只有两条：易感者碰到感染者，按某个概率变成感染者；感染者过一阵子变成移出者。</p>
 <p>从这两条规则里能挤出一个数，叫<b>基本再生数</b>（basic reproduction number），写作 <b>R₀</b>：把一个感染者丢进一个所有人都还易感的人群里，他平均能传给几个。R₀ 大于 1 就会涨，小于 1 就会自己熄掉。这个分界线干净得几乎不像真的。</p>
 <p>但真正值得停下来看一眼的是它的组成。R₀ 是三件事的乘积：<em>你每单位时间接触多少人</em> × <em>接触一次传过去的概率</em> × <em>你能传多久</em>。三项里只有中间那项主要由病原体决定，另外两项是行为和环境。所以"这个病的 R₀ 是 3"这句话，严格说是不完整的——必须补上"在哪儿、什么时候、什么人之间"。</p>
 <figure>
-<svg aria-label="SIR 三个分室与两条转移，以及 R₀ 的三因子分解" role="img" viewBox="0 0 720 280" xmlns="http://www.w3.org/2000/svg">
+<svg aria-label="SIR 三个分室与两条转移，以及 R₀ 的三因子分解" role="img" viewbox="0 0 720 280" xmlns="http://www.w3.org/2000/svg">
 <defs>
-<marker id="t24a" markerHeight="10" markerUnits="userSpaceOnUse" markerWidth="10" orient="auto" refX="9" refY="5" viewBox="0 0 10 10">
+<marker id="t24a" markerheight="10" markerunits="userSpaceOnUse" markerwidth="10" orient="auto" refx="9" refy="5" viewbox="0 0 10 10">
 <path d="M0,1 L9,5 L0,9 z" fill="#9fbc7a"></path>
 </marker>
 </defs>
@@ -131,18 +131,18 @@ footer a{color:#79a6d2;text-decoration:none}
 🌀 <b>工程与技术史 · SQL Slammer</b>　2003 年 1 月，一个只有 376 字节的蠕虫用随机挑 IP 地址的方式扫全网，感染数量每 8.5 秒翻一倍，不到 10 分钟就拿下了约 90% 的易感主机。它之所以能被事后精确复盘，恰恰因为"随机挑一个对象接触"这个教科书假设在它身上<b>真的成立</b>——它不认识谁，也没有社交圈。反过来推出一句不太顺耳的话：人类流行病难预测，主要不是因为病毒复杂，而是因为人不随机混合。
 </div>
 <p class="en-brief"><b>EN</b> Kermack &amp; McKendrick (1927) split a population into Susceptible, Infectious and Removed. R₀ — the average number of onward infections in a fully susceptible population — is the product of contact rate, per-contact transmission probability and infectious period; only the middle term belongs mostly to the pathogen. The effective reproduction number R_eff = R₀ · S/N falls as susceptibles are consumed: spreading eats its own fuel.</p>
-<h2><span class="n">02</span>它为什么会自己停下来<span class="he">（Why It Stops By Itself）</span></h2>
+<h2 data-tts="c50880a7d1204416"><span class="n">02</span>它为什么会自己停下来<span class="he">（Why It Stops By Itself）</span></h2>
 <p class="lead">既然 R_eff = R₀ × 易感者比例，那么只要易感者比例掉到 1/R₀ 以下，R_eff 就小于 1，传播开始收缩。这个门槛有个名字叫<b>群体免疫阈值</b>（herd immunity threshold），等于 1 − 1/R₀。R₀ 是 3，阈值就是 67%。</p>
 <p>Kermack 和 McKendrick 当年真正想解决的正是这件事：为什么疫情会在<em>还剩一大堆没得过病的人</em>的时候就退潮？当时流行的解释是"病毒毒力衰减了"。他们证明了不需要这个假设——燃料被烧掉一部分，火自己就小了。</p>
 <p>但这里有个几乎所有人都会漏掉的转折。<b>疫情不是在越过阈值的那一刻结束的。</b>越过阈值只意味着<em>新增开始下降</em>；而此刻仍有大量正在传染期的人，他们不会因为跨过了一条统计上的线就停止呼吸。他们继续传，于是易感者继续减少，一路冲到阈值以下很远的地方才真的停。多出来的这一截叫<b>超调</b>（overshoot）。</p>
 <p>数字比感觉更吓人：R₀ = 3 时，阈值算出来是 67%，而让它自然烧完，最终会有约 <b>94%</b> 的人被感染过。多出的 27 个百分点，全部是超调。这就是"让它自然获得群体免疫"这个说法在算术上的问题——它把阈值当成了终点，而阈值只是转折点。</p>
 <figure>
-<svg aria-label="易感者比例随时间下降，穿过群体免疫阈值后继续下降，多出的部分是超调" role="img" viewBox="0 0 720 330" xmlns="http://www.w3.org/2000/svg">
+<svg aria-label="易感者比例随时间下降，穿过群体免疫阈值后继续下降，多出的部分是超调" role="img" viewbox="0 0 720 330" xmlns="http://www.w3.org/2000/svg">
 <defs>
-<marker id="t24b" markerHeight="9" markerUnits="userSpaceOnUse" markerWidth="9" orient="auto" refX="8" refY="5" viewBox="0 0 10 10">
+<marker id="t24b" markerheight="9" markerunits="userSpaceOnUse" markerwidth="9" orient="auto" refx="8" refy="5" viewbox="0 0 10 10">
 <path d="M0,1 L9,5 L0,9 z" fill="#cd7f9b"></path>
 </marker>
-<marker id="t24c" markerHeight="9" markerUnits="userSpaceOnUse" markerWidth="9" orient="auto" refX="8" refY="5" viewBox="0 0 10 10">
+<marker id="t24c" markerheight="9" markerunits="userSpaceOnUse" markerwidth="9" orient="auto" refx="8" refy="5" viewbox="0 0 10 10">
 <path d="M0,1 L9,5 L0,9 z" fill="#cd7f9b"></path>
 </marker>
 </defs>
@@ -174,14 +174,14 @@ footer a{color:#79a6d2;text-decoration:none}
 🌀 <b>人口学 · Keyfitz 的人口惯性</b>　1971 年 Nathan Keyfitz 问了一个当时很多人想当然的问题：如果生育率明天就降到刚好世代更替的水平，人口会不会停止增长？答案是不会——他算出高生育率国家的人口仍会一路涨到当时的约 1.6 倍才稳住，因为过去的高生育已经把一大批人送进了育龄阶段，这个存量还得走完。这跑的正是超调那条机制：<b>驱动量穿过阈值，只让增量见顶，不让存量掉头。</b>由此推出一条对所有"到点即停"式政策都成立的判据——如果你干预的是流量而关心的是存量，那么达标那一刻永远不是收手的时刻。
 </div>
 <p class="en-brief"><b>EN</b> The herd immunity threshold is 1 − 1/R₀: at R₀ = 3, 67%. But crossing it only turns incidence over — people already infectious keep transmitting, so susceptibles fall well below the threshold. That excess is overshoot: an unmitigated R₀ = 3 epidemic infects about 94%, not 67%. Hence any exit rule should be written as a stock level sustained over time, never as a date.</p>
-<h2><span class="n">03</span>平均值不管用的地方<span class="he">（Where the Average Stops Working）</span></h2>
+<h2 data-tts="08aef996d9acad26"><span class="n">03</span>平均值不管用的地方<span class="he">（Where the Average Stops Working）</span></h2>
 <p class="lead">前面两节都偷偷做了一个假设，叫<b>均匀混合</b>（homogeneous mixing）：每个人和每个人碰上的机会都一样，就像一锅搅匀的汤。这个假设让数学变得极其干净，也让结论跟现实差出一大截。</p>
 <p>真人不是汤。有人一天见两百个人，有人一周见五个。第 22 期讲过这类接触网络的度分布常常是重尾的 <a class="reflink" href="ref-power-law.html">→ 参考 · 幂律的识别与误判</a>。而一旦度分布不均匀，决定"传得开传不开"的那个量就换了：不再是平均接触数 ⟨k⟩，而是 <b>⟨k²⟩ / ⟨k⟩</b>——分子是接触数的<em>平方</em>的平均。平方对尾巴极其敏感：一个见两百人的人，在平方里的分量是见十人者的四百倍。</p>
 <p>2001 年 Pastor-Satorras 和 Vespignani 把这条算到底，得到一个当时相当震动的结论：如果度分布是幂指数不超过 3 的重尾，那么随着网络变大，⟨k²⟩ 会发散，<b>流行阈值趋向于零</b>——不存在一个"传染性低于这个值就烧不起来"的安全区间。任何强度的传染，都能在这样的网上扎下根。</p>
 <figure>
-<svg aria-label="均匀网络与重尾网络的对比，以及各自的传播阈值位置" role="img" viewBox="0 0 720 344" xmlns="http://www.w3.org/2000/svg">
+<svg aria-label="均匀网络与重尾网络的对比，以及各自的传播阈值位置" role="img" viewbox="0 0 720 344" xmlns="http://www.w3.org/2000/svg">
 <defs>
-<marker id="t24d" markerHeight="10" markerUnits="userSpaceOnUse" markerWidth="10" orient="auto" refX="9" refY="5" viewBox="0 0 10 10">
+<marker id="t24d" markerheight="10" markerunits="userSpaceOnUse" markerwidth="10" orient="auto" refx="9" refy="5" viewbox="0 0 10 10">
 <path d="M0,1 L9,5 L0,9 z" fill="#8d867b"></path>
 </marker>
 </defs>
@@ -234,13 +234,13 @@ footer a{color:#79a6d2;text-decoration:none}
 🌀 <b>历史与医学 · 伤寒玛丽</b>　Mary Mallon 是纽约的厨师，本人从未发病，却被确认直接造成至少 51 例伤寒、3 人死亡，先后两次被强制隔离在北兄弟岛，前后约 26 年直到 1938 年去世。这个案子通常被当成公共卫生伦理的教材，但从本节的机制看，它还给出一条冷冰冰的判据：<b>只有在传播极度超离散的时候，针对某一个人的干预才可能有整体效果</b>；在均匀混合的世界里，隔离任何单个个体的收益必然微不足道，因而也无从证成。所以"该不该盯住某个人"这个问题，答案的一半藏在分布的形状里，而不只在伦理直觉里——同时代价也一起被算清楚了：26 年。
 </div>
 <p class="en-brief"><b>EN</b> Sections 1–2 assumed homogeneous mixing. Once contact degrees are heavy-tailed, the epidemic threshold is set by ⟨k²⟩/⟨k⟩, not by the mean; Pastor-Satorras &amp; Vespignani (2001) showed it vanishes for power-law exponents at or below 3. Transmission is also overdispersed — SARS-CoV-2's dispersion parameter is around 0.1, with roughly 10% of cases driving 80% of infections — which makes setting-targeted intervention far cheaper than uniform intervention.</p>
-<h2><span class="n">04</span>一次够不够<span class="he">（Simple and Complex Contagion）</span></h2>
+<h2 data-tts="fc137cdc143b999d"><span class="n">04</span>一次够不够<span class="he">（Simple and Complex Contagion）</span></h2>
 <p class="lead">现在说本期最有用的那条区分。病毒只需要接触一次：碰上了，按概率中招，跟你之前碰过几个病人无关。这叫<b>简单传染</b>（simple contagion）。</p>
 <p>而很多社会性的东西不是这样。要不要辞职去创业、要不要换掉用了十年的工具、要不要在会上第一个说"这个方向不对"——这类事情的门槛是：<b>我身边得有好几个不同的人已经这么做了</b>。一个人说，是噪声；三个互不相干的人都这么做，才是信号。这叫<b>复杂传染</b>（complex contagion）。它最早由 Centola 和 Macy 在 2007 年正式提出，而更早的雏形是 Granovetter 1978 年的阈值模型：每个人心里有一个数——"周围有 n 个人做了，我才做"——而这些数在人群里参差不齐。</p>
 <p>关键是这个区分会把网络结构的价值<em>翻过来</em>。第 21 期讲过，少数几条远距离捷径能让整张网的直径急剧缩短 <a class="reflink" href="ref-small-world.html">→ 参考 · 小世界模型</a>，这对简单传染是天大的好事：一条捷径就足以把火种送到对岸。但复杂传染缺的不是距离，是<b>落在同一个人身上的多份独立信号</b>。一条捷径只送来一份，送到就断了；而互相认识的密集小圈子会把同一件事从三个方向重复送到你面前——那恰恰是阈值要的东西。</p>
 <p>Centola 在 2010 年把这件事做成了实验：一千五百多名参与者被随机分进两种人工社交网络，一种是聚簇的格状网（邻居之间也互相是邻居，连接高度冗余），另一种是随机网（连得远、路径短）。要传播的行为是"去注册一个健康论坛"。结果和小世界的直觉正好相反：<b>聚簇网里传得又快又远</b>——最终采纳率 54% 对 38%，扩散速度约四倍。</p>
 <figure>
-<svg aria-label="同一张网上，简单传染越过捷径而复杂传染停在捷径尽头" role="img" viewBox="0 0 720 352" xmlns="http://www.w3.org/2000/svg">
+<svg aria-label="同一张网上，简单传染越过捷径而复杂传染停在捷径尽头" role="img" viewbox="0 0 720 352" xmlns="http://www.w3.org/2000/svg">
 <text fill="#aba498" font-family="-apple-system,sans-serif" font-size="13" text-anchor="middle" x="360" y="26">同一张网，同一条捷径，两种结果</text>
 <text fill="#e0895e" font-family="SF Mono,monospace" font-size="12" x="40" y="48">① 简单传染：碰一次就够</text>
 <g stroke="rgba(224,137,94,0.40)" stroke-width="1.5">
@@ -293,7 +293,7 @@ footer a{color:#79a6d2;text-decoration:none}
 🌀 <b>经济与制度 · 冷启动为什么要一个城市一个城市打</b>　叫车、支付、协作工具这类产品的采纳门槛，是"我认识的人里已经有几个在用"——典型的复杂传染。所以全国铺开的广告（广度、单次曝光）几乎推不动它，而<b>逐城市、逐校园做到局部饱和</b>能推动：饱和制造的正是同一个人被多个熟人重复触达的条件。由此推出一条对预算分配很硬的结论：在复杂传染里，把预算摊到十个城市的效果<b>不是</b>集中打一个城市的十分之一，而可能是零——因为每个城市都停在门槛之下，而门槛之下的投入不产生任何存量。
 </div>
 <p class="en-brief"><b>EN</b> Viruses need one exposure (simple contagion); costly or risky behaviours need several independent adopters nearby (complex contagion — Centola &amp; Macy 2007, foreshadowed by Granovetter's 1978 threshold model). This inverts the value of network structure: shortcuts shorten distance but deliver only one signal each. Centola's 2010 experiment found behaviour spread faster and farther on clustered lattices than on random networks — 54% versus 38% adoption, roughly four times the speed.</p>
-<h2><span class="n">05</span>这套说法在哪儿不成立<span class="he">（Where This Breaks Down）</span></h2>
+<h2 data-tts="fa80f4f3e86b8569"><span class="n">05</span>这套说法在哪儿不成立<span class="he">（Where This Breaks Down）</span></h2>
 <p class="lead">传染模型是复杂性科学里被搬运得最勤的一套工具，也因此最容易搬坏。用之前得知道它在哪儿会散架。</p>
 <p><b>第一，R₀ 不是一个可以查表的常数。</b>麻疹的 R₀ 长期被引作 12–18，几乎成了常识。2017 年 Guerra 等人做了一次系统综述，从 18 项研究里收集到 58 个估计值，结论是：实际估计的跨度<em>远大于</em>这个常被引用的区间，而且高度依赖人口结构、年代和估计方法。这不奇怪——R₀ 里有两项本来就是行为和环境。<b>引一个 R₀ 而不说它是在哪张网、什么行为下测出来的，等于引一个没有单位的数。</b></p>
 <p><b>第二，分室模型的假设是硬的，不是装饰。</b>它要求均匀混合（第三节已经拆过）、要求状态转移离散且不可逆（得过就终身免疫）、要求这段时间里人口构成基本不变。真实的病原体有潜伏期（得再加一个分室 E）、有再感染、有变异、有季节性。模型给的是骨架，不是身体。</p>
@@ -305,7 +305,7 @@ footer a{color:#79a6d2;text-decoration:none}
 </div>
 <p class="en-brief"><b>EN</b> Four limits. R₀ is not a lookup constant: Guerra et al. (2017) gathered 58 measles estimates from 18 studies and found spread far wider than the familiar 12–18. Compartmental models hard-code homogeneous mixing, irreversible states and a stable population. Applied to ideas, the missing piece is an observable definition of infection — the rock memetics foundered on. And complex contagion itself trades reach against reinforcement, so clustering has a dose, not a direction.</p>
 <div class="bigcat">
-<h3>🎒 场景 · BigCat</h3>
+<h3 data-tts="efd5eec374715e32">🎒 场景 · BigCat</h3>
 <ol>
 <li><span class="dm">写作与这个学习站本身</span>反复发生的情境：一期发出去，隔天看阅读量和转发数，把数字高的那期当成"写对了"。但这个站要传的东西——改变一个人看问题的方式——如果是复杂传染，那么它的采纳需要同一个人在不同场合反复撞见同一条机制，而阅读量统计的恰恰是简单传染那一侧的量：一次触达。可改的东西：把主看的数从"单期触达"换成<b>回访深度</b>——最近三个月里，有多少人读过三期以上；以及有没有人能说出"我在某个决定里用了哪一期的哪条判据"。停掉的动作：为了提高转发率去改标题——转发率优化的是捷径的数量，而你缺的是重复。</li>
 <li><span class="dm">育儿</span>反复发生的情境：希望孩子养成一个习惯（读书、运动、把事做完再玩），做法是自己多说几次、多讲几遍道理。这是在用简单传染的打法——增加<b>同一个源</b>的曝光次数。而按本期第四节，复杂传染要的是<b>多个不同的、互相独立的源</b>：同一句话由你说第十遍，在门槛计数里仍然只算一个人。可改的东西：不增加自己的重复次数，去增加"他亲眼看见在做这件事的人"的<b>个数</b>，并且这些人最好彼此不认识（否则是同一个源在复读）。可核对的判据：数一数，除了你之外，他身边有几个人是他真的看见在做这件事的？答案通常是零或一，而门槛往往是二或三。</li>
@@ -313,7 +313,7 @@ footer a{color:#79a6d2;text-decoration:none}
 </ol>
 </div>
 <div class="crossx">
-<h3>🌀 越界 · 跨学科的联想<span class="he">（Crossings）</span></h3>
+<h3 data-tts="ac22ffeec18710ac">🌀 越界 · 跨学科的联想<span class="he">（Crossings）</span></h3>
 <ul>
 <li><b>宗教史 · 一条被算出来的增长曲线</b>：社会学家 Rodney Stark 在《基督教的兴起》里做了一件很朴素的事——假设公元 40 年有 1000 名基督徒，取每十年增长 40%（约合年增 3.4%），一路复利算到公元 350 年，得到约 3388 万人。他的论点是：这个速度一点都不神奇（摩门教 1880–1980 年就是这个量级），所以不需要用某个皇帝、某次奇迹来解释基督教的兴起。本期三条机制合起来能把这个论点做得更硬：R₀ 略大于 1 就足以产生这条曲线（第一节）；Stark 强调改宗几乎全部沿着已有的强关系发生——家人、朋友、同乡——这正是复杂传染的特征，也解释了为什么速度是"每十年 40%"而不是像瘟疫那样几年横扫（第四节）。<b>但这里不成立</b>：恒定增长率这个假设，本期第二节直接否掉了——R_eff 必然随易感池耗尽而下降，指数段不可能延续三百年。Bart Ehrman 早就指出，同样的算法推到公元 400 年会得出 1.7 亿基督徒，超过整个罗马帝国的人口；后来 Lucero 2021 干脆用一个<em>次指数</em>增长模型去拟合，效果比纯指数好。更根本的失配是：改宗没有一个可判定的时刻，也不是不可逆的——分室模型要求人一次性、单向地从一堆走到另一堆，而宗教归属可以是名义上的、可以反复、可以同时属于两边。能借走的是"这个速度不需要奇迹来解释"，借不走的是那条一路直上的曲线。</li>
 <li><b>东方思想 · 禅宗为什么把传法弄得那么慢</b>：禅宗的自我描述里，法不靠文字传，必须面授、必须由已得法者当面印可。用本期的语言看，这是把一件本可以是简单传染的事（读一本书，一次曝光即可复制）刻意改造成了受控的传染：接收方必须与已"感染"者长期共处并被确认。这样做的代价是速度——传播被限制在极窄的接触面上，法脉因此呈树状、地理高度集中；收益则是<b>抑制变异</b>：任何单点的偏离都传不出去，因为传出去需要授权，而授权者只有一个。这也顺带解释了一件看着矛盾的事——一个号称不立文字的宗派，却生产了《景德传灯录》这类庞大的文献。灯录记的主要不是教义，是<em>谁传给了谁</em>：它是网络拓扑的账本，是这套传播机制必须自己维护的那份记录。（顺带一提，"不立文字、教外别传"这十六字被归到菩提达摩名下，是宋代的追加——1108 年睦庵善卿的《祖庭事苑》是较早的一处。）<b>但这里不成立</b>：复杂传染的门槛是"多少个<em>邻居</em>已采纳"，是无向的、对称的；而印可是单一权威的、有向的授权，度为 1 就够。所以禅宗的慢不是门槛造成的，是授权者稀缺造成的。能借走的是"限制传播路径会压制变异"这个后果，借不走"需要多次曝光"这个原因。</li>
@@ -321,14 +321,14 @@ footer a{color:#79a6d2;text-decoration:none}
 </ul>
 </div>
 <div class="thinking">
-<h3>深入思考<span class="he">（Going Deeper）</span></h3>
+<h3 data-tts="968357f309f4b58d">深入思考<span class="he">（Going Deeper）</span></h3>
 <details><summary>如果一个东西同时有简单和复杂两种传播路径，会怎样？</summary><p>大多数真实的东西都是混合的：知道一条消息是简单传染，采纳一个做法是复杂传染。有意思的是这两层的最优结构不同——上层（知晓）要捷径，下层（采纳）要密度。这提示一种分工式的投放：用广度制造"听说过"的存量，再用密度在局部把它转成采纳。值得追问的是：知晓层的饱和会不会反而抬高采纳的门槛（人人都听说过、但没人先做，观望本身成了一种信号）？</p></details>
 <details><summary>为什么"压平曲线"能减少总感染人数，而不只是把它摊开？</summary><p>直觉上干预只是推迟，总量不变。但超调那条机制给了另一个答案：干预降低 R_eff，而最终感染比例是 R_eff 的函数——把 R_eff 从 3 压到 1.5，终末规模从约 94% 降到约 58%。也就是说压平曲线确实改变了总量，因为它改变了系统冲过阈值的惯性。前提是干预持续到易感者被消耗到位，否则撤掉就反弹。</p></details>
 <details><summary>超离散是好消息还是坏消息？</summary><p>两面都有。坏消息：平均值不再能预测，小规模爆发的方差极大，早期数据几乎不能外推。好消息：既然大部分传播集中在少数场景，那么便宜的、局部的干预就能拿走大部分风险——这是均匀混合世界里不存在的机会。所以"这个系统是不是超离散的"应该是干预设计的第一个问题，而不是一个统计学细节。</p></details>
 <details><summary>观念传播里有没有"移出者"这一堆？</summary><p>这是把 SIR 搬到观念上最难对付的地方。得过病的人不再易感，而听过一个说法却没接受的人，下次仍然可能接受——甚至更可能，因为门槛是累计的。这意味着观念的动力学可能根本不是 SIR 而更接近有记忆的 SIS（可反复感染），而带记忆的过程里"阈值"这个概念要重新定义。谁能给这一堆人一个可观测的定义，谁就推进了这件事。</p></details>
 </div>
 <div class="refs">
-<h3>延伸阅读<span class="he">（Further Reading）</span></h3>
+<h3 data-tts="8b1aeaf3b63e41da">延伸阅读<span class="he">（Further Reading）</span></h3>
 <ul>
 <li>Kermack &amp; McKendrick, <a href="https://doi.org/10.1098/rspa.1927.0118">A Contribution to the Mathematical Theory of Epidemics</a>（1927，SIR 的原始论文）</li>
 <li>Pastor-Satorras &amp; Vespignani, <a href="https://doi.org/10.1103/PhysRevLett.86.3200">Epidemic Spreading in Scale-Free Networks</a>（2001，阈值消失）</li>
@@ -344,9 +344,9 @@ footer a{color:#79a6d2;text-decoration:none}
 </div>
 <footer>BigCat · 复杂性科学 · <a href="index.html">← 全部 Topic</a></footer>
 </div>
-<script src="https://hub.cissychen.com/comments.js" defer></script>
-<script src="https://hub.cissychen.com/search.js" defer></script>
-<script src="https://hub.cissychen.com/index-button.js" defer></script>
-<script src="https://hub.cissychen.com/i18n-tts.js" defer></script>
-<script src="https://hub.cissychen.com/lightbox.js" defer></script>
+<script defer="" src="https://hub.cissychen.com/comments.js"></script>
+<script defer="" src="https://hub.cissychen.com/search.js"></script>
+<script defer="" src="https://hub.cissychen.com/index-button.js"></script>
+<script defer="" src="https://hub.cissychen.com/i18n-tts.js"></script>
+<script defer="" src="https://hub.cissychen.com/lightbox.js"></script>
 </body></html>
