@@ -1,0 +1,647 @@
+<!DOCTYPE html>
+
+<html lang="zh-CN"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>尺度不变与分形 — 换一把尺子，答案就换一个 · 复杂性科学 T32</title>
+<style>
+
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,"SF Pro Display","Noto Sans SC",sans-serif;color:#e4ded5;line-height:1.85;min-height:100vh;
+  background:radial-gradient(1100px 620px at 12% -6%,rgba(224,137,94,0.10),transparent 62%),radial-gradient(950px 700px at 100% 2%,rgba(166,147,205,0.09),transparent 58%),linear-gradient(168deg,#100f0d 0%,#15161b 48%,#0a0a0c 100%);background-attachment:fixed}
+.wrap{max-width:760px;margin:0 auto;padding:30px 22px 90px}
+header{padding:52px 0 8px;border-bottom:1px solid rgba(255,255,255,0.07);margin-bottom:34px}
+.week-tag{font-family:"SF Mono",Menlo,monospace;font-size:0.72rem;font-weight:700;letter-spacing:2px;color:#a693cd;border:1px solid rgba(166,147,205,0.4);background:rgba(166,147,205,0.07);padding:3px 11px;border-radius:20px}
+h1{font-size:2.5rem;font-weight:800;letter-spacing:0.5px;line-height:1.2;margin:20px 0 0;background:linear-gradient(106deg,#e0895e 0%,#d9b45f 34%,#9fbc7a 68%,#63b3a6 100%);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+h1 .h1en{display:block;font-size:0.40em;font-weight:600;letter-spacing:2.5px;color:#847d72;-webkit-text-fill-color:#847d72;background:none;margin-top:13px}
+.sub{font-size:1.05rem;color:#aba498;margin-top:14px;font-weight:500}
+.date{font-family:"SF Mono",Menlo,monospace;font-size:0.75rem;color:#57524b;margin-top:18px;letter-spacing:1px}
+.pitch{margin:22px 0 30px;font-size:0.97rem;color:#cd7f9b;border-left:2px solid rgba(205,127,155,0.5);padding-left:16px;font-style:italic}
+.intro{font-size:1.02rem;color:#cfc8bc;margin-bottom:14px}
+.intro p{margin-bottom:16px}
+h2{font-size:1.42rem;font-weight:700;color:#e9e3d9;margin:56px 0 8px;letter-spacing:0.3px}
+h2 .n{font-family:"SF Mono",Menlo,monospace;font-size:0.85rem;color:#a693cd;display:block;margin-bottom:6px;letter-spacing:2px}
+.he{font-size:0.68em;color:#8d867b;font-weight:500;letter-spacing:0}
+p{margin-bottom:17px}
+.lead{color:#cfc8bc}
+b,strong{color:#f0eae0;font-weight:600}
+em{color:#d9b45f;font-style:normal;font-weight:500}
+.dim{color:#8d867b}
+a.reflink{display:inline-block;font-size:0.82rem;font-family:"SF Mono",Menlo,monospace;color:#63b3a6;border:1px solid rgba(99,179,166,0.38);background:rgba(99,179,166,0.07);padding:1px 9px;border-radius:20px;text-decoration:none;transition:all 0.15s;white-space:nowrap}
+a.reflink:hover{background:rgba(99,179,166,0.16);border-color:rgba(99,179,166,0.7)}
+figure{margin:30px 0}
+figure svg{display:block;width:100%;height:auto;border-radius:12px;background:rgba(255,255,255,0.018);border:1px solid rgba(255,255,255,0.06)}
+figcaption{font-size:0.82rem;color:#787268;margin-top:11px;text-align:center;line-height:1.6}
+.en-brief{font-size:0.85rem;color:#847d72;border-top:1px dashed rgba(255,255,255,0.09);padding-top:12px;margin-top:22px;line-height:1.65}
+.en-brief b{font-family:"SF Mono",Menlo,monospace;font-size:0.72rem;color:#63b3a6;letter-spacing:1px;margin-right:7px}
+.decide{margin:24px 0;border:1px solid rgba(224,137,94,0.36);background:rgba(224,137,94,0.055);border-radius:12px;padding:15px 19px}
+.decide .lb{font-family:"SF Mono",Menlo,monospace;font-size:0.73rem;letter-spacing:1.5px;color:#e0895e;font-weight:700;display:block;margin-bottom:7px}
+.decide p{margin:0;font-size:0.95rem;color:#ddd5c9}
+.crossx-inline{margin:20px 0 22px;border-left:2px solid rgba(205,127,155,0.55);padding:2px 0 2px 15px;font-size:0.89rem;color:#a9a096;line-height:1.72}
+.crossx-inline b{color:#cd7f9b;font-weight:600}
+.bigcat{margin:46px 0 10px;border:1px solid rgba(217,180,95,0.38);background:rgba(217,180,95,0.05);border-radius:14px;padding:20px 22px}
+.bigcat h3{font-size:1.02rem;color:#d9b45f;margin-bottom:14px;letter-spacing:0.5px}
+.bigcat ol{list-style:none;padding:0}
+.bigcat li{margin-bottom:15px;font-size:0.94rem;color:#d5cdc1;line-height:1.78}
+.bigcat li:last-child{margin-bottom:0}
+.bigcat .dm{font-family:"SF Mono",Menlo,monospace;font-size:0.73rem;color:#d9b45f;border:1px solid rgba(217,180,95,0.32);border-radius:4px;padding:1px 7px;margin-right:8px;white-space:nowrap}
+.crossx{margin:46px 0 10px;border:1px solid rgba(205,127,155,0.38);background:rgba(205,127,155,0.05);border-radius:14px;padding:20px 22px}
+.crossx h3{font-size:1.02rem;color:#cd7f9b;margin-bottom:14px;letter-spacing:0.5px}
+.crossx ul{list-style:none;padding:0}
+.crossx li{margin-bottom:16px;font-size:0.94rem;color:#d5cdc1;line-height:1.78}
+.crossx li:last-child{margin-bottom:0}
+.crossx li b{color:#cd7f9b;font-weight:600}
+.thinking{margin:46px 0 10px}
+.thinking h3{font-size:1.02rem;color:#a693cd;margin-bottom:14px;letter-spacing:0.5px}
+details{border:1px solid rgba(166,147,205,0.22);border-radius:10px;padding:12px 16px;margin-bottom:10px;background:rgba(166,147,205,0.035)}
+summary{cursor:pointer;font-size:0.93rem;color:#c9c2b6;font-weight:500}
+summary::marker{color:#a693cd}
+details p{margin:12px 0 0;font-size:0.9rem;color:#a9a096;line-height:1.75}
+.refs{margin:46px 0 10px}
+.refs h3{font-size:1.02rem;color:#79a6d2;margin-bottom:14px;letter-spacing:0.5px}
+.refs ul{list-style:none;padding:0}
+.refs li{margin-bottom:10px;font-size:0.9rem;color:#8d867b;line-height:1.7}
+.refs a{color:#79a6d2;text-decoration:none;border-bottom:1px solid rgba(121,166,210,0.3)}
+.refs a:hover{color:#a6c4e2;border-bottom-color:rgba(121,166,210,0.7)}
+footer{text-align:center;padding:56px 0 10px;font-size:0.78rem;color:#57524b;font-family:"SF Mono",Menlo,monospace;border-top:1px solid rgba(255,255,255,0.06);margin-top:50px}
+footer a{color:#79a6d2;text-decoration:none}
+@media(max-width:600px){h1{font-size:1.85rem}.wrap{padding:24px 16px 60px}h2{font-size:1.22rem}}
+
+</style></head><body>
+<div class="wrap">
+<header>
+<span class="week-tag">TOPIC 32 · PHASE F</span>
+<h1>尺度不变与分形<span class="h1en">SCALE INVARIANCE AND FRACTALS</span></h1>
+<p class="sub">换一把尺子，答案就换一个<span class="he">（Change the ruler, change the answer）</span></p>
+<p class="date">2026-08-18 · 尺度</p>
+</header>
+<p class="pitch">英国的海岸线有多长？这看着像个查一下就有答案的事实题。它没有答案——不是因为没人测过，而是因为你量得越细，它就越长，而且看不到尽头。</p>
+<div class="intro">
+<p>美国中央情报局的《世界概况》给英国海岸线的数字是 12,429 公里；英国自己的测绘局（Ordnance Survey）算出来是 17,820 公里。差了将近一半。这不是有一方算错了——两边用的地图精细程度不同，如此而已。</p>
+<p>你可能觉得这只是测量误差。但误差有个脾气：仪器越精密，结果越往一个真值上收。海岸线不收。尺子每短一半，量出来的长度就往上跳一截，你把尺子一直短下去，它就一直涨下去。这句话的真正含义相当激进：<em>长度根本不是这条海岸自己的属性</em>，它是海岸和尺子两样东西合起来的属性。少了后面那一半，这个数字不成立。</p>
+<p class="dim">从本期开始的四期讲的是同一件事的不同侧面：一个量随着观察尺度改变的方式。本期是形状上的——把一小块放大，看起来和整体一样，这叫<b>尺度不变</b>（scale invariance）。第 19 期讲过的幂律（power law）是分布上的同一件事：把横轴放大十倍，曲线的样子不变。两者是一条性质的两种露头，本期把它落到看得见的形状上。</p>
+</div>
+
+<h2><span class="n">01</span>英国的海岸线有多长<span class="he">（How Long Is the Coast of Britain?）</span></h2>
+<p class="lead">1967 年，Benoit Mandelbrot 在《科学》上发了一篇短文，标题就是这句话。他不是在抬杠，他手上有数据。</p>
+<p>数据来自气象学家 Lewis Fry Richardson。此人生前做过一件很怪的事：他拿圆规去量各国的边界和海岸线。方法土得可爱——把圆规张开固定的一段距离，从起点开始一步一步"走"完整条曲线，数走了多少步，步数乘以步长就是长度。然后把圆规收窄一点，再走一遍。</p>
+<p>他发现的是：<b>步长越小，量出来的总长度越大，而且没有收敛的意思。</b>更要紧的是，这两个量的关系在双对数纸上是一条漂亮的直线。Mandelbrot 读懂了这条直线：设测得的长度是 L、步长是 ε，那么 L 正比于 ε 的 (1−D) 次方，其中 D 是一个大于 1 的数。对一条光滑的曲线（比如一个圆），D 等于 1，尺子缩短，测得的长度稳稳地收到周长上；对海岸线，D 明显大于 1，于是永远不收。</p>
+<figure>
+<svg role="img" aria-label="同一段海岸用三种长度的尺子测量，尺子越短测得的总长度越大" viewbox="0 0 720 302" xmlns="http://www.w3.org/2000/svg">
+<text x="360" y="26" text-anchor="middle" fill="#aba498" font-family="-apple-system,sans-serif" font-size="13">同一段海岸 · 换一把尺子量</text>
+<defs><marker id="f1ar" markerUnits="userSpaceOnUse" markerWidth="9" markerHeight="9" refX="9" refY="5" orient="auto" viewBox="0 0 10 10"><path d="M0,1 L9,5 L0,9 z" fill="#8d867b"/></marker></defs>
+<line x1="232" y1="143" x2="262" y2="143" stroke="#8d867b" stroke-width="1.5" marker-end="url(#f1ar)"/>
+<line x1="460" y1="143" x2="490" y2="143" stroke="#8d867b" stroke-width="1.5" marker-end="url(#f1ar)"/>
+<text x="133" y="54" text-anchor="middle" fill="#79a6d2" font-family="SF Mono,monospace" font-size="12">① 尺子 = 100 km</text>
+<g transform="translate(40,68)">
+<rect x="0" y="0" width="186.0" height="150.0" fill="rgba(255,255,255,0.02)" stroke="rgba(255,255,255,0.09)"/>
+<path d="M0.0,79.5 L1.9,82.0 L4.2,82.6 L6.4,81.5 L8.7,81.7 L10.6,84.4 L11.9,88.1 L11.8,92.7 L13.0,96.6 L15.0,97.3 L16.9,99.2 L18.2,102.3 L19.3,105.7 L20.6,109.0 L22.0,112.2 L24.2,111.0 L26.2,112.9 L27.9,110.3 L30.0,108.9 L32.2,108.6 L34.2,106.8 L36.4,105.1 L37.6,101.1 L39.8,100.1 L42.0,100.1 L42.0,95.6 L42.0,91.1 L41.0,86.8 L41.4,82.1 L43.2,79.2 L45.1,76.3 L46.3,72.4 L48.0,69.1 L48.5,72.5 L49.1,75.9 L50.0,79.0 L50.4,82.5 L52.2,83.2 L53.9,84.9 L55.3,87.4 L57.2,87.9 L59.2,87.8 L61.0,86.2 L62.9,86.3 L64.8,87.2 L66.5,89.5 L67.1,93.2 L68.7,95.5 L69.3,99.2 L70.0,102.9 L69.5,106.8 L70.1,110.6 L69.5,114.4 L67.8,116.6 L66.4,119.2 L65.3,122.4 L64.3,125.7 L65.2,129.2 L65.2,133.1 L64.9,137.0 L65.7,140.6 L67.3,143.0 L69.1,144.5 L70.2,147.7 L71.8,150.0 L73.1,146.2 L73.2,141.7 L71.7,138.3 L70.8,134.3 L71.8,130.4 L71.5,126.0 L73.6,124.4 L74.8,120.5 L76.9,120.3 L78.5,117.8 L79.4,114.1 L81.3,112.1 L83.2,111.2 L84.7,108.6 L86.8,108.6 L88.4,106.1 L90.2,104.6 L92.2,105.3 L94.0,103.9 L95.1,100.8 L97.0,100.5 L98.6,98.5 L99.5,95.2 L101.3,93.8 L103.2,94.2 L104.9,93.4 L106.8,93.4 L108.5,92.1 L110.2,93.2 L112.1,93.0 L113.8,91.6 L115.7,92.5 L114.8,89.5 L113.0,88.3 L111.9,85.6 L111.7,82.1 L109.9,81.3 L108.5,78.5 L108.8,74.8 L107.8,71.5 L107.3,68.4 L106.8,65.2 L105.3,63.4 L104.5,60.4 L103.2,58.2 L102.1,55.6 L101.7,52.4 L101.0,49.3 L98.9,48.5 L97.1,46.5 L96.7,42.4 L95.2,39.5 L94.4,35.8 L93.1,32.7 L91.3,31.2 L89.5,29.2 L88.9,25.1 L88.8,20.8 L87.5,17.2 L87.3,12.8 L88.8,8.9 L88.7,4.0 L90.7,1.4 L93.0,0.0 L91.4,0.5 L90.3,2.8 L88.9,4.3 L87.6,5.8 L87.5,9.0 L87.5,12.1 L86.8,15.0 L85.5,17.1 L86.2,19.8 L86.9,22.6 L88.5,23.2 L89.7,25.4 L90.4,27.9 L91.1,30.6 L91.0,33.6 L91.2,36.5 L91.0,39.4 L91.6,42.2 L93.0,43.4 L94.0,45.7 L93.5,48.3 L92.5,50.2 L91.8,52.5 L91.6,55.2 L92.8,56.1 L93.6,58.2 L94.1,60.7 L94.1,63.2 L94.6,65.4 L95.0,67.6 L95.4,69.8 L95.6,72.2 L96.9,75.2 L98.9,75.9 L100.6,73.6 L102.6,73.6 L104.5,73.1 L105.9,70.8 L107.1,68.3 L108.4,65.9 L110.1,67.2 L111.2,70.0 L112.1,73.1 L112.2,76.6 L113.4,79.1 L115.1,79.9 L116.6,81.7 L117.5,84.6 L117.9,87.3 L118.1,90.1 L118.3,93.1 L117.5,95.7 L117.9,98.5 L118.3,101.4 L117.4,103.9 L116.9,106.7 L116.8,109.6 L117.3,112.2 L117.9,114.8 L118.2,117.5 L118.2,120.4 L118.1,123.2 L118.3,126.1 L119.1,128.5 L119.7,124.8 L119.2,121.2 L120.1,118.0 L121.2,115.0 L122.3,112.0 L124.2,111.0 L126.0,109.6 L127.0,106.4 L128.7,105.2 L130.5,104.7 L131.7,101.8 L132.8,99.1 L134.1,96.2 L136.1,95.6 L136.1,91.8 L137.4,88.9 L135.5,87.1 L134.4,83.7 L134.0,79.9 L133.5,76.2 L132.0,73.2 L131.2,69.5 L132.1,65.7 L132.0,61.6 L132.3,57.1 L133.7,53.5 L133.2,49.2 L132.2,45.2 L133.2,41.3 L135.3,39.5 L137.1,37.3 L139.2,36.0 L141.7,36.6 L144.0,34.3 L146.4,35.4 L148.4,38.2 L149.5,42.3 L150.1,46.9 L152.5,48.5 L153.8,52.7 L155.0,57.0 L157.2,59.4 L158.0,63.8 L158.8,68.2 L158.0,72.6 L156.3,76.2 L155.9,80.7 L155.7,85.4 L157.7,85.6 L159.5,87.2 L161.6,87.8 L163.5,86.2 L165.1,84.0 L166.8,82.1 L168.7,80.2 L170.8,80.7 L172.9,81.3 L174.7,83.5 L176.9,83.8 L178.5,86.7 L180.5,84.8 L181.9,81.7 L183.8,79.4 L186.0,79.5" fill="none" stroke="#6b6357" stroke-width="1.2"/>
+<path d="M0.0,79.5 L50.0,79.0 L64.6,126.8 L102.3,94.0 L96.9,44.3 L118.0,89.6 L133.0,41.9 L157.4,85.6" fill="none" stroke="#79a6d2" stroke-width="2"/>
+<circle cx="0.0" cy="79.5" r="2.4" fill="#79a6d2"/>
+<circle cx="50.0" cy="79.0" r="2.4" fill="#79a6d2"/>
+<circle cx="64.6" cy="126.8" r="2.4" fill="#79a6d2"/>
+<circle cx="102.3" cy="94.0" r="2.4" fill="#79a6d2"/>
+<circle cx="96.9" cy="44.3" r="2.4" fill="#79a6d2"/>
+<circle cx="118.0" cy="89.6" r="2.4" fill="#79a6d2"/>
+<circle cx="133.0" cy="41.9" r="2.4" fill="#79a6d2"/>
+<circle cx="157.4" cy="85.6" r="2.4" fill="#79a6d2"/>
+</g>
+<text x="133" y="238" text-anchor="middle" fill="#8d867b" font-family="-apple-system,sans-serif" font-size="11">走了 7 步</text>
+<text x="133" y="258" text-anchor="middle" fill="#79a6d2" font-family="SF Mono,monospace" font-size="14">700 km</text>
+<text x="361" y="54" text-anchor="middle" fill="#d9b45f" font-family="SF Mono,monospace" font-size="12">② 尺子 = 50 km</text>
+<g transform="translate(268,68)">
+<rect x="0" y="0" width="186.0" height="150.0" fill="rgba(255,255,255,0.02)" stroke="rgba(255,255,255,0.09)"/>
+<path d="M0.0,79.5 L1.9,82.0 L4.2,82.6 L6.4,81.5 L8.7,81.7 L10.6,84.4 L11.9,88.1 L11.8,92.7 L13.0,96.6 L15.0,97.3 L16.9,99.2 L18.2,102.3 L19.3,105.7 L20.6,109.0 L22.0,112.2 L24.2,111.0 L26.2,112.9 L27.9,110.3 L30.0,108.9 L32.2,108.6 L34.2,106.8 L36.4,105.1 L37.6,101.1 L39.8,100.1 L42.0,100.1 L42.0,95.6 L42.0,91.1 L41.0,86.8 L41.4,82.1 L43.2,79.2 L45.1,76.3 L46.3,72.4 L48.0,69.1 L48.5,72.5 L49.1,75.9 L50.0,79.0 L50.4,82.5 L52.2,83.2 L53.9,84.9 L55.3,87.4 L57.2,87.9 L59.2,87.8 L61.0,86.2 L62.9,86.3 L64.8,87.2 L66.5,89.5 L67.1,93.2 L68.7,95.5 L69.3,99.2 L70.0,102.9 L69.5,106.8 L70.1,110.6 L69.5,114.4 L67.8,116.6 L66.4,119.2 L65.3,122.4 L64.3,125.7 L65.2,129.2 L65.2,133.1 L64.9,137.0 L65.7,140.6 L67.3,143.0 L69.1,144.5 L70.2,147.7 L71.8,150.0 L73.1,146.2 L73.2,141.7 L71.7,138.3 L70.8,134.3 L71.8,130.4 L71.5,126.0 L73.6,124.4 L74.8,120.5 L76.9,120.3 L78.5,117.8 L79.4,114.1 L81.3,112.1 L83.2,111.2 L84.7,108.6 L86.8,108.6 L88.4,106.1 L90.2,104.6 L92.2,105.3 L94.0,103.9 L95.1,100.8 L97.0,100.5 L98.6,98.5 L99.5,95.2 L101.3,93.8 L103.2,94.2 L104.9,93.4 L106.8,93.4 L108.5,92.1 L110.2,93.2 L112.1,93.0 L113.8,91.6 L115.7,92.5 L114.8,89.5 L113.0,88.3 L111.9,85.6 L111.7,82.1 L109.9,81.3 L108.5,78.5 L108.8,74.8 L107.8,71.5 L107.3,68.4 L106.8,65.2 L105.3,63.4 L104.5,60.4 L103.2,58.2 L102.1,55.6 L101.7,52.4 L101.0,49.3 L98.9,48.5 L97.1,46.5 L96.7,42.4 L95.2,39.5 L94.4,35.8 L93.1,32.7 L91.3,31.2 L89.5,29.2 L88.9,25.1 L88.8,20.8 L87.5,17.2 L87.3,12.8 L88.8,8.9 L88.7,4.0 L90.7,1.4 L93.0,0.0 L91.4,0.5 L90.3,2.8 L88.9,4.3 L87.6,5.8 L87.5,9.0 L87.5,12.1 L86.8,15.0 L85.5,17.1 L86.2,19.8 L86.9,22.6 L88.5,23.2 L89.7,25.4 L90.4,27.9 L91.1,30.6 L91.0,33.6 L91.2,36.5 L91.0,39.4 L91.6,42.2 L93.0,43.4 L94.0,45.7 L93.5,48.3 L92.5,50.2 L91.8,52.5 L91.6,55.2 L92.8,56.1 L93.6,58.2 L94.1,60.7 L94.1,63.2 L94.6,65.4 L95.0,67.6 L95.4,69.8 L95.6,72.2 L96.9,75.2 L98.9,75.9 L100.6,73.6 L102.6,73.6 L104.5,73.1 L105.9,70.8 L107.1,68.3 L108.4,65.9 L110.1,67.2 L111.2,70.0 L112.1,73.1 L112.2,76.6 L113.4,79.1 L115.1,79.9 L116.6,81.7 L117.5,84.6 L117.9,87.3 L118.1,90.1 L118.3,93.1 L117.5,95.7 L117.9,98.5 L118.3,101.4 L117.4,103.9 L116.9,106.7 L116.8,109.6 L117.3,112.2 L117.9,114.8 L118.2,117.5 L118.2,120.4 L118.1,123.2 L118.3,126.1 L119.1,128.5 L119.7,124.8 L119.2,121.2 L120.1,118.0 L121.2,115.0 L122.3,112.0 L124.2,111.0 L126.0,109.6 L127.0,106.4 L128.7,105.2 L130.5,104.7 L131.7,101.8 L132.8,99.1 L134.1,96.2 L136.1,95.6 L136.1,91.8 L137.4,88.9 L135.5,87.1 L134.4,83.7 L134.0,79.9 L133.5,76.2 L132.0,73.2 L131.2,69.5 L132.1,65.7 L132.0,61.6 L132.3,57.1 L133.7,53.5 L133.2,49.2 L132.2,45.2 L133.2,41.3 L135.3,39.5 L137.1,37.3 L139.2,36.0 L141.7,36.6 L144.0,34.3 L146.4,35.4 L148.4,38.2 L149.5,42.3 L150.1,46.9 L152.5,48.5 L153.8,52.7 L155.0,57.0 L157.2,59.4 L158.0,63.8 L158.8,68.2 L158.0,72.6 L156.3,76.2 L155.9,80.7 L155.7,85.4 L157.7,85.6 L159.5,87.2 L161.6,87.8 L163.5,86.2 L165.1,84.0 L166.8,82.1 L168.7,80.2 L170.8,80.7 L172.9,81.3 L174.7,83.5 L176.9,83.8 L178.5,86.7 L180.5,84.8 L181.9,81.7 L183.8,79.4 L186.0,79.5" fill="none" stroke="#6b6357" stroke-width="1.2"/>
+<path d="M0.0,79.5 L16.2,98.5 L41.2,100.1 L45.3,75.4 L66.2,89.2 L69.5,114.0 L65.2,138.6 L78.6,117.5 L97.0,100.5 L108.6,78.3 L101.9,54.2 L91.6,31.5 L88.8,6.6 L91.1,31.5 L92.9,56.5 L111.9,72.7 L117.7,97.0 L118.2,122.0 L131.9,101.2 L133.5,76.2 L133.5,51.2 L157.1,59.3 L155.7,84.2 L180.7,84.2" fill="none" stroke="#d9b45f" stroke-width="2"/>
+<circle cx="0.0" cy="79.5" r="2.4" fill="#d9b45f"/>
+<circle cx="16.2" cy="98.5" r="2.4" fill="#d9b45f"/>
+<circle cx="41.2" cy="100.1" r="2.4" fill="#d9b45f"/>
+<circle cx="45.3" cy="75.4" r="2.4" fill="#d9b45f"/>
+<circle cx="66.2" cy="89.2" r="2.4" fill="#d9b45f"/>
+<circle cx="69.5" cy="114.0" r="2.4" fill="#d9b45f"/>
+<circle cx="65.2" cy="138.6" r="2.4" fill="#d9b45f"/>
+<circle cx="78.6" cy="117.5" r="2.4" fill="#d9b45f"/>
+<circle cx="97.0" cy="100.5" r="2.4" fill="#d9b45f"/>
+<circle cx="108.6" cy="78.3" r="2.4" fill="#d9b45f"/>
+<circle cx="101.9" cy="54.2" r="2.4" fill="#d9b45f"/>
+<circle cx="91.6" cy="31.5" r="2.4" fill="#d9b45f"/>
+<circle cx="88.8" cy="6.6" r="2.4" fill="#d9b45f"/>
+<circle cx="91.1" cy="31.5" r="2.4" fill="#d9b45f"/>
+<circle cx="92.9" cy="56.5" r="2.4" fill="#d9b45f"/>
+<circle cx="111.9" cy="72.7" r="2.4" fill="#d9b45f"/>
+<circle cx="117.7" cy="97.0" r="2.4" fill="#d9b45f"/>
+<circle cx="118.2" cy="122.0" r="2.4" fill="#d9b45f"/>
+<circle cx="131.9" cy="101.2" r="2.4" fill="#d9b45f"/>
+<circle cx="133.5" cy="76.2" r="2.4" fill="#d9b45f"/>
+<circle cx="133.5" cy="51.2" r="2.4" fill="#d9b45f"/>
+<circle cx="157.1" cy="59.3" r="2.4" fill="#d9b45f"/>
+<circle cx="155.7" cy="84.2" r="2.4" fill="#d9b45f"/>
+<circle cx="180.7" cy="84.2" r="2.4" fill="#d9b45f"/>
+</g>
+<text x="361" y="238" text-anchor="middle" fill="#8d867b" font-family="-apple-system,sans-serif" font-size="11">走了 23 步</text>
+<text x="361" y="258" text-anchor="middle" fill="#d9b45f" font-family="SF Mono,monospace" font-size="14">1150 km</text>
+<text x="589" y="54" text-anchor="middle" fill="#e0895e" font-family="SF Mono,monospace" font-size="12">③ 尺子 = 25 km</text>
+<g transform="translate(496,68)">
+<rect x="0" y="0" width="186.0" height="150.0" fill="rgba(255,255,255,0.02)" stroke="rgba(255,255,255,0.09)"/>
+<path d="M0.0,79.5 L1.9,82.0 L4.2,82.6 L6.4,81.5 L8.7,81.7 L10.6,84.4 L11.9,88.1 L11.8,92.7 L13.0,96.6 L15.0,97.3 L16.9,99.2 L18.2,102.3 L19.3,105.7 L20.6,109.0 L22.0,112.2 L24.2,111.0 L26.2,112.9 L27.9,110.3 L30.0,108.9 L32.2,108.6 L34.2,106.8 L36.4,105.1 L37.6,101.1 L39.8,100.1 L42.0,100.1 L42.0,95.6 L42.0,91.1 L41.0,86.8 L41.4,82.1 L43.2,79.2 L45.1,76.3 L46.3,72.4 L48.0,69.1 L48.5,72.5 L49.1,75.9 L50.0,79.0 L50.4,82.5 L52.2,83.2 L53.9,84.9 L55.3,87.4 L57.2,87.9 L59.2,87.8 L61.0,86.2 L62.9,86.3 L64.8,87.2 L66.5,89.5 L67.1,93.2 L68.7,95.5 L69.3,99.2 L70.0,102.9 L69.5,106.8 L70.1,110.6 L69.5,114.4 L67.8,116.6 L66.4,119.2 L65.3,122.4 L64.3,125.7 L65.2,129.2 L65.2,133.1 L64.9,137.0 L65.7,140.6 L67.3,143.0 L69.1,144.5 L70.2,147.7 L71.8,150.0 L73.1,146.2 L73.2,141.7 L71.7,138.3 L70.8,134.3 L71.8,130.4 L71.5,126.0 L73.6,124.4 L74.8,120.5 L76.9,120.3 L78.5,117.8 L79.4,114.1 L81.3,112.1 L83.2,111.2 L84.7,108.6 L86.8,108.6 L88.4,106.1 L90.2,104.6 L92.2,105.3 L94.0,103.9 L95.1,100.8 L97.0,100.5 L98.6,98.5 L99.5,95.2 L101.3,93.8 L103.2,94.2 L104.9,93.4 L106.8,93.4 L108.5,92.1 L110.2,93.2 L112.1,93.0 L113.8,91.6 L115.7,92.5 L114.8,89.5 L113.0,88.3 L111.9,85.6 L111.7,82.1 L109.9,81.3 L108.5,78.5 L108.8,74.8 L107.8,71.5 L107.3,68.4 L106.8,65.2 L105.3,63.4 L104.5,60.4 L103.2,58.2 L102.1,55.6 L101.7,52.4 L101.0,49.3 L98.9,48.5 L97.1,46.5 L96.7,42.4 L95.2,39.5 L94.4,35.8 L93.1,32.7 L91.3,31.2 L89.5,29.2 L88.9,25.1 L88.8,20.8 L87.5,17.2 L87.3,12.8 L88.8,8.9 L88.7,4.0 L90.7,1.4 L93.0,0.0 L91.4,0.5 L90.3,2.8 L88.9,4.3 L87.6,5.8 L87.5,9.0 L87.5,12.1 L86.8,15.0 L85.5,17.1 L86.2,19.8 L86.9,22.6 L88.5,23.2 L89.7,25.4 L90.4,27.9 L91.1,30.6 L91.0,33.6 L91.2,36.5 L91.0,39.4 L91.6,42.2 L93.0,43.4 L94.0,45.7 L93.5,48.3 L92.5,50.2 L91.8,52.5 L91.6,55.2 L92.8,56.1 L93.6,58.2 L94.1,60.7 L94.1,63.2 L94.6,65.4 L95.0,67.6 L95.4,69.8 L95.6,72.2 L96.9,75.2 L98.9,75.9 L100.6,73.6 L102.6,73.6 L104.5,73.1 L105.9,70.8 L107.1,68.3 L108.4,65.9 L110.1,67.2 L111.2,70.0 L112.1,73.1 L112.2,76.6 L113.4,79.1 L115.1,79.9 L116.6,81.7 L117.5,84.6 L117.9,87.3 L118.1,90.1 L118.3,93.1 L117.5,95.7 L117.9,98.5 L118.3,101.4 L117.4,103.9 L116.9,106.7 L116.8,109.6 L117.3,112.2 L117.9,114.8 L118.2,117.5 L118.2,120.4 L118.1,123.2 L118.3,126.1 L119.1,128.5 L119.7,124.8 L119.2,121.2 L120.1,118.0 L121.2,115.0 L122.3,112.0 L124.2,111.0 L126.0,109.6 L127.0,106.4 L128.7,105.2 L130.5,104.7 L131.7,101.8 L132.8,99.1 L134.1,96.2 L136.1,95.6 L136.1,91.8 L137.4,88.9 L135.5,87.1 L134.4,83.7 L134.0,79.9 L133.5,76.2 L132.0,73.2 L131.2,69.5 L132.1,65.7 L132.0,61.6 L132.3,57.1 L133.7,53.5 L133.2,49.2 L132.2,45.2 L133.2,41.3 L135.3,39.5 L137.1,37.3 L139.2,36.0 L141.7,36.6 L144.0,34.3 L146.4,35.4 L148.4,38.2 L149.5,42.3 L150.1,46.9 L152.5,48.5 L153.8,52.7 L155.0,57.0 L157.2,59.4 L158.0,63.8 L158.8,68.2 L158.0,72.6 L156.3,76.2 L155.9,80.7 L155.7,85.4 L157.7,85.6 L159.5,87.2 L161.6,87.8 L163.5,86.2 L165.1,84.0 L166.8,82.1 L168.7,80.2 L170.8,80.7 L172.9,81.3 L174.7,83.5 L176.9,83.8 L178.5,86.7 L180.5,84.8 L181.9,81.7 L183.8,79.4 L186.0,79.5" fill="none" stroke="#6b6357" stroke-width="1.2"/>
+<path d="M0.0,79.5 L11.0,85.5 L15.1,97.3 L20.4,108.6 L32.9,107.9 L42.0,99.3 L41.0,86.9 L45.4,75.2 L53.6,84.6 L65.6,88.3 L69.5,100.1 L69.7,112.6 L64.8,124.1 L64.9,136.6 L70.3,147.8 L71.0,135.4 L74.0,123.2 L80.7,112.7 L90.3,104.7 L99.3,96.0 L111.5,93.1 L109.6,80.7 L107.3,68.4 L102.6,56.9 L97.1,45.7 L93.5,33.7 L88.8,22.1 L88.6,9.6 L86.7,21.9 L91.0,33.7 L94.0,45.8 L93.7,58.3 L95.5,70.7 L107.5,67.5 L113.2,78.7 L118.1,90.2 L117.8,102.7 L117.9,115.2 L118.8,127.6 L121.0,115.3 L128.5,105.3 L136.1,95.4 L134.3,83.0 L131.5,70.8 L132.2,58.3 L132.3,45.8 L140.4,36.3 L149.8,44.5 L154.8,56.0 L158.8,67.8 L156.0,80.0 L168.5,80.4 L179.9,85.4" fill="none" stroke="#e0895e" stroke-width="2"/>
+<circle cx="0.0" cy="79.5" r="2.4" fill="#e0895e"/>
+<circle cx="11.0" cy="85.5" r="2.4" fill="#e0895e"/>
+<circle cx="15.1" cy="97.3" r="2.4" fill="#e0895e"/>
+<circle cx="20.4" cy="108.6" r="2.4" fill="#e0895e"/>
+<circle cx="32.9" cy="107.9" r="2.4" fill="#e0895e"/>
+<circle cx="42.0" cy="99.3" r="2.4" fill="#e0895e"/>
+<circle cx="41.0" cy="86.9" r="2.4" fill="#e0895e"/>
+<circle cx="45.4" cy="75.2" r="2.4" fill="#e0895e"/>
+<circle cx="53.6" cy="84.6" r="2.4" fill="#e0895e"/>
+<circle cx="65.6" cy="88.3" r="2.4" fill="#e0895e"/>
+<circle cx="69.5" cy="100.1" r="2.4" fill="#e0895e"/>
+<circle cx="69.7" cy="112.6" r="2.4" fill="#e0895e"/>
+<circle cx="64.8" cy="124.1" r="2.4" fill="#e0895e"/>
+<circle cx="64.9" cy="136.6" r="2.4" fill="#e0895e"/>
+<circle cx="70.3" cy="147.8" r="2.4" fill="#e0895e"/>
+<circle cx="71.0" cy="135.4" r="2.4" fill="#e0895e"/>
+<circle cx="74.0" cy="123.2" r="2.4" fill="#e0895e"/>
+<circle cx="80.7" cy="112.7" r="2.4" fill="#e0895e"/>
+<circle cx="90.3" cy="104.7" r="2.4" fill="#e0895e"/>
+<circle cx="99.3" cy="96.0" r="2.4" fill="#e0895e"/>
+<circle cx="111.5" cy="93.1" r="2.4" fill="#e0895e"/>
+<circle cx="109.6" cy="80.7" r="2.4" fill="#e0895e"/>
+<circle cx="107.3" cy="68.4" r="2.4" fill="#e0895e"/>
+<circle cx="102.6" cy="56.9" r="2.4" fill="#e0895e"/>
+<circle cx="97.1" cy="45.7" r="2.4" fill="#e0895e"/>
+<circle cx="93.5" cy="33.7" r="2.4" fill="#e0895e"/>
+<circle cx="88.8" cy="22.1" r="2.4" fill="#e0895e"/>
+<circle cx="88.6" cy="9.6" r="2.4" fill="#e0895e"/>
+<circle cx="86.7" cy="21.9" r="2.4" fill="#e0895e"/>
+<circle cx="91.0" cy="33.7" r="2.4" fill="#e0895e"/>
+<circle cx="94.0" cy="45.8" r="2.4" fill="#e0895e"/>
+<circle cx="93.7" cy="58.3" r="2.4" fill="#e0895e"/>
+<circle cx="95.5" cy="70.7" r="2.4" fill="#e0895e"/>
+<circle cx="107.5" cy="67.5" r="2.4" fill="#e0895e"/>
+<circle cx="113.2" cy="78.7" r="2.4" fill="#e0895e"/>
+<circle cx="118.1" cy="90.2" r="2.4" fill="#e0895e"/>
+<circle cx="117.8" cy="102.7" r="2.4" fill="#e0895e"/>
+<circle cx="117.9" cy="115.2" r="2.4" fill="#e0895e"/>
+<circle cx="118.8" cy="127.6" r="2.4" fill="#e0895e"/>
+<circle cx="121.0" cy="115.3" r="2.4" fill="#e0895e"/>
+<circle cx="128.5" cy="105.3" r="2.4" fill="#e0895e"/>
+<circle cx="136.1" cy="95.4" r="2.4" fill="#e0895e"/>
+<circle cx="134.3" cy="83.0" r="2.4" fill="#e0895e"/>
+<circle cx="131.5" cy="70.8" r="2.4" fill="#e0895e"/>
+<circle cx="132.2" cy="58.3" r="2.4" fill="#e0895e"/>
+<circle cx="132.3" cy="45.8" r="2.4" fill="#e0895e"/>
+<circle cx="140.4" cy="36.3" r="2.4" fill="#e0895e"/>
+<circle cx="149.8" cy="44.5" r="2.4" fill="#e0895e"/>
+<circle cx="154.8" cy="56.0" r="2.4" fill="#e0895e"/>
+<circle cx="158.8" cy="67.8" r="2.4" fill="#e0895e"/>
+<circle cx="156.0" cy="80.0" r="2.4" fill="#e0895e"/>
+<circle cx="168.5" cy="80.4" r="2.4" fill="#e0895e"/>
+<circle cx="179.9" cy="85.4" r="2.4" fill="#e0895e"/>
+</g>
+<text x="589" y="238" text-anchor="middle" fill="#8d867b" font-family="-apple-system,sans-serif" font-size="11">走了 52 步</text>
+<text x="589" y="258" text-anchor="middle" fill="#e0895e" font-family="SF Mono,monospace" font-size="14">1300 km</text>
+<text x="360" y="290" text-anchor="middle" fill="#57524b" font-family="-apple-system,sans-serif" font-size="11">灰线是同一条海岸；彩线是尺子的落点。尺子每短一半，量出来的长度不收敛，反而变长。</text>
+</svg>
+<figcaption>同一条海岸，三把尺子。100 km 的尺子给 700 km，25 km 的尺子给 1300 km——而且还没有停下来的迹象。</figcaption>
+</figure>
+<p>这个 D 对不同的海岸给出不同的值，而且排出来的顺序和你看地图的直觉完全对得上：南非海岸平直，约 1.05；英国西海岸曲折，约 1.25；挪威那种一层套一层的峡湾海岸，约 1.52。它不是一个比喻，是一个能算出来的数——第 3 节会说怎么算。</p>
+<p>所以中情局和测绘局那两个数字都是对的，它们只是都漏了一句话：我用的尺子有多长。<b>在这类曲线上，"长度"这个词必须带一个参数才有意义。</b></p>
+<div class="decide">
+<span class="lb">🎯 决策线</span>
+<p>看到任何"总长度／总面积／总数量"的数字，先问它是在多细的分辨率上数出来的。两个来源差一倍时，别先去争谁算错——先把两边归到同一分辨率再比；归不了，就放弃这个比较，它不构成证据。吃这一条的东西比想象的多：管网总里程、国境线、"我们覆盖了多少个网点"、代码行数、客户投诉总量。</p>
+</div>
+<div class="crossx-inline">
+🌀 <b>生态学 · 一片林子里有多少种鸟</b>　答案取决于你划多大的样方，而且物种数 S 与面积 A 的关系是幂律 S ∝ A^z，海岛生物地理学里 z 常取 0.25 左右——和海岸线一样，不存在一个与观察尺度无关的"真实物种数"。由此能直接读出一个原本要靠生态学细节才敢说的结论：把一片栖息地砍到只剩十分之一，留下的物种数大约是原来的 0.1^0.25 ≈ 56%。这个数不需要知道任何一种鸟的习性，它是从标度关系里出来的。
+</div>
+<p class="en-brief"><b>EN</b> Richardson walked a pair of dividers along coastlines and found that the measured length keeps growing as the divider opening shrinks, with log L against log ε falling on a straight line. Mandelbrot read the slope as a dimension D &gt; 1. Length is therefore not a property of the coast; it is a property of the coast together with the ruler.</p>
+
+<h2><span class="n">02</span>一条规则，无穷的细节<span class="he">（One Rule, Endless Detail）</span></h2>
+<p class="lead">上一节说海岸线量不完，但没说它为什么量不完。答案短得出奇：因为它的每一小段里，都藏着和整体一样的结构。</p>
+<p>1904 年，瑞典数学家 Helge von Koch 写下一条规则：拿一条线段，把中间三分之一挖掉，换成一个向外凸的尖（两条同样长的边补上）。原来 1 段，现在 4 段，每段长度是原来的三分之一。然后对新出现的每一段，重复同一件事。</p>
+<figure>
+<svg role="img" aria-label="科赫曲线的前四代：一条替换规则反复作用在自己的输出上" viewbox="0 0 720 240" xmlns="http://www.w3.org/2000/svg">
+<text x="360" y="26" text-anchor="middle" fill="#aba498" font-family="-apple-system,sans-serif" font-size="13">一条替换规则，重复四次</text>
+<text x="360" y="46" text-anchor="middle" fill="#787268" font-family="-apple-system,sans-serif" font-size="11.5">规则只有一句：把每一段的中间三分之一换成一个向外的尖角（原来 1 段 → 变成 4 段，每段长 1/3）</text>
+<g transform="translate(26,150)">
+<path d="M0.00,0.00 L150.00,0.00" fill="none" stroke="#a693cd" stroke-width="1.6" stroke-linejoin="round"/>
+</g>
+<text x="101" y="182" text-anchor="middle" fill="#8d867b" font-family="SF Mono,monospace" font-size="11.5">第 0 代</text>
+<text x="101" y="200" text-anchor="middle" fill="#a693cd" font-family="-apple-system,sans-serif" font-size="11">1 段 · 总长 ×1.00</text>
+<g transform="translate(202,150)">
+<path d="M0.00,0.00 L50.00,0.00 L75.00,-43.30 L100.00,0.00 L150.00,0.00" fill="none" stroke="#a693cd" stroke-width="1.6" stroke-linejoin="round"/>
+</g>
+<text x="277" y="182" text-anchor="middle" fill="#8d867b" font-family="SF Mono,monospace" font-size="11.5">第 1 代</text>
+<text x="277" y="200" text-anchor="middle" fill="#a693cd" font-family="-apple-system,sans-serif" font-size="11">4 段 · 总长 ×1.33</text>
+<g transform="translate(378,150)">
+<path d="M0.00,0.00 L16.67,0.00 L25.00,-14.43 L33.33,0.00 L50.00,0.00 L58.33,-14.43 L50.00,-28.87 L66.67,-28.87 L75.00,-43.30 L83.33,-28.87 L100.00,-28.87 L91.67,-14.43 L100.00,0.00 L116.67,0.00 L125.00,-14.43 L133.33,0.00 L150.00,0.00" fill="none" stroke="#a693cd" stroke-width="1.6" stroke-linejoin="round"/>
+</g>
+<text x="453" y="182" text-anchor="middle" fill="#8d867b" font-family="SF Mono,monospace" font-size="11.5">第 2 代</text>
+<text x="453" y="200" text-anchor="middle" fill="#a693cd" font-family="-apple-system,sans-serif" font-size="11">16 段 · 总长 ×1.78</text>
+<g transform="translate(554,150)">
+<path d="M0.00,0.00 L5.56,0.00 L8.33,-4.81 L11.11,0.00 L16.67,0.00 L19.44,-4.81 L16.67,-9.62 L22.22,-9.62 L25.00,-14.43 L27.78,-9.62 L33.33,-9.62 L30.56,-4.81 L33.33,0.00 L38.89,0.00 L41.67,-4.81 L44.44,0.00 L50.00,0.00 L52.78,-4.81 L50.00,-9.62 L55.56,-9.62 L58.33,-14.43 L55.56,-19.25 L50.00,-19.25 L52.78,-24.06 L50.00,-28.87 L55.56,-28.87 L58.33,-33.68 L61.11,-28.87 L66.67,-28.87 L69.44,-33.68 L66.67,-38.49 L72.22,-38.49 L75.00,-43.30 L77.78,-38.49 L83.33,-38.49 L80.56,-33.68 L83.33,-28.87 L88.89,-28.87 L91.67,-33.68 L94.44,-28.87 L100.00,-28.87 L97.22,-24.06 L100.00,-19.25 L94.44,-19.25 L91.67,-14.43 L94.44,-9.62 L100.00,-9.62 L97.22,-4.81 L100.00,0.00 L105.56,0.00 L108.33,-4.81 L111.11,0.00 L116.67,0.00 L119.44,-4.81 L116.67,-9.62 L122.22,-9.62 L125.00,-14.43 L127.78,-9.62 L133.33,-9.62 L130.56,-4.81 L133.33,0.00 L138.89,0.00 L141.67,-4.81 L144.44,0.00 L150.00,0.00" fill="none" stroke="#cd7f9b" stroke-width="1.6" stroke-linejoin="round"/>
+</g>
+<text x="629" y="182" text-anchor="middle" fill="#8d867b" font-family="SF Mono,monospace" font-size="11.5">第 3 代</text>
+<text x="629" y="200" text-anchor="middle" fill="#cd7f9b" font-family="-apple-system,sans-serif" font-size="11">64 段 · 总长 ×2.37</text>
+<text x="360" y="228" text-anchor="middle" fill="#57524b" font-family="-apple-system,sans-serif" font-size="11">两端点之间的直线距离一直没变。变的只是这条线自己有多长 — 每迭代一次涨 1/3，永不停止。</text>
+</svg>
+<figcaption>科赫曲线的头四代。规则只有一句话，细节却永远添不完。</figcaption>
+</figure>
+<p>每迭代一次，总长度乘以 4/3。迭代下去，长度就没有上限。可这条曲线始终待在一个巴掌大的地方——它无限长，却围不出多大面积。这个组合（无限长 + 有限区域）在光滑几何里是不可能的，在这儿却是随手一条规则就得到的默认结果。</p>
+<p>这里出现了本期第二个关键词：<b>自相似</b>（self-similarity）。放大科赫曲线的任意一小段，你看到的和整条曲线一模一样。没有"放大到某个倍数就看见基本单元"这回事——因为规则里压根没有基本单元，只有"再来一次"。</p>
+<p>但真实的海岸不长这样。得把两件事分开：</p>
+<p><b>严格自相似</b>（exact self-similarity）是数学构造出来的：放大一段，它和整体逐点重合，科赫曲线、谢尔宾斯基三角形都属于这一类。<b>统计自相似</b>（statistical self-similarity）是自然界的那一类：放大一段，它和整体对不上，但统计性质对得上——起伏的粗糙程度、拐弯的分布、缺口的大小构成，都是同一副脾气。海岸、云边、山脊、河网、血管，全是后者。</p>
+<p>这个区别不是学究气：严格自相似的图形能精确算出维数，统计自相似的东西只能<em>测</em>，测出来带误差，而且依赖你测的尺度范围有多宽。这笔账第 5 节要来结。</p>
+<p>还有一件事值得单独拎出来，因为它是本站反复出现的那条主张在几何上的样子：<b>分形的"复杂"不来自复杂的规则。</b>科赫曲线的规则一句话说完，生成的形状却量不出长度。这和第 4 期讲元胞自动机时的结论是同一条 <a class="reflink" href="ref-cellular-automata.html">→ 参考 · 生命游戏与元胞自动机</a>——复杂的结果不蕴含复杂的原因。要产生无穷的细节，规则里只需要有一样东西：<b>它能作用在自己的输出上。</b></p>
+<div class="crossx-inline">
+🌀 <b>语言学 · 一条能调用自己的规则</b>　乔姆斯基（Noam Chomsky）指出自然语言的语法里有能调用自身的规则——"名词短语"内部可以再嵌一个"名词短语"（"我朋友的姐姐的同事的猫"），于是句子长度没有上限。这和科赫的替换规则是同一件事。但由此还能推出一件不显然的：Miller 与 Chomsky 1963 年就注意到，中心嵌套超过两层，人就解析不动了（"猫追的老鼠咬的狗跑了"已经很吃力）。生成规则是无限的，可用的深度是有限的——语言的这个"分形"和真实海岸一样有个上限，而那个上限不在语法里，在工作记忆里。
+</div>
+<p class="en-brief"><b>EN</b> One substitution rule — replace the middle third of every segment with a spike — multiplies total length by 4/3 per iteration while the figure stays inside a small patch. Mathematical fractals are exactly self-similar; natural ones are only statistically so, which is why their dimensions must be measured rather than derived.</p>
+
+<h2><span class="n">03</span>把"粗糙"变成一个数<span class="he">（Turning Roughness into a Number）</span></h2>
+<p class="lead">"这条海岸比那条曲折"是句人话。要让它变成能算、能比、能被别人复核的东西，需要一个数。</p>
+<p>先换个方式理解"维数"。别想"需要几个坐标"，想<em>"放大之后变成几份"</em>：</p>
+<p>一条线段，长度放大一倍，它由 2 个原尺寸的自己拼成；一个正方形，边长放大一倍，由 4 个原尺寸的自己拼成；一个立方体，8 个。2 = 2¹，4 = 2²，8 = 2³。规律就在指数上：把尺寸放大 k 倍得到 N 份，那么维数 D 满足 N = k^D，也就是 D = log N ÷ log k。</p>
+<p>现在把这条规律套到科赫曲线上：放大 3 倍，它由 4 个原尺寸的自己拼成。于是 D = log 4 ÷ log 3 ≈ 1.26。<b>不是整数。</b>这正是"分形"这个词的来历——Mandelbrot 1975 年造 fractal 这个词，取的是拉丁语 fractus（断裂的、分数的）。这个数介于 1 和 2 之间，意思也很直白：它比一条线更能填满平面，又填不满一个面。</p>
+<p>这个算法只对严格自相似的图形好使——你得先知道"放大几倍是几份"。对一张真实的海岸照片、一张视网膜血管的图，得用一个更笨也更通用的办法：<b>盒计数</b>（box counting）。铺一张边长 ε 的方格网，数一数有多少格被这个图形碰到，记作 N(ε)；然后把 ε 减半，再数一遍。如果 N 随 ε 缩小按 N ∝ ε^(−D) 涨，那个 D 就是<b>分形维数</b>（fractal dimension）。在双对数图上，它就是那条直线的斜率。<a class="reflink" href="ref-box-counting.html">→ 参考 · 盒计数维数</a></p>
+<figure>
+<svg role="img" aria-label="盒计数法：用两种边长的网格覆盖同一条曲线，并在双对数图上给出斜率" viewbox="0 0 720 284" xmlns="http://www.w3.org/2000/svg">
+<text x="360" y="26" text-anchor="middle" fill="#aba498" font-family="-apple-system,sans-serif" font-size="13">盒计数：铺网格，数有多少格被碰到</text>
+<text x="127" y="52" text-anchor="middle" fill="#d9b45f" font-family="SF Mono,monospace" font-size="12">格边长 31</text>
+<g transform="translate(34,64)">
+<rect x="0.00" y="62.00" width="31.0" height="31.0" fill="#d9b45f" fill-opacity="0.17"/>
+<rect x="0.00" y="93.00" width="31.0" height="31.0" fill="#d9b45f" fill-opacity="0.17"/>
+<rect x="31.00" y="62.00" width="31.0" height="31.0" fill="#d9b45f" fill-opacity="0.17"/>
+<rect x="31.00" y="93.00" width="31.0" height="31.0" fill="#d9b45f" fill-opacity="0.17"/>
+<rect x="62.00" y="0.00" width="31.0" height="31.0" fill="#d9b45f" fill-opacity="0.17"/>
+<rect x="62.00" y="31.00" width="31.0" height="31.0" fill="#d9b45f" fill-opacity="0.17"/>
+<rect x="62.00" y="62.00" width="31.0" height="31.0" fill="#d9b45f" fill-opacity="0.17"/>
+<rect x="62.00" y="93.00" width="31.0" height="31.0" fill="#d9b45f" fill-opacity="0.17"/>
+<rect x="62.00" y="124.00" width="31.0" height="31.0" fill="#d9b45f" fill-opacity="0.17"/>
+<rect x="93.00" y="0.00" width="31.0" height="31.0" fill="#d9b45f" fill-opacity="0.17"/>
+<rect x="93.00" y="31.00" width="31.0" height="31.0" fill="#d9b45f" fill-opacity="0.17"/>
+<rect x="93.00" y="62.00" width="31.0" height="31.0" fill="#d9b45f" fill-opacity="0.17"/>
+<rect x="93.00" y="93.00" width="31.0" height="31.0" fill="#d9b45f" fill-opacity="0.17"/>
+<rect x="93.00" y="124.00" width="31.0" height="31.0" fill="#d9b45f" fill-opacity="0.17"/>
+<rect x="124.00" y="31.00" width="31.0" height="31.0" fill="#d9b45f" fill-opacity="0.17"/>
+<rect x="124.00" y="62.00" width="31.0" height="31.0" fill="#d9b45f" fill-opacity="0.17"/>
+<rect x="124.00" y="93.00" width="31.0" height="31.0" fill="#d9b45f" fill-opacity="0.17"/>
+<rect x="155.00" y="31.00" width="31.0" height="31.0" fill="#d9b45f" fill-opacity="0.17"/>
+<rect x="155.00" y="62.00" width="31.0" height="31.0" fill="#d9b45f" fill-opacity="0.17"/>
+<line x1="0.00" y1="0" x2="0.00" y2="155.0" stroke="rgba(255,255,255,0.10)" stroke-width="0.7"/>
+<line x1="31.00" y1="0" x2="31.00" y2="155.0" stroke="rgba(255,255,255,0.10)" stroke-width="0.7"/>
+<line x1="62.00" y1="0" x2="62.00" y2="155.0" stroke="rgba(255,255,255,0.10)" stroke-width="0.7"/>
+<line x1="93.00" y1="0" x2="93.00" y2="155.0" stroke="rgba(255,255,255,0.10)" stroke-width="0.7"/>
+<line x1="124.00" y1="0" x2="124.00" y2="155.0" stroke="rgba(255,255,255,0.10)" stroke-width="0.7"/>
+<line x1="155.00" y1="0" x2="155.00" y2="155.0" stroke="rgba(255,255,255,0.10)" stroke-width="0.7"/>
+<line x1="186.00" y1="0" x2="186.00" y2="155.0" stroke="rgba(255,255,255,0.10)" stroke-width="0.7"/>
+<line x1="0" y1="0.00" x2="186.0" y2="0.00" stroke="rgba(255,255,255,0.10)" stroke-width="0.7"/>
+<line x1="0" y1="31.00" x2="186.0" y2="31.00" stroke="rgba(255,255,255,0.10)" stroke-width="0.7"/>
+<line x1="0" y1="62.00" x2="186.0" y2="62.00" stroke="rgba(255,255,255,0.10)" stroke-width="0.7"/>
+<line x1="0" y1="93.00" x2="186.0" y2="93.00" stroke="rgba(255,255,255,0.10)" stroke-width="0.7"/>
+<line x1="0" y1="124.00" x2="186.0" y2="124.00" stroke="rgba(255,255,255,0.10)" stroke-width="0.7"/>
+<line x1="0" y1="155.00" x2="186.0" y2="155.00" stroke="rgba(255,255,255,0.10)" stroke-width="0.7"/>
+<path d="M0.0,82.1 L1.9,84.7 L4.2,85.4 L6.4,84.2 L8.7,84.4 L10.6,87.2 L11.9,91.0 L11.8,95.7 L13.0,99.9 L15.0,100.5 L16.9,102.5 L18.2,105.7 L19.3,109.2 L20.6,112.6 L22.0,115.9 L24.2,114.7 L26.2,116.7 L27.9,114.0 L30.0,112.6 L32.2,112.2 L34.2,110.3 L36.4,108.6 L37.6,104.4 L39.8,103.4 L42.0,103.4 L42.0,98.8 L42.0,94.1 L41.0,89.6 L41.4,84.8 L43.2,81.8 L45.1,78.8 L46.3,74.8 L48.0,71.4 L48.5,74.9 L49.1,78.4 L50.0,81.6 L50.4,85.2 L52.2,86.0 L53.9,87.7 L55.3,90.3 L57.2,90.9 L59.2,90.8 L61.0,89.1 L62.9,89.2 L64.8,90.1 L66.5,92.5 L67.1,96.3 L68.7,98.6 L69.3,102.5 L70.0,106.3 L69.5,110.3 L70.1,114.3 L69.5,118.2 L67.8,120.5 L66.4,123.2 L65.3,126.5 L64.3,129.9 L65.2,133.5 L65.2,137.5 L64.9,141.6 L65.7,145.3 L67.3,147.7 L69.1,149.3 L70.2,152.6 L71.8,155.0 L73.1,151.1 L73.2,146.4 L71.7,142.9 L70.8,138.8 L71.8,134.7 L71.5,130.2 L73.6,128.6 L74.8,124.5 L76.9,124.3 L78.5,121.8 L79.4,117.9 L81.3,115.9 L83.2,114.9 L84.7,112.2 L86.8,112.3 L88.4,109.6 L90.2,108.1 L92.2,108.8 L94.0,107.3 L95.1,104.2 L97.0,103.8 L98.6,101.8 L99.5,98.4 L101.3,96.9 L103.2,97.3 L104.9,96.5 L106.8,96.5 L108.5,95.2 L110.2,96.3 L112.1,96.1 L113.8,94.7 L115.7,95.6 L114.8,92.5 L113.0,91.2 L111.9,88.4 L111.7,84.8 L109.9,84.0 L108.5,81.1 L108.8,77.3 L107.8,73.9 L107.3,70.7 L106.8,67.4 L105.3,65.5 L104.5,62.4 L103.2,60.1 L102.1,57.5 L101.7,54.1 L101.0,51.0 L98.9,50.2 L97.1,48.0 L96.7,43.8 L95.2,40.8 L94.4,37.0 L93.1,33.8 L91.3,32.3 L89.5,30.1 L88.9,25.9 L88.8,21.5 L87.5,17.8 L87.3,13.3 L88.8,9.2 L88.7,4.1 L90.7,1.4 L93.0,0.0 L91.4,0.6 L90.3,2.9 L88.9,4.4 L87.6,6.0 L87.5,9.3 L87.5,12.5 L86.8,15.5 L85.5,17.6 L86.2,20.5 L86.9,23.3 L88.5,23.9 L89.7,26.2 L90.4,28.9 L91.1,31.6 L91.0,34.7 L91.2,37.7 L91.0,40.8 L91.6,43.6 L93.0,44.9 L94.0,47.2 L93.5,49.9 L92.5,51.8 L91.8,54.2 L91.6,57.0 L92.8,58.0 L93.6,60.2 L94.1,62.7 L94.1,65.3 L94.6,67.6 L95.0,69.8 L95.4,72.2 L95.6,74.6 L96.9,77.7 L98.9,78.4 L100.6,76.0 L102.6,76.1 L104.5,75.5 L105.9,73.2 L107.1,70.6 L108.4,68.1 L110.1,69.5 L111.2,72.4 L112.1,75.5 L112.2,79.1 L113.4,81.8 L115.1,82.6 L116.6,84.4 L117.5,87.4 L117.9,90.2 L118.1,93.1 L118.3,96.2 L117.5,98.9 L117.9,101.8 L118.3,104.8 L117.4,107.3 L116.9,110.3 L116.8,113.2 L117.3,116.0 L117.9,118.6 L118.2,121.5 L118.2,124.4 L118.1,127.3 L118.3,130.3 L119.1,132.8 L119.7,129.0 L119.2,125.2 L120.1,121.9 L121.2,118.8 L122.3,115.7 L124.2,114.7 L126.0,113.3 L127.0,110.0 L128.7,108.7 L130.5,108.2 L131.7,105.2 L132.8,102.4 L134.1,99.5 L136.1,98.8 L136.1,94.8 L137.4,91.8 L135.5,90.0 L134.4,86.5 L134.0,82.6 L133.5,78.7 L132.0,75.6 L131.2,71.8 L132.1,67.9 L132.0,63.7 L132.3,59.0 L133.7,55.3 L133.2,50.8 L132.2,46.7 L133.2,42.7 L135.3,40.8 L137.1,38.6 L139.2,37.2 L141.7,37.9 L144.0,35.4 L146.4,36.6 L148.4,39.4 L149.5,43.7 L150.1,48.5 L152.5,50.1 L153.8,54.5 L155.0,58.9 L157.2,61.4 L158.0,65.9 L158.8,70.5 L158.0,75.0 L156.3,78.7 L155.9,83.4 L155.7,88.2 L157.7,88.5 L159.5,90.1 L161.6,90.7 L163.5,89.1 L165.1,86.8 L166.8,84.8 L168.7,82.9 L170.8,83.4 L172.9,84.0 L174.7,86.2 L176.9,86.6 L178.5,89.6 L180.5,87.7 L181.9,84.4 L183.8,82.0 L186.0,82.1" fill="none" stroke="#e4ded5" stroke-width="1.3"/>
+<rect x="0" y="0" width="186.0" height="155.0" fill="none" stroke="rgba(255,255,255,0.16)"/>
+</g>
+<text x="127" y="240" text-anchor="middle" fill="#d9b45f" font-family="SF Mono,monospace" font-size="14">碰到 19 格</text>
+<text x="343" y="52" text-anchor="middle" fill="#63b3a6" font-family="SF Mono,monospace" font-size="12">格边长 15.5（减半）</text>
+<g transform="translate(250,64)">
+<rect x="0.00" y="77.50" width="15.5" height="15.5" fill="#63b3a6" fill-opacity="0.17"/>
+<rect x="0.00" y="93.00" width="15.5" height="15.5" fill="#63b3a6" fill-opacity="0.17"/>
+<rect x="15.50" y="93.00" width="15.5" height="15.5" fill="#63b3a6" fill-opacity="0.17"/>
+<rect x="15.50" y="108.50" width="15.5" height="15.5" fill="#63b3a6" fill-opacity="0.17"/>
+<rect x="31.00" y="62.00" width="15.5" height="15.5" fill="#63b3a6" fill-opacity="0.17"/>
+<rect x="31.00" y="77.50" width="15.5" height="15.5" fill="#63b3a6" fill-opacity="0.17"/>
+<rect x="31.00" y="93.00" width="15.5" height="15.5" fill="#63b3a6" fill-opacity="0.17"/>
+<rect x="31.00" y="108.50" width="15.5" height="15.5" fill="#63b3a6" fill-opacity="0.17"/>
+<rect x="46.50" y="62.00" width="15.5" height="15.5" fill="#63b3a6" fill-opacity="0.17"/>
+<rect x="46.50" y="77.50" width="15.5" height="15.5" fill="#63b3a6" fill-opacity="0.17"/>
+<rect x="62.00" y="77.50" width="15.5" height="15.5" fill="#63b3a6" fill-opacity="0.17"/>
+<rect x="62.00" y="93.00" width="15.5" height="15.5" fill="#63b3a6" fill-opacity="0.17"/>
+<rect x="62.00" y="108.50" width="15.5" height="15.5" fill="#63b3a6" fill-opacity="0.17"/>
+<rect x="62.00" y="124.00" width="15.5" height="15.5" fill="#63b3a6" fill-opacity="0.17"/>
+<rect x="62.00" y="139.50" width="15.5" height="15.5" fill="#63b3a6" fill-opacity="0.17"/>
+<rect x="77.50" y="0.00" width="15.5" height="15.5" fill="#63b3a6" fill-opacity="0.17"/>
+<rect x="77.50" y="15.50" width="15.5" height="15.5" fill="#63b3a6" fill-opacity="0.17"/>
+<rect x="77.50" y="31.00" width="15.5" height="15.5" fill="#63b3a6" fill-opacity="0.17"/>
+<rect x="77.50" y="46.50" width="15.5" height="15.5" fill="#63b3a6" fill-opacity="0.17"/>
+<rect x="77.50" y="93.00" width="15.5" height="15.5" fill="#63b3a6" fill-opacity="0.17"/>
+<rect x="77.50" y="108.50" width="15.5" height="15.5" fill="#63b3a6" fill-opacity="0.17"/>
+<rect x="93.00" y="0.00" width="15.5" height="15.5" fill="#63b3a6" fill-opacity="0.17"/>
+<rect x="93.00" y="31.00" width="15.5" height="15.5" fill="#63b3a6" fill-opacity="0.17"/>
+<rect x="93.00" y="46.50" width="15.5" height="15.5" fill="#63b3a6" fill-opacity="0.17"/>
+<rect x="93.00" y="62.00" width="15.5" height="15.5" fill="#63b3a6" fill-opacity="0.17"/>
+<rect x="93.00" y="77.50" width="15.5" height="15.5" fill="#63b3a6" fill-opacity="0.17"/>
+<rect x="93.00" y="93.00" width="15.5" height="15.5" fill="#63b3a6" fill-opacity="0.17"/>
+<rect x="108.50" y="62.00" width="15.5" height="15.5" fill="#63b3a6" fill-opacity="0.17"/>
+<rect x="108.50" y="77.50" width="15.5" height="15.5" fill="#63b3a6" fill-opacity="0.17"/>
+<rect x="108.50" y="93.00" width="15.5" height="15.5" fill="#63b3a6" fill-opacity="0.17"/>
+<rect x="108.50" y="108.50" width="15.5" height="15.5" fill="#63b3a6" fill-opacity="0.17"/>
+<rect x="108.50" y="124.00" width="15.5" height="15.5" fill="#63b3a6" fill-opacity="0.17"/>
+<rect x="124.00" y="31.00" width="15.5" height="15.5" fill="#63b3a6" fill-opacity="0.17"/>
+<rect x="124.00" y="46.50" width="15.5" height="15.5" fill="#63b3a6" fill-opacity="0.17"/>
+<rect x="124.00" y="62.00" width="15.5" height="15.5" fill="#63b3a6" fill-opacity="0.17"/>
+<rect x="124.00" y="77.50" width="15.5" height="15.5" fill="#63b3a6" fill-opacity="0.17"/>
+<rect x="124.00" y="93.00" width="15.5" height="15.5" fill="#63b3a6" fill-opacity="0.17"/>
+<rect x="124.00" y="108.50" width="15.5" height="15.5" fill="#63b3a6" fill-opacity="0.17"/>
+<rect x="139.50" y="31.00" width="15.5" height="15.5" fill="#63b3a6" fill-opacity="0.17"/>
+<rect x="139.50" y="46.50" width="15.5" height="15.5" fill="#63b3a6" fill-opacity="0.17"/>
+<rect x="155.00" y="46.50" width="15.5" height="15.5" fill="#63b3a6" fill-opacity="0.17"/>
+<rect x="155.00" y="62.00" width="15.5" height="15.5" fill="#63b3a6" fill-opacity="0.17"/>
+<rect x="155.00" y="77.50" width="15.5" height="15.5" fill="#63b3a6" fill-opacity="0.17"/>
+<rect x="170.50" y="77.50" width="15.5" height="15.5" fill="#63b3a6" fill-opacity="0.17"/>
+<line x1="0.00" y1="0" x2="0.00" y2="155.0" stroke="rgba(255,255,255,0.10)" stroke-width="0.7"/>
+<line x1="15.50" y1="0" x2="15.50" y2="155.0" stroke="rgba(255,255,255,0.10)" stroke-width="0.7"/>
+<line x1="31.00" y1="0" x2="31.00" y2="155.0" stroke="rgba(255,255,255,0.10)" stroke-width="0.7"/>
+<line x1="46.50" y1="0" x2="46.50" y2="155.0" stroke="rgba(255,255,255,0.10)" stroke-width="0.7"/>
+<line x1="62.00" y1="0" x2="62.00" y2="155.0" stroke="rgba(255,255,255,0.10)" stroke-width="0.7"/>
+<line x1="77.50" y1="0" x2="77.50" y2="155.0" stroke="rgba(255,255,255,0.10)" stroke-width="0.7"/>
+<line x1="93.00" y1="0" x2="93.00" y2="155.0" stroke="rgba(255,255,255,0.10)" stroke-width="0.7"/>
+<line x1="108.50" y1="0" x2="108.50" y2="155.0" stroke="rgba(255,255,255,0.10)" stroke-width="0.7"/>
+<line x1="124.00" y1="0" x2="124.00" y2="155.0" stroke="rgba(255,255,255,0.10)" stroke-width="0.7"/>
+<line x1="139.50" y1="0" x2="139.50" y2="155.0" stroke="rgba(255,255,255,0.10)" stroke-width="0.7"/>
+<line x1="155.00" y1="0" x2="155.00" y2="155.0" stroke="rgba(255,255,255,0.10)" stroke-width="0.7"/>
+<line x1="170.50" y1="0" x2="170.50" y2="155.0" stroke="rgba(255,255,255,0.10)" stroke-width="0.7"/>
+<line x1="186.00" y1="0" x2="186.00" y2="155.0" stroke="rgba(255,255,255,0.10)" stroke-width="0.7"/>
+<line x1="0" y1="0.00" x2="186.0" y2="0.00" stroke="rgba(255,255,255,0.10)" stroke-width="0.7"/>
+<line x1="0" y1="15.50" x2="186.0" y2="15.50" stroke="rgba(255,255,255,0.10)" stroke-width="0.7"/>
+<line x1="0" y1="31.00" x2="186.0" y2="31.00" stroke="rgba(255,255,255,0.10)" stroke-width="0.7"/>
+<line x1="0" y1="46.50" x2="186.0" y2="46.50" stroke="rgba(255,255,255,0.10)" stroke-width="0.7"/>
+<line x1="0" y1="62.00" x2="186.0" y2="62.00" stroke="rgba(255,255,255,0.10)" stroke-width="0.7"/>
+<line x1="0" y1="77.50" x2="186.0" y2="77.50" stroke="rgba(255,255,255,0.10)" stroke-width="0.7"/>
+<line x1="0" y1="93.00" x2="186.0" y2="93.00" stroke="rgba(255,255,255,0.10)" stroke-width="0.7"/>
+<line x1="0" y1="108.50" x2="186.0" y2="108.50" stroke="rgba(255,255,255,0.10)" stroke-width="0.7"/>
+<line x1="0" y1="124.00" x2="186.0" y2="124.00" stroke="rgba(255,255,255,0.10)" stroke-width="0.7"/>
+<line x1="0" y1="139.50" x2="186.0" y2="139.50" stroke="rgba(255,255,255,0.10)" stroke-width="0.7"/>
+<line x1="0" y1="155.00" x2="186.0" y2="155.00" stroke="rgba(255,255,255,0.10)" stroke-width="0.7"/>
+<path d="M0.0,82.1 L1.9,84.7 L4.2,85.4 L6.4,84.2 L8.7,84.4 L10.6,87.2 L11.9,91.0 L11.8,95.7 L13.0,99.9 L15.0,100.5 L16.9,102.5 L18.2,105.7 L19.3,109.2 L20.6,112.6 L22.0,115.9 L24.2,114.7 L26.2,116.7 L27.9,114.0 L30.0,112.6 L32.2,112.2 L34.2,110.3 L36.4,108.6 L37.6,104.4 L39.8,103.4 L42.0,103.4 L42.0,98.8 L42.0,94.1 L41.0,89.6 L41.4,84.8 L43.2,81.8 L45.1,78.8 L46.3,74.8 L48.0,71.4 L48.5,74.9 L49.1,78.4 L50.0,81.6 L50.4,85.2 L52.2,86.0 L53.9,87.7 L55.3,90.3 L57.2,90.9 L59.2,90.8 L61.0,89.1 L62.9,89.2 L64.8,90.1 L66.5,92.5 L67.1,96.3 L68.7,98.6 L69.3,102.5 L70.0,106.3 L69.5,110.3 L70.1,114.3 L69.5,118.2 L67.8,120.5 L66.4,123.2 L65.3,126.5 L64.3,129.9 L65.2,133.5 L65.2,137.5 L64.9,141.6 L65.7,145.3 L67.3,147.7 L69.1,149.3 L70.2,152.6 L71.8,155.0 L73.1,151.1 L73.2,146.4 L71.7,142.9 L70.8,138.8 L71.8,134.7 L71.5,130.2 L73.6,128.6 L74.8,124.5 L76.9,124.3 L78.5,121.8 L79.4,117.9 L81.3,115.9 L83.2,114.9 L84.7,112.2 L86.8,112.3 L88.4,109.6 L90.2,108.1 L92.2,108.8 L94.0,107.3 L95.1,104.2 L97.0,103.8 L98.6,101.8 L99.5,98.4 L101.3,96.9 L103.2,97.3 L104.9,96.5 L106.8,96.5 L108.5,95.2 L110.2,96.3 L112.1,96.1 L113.8,94.7 L115.7,95.6 L114.8,92.5 L113.0,91.2 L111.9,88.4 L111.7,84.8 L109.9,84.0 L108.5,81.1 L108.8,77.3 L107.8,73.9 L107.3,70.7 L106.8,67.4 L105.3,65.5 L104.5,62.4 L103.2,60.1 L102.1,57.5 L101.7,54.1 L101.0,51.0 L98.9,50.2 L97.1,48.0 L96.7,43.8 L95.2,40.8 L94.4,37.0 L93.1,33.8 L91.3,32.3 L89.5,30.1 L88.9,25.9 L88.8,21.5 L87.5,17.8 L87.3,13.3 L88.8,9.2 L88.7,4.1 L90.7,1.4 L93.0,0.0 L91.4,0.6 L90.3,2.9 L88.9,4.4 L87.6,6.0 L87.5,9.3 L87.5,12.5 L86.8,15.5 L85.5,17.6 L86.2,20.5 L86.9,23.3 L88.5,23.9 L89.7,26.2 L90.4,28.9 L91.1,31.6 L91.0,34.7 L91.2,37.7 L91.0,40.8 L91.6,43.6 L93.0,44.9 L94.0,47.2 L93.5,49.9 L92.5,51.8 L91.8,54.2 L91.6,57.0 L92.8,58.0 L93.6,60.2 L94.1,62.7 L94.1,65.3 L94.6,67.6 L95.0,69.8 L95.4,72.2 L95.6,74.6 L96.9,77.7 L98.9,78.4 L100.6,76.0 L102.6,76.1 L104.5,75.5 L105.9,73.2 L107.1,70.6 L108.4,68.1 L110.1,69.5 L111.2,72.4 L112.1,75.5 L112.2,79.1 L113.4,81.8 L115.1,82.6 L116.6,84.4 L117.5,87.4 L117.9,90.2 L118.1,93.1 L118.3,96.2 L117.5,98.9 L117.9,101.8 L118.3,104.8 L117.4,107.3 L116.9,110.3 L116.8,113.2 L117.3,116.0 L117.9,118.6 L118.2,121.5 L118.2,124.4 L118.1,127.3 L118.3,130.3 L119.1,132.8 L119.7,129.0 L119.2,125.2 L120.1,121.9 L121.2,118.8 L122.3,115.7 L124.2,114.7 L126.0,113.3 L127.0,110.0 L128.7,108.7 L130.5,108.2 L131.7,105.2 L132.8,102.4 L134.1,99.5 L136.1,98.8 L136.1,94.8 L137.4,91.8 L135.5,90.0 L134.4,86.5 L134.0,82.6 L133.5,78.7 L132.0,75.6 L131.2,71.8 L132.1,67.9 L132.0,63.7 L132.3,59.0 L133.7,55.3 L133.2,50.8 L132.2,46.7 L133.2,42.7 L135.3,40.8 L137.1,38.6 L139.2,37.2 L141.7,37.9 L144.0,35.4 L146.4,36.6 L148.4,39.4 L149.5,43.7 L150.1,48.5 L152.5,50.1 L153.8,54.5 L155.0,58.9 L157.2,61.4 L158.0,65.9 L158.8,70.5 L158.0,75.0 L156.3,78.7 L155.9,83.4 L155.7,88.2 L157.7,88.5 L159.5,90.1 L161.6,90.7 L163.5,89.1 L165.1,86.8 L166.8,84.8 L168.7,82.9 L170.8,83.4 L172.9,84.0 L174.7,86.2 L176.9,86.6 L178.5,89.6 L180.5,87.7 L181.9,84.4 L183.8,82.0 L186.0,82.1" fill="none" stroke="#e4ded5" stroke-width="1.3"/>
+<rect x="0" y="0" width="186.0" height="155.0" fill="none" stroke="rgba(255,255,255,0.16)"/>
+</g>
+<text x="343" y="240" text-anchor="middle" fill="#63b3a6" font-family="SF Mono,monospace" font-size="14">碰到 44 格</text>
+<text x="595" y="52" text-anchor="middle" fill="#a693cd" font-family="SF Mono,monospace" font-size="12">双对数图上是直线</text>
+<line x1="500" y1="214" x2="690" y2="214" stroke="rgba(255,255,255,0.18)" stroke-width="1.3"/>
+<line x1="500" y1="214" x2="500" y2="74" stroke="rgba(255,255,255,0.18)" stroke-width="1.3"/>
+<line x1="507.4" y1="207.7" x2="682.6" y2="80.0" stroke="#a693cd" stroke-width="2"/>
+<circle cx="518.4" cy="200.5" r="3.6" fill="#a693cd"/>
+<circle cx="569.5" cy="162.6" r="3.6" fill="#a693cd"/>
+<circle cx="620.5" cy="122.5" r="3.6" fill="#a693cd"/>
+<circle cx="671.6" cy="89.8" r="3.6" fill="#a693cd"/>
+<text x="494" y="66" text-anchor="start" fill="#8d867b" font-family="-apple-system,sans-serif" font-size="10.5">被碰到的格数（对数）</text>
+<text x="595" y="234" text-anchor="middle" fill="#8d867b" font-family="-apple-system,sans-serif" font-size="10.5">1 / 格边长（对数）→</text>
+<text x="595" y="256" text-anchor="middle" fill="#a693cd" font-family="SF Mono,monospace" font-size="13.5">斜率 = 维数 ≈ 1.19</text>
+<text x="360" y="272" text-anchor="middle" fill="#57524b" font-family="-apple-system,sans-serif" font-size="11">格子边长减半，被碰到的格数变成 44/19 ≈ 2.32 倍。一条普通曲线会正好翻倍（维数 1），一块实心面会变四倍（维数 2）。</text>
+</svg>
+<figcaption>盒计数：格子减半，被碰到的格数变成 2.32 倍。要是 2 倍，它就是一条普通的线；要是 4 倍，它就是一个面。</figcaption>
+</figure>
+<p>顺带一件容易被忽略的事：同一条曲线，用 Richardson 的圆规法量和用盒计数量，得到的数不必相等——本页这条模拟海岸就是，圆规法给出的斜率比盒计数略高。"维数"不是一个定义，是一族定义（盒计数维数、豪斯多夫维数、信息维数……），它们在漂亮的数学图形上重合，在真实数据上不一定。所以报数字时必须说清用的是哪一种、在哪个尺度区间里测的。</p>
+<div class="decide">
+<span class="lb">🎯 决策线</span>
+<p>报维数、赫斯特指数（Hurst exponent）或任何标度指数之前，先看双对数图上那条"直线"跨了几个数量级。不到一个数量级就别报这个数——在那么窄的窗口里，几乎任何缓慢弯曲的曲线都能装成直线。要报就三样一起报：<b>用的哪种方法、拟合区间的上下限、区间内有几个点</b>。三样缺一，那个数字就没法被别人复核，也就不该出现在结论里。</p>
+</div>
+<div class="crossx-inline">
+🌀 <b>生理学 · 健康的心跳不是规律的心跳</b>　把连续几小时的心跳间隔排成一条序列，用同一套标度分析去量（生理学常用的一种叫去趋势波动分析，detrended fluctuation analysis，缩写 DFA），健康成年人给出的标度指数接近 1：心跳的起伏在几秒到几百秒的尺度之间是自相似的。Goldberger 等人的一系列工作发现，心衰与衰老都会把这个指数推离 1——有的偏向更随机，有的偏向更规律。于是"心跳平稳＝健康"这个默认判断被推翻了一半：该看的不是涨落有多大，是不同时间尺度之间的关系。同一个方差，可以对应完全不同的标度指数。
+</div>
+<p class="en-brief"><b>EN</b> Read dimension as "how many copies of itself appear when you magnify". Magnify a Koch curve threefold and it is made of four copies: D = log4/log3 ≈ 1.26. For real images the general tool is box counting, N(ε) ∝ ε^(−D), read off as the slope of a log-log line.</p>
+
+<h2><span class="n">04</span>自然界为什么到处都是分形<span class="he">（Why Nature Keeps Making Them）</span></h2>
+<p class="lead">肺、血管、河网、闪电、树冠、云的边缘、山脊线、金属的断口——分形在自然界不是偶尔冒出来的花样，它的出现频率高到不像巧合。原因是有好几条互不相干的路，都通向同一类形状。至少三条。</p>
+<p><b>第一条：分支供给网络。</b>一个身体要把氧气送到每一个细胞，得有一套管道服务整个体积。管道自己要占体积——占多了就没地方装别的；而交换气体靠的是表面积——面积不够就换不动。这是一对互相顶牛的要求，而分支的分形结构正好是它的解。</p>
+<p>算一下就看得见。假设每分一级，管子数量翻倍，长度和管径各缩到原来的 2^(−1/3) ≈ 0.79 倍：</p>
+<p>· 每一级贡献的<b>体积</b> ＝ 数量 × 长度 × 管径² ∝ 2 × 0.79 × 0.79² ＝ 1，<em>不变</em>。<br/>
+· 每一级贡献的<b>表面积</b> ＝ 数量 × 长度 × 管径 ∝ 2 × 0.79 × 0.79 ≈ 1.26，<em>每级涨 26%</em>。</p>
+<p>于是级数一多，表面积可以涨到很大，而体积始终受控。人的气道从气管数到肺泡大约 23 级，1.26²³ ≈ 200。（这只是骨架算的账：真实气道大约第 17 级之后规则会变、开始出现肺泡，所以别把这个数当实测值——它给的是这条规则蕴含的量级。）实测的肺泡总表面积在一百多平方米，装在几升的胸腔里。顺便纠一句流传很广的说法："肺的表面积相当于一个网球场"其实是夸张的——一个单打场地是 195 平方米。</p>
+<figure>
+<svg role="img" aria-label="分支供给网络：每分一级数量翻倍、尺寸按固定比例缩小，表面积增长而每级体积不变" viewbox="0 0 720 292" xmlns="http://www.w3.org/2000/svg">
+<text x="360" y="26" text-anchor="middle" fill="#aba498" font-family="-apple-system,sans-serif" font-size="13">同一条分支规则重复 6 次 — 用一维的管子服务三维的体积</text>
+<line x1="180.0" y1="240.0" x2="180.0" y2="178.0" stroke="#9fbc7a" stroke-width="7.00" stroke-linecap="round"/>
+<line x1="180.0" y1="178.0" x2="158.6" y2="138.8" stroke="#8fb591" stroke-width="5.53" stroke-linecap="round"/>
+<line x1="158.6" y1="138.8" x2="131.6" y2="121.5" stroke="#7fada8" stroke-width="4.37" stroke-linecap="round"/>
+<line x1="131.6" y1="121.5" x2="108.5" y2="119.8" stroke="#74a8b4" stroke-width="3.45" stroke-linecap="round"/>
+<line x1="108.5" y1="119.8" x2="93.3" y2="126.8" stroke="#79a6d2" stroke-width="2.73" stroke-linecap="round"/>
+<line x1="93.3" y1="126.8" x2="86.1" y2="136.4" stroke="#8f9dd0" stroke-width="2.15" stroke-linecap="round"/>
+<line x1="86.1" y1="136.4" x2="84.9" y2="144.9" stroke="#a693cd" stroke-width="1.70" stroke-linecap="round"/>
+<line x1="86.1" y1="136.4" x2="78.3" y2="140.0" stroke="#a693cd" stroke-width="1.70" stroke-linecap="round"/>
+<line x1="93.3" y1="126.8" x2="81.4" y2="125.9" stroke="#8f9dd0" stroke-width="2.15" stroke-linecap="round"/>
+<line x1="81.4" y1="125.9" x2="73.5" y2="129.5" stroke="#a693cd" stroke-width="1.70" stroke-linecap="round"/>
+<line x1="81.4" y1="125.9" x2="74.1" y2="121.2" stroke="#a693cd" stroke-width="1.70" stroke-linecap="round"/>
+<line x1="108.5" y1="119.8" x2="94.4" y2="110.8" stroke="#79a6d2" stroke-width="2.73" stroke-linecap="round"/>
+<line x1="94.4" y1="110.8" x2="82.5" y2="110.0" stroke="#8f9dd0" stroke-width="2.15" stroke-linecap="round"/>
+<line x1="82.5" y1="110.0" x2="74.6" y2="113.6" stroke="#a693cd" stroke-width="1.70" stroke-linecap="round"/>
+<line x1="82.5" y1="110.0" x2="75.2" y2="105.3" stroke="#a693cd" stroke-width="1.70" stroke-linecap="round"/>
+<line x1="94.4" y1="110.8" x2="88.7" y2="100.3" stroke="#8f9dd0" stroke-width="2.15" stroke-linecap="round"/>
+<line x1="88.7" y1="100.3" x2="81.4" y2="95.6" stroke="#a693cd" stroke-width="1.70" stroke-linecap="round"/>
+<line x1="88.7" y1="100.3" x2="88.7" y2="91.7" stroke="#a693cd" stroke-width="1.70" stroke-linecap="round"/>
+<line x1="131.6" y1="121.5" x2="120.5" y2="101.2" stroke="#74a8b4" stroke-width="3.45" stroke-linecap="round"/>
+<line x1="120.5" y1="101.2" x2="106.4" y2="92.1" stroke="#79a6d2" stroke-width="2.73" stroke-linecap="round"/>
+<line x1="106.4" y1="92.1" x2="94.5" y2="91.3" stroke="#8f9dd0" stroke-width="2.15" stroke-linecap="round"/>
+<line x1="94.5" y1="91.3" x2="86.6" y2="94.9" stroke="#a693cd" stroke-width="1.70" stroke-linecap="round"/>
+<line x1="94.5" y1="91.3" x2="87.2" y2="86.6" stroke="#a693cd" stroke-width="1.70" stroke-linecap="round"/>
+<line x1="106.4" y1="92.1" x2="100.7" y2="81.6" stroke="#8f9dd0" stroke-width="2.15" stroke-linecap="round"/>
+<line x1="100.7" y1="81.6" x2="93.4" y2="77.0" stroke="#a693cd" stroke-width="1.70" stroke-linecap="round"/>
+<line x1="100.7" y1="81.6" x2="100.7" y2="73.0" stroke="#a693cd" stroke-width="1.70" stroke-linecap="round"/>
+<line x1="120.5" y1="101.2" x2="120.5" y2="84.5" stroke="#79a6d2" stroke-width="2.73" stroke-linecap="round"/>
+<line x1="120.5" y1="84.5" x2="114.7" y2="74.0" stroke="#8f9dd0" stroke-width="2.15" stroke-linecap="round"/>
+<line x1="114.7" y1="74.0" x2="107.4" y2="69.3" stroke="#a693cd" stroke-width="1.70" stroke-linecap="round"/>
+<line x1="114.7" y1="74.0" x2="114.7" y2="65.3" stroke="#a693cd" stroke-width="1.70" stroke-linecap="round"/>
+<line x1="120.5" y1="84.5" x2="126.2" y2="74.0" stroke="#8f9dd0" stroke-width="2.15" stroke-linecap="round"/>
+<line x1="126.2" y1="74.0" x2="126.2" y2="65.3" stroke="#a693cd" stroke-width="1.70" stroke-linecap="round"/>
+<line x1="126.2" y1="74.0" x2="133.5" y2="69.3" stroke="#a693cd" stroke-width="1.70" stroke-linecap="round"/>
+<line x1="158.6" y1="138.8" x2="158.6" y2="106.7" stroke="#7fada8" stroke-width="4.37" stroke-linecap="round"/>
+<line x1="158.6" y1="106.7" x2="147.5" y2="86.4" stroke="#74a8b4" stroke-width="3.45" stroke-linecap="round"/>
+<line x1="147.5" y1="86.4" x2="133.5" y2="77.4" stroke="#79a6d2" stroke-width="2.73" stroke-linecap="round"/>
+<line x1="133.5" y1="77.4" x2="121.5" y2="76.5" stroke="#8f9dd0" stroke-width="2.15" stroke-linecap="round"/>
+<line x1="121.5" y1="76.5" x2="113.7" y2="80.1" stroke="#a693cd" stroke-width="1.70" stroke-linecap="round"/>
+<line x1="121.5" y1="76.5" x2="114.2" y2="71.9" stroke="#a693cd" stroke-width="1.70" stroke-linecap="round"/>
+<line x1="133.5" y1="77.4" x2="127.7" y2="66.8" stroke="#8f9dd0" stroke-width="2.15" stroke-linecap="round"/>
+<line x1="127.7" y1="66.8" x2="120.5" y2="62.2" stroke="#a693cd" stroke-width="1.70" stroke-linecap="round"/>
+<line x1="127.7" y1="66.8" x2="127.7" y2="58.2" stroke="#a693cd" stroke-width="1.70" stroke-linecap="round"/>
+<line x1="147.5" y1="86.4" x2="147.5" y2="69.7" stroke="#79a6d2" stroke-width="2.73" stroke-linecap="round"/>
+<line x1="147.5" y1="69.7" x2="141.8" y2="59.2" stroke="#8f9dd0" stroke-width="2.15" stroke-linecap="round"/>
+<line x1="141.8" y1="59.2" x2="134.5" y2="54.5" stroke="#a693cd" stroke-width="1.70" stroke-linecap="round"/>
+<line x1="141.8" y1="59.2" x2="141.8" y2="50.5" stroke="#a693cd" stroke-width="1.70" stroke-linecap="round"/>
+<line x1="147.5" y1="69.7" x2="153.3" y2="59.2" stroke="#8f9dd0" stroke-width="2.15" stroke-linecap="round"/>
+<line x1="153.3" y1="59.2" x2="153.3" y2="50.5" stroke="#a693cd" stroke-width="1.70" stroke-linecap="round"/>
+<line x1="153.3" y1="59.2" x2="160.5" y2="54.5" stroke="#a693cd" stroke-width="1.70" stroke-linecap="round"/>
+<line x1="158.6" y1="106.7" x2="169.7" y2="86.4" stroke="#74a8b4" stroke-width="3.45" stroke-linecap="round"/>
+<line x1="169.7" y1="86.4" x2="169.7" y2="69.7" stroke="#79a6d2" stroke-width="2.73" stroke-linecap="round"/>
+<line x1="169.7" y1="69.7" x2="163.9" y2="59.2" stroke="#8f9dd0" stroke-width="2.15" stroke-linecap="round"/>
+<line x1="163.9" y1="59.2" x2="156.7" y2="54.5" stroke="#a693cd" stroke-width="1.70" stroke-linecap="round"/>
+<line x1="163.9" y1="59.2" x2="163.9" y2="50.5" stroke="#a693cd" stroke-width="1.70" stroke-linecap="round"/>
+<line x1="169.7" y1="69.7" x2="175.4" y2="59.2" stroke="#8f9dd0" stroke-width="2.15" stroke-linecap="round"/>
+<line x1="175.4" y1="59.2" x2="175.4" y2="50.5" stroke="#a693cd" stroke-width="1.70" stroke-linecap="round"/>
+<line x1="175.4" y1="59.2" x2="182.7" y2="54.5" stroke="#a693cd" stroke-width="1.70" stroke-linecap="round"/>
+<line x1="169.7" y1="86.4" x2="183.7" y2="77.4" stroke="#79a6d2" stroke-width="2.73" stroke-linecap="round"/>
+<line x1="183.7" y1="77.4" x2="189.5" y2="66.8" stroke="#8f9dd0" stroke-width="2.15" stroke-linecap="round"/>
+<line x1="189.5" y1="66.8" x2="189.5" y2="58.2" stroke="#a693cd" stroke-width="1.70" stroke-linecap="round"/>
+<line x1="189.5" y1="66.8" x2="196.7" y2="62.2" stroke="#a693cd" stroke-width="1.70" stroke-linecap="round"/>
+<line x1="183.7" y1="77.4" x2="195.7" y2="76.5" stroke="#8f9dd0" stroke-width="2.15" stroke-linecap="round"/>
+<line x1="195.7" y1="76.5" x2="202.9" y2="71.9" stroke="#a693cd" stroke-width="1.70" stroke-linecap="round"/>
+<line x1="195.7" y1="76.5" x2="203.5" y2="80.1" stroke="#a693cd" stroke-width="1.70" stroke-linecap="round"/>
+<line x1="180.0" y1="178.0" x2="201.4" y2="138.8" stroke="#8fb591" stroke-width="5.53" stroke-linecap="round"/>
+<line x1="201.4" y1="138.8" x2="201.4" y2="106.7" stroke="#7fada8" stroke-width="4.37" stroke-linecap="round"/>
+<line x1="201.4" y1="106.7" x2="190.3" y2="86.4" stroke="#74a8b4" stroke-width="3.45" stroke-linecap="round"/>
+<line x1="190.3" y1="86.4" x2="176.3" y2="77.4" stroke="#79a6d2" stroke-width="2.73" stroke-linecap="round"/>
+<line x1="176.3" y1="77.4" x2="164.3" y2="76.5" stroke="#8f9dd0" stroke-width="2.15" stroke-linecap="round"/>
+<line x1="164.3" y1="76.5" x2="156.5" y2="80.1" stroke="#a693cd" stroke-width="1.70" stroke-linecap="round"/>
+<line x1="164.3" y1="76.5" x2="157.1" y2="71.9" stroke="#a693cd" stroke-width="1.70" stroke-linecap="round"/>
+<line x1="176.3" y1="77.4" x2="170.5" y2="66.8" stroke="#8f9dd0" stroke-width="2.15" stroke-linecap="round"/>
+<line x1="170.5" y1="66.8" x2="163.3" y2="62.2" stroke="#a693cd" stroke-width="1.70" stroke-linecap="round"/>
+<line x1="170.5" y1="66.8" x2="170.5" y2="58.2" stroke="#a693cd" stroke-width="1.70" stroke-linecap="round"/>
+<line x1="190.3" y1="86.4" x2="190.3" y2="69.7" stroke="#79a6d2" stroke-width="2.73" stroke-linecap="round"/>
+<line x1="190.3" y1="69.7" x2="184.6" y2="59.2" stroke="#8f9dd0" stroke-width="2.15" stroke-linecap="round"/>
+<line x1="184.6" y1="59.2" x2="177.3" y2="54.5" stroke="#a693cd" stroke-width="1.70" stroke-linecap="round"/>
+<line x1="184.6" y1="59.2" x2="184.6" y2="50.5" stroke="#a693cd" stroke-width="1.70" stroke-linecap="round"/>
+<line x1="190.3" y1="69.7" x2="196.1" y2="59.2" stroke="#8f9dd0" stroke-width="2.15" stroke-linecap="round"/>
+<line x1="196.1" y1="59.2" x2="196.1" y2="50.5" stroke="#a693cd" stroke-width="1.70" stroke-linecap="round"/>
+<line x1="196.1" y1="59.2" x2="203.3" y2="54.5" stroke="#a693cd" stroke-width="1.70" stroke-linecap="round"/>
+<line x1="201.4" y1="106.7" x2="212.5" y2="86.4" stroke="#74a8b4" stroke-width="3.45" stroke-linecap="round"/>
+<line x1="212.5" y1="86.4" x2="212.5" y2="69.7" stroke="#79a6d2" stroke-width="2.73" stroke-linecap="round"/>
+<line x1="212.5" y1="69.7" x2="206.7" y2="59.2" stroke="#8f9dd0" stroke-width="2.15" stroke-linecap="round"/>
+<line x1="206.7" y1="59.2" x2="199.5" y2="54.5" stroke="#a693cd" stroke-width="1.70" stroke-linecap="round"/>
+<line x1="206.7" y1="59.2" x2="206.7" y2="50.5" stroke="#a693cd" stroke-width="1.70" stroke-linecap="round"/>
+<line x1="212.5" y1="69.7" x2="218.2" y2="59.2" stroke="#8f9dd0" stroke-width="2.15" stroke-linecap="round"/>
+<line x1="218.2" y1="59.2" x2="218.2" y2="50.5" stroke="#a693cd" stroke-width="1.70" stroke-linecap="round"/>
+<line x1="218.2" y1="59.2" x2="225.5" y2="54.5" stroke="#a693cd" stroke-width="1.70" stroke-linecap="round"/>
+<line x1="212.5" y1="86.4" x2="226.5" y2="77.4" stroke="#79a6d2" stroke-width="2.73" stroke-linecap="round"/>
+<line x1="226.5" y1="77.4" x2="232.3" y2="66.8" stroke="#8f9dd0" stroke-width="2.15" stroke-linecap="round"/>
+<line x1="232.3" y1="66.8" x2="232.3" y2="58.2" stroke="#a693cd" stroke-width="1.70" stroke-linecap="round"/>
+<line x1="232.3" y1="66.8" x2="239.5" y2="62.2" stroke="#a693cd" stroke-width="1.70" stroke-linecap="round"/>
+<line x1="226.5" y1="77.4" x2="238.5" y2="76.5" stroke="#8f9dd0" stroke-width="2.15" stroke-linecap="round"/>
+<line x1="238.5" y1="76.5" x2="245.8" y2="71.9" stroke="#a693cd" stroke-width="1.70" stroke-linecap="round"/>
+<line x1="238.5" y1="76.5" x2="246.3" y2="80.1" stroke="#a693cd" stroke-width="1.70" stroke-linecap="round"/>
+<line x1="201.4" y1="138.8" x2="228.4" y2="121.5" stroke="#7fada8" stroke-width="4.37" stroke-linecap="round"/>
+<line x1="228.4" y1="121.5" x2="239.5" y2="101.2" stroke="#74a8b4" stroke-width="3.45" stroke-linecap="round"/>
+<line x1="239.5" y1="101.2" x2="239.5" y2="84.5" stroke="#79a6d2" stroke-width="2.73" stroke-linecap="round"/>
+<line x1="239.5" y1="84.5" x2="233.8" y2="74.0" stroke="#8f9dd0" stroke-width="2.15" stroke-linecap="round"/>
+<line x1="233.8" y1="74.0" x2="226.5" y2="69.3" stroke="#a693cd" stroke-width="1.70" stroke-linecap="round"/>
+<line x1="233.8" y1="74.0" x2="233.8" y2="65.3" stroke="#a693cd" stroke-width="1.70" stroke-linecap="round"/>
+<line x1="239.5" y1="84.5" x2="245.3" y2="74.0" stroke="#8f9dd0" stroke-width="2.15" stroke-linecap="round"/>
+<line x1="245.3" y1="74.0" x2="245.3" y2="65.3" stroke="#a693cd" stroke-width="1.70" stroke-linecap="round"/>
+<line x1="245.3" y1="74.0" x2="252.6" y2="69.3" stroke="#a693cd" stroke-width="1.70" stroke-linecap="round"/>
+<line x1="239.5" y1="101.2" x2="253.6" y2="92.1" stroke="#79a6d2" stroke-width="2.73" stroke-linecap="round"/>
+<line x1="253.6" y1="92.1" x2="259.3" y2="81.6" stroke="#8f9dd0" stroke-width="2.15" stroke-linecap="round"/>
+<line x1="259.3" y1="81.6" x2="259.3" y2="73.0" stroke="#a693cd" stroke-width="1.70" stroke-linecap="round"/>
+<line x1="259.3" y1="81.6" x2="266.6" y2="77.0" stroke="#a693cd" stroke-width="1.70" stroke-linecap="round"/>
+<line x1="253.6" y1="92.1" x2="265.5" y2="91.3" stroke="#8f9dd0" stroke-width="2.15" stroke-linecap="round"/>
+<line x1="265.5" y1="91.3" x2="272.8" y2="86.6" stroke="#a693cd" stroke-width="1.70" stroke-linecap="round"/>
+<line x1="265.5" y1="91.3" x2="273.4" y2="94.9" stroke="#a693cd" stroke-width="1.70" stroke-linecap="round"/>
+<line x1="228.4" y1="121.5" x2="251.5" y2="119.8" stroke="#74a8b4" stroke-width="3.45" stroke-linecap="round"/>
+<line x1="251.5" y1="119.8" x2="265.6" y2="110.8" stroke="#79a6d2" stroke-width="2.73" stroke-linecap="round"/>
+<line x1="265.6" y1="110.8" x2="271.3" y2="100.3" stroke="#8f9dd0" stroke-width="2.15" stroke-linecap="round"/>
+<line x1="271.3" y1="100.3" x2="271.3" y2="91.7" stroke="#a693cd" stroke-width="1.70" stroke-linecap="round"/>
+<line x1="271.3" y1="100.3" x2="278.6" y2="95.6" stroke="#a693cd" stroke-width="1.70" stroke-linecap="round"/>
+<line x1="265.6" y1="110.8" x2="277.5" y2="110.0" stroke="#8f9dd0" stroke-width="2.15" stroke-linecap="round"/>
+<line x1="277.5" y1="110.0" x2="284.8" y2="105.3" stroke="#a693cd" stroke-width="1.70" stroke-linecap="round"/>
+<line x1="277.5" y1="110.0" x2="285.4" y2="113.6" stroke="#a693cd" stroke-width="1.70" stroke-linecap="round"/>
+<line x1="251.5" y1="119.8" x2="266.7" y2="126.8" stroke="#79a6d2" stroke-width="2.73" stroke-linecap="round"/>
+<line x1="266.7" y1="126.8" x2="278.6" y2="125.9" stroke="#8f9dd0" stroke-width="2.15" stroke-linecap="round"/>
+<line x1="278.6" y1="125.9" x2="285.9" y2="121.2" stroke="#a693cd" stroke-width="1.70" stroke-linecap="round"/>
+<line x1="278.6" y1="125.9" x2="286.5" y2="129.5" stroke="#a693cd" stroke-width="1.70" stroke-linecap="round"/>
+<line x1="266.7" y1="126.8" x2="273.9" y2="136.4" stroke="#8f9dd0" stroke-width="2.15" stroke-linecap="round"/>
+<line x1="273.9" y1="136.4" x2="281.7" y2="140.0" stroke="#a693cd" stroke-width="1.70" stroke-linecap="round"/>
+<line x1="273.9" y1="136.4" x2="275.1" y2="144.9" stroke="#a693cd" stroke-width="1.70" stroke-linecap="round"/>
+<text x="180" y="262" text-anchor="middle" fill="#787268" font-family="-apple-system,sans-serif" font-size="11">每分一级：数量 ×2，长度和管径各 ×0.79</text>
+<text x="400" y="58" fill="#aba498" font-family="-apple-system,sans-serif" font-size="12">于是每分一级 —</text>
+<rect x="400" y="70" width="284" height="46" rx="8" fill="#e0895e" fill-opacity="0.07" stroke="#e0895e" stroke-opacity="0.32"/>
+<text x="414" y="90" fill="#e0895e" font-family="-apple-system,sans-serif" font-size="12.5">总表面积</text>
+<text x="670" y="90" text-anchor="end" fill="#e0895e" font-family="SF Mono,monospace" font-size="13.5">每级 ×1.26</text>
+<rect x="400" y="130" width="284" height="46" rx="8" fill="#63b3a6" fill-opacity="0.07" stroke="#63b3a6" stroke-opacity="0.32"/>
+<text x="414" y="150" fill="#63b3a6" font-family="-apple-system,sans-serif" font-size="12.5">每级新增体积</text>
+<text x="670" y="150" text-anchor="end" fill="#63b3a6" font-family="SF Mono,monospace" font-size="13.5">不变</text>
+<text x="400" y="206" fill="#aba498" font-family="-apple-system,sans-serif" font-size="12">人的气道从气管数到肺泡约 23 级：</text>
+<text x="400" y="232" fill="#d9b45f" font-family="SF Mono,monospace" font-size="13.5">1.26²³ ≈ 200 倍表面积</text>
+<text x="400" y="254" fill="#787268" font-family="-apple-system,sans-serif" font-size="11.5">体积却仍装得进胸腔。面积和体积在这里</text>
+<text x="400" y="272" fill="#787268" font-family="-apple-system,sans-serif" font-size="11.5">被这条规则拆开了 — 这是分形买到的东西。</text>
+</svg>
+<figcaption>同一条分支规则重复下去，表面积和体积被拆开了：面积能涨，体积不涨。</figcaption>
+</figure>
+<p><b>第二条：临界点。</b>第 16、17、18 期反复出现过一句话——在临界点上，系统没有特征尺度。这句话的直接几何后果就是分形。渗流模型里那个刚刚贯通的巨簇 <a class="reflink" href="ref-percolation.html">→ 参考 · 渗流模型</a>，在二维格子上的分形维数是精确已知的 91/48 ≈ 1.90：它填平面的方式介于一条线和一个面之间，到处是洞，洞里还有洞。分布上的对应物就是幂律 <a class="reflink" href="ref-power-law.html">→ 参考 · 幂律的识别与误判</a>。所以凡是会自己爬到临界的系统（第 18 期那一类），都会顺手长出分形的几何——两件事不是巧合并列，是同一件事的两个侧面。</p>
+<p><b>第三条：造形的过程本身不挑尺度。</b>侵蚀、破裂、沉积、水流分叉——这些过程在每个尺度上遵循同样的规则：水在一条小沟里做的事和在一条大河谷里做的事是同一件事，只是尺寸不同。既然造形的过程不认尺度，造出来的形状当然不会有特征尺度。</p>
+<p>三条路的机制完全不同：一条是优化（供给网络），一条是临界，一条是过程的尺度无关性。可它们产出同一类形状。这既解释了分形为什么这么常见，也顺带解释了为什么"这东西是分形的"这句话本身几乎不含信息——它不告诉你走的是哪一条路，而三条路给出的预测完全不同。</p>
+<div class="crossx-inline">
+🌀 <b>工程与技术史 · 瓶颈在界面时，别把东西做大</b>　燃料电池的催化层、锂电池的多孔电极、CPU 散热器的鳍片、活性炭的孔——它们在做的是同一件事：把界面塞进有限的体积里，也就是肺那条算法的工业版本。它给出的判据可以当场用：当你的瓶颈是"接触面上发生的事"而不是"里面装了多少东西"，扩容的正确方向不是把设备做大，是把边界做皱。反过来也成立——如果把边界做皱不带来收益，说明瓶颈根本不在界面上，那笔钱花错了地方。
+</div>
+<p class="en-brief"><b>EN</b> Three unrelated routes converge on fractal geometry: branching supply networks (each generation adds equal volume but 26% more surface), criticality (no characteristic scale, e.g. the 2D percolation cluster at 91/48), and shaping processes that are themselves scale-free. Because the routes differ, calling something fractal names no mechanism.</p>
+
+<h2><span class="n">05</span>这套说法在哪儿不成立<span class="he">（Where This Breaks Down）</span></h2>
+<p class="lead">分形是复杂性科学里最容易被滥用的词，没有之一。它好看、好懂、到处都能"看见"——而这三条恰恰就是麻烦的来源。</p>
+<p><b>第一，自然界的分形都很短。</b>数学上的分形跨越无穷多个尺度，自然界的不跨。血管的自相似向下止于毛细血管（<b>内截断</b>，inner cutoff），向上止于整个循环系统（<b>外截断</b>，outer cutoff）。真正的问题是这个窗口通常有多窄。1998 年 Avnir 等人在《科学》上做了一件很不客气的事：他们把《物理评论》系列期刊上报告"自然界的分形"的论文翻了一遍，逐篇统计实际用到的标度范围，结果是平均约 1.3 个数量级。</p>
+<figure>
+<svg role="img" aria-label="标度窗口：双对数曲线只在中间一段是直线，两端分别被内截断和外截断掐掉" viewbox="0 0 720 310" xmlns="http://www.w3.org/2000/svg">
+<text x="360" y="26" text-anchor="middle" fill="#aba498" font-family="-apple-system,sans-serif" font-size="13">自然界的分形都有头有尾 — 真正的自相似只在中间那一段成立</text>
+<line x1="96" y1="236" x2="648" y2="236" stroke="rgba(255,255,255,0.18)" stroke-width="1.4"/>
+<line x1="96" y1="236" x2="96" y2="62" stroke="rgba(255,255,255,0.18)" stroke-width="1.4"/>
+<path d="M96.0,236.0 L98.8,236.0 L101.5,236.0 L104.3,235.9 L107.0,235.9 L109.8,235.8 L112.6,235.8 L115.3,235.7 L118.1,235.6 L120.8,235.5 L123.6,235.3 L126.4,235.2 L129.1,235.0 L131.9,234.9 L134.6,234.7 L137.4,234.5 L140.2,234.3 L142.9,234.1 L145.7,233.8 L148.4,233.6 L151.2,233.3 L154.0,233.1 L156.7,232.8 L159.5,232.5 L162.2,232.2 L165.0,231.8 L167.8,231.5 L170.5,231.1 L173.3,230.8 L176.0,230.4 L178.8,230.0 L181.6,229.6 L184.3,229.2 L187.1,228.8 L189.8,228.3 L192.6,227.8 L195.4,227.4 L198.1,226.9 L200.9,226.4 L203.6,225.9 L206.4,225.3 L209.2,224.8 L211.9,224.3 L214.7,223.7 L217.4,223.1 L220.2,222.5 L223.0,221.9 L225.7,221.3 L228.5,220.7 L231.2,220.0 L234.0,219.4 L236.8,218.7 L239.5,218.0 L242.3,216.6 L245.0,215.3 L247.8,213.9 L250.6,212.5 L253.3,211.2 L256.1,209.8 L258.8,208.5 L261.6,207.1 L264.4,205.7 L267.1,204.4 L269.9,203.0 L272.6,201.6 L275.4,200.3 L278.2,198.9 L280.9,197.5 L283.7,196.2 L286.4,194.8 L289.2,193.5 L292.0,192.1 L294.7,190.7 L297.5,189.4 L300.2,188.0 L303.0,186.6 L305.8,185.3 L308.5,183.9 L311.3,182.5 L314.0,181.2 L316.8,179.8 L319.6,178.5 L322.3,177.1 L325.1,175.7 L327.8,174.4 L330.6,173.0 L333.4,171.6 L336.1,170.3 L338.9,168.9 L341.6,167.5 L344.4,166.2 L347.2,164.8 L349.9,163.5 L352.7,162.1 L355.4,160.7 L358.2,159.4 L361.0,158.0 L363.7,156.6 L366.5,155.3 L369.2,153.9 L372.0,152.5 L374.8,151.2 L377.5,149.8 L380.3,148.5 L383.0,147.1 L385.8,145.7 L388.6,144.4 L391.3,143.0 L394.1,141.6 L396.8,140.3 L399.6,138.9 L402.4,137.5 L405.1,136.2 L407.9,134.8 L410.6,133.5 L413.4,132.1 L416.2,130.7 L418.9,129.4 L421.7,128.0 L424.4,126.6 L427.2,125.3 L430.0,123.9 L432.7,122.5 L435.5,121.2 L438.2,119.8 L441.0,118.5 L443.8,117.1 L446.5,115.7 L449.3,114.4 L452.0,113.0 L454.8,111.6 L457.6,110.3 L460.3,108.9 L463.1,107.5 L465.8,106.2 L468.6,104.8 L471.4,103.5 L474.1,102.1 L476.9,100.7 L479.6,99.4 L482.4,98.0 L485.2,97.3 L487.9,96.6 L490.7,95.9 L493.4,95.2 L496.2,94.5 L499.0,93.8 L501.7,93.2 L504.5,92.5 L507.2,91.9 L510.0,91.3 L512.8,90.7 L515.5,90.1 L518.3,89.5 L521.0,88.9 L523.8,88.4 L526.6,87.8 L529.3,87.3 L532.1,86.8 L534.8,86.3 L537.6,85.8 L540.4,85.3 L543.1,84.8 L545.9,84.4 L548.6,83.9 L551.4,83.5 L554.2,83.1 L556.9,82.7 L559.7,82.3 L562.4,81.9 L565.2,81.5 L568.0,81.1 L570.7,80.8 L573.5,80.5 L576.2,80.1 L579.0,79.8 L581.8,79.5 L584.5,79.2 L587.3,79.0 L590.0,78.7 L592.8,78.4 L595.6,78.2 L598.3,78.0 L601.1,77.8 L603.8,77.6 L606.6,77.4 L609.4,77.2 L612.1,77.0 L614.9,76.9 L617.6,76.7 L620.4,76.6 L623.2,76.5 L625.9,76.4 L628.7,76.3 L631.4,76.2 L634.2,76.2 L637.0,76.1 L639.7,76.1 L642.5,76.0 L645.2,76.0 L648.0,76.0" fill="none" stroke="#a693cd" stroke-width="2.4"/>
+<line x1="214" y1="225" x2="508" y2="91" stroke="#d9b45f" stroke-width="1.4" stroke-dasharray="5 5"/>
+<text x="309" y="86" text-anchor="middle" fill="#d9b45f" font-family="SF Mono,monospace" font-size="12.5">只有这一段的斜率才叫维数</text>
+<line x1="240" y1="58" x2="240" y2="236" stroke="#cd7f9b" stroke-width="1.2" stroke-dasharray="3 4" opacity="0.75"/>
+<line x1="482" y1="58" x2="482" y2="236" stroke="#cd7f9b" stroke-width="1.2" stroke-dasharray="3 4" opacity="0.75"/>
+<text x="240" y="52" text-anchor="middle" fill="#cd7f9b" font-family="SF Mono,monospace" font-size="11.5">内截断</text>
+<text x="482" y="52" text-anchor="middle" fill="#cd7f9b" font-family="SF Mono,monospace" font-size="11.5">外截断</text>
+<line x1="240" y1="258" x2="482" y2="258" stroke="#9fbc7a" stroke-width="1.6"/>
+<line x1="240" y1="252" x2="240" y2="264" stroke="#9fbc7a" stroke-width="1.6"/>
+<line x1="482" y1="252" x2="482" y2="264" stroke="#9fbc7a" stroke-width="1.6"/>
+<text x="361" y="280" text-anchor="middle" fill="#9fbc7a" font-family="-apple-system,sans-serif" font-size="12">已发表研究里，这段窗口平均只有约 1.3 个数量级宽</text>
+<text x="372" y="304" text-anchor="middle" fill="#8d867b" font-family="-apple-system,sans-serif" font-size="11">观察尺度（对数）→</text>
+<text x="90" y="38" fill="#8d867b" font-family="-apple-system,sans-serif" font-size="11">数出来的结构量（对数）</text>
+</svg>
+<figcaption>自然界里的分形都夹在两个截断之间。真正能读出维数的，只有中间那一小段。</figcaption>
+</figure>
+<p>1.3 个数量级是什么概念——横轴上从 1 到 20 出头。在这么短的一段里，直线和缓慢弯曲的曲线看不出区别。所以相当多"某某是分形的"结论，实际上是在一小段上拟合了一条直线，然后把它外推到了它没去过的地方。</p>
+<p><b>第二，维数不是形状的指纹。</b>维数相同的两个图形可以毫不相干——这是个简单的事实，却在一桩很有名的鉴定案里被忽略了。1999 年 Richard Taylor 等人在《自然》上报告，波洛克（Jackson Pollock）的滴画有稳定的分形维数，可以拿来分辨真伪，这套方法后来真的进了鉴定实务。2006 年 Katherine Jones-Smith 与 Harsh Mathur 在同一本刊物上反驳：他们随手画了几张由星形和潦草线条构成的涂鸦，这些东西同样通过了那套分形判据。也就是说，那个指标测的东西太粗，根本不足以把波洛克和随手一画分开。围绕一批来路存疑的波洛克作品的分形鉴定，也在同一时期陷入了争议。</p>
+<p><b>第三，也是最要紧的：分形是一个描述，不是一个解释。</b>说"树是分形的"没有解释任何事，它只是把"树的分支在好几个尺度上长得差不多"换了个说法。真正的解释在第 4 节那三条路上——是供给网络的优化，是临界，还是造形过程本身不挑尺度？这三条给出的可检验预测完全不同：第一条预测管径比例接近 2^(−1/3)，第二条预测系统同时表现出幂律涨落和临界慢化，第三条什么都不预测、只说形状会长成那样。一个句子如果换成"这东西在几个尺度上长得差不多"之后就没了分量，那它本来也没有分量。</p>
+<div class="decide">
+<span class="lb">🎯 决策线</span>
+<p>把"这是分形的"当成一个待检验的假设，不是一个结论。写进任何结论之前先补三样：① 标度窗口的上下限（跨了几个数量级）；② 用的哪种维数、哪种拟合；③ 一个只有分形成立才做得出来的预测——比如"把分辨率提高一倍，我数出来的东西会多 2^D 倍"，然后真的去数一遍。三样凑不齐，就把这个词从句子里删掉，看看剩下的还成不成立。</p>
+</div>
+<p class="en-brief"><b>EN</b> Three limits. Reported natural fractals span an average of only about 1.3 orders of magnitude (Avnir et al., 1998). Dimension is not a fingerprint — casual doodles pass the same test that was used to authenticate Pollock (Jones-Smith &amp; Mathur, 2006). And "it is fractal" describes rather than explains: the three routes to fractal form make different, testable predictions.</p>
+
+<div class="bigcat">
+<h3>🎒 场景 · BigCat</h3>
+<ol>
+<li><span class="dm">育儿</span>每天晚上都要再问一遍"今天该做的事做完了没有"，一学期下来两边都累，效果还看不出来。这多半不是耐心问题，是尺子选错了：在"天"这个尺度上，你量到的绝大部分是噪声——今天不舒服、今天同学有事、今天心情不好；要看的东西只在"月"这个尺度上才有形状。可改的动作：把每日检查停掉，换一个月尺度、你能亲眼看见的行为指标（这个月主动问过几次问题、主动查过几次资料），并且给自己立一条规矩——只在月尺度上做调整决定，日尺度上只做陪伴。判据：连续三个月看这个指标的方向，方向对就别往日尺度上加干预。</li>
+<li><span class="dm">修行与心性</span>下座之后给这一座打个分（今天定得好／今天散乱），第二天再打一次——这是在日尺度上量一个只在年尺度上才有结构的东西，而且和海岸线一样：换一把尺子，答案就换一个，没有哪把是"真的"。更麻烦的是打分这个动作本身会反过来搅动下一座。可改的动作：停掉每座之后的自评，改成每月只问一次一个坐垫<b>外面</b>的问题——这个月遇到那件老让你炸的事，动之前有没有出现过一个停顿。指标放到坐垫外面，测的就是效果而不是感受。</li>
+<li><span class="dm">工程与系统设计</span>值班时盯的那张延迟曲线是 5 分钟一个点的均值图，图上一直很平，投诉却没断过。这不是数据错了，是分辨率把尖峰抹平了——用 100 公里的尺子量海岸，量出来当然是直的。可改的动作：给每张监控图标出它的采样窗口，并强制同时保留相差两个数量级的两个窗口（比如秒级和分钟级）；两个窗口结论不一致时，先别改代码，先确定用户实际经历的是哪个窗口。再加一条硬规矩：任何"平均"指标进故障报告之前，旁边必须摆上同一时段的最坏 1% 分位数。</li>
+</ol>
+</div>
+
+<div class="crossx">
+<h3>🌀 越界 · 跨学科的联想<span class="he">（Crossings）</span></h3>
+<ul>
+<li><b>文学与艺术 · 郭熙的"三远"</b>：北宋郭熙在《林泉高致》里定下三种看山的方式——"自山下而仰山巅谓之高远，自山前而窥山后谓之深远，自近山而望远山谓之平远"。一幅长卷里三种视角并置，观者一边卷一边看，视点是移动的。本期几条机制在这套画法里同时成立：没有特征尺度（画面不指定"你该站在这里看"的距离）、统计自相似（皴法画近处一块石头和画远处一座山，用的是同一副笔触脾气，只是密度不同）、以及存在外截断（手卷的物理长度就是那个上限）。合起来能推出一个原本看不出的结论：西方定点透视之所以要求观者站在特定位置，是因为它把一个尺度锁进了画面——正因为锁住了，画面才能被拿去测量，这也是它后来能长成制图与工程图的原因；山水画放弃了这个锁定，代价恰恰是它测不了任何东西，它交付的不是空间的尺寸，是空间的标度关系。<b>但这里不成立</b>：三远是观法与经营位置的规范，郭熙说的是人怎么走进画里，不是形状怎么生成；皴法的重复来自师承的程式，是一条由人手执行的传统，不是一条作用在自己输出上的递归规则。把它读成"山水画是分形算法"，就是把传统误当成了数学。能借走的是"没有唯一正确的观看尺度"这一条，不是那套几何。</li>
+<li><b>经济与制度 · 把日波动乘以根号 T</b>：风险管理里有一条几乎不过脑子的换算——想知道 10 天的风险，把 1 天的波动率乘以 √10。巴塞尔框架下的 10 日在险价值（value at risk，缩写 VaR）就是这么从 1 日数据推出来的。这条换算成立的前提是每天的收益互不相关、方差有限，也就是标度指数正好等于 1/2。本期两条机制合起来说明这个前提是被<em>假设</em>的、不是被<em>测</em>的：金融序列在多个时间尺度上表现出统计自相似（Mandelbrot 1963 年研究棉花价格时就报告过这件事），而自相似的标度指数一般不等于 1/2；指数一偏，√T 就系统性地偏。推出的动作很具体：换算之前先在自己的数据上估一次标度指数，把 √T 换成 T 的 H 次方。<b>但这里不成立</b>：金融数据的标度窗口本身很窄——高频端有买卖价差和撮合机制造成的噪声，低频端样本量根本不够，中间能用的常常不到两个数量级。所以这条联想能给的是一个警告（别把 √T 当自然律），不是一个更好的模型；用一个测不准的 H 去替换一个错的 0.5，可能只是把误差换了个位置。</li>
+<li><b>科学哲学 · 分形对"分层"的那一刺</b>：第 3 期讲过西蒙（Herbert Simon）的近可分解性——复杂系统必然分层，模块内强耦合、模块间弱耦合，所以拆一个系统之前先找它的天然接缝。分形是这套观点的一个有机制的反例：在标度不变的结构里没有天然的层，因为"层"这个概念要成立，得先有一个特征尺度把里和外分开，而尺度不变说的正是没有这样的尺度。由此能推出一个可操作的判据：一个系统能不能被模块化拆解，先看它的标度谱——谱上有明显峰值（存在特征尺度）的系统才有接缝；标度平直的系统，你从哪儿切都一样难，那是在逼你换方法，不是换切口。<b>但这里不成立</b>——而这一条恰恰是本期第 5 节带来的好消息：真实系统的自相似只跨一两个数量级，而截断本身就是特征尺度。内截断和外截断就是接缝所在。所以分形并不取消分层，它只是告诉你接缝不在中间，在两头。</li>
+</ul>
+</div>
+
+<div class="thinking">
+<h3>深入思考<span class="he">（Going Deeper）</span></h3>
+<details><summary>如果一个系统的标度窗口只有一个数量级，说它"是分形的"还有意义吗？</summary><p>有，但意义要缩水到一句很具体的话："在这一个数量级里，我可以用同一套参数描述它。"这仍然有用——它意味着你在这个范围内可以外推。但它不支持任何跨出窗口的推论，尤其不支持"所以更大的尺度上也一样"。判断的办法是问：如果我把窗口再拓宽半个数量级，你的结论会不会翻？会翻的话，那个结论本来就是窗口的产物。</p></details>
+<details><summary>两个分形维数相同的形状可以完全不同，那这个数到底测了什么？</summary><p>它测的是"细节随分辨率增长的速率"，仅此而已。这个速率是形状的一个统计量，就像"平均身高"是一群人的一个统计量——知道平均身高，你说不出这群人长什么样。所以维数适合做<em>比较</em>（同一类对象、同一套测法、同一个窗口下谁更粗糙），不适合做<em>识别</em>。波洛克那桩案子踩的正是这条线：把一个比较用的量拿去做识别。</p></details>
+<details><summary>为什么演化反复独立地"发明"分形，人的工程设计里却少见？</summary><p>一部分原因在制造方式：分形结构要靠递归的生长长出来，而人的制造长期是"把零件加工好再装配"，装配没法递归。3D 打印和增材制造在某种程度上解开了这个约束，于是分形结构（点阵、多孔、分支散热）近年才开始进入工程。另一部分原因在于可维护性：分形结构没有天然接缝，坏了不好换——演化不在乎更换零件，工程在乎。</p></details>
+<details><summary>幂律和分形是同一件事吗？</summary><p>是同一条性质在两种对象上的表现：幂律说的是一个<em>分布</em>在放大横轴后形状不变，分形说的是一个<em>形状</em>在放大后样子不变。它们常常同时出现（临界系统就是），但不必然：一个形状可以是分形的而它的某些统计量不服从幂律，反过来也一样。看到其中一个不要自动假设另一个也在，那是要单独验的。</p></details>
+<details><summary>尺度不变被打破的时候，通常是什么打破的？</summary><p>几乎总是某种"物理上的最小单位"或"边界"。向下是构成材料本身的尺寸（一个细胞、一粒沙、一个像素），向上是系统的总尺寸（一个器官、一片流域、一个市场的总规模）。所以找截断的办法很实用：问这个系统里最小的不可再分的东西是什么、最大的容器是什么。这两个数一报出来，标度窗口的宽度就定了，也就知道这套语言在这里还剩多少空间。</p></details>
+</div>
+
+<div class="refs">
+<h3>延伸阅读<span class="he">（Further Reading）</span></h3>
+<ul>
+<li>Benoit Mandelbrot, <a href="https://doi.org/10.1126/science.156.3775.636">How Long Is the Coast of Britain? Statistical Self-Similarity and Fractional Dimension</a>（Science, 1967，那篇短文本身）</li>
+<li><a href="https://en.wikipedia.org/wiki/Coastline_paradox">海岸线悖论</a>（维基词条，含中情局与英国测绘局那两个数字的出处）</li>
+<li><a href="https://en.wikipedia.org/wiki/List_of_fractals_by_Hausdorff_dimension">按豪斯多夫维数排列的分形列表</a>（各国海岸线维数的常见取值都在这里）</li>
+<li>Avnir, Biham, Lidar &amp; Malcai, <a href="https://doi.org/10.1126/science.279.5347.39">Is the Geometry of Nature Fractal?</a>（Science, 1998，标度范围平均只有 1.3 个数量级的那份统计）</li>
+<li>Taylor, Micolich &amp; Jonas, <a href="https://doi.org/10.1038/20833">Fractal analysis of Pollock's drip paintings</a>（Nature, 1999）</li>
+<li>Jones-Smith &amp; Mathur, <a href="https://doi.org/10.1038/nature05398">Fractal analysis: Revisiting Pollock's drip paintings</a>（Nature, 2006，那篇反驳）</li>
+<li>Goldberger et al., <a href="https://doi.org/10.1073/pnas.012579499">Fractal dynamics in physiology: Alterations with disease and aging</a>（PNAS, 2002）</li>
+<li>West, Brown &amp; Enquist, <a href="https://doi.org/10.1126/science.276.5309.122">A General Model for the Origin of Allometric Scaling Laws in Biology</a>（Science, 1997，分支供给网络那条算法的完整版）</li>
+<li><a href="https://en.wikipedia.org/wiki/Minkowski%E2%80%93Bouligand_dimension">盒计数维数</a>（定义与计算细节）</li>
+<li><a href="https://en.wikipedia.org/wiki/Species%E2%80%93area_relationship">物种-面积关系</a>（S ∝ A^z 与 z 的常见取值）</li>
+</ul>
+</div>
+<footer>BigCat · 复杂性科学 · <a href="index.html">← 全部 Topic</a></footer>
+</div>
+<script defer="" src="https://hub.cissychen.com/comments.js"></script>
+<script defer="" src="https://hub.cissychen.com/search.js"></script>
+<script defer="" src="https://hub.cissychen.com/index-button.js"></script>
+<script defer="" src="https://hub.cissychen.com/i18n-tts.js"></script>
+<script defer="" src="https://hub.cissychen.com/lightbox.js"></script>
+</body></html>

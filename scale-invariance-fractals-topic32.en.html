@@ -1,0 +1,643 @@
+<!DOCTYPE html>
+
+<html lang="en"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Scale Invariance and Fractals — Change the Ruler, Change the Answer · Complexity Science T32</title>
+<style>
+
+
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,"SF Pro Display","Noto Sans SC",sans-serif;color:#e4ded5;line-height:1.85;min-height:100vh;
+  background:radial-gradient(1100px 620px at 12% -6%,rgba(224,137,94,0.10),transparent 62%),radial-gradient(950px 700px at 100% 2%,rgba(166,147,205,0.09),transparent 58%),linear-gradient(168deg,#100f0d 0%,#15161b 48%,#0a0a0c 100%);background-attachment:fixed}
+.wrap{max-width:760px;margin:0 auto;padding:30px 22px 90px}
+header{padding:52px 0 8px;border-bottom:1px solid rgba(255,255,255,0.07);margin-bottom:34px}
+.week-tag{font-family:"SF Mono",Menlo,monospace;font-size:0.72rem;font-weight:700;letter-spacing:2px;color:#a693cd;border:1px solid rgba(166,147,205,0.4);background:rgba(166,147,205,0.07);padding:3px 11px;border-radius:20px}
+h1{font-size:2.5rem;font-weight:800;letter-spacing:0.5px;line-height:1.2;margin:20px 0 0;background:linear-gradient(106deg,#e0895e 0%,#d9b45f 34%,#9fbc7a 68%,#63b3a6 100%);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+h1 .h1en{display:block;font-size:0.40em;font-weight:600;letter-spacing:2.5px;color:#847d72;-webkit-text-fill-color:#847d72;background:none;margin-top:13px}
+.sub{font-size:1.05rem;color:#aba498;margin-top:14px;font-weight:500}
+.date{font-family:"SF Mono",Menlo,monospace;font-size:0.75rem;color:#57524b;margin-top:18px;letter-spacing:1px}
+.pitch{margin:22px 0 30px;font-size:0.97rem;color:#cd7f9b;border-left:2px solid rgba(205,127,155,0.5);padding-left:16px;font-style:italic}
+.intro{font-size:1.02rem;color:#cfc8bc;margin-bottom:14px}
+.intro p{margin-bottom:16px}
+h2{font-size:1.42rem;font-weight:700;color:#e9e3d9;margin:56px 0 8px;letter-spacing:0.3px}
+h2 .n{font-family:"SF Mono",Menlo,monospace;font-size:0.85rem;color:#a693cd;display:block;margin-bottom:6px;letter-spacing:2px}
+.he{font-size:0.68em;color:#8d867b;font-weight:500;letter-spacing:0}
+p{margin-bottom:17px}
+.lead{color:#cfc8bc}
+b,strong{color:#f0eae0;font-weight:600}
+em{color:#d9b45f;font-style:normal;font-weight:500}
+.dim{color:#8d867b}
+a.reflink{display:inline-block;font-size:0.82rem;font-family:"SF Mono",Menlo,monospace;color:#63b3a6;border:1px solid rgba(99,179,166,0.38);background:rgba(99,179,166,0.07);padding:1px 9px;border-radius:20px;text-decoration:none;transition:all 0.15s;white-space:nowrap}
+a.reflink:hover{background:rgba(99,179,166,0.16);border-color:rgba(99,179,166,0.7)}
+figure{margin:30px 0}
+figure svg{display:block;width:100%;height:auto;border-radius:12px;background:rgba(255,255,255,0.018);border:1px solid rgba(255,255,255,0.06)}
+figcaption{font-size:0.82rem;color:#787268;margin-top:11px;text-align:center;line-height:1.6}
+.en-brief{font-size:0.85rem;color:#847d72;border-top:1px dashed rgba(255,255,255,0.09);padding-top:12px;margin-top:22px;line-height:1.65}
+.en-brief b{font-family:"SF Mono",Menlo,monospace;font-size:0.72rem;color:#63b3a6;letter-spacing:1px;margin-right:7px}
+.decide{margin:24px 0;border:1px solid rgba(224,137,94,0.36);background:rgba(224,137,94,0.055);border-radius:12px;padding:15px 19px}
+.decide .lb{font-family:"SF Mono",Menlo,monospace;font-size:0.73rem;letter-spacing:1.5px;color:#e0895e;font-weight:700;display:block;margin-bottom:7px}
+.decide p{margin:0;font-size:0.95rem;color:#ddd5c9}
+.crossx-inline{margin:20px 0 22px;border-left:2px solid rgba(205,127,155,0.55);padding:2px 0 2px 15px;font-size:0.89rem;color:#a9a096;line-height:1.72}
+.crossx-inline b{color:#cd7f9b;font-weight:600}
+.bigcat{margin:46px 0 10px;border:1px solid rgba(217,180,95,0.38);background:rgba(217,180,95,0.05);border-radius:14px;padding:20px 22px}
+.bigcat h3{font-size:1.02rem;color:#d9b45f;margin-bottom:14px;letter-spacing:0.5px}
+.bigcat ol{list-style:none;padding:0}
+.bigcat li{margin-bottom:15px;font-size:0.94rem;color:#d5cdc1;line-height:1.78}
+.bigcat li:last-child{margin-bottom:0}
+.bigcat .dm{font-family:"SF Mono",Menlo,monospace;font-size:0.73rem;color:#d9b45f;border:1px solid rgba(217,180,95,0.32);border-radius:4px;padding:1px 7px;margin-right:8px;white-space:nowrap}
+.crossx{margin:46px 0 10px;border:1px solid rgba(205,127,155,0.38);background:rgba(205,127,155,0.05);border-radius:14px;padding:20px 22px}
+.crossx h3{font-size:1.02rem;color:#cd7f9b;margin-bottom:14px;letter-spacing:0.5px}
+.crossx ul{list-style:none;padding:0}
+.crossx li{margin-bottom:16px;font-size:0.94rem;color:#d5cdc1;line-height:1.78}
+.crossx li:last-child{margin-bottom:0}
+.crossx li b{color:#cd7f9b;font-weight:600}
+.thinking{margin:46px 0 10px}
+.thinking h3{font-size:1.02rem;color:#a693cd;margin-bottom:14px;letter-spacing:0.5px}
+details{border:1px solid rgba(166,147,205,0.22);border-radius:10px;padding:12px 16px;margin-bottom:10px;background:rgba(166,147,205,0.035)}
+summary{cursor:pointer;font-size:0.93rem;color:#c9c2b6;font-weight:500}
+summary::marker{color:#a693cd}
+details p{margin:12px 0 0;font-size:0.9rem;color:#a9a096;line-height:1.75}
+.refs{margin:46px 0 10px}
+.refs h3{font-size:1.02rem;color:#79a6d2;margin-bottom:14px;letter-spacing:0.5px}
+.refs ul{list-style:none;padding:0}
+.refs li{margin-bottom:10px;font-size:0.9rem;color:#8d867b;line-height:1.7}
+.refs a{color:#79a6d2;text-decoration:none;border-bottom:1px solid rgba(121,166,210,0.3)}
+.refs a:hover{color:#a6c4e2;border-bottom-color:rgba(121,166,210,0.7)}
+footer{text-align:center;padding:56px 0 10px;font-size:0.78rem;color:#57524b;font-family:"SF Mono",Menlo,monospace;border-top:1px solid rgba(255,255,255,0.06);margin-top:50px}
+footer a{color:#79a6d2;text-decoration:none}
+@media(max-width:600px){h1{font-size:1.85rem}.wrap{padding:24px 16px 60px}h2{font-size:1.22rem}}
+
+
+</style></head><body>
+<div class="wrap">
+<header>
+<span class="week-tag">TOPIC 32 · PHASE F</span>
+<h1>Scale Invariance and Fractals</h1>
+<p class="sub">Change the ruler, change the answer</p>
+<p class="date">2026-08-18 · Scale</p>
+</header>
+<p class="pitch">How long is the coast of Britain? It looks like a question you could settle by looking it up. It has no answer — not because nobody has measured it, but because the finer you measure, the longer it gets, with no end in sight.</p>
+<div class="intro">
+<p>The CIA World Factbook puts the British coastline at 12,429 km. The UK's own Ordnance Survey makes it 17,820 km. That is nearly a factor of two apart, and neither side has made an arithmetic error. They worked from maps of different resolution, and that is the whole story.</p>
+<p>You might file this under measurement error. But error has a habit: the finer your instrument, the more tightly the answer closes in on some true value. Coastlines do not close in. Halve the ruler and the measured length jumps again; keep halving and it keeps climbing. What that really says is fairly radical: <em>length is not a property of the coast</em>. It is a property of the coast <b>and</b> the ruler together. Drop the second half and the number means nothing.</p>
+<p class="dim">The next four topics all circle one thing: how a quantity changes as you change the scale you look at it from. This one is about shape — magnify a small piece and it looks like the whole, a property called <b>scale invariance</b>. Power laws, from Topic 19, are the same property in a distribution: stretch the horizontal axis tenfold and the curve keeps its form. Two outcrops of one property; here it is pinned to something you can see.</p>
+</div>
+
+<h2><span class="n">01</span>How Long Is the Coast of Britain?</h2>
+<p class="lead">In 1967 Benoit Mandelbrot published a short paper in Science with exactly that title. He was not being cute; he had data.</p>
+<p>The data came from the meteorologist Lewis Fry Richardson, who spent part of his life doing something distinctly odd: measuring national borders and coastlines with a pair of dividers. The method is charmingly crude. Open the dividers to a fixed span, then walk them end over end along the whole curve, count the steps, and multiply steps by span. Then close the dividers a little and walk it again.</p>
+<p>What he found was that <b>the shorter the span, the longer the total — with no hint of settling.</b> Better still, the two quantities fell on a clean straight line on log-log paper. Mandelbrot read that line: if L is the measured length and ε the span, then L is proportional to ε raised to the power (1 − D), where D is some number greater than 1. For a smooth curve — a circle, say — D equals 1, and shortening the ruler walks the answer neatly down onto the circumference. For a coastline D is distinctly above 1, and the answer never lands.</p>
+<figure>
+<svg role="img" aria-label="The same stretch of coast measured with three ruler lengths; shorter rulers give longer totals" viewbox="0 0 720 302" xmlns="http://www.w3.org/2000/svg">
+<text x="360" y="26" text-anchor="middle" fill="#aba498" font-family="-apple-system,sans-serif" font-size="13">One coast, three rulers</text>
+<defs><marker id="f1ar" markerUnits="userSpaceOnUse" markerWidth="9" markerHeight="9" refX="9" refY="5" orient="auto" viewBox="0 0 10 10"><path d="M0,1 L9,5 L0,9 z" fill="#8d867b"/></marker></defs>
+<line x1="232" y1="143" x2="262" y2="143" stroke="#8d867b" stroke-width="1.5" marker-end="url(#f1ar)"/>
+<line x1="460" y1="143" x2="490" y2="143" stroke="#8d867b" stroke-width="1.5" marker-end="url(#f1ar)"/>
+<text x="133" y="54" text-anchor="middle" fill="#79a6d2" font-family="SF Mono,monospace" font-size="12">1. ruler = 100 km</text>
+<g transform="translate(40,68)">
+<rect x="0" y="0" width="186.0" height="150.0" fill="rgba(255,255,255,0.02)" stroke="rgba(255,255,255,0.09)"/>
+<path d="M0.0,79.5 L1.9,82.0 L4.2,82.6 L6.4,81.5 L8.7,81.7 L10.6,84.4 L11.9,88.1 L11.8,92.7 L13.0,96.6 L15.0,97.3 L16.9,99.2 L18.2,102.3 L19.3,105.7 L20.6,109.0 L22.0,112.2 L24.2,111.0 L26.2,112.9 L27.9,110.3 L30.0,108.9 L32.2,108.6 L34.2,106.8 L36.4,105.1 L37.6,101.1 L39.8,100.1 L42.0,100.1 L42.0,95.6 L42.0,91.1 L41.0,86.8 L41.4,82.1 L43.2,79.2 L45.1,76.3 L46.3,72.4 L48.0,69.1 L48.5,72.5 L49.1,75.9 L50.0,79.0 L50.4,82.5 L52.2,83.2 L53.9,84.9 L55.3,87.4 L57.2,87.9 L59.2,87.8 L61.0,86.2 L62.9,86.3 L64.8,87.2 L66.5,89.5 L67.1,93.2 L68.7,95.5 L69.3,99.2 L70.0,102.9 L69.5,106.8 L70.1,110.6 L69.5,114.4 L67.8,116.6 L66.4,119.2 L65.3,122.4 L64.3,125.7 L65.2,129.2 L65.2,133.1 L64.9,137.0 L65.7,140.6 L67.3,143.0 L69.1,144.5 L70.2,147.7 L71.8,150.0 L73.1,146.2 L73.2,141.7 L71.7,138.3 L70.8,134.3 L71.8,130.4 L71.5,126.0 L73.6,124.4 L74.8,120.5 L76.9,120.3 L78.5,117.8 L79.4,114.1 L81.3,112.1 L83.2,111.2 L84.7,108.6 L86.8,108.6 L88.4,106.1 L90.2,104.6 L92.2,105.3 L94.0,103.9 L95.1,100.8 L97.0,100.5 L98.6,98.5 L99.5,95.2 L101.3,93.8 L103.2,94.2 L104.9,93.4 L106.8,93.4 L108.5,92.1 L110.2,93.2 L112.1,93.0 L113.8,91.6 L115.7,92.5 L114.8,89.5 L113.0,88.3 L111.9,85.6 L111.7,82.1 L109.9,81.3 L108.5,78.5 L108.8,74.8 L107.8,71.5 L107.3,68.4 L106.8,65.2 L105.3,63.4 L104.5,60.4 L103.2,58.2 L102.1,55.6 L101.7,52.4 L101.0,49.3 L98.9,48.5 L97.1,46.5 L96.7,42.4 L95.2,39.5 L94.4,35.8 L93.1,32.7 L91.3,31.2 L89.5,29.2 L88.9,25.1 L88.8,20.8 L87.5,17.2 L87.3,12.8 L88.8,8.9 L88.7,4.0 L90.7,1.4 L93.0,0.0 L91.4,0.5 L90.3,2.8 L88.9,4.3 L87.6,5.8 L87.5,9.0 L87.5,12.1 L86.8,15.0 L85.5,17.1 L86.2,19.8 L86.9,22.6 L88.5,23.2 L89.7,25.4 L90.4,27.9 L91.1,30.6 L91.0,33.6 L91.2,36.5 L91.0,39.4 L91.6,42.2 L93.0,43.4 L94.0,45.7 L93.5,48.3 L92.5,50.2 L91.8,52.5 L91.6,55.2 L92.8,56.1 L93.6,58.2 L94.1,60.7 L94.1,63.2 L94.6,65.4 L95.0,67.6 L95.4,69.8 L95.6,72.2 L96.9,75.2 L98.9,75.9 L100.6,73.6 L102.6,73.6 L104.5,73.1 L105.9,70.8 L107.1,68.3 L108.4,65.9 L110.1,67.2 L111.2,70.0 L112.1,73.1 L112.2,76.6 L113.4,79.1 L115.1,79.9 L116.6,81.7 L117.5,84.6 L117.9,87.3 L118.1,90.1 L118.3,93.1 L117.5,95.7 L117.9,98.5 L118.3,101.4 L117.4,103.9 L116.9,106.7 L116.8,109.6 L117.3,112.2 L117.9,114.8 L118.2,117.5 L118.2,120.4 L118.1,123.2 L118.3,126.1 L119.1,128.5 L119.7,124.8 L119.2,121.2 L120.1,118.0 L121.2,115.0 L122.3,112.0 L124.2,111.0 L126.0,109.6 L127.0,106.4 L128.7,105.2 L130.5,104.7 L131.7,101.8 L132.8,99.1 L134.1,96.2 L136.1,95.6 L136.1,91.8 L137.4,88.9 L135.5,87.1 L134.4,83.7 L134.0,79.9 L133.5,76.2 L132.0,73.2 L131.2,69.5 L132.1,65.7 L132.0,61.6 L132.3,57.1 L133.7,53.5 L133.2,49.2 L132.2,45.2 L133.2,41.3 L135.3,39.5 L137.1,37.3 L139.2,36.0 L141.7,36.6 L144.0,34.3 L146.4,35.4 L148.4,38.2 L149.5,42.3 L150.1,46.9 L152.5,48.5 L153.8,52.7 L155.0,57.0 L157.2,59.4 L158.0,63.8 L158.8,68.2 L158.0,72.6 L156.3,76.2 L155.9,80.7 L155.7,85.4 L157.7,85.6 L159.5,87.2 L161.6,87.8 L163.5,86.2 L165.1,84.0 L166.8,82.1 L168.7,80.2 L170.8,80.7 L172.9,81.3 L174.7,83.5 L176.9,83.8 L178.5,86.7 L180.5,84.8 L181.9,81.7 L183.8,79.4 L186.0,79.5" fill="none" stroke="#6b6357" stroke-width="1.2"/>
+<path d="M0.0,79.5 L50.0,79.0 L64.6,126.8 L102.3,94.0 L96.9,44.3 L118.0,89.6 L133.0,41.9 L157.4,85.6" fill="none" stroke="#79a6d2" stroke-width="2"/>
+<circle cx="0.0" cy="79.5" r="2.4" fill="#79a6d2"/>
+<circle cx="50.0" cy="79.0" r="2.4" fill="#79a6d2"/>
+<circle cx="64.6" cy="126.8" r="2.4" fill="#79a6d2"/>
+<circle cx="102.3" cy="94.0" r="2.4" fill="#79a6d2"/>
+<circle cx="96.9" cy="44.3" r="2.4" fill="#79a6d2"/>
+<circle cx="118.0" cy="89.6" r="2.4" fill="#79a6d2"/>
+<circle cx="133.0" cy="41.9" r="2.4" fill="#79a6d2"/>
+<circle cx="157.4" cy="85.6" r="2.4" fill="#79a6d2"/>
+</g>
+<text x="133" y="238" text-anchor="middle" fill="#8d867b" font-family="-apple-system,sans-serif" font-size="11">7 steps</text>
+<text x="133" y="258" text-anchor="middle" fill="#79a6d2" font-family="SF Mono,monospace" font-size="14">700 km</text>
+<text x="361" y="54" text-anchor="middle" fill="#d9b45f" font-family="SF Mono,monospace" font-size="12">2. ruler = 50 km</text>
+<g transform="translate(268,68)">
+<rect x="0" y="0" width="186.0" height="150.0" fill="rgba(255,255,255,0.02)" stroke="rgba(255,255,255,0.09)"/>
+<path d="M0.0,79.5 L1.9,82.0 L4.2,82.6 L6.4,81.5 L8.7,81.7 L10.6,84.4 L11.9,88.1 L11.8,92.7 L13.0,96.6 L15.0,97.3 L16.9,99.2 L18.2,102.3 L19.3,105.7 L20.6,109.0 L22.0,112.2 L24.2,111.0 L26.2,112.9 L27.9,110.3 L30.0,108.9 L32.2,108.6 L34.2,106.8 L36.4,105.1 L37.6,101.1 L39.8,100.1 L42.0,100.1 L42.0,95.6 L42.0,91.1 L41.0,86.8 L41.4,82.1 L43.2,79.2 L45.1,76.3 L46.3,72.4 L48.0,69.1 L48.5,72.5 L49.1,75.9 L50.0,79.0 L50.4,82.5 L52.2,83.2 L53.9,84.9 L55.3,87.4 L57.2,87.9 L59.2,87.8 L61.0,86.2 L62.9,86.3 L64.8,87.2 L66.5,89.5 L67.1,93.2 L68.7,95.5 L69.3,99.2 L70.0,102.9 L69.5,106.8 L70.1,110.6 L69.5,114.4 L67.8,116.6 L66.4,119.2 L65.3,122.4 L64.3,125.7 L65.2,129.2 L65.2,133.1 L64.9,137.0 L65.7,140.6 L67.3,143.0 L69.1,144.5 L70.2,147.7 L71.8,150.0 L73.1,146.2 L73.2,141.7 L71.7,138.3 L70.8,134.3 L71.8,130.4 L71.5,126.0 L73.6,124.4 L74.8,120.5 L76.9,120.3 L78.5,117.8 L79.4,114.1 L81.3,112.1 L83.2,111.2 L84.7,108.6 L86.8,108.6 L88.4,106.1 L90.2,104.6 L92.2,105.3 L94.0,103.9 L95.1,100.8 L97.0,100.5 L98.6,98.5 L99.5,95.2 L101.3,93.8 L103.2,94.2 L104.9,93.4 L106.8,93.4 L108.5,92.1 L110.2,93.2 L112.1,93.0 L113.8,91.6 L115.7,92.5 L114.8,89.5 L113.0,88.3 L111.9,85.6 L111.7,82.1 L109.9,81.3 L108.5,78.5 L108.8,74.8 L107.8,71.5 L107.3,68.4 L106.8,65.2 L105.3,63.4 L104.5,60.4 L103.2,58.2 L102.1,55.6 L101.7,52.4 L101.0,49.3 L98.9,48.5 L97.1,46.5 L96.7,42.4 L95.2,39.5 L94.4,35.8 L93.1,32.7 L91.3,31.2 L89.5,29.2 L88.9,25.1 L88.8,20.8 L87.5,17.2 L87.3,12.8 L88.8,8.9 L88.7,4.0 L90.7,1.4 L93.0,0.0 L91.4,0.5 L90.3,2.8 L88.9,4.3 L87.6,5.8 L87.5,9.0 L87.5,12.1 L86.8,15.0 L85.5,17.1 L86.2,19.8 L86.9,22.6 L88.5,23.2 L89.7,25.4 L90.4,27.9 L91.1,30.6 L91.0,33.6 L91.2,36.5 L91.0,39.4 L91.6,42.2 L93.0,43.4 L94.0,45.7 L93.5,48.3 L92.5,50.2 L91.8,52.5 L91.6,55.2 L92.8,56.1 L93.6,58.2 L94.1,60.7 L94.1,63.2 L94.6,65.4 L95.0,67.6 L95.4,69.8 L95.6,72.2 L96.9,75.2 L98.9,75.9 L100.6,73.6 L102.6,73.6 L104.5,73.1 L105.9,70.8 L107.1,68.3 L108.4,65.9 L110.1,67.2 L111.2,70.0 L112.1,73.1 L112.2,76.6 L113.4,79.1 L115.1,79.9 L116.6,81.7 L117.5,84.6 L117.9,87.3 L118.1,90.1 L118.3,93.1 L117.5,95.7 L117.9,98.5 L118.3,101.4 L117.4,103.9 L116.9,106.7 L116.8,109.6 L117.3,112.2 L117.9,114.8 L118.2,117.5 L118.2,120.4 L118.1,123.2 L118.3,126.1 L119.1,128.5 L119.7,124.8 L119.2,121.2 L120.1,118.0 L121.2,115.0 L122.3,112.0 L124.2,111.0 L126.0,109.6 L127.0,106.4 L128.7,105.2 L130.5,104.7 L131.7,101.8 L132.8,99.1 L134.1,96.2 L136.1,95.6 L136.1,91.8 L137.4,88.9 L135.5,87.1 L134.4,83.7 L134.0,79.9 L133.5,76.2 L132.0,73.2 L131.2,69.5 L132.1,65.7 L132.0,61.6 L132.3,57.1 L133.7,53.5 L133.2,49.2 L132.2,45.2 L133.2,41.3 L135.3,39.5 L137.1,37.3 L139.2,36.0 L141.7,36.6 L144.0,34.3 L146.4,35.4 L148.4,38.2 L149.5,42.3 L150.1,46.9 L152.5,48.5 L153.8,52.7 L155.0,57.0 L157.2,59.4 L158.0,63.8 L158.8,68.2 L158.0,72.6 L156.3,76.2 L155.9,80.7 L155.7,85.4 L157.7,85.6 L159.5,87.2 L161.6,87.8 L163.5,86.2 L165.1,84.0 L166.8,82.1 L168.7,80.2 L170.8,80.7 L172.9,81.3 L174.7,83.5 L176.9,83.8 L178.5,86.7 L180.5,84.8 L181.9,81.7 L183.8,79.4 L186.0,79.5" fill="none" stroke="#6b6357" stroke-width="1.2"/>
+<path d="M0.0,79.5 L16.2,98.5 L41.2,100.1 L45.3,75.4 L66.2,89.2 L69.5,114.0 L65.2,138.6 L78.6,117.5 L97.0,100.5 L108.6,78.3 L101.9,54.2 L91.6,31.5 L88.8,6.6 L91.1,31.5 L92.9,56.5 L111.9,72.7 L117.7,97.0 L118.2,122.0 L131.9,101.2 L133.5,76.2 L133.5,51.2 L157.1,59.3 L155.7,84.2 L180.7,84.2" fill="none" stroke="#d9b45f" stroke-width="2"/>
+<circle cx="0.0" cy="79.5" r="2.4" fill="#d9b45f"/>
+<circle cx="16.2" cy="98.5" r="2.4" fill="#d9b45f"/>
+<circle cx="41.2" cy="100.1" r="2.4" fill="#d9b45f"/>
+<circle cx="45.3" cy="75.4" r="2.4" fill="#d9b45f"/>
+<circle cx="66.2" cy="89.2" r="2.4" fill="#d9b45f"/>
+<circle cx="69.5" cy="114.0" r="2.4" fill="#d9b45f"/>
+<circle cx="65.2" cy="138.6" r="2.4" fill="#d9b45f"/>
+<circle cx="78.6" cy="117.5" r="2.4" fill="#d9b45f"/>
+<circle cx="97.0" cy="100.5" r="2.4" fill="#d9b45f"/>
+<circle cx="108.6" cy="78.3" r="2.4" fill="#d9b45f"/>
+<circle cx="101.9" cy="54.2" r="2.4" fill="#d9b45f"/>
+<circle cx="91.6" cy="31.5" r="2.4" fill="#d9b45f"/>
+<circle cx="88.8" cy="6.6" r="2.4" fill="#d9b45f"/>
+<circle cx="91.1" cy="31.5" r="2.4" fill="#d9b45f"/>
+<circle cx="92.9" cy="56.5" r="2.4" fill="#d9b45f"/>
+<circle cx="111.9" cy="72.7" r="2.4" fill="#d9b45f"/>
+<circle cx="117.7" cy="97.0" r="2.4" fill="#d9b45f"/>
+<circle cx="118.2" cy="122.0" r="2.4" fill="#d9b45f"/>
+<circle cx="131.9" cy="101.2" r="2.4" fill="#d9b45f"/>
+<circle cx="133.5" cy="76.2" r="2.4" fill="#d9b45f"/>
+<circle cx="133.5" cy="51.2" r="2.4" fill="#d9b45f"/>
+<circle cx="157.1" cy="59.3" r="2.4" fill="#d9b45f"/>
+<circle cx="155.7" cy="84.2" r="2.4" fill="#d9b45f"/>
+<circle cx="180.7" cy="84.2" r="2.4" fill="#d9b45f"/>
+</g>
+<text x="361" y="238" text-anchor="middle" fill="#8d867b" font-family="-apple-system,sans-serif" font-size="11">23 steps</text>
+<text x="361" y="258" text-anchor="middle" fill="#d9b45f" font-family="SF Mono,monospace" font-size="14">1150 km</text>
+<text x="589" y="54" text-anchor="middle" fill="#e0895e" font-family="SF Mono,monospace" font-size="12">3. ruler = 25 km</text>
+<g transform="translate(496,68)">
+<rect x="0" y="0" width="186.0" height="150.0" fill="rgba(255,255,255,0.02)" stroke="rgba(255,255,255,0.09)"/>
+<path d="M0.0,79.5 L1.9,82.0 L4.2,82.6 L6.4,81.5 L8.7,81.7 L10.6,84.4 L11.9,88.1 L11.8,92.7 L13.0,96.6 L15.0,97.3 L16.9,99.2 L18.2,102.3 L19.3,105.7 L20.6,109.0 L22.0,112.2 L24.2,111.0 L26.2,112.9 L27.9,110.3 L30.0,108.9 L32.2,108.6 L34.2,106.8 L36.4,105.1 L37.6,101.1 L39.8,100.1 L42.0,100.1 L42.0,95.6 L42.0,91.1 L41.0,86.8 L41.4,82.1 L43.2,79.2 L45.1,76.3 L46.3,72.4 L48.0,69.1 L48.5,72.5 L49.1,75.9 L50.0,79.0 L50.4,82.5 L52.2,83.2 L53.9,84.9 L55.3,87.4 L57.2,87.9 L59.2,87.8 L61.0,86.2 L62.9,86.3 L64.8,87.2 L66.5,89.5 L67.1,93.2 L68.7,95.5 L69.3,99.2 L70.0,102.9 L69.5,106.8 L70.1,110.6 L69.5,114.4 L67.8,116.6 L66.4,119.2 L65.3,122.4 L64.3,125.7 L65.2,129.2 L65.2,133.1 L64.9,137.0 L65.7,140.6 L67.3,143.0 L69.1,144.5 L70.2,147.7 L71.8,150.0 L73.1,146.2 L73.2,141.7 L71.7,138.3 L70.8,134.3 L71.8,130.4 L71.5,126.0 L73.6,124.4 L74.8,120.5 L76.9,120.3 L78.5,117.8 L79.4,114.1 L81.3,112.1 L83.2,111.2 L84.7,108.6 L86.8,108.6 L88.4,106.1 L90.2,104.6 L92.2,105.3 L94.0,103.9 L95.1,100.8 L97.0,100.5 L98.6,98.5 L99.5,95.2 L101.3,93.8 L103.2,94.2 L104.9,93.4 L106.8,93.4 L108.5,92.1 L110.2,93.2 L112.1,93.0 L113.8,91.6 L115.7,92.5 L114.8,89.5 L113.0,88.3 L111.9,85.6 L111.7,82.1 L109.9,81.3 L108.5,78.5 L108.8,74.8 L107.8,71.5 L107.3,68.4 L106.8,65.2 L105.3,63.4 L104.5,60.4 L103.2,58.2 L102.1,55.6 L101.7,52.4 L101.0,49.3 L98.9,48.5 L97.1,46.5 L96.7,42.4 L95.2,39.5 L94.4,35.8 L93.1,32.7 L91.3,31.2 L89.5,29.2 L88.9,25.1 L88.8,20.8 L87.5,17.2 L87.3,12.8 L88.8,8.9 L88.7,4.0 L90.7,1.4 L93.0,0.0 L91.4,0.5 L90.3,2.8 L88.9,4.3 L87.6,5.8 L87.5,9.0 L87.5,12.1 L86.8,15.0 L85.5,17.1 L86.2,19.8 L86.9,22.6 L88.5,23.2 L89.7,25.4 L90.4,27.9 L91.1,30.6 L91.0,33.6 L91.2,36.5 L91.0,39.4 L91.6,42.2 L93.0,43.4 L94.0,45.7 L93.5,48.3 L92.5,50.2 L91.8,52.5 L91.6,55.2 L92.8,56.1 L93.6,58.2 L94.1,60.7 L94.1,63.2 L94.6,65.4 L95.0,67.6 L95.4,69.8 L95.6,72.2 L96.9,75.2 L98.9,75.9 L100.6,73.6 L102.6,73.6 L104.5,73.1 L105.9,70.8 L107.1,68.3 L108.4,65.9 L110.1,67.2 L111.2,70.0 L112.1,73.1 L112.2,76.6 L113.4,79.1 L115.1,79.9 L116.6,81.7 L117.5,84.6 L117.9,87.3 L118.1,90.1 L118.3,93.1 L117.5,95.7 L117.9,98.5 L118.3,101.4 L117.4,103.9 L116.9,106.7 L116.8,109.6 L117.3,112.2 L117.9,114.8 L118.2,117.5 L118.2,120.4 L118.1,123.2 L118.3,126.1 L119.1,128.5 L119.7,124.8 L119.2,121.2 L120.1,118.0 L121.2,115.0 L122.3,112.0 L124.2,111.0 L126.0,109.6 L127.0,106.4 L128.7,105.2 L130.5,104.7 L131.7,101.8 L132.8,99.1 L134.1,96.2 L136.1,95.6 L136.1,91.8 L137.4,88.9 L135.5,87.1 L134.4,83.7 L134.0,79.9 L133.5,76.2 L132.0,73.2 L131.2,69.5 L132.1,65.7 L132.0,61.6 L132.3,57.1 L133.7,53.5 L133.2,49.2 L132.2,45.2 L133.2,41.3 L135.3,39.5 L137.1,37.3 L139.2,36.0 L141.7,36.6 L144.0,34.3 L146.4,35.4 L148.4,38.2 L149.5,42.3 L150.1,46.9 L152.5,48.5 L153.8,52.7 L155.0,57.0 L157.2,59.4 L158.0,63.8 L158.8,68.2 L158.0,72.6 L156.3,76.2 L155.9,80.7 L155.7,85.4 L157.7,85.6 L159.5,87.2 L161.6,87.8 L163.5,86.2 L165.1,84.0 L166.8,82.1 L168.7,80.2 L170.8,80.7 L172.9,81.3 L174.7,83.5 L176.9,83.8 L178.5,86.7 L180.5,84.8 L181.9,81.7 L183.8,79.4 L186.0,79.5" fill="none" stroke="#6b6357" stroke-width="1.2"/>
+<path d="M0.0,79.5 L11.0,85.5 L15.1,97.3 L20.4,108.6 L32.9,107.9 L42.0,99.3 L41.0,86.9 L45.4,75.2 L53.6,84.6 L65.6,88.3 L69.5,100.1 L69.7,112.6 L64.8,124.1 L64.9,136.6 L70.3,147.8 L71.0,135.4 L74.0,123.2 L80.7,112.7 L90.3,104.7 L99.3,96.0 L111.5,93.1 L109.6,80.7 L107.3,68.4 L102.6,56.9 L97.1,45.7 L93.5,33.7 L88.8,22.1 L88.6,9.6 L86.7,21.9 L91.0,33.7 L94.0,45.8 L93.7,58.3 L95.5,70.7 L107.5,67.5 L113.2,78.7 L118.1,90.2 L117.8,102.7 L117.9,115.2 L118.8,127.6 L121.0,115.3 L128.5,105.3 L136.1,95.4 L134.3,83.0 L131.5,70.8 L132.2,58.3 L132.3,45.8 L140.4,36.3 L149.8,44.5 L154.8,56.0 L158.8,67.8 L156.0,80.0 L168.5,80.4 L179.9,85.4" fill="none" stroke="#e0895e" stroke-width="2"/>
+<circle cx="0.0" cy="79.5" r="2.4" fill="#e0895e"/>
+<circle cx="11.0" cy="85.5" r="2.4" fill="#e0895e"/>
+<circle cx="15.1" cy="97.3" r="2.4" fill="#e0895e"/>
+<circle cx="20.4" cy="108.6" r="2.4" fill="#e0895e"/>
+<circle cx="32.9" cy="107.9" r="2.4" fill="#e0895e"/>
+<circle cx="42.0" cy="99.3" r="2.4" fill="#e0895e"/>
+<circle cx="41.0" cy="86.9" r="2.4" fill="#e0895e"/>
+<circle cx="45.4" cy="75.2" r="2.4" fill="#e0895e"/>
+<circle cx="53.6" cy="84.6" r="2.4" fill="#e0895e"/>
+<circle cx="65.6" cy="88.3" r="2.4" fill="#e0895e"/>
+<circle cx="69.5" cy="100.1" r="2.4" fill="#e0895e"/>
+<circle cx="69.7" cy="112.6" r="2.4" fill="#e0895e"/>
+<circle cx="64.8" cy="124.1" r="2.4" fill="#e0895e"/>
+<circle cx="64.9" cy="136.6" r="2.4" fill="#e0895e"/>
+<circle cx="70.3" cy="147.8" r="2.4" fill="#e0895e"/>
+<circle cx="71.0" cy="135.4" r="2.4" fill="#e0895e"/>
+<circle cx="74.0" cy="123.2" r="2.4" fill="#e0895e"/>
+<circle cx="80.7" cy="112.7" r="2.4" fill="#e0895e"/>
+<circle cx="90.3" cy="104.7" r="2.4" fill="#e0895e"/>
+<circle cx="99.3" cy="96.0" r="2.4" fill="#e0895e"/>
+<circle cx="111.5" cy="93.1" r="2.4" fill="#e0895e"/>
+<circle cx="109.6" cy="80.7" r="2.4" fill="#e0895e"/>
+<circle cx="107.3" cy="68.4" r="2.4" fill="#e0895e"/>
+<circle cx="102.6" cy="56.9" r="2.4" fill="#e0895e"/>
+<circle cx="97.1" cy="45.7" r="2.4" fill="#e0895e"/>
+<circle cx="93.5" cy="33.7" r="2.4" fill="#e0895e"/>
+<circle cx="88.8" cy="22.1" r="2.4" fill="#e0895e"/>
+<circle cx="88.6" cy="9.6" r="2.4" fill="#e0895e"/>
+<circle cx="86.7" cy="21.9" r="2.4" fill="#e0895e"/>
+<circle cx="91.0" cy="33.7" r="2.4" fill="#e0895e"/>
+<circle cx="94.0" cy="45.8" r="2.4" fill="#e0895e"/>
+<circle cx="93.7" cy="58.3" r="2.4" fill="#e0895e"/>
+<circle cx="95.5" cy="70.7" r="2.4" fill="#e0895e"/>
+<circle cx="107.5" cy="67.5" r="2.4" fill="#e0895e"/>
+<circle cx="113.2" cy="78.7" r="2.4" fill="#e0895e"/>
+<circle cx="118.1" cy="90.2" r="2.4" fill="#e0895e"/>
+<circle cx="117.8" cy="102.7" r="2.4" fill="#e0895e"/>
+<circle cx="117.9" cy="115.2" r="2.4" fill="#e0895e"/>
+<circle cx="118.8" cy="127.6" r="2.4" fill="#e0895e"/>
+<circle cx="121.0" cy="115.3" r="2.4" fill="#e0895e"/>
+<circle cx="128.5" cy="105.3" r="2.4" fill="#e0895e"/>
+<circle cx="136.1" cy="95.4" r="2.4" fill="#e0895e"/>
+<circle cx="134.3" cy="83.0" r="2.4" fill="#e0895e"/>
+<circle cx="131.5" cy="70.8" r="2.4" fill="#e0895e"/>
+<circle cx="132.2" cy="58.3" r="2.4" fill="#e0895e"/>
+<circle cx="132.3" cy="45.8" r="2.4" fill="#e0895e"/>
+<circle cx="140.4" cy="36.3" r="2.4" fill="#e0895e"/>
+<circle cx="149.8" cy="44.5" r="2.4" fill="#e0895e"/>
+<circle cx="154.8" cy="56.0" r="2.4" fill="#e0895e"/>
+<circle cx="158.8" cy="67.8" r="2.4" fill="#e0895e"/>
+<circle cx="156.0" cy="80.0" r="2.4" fill="#e0895e"/>
+<circle cx="168.5" cy="80.4" r="2.4" fill="#e0895e"/>
+<circle cx="179.9" cy="85.4" r="2.4" fill="#e0895e"/>
+</g>
+<text x="589" y="238" text-anchor="middle" fill="#8d867b" font-family="-apple-system,sans-serif" font-size="11">52 steps</text>
+<text x="589" y="258" text-anchor="middle" fill="#e0895e" font-family="SF Mono,monospace" font-size="14">1300 km</text>
+<text x="360" y="290" text-anchor="middle" fill="#57524b" font-family="-apple-system,sans-serif" font-size="11">Same coast in all three. Halving the ruler does not make the length converge — it makes it grow.</text>
+</svg>
+<figcaption>One coast, three rulers. A 100 km ruler says 700 km; a 25 km ruler says 1,300 km — and there is no sign of it settling down.</figcaption>
+</figure>
+<p>D comes out differently for different coasts, and the ordering matches what your eye tells you from a map: the smooth South African coast around 1.05, the crinkled west coast of Britain around 1.25, the fjord-inside-a-fjord Norwegian coast around 1.52. It is not a metaphor — it is a number you can compute, and section 3 is about how.</p>
+<p>So the CIA figure and the Ordnance Survey figure are both correct. Both simply left out a sentence: <i>here is how long my ruler was.</i> <b>On curves like this, the word "length" needs an argument before it means anything.</b></p>
+<div class="decide">
+<span class="lb">🎯 DECISION LINE</span>
+<p>Whenever you meet a total length, total area, or total count, ask first what resolution it was counted at. When two sources differ by a factor of two, do not open by arguing about who got it wrong — normalise both to the same resolution and compare then. If you cannot, drop the comparison: it is not evidence. More things run on this rule than you would guess: pipeline mileage, national borders, "how many sites we cover", lines of code, total complaints logged.</p>
+</div>
+<div class="crossx-inline">
+🌀 <b>Ecology · how many bird species live in that wood</b>　The answer depends on how big a plot you draw, and species count S relates to area A as a power law, S ∝ A^z, with z often near 0.25 in island biogeography. As with the coastline, there is no scale-free "true number of species". That gives you a conclusion you would otherwise need a great deal of natural history to venture: cut a habitat down to a tenth and roughly 0.1^0.25 ≈ 56% of the species remain. You need to know nothing about any particular bird; the number falls out of the scaling relation.
+</div>
+
+<h2><span class="n">02</span>One Rule, Endless Detail</h2>
+<p class="lead">The last section said a coastline cannot be measured out. It did not say why. The answer is startlingly short: because every small piece of it hides the same structure as the whole.</p>
+<p>In 1904 the Swedish mathematician Helge von Koch wrote down a rule. Take a line segment, cut out the middle third, and replace it with an outward spike made of two segments of the same length. One segment has become four, each a third as long. Now do the same thing to every segment you just made.</p>
+<figure>
+<svg role="img" aria-label="The first four generations of the Koch curve, produced by one substitution rule feeding on its own output" viewbox="0 0 720 240" xmlns="http://www.w3.org/2000/svg">
+<text x="360" y="26" text-anchor="middle" fill="#aba498" font-family="-apple-system,sans-serif" font-size="13">One substitution rule, applied four times</text>
+<text x="360" y="46" text-anchor="middle" fill="#787268" font-family="-apple-system,sans-serif" font-size="11.5">The rule: replace the middle third of each segment with an outward spike. 1 segment becomes 4, each 1/3 as long.</text>
+<g transform="translate(26,150)">
+<path d="M0.00,0.00 L150.00,0.00" fill="none" stroke="#a693cd" stroke-width="1.6" stroke-linejoin="round"/>
+</g>
+<text x="101" y="182" text-anchor="middle" fill="#8d867b" font-family="SF Mono,monospace" font-size="11.5">generation 0</text>
+<text x="101" y="200" text-anchor="middle" fill="#a693cd" font-family="-apple-system,sans-serif" font-size="11">1 segment · length ×1.00</text>
+<g transform="translate(202,150)">
+<path d="M0.00,0.00 L50.00,0.00 L75.00,-43.30 L100.00,0.00 L150.00,0.00" fill="none" stroke="#a693cd" stroke-width="1.6" stroke-linejoin="round"/>
+</g>
+<text x="277" y="182" text-anchor="middle" fill="#8d867b" font-family="SF Mono,monospace" font-size="11.5">generation 1</text>
+<text x="277" y="200" text-anchor="middle" fill="#a693cd" font-family="-apple-system,sans-serif" font-size="11">4 segments · length ×1.33</text>
+<g transform="translate(378,150)">
+<path d="M0.00,0.00 L16.67,0.00 L25.00,-14.43 L33.33,0.00 L50.00,0.00 L58.33,-14.43 L50.00,-28.87 L66.67,-28.87 L75.00,-43.30 L83.33,-28.87 L100.00,-28.87 L91.67,-14.43 L100.00,0.00 L116.67,0.00 L125.00,-14.43 L133.33,0.00 L150.00,0.00" fill="none" stroke="#a693cd" stroke-width="1.6" stroke-linejoin="round"/>
+</g>
+<text x="453" y="182" text-anchor="middle" fill="#8d867b" font-family="SF Mono,monospace" font-size="11.5">generation 2</text>
+<text x="453" y="200" text-anchor="middle" fill="#a693cd" font-family="-apple-system,sans-serif" font-size="11">16 segments · length ×1.78</text>
+<g transform="translate(554,150)">
+<path d="M0.00,0.00 L5.56,0.00 L8.33,-4.81 L11.11,0.00 L16.67,0.00 L19.44,-4.81 L16.67,-9.62 L22.22,-9.62 L25.00,-14.43 L27.78,-9.62 L33.33,-9.62 L30.56,-4.81 L33.33,0.00 L38.89,0.00 L41.67,-4.81 L44.44,0.00 L50.00,0.00 L52.78,-4.81 L50.00,-9.62 L55.56,-9.62 L58.33,-14.43 L55.56,-19.25 L50.00,-19.25 L52.78,-24.06 L50.00,-28.87 L55.56,-28.87 L58.33,-33.68 L61.11,-28.87 L66.67,-28.87 L69.44,-33.68 L66.67,-38.49 L72.22,-38.49 L75.00,-43.30 L77.78,-38.49 L83.33,-38.49 L80.56,-33.68 L83.33,-28.87 L88.89,-28.87 L91.67,-33.68 L94.44,-28.87 L100.00,-28.87 L97.22,-24.06 L100.00,-19.25 L94.44,-19.25 L91.67,-14.43 L94.44,-9.62 L100.00,-9.62 L97.22,-4.81 L100.00,0.00 L105.56,0.00 L108.33,-4.81 L111.11,0.00 L116.67,0.00 L119.44,-4.81 L116.67,-9.62 L122.22,-9.62 L125.00,-14.43 L127.78,-9.62 L133.33,-9.62 L130.56,-4.81 L133.33,0.00 L138.89,0.00 L141.67,-4.81 L144.44,0.00 L150.00,0.00" fill="none" stroke="#cd7f9b" stroke-width="1.6" stroke-linejoin="round"/>
+</g>
+<text x="629" y="182" text-anchor="middle" fill="#8d867b" font-family="SF Mono,monospace" font-size="11.5">generation 3</text>
+<text x="629" y="200" text-anchor="middle" fill="#cd7f9b" font-family="-apple-system,sans-serif" font-size="11">64 segments · length ×2.37</text>
+<text x="360" y="228" text-anchor="middle" fill="#57524b" font-family="-apple-system,sans-serif" font-size="11">The distance between the two endpoints never changes. Only the curve's own length does — up a third every round.</text>
+</svg>
+<figcaption>The first four generations of the Koch curve. One sentence of rule; detail that never runs out.</figcaption>
+</figure>
+<p>Each round multiplies the total length by 4/3. Keep going and the length has no ceiling. Yet the curve never leaves a patch you could cover with your hand — infinitely long, enclosing almost nothing. That combination is impossible in smooth geometry. Here it is what one casually written rule hands you by default.</p>
+<p>This is the second key word: <b>self-similarity</b>. Magnify any small stretch of the Koch curve and you see the whole curve again. There is no magnification at which you finally reach the basic unit, because the rule contains no basic unit — only "again".</p>
+<p>Real coasts are not like this, and the distinction matters. <b>Exact self-similarity</b> is a mathematical construction: magnify a piece and it coincides with the whole, point for point — the Koch curve, the Sierpinski triangle. <b>Statistical self-similarity</b> is nature's version: magnify a piece and it does not coincide with anything, but its statistics do — the same roughness, the same distribution of turns, the same mix of gap sizes. Coasts, cloud edges, ridgelines, river networks, blood vessels: all of them are the second kind.</p>
+<p>This is not pedantry. An exactly self-similar figure has a dimension you can derive; a statistically self-similar object has one you can only <em>measure</em>, with error bars, and the answer depends on how wide a range of scales you measured over. Section 5 settles that bill.</p>
+<p>One more thing deserves its own line, because it is this site's recurring claim rendered in geometry: <b>the complexity of a fractal does not come from a complicated rule.</b> The Koch rule fits in a sentence, and the shape it makes has no measurable length. That is the same conclusion cellular automata gave us in Topic 4 <a class="reflink" href="ref-cellular-automata.en.html">→ ref · Game of Life &amp; cellular automata</a> — a complicated result does not imply a complicated cause. To generate endless detail a rule needs exactly one property: <b>it must be able to act on its own output.</b></p>
+<div class="crossx-inline">
+🌀 <b>Linguistics · a rule that can call itself</b>　Noam Chomsky pointed out that natural language grammars contain rules that invoke themselves — a noun phrase can contain a noun phrase ("my friend's sister's colleague's cat"), so sentence length has no upper bound. Structurally that is Koch's substitution rule. But something less obvious follows: Miller and Chomsky noted in 1963 that people stop being able to parse centre-embedding past about two levels ("the rat the cat the dog chased killed ate the malt" is already painful). The generative rule is unbounded; the usable depth is not. Language's fractal has a ceiling like a real coastline does — and that ceiling is not in the grammar, it is in working memory.
+</div>
+
+<h2><span class="n">03</span>Turning Roughness into a Number</h2>
+<p class="lead">"That coast is more ragged than this one" is a sentence in human language. To make it something you can compute, compare, and have someone else check, you need a number.</p>
+<p>Start by rethinking what dimension means. Instead of "how many coordinates", think <em>"how many copies of itself appear when you magnify it"</em>:</p>
+<p>Double the length of a line segment and it is made of 2 copies of the original. Double the side of a square and it is made of 4. A cube gives 8. Now, 2 = 2¹, 4 = 2², 8 = 2³ — the pattern lives in the exponent. Magnify by k and get N copies, and the dimension D satisfies N = k^D, that is, D = log N ÷ log k.</p>
+<p>Apply that to the Koch curve: magnify threefold and it is made of 4 copies of itself. So D = log 4 ÷ log 3 ≈ 1.26. <b>Not a whole number.</b> That is where the word comes from — Mandelbrot coined "fractal" in 1975 from the Latin <i>fractus</i>, broken or fractured. A value between 1 and 2 means something plain enough: the curve fills the plane more thoroughly than a line does, and less thoroughly than a surface.</p>
+<p>That derivation only works when you already know "magnify by how much gives how many copies". For a photograph of a real coast, or an image of retinal blood vessels, you need something clumsier and more general: <b>box counting</b>. Lay a grid of side ε over the figure and count how many boxes it touches, call that N(ε). Halve ε and count again. If N grows as N ∝ ε^(−D), that D is the <b>fractal dimension</b>. On a log-log plot it is simply the slope of the line. <a class="reflink" href="ref-box-counting.en.html">→ ref · Box-counting dimension</a></p>
+<figure>
+<svg role="img" aria-label="Box counting: two grid sizes over the same curve, with the slope read off a log-log plot" viewbox="0 0 720 284" xmlns="http://www.w3.org/2000/svg">
+<text x="360" y="26" text-anchor="middle" fill="#aba498" font-family="-apple-system,sans-serif" font-size="13">Box counting: lay down a grid, count the boxes the curve touches</text>
+<text x="127" y="52" text-anchor="middle" fill="#d9b45f" font-family="SF Mono,monospace" font-size="12">box side 31</text>
+<g transform="translate(34,64)">
+<rect x="0.00" y="62.00" width="31.0" height="31.0" fill="#d9b45f" fill-opacity="0.17"/>
+<rect x="0.00" y="93.00" width="31.0" height="31.0" fill="#d9b45f" fill-opacity="0.17"/>
+<rect x="31.00" y="62.00" width="31.0" height="31.0" fill="#d9b45f" fill-opacity="0.17"/>
+<rect x="31.00" y="93.00" width="31.0" height="31.0" fill="#d9b45f" fill-opacity="0.17"/>
+<rect x="62.00" y="0.00" width="31.0" height="31.0" fill="#d9b45f" fill-opacity="0.17"/>
+<rect x="62.00" y="31.00" width="31.0" height="31.0" fill="#d9b45f" fill-opacity="0.17"/>
+<rect x="62.00" y="62.00" width="31.0" height="31.0" fill="#d9b45f" fill-opacity="0.17"/>
+<rect x="62.00" y="93.00" width="31.0" height="31.0" fill="#d9b45f" fill-opacity="0.17"/>
+<rect x="62.00" y="124.00" width="31.0" height="31.0" fill="#d9b45f" fill-opacity="0.17"/>
+<rect x="93.00" y="0.00" width="31.0" height="31.0" fill="#d9b45f" fill-opacity="0.17"/>
+<rect x="93.00" y="31.00" width="31.0" height="31.0" fill="#d9b45f" fill-opacity="0.17"/>
+<rect x="93.00" y="62.00" width="31.0" height="31.0" fill="#d9b45f" fill-opacity="0.17"/>
+<rect x="93.00" y="93.00" width="31.0" height="31.0" fill="#d9b45f" fill-opacity="0.17"/>
+<rect x="93.00" y="124.00" width="31.0" height="31.0" fill="#d9b45f" fill-opacity="0.17"/>
+<rect x="124.00" y="31.00" width="31.0" height="31.0" fill="#d9b45f" fill-opacity="0.17"/>
+<rect x="124.00" y="62.00" width="31.0" height="31.0" fill="#d9b45f" fill-opacity="0.17"/>
+<rect x="124.00" y="93.00" width="31.0" height="31.0" fill="#d9b45f" fill-opacity="0.17"/>
+<rect x="155.00" y="31.00" width="31.0" height="31.0" fill="#d9b45f" fill-opacity="0.17"/>
+<rect x="155.00" y="62.00" width="31.0" height="31.0" fill="#d9b45f" fill-opacity="0.17"/>
+<line x1="0.00" y1="0" x2="0.00" y2="155.0" stroke="rgba(255,255,255,0.10)" stroke-width="0.7"/>
+<line x1="31.00" y1="0" x2="31.00" y2="155.0" stroke="rgba(255,255,255,0.10)" stroke-width="0.7"/>
+<line x1="62.00" y1="0" x2="62.00" y2="155.0" stroke="rgba(255,255,255,0.10)" stroke-width="0.7"/>
+<line x1="93.00" y1="0" x2="93.00" y2="155.0" stroke="rgba(255,255,255,0.10)" stroke-width="0.7"/>
+<line x1="124.00" y1="0" x2="124.00" y2="155.0" stroke="rgba(255,255,255,0.10)" stroke-width="0.7"/>
+<line x1="155.00" y1="0" x2="155.00" y2="155.0" stroke="rgba(255,255,255,0.10)" stroke-width="0.7"/>
+<line x1="186.00" y1="0" x2="186.00" y2="155.0" stroke="rgba(255,255,255,0.10)" stroke-width="0.7"/>
+<line x1="0" y1="0.00" x2="186.0" y2="0.00" stroke="rgba(255,255,255,0.10)" stroke-width="0.7"/>
+<line x1="0" y1="31.00" x2="186.0" y2="31.00" stroke="rgba(255,255,255,0.10)" stroke-width="0.7"/>
+<line x1="0" y1="62.00" x2="186.0" y2="62.00" stroke="rgba(255,255,255,0.10)" stroke-width="0.7"/>
+<line x1="0" y1="93.00" x2="186.0" y2="93.00" stroke="rgba(255,255,255,0.10)" stroke-width="0.7"/>
+<line x1="0" y1="124.00" x2="186.0" y2="124.00" stroke="rgba(255,255,255,0.10)" stroke-width="0.7"/>
+<line x1="0" y1="155.00" x2="186.0" y2="155.00" stroke="rgba(255,255,255,0.10)" stroke-width="0.7"/>
+<path d="M0.0,82.1 L1.9,84.7 L4.2,85.4 L6.4,84.2 L8.7,84.4 L10.6,87.2 L11.9,91.0 L11.8,95.7 L13.0,99.9 L15.0,100.5 L16.9,102.5 L18.2,105.7 L19.3,109.2 L20.6,112.6 L22.0,115.9 L24.2,114.7 L26.2,116.7 L27.9,114.0 L30.0,112.6 L32.2,112.2 L34.2,110.3 L36.4,108.6 L37.6,104.4 L39.8,103.4 L42.0,103.4 L42.0,98.8 L42.0,94.1 L41.0,89.6 L41.4,84.8 L43.2,81.8 L45.1,78.8 L46.3,74.8 L48.0,71.4 L48.5,74.9 L49.1,78.4 L50.0,81.6 L50.4,85.2 L52.2,86.0 L53.9,87.7 L55.3,90.3 L57.2,90.9 L59.2,90.8 L61.0,89.1 L62.9,89.2 L64.8,90.1 L66.5,92.5 L67.1,96.3 L68.7,98.6 L69.3,102.5 L70.0,106.3 L69.5,110.3 L70.1,114.3 L69.5,118.2 L67.8,120.5 L66.4,123.2 L65.3,126.5 L64.3,129.9 L65.2,133.5 L65.2,137.5 L64.9,141.6 L65.7,145.3 L67.3,147.7 L69.1,149.3 L70.2,152.6 L71.8,155.0 L73.1,151.1 L73.2,146.4 L71.7,142.9 L70.8,138.8 L71.8,134.7 L71.5,130.2 L73.6,128.6 L74.8,124.5 L76.9,124.3 L78.5,121.8 L79.4,117.9 L81.3,115.9 L83.2,114.9 L84.7,112.2 L86.8,112.3 L88.4,109.6 L90.2,108.1 L92.2,108.8 L94.0,107.3 L95.1,104.2 L97.0,103.8 L98.6,101.8 L99.5,98.4 L101.3,96.9 L103.2,97.3 L104.9,96.5 L106.8,96.5 L108.5,95.2 L110.2,96.3 L112.1,96.1 L113.8,94.7 L115.7,95.6 L114.8,92.5 L113.0,91.2 L111.9,88.4 L111.7,84.8 L109.9,84.0 L108.5,81.1 L108.8,77.3 L107.8,73.9 L107.3,70.7 L106.8,67.4 L105.3,65.5 L104.5,62.4 L103.2,60.1 L102.1,57.5 L101.7,54.1 L101.0,51.0 L98.9,50.2 L97.1,48.0 L96.7,43.8 L95.2,40.8 L94.4,37.0 L93.1,33.8 L91.3,32.3 L89.5,30.1 L88.9,25.9 L88.8,21.5 L87.5,17.8 L87.3,13.3 L88.8,9.2 L88.7,4.1 L90.7,1.4 L93.0,0.0 L91.4,0.6 L90.3,2.9 L88.9,4.4 L87.6,6.0 L87.5,9.3 L87.5,12.5 L86.8,15.5 L85.5,17.6 L86.2,20.5 L86.9,23.3 L88.5,23.9 L89.7,26.2 L90.4,28.9 L91.1,31.6 L91.0,34.7 L91.2,37.7 L91.0,40.8 L91.6,43.6 L93.0,44.9 L94.0,47.2 L93.5,49.9 L92.5,51.8 L91.8,54.2 L91.6,57.0 L92.8,58.0 L93.6,60.2 L94.1,62.7 L94.1,65.3 L94.6,67.6 L95.0,69.8 L95.4,72.2 L95.6,74.6 L96.9,77.7 L98.9,78.4 L100.6,76.0 L102.6,76.1 L104.5,75.5 L105.9,73.2 L107.1,70.6 L108.4,68.1 L110.1,69.5 L111.2,72.4 L112.1,75.5 L112.2,79.1 L113.4,81.8 L115.1,82.6 L116.6,84.4 L117.5,87.4 L117.9,90.2 L118.1,93.1 L118.3,96.2 L117.5,98.9 L117.9,101.8 L118.3,104.8 L117.4,107.3 L116.9,110.3 L116.8,113.2 L117.3,116.0 L117.9,118.6 L118.2,121.5 L118.2,124.4 L118.1,127.3 L118.3,130.3 L119.1,132.8 L119.7,129.0 L119.2,125.2 L120.1,121.9 L121.2,118.8 L122.3,115.7 L124.2,114.7 L126.0,113.3 L127.0,110.0 L128.7,108.7 L130.5,108.2 L131.7,105.2 L132.8,102.4 L134.1,99.5 L136.1,98.8 L136.1,94.8 L137.4,91.8 L135.5,90.0 L134.4,86.5 L134.0,82.6 L133.5,78.7 L132.0,75.6 L131.2,71.8 L132.1,67.9 L132.0,63.7 L132.3,59.0 L133.7,55.3 L133.2,50.8 L132.2,46.7 L133.2,42.7 L135.3,40.8 L137.1,38.6 L139.2,37.2 L141.7,37.9 L144.0,35.4 L146.4,36.6 L148.4,39.4 L149.5,43.7 L150.1,48.5 L152.5,50.1 L153.8,54.5 L155.0,58.9 L157.2,61.4 L158.0,65.9 L158.8,70.5 L158.0,75.0 L156.3,78.7 L155.9,83.4 L155.7,88.2 L157.7,88.5 L159.5,90.1 L161.6,90.7 L163.5,89.1 L165.1,86.8 L166.8,84.8 L168.7,82.9 L170.8,83.4 L172.9,84.0 L174.7,86.2 L176.9,86.6 L178.5,89.6 L180.5,87.7 L181.9,84.4 L183.8,82.0 L186.0,82.1" fill="none" stroke="#e4ded5" stroke-width="1.3"/>
+<rect x="0" y="0" width="186.0" height="155.0" fill="none" stroke="rgba(255,255,255,0.16)"/>
+</g>
+<text x="127" y="240" text-anchor="middle" fill="#d9b45f" font-family="SF Mono,monospace" font-size="14">19 boxes hit</text>
+<text x="343" y="52" text-anchor="middle" fill="#63b3a6" font-family="SF Mono,monospace" font-size="12">box side 15.5 (halved)</text>
+<g transform="translate(250,64)">
+<rect x="0.00" y="77.50" width="15.5" height="15.5" fill="#63b3a6" fill-opacity="0.17"/>
+<rect x="0.00" y="93.00" width="15.5" height="15.5" fill="#63b3a6" fill-opacity="0.17"/>
+<rect x="15.50" y="93.00" width="15.5" height="15.5" fill="#63b3a6" fill-opacity="0.17"/>
+<rect x="15.50" y="108.50" width="15.5" height="15.5" fill="#63b3a6" fill-opacity="0.17"/>
+<rect x="31.00" y="62.00" width="15.5" height="15.5" fill="#63b3a6" fill-opacity="0.17"/>
+<rect x="31.00" y="77.50" width="15.5" height="15.5" fill="#63b3a6" fill-opacity="0.17"/>
+<rect x="31.00" y="93.00" width="15.5" height="15.5" fill="#63b3a6" fill-opacity="0.17"/>
+<rect x="31.00" y="108.50" width="15.5" height="15.5" fill="#63b3a6" fill-opacity="0.17"/>
+<rect x="46.50" y="62.00" width="15.5" height="15.5" fill="#63b3a6" fill-opacity="0.17"/>
+<rect x="46.50" y="77.50" width="15.5" height="15.5" fill="#63b3a6" fill-opacity="0.17"/>
+<rect x="62.00" y="77.50" width="15.5" height="15.5" fill="#63b3a6" fill-opacity="0.17"/>
+<rect x="62.00" y="93.00" width="15.5" height="15.5" fill="#63b3a6" fill-opacity="0.17"/>
+<rect x="62.00" y="108.50" width="15.5" height="15.5" fill="#63b3a6" fill-opacity="0.17"/>
+<rect x="62.00" y="124.00" width="15.5" height="15.5" fill="#63b3a6" fill-opacity="0.17"/>
+<rect x="62.00" y="139.50" width="15.5" height="15.5" fill="#63b3a6" fill-opacity="0.17"/>
+<rect x="77.50" y="0.00" width="15.5" height="15.5" fill="#63b3a6" fill-opacity="0.17"/>
+<rect x="77.50" y="15.50" width="15.5" height="15.5" fill="#63b3a6" fill-opacity="0.17"/>
+<rect x="77.50" y="31.00" width="15.5" height="15.5" fill="#63b3a6" fill-opacity="0.17"/>
+<rect x="77.50" y="46.50" width="15.5" height="15.5" fill="#63b3a6" fill-opacity="0.17"/>
+<rect x="77.50" y="93.00" width="15.5" height="15.5" fill="#63b3a6" fill-opacity="0.17"/>
+<rect x="77.50" y="108.50" width="15.5" height="15.5" fill="#63b3a6" fill-opacity="0.17"/>
+<rect x="93.00" y="0.00" width="15.5" height="15.5" fill="#63b3a6" fill-opacity="0.17"/>
+<rect x="93.00" y="31.00" width="15.5" height="15.5" fill="#63b3a6" fill-opacity="0.17"/>
+<rect x="93.00" y="46.50" width="15.5" height="15.5" fill="#63b3a6" fill-opacity="0.17"/>
+<rect x="93.00" y="62.00" width="15.5" height="15.5" fill="#63b3a6" fill-opacity="0.17"/>
+<rect x="93.00" y="77.50" width="15.5" height="15.5" fill="#63b3a6" fill-opacity="0.17"/>
+<rect x="93.00" y="93.00" width="15.5" height="15.5" fill="#63b3a6" fill-opacity="0.17"/>
+<rect x="108.50" y="62.00" width="15.5" height="15.5" fill="#63b3a6" fill-opacity="0.17"/>
+<rect x="108.50" y="77.50" width="15.5" height="15.5" fill="#63b3a6" fill-opacity="0.17"/>
+<rect x="108.50" y="93.00" width="15.5" height="15.5" fill="#63b3a6" fill-opacity="0.17"/>
+<rect x="108.50" y="108.50" width="15.5" height="15.5" fill="#63b3a6" fill-opacity="0.17"/>
+<rect x="108.50" y="124.00" width="15.5" height="15.5" fill="#63b3a6" fill-opacity="0.17"/>
+<rect x="124.00" y="31.00" width="15.5" height="15.5" fill="#63b3a6" fill-opacity="0.17"/>
+<rect x="124.00" y="46.50" width="15.5" height="15.5" fill="#63b3a6" fill-opacity="0.17"/>
+<rect x="124.00" y="62.00" width="15.5" height="15.5" fill="#63b3a6" fill-opacity="0.17"/>
+<rect x="124.00" y="77.50" width="15.5" height="15.5" fill="#63b3a6" fill-opacity="0.17"/>
+<rect x="124.00" y="93.00" width="15.5" height="15.5" fill="#63b3a6" fill-opacity="0.17"/>
+<rect x="124.00" y="108.50" width="15.5" height="15.5" fill="#63b3a6" fill-opacity="0.17"/>
+<rect x="139.50" y="31.00" width="15.5" height="15.5" fill="#63b3a6" fill-opacity="0.17"/>
+<rect x="139.50" y="46.50" width="15.5" height="15.5" fill="#63b3a6" fill-opacity="0.17"/>
+<rect x="155.00" y="46.50" width="15.5" height="15.5" fill="#63b3a6" fill-opacity="0.17"/>
+<rect x="155.00" y="62.00" width="15.5" height="15.5" fill="#63b3a6" fill-opacity="0.17"/>
+<rect x="155.00" y="77.50" width="15.5" height="15.5" fill="#63b3a6" fill-opacity="0.17"/>
+<rect x="170.50" y="77.50" width="15.5" height="15.5" fill="#63b3a6" fill-opacity="0.17"/>
+<line x1="0.00" y1="0" x2="0.00" y2="155.0" stroke="rgba(255,255,255,0.10)" stroke-width="0.7"/>
+<line x1="15.50" y1="0" x2="15.50" y2="155.0" stroke="rgba(255,255,255,0.10)" stroke-width="0.7"/>
+<line x1="31.00" y1="0" x2="31.00" y2="155.0" stroke="rgba(255,255,255,0.10)" stroke-width="0.7"/>
+<line x1="46.50" y1="0" x2="46.50" y2="155.0" stroke="rgba(255,255,255,0.10)" stroke-width="0.7"/>
+<line x1="62.00" y1="0" x2="62.00" y2="155.0" stroke="rgba(255,255,255,0.10)" stroke-width="0.7"/>
+<line x1="77.50" y1="0" x2="77.50" y2="155.0" stroke="rgba(255,255,255,0.10)" stroke-width="0.7"/>
+<line x1="93.00" y1="0" x2="93.00" y2="155.0" stroke="rgba(255,255,255,0.10)" stroke-width="0.7"/>
+<line x1="108.50" y1="0" x2="108.50" y2="155.0" stroke="rgba(255,255,255,0.10)" stroke-width="0.7"/>
+<line x1="124.00" y1="0" x2="124.00" y2="155.0" stroke="rgba(255,255,255,0.10)" stroke-width="0.7"/>
+<line x1="139.50" y1="0" x2="139.50" y2="155.0" stroke="rgba(255,255,255,0.10)" stroke-width="0.7"/>
+<line x1="155.00" y1="0" x2="155.00" y2="155.0" stroke="rgba(255,255,255,0.10)" stroke-width="0.7"/>
+<line x1="170.50" y1="0" x2="170.50" y2="155.0" stroke="rgba(255,255,255,0.10)" stroke-width="0.7"/>
+<line x1="186.00" y1="0" x2="186.00" y2="155.0" stroke="rgba(255,255,255,0.10)" stroke-width="0.7"/>
+<line x1="0" y1="0.00" x2="186.0" y2="0.00" stroke="rgba(255,255,255,0.10)" stroke-width="0.7"/>
+<line x1="0" y1="15.50" x2="186.0" y2="15.50" stroke="rgba(255,255,255,0.10)" stroke-width="0.7"/>
+<line x1="0" y1="31.00" x2="186.0" y2="31.00" stroke="rgba(255,255,255,0.10)" stroke-width="0.7"/>
+<line x1="0" y1="46.50" x2="186.0" y2="46.50" stroke="rgba(255,255,255,0.10)" stroke-width="0.7"/>
+<line x1="0" y1="62.00" x2="186.0" y2="62.00" stroke="rgba(255,255,255,0.10)" stroke-width="0.7"/>
+<line x1="0" y1="77.50" x2="186.0" y2="77.50" stroke="rgba(255,255,255,0.10)" stroke-width="0.7"/>
+<line x1="0" y1="93.00" x2="186.0" y2="93.00" stroke="rgba(255,255,255,0.10)" stroke-width="0.7"/>
+<line x1="0" y1="108.50" x2="186.0" y2="108.50" stroke="rgba(255,255,255,0.10)" stroke-width="0.7"/>
+<line x1="0" y1="124.00" x2="186.0" y2="124.00" stroke="rgba(255,255,255,0.10)" stroke-width="0.7"/>
+<line x1="0" y1="139.50" x2="186.0" y2="139.50" stroke="rgba(255,255,255,0.10)" stroke-width="0.7"/>
+<line x1="0" y1="155.00" x2="186.0" y2="155.00" stroke="rgba(255,255,255,0.10)" stroke-width="0.7"/>
+<path d="M0.0,82.1 L1.9,84.7 L4.2,85.4 L6.4,84.2 L8.7,84.4 L10.6,87.2 L11.9,91.0 L11.8,95.7 L13.0,99.9 L15.0,100.5 L16.9,102.5 L18.2,105.7 L19.3,109.2 L20.6,112.6 L22.0,115.9 L24.2,114.7 L26.2,116.7 L27.9,114.0 L30.0,112.6 L32.2,112.2 L34.2,110.3 L36.4,108.6 L37.6,104.4 L39.8,103.4 L42.0,103.4 L42.0,98.8 L42.0,94.1 L41.0,89.6 L41.4,84.8 L43.2,81.8 L45.1,78.8 L46.3,74.8 L48.0,71.4 L48.5,74.9 L49.1,78.4 L50.0,81.6 L50.4,85.2 L52.2,86.0 L53.9,87.7 L55.3,90.3 L57.2,90.9 L59.2,90.8 L61.0,89.1 L62.9,89.2 L64.8,90.1 L66.5,92.5 L67.1,96.3 L68.7,98.6 L69.3,102.5 L70.0,106.3 L69.5,110.3 L70.1,114.3 L69.5,118.2 L67.8,120.5 L66.4,123.2 L65.3,126.5 L64.3,129.9 L65.2,133.5 L65.2,137.5 L64.9,141.6 L65.7,145.3 L67.3,147.7 L69.1,149.3 L70.2,152.6 L71.8,155.0 L73.1,151.1 L73.2,146.4 L71.7,142.9 L70.8,138.8 L71.8,134.7 L71.5,130.2 L73.6,128.6 L74.8,124.5 L76.9,124.3 L78.5,121.8 L79.4,117.9 L81.3,115.9 L83.2,114.9 L84.7,112.2 L86.8,112.3 L88.4,109.6 L90.2,108.1 L92.2,108.8 L94.0,107.3 L95.1,104.2 L97.0,103.8 L98.6,101.8 L99.5,98.4 L101.3,96.9 L103.2,97.3 L104.9,96.5 L106.8,96.5 L108.5,95.2 L110.2,96.3 L112.1,96.1 L113.8,94.7 L115.7,95.6 L114.8,92.5 L113.0,91.2 L111.9,88.4 L111.7,84.8 L109.9,84.0 L108.5,81.1 L108.8,77.3 L107.8,73.9 L107.3,70.7 L106.8,67.4 L105.3,65.5 L104.5,62.4 L103.2,60.1 L102.1,57.5 L101.7,54.1 L101.0,51.0 L98.9,50.2 L97.1,48.0 L96.7,43.8 L95.2,40.8 L94.4,37.0 L93.1,33.8 L91.3,32.3 L89.5,30.1 L88.9,25.9 L88.8,21.5 L87.5,17.8 L87.3,13.3 L88.8,9.2 L88.7,4.1 L90.7,1.4 L93.0,0.0 L91.4,0.6 L90.3,2.9 L88.9,4.4 L87.6,6.0 L87.5,9.3 L87.5,12.5 L86.8,15.5 L85.5,17.6 L86.2,20.5 L86.9,23.3 L88.5,23.9 L89.7,26.2 L90.4,28.9 L91.1,31.6 L91.0,34.7 L91.2,37.7 L91.0,40.8 L91.6,43.6 L93.0,44.9 L94.0,47.2 L93.5,49.9 L92.5,51.8 L91.8,54.2 L91.6,57.0 L92.8,58.0 L93.6,60.2 L94.1,62.7 L94.1,65.3 L94.6,67.6 L95.0,69.8 L95.4,72.2 L95.6,74.6 L96.9,77.7 L98.9,78.4 L100.6,76.0 L102.6,76.1 L104.5,75.5 L105.9,73.2 L107.1,70.6 L108.4,68.1 L110.1,69.5 L111.2,72.4 L112.1,75.5 L112.2,79.1 L113.4,81.8 L115.1,82.6 L116.6,84.4 L117.5,87.4 L117.9,90.2 L118.1,93.1 L118.3,96.2 L117.5,98.9 L117.9,101.8 L118.3,104.8 L117.4,107.3 L116.9,110.3 L116.8,113.2 L117.3,116.0 L117.9,118.6 L118.2,121.5 L118.2,124.4 L118.1,127.3 L118.3,130.3 L119.1,132.8 L119.7,129.0 L119.2,125.2 L120.1,121.9 L121.2,118.8 L122.3,115.7 L124.2,114.7 L126.0,113.3 L127.0,110.0 L128.7,108.7 L130.5,108.2 L131.7,105.2 L132.8,102.4 L134.1,99.5 L136.1,98.8 L136.1,94.8 L137.4,91.8 L135.5,90.0 L134.4,86.5 L134.0,82.6 L133.5,78.7 L132.0,75.6 L131.2,71.8 L132.1,67.9 L132.0,63.7 L132.3,59.0 L133.7,55.3 L133.2,50.8 L132.2,46.7 L133.2,42.7 L135.3,40.8 L137.1,38.6 L139.2,37.2 L141.7,37.9 L144.0,35.4 L146.4,36.6 L148.4,39.4 L149.5,43.7 L150.1,48.5 L152.5,50.1 L153.8,54.5 L155.0,58.9 L157.2,61.4 L158.0,65.9 L158.8,70.5 L158.0,75.0 L156.3,78.7 L155.9,83.4 L155.7,88.2 L157.7,88.5 L159.5,90.1 L161.6,90.7 L163.5,89.1 L165.1,86.8 L166.8,84.8 L168.7,82.9 L170.8,83.4 L172.9,84.0 L174.7,86.2 L176.9,86.6 L178.5,89.6 L180.5,87.7 L181.9,84.4 L183.8,82.0 L186.0,82.1" fill="none" stroke="#e4ded5" stroke-width="1.3"/>
+<rect x="0" y="0" width="186.0" height="155.0" fill="none" stroke="rgba(255,255,255,0.16)"/>
+</g>
+<text x="343" y="240" text-anchor="middle" fill="#63b3a6" font-family="SF Mono,monospace" font-size="14">44 boxes hit</text>
+<text x="595" y="52" text-anchor="middle" fill="#a693cd" font-family="SF Mono,monospace" font-size="12">a straight line in log-log</text>
+<line x1="500" y1="214" x2="690" y2="214" stroke="rgba(255,255,255,0.18)" stroke-width="1.3"/>
+<line x1="500" y1="214" x2="500" y2="74" stroke="rgba(255,255,255,0.18)" stroke-width="1.3"/>
+<line x1="507.4" y1="207.7" x2="682.6" y2="80.0" stroke="#a693cd" stroke-width="2"/>
+<circle cx="518.4" cy="200.5" r="3.6" fill="#a693cd"/>
+<circle cx="569.5" cy="162.6" r="3.6" fill="#a693cd"/>
+<circle cx="620.5" cy="122.5" r="3.6" fill="#a693cd"/>
+<circle cx="671.6" cy="89.8" r="3.6" fill="#a693cd"/>
+<text x="494" y="66" text-anchor="start" fill="#8d867b" font-family="-apple-system,sans-serif" font-size="10.5">boxes hit (log)</text>
+<text x="595" y="234" text-anchor="middle" fill="#8d867b" font-family="-apple-system,sans-serif" font-size="10.5">1 / box side (log) →</text>
+<text x="595" y="256" text-anchor="middle" fill="#a693cd" font-family="SF Mono,monospace" font-size="13.5">slope = dimension ≈ 1.19</text>
+<text x="360" y="272" text-anchor="middle" fill="#57524b" font-family="-apple-system,sans-serif" font-size="11">Halve the box side and the count rises 44/19 ≈ 2.32×. An ordinary curve doubles (dim 1); a filled area quadruples (dim 2).</text>
+</svg>
+<figcaption>Box counting. Halve the grid and the boxes hit go up 2.32×. Exactly 2× would make it an ordinary line; 4× would make it a surface.</figcaption>
+</figure>
+<p>Here is something easy to miss: measure the same curve with Richardson's dividers and with box counting, and the two numbers need not agree. The simulated coast on this page is a case in point — the divider slope comes out slightly above the box-counting one. "Dimension" is not one definition but a family of them (box-counting, Hausdorff, information dimension, and more). They coincide on tidy mathematical objects and need not coincide on real data. So a reported dimension has to say which one, measured over which range of scales.</p>
+<div class="decide">
+<span class="lb">🎯 DECISION LINE</span>
+<p>Before quoting a dimension, a Hurst exponent, or any scaling exponent, look at how many orders of magnitude the "straight line" on your log-log plot actually spans. Under one order of magnitude, do not quote the number — over a window that narrow, almost any gently curving line can pass for straight. When you do quote it, quote three things together: <b>which method, the upper and lower limits of the fitted range, and how many points lie inside it</b>. Missing any one of those, nobody can check the number, and it does not belong in a conclusion.</p>
+</div>
+<div class="crossx-inline">
+🌀 <b>Physiology · a healthy heartbeat is not a regular heartbeat</b>　Line up several hours of intervals between heartbeats and run the same kind of scaling analysis over them (physiology's usual tool here is detrended fluctuation analysis, or DFA), and healthy adults return an exponent close to 1: the fluctuation of the heartbeat is self-similar from seconds out to hundreds of seconds. Goldberger and colleagues found that heart failure and ageing both push that exponent away from 1 — some cases toward the more random, some toward the more regular. Half of the folk rule "steady heart, healthy heart" collapses: what matters is not the size of the fluctuations but the relationship between time scales. The same variance can sit on top of completely different exponents.
+</div>
+
+<h2><span class="n">04</span>Why Nature Keeps Making Them</h2>
+<p class="lead">Lungs, blood vessels, river networks, lightning, tree crowns, cloud edges, ridgelines, fracture surfaces. Fractals are not an occasional novelty in nature; they turn up far too often for coincidence. The reason is that several unrelated routes all arrive at the same family of shapes. At least three.</p>
+<p><b>Route one: branching supply networks.</b> A body has to deliver oxygen to every cell, which takes plumbing that reaches the whole volume. The plumbing itself occupies volume — too much and there is no room for anything else — while the exchange happens across surface area, and too little of that means nothing gets delivered. The two requirements pull against each other, and a branching fractal is precisely the solution.</p>
+<p>Work it out. Suppose each level doubles the number of tubes while length and radius each shrink to 2^(−1/3) ≈ 0.79 of their previous value:</p>
+<p>· <b>Volume</b> contributed per level = count × length × radius² ∝ 2 × 0.79 × 0.79² = 1, <em>unchanged</em>.<br/>
+· <b>Surface area</b> per level = count × length × radius ∝ 2 × 0.79 × 0.79 ≈ 1.26, <em>up 26% every level</em>.</p>
+<p>Stack up enough levels and the surface area becomes enormous while the volume stays under control. Human airways run about 23 levels from trachea to alveoli, and 1.26²³ ≈ 200. (That is the skeleton calculation only: real airways change their rules around level 17, where alveoli start appearing, so do not take the figure as a measurement — it gives the order of magnitude the rule implies.) Measured alveolar surface area runs to a hundred-odd square metres, packed into a few litres of chest. While we are here, a much-repeated line deserves correcting: the lung's surface is not "the size of a tennis court" — a singles court is 195 m².</p>
+<figure>
+<svg role="img" aria-label="A branching supply network: each level doubles in count and shrinks by a fixed ratio, so surface grows while per-level volume stays put" viewbox="0 0 720 292" xmlns="http://www.w3.org/2000/svg">
+<text x="360" y="26" text-anchor="middle" fill="#aba498" font-family="-apple-system,sans-serif" font-size="13">The same branching rule, six times over — one-dimensional tubes serving a three-dimensional volume</text>
+<line x1="180.0" y1="240.0" x2="180.0" y2="178.0" stroke="#9fbc7a" stroke-width="7.00" stroke-linecap="round"/>
+<line x1="180.0" y1="178.0" x2="158.6" y2="138.8" stroke="#8fb591" stroke-width="5.53" stroke-linecap="round"/>
+<line x1="158.6" y1="138.8" x2="131.6" y2="121.5" stroke="#7fada8" stroke-width="4.37" stroke-linecap="round"/>
+<line x1="131.6" y1="121.5" x2="108.5" y2="119.8" stroke="#74a8b4" stroke-width="3.45" stroke-linecap="round"/>
+<line x1="108.5" y1="119.8" x2="93.3" y2="126.8" stroke="#79a6d2" stroke-width="2.73" stroke-linecap="round"/>
+<line x1="93.3" y1="126.8" x2="86.1" y2="136.4" stroke="#8f9dd0" stroke-width="2.15" stroke-linecap="round"/>
+<line x1="86.1" y1="136.4" x2="84.9" y2="144.9" stroke="#a693cd" stroke-width="1.70" stroke-linecap="round"/>
+<line x1="86.1" y1="136.4" x2="78.3" y2="140.0" stroke="#a693cd" stroke-width="1.70" stroke-linecap="round"/>
+<line x1="93.3" y1="126.8" x2="81.4" y2="125.9" stroke="#8f9dd0" stroke-width="2.15" stroke-linecap="round"/>
+<line x1="81.4" y1="125.9" x2="73.5" y2="129.5" stroke="#a693cd" stroke-width="1.70" stroke-linecap="round"/>
+<line x1="81.4" y1="125.9" x2="74.1" y2="121.2" stroke="#a693cd" stroke-width="1.70" stroke-linecap="round"/>
+<line x1="108.5" y1="119.8" x2="94.4" y2="110.8" stroke="#79a6d2" stroke-width="2.73" stroke-linecap="round"/>
+<line x1="94.4" y1="110.8" x2="82.5" y2="110.0" stroke="#8f9dd0" stroke-width="2.15" stroke-linecap="round"/>
+<line x1="82.5" y1="110.0" x2="74.6" y2="113.6" stroke="#a693cd" stroke-width="1.70" stroke-linecap="round"/>
+<line x1="82.5" y1="110.0" x2="75.2" y2="105.3" stroke="#a693cd" stroke-width="1.70" stroke-linecap="round"/>
+<line x1="94.4" y1="110.8" x2="88.7" y2="100.3" stroke="#8f9dd0" stroke-width="2.15" stroke-linecap="round"/>
+<line x1="88.7" y1="100.3" x2="81.4" y2="95.6" stroke="#a693cd" stroke-width="1.70" stroke-linecap="round"/>
+<line x1="88.7" y1="100.3" x2="88.7" y2="91.7" stroke="#a693cd" stroke-width="1.70" stroke-linecap="round"/>
+<line x1="131.6" y1="121.5" x2="120.5" y2="101.2" stroke="#74a8b4" stroke-width="3.45" stroke-linecap="round"/>
+<line x1="120.5" y1="101.2" x2="106.4" y2="92.1" stroke="#79a6d2" stroke-width="2.73" stroke-linecap="round"/>
+<line x1="106.4" y1="92.1" x2="94.5" y2="91.3" stroke="#8f9dd0" stroke-width="2.15" stroke-linecap="round"/>
+<line x1="94.5" y1="91.3" x2="86.6" y2="94.9" stroke="#a693cd" stroke-width="1.70" stroke-linecap="round"/>
+<line x1="94.5" y1="91.3" x2="87.2" y2="86.6" stroke="#a693cd" stroke-width="1.70" stroke-linecap="round"/>
+<line x1="106.4" y1="92.1" x2="100.7" y2="81.6" stroke="#8f9dd0" stroke-width="2.15" stroke-linecap="round"/>
+<line x1="100.7" y1="81.6" x2="93.4" y2="77.0" stroke="#a693cd" stroke-width="1.70" stroke-linecap="round"/>
+<line x1="100.7" y1="81.6" x2="100.7" y2="73.0" stroke="#a693cd" stroke-width="1.70" stroke-linecap="round"/>
+<line x1="120.5" y1="101.2" x2="120.5" y2="84.5" stroke="#79a6d2" stroke-width="2.73" stroke-linecap="round"/>
+<line x1="120.5" y1="84.5" x2="114.7" y2="74.0" stroke="#8f9dd0" stroke-width="2.15" stroke-linecap="round"/>
+<line x1="114.7" y1="74.0" x2="107.4" y2="69.3" stroke="#a693cd" stroke-width="1.70" stroke-linecap="round"/>
+<line x1="114.7" y1="74.0" x2="114.7" y2="65.3" stroke="#a693cd" stroke-width="1.70" stroke-linecap="round"/>
+<line x1="120.5" y1="84.5" x2="126.2" y2="74.0" stroke="#8f9dd0" stroke-width="2.15" stroke-linecap="round"/>
+<line x1="126.2" y1="74.0" x2="126.2" y2="65.3" stroke="#a693cd" stroke-width="1.70" stroke-linecap="round"/>
+<line x1="126.2" y1="74.0" x2="133.5" y2="69.3" stroke="#a693cd" stroke-width="1.70" stroke-linecap="round"/>
+<line x1="158.6" y1="138.8" x2="158.6" y2="106.7" stroke="#7fada8" stroke-width="4.37" stroke-linecap="round"/>
+<line x1="158.6" y1="106.7" x2="147.5" y2="86.4" stroke="#74a8b4" stroke-width="3.45" stroke-linecap="round"/>
+<line x1="147.5" y1="86.4" x2="133.5" y2="77.4" stroke="#79a6d2" stroke-width="2.73" stroke-linecap="round"/>
+<line x1="133.5" y1="77.4" x2="121.5" y2="76.5" stroke="#8f9dd0" stroke-width="2.15" stroke-linecap="round"/>
+<line x1="121.5" y1="76.5" x2="113.7" y2="80.1" stroke="#a693cd" stroke-width="1.70" stroke-linecap="round"/>
+<line x1="121.5" y1="76.5" x2="114.2" y2="71.9" stroke="#a693cd" stroke-width="1.70" stroke-linecap="round"/>
+<line x1="133.5" y1="77.4" x2="127.7" y2="66.8" stroke="#8f9dd0" stroke-width="2.15" stroke-linecap="round"/>
+<line x1="127.7" y1="66.8" x2="120.5" y2="62.2" stroke="#a693cd" stroke-width="1.70" stroke-linecap="round"/>
+<line x1="127.7" y1="66.8" x2="127.7" y2="58.2" stroke="#a693cd" stroke-width="1.70" stroke-linecap="round"/>
+<line x1="147.5" y1="86.4" x2="147.5" y2="69.7" stroke="#79a6d2" stroke-width="2.73" stroke-linecap="round"/>
+<line x1="147.5" y1="69.7" x2="141.8" y2="59.2" stroke="#8f9dd0" stroke-width="2.15" stroke-linecap="round"/>
+<line x1="141.8" y1="59.2" x2="134.5" y2="54.5" stroke="#a693cd" stroke-width="1.70" stroke-linecap="round"/>
+<line x1="141.8" y1="59.2" x2="141.8" y2="50.5" stroke="#a693cd" stroke-width="1.70" stroke-linecap="round"/>
+<line x1="147.5" y1="69.7" x2="153.3" y2="59.2" stroke="#8f9dd0" stroke-width="2.15" stroke-linecap="round"/>
+<line x1="153.3" y1="59.2" x2="153.3" y2="50.5" stroke="#a693cd" stroke-width="1.70" stroke-linecap="round"/>
+<line x1="153.3" y1="59.2" x2="160.5" y2="54.5" stroke="#a693cd" stroke-width="1.70" stroke-linecap="round"/>
+<line x1="158.6" y1="106.7" x2="169.7" y2="86.4" stroke="#74a8b4" stroke-width="3.45" stroke-linecap="round"/>
+<line x1="169.7" y1="86.4" x2="169.7" y2="69.7" stroke="#79a6d2" stroke-width="2.73" stroke-linecap="round"/>
+<line x1="169.7" y1="69.7" x2="163.9" y2="59.2" stroke="#8f9dd0" stroke-width="2.15" stroke-linecap="round"/>
+<line x1="163.9" y1="59.2" x2="156.7" y2="54.5" stroke="#a693cd" stroke-width="1.70" stroke-linecap="round"/>
+<line x1="163.9" y1="59.2" x2="163.9" y2="50.5" stroke="#a693cd" stroke-width="1.70" stroke-linecap="round"/>
+<line x1="169.7" y1="69.7" x2="175.4" y2="59.2" stroke="#8f9dd0" stroke-width="2.15" stroke-linecap="round"/>
+<line x1="175.4" y1="59.2" x2="175.4" y2="50.5" stroke="#a693cd" stroke-width="1.70" stroke-linecap="round"/>
+<line x1="175.4" y1="59.2" x2="182.7" y2="54.5" stroke="#a693cd" stroke-width="1.70" stroke-linecap="round"/>
+<line x1="169.7" y1="86.4" x2="183.7" y2="77.4" stroke="#79a6d2" stroke-width="2.73" stroke-linecap="round"/>
+<line x1="183.7" y1="77.4" x2="189.5" y2="66.8" stroke="#8f9dd0" stroke-width="2.15" stroke-linecap="round"/>
+<line x1="189.5" y1="66.8" x2="189.5" y2="58.2" stroke="#a693cd" stroke-width="1.70" stroke-linecap="round"/>
+<line x1="189.5" y1="66.8" x2="196.7" y2="62.2" stroke="#a693cd" stroke-width="1.70" stroke-linecap="round"/>
+<line x1="183.7" y1="77.4" x2="195.7" y2="76.5" stroke="#8f9dd0" stroke-width="2.15" stroke-linecap="round"/>
+<line x1="195.7" y1="76.5" x2="202.9" y2="71.9" stroke="#a693cd" stroke-width="1.70" stroke-linecap="round"/>
+<line x1="195.7" y1="76.5" x2="203.5" y2="80.1" stroke="#a693cd" stroke-width="1.70" stroke-linecap="round"/>
+<line x1="180.0" y1="178.0" x2="201.4" y2="138.8" stroke="#8fb591" stroke-width="5.53" stroke-linecap="round"/>
+<line x1="201.4" y1="138.8" x2="201.4" y2="106.7" stroke="#7fada8" stroke-width="4.37" stroke-linecap="round"/>
+<line x1="201.4" y1="106.7" x2="190.3" y2="86.4" stroke="#74a8b4" stroke-width="3.45" stroke-linecap="round"/>
+<line x1="190.3" y1="86.4" x2="176.3" y2="77.4" stroke="#79a6d2" stroke-width="2.73" stroke-linecap="round"/>
+<line x1="176.3" y1="77.4" x2="164.3" y2="76.5" stroke="#8f9dd0" stroke-width="2.15" stroke-linecap="round"/>
+<line x1="164.3" y1="76.5" x2="156.5" y2="80.1" stroke="#a693cd" stroke-width="1.70" stroke-linecap="round"/>
+<line x1="164.3" y1="76.5" x2="157.1" y2="71.9" stroke="#a693cd" stroke-width="1.70" stroke-linecap="round"/>
+<line x1="176.3" y1="77.4" x2="170.5" y2="66.8" stroke="#8f9dd0" stroke-width="2.15" stroke-linecap="round"/>
+<line x1="170.5" y1="66.8" x2="163.3" y2="62.2" stroke="#a693cd" stroke-width="1.70" stroke-linecap="round"/>
+<line x1="170.5" y1="66.8" x2="170.5" y2="58.2" stroke="#a693cd" stroke-width="1.70" stroke-linecap="round"/>
+<line x1="190.3" y1="86.4" x2="190.3" y2="69.7" stroke="#79a6d2" stroke-width="2.73" stroke-linecap="round"/>
+<line x1="190.3" y1="69.7" x2="184.6" y2="59.2" stroke="#8f9dd0" stroke-width="2.15" stroke-linecap="round"/>
+<line x1="184.6" y1="59.2" x2="177.3" y2="54.5" stroke="#a693cd" stroke-width="1.70" stroke-linecap="round"/>
+<line x1="184.6" y1="59.2" x2="184.6" y2="50.5" stroke="#a693cd" stroke-width="1.70" stroke-linecap="round"/>
+<line x1="190.3" y1="69.7" x2="196.1" y2="59.2" stroke="#8f9dd0" stroke-width="2.15" stroke-linecap="round"/>
+<line x1="196.1" y1="59.2" x2="196.1" y2="50.5" stroke="#a693cd" stroke-width="1.70" stroke-linecap="round"/>
+<line x1="196.1" y1="59.2" x2="203.3" y2="54.5" stroke="#a693cd" stroke-width="1.70" stroke-linecap="round"/>
+<line x1="201.4" y1="106.7" x2="212.5" y2="86.4" stroke="#74a8b4" stroke-width="3.45" stroke-linecap="round"/>
+<line x1="212.5" y1="86.4" x2="212.5" y2="69.7" stroke="#79a6d2" stroke-width="2.73" stroke-linecap="round"/>
+<line x1="212.5" y1="69.7" x2="206.7" y2="59.2" stroke="#8f9dd0" stroke-width="2.15" stroke-linecap="round"/>
+<line x1="206.7" y1="59.2" x2="199.5" y2="54.5" stroke="#a693cd" stroke-width="1.70" stroke-linecap="round"/>
+<line x1="206.7" y1="59.2" x2="206.7" y2="50.5" stroke="#a693cd" stroke-width="1.70" stroke-linecap="round"/>
+<line x1="212.5" y1="69.7" x2="218.2" y2="59.2" stroke="#8f9dd0" stroke-width="2.15" stroke-linecap="round"/>
+<line x1="218.2" y1="59.2" x2="218.2" y2="50.5" stroke="#a693cd" stroke-width="1.70" stroke-linecap="round"/>
+<line x1="218.2" y1="59.2" x2="225.5" y2="54.5" stroke="#a693cd" stroke-width="1.70" stroke-linecap="round"/>
+<line x1="212.5" y1="86.4" x2="226.5" y2="77.4" stroke="#79a6d2" stroke-width="2.73" stroke-linecap="round"/>
+<line x1="226.5" y1="77.4" x2="232.3" y2="66.8" stroke="#8f9dd0" stroke-width="2.15" stroke-linecap="round"/>
+<line x1="232.3" y1="66.8" x2="232.3" y2="58.2" stroke="#a693cd" stroke-width="1.70" stroke-linecap="round"/>
+<line x1="232.3" y1="66.8" x2="239.5" y2="62.2" stroke="#a693cd" stroke-width="1.70" stroke-linecap="round"/>
+<line x1="226.5" y1="77.4" x2="238.5" y2="76.5" stroke="#8f9dd0" stroke-width="2.15" stroke-linecap="round"/>
+<line x1="238.5" y1="76.5" x2="245.8" y2="71.9" stroke="#a693cd" stroke-width="1.70" stroke-linecap="round"/>
+<line x1="238.5" y1="76.5" x2="246.3" y2="80.1" stroke="#a693cd" stroke-width="1.70" stroke-linecap="round"/>
+<line x1="201.4" y1="138.8" x2="228.4" y2="121.5" stroke="#7fada8" stroke-width="4.37" stroke-linecap="round"/>
+<line x1="228.4" y1="121.5" x2="239.5" y2="101.2" stroke="#74a8b4" stroke-width="3.45" stroke-linecap="round"/>
+<line x1="239.5" y1="101.2" x2="239.5" y2="84.5" stroke="#79a6d2" stroke-width="2.73" stroke-linecap="round"/>
+<line x1="239.5" y1="84.5" x2="233.8" y2="74.0" stroke="#8f9dd0" stroke-width="2.15" stroke-linecap="round"/>
+<line x1="233.8" y1="74.0" x2="226.5" y2="69.3" stroke="#a693cd" stroke-width="1.70" stroke-linecap="round"/>
+<line x1="233.8" y1="74.0" x2="233.8" y2="65.3" stroke="#a693cd" stroke-width="1.70" stroke-linecap="round"/>
+<line x1="239.5" y1="84.5" x2="245.3" y2="74.0" stroke="#8f9dd0" stroke-width="2.15" stroke-linecap="round"/>
+<line x1="245.3" y1="74.0" x2="245.3" y2="65.3" stroke="#a693cd" stroke-width="1.70" stroke-linecap="round"/>
+<line x1="245.3" y1="74.0" x2="252.6" y2="69.3" stroke="#a693cd" stroke-width="1.70" stroke-linecap="round"/>
+<line x1="239.5" y1="101.2" x2="253.6" y2="92.1" stroke="#79a6d2" stroke-width="2.73" stroke-linecap="round"/>
+<line x1="253.6" y1="92.1" x2="259.3" y2="81.6" stroke="#8f9dd0" stroke-width="2.15" stroke-linecap="round"/>
+<line x1="259.3" y1="81.6" x2="259.3" y2="73.0" stroke="#a693cd" stroke-width="1.70" stroke-linecap="round"/>
+<line x1="259.3" y1="81.6" x2="266.6" y2="77.0" stroke="#a693cd" stroke-width="1.70" stroke-linecap="round"/>
+<line x1="253.6" y1="92.1" x2="265.5" y2="91.3" stroke="#8f9dd0" stroke-width="2.15" stroke-linecap="round"/>
+<line x1="265.5" y1="91.3" x2="272.8" y2="86.6" stroke="#a693cd" stroke-width="1.70" stroke-linecap="round"/>
+<line x1="265.5" y1="91.3" x2="273.4" y2="94.9" stroke="#a693cd" stroke-width="1.70" stroke-linecap="round"/>
+<line x1="228.4" y1="121.5" x2="251.5" y2="119.8" stroke="#74a8b4" stroke-width="3.45" stroke-linecap="round"/>
+<line x1="251.5" y1="119.8" x2="265.6" y2="110.8" stroke="#79a6d2" stroke-width="2.73" stroke-linecap="round"/>
+<line x1="265.6" y1="110.8" x2="271.3" y2="100.3" stroke="#8f9dd0" stroke-width="2.15" stroke-linecap="round"/>
+<line x1="271.3" y1="100.3" x2="271.3" y2="91.7" stroke="#a693cd" stroke-width="1.70" stroke-linecap="round"/>
+<line x1="271.3" y1="100.3" x2="278.6" y2="95.6" stroke="#a693cd" stroke-width="1.70" stroke-linecap="round"/>
+<line x1="265.6" y1="110.8" x2="277.5" y2="110.0" stroke="#8f9dd0" stroke-width="2.15" stroke-linecap="round"/>
+<line x1="277.5" y1="110.0" x2="284.8" y2="105.3" stroke="#a693cd" stroke-width="1.70" stroke-linecap="round"/>
+<line x1="277.5" y1="110.0" x2="285.4" y2="113.6" stroke="#a693cd" stroke-width="1.70" stroke-linecap="round"/>
+<line x1="251.5" y1="119.8" x2="266.7" y2="126.8" stroke="#79a6d2" stroke-width="2.73" stroke-linecap="round"/>
+<line x1="266.7" y1="126.8" x2="278.6" y2="125.9" stroke="#8f9dd0" stroke-width="2.15" stroke-linecap="round"/>
+<line x1="278.6" y1="125.9" x2="285.9" y2="121.2" stroke="#a693cd" stroke-width="1.70" stroke-linecap="round"/>
+<line x1="278.6" y1="125.9" x2="286.5" y2="129.5" stroke="#a693cd" stroke-width="1.70" stroke-linecap="round"/>
+<line x1="266.7" y1="126.8" x2="273.9" y2="136.4" stroke="#8f9dd0" stroke-width="2.15" stroke-linecap="round"/>
+<line x1="273.9" y1="136.4" x2="281.7" y2="140.0" stroke="#a693cd" stroke-width="1.70" stroke-linecap="round"/>
+<line x1="273.9" y1="136.4" x2="275.1" y2="144.9" stroke="#a693cd" stroke-width="1.70" stroke-linecap="round"/>
+<text x="180" y="262" text-anchor="middle" fill="#787268" font-family="-apple-system,sans-serif" font-size="11">each level: count ×2, length and radius ×0.79 each</text>
+<text x="400" y="58" fill="#aba498" font-family="-apple-system,sans-serif" font-size="12">so with each extra level —</text>
+<rect x="400" y="70" width="284" height="46" rx="8" fill="#e0895e" fill-opacity="0.07" stroke="#e0895e" stroke-opacity="0.32"/>
+<text x="414" y="90" fill="#e0895e" font-family="-apple-system,sans-serif" font-size="12.5">total surface area</text>
+<text x="670" y="90" text-anchor="end" fill="#e0895e" font-family="SF Mono,monospace" font-size="13.5">×1.26 per level</text>
+<rect x="400" y="130" width="284" height="46" rx="8" fill="#63b3a6" fill-opacity="0.07" stroke="#63b3a6" stroke-opacity="0.32"/>
+<text x="414" y="150" fill="#63b3a6" font-family="-apple-system,sans-serif" font-size="12.5">volume added per level</text>
+<text x="670" y="150" text-anchor="end" fill="#63b3a6" font-family="SF Mono,monospace" font-size="13.5">unchanged</text>
+<text x="400" y="206" fill="#aba498" font-family="-apple-system,sans-serif" font-size="12">Human airways: about 23 levels of branching.</text>
+<text x="400" y="232" fill="#d9b45f" font-family="SF Mono,monospace" font-size="13.5">1.26²³ ≈ 200× the surface area</text>
+<text x="400" y="254" fill="#787268" font-family="-apple-system,sans-serif" font-size="11.5">The volume still fits in a chest: this rule prises</text>
+<text x="400" y="272" fill="#787268" font-family="-apple-system,sans-serif" font-size="11.5">area and volume apart. That is what a fractal buys.</text>
+</svg>
+<figcaption>Repeat one branching rule and surface area comes apart from volume: the area can grow, the volume need not.</figcaption>
+</figure>
+<p><b>Route two: criticality.</b> Topics 16, 17 and 18 kept returning to one sentence — at a critical point a system has no characteristic scale. The immediate geometric consequence of that sentence is a fractal. The giant cluster that has just spanned a percolation lattice <a class="reflink" href="ref-percolation.en.html">→ ref · Percolation</a> has a fractal dimension known exactly in two dimensions: 91/48 ≈ 1.90. It fills the plane in a way that sits between a line and a surface, riddled with holes that have holes in them. Its counterpart in the world of distributions is the power law <a class="reflink" href="ref-power-law.en.html">→ ref · Identifying (and misidentifying) power laws</a>. So any system that climbs to criticality on its own — the Topic 18 family — grows fractal geometry as a matter of course. The two facts are not neighbours; they are one fact seen from two sides.</p>
+<p><b>Route three: the shaping process itself has no preferred scale.</b> Erosion, fracture, deposition, water splitting around obstacles — these follow the same rules at every size. What water does in a small gully is what water does in a large valley, only smaller. If the process that makes the shape does not recognise scale, the shape it makes will not have a characteristic one.</p>
+<p>The three routes work by entirely different mechanisms: optimisation, criticality, and scale-free process. Yet they produce the same family of shapes. That explains why fractals are so common — and, in the same breath, why "this thing is a fractal" carries almost no information. It does not tell you which route was taken, and the three routes predict quite different things.</p>
+<div class="crossx-inline">
+🌀 <b>Engineering &amp; the history of technology · when the bottleneck is the interface, do not build it bigger</b>　Fuel-cell catalyst layers, porous battery electrodes, the fins on a CPU heatsink, the pores in activated carbon — all of them are doing one thing: packing interface into a fixed volume, the industrial version of the lung calculation. It hands you a test you can apply today: when your bottleneck is what happens on the contact surface rather than how much fits inside, the right direction for expansion is not a bigger unit but a more crumpled boundary. The converse holds too — if crumpling the boundary buys you nothing, your bottleneck was never at the interface, and that money went to the wrong place.
+</div>
+
+<h2><span class="n">05</span>Where This Breaks Down</h2>
+<p class="lead">Fractal is the single most abused word in complexity science. It is pretty, it is easy to grasp, and you can "see" it everywhere — which is exactly where the trouble starts.</p>
+<p><b>First, fractals in nature are short.</b> Mathematical fractals span infinitely many scales; natural ones do not. The self-similarity of blood vessels stops downward at the capillary (the <b>inner cutoff</b>) and upward at the whole circulatory system (the <b>outer cutoff</b>). The real question is how narrow that window usually is. In 1998 Avnir and colleagues did something rather unkind in Science: they went through the papers in the Physical Review journals reporting fractals in nature and tabulated, one by one, the range of scales actually used. The average was about 1.3 orders of magnitude.</p>
+<figure>
+<svg role="img" aria-label="The scaling window: a log-log curve is straight only in the middle, cut off at both ends" viewbox="0 0 720 310" xmlns="http://www.w3.org/2000/svg">
+<text x="360" y="26" text-anchor="middle" fill="#aba498" font-family="-apple-system,sans-serif" font-size="13">Natural fractals have a top and a bottom — real self-similarity holds only in the middle stretch</text>
+<line x1="96" y1="236" x2="648" y2="236" stroke="rgba(255,255,255,0.18)" stroke-width="1.4"/>
+<line x1="96" y1="236" x2="96" y2="62" stroke="rgba(255,255,255,0.18)" stroke-width="1.4"/>
+<path d="M96.0,236.0 L98.8,236.0 L101.5,236.0 L104.3,235.9 L107.0,235.9 L109.8,235.8 L112.6,235.8 L115.3,235.7 L118.1,235.6 L120.8,235.5 L123.6,235.3 L126.4,235.2 L129.1,235.0 L131.9,234.9 L134.6,234.7 L137.4,234.5 L140.2,234.3 L142.9,234.1 L145.7,233.8 L148.4,233.6 L151.2,233.3 L154.0,233.1 L156.7,232.8 L159.5,232.5 L162.2,232.2 L165.0,231.8 L167.8,231.5 L170.5,231.1 L173.3,230.8 L176.0,230.4 L178.8,230.0 L181.6,229.6 L184.3,229.2 L187.1,228.8 L189.8,228.3 L192.6,227.8 L195.4,227.4 L198.1,226.9 L200.9,226.4 L203.6,225.9 L206.4,225.3 L209.2,224.8 L211.9,224.3 L214.7,223.7 L217.4,223.1 L220.2,222.5 L223.0,221.9 L225.7,221.3 L228.5,220.7 L231.2,220.0 L234.0,219.4 L236.8,218.7 L239.5,218.0 L242.3,216.6 L245.0,215.3 L247.8,213.9 L250.6,212.5 L253.3,211.2 L256.1,209.8 L258.8,208.5 L261.6,207.1 L264.4,205.7 L267.1,204.4 L269.9,203.0 L272.6,201.6 L275.4,200.3 L278.2,198.9 L280.9,197.5 L283.7,196.2 L286.4,194.8 L289.2,193.5 L292.0,192.1 L294.7,190.7 L297.5,189.4 L300.2,188.0 L303.0,186.6 L305.8,185.3 L308.5,183.9 L311.3,182.5 L314.0,181.2 L316.8,179.8 L319.6,178.5 L322.3,177.1 L325.1,175.7 L327.8,174.4 L330.6,173.0 L333.4,171.6 L336.1,170.3 L338.9,168.9 L341.6,167.5 L344.4,166.2 L347.2,164.8 L349.9,163.5 L352.7,162.1 L355.4,160.7 L358.2,159.4 L361.0,158.0 L363.7,156.6 L366.5,155.3 L369.2,153.9 L372.0,152.5 L374.8,151.2 L377.5,149.8 L380.3,148.5 L383.0,147.1 L385.8,145.7 L388.6,144.4 L391.3,143.0 L394.1,141.6 L396.8,140.3 L399.6,138.9 L402.4,137.5 L405.1,136.2 L407.9,134.8 L410.6,133.5 L413.4,132.1 L416.2,130.7 L418.9,129.4 L421.7,128.0 L424.4,126.6 L427.2,125.3 L430.0,123.9 L432.7,122.5 L435.5,121.2 L438.2,119.8 L441.0,118.5 L443.8,117.1 L446.5,115.7 L449.3,114.4 L452.0,113.0 L454.8,111.6 L457.6,110.3 L460.3,108.9 L463.1,107.5 L465.8,106.2 L468.6,104.8 L471.4,103.5 L474.1,102.1 L476.9,100.7 L479.6,99.4 L482.4,98.0 L485.2,97.3 L487.9,96.6 L490.7,95.9 L493.4,95.2 L496.2,94.5 L499.0,93.8 L501.7,93.2 L504.5,92.5 L507.2,91.9 L510.0,91.3 L512.8,90.7 L515.5,90.1 L518.3,89.5 L521.0,88.9 L523.8,88.4 L526.6,87.8 L529.3,87.3 L532.1,86.8 L534.8,86.3 L537.6,85.8 L540.4,85.3 L543.1,84.8 L545.9,84.4 L548.6,83.9 L551.4,83.5 L554.2,83.1 L556.9,82.7 L559.7,82.3 L562.4,81.9 L565.2,81.5 L568.0,81.1 L570.7,80.8 L573.5,80.5 L576.2,80.1 L579.0,79.8 L581.8,79.5 L584.5,79.2 L587.3,79.0 L590.0,78.7 L592.8,78.4 L595.6,78.2 L598.3,78.0 L601.1,77.8 L603.8,77.6 L606.6,77.4 L609.4,77.2 L612.1,77.0 L614.9,76.9 L617.6,76.7 L620.4,76.6 L623.2,76.5 L625.9,76.4 L628.7,76.3 L631.4,76.2 L634.2,76.2 L637.0,76.1 L639.7,76.1 L642.5,76.0 L645.2,76.0 L648.0,76.0" fill="none" stroke="#a693cd" stroke-width="2.4"/>
+<line x1="214" y1="225" x2="508" y2="91" stroke="#d9b45f" stroke-width="1.4" stroke-dasharray="5 5"/>
+<text x="309" y="86" text-anchor="middle" fill="#d9b45f" font-family="SF Mono,monospace" font-size="12.5">only this slope is the dimension</text>
+<line x1="240" y1="58" x2="240" y2="236" stroke="#cd7f9b" stroke-width="1.2" stroke-dasharray="3 4" opacity="0.75"/>
+<line x1="482" y1="58" x2="482" y2="236" stroke="#cd7f9b" stroke-width="1.2" stroke-dasharray="3 4" opacity="0.75"/>
+<text x="240" y="52" text-anchor="middle" fill="#cd7f9b" font-family="SF Mono,monospace" font-size="11.5">inner cutoff</text>
+<text x="482" y="52" text-anchor="middle" fill="#cd7f9b" font-family="SF Mono,monospace" font-size="11.5">outer cutoff</text>
+<line x1="240" y1="258" x2="482" y2="258" stroke="#9fbc7a" stroke-width="1.6"/>
+<line x1="240" y1="252" x2="240" y2="264" stroke="#9fbc7a" stroke-width="1.6"/>
+<line x1="482" y1="252" x2="482" y2="264" stroke="#9fbc7a" stroke-width="1.6"/>
+<text x="361" y="280" text-anchor="middle" fill="#9fbc7a" font-family="-apple-system,sans-serif" font-size="12">In published work this window averages only about 1.3 orders of magnitude</text>
+<text x="372" y="304" text-anchor="middle" fill="#8d867b" font-family="-apple-system,sans-serif" font-size="11">scale of observation (log) →</text>
+<text x="90" y="38" fill="#8d867b" font-family="-apple-system,sans-serif" font-size="11">amount of structure counted (log)</text>
+</svg>
+<figcaption>Fractals in nature sit between two cutoffs. Only that middle stretch carries a dimension you can read.</figcaption>
+</figure>
+<p>To put 1.3 orders of magnitude in perspective: that is from 1 to a bit past 20 on the horizontal axis. Over a stretch that short, a straight line and a gently bending curve are indistinguishable. So a great many "X is fractal" conclusions amount to a line fitted over a small window and then carried out to places it has never been.</p>
+<p><b>Second, dimension is not a fingerprint.</b> Two figures with the same dimension can have nothing else in common — an unremarkable fact that got overlooked in a famous authentication case. In 1999 Richard Taylor and colleagues reported in Nature that Jackson Pollock's drip paintings have a stable fractal dimension, usable for telling real from fake, and the method duly entered authentication practice. In 2006 Katherine Jones-Smith and Harsh Mathur replied in the same journal: they knocked out a few sketches made of stars and scribbles, and the doodles passed the same fractal test. The measure was too coarse to separate Pollock from an idle hand. Fractal analysis of a disputed group of Pollock attributions ran into controversy over the same period.</p>
+<p><b>Third, and most important: fractal is a description, not an explanation.</b> Saying "trees are fractal" explains nothing; it restates "the branching of a tree looks similar at several scales" in fewer syllables. The explanations are the three routes in section 4 — supply-network optimisation, criticality, or a scale-free shaping process — and they make quite different testable predictions. The first predicts a radius ratio near 2^(−1/3); the second predicts power-law fluctuations and critical slowing down in the same system; the third predicts nothing at all and merely says the shape will come out that way. If a sentence loses its force once you swap in "this thing looks about the same at several scales", it never had any.</p>
+<div class="decide">
+<span class="lb">🎯 DECISION LINE</span>
+<p>Treat "this is fractal" as a hypothesis awaiting a test, never as a conclusion. Before it goes into any finding, supply three things: (1) the upper and lower bounds of the scaling window, in orders of magnitude; (2) which dimension and which fit; (3) one prediction that only holds if it really is fractal — for instance "double the resolution and I will count 2^D times as much" — and then go and count. If you cannot assemble all three, delete the word from the sentence and see whether what remains still stands up.</p>
+</div>
+
+<div class="bigcat">
+<h3>🎒 In Practice · BigCat</h3>
+<ol>
+<li><span class="dm">Parenting</span>Asking one more time every evening whether today's work got done, and a term later everyone is tired and nothing is obviously better. That is usually not a patience problem, it is the wrong ruler: at the scale of a day, nearly everything you measure is noise — feeling unwell, a friend needed something, a bad mood. The thing you want to see only takes shape at the scale of a month. What to change: stop the daily check and replace it with a monthly behavioural indicator you can actually observe (how many times this month did they raise a question of their own, look something up unprompted), and hold yourself to a rule — adjustment decisions only at the monthly scale, daily scale is for company. Test: watch the direction of that indicator for three months running; if the direction is right, add no daily intervention.</li>
+<li><span class="dm">Practice &amp; temperament</span>Scoring the sit right after getting up from it (good and settled today / scattered today), then scoring it again tomorrow — that is measuring at the scale of a day something that only has structure at the scale of a year. And as with the coastline, change the ruler and you change the answer, with no ruler being the true one. Worse, the act of scoring feeds back into the next sit. What to change: drop the post-sit self-assessment and ask one question a month about something <b>off</b> the cushion — this month, when that thing that always sets you off came round, was there a pause before you moved. Put the indicator outside the cushion and it measures effect rather than sensation.</li>
+<li><span class="dm">Engineering &amp; system design</span>The latency chart you watch on call is a five-minute rolling mean; it is flat all week and the complaints keep arriving. The data is not wrong — the resolution has ironed out the spikes, the way a 100 km ruler makes any coast look straight. What to change: label every dashboard with its sampling window, and require two windows two orders of magnitude apart to be kept side by side (seconds and minutes, say); when the two disagree, do not touch the code until you have worked out which window users actually live in. And one hard rule on top: no "average" metric goes into an incident report without the worst 1% for the same interval sitting next to it.</li>
+</ol>
+</div>
+
+<div class="crossx">
+<h3>🌀 Crossings</h3>
+<ul>
+<li><b>Art &amp; literature · Guo Xi's "three distances"</b>: In the Northern Song, Guo Xi set down three ways of looking at a mountain in <i>Linquan Gaozhi</i>: "looking up at the peak from the foot of the mountain is high distance; peering past the mountain's front to its back is deep distance; gazing from a near mountain toward a far one is level distance." A handscroll carries all three at once, and the viewer's vantage point moves as the scroll unrolls. Several of this topic's mechanisms hold simultaneously in that practice: no characteristic scale (the picture never specifies where you are supposed to stand), statistical self-similarity (the texture strokes that render a nearby rock and a distant peak share the same statistical temperament, differing only in density), and an outer cutoff (the physical length of the scroll). Together they yield something you would not otherwise see: Western fixed-point perspective demands a particular standing position because it locks one scale into the picture — and it is precisely that lock that makes a picture measurable, which is why perspective later grew into cartography and engineering drawing. Landscape painting gave the lock up, and the price is exactly that you can measure nothing with it; what it delivers is not the size of a space but the scaling relations within it. <b>Where this does not hold</b>: the three distances are a doctrine about viewing and composition — Guo Xi is describing how a person walks into a painting, not how a form is generated. The repetition in texture strokes comes from transmitted convention, a tradition executed by a human hand, not a recursive rule acting on its own output. Reading it as "landscape painting is a fractal algorithm" mistakes a tradition for a piece of mathematics. What travels is the claim that there is no uniquely correct viewing scale; the geometry does not.</li>
+<li><b>Economics &amp; institutions · multiplying daily volatility by the square root of T</b>: Risk management has a conversion nobody thinks twice about — for the risk over ten days, take one-day volatility and multiply by √10. The ten-day value at risk (VaR) under the Basel framework is derived from one-day data in exactly this way. The conversion holds if daily returns are uncorrelated and have finite variance — that is, if the scaling exponent is exactly 1/2. Two of this topic's mechanisms together show that this premise is <em>assumed</em> rather than <em>measured</em>: financial series display statistical self-similarity across time scales (Mandelbrot reported as much studying cotton prices in 1963), and the scaling exponent of a self-similar series is generally not 1/2. Let the exponent drift and √T drifts systematically with it. The resulting action is concrete: estimate the scaling exponent on your own data before converting, and replace √T with T raised to that exponent. <b>Where this does not hold</b>: the scaling window in financial data is itself narrow — the high-frequency end is contaminated by spreads and matching-engine artefacts, the low-frequency end runs out of sample, and what is left in between is often under two orders of magnitude. So the crossing buys you a warning (do not treat √T as a law of nature), not a better model. Swapping a wrong 0.5 for a badly estimated exponent may only relocate the error.</li>
+<li><b>Philosophy of science · the thorn fractals put into "levels"</b>: Topic 3 covered Herbert Simon's near-decomposability — complex systems are necessarily hierarchical, strongly coupled within modules and weakly coupled between them, so find a system's natural seams before you take it apart. Fractals are a counterexample to that view, and a mechanistic one: a scale-invariant structure has no natural levels, because the very idea of a level requires a characteristic scale to separate inside from outside, and scale invariance says there is no such scale. From which a usable test follows: to know whether a system can be decomposed into modules, look at its scaling spectrum first — a system with a clear peak (a characteristic scale) has seams; a flat one is equally hard to cut anywhere, which is telling you to change method rather than change the cut. <b>Where this does not hold</b> — and here the failure is the good news from section 5: real self-similarity spans only an order of magnitude or two, and the cutoffs are themselves characteristic scales. The inner and outer cutoffs <em>are</em> the seams. Fractals do not abolish hierarchy; they tell you the seams are not in the middle, they are at the two ends.</li>
+</ul>
+</div>
+
+<div class="thinking">
+<h3>Going Deeper</h3>
+<details><summary>If a system's scaling window is only one order of magnitude wide, is it still meaningful to call it fractal?</summary><p>Yes, but the meaning shrinks to one very specific sentence: "within this one order of magnitude I can describe it with a single set of parameters." That is still useful — it means you can interpolate across that range. It supports no inference outside the window, least of all "so the same thing happens at larger scales". The way to check is to ask: if I widened the window by another half an order of magnitude, would the conclusion flip? If it would, the conclusion was a product of the window.</p></details>
+<details><summary>Two shapes with the same fractal dimension can look nothing alike. What is the number measuring, then?</summary><p>The rate at which detail accumulates as resolution improves, and nothing else. That rate is a summary statistic of the shape, in the way that mean height is a summary statistic of a crowd — knowing the mean height tells you nothing about what the crowd looks like. So dimension is suited to <em>comparison</em> (which of these objects, measured the same way over the same window, is rougher) and not to <em>identification</em>. The Pollock case stepped over exactly that line: a comparative quantity pressed into service as an identifier.</p></details>
+<details><summary>Why has evolution invented fractals over and over while human engineering rarely uses them?</summary><p>Part of it is how things get made. A fractal structure has to be grown recursively, and human manufacturing has long meant machining parts and then assembling them — assembly does not recurse. Additive manufacturing loosens that constraint, which is why fractal-ish structures (lattices, porous media, branching heatsinks) have only recently started appearing in engineering. The other part is maintainability: a fractal structure has no natural seams, so when it fails you cannot swap a part out. Evolution does not care about replacing parts; engineering does.</p></details>
+<details><summary>Are power laws and fractals the same thing?</summary><p>They are one property showing up in two kinds of object: a power law says a <em>distribution</em> keeps its shape when you stretch the horizontal axis, a fractal says a <em>shape</em> keeps its appearance when you magnify it. They frequently occur together — critical systems give you both — but not necessarily. A shape can be fractal while some of its statistics are not power-law distributed, and the reverse holds too. Finding one does not license assuming the other; that needs checking separately.</p></details>
+<details><summary>When scale invariance breaks, what usually breaks it?</summary><p>Almost always some physical smallest unit or some boundary. Downward it is the size of the stuff the thing is made of — a cell, a grain of sand, a pixel. Upward it is the size of the whole system — an organ, a catchment, the total size of a market. That makes finding the cutoffs a practical exercise: ask what the smallest indivisible thing in this system is, and what the largest container is. Quote those two numbers and the width of the scaling window is settled, and with it how much room this language has left here.</p></details>
+</div>
+
+<div class="refs">
+<h3>Further Reading</h3>
+<ul>
+<li>Benoit Mandelbrot, <a href="https://doi.org/10.1126/science.156.3775.636">How Long Is the Coast of Britain? Statistical Self-Similarity and Fractional Dimension</a> (Science, 1967 — the paper itself)</li>
+<li><a href="https://en.wikipedia.org/wiki/Coastline_paradox">The coastline paradox</a> (source of the CIA and Ordnance Survey figures)</li>
+<li><a href="https://en.wikipedia.org/wiki/List_of_fractals_by_Hausdorff_dimension">List of fractals by Hausdorff dimension</a> (where the usual coastline values live)</li>
+<li>Avnir, Biham, Lidar &amp; Malcai, <a href="https://doi.org/10.1126/science.279.5347.39">Is the Geometry of Nature Fractal?</a> (Science, 1998 — the 1.3-orders-of-magnitude survey)</li>
+<li>Taylor, Micolich &amp; Jonas, <a href="https://doi.org/10.1038/20833">Fractal analysis of Pollock's drip paintings</a> (Nature, 1999)</li>
+<li>Jones-Smith &amp; Mathur, <a href="https://doi.org/10.1038/nature05398">Fractal analysis: Revisiting Pollock's drip paintings</a> (Nature, 2006 — the rebuttal)</li>
+<li>Goldberger et al., <a href="https://doi.org/10.1073/pnas.012579499">Fractal dynamics in physiology: Alterations with disease and aging</a> (PNAS, 2002)</li>
+<li>West, Brown &amp; Enquist, <a href="https://doi.org/10.1126/science.276.5309.122">A General Model for the Origin of Allometric Scaling Laws in Biology</a> (Science, 1997 — the full version of the branching calculation)</li>
+<li><a href="https://en.wikipedia.org/wiki/Minkowski%E2%80%93Bouligand_dimension">Box-counting dimension</a> (definition and computational detail)</li>
+<li><a href="https://en.wikipedia.org/wiki/Species%E2%80%93area_relationship">The species-area relationship</a> (S ∝ A^z and the usual values of z)</li>
+</ul>
+</div>
+<footer>BigCat · Complexity Science · <a href="index.en.html">← All Topics</a></footer>
+</div>
+<script defer="" src="https://hub.cissychen.com/comments.js"></script>
+<script defer="" src="https://hub.cissychen.com/search.js"></script>
+<script defer="" src="https://hub.cissychen.com/index-button.js"></script>
+<script defer="" src="https://hub.cissychen.com/i18n-tts.js"></script>
+<script defer="" src="https://hub.cissychen.com/lightbox.js"></script>
+</body></html>

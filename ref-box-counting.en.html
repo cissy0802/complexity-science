@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+
+<html lang="en"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Box-Counting Dimension · Reference · Complexity Science</title>
+<style>
+
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,"SF Pro Display","Noto Sans SC",sans-serif;color:#e4ded5;line-height:1.85;min-height:100vh;
+  background:radial-gradient(1100px 620px at 12% -6%,rgba(99,179,166,0.09),transparent 62%),radial-gradient(950px 700px at 100% 2%,rgba(166,147,205,0.08),transparent 58%),linear-gradient(168deg,#100f0d 0%,#15161b 48%,#0a0a0c 100%);background-attachment:fixed}
+.wrap{max-width:720px;margin:0 auto;padding:30px 22px 90px}
+header{padding:52px 0 8px;border-bottom:1px solid rgba(255,255,255,0.07);margin-bottom:32px}
+.rtag{font-family:"SF Mono",Menlo,monospace;font-size:0.72rem;font-weight:700;letter-spacing:2px;color:#63b3a6;border:1px solid rgba(99,179,166,0.4);background:rgba(99,179,166,0.07);padding:3px 11px;border-radius:20px}
+h1{font-size:2.15rem;font-weight:800;line-height:1.2;margin:20px 0 0;color:#f0eae0}
+h1 .h1en{display:block;font-size:0.42em;font-weight:600;letter-spacing:2.5px;color:#847d72;margin-top:11px}
+.sub{font-size:0.98rem;color:#aba498;margin-top:12px}
+.meta{font-family:"SF Mono",Menlo,monospace;font-size:0.75rem;color:#57524b;margin-top:16px;letter-spacing:1px}
+h2{font-size:1.25rem;font-weight:700;color:#e9e3d9;margin:44px 0 10px}
+h2 .n{font-family:"SF Mono",Menlo,monospace;font-size:0.8rem;color:#63b3a6;display:block;margin-bottom:5px;letter-spacing:2px}
+.he{font-size:0.68em;color:#8d867b;font-weight:500;letter-spacing:0}
+p{margin-bottom:16px}
+b,strong{color:#f0eae0;font-weight:600}
+em{color:#d9b45f;font-style:normal;font-weight:500}
+.rule{border:1px solid rgba(99,179,166,0.3);background:rgba(99,179,166,0.05);border-radius:12px;padding:16px 20px;margin:22px 0;font-size:0.94rem;color:#d5cdc1}
+.rule ol{padding-left:20px;margin:0}
+.rule li{margin-bottom:7px}
+.rule li:last-child{margin-bottom:0}
+figure{margin:28px 0}
+figure svg{display:block;width:100%;height:auto;border-radius:12px;background:rgba(255,255,255,0.018);border:1px solid rgba(255,255,255,0.06)}
+figcaption{font-size:0.82rem;color:#787268;margin-top:10px;text-align:center;line-height:1.6}
+.cant{border:1px solid rgba(205,127,155,0.36);background:rgba(205,127,155,0.05);border-radius:12px;padding:18px 21px;margin:26px 0 10px}
+.cant h3{font-size:1rem;color:#cd7f9b;margin-bottom:12px}
+.cant ul{list-style:none;padding:0}
+.cant li{margin-bottom:13px;font-size:0.93rem;color:#d5cdc1;line-height:1.76}
+.cant li:last-child{margin-bottom:0}
+.cant li b{color:#cd7f9b}
+.refs{margin:40px 0 10px}
+.refs h3{font-size:1rem;color:#79a6d2;margin-bottom:12px}
+.refs ul{list-style:none;padding:0}
+.refs li{margin-bottom:9px;font-size:0.89rem;color:#8d867b;line-height:1.7}
+.refs a{color:#79a6d2;text-decoration:none;border-bottom:1px solid rgba(121,166,210,0.3)}
+.refs a:hover{color:#a6c4e2}
+footer{text-align:center;padding:52px 0 10px;font-size:0.78rem;color:#57524b;font-family:"SF Mono",Menlo,monospace;border-top:1px solid rgba(255,255,255,0.06);margin-top:46px}
+footer a{color:#79a6d2;text-decoration:none}
+@media(max-width:600px){h1{font-size:1.7rem}.wrap{padding:24px 16px 60px}}
+
+</style></head><body>
+<div class="wrap">
+<header>
+<span class="rtag">REF · METHOD</span>
+<h1>Box-Counting Dimension</h1>
+<p class="sub">Turning "how rough is it" into a number somebody else can check</p>
+<p class="meta">Cited from: Topic 32, Scale Invariance and Fractals</p>
+</header>
+<h2><span class="n">01</span>The Question It Poses</h2>
+<p>"This coast is more ragged than that one." "This material is more porous." "The vessels on this scan are sparser." You can see all of these at a glance and say almost nothing about what you are seeing. Classical geometry is no help: in the Euclidean scheme any curve has dimension 1 no matter how many turns it takes, and any surface has dimension 2 no matter how many holes it carries. Roughness falls straight through that language.</p>
+<p>Box counting asks: <b>can we build a quantity that returns 1 for a smooth curve, 2 for something that fills the plane, and something in between for things in between?</b> And it must be computable from a real photograph or a real map, with no prior knowledge of how the figure was generated. That last condition is the entire reason it beats the self-similarity recipe (magnify by k, get N copies): the recipe needs the generating rule, and in practice all you have is a picture.</p>
+<h2><span class="n">02</span>The Rules</h2>
+<div class="rule">
+<ol>
+<li>Lay the figure over a grid of boxes of side <em>ε</em>.</li>
+<li>Count how many boxes the figure <b>touches</b> — touching counts as 1, no matter how much of the box is covered. Call it <em>N(ε)</em>.</li>
+<li>Shrink <em>ε</em> (halving is common, or dividing by a fixed factor) and return to step 2, building up a series of (ε, N(ε)) pairs.</li>
+<li>Plot log(1/ε) on the horizontal axis against log N(ε) on the vertical.</li>
+<li>Take the slope of the <b>straight portion</b> of that plot. That is the box-counting dimension <em>D</em>. Formally, D is the limit of log N(ε) ÷ log(1/ε) as ε goes to zero.</li>
+</ol>
+</div>
+<p>The words "straight portion" in step 5 are the heart of the method and the step most often skipped. Real data always bends at both ends of the log-log plot: when boxes approach the size of the whole figure, N flattens out; when they approach the pixel size of the image (or the grain size of the material), you are counting your resolution rather than the shape. <b>Only the middle stretch carries a slope, and a report has to state where that stretch starts and ends.</b></p>
+<h2><span class="n">03</span>What You See When It Runs</h2>
+<p>Calibrate first on three figures whose answers are known: a straight diagonal (should give 1), a filled square (should give 2), and a Koch curve (exactly log4÷log3 ≈ 1.26).</p>
+<figure>
+<svg role="img" aria-label="One grid laid over a diagonal line, a filled square and a Koch curve, each growing its box count at a different rate" viewbox="0 0 720 338" xmlns="http://www.w3.org/2000/svg">
+<text x="360" y="26" text-anchor="middle" fill="#aba498" font-family="-apple-system,sans-serif" font-size="13">One grid, three figures</text>
+<text x="120" y="52" text-anchor="middle" fill="#79a6d2" font-family="SF Mono,monospace" font-size="12.5">a straight line</text>
+<g transform="translate(36,64) scale(1.4)">
+<rect x="0" y="108" width="12" height="12" fill="#79a6d2" fill-opacity="0.22"/>
+<rect x="12" y="96" width="12" height="12" fill="#79a6d2" fill-opacity="0.22"/>
+<rect x="24" y="84" width="12" height="12" fill="#79a6d2" fill-opacity="0.22"/>
+<rect x="36" y="72" width="12" height="12" fill="#79a6d2" fill-opacity="0.22"/>
+<rect x="48" y="60" width="12" height="12" fill="#79a6d2" fill-opacity="0.22"/>
+<rect x="60" y="48" width="12" height="12" fill="#79a6d2" fill-opacity="0.22"/>
+<rect x="72" y="36" width="12" height="12" fill="#79a6d2" fill-opacity="0.22"/>
+<rect x="84" y="24" width="12" height="12" fill="#79a6d2" fill-opacity="0.22"/>
+<rect x="96" y="12" width="12" height="12" fill="#79a6d2" fill-opacity="0.22"/>
+<rect x="108" y="0" width="12" height="12" fill="#79a6d2" fill-opacity="0.22"/>
+<line x1="0" y1="0" x2="0" y2="120" stroke="rgba(255,255,255,0.11)" stroke-width="0.5"/>
+<line x1="0" y1="0" x2="120" y2="0" stroke="rgba(255,255,255,0.11)" stroke-width="0.5"/>
+<line x1="12" y1="0" x2="12" y2="120" stroke="rgba(255,255,255,0.11)" stroke-width="0.5"/>
+<line x1="0" y1="12" x2="120" y2="12" stroke="rgba(255,255,255,0.11)" stroke-width="0.5"/>
+<line x1="24" y1="0" x2="24" y2="120" stroke="rgba(255,255,255,0.11)" stroke-width="0.5"/>
+<line x1="0" y1="24" x2="120" y2="24" stroke="rgba(255,255,255,0.11)" stroke-width="0.5"/>
+<line x1="36" y1="0" x2="36" y2="120" stroke="rgba(255,255,255,0.11)" stroke-width="0.5"/>
+<line x1="0" y1="36" x2="120" y2="36" stroke="rgba(255,255,255,0.11)" stroke-width="0.5"/>
+<line x1="48" y1="0" x2="48" y2="120" stroke="rgba(255,255,255,0.11)" stroke-width="0.5"/>
+<line x1="0" y1="48" x2="120" y2="48" stroke="rgba(255,255,255,0.11)" stroke-width="0.5"/>
+<line x1="60" y1="0" x2="60" y2="120" stroke="rgba(255,255,255,0.11)" stroke-width="0.5"/>
+<line x1="0" y1="60" x2="120" y2="60" stroke="rgba(255,255,255,0.11)" stroke-width="0.5"/>
+<line x1="72" y1="0" x2="72" y2="120" stroke="rgba(255,255,255,0.11)" stroke-width="0.5"/>
+<line x1="0" y1="72" x2="120" y2="72" stroke="rgba(255,255,255,0.11)" stroke-width="0.5"/>
+<line x1="84" y1="0" x2="84" y2="120" stroke="rgba(255,255,255,0.11)" stroke-width="0.5"/>
+<line x1="0" y1="84" x2="120" y2="84" stroke="rgba(255,255,255,0.11)" stroke-width="0.5"/>
+<line x1="96" y1="0" x2="96" y2="120" stroke="rgba(255,255,255,0.11)" stroke-width="0.5"/>
+<line x1="0" y1="96" x2="120" y2="96" stroke="rgba(255,255,255,0.11)" stroke-width="0.5"/>
+<line x1="108" y1="0" x2="108" y2="120" stroke="rgba(255,255,255,0.11)" stroke-width="0.5"/>
+<line x1="0" y1="108" x2="120" y2="108" stroke="rgba(255,255,255,0.11)" stroke-width="0.5"/>
+<line x1="120" y1="0" x2="120" y2="120" stroke="rgba(255,255,255,0.11)" stroke-width="0.5"/>
+<line x1="0" y1="120" x2="120" y2="120" stroke="rgba(255,255,255,0.11)" stroke-width="0.5"/>
+<line x1="4" y1="116" x2="116" y2="4" stroke="#e4ded5" stroke-width="1.2"/>
+<rect x="0" y="0" width="120" height="120" fill="none" stroke="rgba(255,255,255,0.18)" stroke-width="0.8"/>
+</g>
+<text x="120" y="256" text-anchor="middle" fill="#aba498" font-family="SF Mono,monospace" font-size="12">side 12 → 10</text>
+<text x="120" y="275" text-anchor="middle" fill="#aba498" font-family="SF Mono,monospace" font-size="12">side 6&#160; → 20</text>
+<text x="120" y="300" text-anchor="middle" fill="#79a6d2" font-family="SF Mono,monospace" font-size="14.5">D ≈ 0.97</text>
+<text x="362" y="52" text-anchor="middle" fill="#d9b45f" font-family="SF Mono,monospace" font-size="12.5">a filled square</text>
+<g transform="translate(278,64) scale(1.4)">
+<rect x="0" y="0" width="12" height="12" fill="#d9b45f" fill-opacity="0.22"/>
+<rect x="0" y="12" width="12" height="12" fill="#d9b45f" fill-opacity="0.22"/>
+<rect x="0" y="24" width="12" height="12" fill="#d9b45f" fill-opacity="0.22"/>
+<rect x="0" y="36" width="12" height="12" fill="#d9b45f" fill-opacity="0.22"/>
+<rect x="0" y="48" width="12" height="12" fill="#d9b45f" fill-opacity="0.22"/>
+<rect x="0" y="60" width="12" height="12" fill="#d9b45f" fill-opacity="0.22"/>
+<rect x="0" y="72" width="12" height="12" fill="#d9b45f" fill-opacity="0.22"/>
+<rect x="0" y="84" width="12" height="12" fill="#d9b45f" fill-opacity="0.22"/>
+<rect x="0" y="96" width="12" height="12" fill="#d9b45f" fill-opacity="0.22"/>
+<rect x="0" y="108" width="12" height="12" fill="#d9b45f" fill-opacity="0.22"/>
+<rect x="12" y="0" width="12" height="12" fill="#d9b45f" fill-opacity="0.22"/>
+<rect x="12" y="12" width="12" height="12" fill="#d9b45f" fill-opacity="0.22"/>
+<rect x="12" y="24" width="12" height="12" fill="#d9b45f" fill-opacity="0.22"/>
+<rect x="12" y="36" width="12" height="12" fill="#d9b45f" fill-opacity="0.22"/>
+<rect x="12" y="48" width="12" height="12" fill="#d9b45f" fill-opacity="0.22"/>
+<rect x="12" y="60" width="12" height="12" fill="#d9b45f" fill-opacity="0.22"/>
+<rect x="12" y="72" width="12" height="12" fill="#d9b45f" fill-opacity="0.22"/>
+<rect x="12" y="84" width="12" height="12" fill="#d9b45f" fill-opacity="0.22"/>
+<rect x="12" y="96" width="12" height="12" fill="#d9b45f" fill-opacity="0.22"/>
+<rect x="12" y="108" width="12" height="12" fill="#d9b45f" fill-opacity="0.22"/>
+<rect x="24" y="0" width="12" height="12" fill="#d9b45f" fill-opacity="0.22"/>
+<rect x="24" y="12" width="12" height="12" fill="#d9b45f" fill-opacity="0.22"/>
+<rect x="24" y="24" width="12" height="12" fill="#d9b45f" fill-opacity="0.22"/>
+<rect x="24" y="36" width="12" height="12" fill="#d9b45f" fill-opacity="0.22"/>
+<rect x="24" y="48" width="12" height="12" fill="#d9b45f" fill-opacity="0.22"/>
+<rect x="24" y="60" width="12" height="12" fill="#d9b45f" fill-opacity="0.22"/>
+<rect x="24" y="72" width="12" height="12" fill="#d9b45f" fill-opacity="0.22"/>
+<rect x="24" y="84" width="12" height="12" fill="#d9b45f" fill-opacity="0.22"/>
+<rect x="24" y="96" width="12" height="12" fill="#d9b45f" fill-opacity="0.22"/>
+<rect x="24" y="108" width="12" height="12" fill="#d9b45f" fill-opacity="0.22"/>
+<rect x="36" y="0" width="12" height="12" fill="#d9b45f" fill-opacity="0.22"/>
+<rect x="36" y="12" width="12" height="12" fill="#d9b45f" fill-opacity="0.22"/>
+<rect x="36" y="24" width="12" height="12" fill="#d9b45f" fill-opacity="0.22"/>
+<rect x="36" y="36" width="12" height="12" fill="#d9b45f" fill-opacity="0.22"/>
+<rect x="36" y="48" width="12" height="12" fill="#d9b45f" fill-opacity="0.22"/>
+<rect x="36" y="60" width="12" height="12" fill="#d9b45f" fill-opacity="0.22"/>
+<rect x="36" y="72" width="12" height="12" fill="#d9b45f" fill-opacity="0.22"/>
+<rect x="36" y="84" width="12" height="12" fill="#d9b45f" fill-opacity="0.22"/>
+<rect x="36" y="96" width="12" height="12" fill="#d9b45f" fill-opacity="0.22"/>
+<rect x="36" y="108" width="12" height="12" fill="#d9b45f" fill-opacity="0.22"/>
+<rect x="48" y="0" width="12" height="12" fill="#d9b45f" fill-opacity="0.22"/>
+<rect x="48" y="12" width="12" height="12" fill="#d9b45f" fill-opacity="0.22"/>
+<rect x="48" y="24" width="12" height="12" fill="#d9b45f" fill-opacity="0.22"/>
+<rect x="48" y="36" width="12" height="12" fill="#d9b45f" fill-opacity="0.22"/>
+<rect x="48" y="48" width="12" height="12" fill="#d9b45f" fill-opacity="0.22"/>
+<rect x="48" y="60" width="12" height="12" fill="#d9b45f" fill-opacity="0.22"/>
+<rect x="48" y="72" width="12" height="12" fill="#d9b45f" fill-opacity="0.22"/>
+<rect x="48" y="84" width="12" height="12" fill="#d9b45f" fill-opacity="0.22"/>
+<rect x="48" y="96" width="12" height="12" fill="#d9b45f" fill-opacity="0.22"/>
+<rect x="48" y="108" width="12" height="12" fill="#d9b45f" fill-opacity="0.22"/>
+<rect x="60" y="0" width="12" height="12" fill="#d9b45f" fill-opacity="0.22"/>
+<rect x="60" y="12" width="12" height="12" fill="#d9b45f" fill-opacity="0.22"/>
+<rect x="60" y="24" width="12" height="12" fill="#d9b45f" fill-opacity="0.22"/>
+<rect x="60" y="36" width="12" height="12" fill="#d9b45f" fill-opacity="0.22"/>
+<rect x="60" y="48" width="12" height="12" fill="#d9b45f" fill-opacity="0.22"/>
+<rect x="60" y="60" width="12" height="12" fill="#d9b45f" fill-opacity="0.22"/>
+<rect x="60" y="72" width="12" height="12" fill="#d9b45f" fill-opacity="0.22"/>
+<rect x="60" y="84" width="12" height="12" fill="#d9b45f" fill-opacity="0.22"/>
+<rect x="60" y="96" width="12" height="12" fill="#d9b45f" fill-opacity="0.22"/>
+<rect x="60" y="108" width="12" height="12" fill="#d9b45f" fill-opacity="0.22"/>
+<rect x="72" y="0" width="12" height="12" fill="#d9b45f" fill-opacity="0.22"/>
+<rect x="72" y="12" width="12" height="12" fill="#d9b45f" fill-opacity="0.22"/>
+<rect x="72" y="24" width="12" height="12" fill="#d9b45f" fill-opacity="0.22"/>
+<rect x="72" y="36" width="12" height="12" fill="#d9b45f" fill-opacity="0.22"/>
+<rect x="72" y="48" width="12" height="12" fill="#d9b45f" fill-opacity="0.22"/>
+<rect x="72" y="60" width="12" height="12" fill="#d9b45f" fill-opacity="0.22"/>
+<rect x="72" y="72" width="12" height="12" fill="#d9b45f" fill-opacity="0.22"/>
+<rect x="72" y="84" width="12" height="12" fill="#d9b45f" fill-opacity="0.22"/>
+<rect x="72" y="96" width="12" height="12" fill="#d9b45f" fill-opacity="0.22"/>
+<rect x="72" y="108" width="12" height="12" fill="#d9b45f" fill-opacity="0.22"/>
+<rect x="84" y="0" width="12" height="12" fill="#d9b45f" fill-opacity="0.22"/>
+<rect x="84" y="12" width="12" height="12" fill="#d9b45f" fill-opacity="0.22"/>
+<rect x="84" y="24" width="12" height="12" fill="#d9b45f" fill-opacity="0.22"/>
+<rect x="84" y="36" width="12" height="12" fill="#d9b45f" fill-opacity="0.22"/>
+<rect x="84" y="48" width="12" height="12" fill="#d9b45f" fill-opacity="0.22"/>
+<rect x="84" y="60" width="12" height="12" fill="#d9b45f" fill-opacity="0.22"/>
+<rect x="84" y="72" width="12" height="12" fill="#d9b45f" fill-opacity="0.22"/>
+<rect x="84" y="84" width="12" height="12" fill="#d9b45f" fill-opacity="0.22"/>
+<rect x="84" y="96" width="12" height="12" fill="#d9b45f" fill-opacity="0.22"/>
+<rect x="84" y="108" width="12" height="12" fill="#d9b45f" fill-opacity="0.22"/>
+<rect x="96" y="0" width="12" height="12" fill="#d9b45f" fill-opacity="0.22"/>
+<rect x="96" y="12" width="12" height="12" fill="#d9b45f" fill-opacity="0.22"/>
+<rect x="96" y="24" width="12" height="12" fill="#d9b45f" fill-opacity="0.22"/>
+<rect x="96" y="36" width="12" height="12" fill="#d9b45f" fill-opacity="0.22"/>
+<rect x="96" y="48" width="12" height="12" fill="#d9b45f" fill-opacity="0.22"/>
+<rect x="96" y="60" width="12" height="12" fill="#d9b45f" fill-opacity="0.22"/>
+<rect x="96" y="72" width="12" height="12" fill="#d9b45f" fill-opacity="0.22"/>
+<rect x="96" y="84" width="12" height="12" fill="#d9b45f" fill-opacity="0.22"/>
+<rect x="96" y="96" width="12" height="12" fill="#d9b45f" fill-opacity="0.22"/>
+<rect x="96" y="108" width="12" height="12" fill="#d9b45f" fill-opacity="0.22"/>
+<rect x="108" y="0" width="12" height="12" fill="#d9b45f" fill-opacity="0.22"/>
+<rect x="108" y="12" width="12" height="12" fill="#d9b45f" fill-opacity="0.22"/>
+<rect x="108" y="24" width="12" height="12" fill="#d9b45f" fill-opacity="0.22"/>
+<rect x="108" y="36" width="12" height="12" fill="#d9b45f" fill-opacity="0.22"/>
+<rect x="108" y="48" width="12" height="12" fill="#d9b45f" fill-opacity="0.22"/>
+<rect x="108" y="60" width="12" height="12" fill="#d9b45f" fill-opacity="0.22"/>
+<rect x="108" y="72" width="12" height="12" fill="#d9b45f" fill-opacity="0.22"/>
+<rect x="108" y="84" width="12" height="12" fill="#d9b45f" fill-opacity="0.22"/>
+<rect x="108" y="96" width="12" height="12" fill="#d9b45f" fill-opacity="0.22"/>
+<rect x="108" y="108" width="12" height="12" fill="#d9b45f" fill-opacity="0.22"/>
+<line x1="0" y1="0" x2="0" y2="120" stroke="rgba(255,255,255,0.11)" stroke-width="0.5"/>
+<line x1="0" y1="0" x2="120" y2="0" stroke="rgba(255,255,255,0.11)" stroke-width="0.5"/>
+<line x1="12" y1="0" x2="12" y2="120" stroke="rgba(255,255,255,0.11)" stroke-width="0.5"/>
+<line x1="0" y1="12" x2="120" y2="12" stroke="rgba(255,255,255,0.11)" stroke-width="0.5"/>
+<line x1="24" y1="0" x2="24" y2="120" stroke="rgba(255,255,255,0.11)" stroke-width="0.5"/>
+<line x1="0" y1="24" x2="120" y2="24" stroke="rgba(255,255,255,0.11)" stroke-width="0.5"/>
+<line x1="36" y1="0" x2="36" y2="120" stroke="rgba(255,255,255,0.11)" stroke-width="0.5"/>
+<line x1="0" y1="36" x2="120" y2="36" stroke="rgba(255,255,255,0.11)" stroke-width="0.5"/>
+<line x1="48" y1="0" x2="48" y2="120" stroke="rgba(255,255,255,0.11)" stroke-width="0.5"/>
+<line x1="0" y1="48" x2="120" y2="48" stroke="rgba(255,255,255,0.11)" stroke-width="0.5"/>
+<line x1="60" y1="0" x2="60" y2="120" stroke="rgba(255,255,255,0.11)" stroke-width="0.5"/>
+<line x1="0" y1="60" x2="120" y2="60" stroke="rgba(255,255,255,0.11)" stroke-width="0.5"/>
+<line x1="72" y1="0" x2="72" y2="120" stroke="rgba(255,255,255,0.11)" stroke-width="0.5"/>
+<line x1="0" y1="72" x2="120" y2="72" stroke="rgba(255,255,255,0.11)" stroke-width="0.5"/>
+<line x1="84" y1="0" x2="84" y2="120" stroke="rgba(255,255,255,0.11)" stroke-width="0.5"/>
+<line x1="0" y1="84" x2="120" y2="84" stroke="rgba(255,255,255,0.11)" stroke-width="0.5"/>
+<line x1="96" y1="0" x2="96" y2="120" stroke="rgba(255,255,255,0.11)" stroke-width="0.5"/>
+<line x1="0" y1="96" x2="120" y2="96" stroke="rgba(255,255,255,0.11)" stroke-width="0.5"/>
+<line x1="108" y1="0" x2="108" y2="120" stroke="rgba(255,255,255,0.11)" stroke-width="0.5"/>
+<line x1="0" y1="108" x2="120" y2="108" stroke="rgba(255,255,255,0.11)" stroke-width="0.5"/>
+<line x1="120" y1="0" x2="120" y2="120" stroke="rgba(255,255,255,0.11)" stroke-width="0.5"/>
+<line x1="0" y1="120" x2="120" y2="120" stroke="rgba(255,255,255,0.11)" stroke-width="0.5"/>
+<rect x="0" y="0" width="120" height="120" fill="#e4ded5" fill-opacity="0.42"/>
+<rect x="0" y="0" width="120" height="120" fill="none" stroke="rgba(255,255,255,0.18)" stroke-width="0.8"/>
+</g>
+<text x="362" y="256" text-anchor="middle" fill="#aba498" font-family="SF Mono,monospace" font-size="12">side 12 → 100</text>
+<text x="362" y="275" text-anchor="middle" fill="#aba498" font-family="SF Mono,monospace" font-size="12">side 6&#160; → 400</text>
+<text x="362" y="300" text-anchor="middle" fill="#d9b45f" font-family="SF Mono,monospace" font-size="14.5">D ≈ 2.00</text>
+<text x="604" y="52" text-anchor="middle" fill="#cd7f9b" font-family="SF Mono,monospace" font-size="12.5">the Koch curve</text>
+<g transform="translate(520,64) scale(1.4)">
+<rect x="0" y="72" width="12" height="12" fill="#cd7f9b" fill-opacity="0.22"/>
+<rect x="0" y="84" width="12" height="12" fill="#cd7f9b" fill-opacity="0.22"/>
+<rect x="12" y="72" width="12" height="12" fill="#cd7f9b" fill-opacity="0.22"/>
+<rect x="12" y="84" width="12" height="12" fill="#cd7f9b" fill-opacity="0.22"/>
+<rect x="24" y="72" width="12" height="12" fill="#cd7f9b" fill-opacity="0.22"/>
+<rect x="24" y="84" width="12" height="12" fill="#cd7f9b" fill-opacity="0.22"/>
+<rect x="36" y="48" width="12" height="12" fill="#cd7f9b" fill-opacity="0.22"/>
+<rect x="36" y="60" width="12" height="12" fill="#cd7f9b" fill-opacity="0.22"/>
+<rect x="36" y="72" width="12" height="12" fill="#cd7f9b" fill-opacity="0.22"/>
+<rect x="36" y="84" width="12" height="12" fill="#cd7f9b" fill-opacity="0.22"/>
+<rect x="48" y="48" width="12" height="12" fill="#cd7f9b" fill-opacity="0.22"/>
+<rect x="48" y="60" width="12" height="12" fill="#cd7f9b" fill-opacity="0.22"/>
+<rect x="60" y="48" width="12" height="12" fill="#cd7f9b" fill-opacity="0.22"/>
+<rect x="60" y="60" width="12" height="12" fill="#cd7f9b" fill-opacity="0.22"/>
+<rect x="72" y="48" width="12" height="12" fill="#cd7f9b" fill-opacity="0.22"/>
+<rect x="72" y="60" width="12" height="12" fill="#cd7f9b" fill-opacity="0.22"/>
+<rect x="72" y="72" width="12" height="12" fill="#cd7f9b" fill-opacity="0.22"/>
+<rect x="72" y="84" width="12" height="12" fill="#cd7f9b" fill-opacity="0.22"/>
+<rect x="84" y="72" width="12" height="12" fill="#cd7f9b" fill-opacity="0.22"/>
+<rect x="84" y="84" width="12" height="12" fill="#cd7f9b" fill-opacity="0.22"/>
+<rect x="96" y="72" width="12" height="12" fill="#cd7f9b" fill-opacity="0.22"/>
+<rect x="96" y="84" width="12" height="12" fill="#cd7f9b" fill-opacity="0.22"/>
+<rect x="108" y="72" width="12" height="12" fill="#cd7f9b" fill-opacity="0.22"/>
+<rect x="108" y="84" width="12" height="12" fill="#cd7f9b" fill-opacity="0.22"/>
+<line x1="0" y1="0" x2="0" y2="120" stroke="rgba(255,255,255,0.11)" stroke-width="0.5"/>
+<line x1="0" y1="0" x2="120" y2="0" stroke="rgba(255,255,255,0.11)" stroke-width="0.5"/>
+<line x1="12" y1="0" x2="12" y2="120" stroke="rgba(255,255,255,0.11)" stroke-width="0.5"/>
+<line x1="0" y1="12" x2="120" y2="12" stroke="rgba(255,255,255,0.11)" stroke-width="0.5"/>
+<line x1="24" y1="0" x2="24" y2="120" stroke="rgba(255,255,255,0.11)" stroke-width="0.5"/>
+<line x1="0" y1="24" x2="120" y2="24" stroke="rgba(255,255,255,0.11)" stroke-width="0.5"/>
+<line x1="36" y1="0" x2="36" y2="120" stroke="rgba(255,255,255,0.11)" stroke-width="0.5"/>
+<line x1="0" y1="36" x2="120" y2="36" stroke="rgba(255,255,255,0.11)" stroke-width="0.5"/>
+<line x1="48" y1="0" x2="48" y2="120" stroke="rgba(255,255,255,0.11)" stroke-width="0.5"/>
+<line x1="0" y1="48" x2="120" y2="48" stroke="rgba(255,255,255,0.11)" stroke-width="0.5"/>
+<line x1="60" y1="0" x2="60" y2="120" stroke="rgba(255,255,255,0.11)" stroke-width="0.5"/>
+<line x1="0" y1="60" x2="120" y2="60" stroke="rgba(255,255,255,0.11)" stroke-width="0.5"/>
+<line x1="72" y1="0" x2="72" y2="120" stroke="rgba(255,255,255,0.11)" stroke-width="0.5"/>
+<line x1="0" y1="72" x2="120" y2="72" stroke="rgba(255,255,255,0.11)" stroke-width="0.5"/>
+<line x1="84" y1="0" x2="84" y2="120" stroke="rgba(255,255,255,0.11)" stroke-width="0.5"/>
+<line x1="0" y1="84" x2="120" y2="84" stroke="rgba(255,255,255,0.11)" stroke-width="0.5"/>
+<line x1="96" y1="0" x2="96" y2="120" stroke="rgba(255,255,255,0.11)" stroke-width="0.5"/>
+<line x1="0" y1="96" x2="120" y2="96" stroke="rgba(255,255,255,0.11)" stroke-width="0.5"/>
+<line x1="108" y1="0" x2="108" y2="120" stroke="rgba(255,255,255,0.11)" stroke-width="0.5"/>
+<line x1="0" y1="108" x2="120" y2="108" stroke="rgba(255,255,255,0.11)" stroke-width="0.5"/>
+<line x1="120" y1="0" x2="120" y2="120" stroke="rgba(255,255,255,0.11)" stroke-width="0.5"/>
+<line x1="0" y1="120" x2="120" y2="120" stroke="rgba(255,255,255,0.11)" stroke-width="0.5"/>
+<path d="M0.00,84.00 L0.49,84.00 L0.74,83.57 L0.99,84.00 L1.48,84.00 L1.73,83.57 L1.48,83.14 L1.98,83.14 L2.22,82.72 L2.47,83.14 L2.96,83.14 L2.72,83.57 L2.96,84.00 L3.46,84.00 L3.70,83.57 L3.95,84.00 L4.44,84.00 L4.69,83.57 L4.44,83.14 L4.94,83.14 L5.19,82.72 L4.94,82.29 L4.44,82.29 L4.69,81.86 L4.44,81.43 L4.94,81.43 L5.19,81.01 L5.43,81.43 L5.93,81.43 L6.17,81.01 L5.93,80.58 L6.42,80.58 L6.67,80.15 L6.91,80.58 L7.41,80.58 L7.16,81.01 L7.41,81.43 L7.90,81.43 L8.15,81.01 L8.40,81.43 L8.89,81.43 L8.64,81.86 L8.89,82.29 L8.40,82.29 L8.15,82.72 L8.40,83.14 L8.89,83.14 L8.64,83.57 L8.89,84.00 L9.38,84.00 L9.63,83.57 L9.88,84.00 L10.37,84.00 L10.62,83.57 L10.37,83.14 L10.86,83.14 L11.11,82.72 L11.36,83.14 L11.85,83.14 L11.60,83.57 L11.85,84.00 L12.35,84.00 L12.59,83.57 L12.84,84.00 L13.33,84.00 L13.58,83.57 L13.33,83.14 L13.83,83.14 L14.07,82.72 L13.83,82.29 L13.33,82.29 L13.58,81.86 L13.33,81.43 L13.83,81.43 L14.07,81.01 L14.32,81.43 L14.81,81.43 L15.06,81.01 L14.81,80.58 L15.31,80.58 L15.56,80.15 L15.31,79.72 L14.81,79.72 L15.06,79.30 L14.81,78.87 L14.32,78.87 L14.07,79.30 L13.83,78.87 L13.33,78.87 L13.58,78.44 L13.33,78.01 L13.83,78.01 L14.07,77.58 L13.83,77.16 L13.33,77.16 L13.58,76.73 L13.33,76.30 L13.83,76.30 L14.07,75.87 L14.32,76.30 L14.81,76.30 L15.06,75.87 L14.81,75.45 L15.31,75.45 L15.56,75.02 L15.80,75.45 L16.30,75.45 L16.05,75.87 L16.30,76.30 L16.79,76.30 L17.04,75.87 L17.28,76.30 L17.78,76.30 L18.02,75.87 L17.78,75.45 L18.27,75.45 L18.52,75.02 L18.27,74.59 L17.78,74.59 L18.02,74.16 L17.78,73.74 L18.27,73.74 L18.52,73.31 L18.77,73.74 L19.26,73.74 L19.51,73.31 L19.26,72.88 L19.75,72.88 L20.00,72.45 L20.25,72.88 L20.74,72.88 L20.49,73.31 L20.74,73.74 L21.23,73.74 L21.48,73.31 L21.73,73.74 L22.22,73.74 L21.98,74.16 L22.22,74.59 L21.73,74.59 L21.48,75.02 L21.73,75.45 L22.22,75.45 L21.98,75.87 L22.22,76.30 L22.72,76.30 L22.96,75.87 L23.21,76.30 L23.70,76.30 L23.95,75.87 L23.70,75.45 L24.20,75.45 L24.44,75.02 L24.69,75.45 L25.19,75.45 L24.94,75.87 L25.19,76.30 L25.68,76.30 L25.93,75.87 L26.17,76.30 L26.67,76.30 L26.42,76.73 L26.67,77.16 L26.17,77.16 L25.93,77.58 L26.17,78.01 L26.67,78.01 L26.42,78.44 L26.67,78.87 L26.17,78.87 L25.93,79.30 L25.68,78.87 L25.19,78.87 L24.94,79.30 L25.19,79.72 L24.69,79.72 L24.44,80.15 L24.69,80.58 L25.19,80.58 L24.94,81.01 L25.19,81.43 L25.68,81.43 L25.93,81.01 L26.17,81.43 L26.67,81.43 L26.42,81.86 L26.67,82.29 L26.17,82.29 L25.93,82.72 L26.17,83.14 L26.67,83.14 L26.42,83.57 L26.67,84.00 L27.16,84.00 L27.41,83.57 L27.65,84.00 L28.15,84.00 L28.40,83.57 L28.15,83.14 L28.64,83.14 L28.89,82.72 L29.14,83.14 L29.63,83.14 L29.38,83.57 L29.63,84.00 L30.12,84.00 L30.37,83.57 L30.62,84.00 L31.11,84.00 L31.36,83.57 L31.11,83.14 L31.60,83.14 L31.85,82.72 L31.60,82.29 L31.11,82.29 L31.36,81.86 L31.11,81.43 L31.60,81.43 L31.85,81.01 L32.10,81.43 L32.59,81.43 L32.84,81.01 L32.59,80.58 L33.09,80.58 L33.33,80.15 L33.58,80.58 L34.07,80.58 L33.83,81.01 L34.07,81.43 L34.57,81.43 L34.81,81.01 L35.06,81.43 L35.56,81.43 L35.31,81.86 L35.56,82.29 L35.06,82.29 L34.81,82.72 L35.06,83.14 L35.56,83.14 L35.31,83.57 L35.56,84.00 L36.05,84.00 L36.30,83.57 L36.54,84.00 L37.04,84.00 L37.28,83.57 L37.04,83.14 L37.53,83.14 L37.78,82.72 L38.02,83.14 L38.52,83.14 L38.27,83.57 L38.52,84.00 L39.01,84.00 L39.26,83.57 L39.51,84.00 L40.00,84.00 L40.25,83.57 L40.00,83.14 L40.49,83.14 L40.74,82.72 L40.49,82.29 L40.00,82.29 L40.25,81.86 L40.00,81.43 L40.49,81.43 L40.74,81.01 L40.99,81.43 L41.48,81.43 L41.73,81.01 L41.48,80.58 L41.98,80.58 L42.22,80.15 L41.98,79.72 L41.48,79.72 L41.73,79.30 L41.48,78.87 L40.99,78.87 L40.74,79.30 L40.49,78.87 L40.00,78.87 L40.25,78.44 L40.00,78.01 L40.49,78.01 L40.74,77.58 L40.49,77.16 L40.00,77.16 L40.25,76.73 L40.00,76.30 L40.49,76.30 L40.74,75.87 L40.99,76.30 L41.48,76.30 L41.73,75.87 L41.48,75.45 L41.98,75.45 L42.22,75.02 L42.47,75.45 L42.96,75.45 L42.72,75.87 L42.96,76.30 L43.46,76.30 L43.70,75.87 L43.95,76.30 L44.44,76.30 L44.69,75.87 L44.44,75.45 L44.94,75.45 L45.19,75.02 L44.94,74.59 L44.44,74.59 L44.69,74.16 L44.44,73.74 L44.94,73.74 L45.19,73.31 L45.43,73.74 L45.93,73.74 L46.17,73.31 L45.93,72.88 L46.42,72.88 L46.67,72.45 L46.42,72.03 L45.93,72.03 L46.17,71.60 L45.93,71.17 L45.43,71.17 L45.19,71.60 L44.94,71.17 L44.44,71.17 L44.69,70.74 L44.44,70.31 L44.94,70.31 L45.19,69.89 L44.94,69.46 L44.44,69.46 L44.69,69.03 L44.44,68.60 L43.95,68.60 L43.70,69.03 L43.46,68.60 L42.96,68.60 L42.72,69.03 L42.96,69.46 L42.47,69.46 L42.22,69.89 L41.98,69.46 L41.48,69.46 L41.73,69.03 L41.48,68.60 L40.99,68.60 L40.74,69.03 L40.49,68.60 L40.00,68.60 L40.25,68.18 L40.00,67.75 L40.49,67.75 L40.74,67.32 L40.49,66.89 L40.00,66.89 L40.25,66.47 L40.00,66.04 L40.49,66.04 L40.74,65.61 L40.99,66.04 L41.48,66.04 L41.73,65.61 L41.48,65.18 L41.98,65.18 L42.22,64.75 L41.98,64.33 L41.48,64.33 L41.73,63.90 L41.48,63.47 L40.99,63.47 L40.74,63.90 L40.49,63.47 L40.00,63.47 L40.25,63.04 L40.00,62.62 L40.49,62.62 L40.74,62.19 L40.49,61.76 L40.00,61.76 L40.25,61.33 L40.00,60.91 L40.49,60.91 L40.74,60.48 L40.99,60.91 L41.48,60.91 L41.73,60.48 L41.48,60.05 L41.98,60.05 L42.22,59.62 L42.47,60.05 L42.96,60.05 L42.72,60.48 L42.96,60.91 L43.46,60.91 L43.70,60.48 L43.95,60.91 L44.44,60.91 L44.69,60.48 L44.44,60.05 L44.94,60.05 L45.19,59.62 L44.94,59.20 L44.44,59.20 L44.69,58.77 L44.44,58.34 L44.94,58.34 L45.19,57.91 L45.43,58.34 L45.93,58.34 L46.17,57.91 L45.93,57.48 L46.42,57.48 L46.67,57.06 L46.91,57.48 L47.41,57.48 L47.16,57.91 L47.41,58.34 L47.90,58.34 L48.15,57.91 L48.40,58.34 L48.89,58.34 L48.64,58.77 L48.89,59.20 L48.40,59.20 L48.15,59.62 L48.40,60.05 L48.89,60.05 L48.64,60.48 L48.89,60.91 L49.38,60.91 L49.63,60.48 L49.88,60.91 L50.37,60.91 L50.62,60.48 L50.37,60.05 L50.86,60.05 L51.11,59.62 L51.36,60.05 L51.85,60.05 L51.60,60.48 L51.85,60.91 L52.35,60.91 L52.59,60.48 L52.84,60.91 L53.33,60.91 L53.58,60.48 L53.33,60.05 L53.83,60.05 L54.07,59.62 L53.83,59.20 L53.33,59.20 L53.58,58.77 L53.33,58.34 L53.83,58.34 L54.07,57.91 L54.32,58.34 L54.81,58.34 L55.06,57.91 L54.81,57.48 L55.31,57.48 L55.56,57.06 L55.31,56.63 L54.81,56.63 L55.06,56.20 L54.81,55.77 L54.32,55.77 L54.07,56.20 L53.83,55.77 L53.33,55.77 L53.58,55.35 L53.33,54.92 L53.83,54.92 L54.07,54.49 L53.83,54.06 L53.33,54.06 L53.58,53.64 L53.33,53.21 L53.83,53.21 L54.07,52.78 L54.32,53.21 L54.81,53.21 L55.06,52.78 L54.81,52.35 L55.31,52.35 L55.56,51.92 L55.80,52.35 L56.30,52.35 L56.05,52.78 L56.30,53.21 L56.79,53.21 L57.04,52.78 L57.28,53.21 L57.78,53.21 L58.02,52.78 L57.78,52.35 L58.27,52.35 L58.52,51.92 L58.27,51.50 L57.78,51.50 L58.02,51.07 L57.78,50.64 L58.27,50.64 L58.52,50.21 L58.77,50.64 L59.26,50.64 L59.51,50.21 L59.26,49.79 L59.75,49.79 L60.00,49.36 L60.25,49.79 L60.74,49.79 L60.49,50.21 L60.74,50.64 L61.23,50.64 L61.48,50.21 L61.73,50.64 L62.22,50.64 L61.98,51.07 L62.22,51.50 L61.73,51.50 L61.48,51.92 L61.73,52.35 L62.22,52.35 L61.98,52.78 L62.22,53.21 L62.72,53.21 L62.96,52.78 L63.21,53.21 L63.70,53.21 L63.95,52.78 L63.70,52.35 L64.20,52.35 L64.44,51.92 L64.69,52.35 L65.19,52.35 L64.94,52.78 L65.19,53.21 L65.68,53.21 L65.93,52.78 L66.17,53.21 L66.67,53.21 L66.42,53.64 L66.67,54.06 L66.17,54.06 L65.93,54.49 L66.17,54.92 L66.67,54.92 L66.42,55.35 L66.67,55.77 L66.17,55.77 L65.93,56.20 L65.68,55.77 L65.19,55.77 L64.94,56.20 L65.19,56.63 L64.69,56.63 L64.44,57.06 L64.69,57.48 L65.19,57.48 L64.94,57.91 L65.19,58.34 L65.68,58.34 L65.93,57.91 L66.17,58.34 L66.67,58.34 L66.42,58.77 L66.67,59.20 L66.17,59.20 L65.93,59.62 L66.17,60.05 L66.67,60.05 L66.42,60.48 L66.67,60.91 L67.16,60.91 L67.41,60.48 L67.65,60.91 L68.15,60.91 L68.40,60.48 L68.15,60.05 L68.64,60.05 L68.89,59.62 L69.14,60.05 L69.63,60.05 L69.38,60.48 L69.63,60.91 L70.12,60.91 L70.37,60.48 L70.62,60.91 L71.11,60.91 L71.36,60.48 L71.11,60.05 L71.60,60.05 L71.85,59.62 L71.60,59.20 L71.11,59.20 L71.36,58.77 L71.11,58.34 L71.60,58.34 L71.85,57.91 L72.10,58.34 L72.59,58.34 L72.84,57.91 L72.59,57.48 L73.09,57.48 L73.33,57.06 L73.58,57.48 L74.07,57.48 L73.83,57.91 L74.07,58.34 L74.57,58.34 L74.81,57.91 L75.06,58.34 L75.56,58.34 L75.31,58.77 L75.56,59.20 L75.06,59.20 L74.81,59.62 L75.06,60.05 L75.56,60.05 L75.31,60.48 L75.56,60.91 L76.05,60.91 L76.30,60.48 L76.54,60.91 L77.04,60.91 L77.28,60.48 L77.04,60.05 L77.53,60.05 L77.78,59.62 L78.02,60.05 L78.52,60.05 L78.27,60.48 L78.52,60.91 L79.01,60.91 L79.26,60.48 L79.51,60.91 L80.00,60.91 L79.75,61.33 L80.00,61.76 L79.51,61.76 L79.26,62.19 L79.51,62.62 L80.00,62.62 L79.75,63.04 L80.00,63.47 L79.51,63.47 L79.26,63.90 L79.01,63.47 L78.52,63.47 L78.27,63.90 L78.52,64.33 L78.02,64.33 L77.78,64.75 L78.02,65.18 L78.52,65.18 L78.27,65.61 L78.52,66.04 L79.01,66.04 L79.26,65.61 L79.51,66.04 L80.00,66.04 L79.75,66.47 L80.00,66.89 L79.51,66.89 L79.26,67.32 L79.51,67.75 L80.00,67.75 L79.75,68.18 L80.00,68.60 L79.51,68.60 L79.26,69.03 L79.01,68.60 L78.52,68.60 L78.27,69.03 L78.52,69.46 L78.02,69.46 L77.78,69.89 L77.53,69.46 L77.04,69.46 L77.28,69.03 L77.04,68.60 L76.54,68.60 L76.30,69.03 L76.05,68.60 L75.56,68.60 L75.31,69.03 L75.56,69.46 L75.06,69.46 L74.81,69.89 L75.06,70.31 L75.56,70.31 L75.31,70.74 L75.56,71.17 L75.06,71.17 L74.81,71.60 L74.57,71.17 L74.07,71.17 L73.83,71.60 L74.07,72.03 L73.58,72.03 L73.33,72.45 L73.58,72.88 L74.07,72.88 L73.83,73.31 L74.07,73.74 L74.57,73.74 L74.81,73.31 L75.06,73.74 L75.56,73.74 L75.31,74.16 L75.56,74.59 L75.06,74.59 L74.81,75.02 L75.06,75.45 L75.56,75.45 L75.31,75.87 L75.56,76.30 L76.05,76.30 L76.30,75.87 L76.54,76.30 L77.04,76.30 L77.28,75.87 L77.04,75.45 L77.53,75.45 L77.78,75.02 L78.02,75.45 L78.52,75.45 L78.27,75.87 L78.52,76.30 L79.01,76.30 L79.26,75.87 L79.51,76.30 L80.00,76.30 L79.75,76.73 L80.00,77.16 L79.51,77.16 L79.26,77.58 L79.51,78.01 L80.00,78.01 L79.75,78.44 L80.00,78.87 L79.51,78.87 L79.26,79.30 L79.01,78.87 L78.52,78.87 L78.27,79.30 L78.52,79.72 L78.02,79.72 L77.78,80.15 L78.02,80.58 L78.52,80.58 L78.27,81.01 L78.52,81.43 L79.01,81.43 L79.26,81.01 L79.51,81.43 L80.00,81.43 L79.75,81.86 L80.00,82.29 L79.51,82.29 L79.26,82.72 L79.51,83.14 L80.00,83.14 L79.75,83.57 L80.00,84.00 L80.49,84.00 L80.74,83.57 L80.99,84.00 L81.48,84.00 L81.73,83.57 L81.48,83.14 L81.98,83.14 L82.22,82.72 L82.47,83.14 L82.96,83.14 L82.72,83.57 L82.96,84.00 L83.46,84.00 L83.70,83.57 L83.95,84.00 L84.44,84.00 L84.69,83.57 L84.44,83.14 L84.94,83.14 L85.19,82.72 L84.94,82.29 L84.44,82.29 L84.69,81.86 L84.44,81.43 L84.94,81.43 L85.19,81.01 L85.43,81.43 L85.93,81.43 L86.17,81.01 L85.93,80.58 L86.42,80.58 L86.67,80.15 L86.91,80.58 L87.41,80.58 L87.16,81.01 L87.41,81.43 L87.90,81.43 L88.15,81.01 L88.40,81.43 L88.89,81.43 L88.64,81.86 L88.89,82.29 L88.40,82.29 L88.15,82.72 L88.40,83.14 L88.89,83.14 L88.64,83.57 L88.89,84.00 L89.38,84.00 L89.63,83.57 L89.88,84.00 L90.37,84.00 L90.62,83.57 L90.37,83.14 L90.86,83.14 L91.11,82.72 L91.36,83.14 L91.85,83.14 L91.60,83.57 L91.85,84.00 L92.35,84.00 L92.59,83.57 L92.84,84.00 L93.33,84.00 L93.58,83.57 L93.33,83.14 L93.83,83.14 L94.07,82.72 L93.83,82.29 L93.33,82.29 L93.58,81.86 L93.33,81.43 L93.83,81.43 L94.07,81.01 L94.32,81.43 L94.81,81.43 L95.06,81.01 L94.81,80.58 L95.31,80.58 L95.56,80.15 L95.31,79.72 L94.81,79.72 L95.06,79.30 L94.81,78.87 L94.32,78.87 L94.07,79.30 L93.83,78.87 L93.33,78.87 L93.58,78.44 L93.33,78.01 L93.83,78.01 L94.07,77.58 L93.83,77.16 L93.33,77.16 L93.58,76.73 L93.33,76.30 L93.83,76.30 L94.07,75.87 L94.32,76.30 L94.81,76.30 L95.06,75.87 L94.81,75.45 L95.31,75.45 L95.56,75.02 L95.80,75.45 L96.30,75.45 L96.05,75.87 L96.30,76.30 L96.79,76.30 L97.04,75.87 L97.28,76.30 L97.78,76.30 L98.02,75.87 L97.78,75.45 L98.27,75.45 L98.52,75.02 L98.27,74.59 L97.78,74.59 L98.02,74.16 L97.78,73.74 L98.27,73.74 L98.52,73.31 L98.77,73.74 L99.26,73.74 L99.51,73.31 L99.26,72.88 L99.75,72.88 L100.00,72.45 L100.25,72.88 L100.74,72.88 L100.49,73.31 L100.74,73.74 L101.23,73.74 L101.48,73.31 L101.73,73.74 L102.22,73.74 L101.98,74.16 L102.22,74.59 L101.73,74.59 L101.48,75.02 L101.73,75.45 L102.22,75.45 L101.98,75.87 L102.22,76.30 L102.72,76.30 L102.96,75.87 L103.21,76.30 L103.70,76.30 L103.95,75.87 L103.70,75.45 L104.20,75.45 L104.44,75.02 L104.69,75.45 L105.19,75.45 L104.94,75.87 L105.19,76.30 L105.68,76.30 L105.93,75.87 L106.17,76.30 L106.67,76.30 L106.42,76.73 L106.67,77.16 L106.17,77.16 L105.93,77.58 L106.17,78.01 L106.67,78.01 L106.42,78.44 L106.67,78.87 L106.17,78.87 L105.93,79.30 L105.68,78.87 L105.19,78.87 L104.94,79.30 L105.19,79.72 L104.69,79.72 L104.44,80.15 L104.69,80.58 L105.19,80.58 L104.94,81.01 L105.19,81.43 L105.68,81.43 L105.93,81.01 L106.17,81.43 L106.67,81.43 L106.42,81.86 L106.67,82.29 L106.17,82.29 L105.93,82.72 L106.17,83.14 L106.67,83.14 L106.42,83.57 L106.67,84.00 L107.16,84.00 L107.41,83.57 L107.65,84.00 L108.15,84.00 L108.40,83.57 L108.15,83.14 L108.64,83.14 L108.89,82.72 L109.14,83.14 L109.63,83.14 L109.38,83.57 L109.63,84.00 L110.12,84.00 L110.37,83.57 L110.62,84.00 L111.11,84.00 L111.36,83.57 L111.11,83.14 L111.60,83.14 L111.85,82.72 L111.60,82.29 L111.11,82.29 L111.36,81.86 L111.11,81.43 L111.60,81.43 L111.85,81.01 L112.10,81.43 L112.59,81.43 L112.84,81.01 L112.59,80.58 L113.09,80.58 L113.33,80.15 L113.58,80.58 L114.07,80.58 L113.83,81.01 L114.07,81.43 L114.57,81.43 L114.81,81.01 L115.06,81.43 L115.56,81.43 L115.31,81.86 L115.56,82.29 L115.06,82.29 L114.81,82.72 L115.06,83.14 L115.56,83.14 L115.31,83.57 L115.56,84.00 L116.05,84.00 L116.30,83.57 L116.54,84.00 L117.04,84.00 L117.28,83.57 L117.04,83.14 L117.53,83.14 L117.78,82.72 L118.02,83.14 L118.52,83.14 L118.27,83.57 L118.52,84.00 L119.01,84.00 L119.26,83.57 L119.51,84.00 L120.00,84.00" fill="none" stroke="#e4ded5" stroke-width="1.0"/>
+<rect x="0" y="0" width="120" height="120" fill="none" stroke="rgba(255,255,255,0.18)" stroke-width="0.8"/>
+</g>
+<text x="604" y="256" text-anchor="middle" fill="#aba498" font-family="SF Mono,monospace" font-size="12">side 12 → 24</text>
+<text x="604" y="275" text-anchor="middle" fill="#aba498" font-family="SF Mono,monospace" font-size="12">side 6&#160; → 56</text>
+<text x="604" y="300" text-anchor="middle" fill="#cd7f9b" font-family="SF Mono,monospace" font-size="14.5">D ≈ 1.22</text>
+<text x="360" y="326" text-anchor="middle" fill="#57524b" font-family="-apple-system,sans-serif" font-size="11">Halve the side: the line doubles, the square quadruples, the Koch curve goes up 2.3×. The exponent of that factor is the dimension.</text>
+</svg>
+<figcaption>Halve the box side and the three counts rise by 2×, 4× and 2.3×. Different exponents, different dimensions.</figcaption>
+</figure>
+<p>Put all four grid sizes on log-log axes and each of the three gives a straight line with its own slope. That is the whole reason the method is usable.</p>
+<figure>
+<svg role="img" aria-label="Three straight lines on log-log axes with slopes of roughly 1, 1.22 and 2" viewbox="0 0 720 316" xmlns="http://www.w3.org/2000/svg">
+<text x="360" y="26" text-anchor="middle" fill="#aba498" font-family="-apple-system,sans-serif" font-size="13">The three sets on log-log axes — the slope is the dimension</text>
+<line x1="118" y1="244" x2="560" y2="244" stroke="rgba(255,255,255,0.18)" stroke-width="1.3"/>
+<line x1="118" y1="244" x2="118" y2="62" stroke="rgba(255,255,255,0.18)" stroke-width="1.3"/>
+<path d="M145.9,235.2 L274.6,217.9 L403.4,201.8 L532.1,184.4" fill="none" stroke="#79a6d2" stroke-width="2"/>
+<circle cx="145.9" cy="235.2" r="3.2" fill="#79a6d2"/>
+<circle cx="274.6" cy="217.9" r="3.2" fill="#79a6d2"/>
+<circle cx="403.4" cy="201.8" r="3.2" fill="#79a6d2"/>
+<circle cx="532.1" cy="184.4" r="3.2" fill="#79a6d2"/>
+<text x="542" y="188" fill="#79a6d2" font-family="SF Mono,monospace" font-size="11.5">straight line D≈0.97</text>
+<path d="M145.9,177.5 L274.6,142.8 L403.4,108.0 L532.1,73.3" fill="none" stroke="#d9b45f" stroke-width="2"/>
+<circle cx="145.9" cy="177.5" r="3.2" fill="#d9b45f"/>
+<circle cx="274.6" cy="142.8" r="3.2" fill="#d9b45f"/>
+<circle cx="403.4" cy="108.0" r="3.2" fill="#d9b45f"/>
+<circle cx="532.1" cy="73.3" r="3.2" fill="#d9b45f"/>
+<text x="542" y="77" fill="#d9b45f" font-family="SF Mono,monospace" font-size="11.5">filled square D≈2.00</text>
+<path d="M145.9,213.3 L274.6,192.0 L403.4,170.2 L532.1,149.6" fill="none" stroke="#cd7f9b" stroke-width="2"/>
+<circle cx="145.9" cy="213.3" r="3.2" fill="#cd7f9b"/>
+<circle cx="274.6" cy="192.0" r="3.2" fill="#cd7f9b"/>
+<circle cx="403.4" cy="170.2" r="3.2" fill="#cd7f9b"/>
+<circle cx="532.1" cy="149.6" r="3.2" fill="#cd7f9b"/>
+<text x="542" y="154" fill="#cd7f9b" font-family="SF Mono,monospace" font-size="11.5">Koch curve D≈1.22</text>
+<text x="146" y="262" text-anchor="middle" fill="#787268" font-family="SF Mono,monospace" font-size="10">12</text>
+<text x="275" y="262" text-anchor="middle" fill="#787268" font-family="SF Mono,monospace" font-size="10">6</text>
+<text x="403" y="262" text-anchor="middle" fill="#787268" font-family="SF Mono,monospace" font-size="10">3</text>
+<text x="532" y="262" text-anchor="middle" fill="#787268" font-family="SF Mono,monospace" font-size="10">1.5</text>
+<text x="339" y="282" text-anchor="middle" fill="#8d867b" font-family="-apple-system,sans-serif" font-size="11">box side (smaller to the right) →</text>
+<text x="110" y="48" fill="#8d867b" font-family="-apple-system,sans-serif" font-size="11">boxes hit (log)</text>
+<text x="360" y="306" text-anchor="middle" fill="#57524b" font-family="-apple-system,sans-serif" font-size="11">Where the lines sit does not matter; only the slopes do. The Koch curve is exactly 1.26 and measures 1.22 here — the systematic shortfall you get on a finite drawing.</text>
+</svg>
+<figcaption>How high a line sits depends on how big the figure is and says nothing about dimension; only the slope means anything.</figcaption>
+</figure>
+<p>Look at the Koch column: the exact answer is 1.26 and the plot measures 1.22. <b>That gap is not a drawing error, it is the method's systematic bias</b> — over a finite figure and a finite range of box sizes, box counting always undershoots slightly. Closing the gap means shrinking the boxes by several more orders of magnitude, which real data rarely allows. <em>So any reported D should be read as "the slope within this scaling window", not as an intrinsic property of the figure.</em></p>
+<h2><span class="n">04</span>What It Explains</h2>
+<p><b>Terrain and coastlines.</b> Ranking coasts by D matches what the eye says (South Africa around 1.05, the west coast of Britain around 1.25, the Norwegian fjords around 1.52), and the number tells you directly how much switching rulers will cost you: the larger D is, the more the measured length jumps when you change map resolution.</p>
+<p><b>Porous materials and interfaces.</b> The pore structure of catalyst supports, activated carbon and battery electrodes has a box-counting dimension that tracks specific surface area. What engineering usually cares about is not D itself but the change in D — how far apart two process routes put the same material is how much more crumpled one of them made the interface.</p>
+<p><b>Morphological measures in medical imaging.</b> Retinal vessel networks, trabecular bone, tumour margins and bronchial trees have all been quantified this way. The value is that it converts "looks sparser, looks more irregular" into a continuous variable that can enter a statistical model, instead of a reader's subjective score.</p>
+<p><b>The geometry of critical systems.</b> The cluster that has just spanned a percolation lattice has a fractal dimension known exactly in two dimensions: 91/48 ≈ 1.90 <a class="reflink" href="ref-percolation.en.html">→ ref · Percolation</a>. Results like that double as calibration objects: if your code cannot recover 1.90 on a simulated percolation cluster, the problem is your code, not your data.</p>
+<div class="cant">
+<h3>What It Cannot Explain</h3>
+<ul>
+<li><b>It supplies no mechanism.</b> D is a descriptive number. It tells you how fast detail accumulates with resolution; it does not tell you how the shape came about. A branching supply network, a critical system and a scale-free erosion process can all return the same D while making entirely different testable predictions. Using D as an explanation mistakes a measurement for a theory.</li>
+<li><b>It is not a fingerprint.</b> Two unrelated figures can share a dimension. That limitation was walked into during the fractal authentication of Pollock's drip paintings: in 2006 Jones-Smith and Mathur showed in Nature that casual sketches of stars and scribbles pass the same fractal test. D is fit for <em>comparison</em>, not for <em>identification</em>.</li>
+<li><b>It is acutely sensitive to the scaling window.</b> The Koch curve on this page measuring 1.22 rather than 1.26 across four box sizes is what that bias looks like. Real data often offers a usable window barely an order of magnitude wide, and over a stretch that short a straight line and a gently bending one are indistinguishable.</li>
+<li><b>It is sensitive to preprocessing.</b> The binarisation threshold, denoising, image resolution, even where the grid origin sits will all move the measured D. Comparing D across studies requires standardising the entire pipeline first, or you are comparing pipelines rather than shapes.</li>
+<li><b>It is not the only "dimension".</b> Hausdorff dimension, information dimension and correlation dimension each have their own definition. They coincide on well-behaved mathematical objects and need not coincide on real ones. Box counting is the easiest to compute, not the most authoritative.</li>
+<li><b>It gives wrong answers on self-affine objects.</b> If an object scales differently along its two axes — the classic case being a time series plotted as a curve, where the horizontal axis is time and the vertical is price, quantities of entirely different kinds — then the result depends on the aspect ratio you happened to choose, and the number means nothing. Such objects need other tools (detrended fluctuation analysis and its relatives); do not force box counting onto them.</li>
+</ul>
+</div>
+<div class="refs">
+<h3>Further Reading</h3>
+<ul>
+<li><a href="https://en.wikipedia.org/wiki/Minkowski%E2%80%93Bouligand_dimension">Minkowski–Bouligand (box-counting) dimension</a> (definitions and equivalent forms)</li>
+<li>Benoit Mandelbrot, <a href="https://doi.org/10.1126/science.156.3775.636">How Long Is the Coast of Britain?</a> (Science, 1967)</li>
+<li>Avnir, Biham, Lidar &amp; Malcai, <a href="https://doi.org/10.1126/science.279.5347.39">Is the Geometry of Nature Fractal?</a> (Science, 1998 — how narrow real scaling windows are)</li>
+<li>Jones-Smith &amp; Mathur, <a href="https://doi.org/10.1038/nature05398">Fractal analysis: Revisiting Pollock's drip paintings</a> (Nature, 2006)</li>
+<li>Kenneth Falconer, <a href="https://en.wikipedia.org/wiki/Fractal_dimension">Fractal Geometry: Mathematical Foundations and Applications</a> (the standard text on how the various dimensions relate)</li>
+<li><a href="https://imagej.net/ij/plugins/fraclac/FLHelp/Introduction.htm">FracLac for ImageJ</a> (the most widely used box-counting implementation in biomedical imaging; its documentation lists the preprocessing traps)</li>
+<li><a href="https://en.wikipedia.org/wiki/List_of_fractals_by_Hausdorff_dimension">List of fractals by Hausdorff dimension</a></li>
+</ul>
+</div>
+<footer>BigCat · Complexity Science · <a href="index.en.html">← All Topics</a></footer>
+</div>
+<script defer="" src="https://hub.cissychen.com/comments.js"></script>
+<script defer="" src="https://hub.cissychen.com/search.js"></script>
+<script defer="" src="https://hub.cissychen.com/index-button.js"></script>
+<script defer="" src="https://hub.cissychen.com/i18n-tts.js"></script>
+<script defer="" src="https://hub.cissychen.com/lightbox.js"></script>
+</body></html>
