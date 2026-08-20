@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+
+<html lang="zh-CN"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>异速生长与规模律 · 参考库 · 复杂性科学</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,"SF Pro Display","Noto Sans SC",sans-serif;color:#e4ded5;line-height:1.85;min-height:100vh;
+  background:radial-gradient(1100px 620px at 12% -6%,rgba(99,179,166,0.09),transparent 62%),radial-gradient(950px 700px at 100% 2%,rgba(166,147,205,0.08),transparent 58%),linear-gradient(168deg,#100f0d 0%,#15161b 48%,#0a0a0c 100%);background-attachment:fixed}
+.wrap{max-width:720px;margin:0 auto;padding:30px 22px 90px}
+header{padding:52px 0 8px;border-bottom:1px solid rgba(255,255,255,0.07);margin-bottom:32px}
+.rtag{font-family:"SF Mono",Menlo,monospace;font-size:0.72rem;font-weight:700;letter-spacing:2px;color:#63b3a6;border:1px solid rgba(99,179,166,0.4);background:rgba(99,179,166,0.07);padding:3px 11px;border-radius:20px}
+h1{font-size:2.15rem;font-weight:800;line-height:1.2;margin:20px 0 0;color:#f0eae0}
+h1 .h1en{display:block;font-size:0.42em;font-weight:600;letter-spacing:2.5px;color:#847d72;margin-top:11px}
+.sub{font-size:0.98rem;color:#aba498;margin-top:12px}
+.meta{font-family:"SF Mono",Menlo,monospace;font-size:0.75rem;color:#57524b;margin-top:16px;letter-spacing:1px}
+h2{font-size:1.25rem;font-weight:700;color:#e9e3d9;margin:44px 0 10px}
+h2 .n{font-family:"SF Mono",Menlo,monospace;font-size:0.8rem;color:#63b3a6;display:block;margin-bottom:5px;letter-spacing:2px}
+.he{font-size:0.68em;color:#8d867b;font-weight:500;letter-spacing:0}
+p{margin-bottom:16px}
+b,strong{color:#f0eae0;font-weight:600}
+em{color:#d9b45f;font-style:normal;font-weight:500}
+.rule{border:1px solid rgba(99,179,166,0.3);background:rgba(99,179,166,0.05);border-radius:12px;padding:16px 20px;margin:22px 0;font-size:0.94rem;color:#d5cdc1}
+.rule ol{padding-left:20px;margin:0}
+.rule li{margin-bottom:7px}
+.rule li:last-child{margin-bottom:0}
+figure{margin:28px 0}
+figure svg{display:block;width:100%;height:auto;border-radius:12px;background:rgba(255,255,255,0.018);border:1px solid rgba(255,255,255,0.06)}
+figcaption{font-size:0.82rem;color:#787268;margin-top:10px;text-align:center;line-height:1.6}
+.cant{border:1px solid rgba(205,127,155,0.36);background:rgba(205,127,155,0.05);border-radius:12px;padding:18px 21px;margin:26px 0 10px}
+.cant h3{font-size:1rem;color:#cd7f9b;margin-bottom:12px}
+.cant ul{list-style:none;padding:0}
+.cant li{margin-bottom:13px;font-size:0.93rem;color:#d5cdc1;line-height:1.76}
+.cant li:last-child{margin-bottom:0}
+.cant li b{color:#cd7f9b}
+.refs{margin:40px 0 10px}
+.refs h3{font-size:1rem;color:#79a6d2;margin-bottom:12px}
+.refs ul{list-style:none;padding:0}
+.refs li{margin-bottom:9px;font-size:0.89rem;color:#8d867b;line-height:1.7}
+.refs a{color:#79a6d2;text-decoration:none;border-bottom:1px solid rgba(121,166,210,0.3)}
+.refs a:hover{color:#a6c4e2}
+footer{text-align:center;padding:52px 0 10px;font-size:0.78rem;color:#57524b;font-family:"SF Mono",Menlo,monospace;border-top:1px solid rgba(255,255,255,0.06);margin-top:46px}
+footer a{color:#79a6d2;text-decoration:none}
+@media(max-width:600px){h1{font-size:1.7rem}.wrap{padding:24px 16px 60px}}
+</style></head><body>
+<div class="wrap">
+<header>
+<span class="rtag">REF · 经典模型</span>
+<h1>异速生长与规模律<span class="h1en">ALLOMETRIC SCALING LAWS</span></h1>
+<p class="sub">克莱伯定律（Kleiber's law）与 West-Brown-Enquist 供给网络模型（WBE 模型）</p>
+<p class="meta">被引用于：Topic 33 异速生长律</p>
+</header>
+<h2><span class="n">01</span>它问的是什么问题<span class="he">（The Question It Poses）</span></h2>
+<p>一个东西变大的时候，它的各个部分不会同步变大。骨头必须相对变粗，心跳必须变慢，寿命会变长。这种"比例随尺寸而变"的生长叫<b>异速生长</b>（allometry）；与之相对、形状完全不变的等比放大叫<b>等速生长</b>（isometry）。</p>
+<p>1638 年伽利略已经说清了其中一半：强度靠横截面走 <em>L</em>²，重量靠体积走 <em>L</em>³，所以放大必须改比例。这条叫<b>平方立方律</b>（square-cube law）。照这个思路，1883 年鲁伯纳（Max Rubner）推断代谢速度应该跟体表面积走，也就是随体重的 <b>2/3</b> 次幂。</p>
+<p>1932 年克莱伯（Max Kleiber）实测的结果却是 <b>3/4</b>。于是问题变成：<b>为什么是一个既不等于 1、也不等于 2/3 的分数？而且为什么它带出来的一整套指数都是四分之一的倍数？</b>这就是本页要回答的。</p>
+<h2><span class="n">02</span>规则本身<span class="he">（The Rules）</span></h2>
+<p>把所有规模律写成同一个形式：<b>某个量 <em>y</em> = 常数 × 体重<sup>β</sup></b>。整件事就归结为一个问题——β 是多少，为什么。1997 年 West、Brown 与 Enquist（合称 <b>WBE</b>）给出的答案只用了三条假设：</p>
+<div class="rule">
+<ol>
+<li><b>空间填充。</b>供给网络必须把资源送到身体的每一个角落，没有哪个细胞可以离末端太远。这条把网络的分叉结构逼成了<b>分形</b>（fractal，放大局部后看到与整体相似的结构）。</li>
+<li><b>末端单元尺寸不变。</b>毛细血管的直径在各种哺乳动物身上都是五到十微米，跟动物多大无关——因为交换靠扩散，而扩散的物理跟宿主的体型没关系。</li>
+<li><b>输送能耗最小。</b>推动血液是净成本、不产生生物学收益，所以被自然选择长期往下压，网络的几何是这个最小化问题的解。</li>
+<li>解出来：代谢率 β = <b>3/4</b>，以及一整族四分之一的倍数——心率 −1/4，寿命 +1/4，主动脉半径 3/8。</li>
+</ol>
+</div>
+<p>第二条是整个论证的支点，也是最容易被跳过的一条。<b>如果末端能跟着动物一起放大，指数会回到 1</b>（每一克一样忙）；正因为末端被物理钉死了，网络只能靠"多分几级"来变大，而多分一级要付出的几何代价，就是那个小于 1 的指数。</p>
+<figure>
+<svg aria-label="WBE 模型的三条假设：空间填充、末端尺寸不变、输送能耗最小" role="img" viewbox="0 0 700 246" xmlns="http://www.w3.org/2000/svg">
+<defs>
+<marker id="rf1" markerheight="10" markerunits="userSpaceOnUse" markerwidth="10" orient="auto" refx="9" refy="5" viewbox="0 0 10 10">
+<path d="M0,1 L9,5 L0,9 z" fill="#d9b45f"></path>
+</marker>
+</defs>
+<text fill="#aba498" font-family="-apple-system,sans-serif" font-size="13" text-anchor="middle" x="350" y="28">三条假设，解出 3/4</text>
+<rect fill="rgba(255,255,255,0.02)" height="120" rx="26" stroke="rgba(255,255,255,0.12)" width="160" x="50" y="66"></rect>
+<g fill="none" stroke="#8f8672" stroke-linecap="round">
+<line stroke-width="4.5" x1="130" x2="130" y1="76" y2="100"></line>
+<g stroke-width="3.4"><line x1="130" x2="105" y1="100" y2="128"></line><line x1="130" x2="155" y1="100" y2="128"></line></g>
+<g stroke-width="2.4"><line x1="105" x2="92" y1="128" y2="155"></line><line x1="105" x2="118" y1="128" y2="155"></line><line x1="155" x2="142" y1="128" y2="155"></line><line x1="155" x2="168" y1="128" y2="155"></line></g>
+<g stroke-width="1.5"><line x1="92" x2="86" y1="155" y2="178"></line><line x1="92" x2="98" y1="155" y2="178"></line><line x1="118" x2="112" y1="155" y2="178"></line><line x1="118" x2="124" y1="155" y2="178"></line><line x1="142" x2="136" y1="155" y2="178"></line><line x1="142" x2="148" y1="155" y2="178"></line><line x1="168" x2="162" y1="155" y2="178"></line><line x1="168" x2="174" y1="155" y2="178"></line></g>
+</g>
+<g fill="#63b3a6">
+<circle cx="86" cy="181" r="3.2"></circle><circle cx="98" cy="181" r="3.2"></circle><circle cx="112" cy="181" r="3.2"></circle><circle cx="124" cy="181" r="3.2"></circle><circle cx="136" cy="181" r="3.2"></circle><circle cx="148" cy="181" r="3.2"></circle><circle cx="162" cy="181" r="3.2"></circle><circle cx="174" cy="181" r="3.2"></circle>
+</g>
+<text fill="#9fbc7a" font-family="-apple-system,sans-serif" font-size="12" text-anchor="middle" x="130" y="212">① 空间填充</text>
+<text fill="#787268" font-family="-apple-system,sans-serif" font-size="10.5" text-anchor="middle" x="130" y="230">送到每一个角落</text>
+<text fill="#787268" font-family="-apple-system,sans-serif" font-size="11" text-anchor="middle" x="350" y="88">毛细血管 ≈ 5–10 微米</text>
+<circle cx="300" cy="128" fill="#63b3a6" r="17"></circle>
+<circle cx="400" cy="128" fill="#63b3a6" r="17"></circle>
+<text fill="#aba498" font-family="SF Mono,monospace" font-size="17" text-anchor="middle" x="350" y="134">=</text>
+<text fill="#c9c2b6" font-family="-apple-system,sans-serif" font-size="11" text-anchor="middle" x="300" y="166">小鼠 30 克</text>
+<text fill="#c9c2b6" font-family="-apple-system,sans-serif" font-size="11" text-anchor="middle" x="400" y="166">蓝鲸 150 吨</text>
+<text fill="#9fbc7a" font-family="-apple-system,sans-serif" font-size="12" text-anchor="middle" x="350" y="212">② 末端尺寸不变</text>
+<text fill="#787268" font-family="-apple-system,sans-serif" font-size="10.5" text-anchor="middle" x="350" y="230">跨物种同一款末端</text>
+<line stroke="rgba(255,255,255,0.16)" x1="510" x2="632" y1="182" y2="182"></line>
+<g fill="#a693cd">
+<rect height="72" width="26" x="516" y="110"></rect>
+<rect height="46" width="26" x="556" y="136"></rect>
+<rect height="24" width="26" x="596" y="158"></rect>
+</g>
+<line marker-end="url(#rf1)" stroke="#d9b45f" stroke-width="2" x1="512" x2="628" y1="96" y2="96"></line>
+<text fill="#d9b45f" font-family="-apple-system,sans-serif" font-size="11" text-anchor="middle" x="570" y="86">演化持续压低</text>
+<text fill="#9fbc7a" font-family="-apple-system,sans-serif" font-size="12" text-anchor="middle" x="570" y="212">③ 输送能耗最小</text>
+<text fill="#787268" font-family="-apple-system,sans-serif" font-size="10.5" text-anchor="middle" x="570" y="230">网络几何是最优解</text>
+</svg>
+<figcaption>三条假设里，第二条最不起眼也最要紧：末端一旦被钉死，网络只能靠增加级数变大，指数就压到了 1 以下。</figcaption>
+</figure>
+<h2><span class="n">03</span>跑起来会看到什么<span class="he">（What You See When It Runs）</span></h2>
+<p>把不同的量对体重画在双对数坐标（log-log plot）上，你会看到一族斜率各不相同、但都是 1/4 的整数倍的直线。这一族关系合起来叫<b>四分之一幂标度</b>（quarter-power scaling）。</p>
+<figure>
+<svg aria-label="四分之一幂族：各种生物学量随体重的指数排在一条数轴上" role="img" viewbox="0 0 700 290" xmlns="http://www.w3.org/2000/svg">
+<text fill="#aba498" font-family="-apple-system,sans-serif" font-size="13" text-anchor="middle" x="350" y="28">同一族指数，全是 1/4 的倍数</text>
+<line stroke="rgba(255,255,255,0.2)" stroke-width="1.5" x1="80" x2="640" y1="176" y2="176"></line>
+<g stroke="rgba(255,255,255,0.35)" stroke-width="1.5">
+<line x1="145" x2="145" y1="170" y2="182"></line><line x1="255" x2="255" y1="170" y2="182"></line><line x1="310" x2="310" y1="170" y2="182"></line><line x1="365" x2="365" y1="170" y2="182"></line><line x1="475" x2="475" y1="170" y2="182"></line><line x1="530" x2="530" y1="170" y2="182"></line><line x1="603" x2="603" y1="170" y2="182"></line>
+</g>
+<g fill="#63b3a6">
+<circle cx="145" cy="176" r="5"></circle><circle cx="255" cy="176" r="5"></circle><circle cx="310" cy="176" r="5"></circle><circle cx="365" cy="176" r="5"></circle><circle cx="475" cy="176" r="5"></circle><circle cx="603" cy="176" r="5"></circle>
+</g>
+<circle cx="530" cy="176" fill="#57524b" r="5"></circle>
+<g fill="#aba498" font-family="SF Mono,monospace" font-size="11.5" text-anchor="middle">
+<text x="145" y="198">−3/4</text><text x="255" y="198">−1/4</text><text x="310" y="198">0</text><text x="365" y="198">+1/4</text><text x="475" y="198">+3/4</text><text x="530" y="198">+1</text><text x="603" y="198">+4/3</text>
+</g>
+<g fill="#d5cdc1" font-family="-apple-system,sans-serif" font-size="11.5" text-anchor="middle">
+<text x="145" y="150">种群密度</text>
+<text x="310" y="150">毛细血管直径</text>
+<text x="475" y="150">基础代谢率</text>
+<text x="603" y="150">白质 vs 灰质</text>
+<text x="255" y="222">心率、呼吸率</text>
+<text x="365" y="222">寿命、发育时长</text>
+</g>
+<text fill="#787268" font-family="-apple-system,sans-serif" font-size="11.5" text-anchor="middle" x="530" y="222">体重本身（等速参照）</text>
+<text fill="#8d867b" font-family="-apple-system,sans-serif" font-size="11.5" text-anchor="middle" x="350" y="256">指数 β，其中 该量 ∝ 体重<tspan dy="-5" font-size="9">β</tspan></text>
+<text fill="#57524b" font-family="-apple-system,sans-serif" font-size="11" text-anchor="middle" x="350" y="278">β 在 0 的那一项是被钉死的末端；β 为负的都是"速率"，为正的都是"时长"或"总量"</text>
+</svg>
+<figcaption>速率（心率、呼吸率）落在负半边，时长（寿命、发育期）落在正半边，而且离原点一样远——这就是"一生心跳数近似守恒"的来历。</figcaption>
+</figure>
+<p>具体到最常用的那条：<b>BMR ≈ 3.4 × 体重<sup>3/4</sup> 瓦特</b>（体重用千克，BMR 指基础代谢率 basal metabolic rate）。代进 70 千克的人得到约 82 瓦，与实测吻合。把两边同除以体重，得到每克代谢率随体重的 −1/4 次幂下降——大象比小鼠重约 13 万倍，13 万开四次方约等于 19，所以大象的每一克比小鼠的每一克慢约二十倍。</p>
+<h2><span class="n">04</span>它解释了现实中的什么<span class="he">（What It Explains）</span></h2>
+<p>它给出的是一整套<b>可以直接代数字进去的预期</b>，而不是一个比喻。最硬的几条：</p>
+<p><b>为什么大动物心跳慢、寿命长。</b>两者的指数一正一负、绝对值相同，所以它们的乘积近似与体型无关。这解释了"每种哺乳动物一生大约十亿次心跳"这个说法——它成立的精度是一个数量级，而人类系统性地偏高（约二十二亿）。</p>
+<p><b>为什么大动物天生稀少。</b>Damuth 在 1981 年发现哺乳动物的种群密度随体重按 −3/4 下降，恰好抵消个体按 +3/4 上升的能量需求。于是单位面积上一个物种消耗的<em>总能量</em>与体型无关——生态学里叫能量等价（energetic equivalence）。</p>
+<p><b>为什么药物剂量不能按体重线性折算。</b>清除率跟着代谢走而不是跟着体重走，所以跨体型、跨物种做剂量外推时，线性折算会系统性地给小体型超量。临床上化疗按体表面积（body surface area）给药，正是一个介于 1 和 3/4 之间的折中。</p>
+<p><b>为什么大脑必须分区。</b>Zhang 与 Sejnowski 在 2000 年发现，跨物种看白质体积随灰质体积的 4/3 次幂增长。要维持全脑处处直连，连线体积会涨得比脑本身还快，所以变大的脑只能牺牲远程连通、切成模块。</p>
+<p>这些预期都能被数据否掉，这也正是它作为科学模型的价值——下面那一栏就是它已经被否掉、或者从来就管不着的部分。</p>
+<div class="cant">
+<h3>它不能解释什么<span class="he">（What It Cannot Explain）</span></h3>
+<ul>
+<li><b>不能给你一个确定的指数。</b>3/4 从来没有定论。Dodds、Rothman 与 Weitz 在 2001 年重审历史数据，认为不足以否定 2/3；White 与 Seymour 在 2003 年用 619 个哺乳物种得到的也是 2/3。更麻烦的是 Kolokotrones 等人 2010 年发现真实数据在双对数纸上是<em>弯的</em>——小体型段斜率偏小、大体型段偏大。如果它弯，那"这条定律的指数是多少"就没有唯一答案。</li>
+<li><b>不能在少于三个数量级的数据上区分。</b>在两三个数量级的窗口里，2/3 和 3/4 画出来几乎重叠，差别小于数据本身的散布。在这种数据上报出 0.75 这样的两位小数，是假精度。</li>
+<li><b>不能从种间推到种内。</b>克莱伯定律比较的是不同物种。同一物种内部个体大小与代谢率的关系是另一回事，指数经常不同、有时接近 1。"大象每克代谢慢，所以体重大的人每公斤代谢也慢"没有依据。</li>
+<li><b>不能解释截距，只谈斜率。</b>同样体重的动物代谢率能差好几倍；鸟类与哺乳类的截距明显不同；恒温与变温之间差一个量级。模型告诉你落在哪条带子上，不告诉你落在哪一点。</li>
+<li><b>推导本身有争议。</b>Kozłowski 与 Konarzewski 在 2004 年指出 WBE 在数学上的若干问题，例如它需要末端单元数量正比于体重、而这在模型内部推不出来。WBE 三人做了回应，双方至今没有和解。</li>
+<li><b>不能用在没有分配网络的东西上。</b>整个论证的前提是"必须靠一套管网把资源送进去、且末端不能放大"。纯靠扩散过活的微小生物、纯表面交换的系统不满足这个前提，那里 2/3 才是对的。用这套框架去讲一个连"末端单元"都指不出来的系统，就只是在借词。</li>
+<li><b>不能当成因果处方。</b>跨物种的相关不等于个体的因果。"降低代谢速度"和"减少代谢损伤"不是同一件事，把 −1/4 读成养生建议是把统计命题换成了生理机制。</li>
+</ul>
+</div>
+<div class="refs">
+<h3>延伸阅读<span class="he">（Further Reading）</span></h3>
+<ul>
+<li>Max Kleiber, <a href="https://doi.org/10.3733/hilg.v06n11p315">Body size and metabolism</a>（Hilgardia, 1932）</li>
+<li>West, Brown &amp; Enquist, <a href="https://www.science.org/doi/10.1126/science.276.5309.122">A General Model for the Origin of Allometric Scaling Laws in Biology</a>（Science, 1997）</li>
+<li>Dodds, Rothman &amp; Weitz, <a href="https://arxiv.org/abs/physics/0007096">Re-examination of the "3/4-law" of Metabolism</a>（2001）</li>
+<li>White &amp; Seymour, <a href="https://www.pnas.org/doi/full/10.1073/pnas.0436428100">Mammalian basal metabolic rate is proportional to body mass<sup>2/3</sup></a>（PNAS, 2003）</li>
+<li>Kolokotrones et al., <a href="https://www.nature.com/articles/nature08920">Curvature in metabolic scaling</a>（Nature, 2010）</li>
+<li>Brown, West &amp; Enquist, <a href="https://besjournals.onlinelibrary.wiley.com/doi/10.1111/j.1365-2435.2005.01022.x">Yes, WBE's model of allometric scaling is both mathematically correct and biologically relevant</a>（2005，对质疑的回应）</li>
+<li>John Damuth, <a href="https://www.nature.com/articles/290699a0">Population density and body size in mammals</a>（Nature, 1981）</li>
+<li>Zhang &amp; Sejnowski, <a href="https://www.pnas.org/doi/10.1073/pnas.090504197">A universal scaling law between gray matter and white matter of cerebral cortex</a>（PNAS, 2000）</li>
+<li>J.B.S. Haldane, <a href="https://en.wikipedia.org/wiki/On_Being_the_Right_Size">On Being the Right Size</a>（1926）</li>
+</ul>
+</div>
+<footer>BigCat · 复杂性科学 · <a href="index.html">← 全部 Topic</a></footer>
+</div>
+<script defer="" src="https://hub.cissychen.com/comments.js"></script>
+<script defer="" src="https://hub.cissychen.com/search.js"></script>
+<script defer="" src="https://hub.cissychen.com/index-button.js"></script>
+<script defer="" src="https://hub.cissychen.com/lightbox.js"></script>
+<script defer="" src="https://hub.cissychen.com/i18n-tts.js"></script>
+</body></html>

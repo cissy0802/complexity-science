@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+
+<html lang="zh-CN"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>异速生长律 — 规模变了，内部比例必须跟着变 · 复杂性科学 T33</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,"SF Pro Display","Noto Sans SC",sans-serif;color:#e4ded5;line-height:1.85;min-height:100vh;
+  background:radial-gradient(1100px 620px at 12% -6%,rgba(224,137,94,0.10),transparent 62%),radial-gradient(950px 700px at 100% 2%,rgba(166,147,205,0.09),transparent 58%),linear-gradient(168deg,#100f0d 0%,#15161b 48%,#0a0a0c 100%);background-attachment:fixed}
+.wrap{max-width:760px;margin:0 auto;padding:30px 22px 90px}
+header{padding:52px 0 8px;border-bottom:1px solid rgba(255,255,255,0.07);margin-bottom:34px}
+.week-tag{font-family:"SF Mono",Menlo,monospace;font-size:0.72rem;font-weight:700;letter-spacing:2px;color:#a693cd;border:1px solid rgba(166,147,205,0.4);background:rgba(166,147,205,0.07);padding:3px 11px;border-radius:20px}
+h1{font-size:2.5rem;font-weight:800;letter-spacing:0.5px;line-height:1.2;margin:20px 0 0;background:linear-gradient(106deg,#e0895e 0%,#d9b45f 34%,#9fbc7a 68%,#63b3a6 100%);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+h1 .h1en{display:block;font-size:0.40em;font-weight:600;letter-spacing:2.5px;color:#847d72;-webkit-text-fill-color:#847d72;background:none;margin-top:13px}
+.sub{font-size:1.05rem;color:#aba498;margin-top:14px;font-weight:500}
+.date{font-family:"SF Mono",Menlo,monospace;font-size:0.75rem;color:#57524b;margin-top:18px;letter-spacing:1px}
+.pitch{margin:22px 0 30px;font-size:0.97rem;color:#cd7f9b;border-left:2px solid rgba(205,127,155,0.5);padding-left:16px;font-style:italic}
+.intro{font-size:1.02rem;color:#cfc8bc;margin-bottom:14px}
+.intro p{margin-bottom:16px}
+h2{font-size:1.42rem;font-weight:700;color:#e9e3d9;margin:56px 0 8px;letter-spacing:0.3px}
+h2 .n{font-family:"SF Mono",Menlo,monospace;font-size:0.85rem;color:#a693cd;display:block;margin-bottom:6px;letter-spacing:2px}
+.he{font-size:0.68em;color:#8d867b;font-weight:500;letter-spacing:0}
+p{margin-bottom:17px}
+.lead{color:#cfc8bc}
+b,strong{color:#f0eae0;font-weight:600}
+em{color:#d9b45f;font-style:normal;font-weight:500}
+.dim{color:#8d867b}
+a.reflink{display:inline-block;font-size:0.82rem;font-family:"SF Mono",Menlo,monospace;color:#63b3a6;border:1px solid rgba(99,179,166,0.38);background:rgba(99,179,166,0.07);padding:1px 9px;border-radius:20px;text-decoration:none;transition:all 0.15s;white-space:nowrap}
+a.reflink:hover{background:rgba(99,179,166,0.16);border-color:rgba(99,179,166,0.7)}
+figure{margin:30px 0}
+figure svg{display:block;width:100%;height:auto;border-radius:12px;background:rgba(255,255,255,0.018);border:1px solid rgba(255,255,255,0.06)}
+figcaption{font-size:0.82rem;color:#787268;margin-top:11px;text-align:center;line-height:1.6}
+.en-brief{font-size:0.85rem;color:#847d72;border-top:1px dashed rgba(255,255,255,0.09);padding-top:12px;margin-top:22px;line-height:1.65}
+.en-brief b{font-family:"SF Mono",Menlo,monospace;font-size:0.72rem;color:#63b3a6;letter-spacing:1px;margin-right:7px}
+.decide{margin:24px 0;border:1px solid rgba(224,137,94,0.36);background:rgba(224,137,94,0.055);border-radius:12px;padding:15px 19px}
+.decide .lb{font-family:"SF Mono",Menlo,monospace;font-size:0.73rem;letter-spacing:1.5px;color:#e0895e;font-weight:700;display:block;margin-bottom:7px}
+.decide p{margin:0;font-size:0.95rem;color:#ddd5c9}
+.crossx-inline{margin:20px 0 22px;border-left:2px solid rgba(205,127,155,0.55);padding:2px 0 2px 15px;font-size:0.89rem;color:#a9a096;line-height:1.72}
+.crossx-inline b{color:#cd7f9b;font-weight:600}
+.bigcat{margin:46px 0 10px;border:1px solid rgba(217,180,95,0.38);background:rgba(217,180,95,0.05);border-radius:14px;padding:20px 22px}
+.bigcat h3{font-size:1.02rem;color:#d9b45f;margin-bottom:14px;letter-spacing:0.5px}
+.bigcat ol{list-style:none;padding:0}
+.bigcat li{margin-bottom:15px;font-size:0.94rem;color:#d5cdc1;line-height:1.78}
+.bigcat li:last-child{margin-bottom:0}
+.bigcat .dm{font-family:"SF Mono",Menlo,monospace;font-size:0.73rem;color:#d9b45f;border:1px solid rgba(217,180,95,0.32);border-radius:4px;padding:1px 7px;margin-right:8px;white-space:nowrap}
+.crossx{margin:46px 0 10px;border:1px solid rgba(205,127,155,0.38);background:rgba(205,127,155,0.05);border-radius:14px;padding:20px 22px}
+.crossx h3{font-size:1.02rem;color:#cd7f9b;margin-bottom:14px;letter-spacing:0.5px}
+.crossx ul{list-style:none;padding:0}
+.crossx li{margin-bottom:16px;font-size:0.94rem;color:#d5cdc1;line-height:1.78}
+.crossx li:last-child{margin-bottom:0}
+.crossx li b{color:#cd7f9b;font-weight:600}
+.thinking{margin:46px 0 10px}
+.thinking h3{font-size:1.02rem;color:#a693cd;margin-bottom:14px;letter-spacing:0.5px}
+details{border:1px solid rgba(166,147,205,0.22);border-radius:10px;padding:12px 16px;margin-bottom:10px;background:rgba(166,147,205,0.035)}
+summary{cursor:pointer;font-size:0.93rem;color:#c9c2b6;font-weight:500}
+summary::marker{color:#a693cd}
+details p{margin:12px 0 0;font-size:0.9rem;color:#a9a096;line-height:1.75}
+.refs{margin:46px 0 10px}
+.refs h3{font-size:1.02rem;color:#79a6d2;margin-bottom:14px;letter-spacing:0.5px}
+.refs ul{list-style:none;padding:0}
+.refs li{margin-bottom:10px;font-size:0.9rem;color:#8d867b;line-height:1.7}
+.refs a{color:#79a6d2;text-decoration:none;border-bottom:1px solid rgba(121,166,210,0.3)}
+.refs a:hover{color:#a6c4e2;border-bottom-color:rgba(121,166,210,0.7)}
+footer{text-align:center;padding:56px 0 10px;font-size:0.78rem;color:#57524b;font-family:"SF Mono",Menlo,monospace;border-top:1px solid rgba(255,255,255,0.06);margin-top:50px}
+footer a{color:#79a6d2;text-decoration:none}
+@media(max-width:600px){h1{font-size:1.85rem}.wrap{padding:24px 16px 60px}h2{font-size:1.22rem}}
+</style></head><body>
+<div class="wrap">
+<header>
+<span class="week-tag">TOPIC 33 · PHASE F</span>
+<h1>异速生长律<span class="h1en">ALLOMETRIC SCALING LAWS</span></h1>
+<p class="sub">规模变了，内部比例必须跟着变<span class="he">（Growing is not the same as scaling up）</span></p>
+<p class="date">2026-08-19 · 尺度</p>
+</header>
+<p class="pitch">把一只老鼠等比放大到大象那么大，它会被自己烤熟。而真正的大象活得好好的——代价是它的每一克肉，都比老鼠的每一克慢了将近二十倍。</p>
+<div class="intro">
+<p>在动物园待上半天，你会注意到一件事：小动物一刻不停。麻雀啄两下就跳一步，松鼠的动作快得看不清。大象站在那儿，半分钟才挪一下腿。我们通常把这当成性情差异——小的胆子小所以警觉，大的稳重。</p>
+<p>但把心跳、呼吸、寿命、进食速度这些量放到一起看，会浮出一条极其规整的关系：几乎所有的<em>速率</em>都随体重下降，几乎所有的<em>时长</em>都随体重上升，而且用的是同一个指数。松鼠不是性子急。它的每一克肉，每秒钟要烧掉比大象多得多的能量，它只是没法慢下来。</p>
+<p>真正反直觉的在后面。这个指数不是 1（那意味着每一克都一样忙），也不是 2/3（那是"散热面积"给出的答案）。它是 <b>3/4</b>——一个看上去没有明显几何理由的数字。而它出现在代谢率上，也出现在心率、寿命、树的枝干、肿瘤的生长速度上。整整一个世纪，生物学都在追问这个 3/4 是从哪儿冒出来的。</p>
+<p class="dim">与上一期的分工：Topic 32 讲<b>自相似</b>——同一个形状在不同尺度上长得一样。本期讲的恰恰相反：东西变大的时候，内部各个部分<b>必须以不同的速度变</b>，长得一样的那种放大在物理上做不到。这两期是"尺度"的两面，别读成一件事。</p>
+</div>
+<h2><span class="n">01</span>放大一只老鼠会发生什么<span class="he">（Why You Cannot Simply Enlarge a Mouse）</span></h2>
+<p class="lead">1638 年，被软禁在家的伽利略写完了《关于两门新科学的对话》。书里第二天的讨论中，他画了两根骨头：一根是正常动物的，另一根是把动物放大三倍之后、为了不折断而必须画成的样子。第二根粗得几乎不成比例，像一截树桩。</p>
+<p>他的理由极其简单。把一个东西的每条边都放大到 <em>k</em> 倍，它的<b>表面积</b>变成 <em>k</em>² 倍，<b>体积</b>（因此重量）变成 <em>k</em>³ 倍。而骨头能承受多少压力，取决于它的<b>横截面积</b>，也是 <em>k</em>² 倍。于是重量涨得比支撑力快——放大三倍，骨头上的压强就翻了三倍。放得足够大，任何形状都会被自己压碎。这条关系叫<b>平方立方律</b>（square-cube law）。</p>
+<p>把每条边都乘同一个数、形状完全不变的那种放大，叫<b>等速生长</b>（isometry）。伽利略证明的是：生物不可能等速生长。要变大就必须改比例——这种"比例随规模而变"的生长，就叫<b>异速生长</b>（allometry）。</p>
+<figure>
+<svg aria-label="平方立方律：边长翻倍，表面积成四倍、体积成八倍，每份体积分到的表面减半" role="img" viewbox="0 0 720 336" xmlns="http://www.w3.org/2000/svg">
+<defs>
+<marker id="a33a" markerheight="9" markerunits="userSpaceOnUse" markerwidth="9" orient="auto" refx="9" refy="5" viewbox="0 0 10 10">
+<path d="M0,1 L9,5 L0,9 z" fill="#8d867b"></path>
+</marker>
+</defs>
+<text fill="#aba498" font-family="-apple-system,sans-serif" font-size="13" text-anchor="middle" x="360" y="28">同样的形状，边长 ×1 / ×2 / ×3</text>
+<g stroke="rgba(255,255,255,0.16)">
+<polygon fill="#3b3a45" points="180,190 220,190 233,177 193,177"></polygon>
+<polygon fill="#2b2a33" points="220,190 233,177 233,217 220,230"></polygon>
+<rect fill="#4a4857" height="40" width="40" x="180" y="190"></rect>
+<polygon fill="#3b3a45" points="360,150 440,150 466,124 386,124"></polygon>
+<polygon fill="#2b2a33" points="440,150 466,124 466,204 440,230"></polygon>
+<rect fill="#4a4857" height="80" width="80" x="360" y="150"></rect>
+<polygon fill="#3b3a45" points="540,110 660,110 698,72 578,72"></polygon>
+<polygon fill="#2b2a33" points="660,110 698,72 698,192 660,230"></polygon>
+<rect fill="#4a4857" height="120" width="120" x="540" y="110"></rect>
+</g>
+<line marker-end="url(#a33a)" stroke="#8d867b" stroke-width="1.5" x1="250" x2="340" y1="215" y2="215"></line>
+<line marker-end="url(#a33a)" stroke="#8d867b" stroke-width="1.5" x1="482" x2="524" y1="215" y2="215"></line>
+<text fill="#787268" font-family="-apple-system,sans-serif" font-size="11.5" x="18" y="256">边长</text>
+<text fill="#787268" font-family="-apple-system,sans-serif" font-size="11.5" x="18" y="278">表面积（散热、受力面）</text>
+<text fill="#787268" font-family="-apple-system,sans-serif" font-size="11.5" x="18" y="300">体积（重量、产热量）</text>
+<text fill="#cd7f9b" font-family="-apple-system,sans-serif" font-size="11.5" x="18" y="324">每份体积分到的表面</text>
+<g fill="#c9c2b6" font-family="SF Mono,monospace" font-size="13" text-anchor="middle">
+<text x="200" y="256">×1</text><text x="400" y="256">×2</text><text x="600" y="256">×3</text>
+<text x="200" y="278">×1</text><text x="400" y="278">×4</text><text x="600" y="278">×9</text>
+<text x="200" y="300">×1</text><text x="400" y="300">×8</text><text x="600" y="300">×27</text>
+</g>
+<g fill="#cd7f9b" font-family="SF Mono,monospace" font-size="13.5" font-weight="700" text-anchor="middle">
+<text x="200" y="324">1.00</text><text x="400" y="324">0.50</text><text x="600" y="324">0.33</text>
+</g>
+</svg>
+<figcaption>最后一行是全部麻烦的来源：东西越大，它每一份"里子"能分到的"面子"就越少——散热面、受力面、吸收面都是这样。</figcaption>
+</figure>
+<p>热的问题比骨头还要命。假如放大之后每一克肉产热的速度不变，那么产热总量随体积走、按 <em>k</em>³ 涨；而散热靠皮肤，只按 <em>k</em>² 涨。两者相除，单位散热面要处理的热量按 <em>k</em> 增长。放大十倍，体温就得靠十倍效率的散热撑着——撑不住的那部分，只能变成体温上升。</p>
+<p>1883 年，德国生理学家马克斯·鲁伯纳（Max Rubner）据此提出了一个漂亮的猜想：既然生物必须把产热控制在皮肤散得掉的范围内，那么代谢速度就应该跟<b>体表面积</b>成正比，也就是随体重的 <b>2/3</b> 次幂走。这个论证严丝合缝，用了半个世纪。它唯一的问题是：数据不同意。</p>
+<div class="crossx-inline">
+🌀 <b>文学 · 斯威夫特把格列佛的饭量算错了</b>　《格列佛游记》里，利立浦特的数学家量出格列佛身高是他们的 12 倍，于是推断他的身体"至少含有 1728 个利立浦特人"（12³），因此每天要吃 1728 人份。他们做的正是等速生长的算术——按体积换算食量。可食量跟的是代谢率，不是体积：即便用最保守的 2/3 次幂，也只有 144 人份；按后文的 3/4 次幂算是 320 人份。斯威夫特写的是讽刺，但这里的讽刺开错了方向：小人国的国库其实撑得住格列佛，是它的数学家把国王吓着了。
+</div>
+<p class="en-brief"><b>EN</b> Galileo's <i>Two New Sciences</i> (1638) shows why nothing can simply be enlarged: scale every edge by <i>k</i> and area grows as <i>k</i>², volume and weight as <i>k</i>³. Support, cooling and absorption all live on surfaces; load and heat production live in volumes. Growing therefore forces a change of proportion — allometry rather than isometry.</p>
+<h2><span class="n">02</span>四分之三这个数字<span class="he">（The Three-Quarters Exponent）</span></h2>
+<p class="lead">1932 年，加州大学戴维斯分校的瑞士裔生理学家马克斯·克莱伯（Max Kleiber）把一批动物的<b>基础代谢率</b>（basal metabolic rate，即安静、清醒、空腹、不冷不热时单位时间消耗的能量，通常缩写为 <b>BMR</b>）和体重一起画在<b>双对数坐标</b>（log-log plot，两根轴都按 10 倍、100 倍这样分格）上。</p>
+<p>他得到的不是鲁伯纳预言的 2/3，而是一条斜率约为 <b>0.75</b> 的直线。后来这条关系被叫作<b>克莱伯定律</b>（Kleiber's law），常写成一个够你直接用的近似式：BMR ≈ 3.4 × 体重<sup>3/4</sup> 瓦特（体重用千克）。代进 70 千克的人，得到约 82 瓦——差不多是一只白炽灯泡，这跟实测值对得上。</p>
+<figure>
+<svg aria-label="双对数坐标上，从小鼠到大象的基础代谢率落在斜率 3/4 的一条直线上" role="img" viewbox="0 0 720 384" xmlns="http://www.w3.org/2000/svg">
+<text fill="#aba498" font-family="-apple-system,sans-serif" font-size="13" text-anchor="middle" x="360" y="28">跨五个数量级的体重，代谢率落在同一条直线上</text>
+<line stroke="rgba(255,255,255,0.18)" stroke-width="1.5" x1="90" x2="672" y1="320" y2="320"></line>
+<line stroke="rgba(255,255,255,0.18)" stroke-width="1.5" x1="90" x2="90" y1="320" y2="56"></line>
+<g fill="#57524b" font-family="SF Mono,monospace" font-size="10.5" text-anchor="middle">
+<text x="90" y="338">10 g</text><text x="183" y="338">100 g</text><text x="277" y="338">1 kg</text><text x="370" y="338">10 kg</text><text x="463" y="338">100 kg</text><text x="557" y="338">1 t</text><text x="650" y="338">10 t</text>
+</g>
+<g fill="#57524b" font-family="SF Mono,monospace" font-size="10.5" text-anchor="end">
+<text x="82" y="324">0.1 W</text><text x="82" y="267">1 W</text><text x="82" y="211">10 W</text><text x="82" y="154">100 W</text><text x="82" y="98">1 kW</text>
+</g>
+<text fill="#8d867b" font-family="-apple-system,sans-serif" font-size="12" text-anchor="middle" x="370" y="360">体重（对数刻度）→</text>
+<text fill="#8d867b" font-family="-apple-system,sans-serif" font-size="12" transform="rotate(-90 26 190)" x="26" y="190">基础代谢率（对数刻度）</text>
+<line opacity="0.75" stroke="#79a6d2" stroke-dasharray="6 5" stroke-width="2" x1="135" x2="500" y1="298" y2="77"></line>
+<text fill="#79a6d2" font-family="SF Mono,monospace" font-size="12" x="105" y="104">斜率 1：如果每克都一样忙</text>
+<text fill="#5c7f9e" font-family="-apple-system,sans-serif" font-size="11" x="105" y="123">线性外推给大象 33 kW — 实测的 19 倍</text>
+<line stroke="#a693cd" stroke-width="3" x1="90" x2="650" y1="318" y2="64"></line>
+<g fill="#a693cd">
+<circle cx="135" cy="298" r="5"></circle><circle cx="333" cy="208" r="5"></circle><circle cx="449" cy="155" r="5"></circle><circle cx="529" cy="119" r="5"></circle><circle cx="613" cy="81" r="5"></circle>
+</g>
+<g fill="#c9c2b6" font-family="-apple-system,sans-serif" font-size="11.5">
+<text x="145" y="314">小鼠 30 g · 0.25 W</text>
+<text x="343" y="224">猫 4 kg · 9.6 W</text>
+<text x="459" y="171">人 70 kg · 82 W</text>
+<text x="539" y="135">马 500 kg · 359 W</text>
+</g>
+<text fill="#c9c2b6" font-family="-apple-system,sans-serif" font-size="11.5" text-anchor="end" x="605" y="66">大象 4 t · 1.7 kW</text>
+<text fill="#a693cd" font-family="SF Mono,monospace" font-size="12.5" x="240" y="276">斜率 3/4：实测</text>
+<text fill="#8d867b" font-family="-apple-system,sans-serif" font-size="11.5" text-anchor="middle" x="360" y="378">大象比小鼠重 13 万倍，代谢率只高 7000 倍 — 每一克慢了约 19 倍</text>
+</svg>
+<figcaption>斜率小于 1，意味着"每一克肉的功率"随体型下降。这条直线跨了五个数量级，一百年没被换掉——虽然它的斜率究竟是不是正好 3/4，至今还在吵（见第 4 节）。</figcaption>
+</figure>
+<p>斜率小于 1 这件事，比斜率具体等于几更重要。它的意思是：<b>动物越大，它的每一克肉就越省着烧。</b>把式子两边同除以体重，得到"每克代谢率"随体重的 −1/4 次幂下降。大象比小鼠重约 13 万倍，13 万的 1/4 次方约等于 19——所以大象的每一克，比小鼠的每一克慢约二十倍。</p>
+<p>这个 −1/4 不只出现在代谢上。心跳频率、呼吸频率随体重按 −1/4 走；而寿命、胚胎发育时长、肠道通过时间随体重按 +1/4 走。两个指数一正一负、大小相同，于是它们的<em>乘积</em>——比如"一生跳多少下心"——在理论上应该与体型无关。这就是"每种哺乳动物一生大约有十亿次心跳"这个流传很广的说法的来历。</p>
+<p>它站得住吗？部分站得住，而且它站不住的地方比站得住的地方更有意思。</p>
+<figure>
+<svg aria-label="五种哺乳动物的静息心率、寿命与一生心跳总数对比，人类明显偏高" role="img" viewbox="0 0 720 312" xmlns="http://www.w3.org/2000/svg">
+<text fill="#aba498" font-family="-apple-system,sans-serif" font-size="13" text-anchor="middle" x="360" y="28">心率降、寿命升，两者相乘 — 但人是个例外</text>
+<g fill="#787268" font-family="-apple-system,sans-serif" font-size="11">
+<text x="36" y="58">动物</text><text text-anchor="middle" x="176" y="58">体重</text><text text-anchor="middle" x="286" y="58">静息心率</text><text text-anchor="middle" x="388" y="58">典型寿命</text><text x="470" y="58">一生心跳（估算）</text>
+</g>
+<line stroke="rgba(255,255,255,0.16)" x1="30" x2="690" y1="68" y2="68"></line>
+<line opacity="0.55" stroke="#8d867b" stroke-dasharray="4 4" x1="540" x2="540" y1="76" y2="264"></line>
+<text fill="#8d867b" font-family="SF Mono,monospace" font-size="10.5" text-anchor="middle" x="540" y="278">10 亿次</text>
+<g fill="#c9c2b6" font-family="-apple-system,sans-serif" font-size="12">
+<text x="36" y="100">小鼠</text><text text-anchor="middle" x="176" y="100">30 g</text><text text-anchor="middle" x="286" y="100">600 /分</text><text text-anchor="middle" x="388" y="100">3 年</text>
+<text x="36" y="136">猫</text><text text-anchor="middle" x="176" y="136">4 kg</text><text text-anchor="middle" x="286" y="136">150 /分</text><text text-anchor="middle" x="388" y="136">15 年</text>
+<text x="36" y="172">马</text><text text-anchor="middle" x="176" y="172">500 kg</text><text text-anchor="middle" x="286" y="172">40 /分</text><text text-anchor="middle" x="388" y="172">25 年</text>
+<text x="36" y="208">大象</text><text text-anchor="middle" x="176" y="208">4 t</text><text text-anchor="middle" x="286" y="208">30 /分</text><text text-anchor="middle" x="388" y="208">65 年</text>
+</g>
+<g fill="#a693cd">
+<rect height="12" width="66" x="470" y="90"></rect>
+<rect height="12" width="83" x="470" y="126"></rect>
+<rect height="12" width="37" x="470" y="162"></rect>
+<rect height="12" width="71" x="470" y="198"></rect>
+</g>
+<g fill="#a693cd" font-family="SF Mono,monospace" font-size="11">
+<text x="544" y="100">9.5 亿</text><text x="561" y="136">12 亿</text><text x="515" y="172">5.3 亿</text><text x="549" y="208">10 亿</text>
+</g>
+<line stroke="rgba(255,255,255,0.14)" stroke-dasharray="5 5" x1="30" x2="690" y1="226" y2="226"></line>
+<g fill="#e4ded5" font-family="-apple-system,sans-serif" font-size="12" font-weight="600">
+<text x="36" y="252">人</text><text text-anchor="middle" x="176" y="252">70 kg</text><text text-anchor="middle" x="286" y="252">70 /分</text><text text-anchor="middle" x="388" y="252">60 年</text>
+</g>
+<rect fill="#e0895e" height="12" width="155" x="470" y="242"></rect>
+<text fill="#e0895e" font-family="SF Mono,monospace" font-size="11" x="631" y="252">22 亿</text>
+<text fill="#787268" font-family="-apple-system,sans-serif" font-size="11" text-anchor="middle" x="300" y="298">前四种落在同一个数量级内；人是明显偏高的那一个</text>
+</svg>
+<figcaption>数字取自 Levine 1997 一类的整理，含估算。要点不在小数点后：非人的哺乳动物挤在十亿这个量级附近，而人有两倍多——而且这还没算上现代医疗把寿命又往后拉的部分。</figcaption>
+</figure>
+<p>换句话说，这个"守恒律"守恒的精度只有一个数量级，而且人类系统性地违反它。把它当成一句关于量级的粗话可以，当成一条预算——"我的心跳是有限额的，所以别运动"——就完全反了：规律运动会降低静息心率，而它同时延长寿命，两边都往有利的方向走。<b>一个近似成立的乘积恒等式，不能反过来当成一个此消彼长的约束。</b></p>
+<div class="decide">
+<span class="lb">🎯 决策线</span>
+<p>跨规模比较时，别用"人均""每单位""每台"这类说法——它们默认指数是 1，而这在有供给网络的系统里几乎从不成立。改成显式写出指数：把 <em>y</em>/<em>x</em> 换成 <em>y</em>/<em>x</em><sup>β</sup>。具体动作：任何"人均成本""单机吞吐""每公斤剂量"的指标，先把原始的两列数拿去画一张双对数图，量一下斜率是不是 1。不是 1，那这个"人均"就在系统性地误导你——而且规模拉得越开，误导得越狠。</p>
+</div>
+<div class="crossx-inline">
+🌀 <b>生态学 · 大动物天生就该稀少</b>　1981 年 John Damuth 统计了大量哺乳动物的种群密度，发现它随体重按 −3/4 次幂下降——恰好抵消每个个体按 +3/4 涨的能量需求。于是每平方公里上，一个物种的种群<b>总共</b>消耗的能量与它的体型无关，这叫能量等价（energetic equivalence）。这推出一个保护生物学上很硬的结论：一片保护区能承载的不是"多少只动物"，是一份固定的能量流；体型只决定这份能量被切成几份。所以把栖息地面积按物种的体重线性折算，会系统性地低估大型动物的需求。
+</div>
+<p class="en-brief"><b>EN</b> Kleiber (1932) found basal metabolic rate scales as mass<sup>3/4</sup>, not the mass<sup>2/3</sup> that Rubner's surface argument predicts. BMR ≈ 3.4 M<sup>3/4</sup> watts puts a 70 kg human at ~82 W. Because the exponent is below one, per-gram metabolism falls as mass<sup>−1/4</sup>: an elephant's gram runs about twenty times slower than a mouse's. Rates go as −1/4 and durations as +1/4, which is where "a billion heartbeats per lifetime" comes from — true to within an order of magnitude, and violated by humans.</p>
+<h2><span class="n">03</span>为什么是 3/4：管道的几何<span class="he">（Where the Exponent Comes From）</span></h2>
+<p class="lead">2/3 有一个干净的理由（散热面），1 有一个干净的理由（每克一样忙）。3/4 夹在中间，六十年里没人说得清它凭什么。1997 年，Geoffrey West、James Brown 和 Brian Enquist 在《科学》上给了一个答案，通常按三人姓氏首字母叫作 <b>WBE 模型</b>。</p>
+<p>他们换了个问法。不问"生物怎么散热"，问"<b>生物怎么把资源送到每一个细胞</b>"。你身上每一个细胞都得拿到氧气和养料，而这件事是靠一套分叉的管道网络完成的——从主动脉一路分叉到毛细血管，在人身上大约二十几级。他们提出三条假设：</p>
+<p><b>一、网络必须填满整个身体。</b>没有哪个细胞可以离供给端太远，所以管网是<em>空间填充</em>（space-filling）的——这一条把管网的分叉结构逼成了<b>分形</b>（fractal，即放大局部后看到与整体相似的结构）<a class="reflink" href="ref-allometric-scaling.html">→ 参考 · 异速生长与规模律</a>。</p>
+<p><b>二、末端单元的尺寸与动物大小无关。</b>这是整个论证的支点，也是最容易被跳过的一条。毛细血管的直径在各种哺乳动物身上都是五到十微米左右——鼩鼱和蓝鲸用的是同一款毛细血管。因为交换发生在末端，而末端的物理（气体扩散的距离）跟动物有多大没有关系。</p>
+<p><b>三、演化把输送资源的能量损耗压到了最小。</b>心脏推动血液是要花钱的，而这笔钱不产生任何生物学收益，所以被自然选择长期往下压。</p>
+<figure>
+<svg aria-label="供给网络：体型变大时分叉级数增加，而末端单元大小不变" role="img" viewbox="0 0 720 316" xmlns="http://www.w3.org/2000/svg">
+<text fill="#aba498" font-family="-apple-system,sans-serif" font-size="13" text-anchor="middle" x="360" y="24">身体变大 → 多分几级 → 但末端一样粗</text>
+<defs>
+<marker id="a33b" markerheight="10" markerunits="userSpaceOnUse" markerwidth="10" orient="auto" refx="9" refy="5" viewbox="0 0 10 10">
+<path d="M0,1 L9,5 L0,9 z" fill="#8d867b"></path>
+</marker>
+</defs>
+<text fill="#9fbc7a" font-family="SF Mono,monospace" font-size="12" text-anchor="middle" x="190" y="76">小动物 · 分 3 级</text>
+<g fill="none" stroke="#8f8672" stroke-linecap="round">
+<line stroke-width="6" x1="190" x2="190" y1="90" y2="126"></line>
+<g stroke-width="5"><line x1="190" x2="150" y1="126" y2="168"></line><line x1="190" x2="230" y1="126" y2="168"></line></g>
+<g stroke-width="3.4"><line x1="150" x2="130" y1="168" y2="206"></line><line x1="150" x2="170" y1="168" y2="206"></line><line x1="230" x2="210" y1="168" y2="206"></line><line x1="230" x2="250" y1="168" y2="206"></line></g>
+<g stroke-width="2.2"><line x1="130" x2="120" y1="206" y2="244"></line><line x1="130" x2="140" y1="206" y2="244"></line><line x1="170" x2="160" y1="206" y2="244"></line><line x1="170" x2="180" y1="206" y2="244"></line><line x1="210" x2="200" y1="206" y2="244"></line><line x1="210" x2="220" y1="206" y2="244"></line><line x1="250" x2="240" y1="206" y2="244"></line><line x1="250" x2="260" y1="206" y2="244"></line></g>
+</g>
+<g fill="#63b3a6">
+<circle cx="120" cy="250" r="4"></circle><circle cx="140" cy="250" r="4"></circle><circle cx="160" cy="250" r="4"></circle><circle cx="180" cy="250" r="4"></circle><circle cx="200" cy="250" r="4"></circle><circle cx="220" cy="250" r="4"></circle><circle cx="240" cy="250" r="4"></circle><circle cx="260" cy="250" r="4"></circle>
+</g>
+<text fill="#a693cd" font-family="SF Mono,monospace" font-size="12" text-anchor="middle" x="538" y="46">大动物 · 分 4 级</text>
+<g fill="none" stroke="#8f8672" stroke-linecap="round">
+<line stroke-width="6" x1="538.5" x2="538.5" y1="54" y2="90"></line>
+<g stroke-width="5"><line x1="538.5" x2="462.5" y1="90" y2="126"></line><line x1="538.5" x2="614.5" y1="90" y2="126"></line></g>
+<g stroke-width="3.4"><line x1="462.5" x2="424.5" y1="126" y2="164"></line><line x1="462.5" x2="500.5" y1="126" y2="164"></line><line x1="614.5" x2="576.5" y1="126" y2="164"></line><line x1="614.5" x2="652.5" y1="126" y2="164"></line></g>
+<g stroke-width="2.2"><line x1="424.5" x2="405.5" y1="164" y2="204"></line><line x1="424.5" x2="443.5" y1="164" y2="204"></line><line x1="500.5" x2="481.5" y1="164" y2="204"></line><line x1="500.5" x2="519.5" y1="164" y2="204"></line><line x1="576.5" x2="557.5" y1="164" y2="204"></line><line x1="576.5" x2="595.5" y1="164" y2="204"></line><line x1="652.5" x2="633.5" y1="164" y2="204"></line><line x1="652.5" x2="671.5" y1="164" y2="204"></line></g>
+<g stroke-width="1.4"><line x1="405.5" x2="396" y1="204" y2="244"></line><line x1="405.5" x2="415" y1="204" y2="244"></line><line x1="443.5" x2="434" y1="204" y2="244"></line><line x1="443.5" x2="453" y1="204" y2="244"></line><line x1="481.5" x2="472" y1="204" y2="244"></line><line x1="481.5" x2="491" y1="204" y2="244"></line><line x1="519.5" x2="510" y1="204" y2="244"></line><line x1="519.5" x2="529" y1="204" y2="244"></line><line x1="557.5" x2="548" y1="204" y2="244"></line><line x1="557.5" x2="567" y1="204" y2="244"></line><line x1="595.5" x2="586" y1="204" y2="244"></line><line x1="595.5" x2="605" y1="204" y2="244"></line><line x1="633.5" x2="624" y1="204" y2="244"></line><line x1="633.5" x2="643" y1="204" y2="244"></line><line x1="671.5" x2="662" y1="204" y2="244"></line><line x1="671.5" x2="681" y1="204" y2="244"></line></g>
+</g>
+<g fill="#63b3a6">
+<circle cx="396" cy="250" r="4"></circle><circle cx="415" cy="250" r="4"></circle><circle cx="434" cy="250" r="4"></circle><circle cx="453" cy="250" r="4"></circle><circle cx="472" cy="250" r="4"></circle><circle cx="491" cy="250" r="4"></circle><circle cx="510" cy="250" r="4"></circle><circle cx="529" cy="250" r="4"></circle><circle cx="548" cy="250" r="4"></circle><circle cx="567" cy="250" r="4"></circle><circle cx="586" cy="250" r="4"></circle><circle cx="605" cy="250" r="4"></circle><circle cx="624" cy="250" r="4"></circle><circle cx="643" cy="250" r="4"></circle><circle cx="662" cy="250" r="4"></circle><circle cx="681" cy="250" r="4"></circle></g>
+<line marker-end="url(#a33b)" stroke="#8d867b" stroke-width="1.5" x1="292" x2="360" y1="150" y2="150"></line>
+<text fill="#787268" font-family="-apple-system,sans-serif" font-size="11" text-anchor="middle" x="326" y="140">变大</text>
+<text fill="#63b3a6" font-family="-apple-system,sans-serif" font-size="11.5" text-anchor="middle" x="360" y="278">青色的末端单元（毛细血管）两边一样大 — 这是 3/4 的来源</text>
+<text fill="#57524b" font-family="-apple-system,sans-serif" font-size="11" text-anchor="middle" x="360" y="300">示意图。真实哺乳动物从主动脉到毛细血管大约二十几级，不是三四级</text>
+</svg>
+<figcaption>末端固定，网络就只能靠"多分几级"来长大。而多分一级，主干必须变粗、血流必须变慢——这一层几何代价，正是每克代谢率随体型下降的原因。</figcaption>
+</figure>
+<p>把这三条放在一起求解，出来的就是 3/4，以及一整套 1/4 的倍数：代谢率 3/4，心率 −1/4，寿命 +1/4，主动脉半径 3/8。<b>关键的一句话是：3/4 不是从身体的三维几何来的，是从供给网络的几何来的。</b>如果生物是靠表面直接交换（比如很小的、纯靠扩散过活的东西），那 2/3 才对；一旦你必须靠一套管网把东西送进去，末端又不能跟着放大，网络本身就开始收"过路费"，而这笔费用随体型超线性地涨。</p>
+<p>这就是为什么大象每一克要慢下来：不是它的细胞变懒了，是<b>把氧气送到那些细胞跟前这件事，本身变贵了</b>。</p>
+<div class="decide">
+<span class="lb">🎯 决策线</span>
+<p>要判断一个东西还能不能再大，先找它的<b>分配网络</b>——散热、供电、带宽、审批、注意力，凡是"必须送到每个末端"的东西都算。然后问一句：这个网络的<b>末端单元</b>能不能跟着变大？末端固定而总量在涨，供给成本一定超线性上升，规模的天花板就在那儿，跟你的资源总量无关。真要突破，只有两条路：把末端做大（换更粗的接口），或者把系统一分为二、各配一套网络。加钱通常不在这两条路上。</p>
+</div>
+<div class="crossx-inline">
+🌀 <b>神经科学 · 大脑越大，越必须分区</b>　Zhang 与 Sejnowski 在 2000 年发现，跨物种看，大脑白质（长距离连线）的体积随灰质（本地处理）体积的 <b>4/3</b> 次幂增长——这正是"末端不变、网络吃掉超线性成本"的同一条几何。推论很不客气：要维持全脑处处直连，连线体积会涨得比脑本身还快，所以大脑<b>不可能</b>在变大的同时保住全局连通度，只能切成模块、牺牲远程带宽。模块化在这里不是一种设计美德，是几何强制的结果。
+</div>
+<p class="en-brief"><b>EN</b> West, Brown &amp; Enquist (1997) derive the exponent from distribution rather than from surface. Three assumptions: the supply network is space-filling (hence fractal), its terminal units are size-invariant (a capillary is ~5–10 µm in a shrew and in a blue whale), and transport energy is minimised. Solving these yields 3/4 for metabolism and the whole family of quarter powers. The exponent comes from the geometry of the network, not from the geometry of the body.</p>
+<h2><span class="n">04</span>这套说法在哪儿不成立<span class="he">（Where This Breaks Down）</span></h2>
+<p class="lead">现在说反面。规模律是复杂性科学里被引用得最理直气壮的一块，而它内部的争议比外面看到的大得多。</p>
+<p><b>第一，那个指数到底是不是 3/4，从来没有定论。</b>2001 年 Dodds、Rothman 与 Weitz 重新审了历史上几批哺乳动物和鸟类的数据，结论是：把 2/3 当成待否定的假设，数据并不足以否定它。2003 年 White 与 Seymour 收了 619 个哺乳物种、跨五个数量级，在校正了体温和消化状态之后得到的是 2/3。而 WBE 阵营的数据集给出的是 3/4。这不是谁算错了，是"该怎么挑数据、该校正什么"本身没有共识。</p>
+<figure>
+<svg aria-label="左：数据只跨两个数量级时 2/3 与 3/4 两条线几乎重合；右：真实数据在对数纸上是弯的" role="img" viewbox="0 0 720 350" xmlns="http://www.w3.org/2000/svg">
+<text fill="#aba498" font-family="-apple-system,sans-serif" font-size="13" text-anchor="middle" x="360" y="26">为什么这场争论一百年没打完</text>
+<text fill="#9fbc7a" font-family="SF Mono,monospace" font-size="12" text-anchor="middle" x="195" y="56">① 数据只跨 2 个数量级</text>
+<line stroke="rgba(255,255,255,0.18)" stroke-width="1.5" x1="70" x2="330" y1="288" y2="288"></line>
+<line stroke="rgba(255,255,255,0.18)" stroke-width="1.5" x1="70" x2="70" y1="288" y2="80"></line>
+<line stroke="#a693cd" stroke-width="2.5" x1="70" x2="320" y1="268" y2="178"></line>
+<line stroke="#e0895e" stroke-dasharray="6 4" stroke-width="2.5" x1="70" x2="320" y1="268" y2="188"></line>
+<g fill="#c9c2b6">
+<circle cx="90" cy="259" r="3.5"></circle><circle cx="120" cy="235" r="3.5"></circle><circle cx="150" cy="235" r="3.5"></circle><circle cx="180" cy="215" r="3.5"></circle><circle cx="210" cy="218" r="3.5"></circle><circle cx="240" cy="196" r="3.5"></circle><circle cx="270" cy="193" r="3.5"></circle><circle cx="300" cy="171" r="3.5"></circle>
+</g>
+<text fill="#a693cd" font-family="SF Mono,monospace" font-size="11.5" x="326" y="176">3/4</text>
+<text fill="#e0895e" font-family="SF Mono,monospace" font-size="11.5" x="326" y="198">2/3</text>
+<text fill="#8d867b" font-family="-apple-system,sans-serif" font-size="11" text-anchor="middle" x="195" y="310">两条线差不到一个点的散布</text>
+<text fill="#8d867b" font-family="-apple-system,sans-serif" font-size="11" text-anchor="middle" x="195" y="328">拟合出哪个，取决于你收了哪些物种</text>
+<text fill="#cd7f9b" font-family="SF Mono,monospace" font-size="12" text-anchor="middle" x="535" y="56">② 而真实数据是弯的</text>
+<line stroke="rgba(255,255,255,0.18)" stroke-width="1.5" x1="410" x2="690" y1="288" y2="288"></line>
+<line stroke="rgba(255,255,255,0.18)" stroke-width="1.5" x1="410" x2="410" y1="288" y2="80"></line>
+<line opacity="0.8" stroke="#79a6d2" stroke-dasharray="6 4" stroke-width="2" x1="410" x2="680" y1="272" y2="96"></line>
+<path d="M410,272 Q545,232 680,96" fill="none" stroke="#cd7f9b" stroke-width="2.8"></path>
+<text fill="#79a6d2" font-family="SF Mono,monospace" font-size="11.5" text-anchor="end" x="672" y="92">单一幂律的直线拟合</text>
+<text fill="#cd7f9b" font-family="SF Mono,monospace" font-size="11.5" x="470" y="262">实测</text>
+<text fill="#8d867b" font-family="-apple-system,sans-serif" font-size="11" text-anchor="middle" x="550" y="310">小体型段斜率偏小、大体型段偏大</text>
+<text fill="#8d867b" font-family="-apple-system,sans-serif" font-size="11" text-anchor="middle" x="550" y="328">「唯一的那个指数」可能根本不存在</text>
+</svg>
+<figcaption>左边解释了为什么争论打不完：在两三个数量级的窗口里，2/3 和 3/4 的差别小于数据本身的散布。右边是 Kolokotrones 等人 2010 年在《自然》上的发现——斜率不是常数。</figcaption>
+</figure>
+<p><b>第二，更麻烦：曲线可能根本不是直线。</b>2010 年 Kolokotrones 等人用一个大得多的数据集发现，哺乳动物代谢率在双对数纸上是<em>弯的</em>——小体型段的斜率偏小，大体型段偏大，即便校正了体温也还是弯的。如果它是弯的，那么"这条定律的指数是多少"这个问题就没有唯一答案，只有"在你关心的那一段上，局部斜率是多少"。上图左边同时说明了这场争论为什么打不完：在两三个数量级的窗口里，2/3 和 3/4 画出来几乎重叠。</p>
+<p><b>第三，WBE 的推导本身被质疑过。</b>Kozłowski 与 Konarzewski 在 2004 年指出该模型在数学上的若干问题——比如它需要末端单元的数量正比于体重，而这在模型内部并不能自洽地推出来。WBE 三人写了回应，双方至今没有和解。一个模型能被这样具体地攻击，恰恰说明它是可检验的；但这也意味着"3/4 已经被解释清楚了"这句话说早了。</p>
+<p><b>第四，跨物种的规律不能拿来推种内。</b>克莱伯定律讲的是不同物种之间的比较。同一个物种内部，个体大小与代谢率的关系是另一回事，指数经常不一样，有时接近 1。所以"因为大象每克代谢慢，所以体重大的人每公斤代谢也慢"这种推理没有依据——它把一条种间的线拿去解释种内的点。前一节里给格列佛算饭量也犯了同一个错，只是那里的结论足够粗（1728 远大于任何亚线性指数给出的数），所以还站得住。</p>
+<p><b>第五，别把规模律当成宿命。</b>3/4 描述的是一条演化出来的、受几何约束的中心趋势，不是不可逾越的物理上限。同样体重的动物，代谢率能差好几倍；鸟类和哺乳类的截距明显不同；恒温和变温之间差一个量级。规模律给的是"你大致会落在哪条带子上"，不是"你必须落在哪一点上"。</p>
+<div class="decide">
+<span class="lb">🎯 决策线</span>
+<p>引用任何规模律指数之前，先说清三件事：<b>①</b> 这条线是跨个体、跨物种，还是跨机构——三者的指数经常不同；<b>②</b> 数据跨了几个数量级——少于三个，2/3 和 3/4 你分不出来，报出来的小数点是假精度；<b>③</b> 有没有检验过曲率——只拟合一条直线，你不会知道它是弯的。三条答不上来，就只报方向（"次线性"）不报数字，别报 0.75。</p>
+</div>
+<p class="en-brief"><b>EN</b> Four limits. The exponent is contested: Dodds, Rothman &amp; Weitz (2001) cannot reject 2/3, and White &amp; Seymour (2003) get 2/3 across 619 species. Kolokotrones et al. (2010) find real curvature, so a single exponent may not exist. The WBE derivation has been attacked on mathematical grounds (Kozłowski &amp; Konarzewski 2004). And interspecific laws do not transfer to within-species comparisons. Over two or three decades of mass, 2/3 and 3/4 are simply not distinguishable.</p>
+<div class="bigcat">
+<h3>🎒 场景 · BigCat</h3>
+<ol>
+<li><span class="dm">带团队与组织</span>团队从 8 个人涨到 25 个人以后，原来那个"每周对齐一次、大家都知道彼此在干嘛"的做法开始失效——同步会越开越长，而信息还是漏。这不是谁变懒了：需要对齐的<b>关系对</b>随人数按平方涨，而每个人一周的可支配时间是常数，于是"单位人力的对齐带宽"必然随规模下降。可改的东西：停掉全员会里逐人汇报这一环，改成每个模块只对外承诺<b>一个</b>数字和一个接口人。判据也很具体——如果同步会的时长在过去两个季度里跟着人数一起涨，说明还在用等速生长的方式管一个已经异速生长的团队。</li>
+<li><span class="dm">投资与仓位</span>一个策略跑得好，很自然会想加码。但资金规模变大之后，真正先失效的往往不是逻辑，是<b>分配网络</b>——市场的流动性是那套管网，你的下单量是要送进去的东西，而末端（单笔能吃掉的深度）不会因为你钱多就变宽。于是冲击成本随规模超线性上升，收益率在逻辑还完全正确的时候就开始被吃掉。可改的动作：给每个策略估一个容量上限（用标的日均成交额的某个固定比例反推），到顶了就不再加仓、去开另一条不相关的线。改看的指标不是收益率，是<b>成交均价相对下决心那一刻价格的偏离</b>——它是"网络开始堵了"的直接读数，比事后的业绩早得多。</li>
+<li><span class="dm">健康与精力</span>"今年比去年强了两成，那训练量也加两成"，这是等速生长的算法。负荷可以线性加，恢复不能：睡眠时长有硬上限，肌腱和结缔组织的适应速度比肌肉慢一大截，它们是那个不会跟着放大的末端。可改的动作：加量时一次只动一个变量（强度、频率、时长三选一），并且把<b>晨起静息心率</b>当成"供给端跟没跟上"的读数——连续三天高于自己的基线就停止加量，而不是靠"今天感觉还行"来判断。这跟第 2 节那个"心跳是有限额"的误读正好相反：这里看的是心率的<em>变化</em>，不是心跳的<em>总数</em>。</li>
+</ol>
+</div>
+<div class="crossx">
+<h3>🌀 越界 · 跨学科的联想<span class="he">（Crossings）</span></h3>
+<ul>
+<li><b>东方思想 · 《庄子·逍遥游》的"水之积也不厚"</b>：庄子说，"覆杯水于坳堂之上，则芥为之舟；置杯焉则胶，水浅而舟大也"——一洼水能浮起一根草芥，却浮不起放在上面的那只杯子。他要论证的是大鹏必须"有所待"：越大的东西，需要的承托越多。本期三条机制合起来说明他的直觉对了一半，而错的那一半更要紧。他默认的是线性关系——水积得越厚就越浮得动，所以理论上总能积够。但平方立方律说重量与支撑面按不同的幂次增长，克莱伯定律说供给按 3/4 涨而需求按 1 涨，WBE 说这个缺口来自末端不能跟着放大。三条合起来给出的是：不存在"积厚到足够"这个终点，<b>每放大一倍，需要的相对承托都比上一次更多</b>，最终卡住鲲鹏的是几何，不是水量。<b>但这里不成立</b>：庄子的"有所待"是一个关于依待与自由的工夫论命题，鲲鹏是寓言不是生物，他从不承诺任何定量关系。拿幂指数去"补全"他，会把一个讲心性的论证读成一个讲后勤的论证。能借走的是他"大不是小的放大"这个直觉——这一点他比同时代所有人都看得早。</li>
+<li><b>工程与技术史 · 伽利略之后，工程学换了瓶颈</b>：伽利略在 1638 年给出的是纯静力学的答案——放大就要加粗，因为强度随截面走 <em>L</em>²、重量随体积走 <em>L</em>³。这套直觉统治了工程学几百年，也确实管用。但本期后两条机制合起来给出了一个他看不到的转折：真正卡住规模的，通常不是<b>承重</b>，是<b>流量</b>。克莱伯定律说供给随 3/4 涨而不是 1，WBE 说这个折扣来自末端固定的分配网络。于是同一个几何论证在两个不同的地方发力：静力学卡住的是"能不能站着"，网络几何卡住的是"能不能供上"。这推出一个反直觉的排序——机房的天花板通常是散热而不是楼板承重，数据库的天花板通常是连接数而不是磁盘容量，城市的天花板通常是管网而不是土地。<b>评估一个系统能不能放大，先找它的分配网络，再看它的承重件。</b>伽利略把工程学从"照着小的照放大"里救了出来；三百五十年后，WBE 又把它从"只盯着承重"里救了一次。</li>
+<li><b>历史与军事 · 六十万人为什么走不动</b>：1812 年拿破仑带进俄国的大军约六十万人，是他此前任何一次战役的数倍，而它在真正的大战之前就已经融化了大半。传统解释是天气和焦土。但本期的机制给出一个更结构性的读法：军队规模翻倍，就地征粮所需的半径只按平方根扩（可征区域是面积），而行军纵队的长度、通过一座桥的时间、命令传到末梢的延迟，全都按人数线性涨。于是"每人每天能推进多少公里"随规模下降——这正是速率随规模按负幂次走的那条机制，只不过分配网络在这里是道路和补给线。结论是：六十万这个数字本身就是问题的一部分，增兵在那个点上是负回报的，天气只是把已经跑不动的系统推倒。<b>但这里不成立</b>：军队没有毛细血管那样"尺寸严格不变的末端单元"，也没有经过几百万年优化去把运输损耗压到最小——它的补给树是临时拼的，效率远在最优之下。所以能借走的是"分配网络是瓶颈"这条推理，不能借 3/4 这个具体的指数：拿破仑的问题在同一类几何里，但不在同一条曲线上。</li>
+</ul>
+</div>
+<div class="thinking">
+<h3>深入思考<span class="he">（Going Deeper）</span></h3>
+<details><summary>如果末端单元能变大，规模的天花板会消失吗？</summary><p>不会消失，只会移动。末端变大意味着交换面积相对减少（还是平方立方律），所以你是在拿交换效率换供给成本。真实的例子是鸟类的肺——它用单向气流而不是更大的肺泡来提高交换效率，于是同样体重下代谢率比哺乳类高。所以能动的不止"末端多大"这一个旋钮，还有"末端的工作方式"。</p></details>
+<details><summary>为什么 2/3 和 3/4 之间的差别值得吵一百年？</summary><p>因为它们指向两种完全不同的因果故事：2/3 说限制来自身体与外界的界面（散热），3/4 说限制来自身体内部的输送。选哪个，决定了你去改什么。而在实际数据的窗口里两者又几乎分不开——这正是复杂性科学里最典型的困境：机制上分歧巨大，观测上差别微小。</p></details>
+<details><summary>规模律在会学习、会自己改结构的系统里还成立吗？</summary><p>要小心。生物的供给网络是演化优化出来的，几何约束因此是紧的。而一个组织可以重新设计它的信息网络——加一层中间管理、换一套工具、拆成两个独立单元。所以在人造系统里，规模律更像是"如果你不改结构，会走到哪儿"的默认轨迹，而不是不可违抗的定律。它的用处在于告诉你什么时候<em>必须</em>改结构了。</p></details>
+<details><summary>"每克代谢率随体型下降"能不能反过来当成长寿的处方？</summary><p>这正是"心跳有限额"式误读的来源。跨物种成立的相关性，不能直接搬到个体身上当因果——限制热量摄入延长寿命的实验在部分动物里成立、在灵长类里结果反复，而"降低代谢速度"和"降低代谢损伤"根本不是同一件事。跨物种的一条线，最多告诉你去哪里找机制，不告诉你该吃几顿饭。</p></details>
+</div>
+<div class="refs">
+<h3>延伸阅读<span class="he">（Further Reading）</span></h3>
+<ul>
+<li>Max Kleiber, <a href="https://doi.org/10.3733/hilg.v06n11p315">Body size and metabolism</a>（Hilgardia, 1932，3/4 的原始论文）</li>
+<li>West, Brown &amp; Enquist, <a href="https://www.science.org/doi/10.1126/science.276.5309.122">A General Model for the Origin of Allometric Scaling Laws in Biology</a>（Science, 1997，WBE 模型）</li>
+<li>Dodds, Rothman &amp; Weitz, <a href="https://arxiv.org/abs/physics/0007096">Re-examination of the "3/4-law" of Metabolism</a>（2001，2/3 否定不掉）</li>
+<li>White &amp; Seymour, <a href="https://www.pnas.org/doi/full/10.1073/pnas.0436428100">Mammalian basal metabolic rate is proportional to body mass<sup>2/3</sup></a>（PNAS, 2003，619 个物种）</li>
+<li>Kolokotrones et al., <a href="https://www.nature.com/articles/nature08920">Curvature in metabolic scaling</a>（Nature, 2010，斜率不是常数）</li>
+<li>Brown, West &amp; Enquist, <a href="https://besjournals.onlinelibrary.wiley.com/doi/10.1111/j.1365-2435.2005.01022.x">Yes, WBE's model of allometric scaling is both mathematically correct and biologically relevant</a>（2005，对 Kozłowski &amp; Konarzewski 质疑的回应，争议要点都在文中）</li>
+<li>John Damuth, <a href="https://www.nature.com/articles/290699a0">Population density and body size in mammals</a>（Nature, 1981，能量等价）</li>
+<li>Zhang &amp; Sejnowski, <a href="https://www.pnas.org/doi/10.1073/pnas.090504197">A universal scaling law between gray matter and white matter of cerebral cortex</a>（PNAS, 2000，4/3）</li>
+<li>Herbert J. Levine, <a href="https://doi.org/10.1016/S0735-1097(97)00246-5">Rest heart rate and life expectancy</a>（JACC, 1997，"一生心跳"那张表）</li>
+<li>J.B.S. Haldane, <a href="https://en.wikipedia.org/wiki/On_Being_the_Right_Size">On Being the Right Size</a>（1926，关于尺度最好的一篇散文，两页读完）</li>
+<li>Galileo Galilei, <a href="https://en.wikipedia.org/wiki/Two_New_Sciences">Two New Sciences</a>（1638，平方立方律与那两根骨头）</li>
+<li>Geoffrey West, <a href="https://www.penguinrandomhouse.com/books/312476/scale-by-geoffrey-west/">Scale</a>（2017，WBE 一方的完整论述，也是被批评最多的那本）</li>
+</ul>
+</div>
+<footer>BigCat · 复杂性科学 · <a href="index.html">← 全部 Topic</a></footer>
+</div>
+<script defer="" src="https://hub.cissychen.com/comments.js"></script>
+<script defer="" src="https://hub.cissychen.com/search.js"></script>
+<script defer="" src="https://hub.cissychen.com/index-button.js"></script>
+<script defer="" src="https://hub.cissychen.com/lightbox.js"></script>
+<script defer="" src="https://hub.cissychen.com/i18n-tts.js"></script>
+</body></html>

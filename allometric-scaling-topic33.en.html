@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+
+<html lang="en"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Allometric Scaling Laws — change the size and the proportions must change · Complexity Science T33</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,"SF Pro Display","Noto Sans SC",sans-serif;color:#e4ded5;line-height:1.85;min-height:100vh;
+  background:radial-gradient(1100px 620px at 12% -6%,rgba(224,137,94,0.10),transparent 62%),radial-gradient(950px 700px at 100% 2%,rgba(166,147,205,0.09),transparent 58%),linear-gradient(168deg,#100f0d 0%,#15161b 48%,#0a0a0c 100%);background-attachment:fixed}
+.wrap{max-width:760px;margin:0 auto;padding:30px 22px 90px}
+header{padding:52px 0 8px;border-bottom:1px solid rgba(255,255,255,0.07);margin-bottom:34px}
+.week-tag{font-family:"SF Mono",Menlo,monospace;font-size:0.72rem;font-weight:700;letter-spacing:2px;color:#a693cd;border:1px solid rgba(166,147,205,0.4);background:rgba(166,147,205,0.07);padding:3px 11px;border-radius:20px}
+h1{font-size:2.5rem;font-weight:800;letter-spacing:0.5px;line-height:1.2;margin:20px 0 0;background:linear-gradient(106deg,#e0895e 0%,#d9b45f 34%,#9fbc7a 68%,#63b3a6 100%);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+.sub{font-size:1.05rem;color:#aba498;margin-top:14px;font-weight:500}
+.date{font-family:"SF Mono",Menlo,monospace;font-size:0.75rem;color:#57524b;margin-top:18px;letter-spacing:1px}
+.pitch{margin:22px 0 30px;font-size:0.97rem;color:#cd7f9b;border-left:2px solid rgba(205,127,155,0.5);padding-left:16px;font-style:italic}
+.intro{font-size:1.02rem;color:#cfc8bc;margin-bottom:14px}
+.intro p{margin-bottom:16px}
+h2{font-size:1.42rem;font-weight:700;color:#e9e3d9;margin:56px 0 8px;letter-spacing:0.3px}
+h2 .n{font-family:"SF Mono",Menlo,monospace;font-size:0.85rem;color:#a693cd;display:block;margin-bottom:6px;letter-spacing:2px}
+p{margin-bottom:17px}
+.lead{color:#cfc8bc}
+b,strong{color:#f0eae0;font-weight:600}
+em{color:#d9b45f;font-style:normal;font-weight:500}
+.dim{color:#8d867b}
+a.reflink{display:inline-block;font-size:0.82rem;font-family:"SF Mono",Menlo,monospace;color:#63b3a6;border:1px solid rgba(99,179,166,0.38);background:rgba(99,179,166,0.07);padding:1px 9px;border-radius:20px;text-decoration:none;transition:all 0.15s;white-space:nowrap}
+a.reflink:hover{background:rgba(99,179,166,0.16);border-color:rgba(99,179,166,0.7)}
+figure{margin:30px 0}
+figure svg{display:block;width:100%;height:auto;border-radius:12px;background:rgba(255,255,255,0.018);border:1px solid rgba(255,255,255,0.06)}
+figcaption{font-size:0.82rem;color:#787268;margin-top:11px;text-align:center;line-height:1.6}
+.decide{margin:24px 0;border:1px solid rgba(224,137,94,0.36);background:rgba(224,137,94,0.055);border-radius:12px;padding:15px 19px}
+.decide .lb{font-family:"SF Mono",Menlo,monospace;font-size:0.73rem;letter-spacing:1.5px;color:#e0895e;font-weight:700;display:block;margin-bottom:7px}
+.decide p{margin:0;font-size:0.95rem;color:#ddd5c9}
+.crossx-inline{margin:20px 0 22px;border-left:2px solid rgba(205,127,155,0.55);padding:2px 0 2px 15px;font-size:0.89rem;color:#a9a096;line-height:1.72}
+.crossx-inline b{color:#cd7f9b;font-weight:600}
+.bigcat{margin:46px 0 10px;border:1px solid rgba(217,180,95,0.38);background:rgba(217,180,95,0.05);border-radius:14px;padding:20px 22px}
+.bigcat h3{font-size:1.02rem;color:#d9b45f;margin-bottom:14px;letter-spacing:0.5px}
+.bigcat ol{list-style:none;padding:0}
+.bigcat li{margin-bottom:15px;font-size:0.94rem;color:#d5cdc1;line-height:1.78}
+.bigcat li:last-child{margin-bottom:0}
+.bigcat .dm{font-family:"SF Mono",Menlo,monospace;font-size:0.73rem;color:#d9b45f;border:1px solid rgba(217,180,95,0.32);border-radius:4px;padding:1px 7px;margin-right:8px;white-space:nowrap}
+.crossx{margin:46px 0 10px;border:1px solid rgba(205,127,155,0.38);background:rgba(205,127,155,0.05);border-radius:14px;padding:20px 22px}
+.crossx h3{font-size:1.02rem;color:#cd7f9b;margin-bottom:14px;letter-spacing:0.5px}
+.crossx ul{list-style:none;padding:0}
+.crossx li{margin-bottom:16px;font-size:0.94rem;color:#d5cdc1;line-height:1.78}
+.crossx li:last-child{margin-bottom:0}
+.crossx li b{color:#cd7f9b;font-weight:600}
+.thinking{margin:46px 0 10px}
+.thinking h3{font-size:1.02rem;color:#a693cd;margin-bottom:14px;letter-spacing:0.5px}
+details{border:1px solid rgba(166,147,205,0.22);border-radius:10px;padding:12px 16px;margin-bottom:10px;background:rgba(166,147,205,0.035)}
+summary{cursor:pointer;font-size:0.93rem;color:#c9c2b6;font-weight:500}
+summary::marker{color:#a693cd}
+details p{margin:12px 0 0;font-size:0.9rem;color:#a9a096;line-height:1.75}
+.refs{margin:46px 0 10px}
+.refs h3{font-size:1.02rem;color:#79a6d2;margin-bottom:14px;letter-spacing:0.5px}
+.refs ul{list-style:none;padding:0}
+.refs li{margin-bottom:10px;font-size:0.9rem;color:#8d867b;line-height:1.7}
+.refs a{color:#79a6d2;text-decoration:none;border-bottom:1px solid rgba(121,166,210,0.3)}
+.refs a:hover{color:#a6c4e2;border-bottom-color:rgba(121,166,210,0.7)}
+footer{text-align:center;padding:56px 0 10px;font-size:0.78rem;color:#57524b;font-family:"SF Mono",Menlo,monospace;border-top:1px solid rgba(255,255,255,0.06);margin-top:50px}
+footer a{color:#79a6d2;text-decoration:none}
+@media(max-width:600px){h1{font-size:1.85rem}.wrap{padding:24px 16px 60px}h2{font-size:1.22rem}}
+</style></head><body>
+<div class="wrap">
+<header>
+<span class="week-tag">TOPIC 33 · PHASE F</span>
+<h1>Allometric Scaling Laws</h1>
+<p class="sub">Change the size and the proportions must change</p>
+<p class="date">2026-08-19 · Scale</p>
+</header>
+<p class="pitch">Enlarge a mouse to the size of an elephant and it cooks itself. The real elephant is fine — at the price of every gram of it running about twenty times slower than a mouse's.</p>
+<div class="intro">
+<p>Spend an afternoon at a zoo and you notice something. Small animals never stop. A sparrow pecks twice and hops; a squirrel moves faster than you can track. An elephant stands there and shifts a leg every half minute. We usually read this as temperament — the small ones are jumpy, the big ones are calm.</p>
+<p>But put heart rate, breathing rate, lifespan and feeding rate side by side and something very regular surfaces. Almost every <em>rate</em> falls with body mass, almost every <em>duration</em> rises with it, and both use the same exponent. The squirrel isn't nervous. Every gram of it has to burn far more energy per second than every gram of the elephant, and it simply cannot slow down.</p>
+<p>The counterintuitive part comes next. That exponent is not 1 — which would mean every gram is equally busy. It is not 2/3 either — which is what "you can only shed heat through your skin" predicts. It is <b>3/4</b>: a number with no obvious geometric reason to exist. And it shows up in metabolic rate, in heart rate, in lifespan, in the branching of trees, in how fast tumours grow. Biology has spent a century asking where that 3/4 comes from.</p>
+<p class="dim">How this differs from the previous topic: Topic 32 was about <b>self-similarity</b> — the same shape looking the same at every scale. This one is the opposite. When something gets bigger, its parts <b>must change at different rates</b>; the kind of enlargement that keeps everything looking the same is physically impossible. Two faces of scale, not one idea told twice.</p>
+</div>
+<h2><span class="n">01</span>Why You Cannot Simply Enlarge a Mouse</h2>
+<p class="lead">In 1638, under house arrest, Galileo finished <i>Two New Sciences</i>. In the Second Day he drew two bones: one from a normal animal, and one you would have to draw if you tripled that animal's size and wanted the bone not to snap. The second is grotesquely thick, like a tree stump.</p>
+<p>His reasoning is very simple. Multiply every edge of an object by <em>k</em> and its <b>surface area</b> grows as <em>k</em>², its <b>volume</b> — and therefore its weight — as <em>k</em>³. How much load a bone survives depends on its <b>cross-sectional area</b>, which also grows only as <em>k</em>². So weight outruns support: triple the size and the stress in the bone triples. Enlarge anything far enough and it is crushed by itself. This is the <b>square-cube law</b>.</p>
+<p>Multiplying every edge by the same number so that the shape is preserved is called <b>isometry</b>. What Galileo proved is that organisms cannot be isometric. Getting bigger forces a change of proportion — and growth in which the proportions shift with size is <b>allometry</b>.</p>
+<figure>
+<svg aria-label="Square-cube law: double the edge and area quadruples while volume grows eightfold, halving the surface available per unit volume" role="img" viewbox="0 0 720 336" xmlns="http://www.w3.org/2000/svg">
+<defs>
+<marker id="a33a" markerheight="9" markerunits="userSpaceOnUse" markerwidth="9" orient="auto" refx="9" refy="5" viewbox="0 0 10 10">
+<path d="M0,1 L9,5 L0,9 z" fill="#8d867b"></path>
+</marker>
+</defs>
+<text fill="#aba498" font-family="-apple-system,sans-serif" font-size="13" text-anchor="middle" x="360" y="28">Same shape, edge ×1 / ×2 / ×3</text>
+<g stroke="rgba(255,255,255,0.16)">
+<polygon fill="#3b3a45" points="180,190 220,190 233,177 193,177"></polygon>
+<polygon fill="#2b2a33" points="220,190 233,177 233,217 220,230"></polygon>
+<rect fill="#4a4857" height="40" width="40" x="180" y="190"></rect>
+<polygon fill="#3b3a45" points="360,150 440,150 466,124 386,124"></polygon>
+<polygon fill="#2b2a33" points="440,150 466,124 466,204 440,230"></polygon>
+<rect fill="#4a4857" height="80" width="80" x="360" y="150"></rect>
+<polygon fill="#3b3a45" points="540,110 660,110 698,72 578,72"></polygon>
+<polygon fill="#2b2a33" points="660,110 698,72 698,192 660,230"></polygon>
+<rect fill="#4a4857" height="120" width="120" x="540" y="110"></rect>
+</g>
+<line marker-end="url(#a33a)" stroke="#8d867b" stroke-width="1.5" x1="250" x2="340" y1="215" y2="215"></line>
+<line marker-end="url(#a33a)" stroke="#8d867b" stroke-width="1.5" x1="482" x2="524" y1="215" y2="215"></line>
+<text fill="#787268" font-family="-apple-system,sans-serif" font-size="10.5" x="18" y="256">Edge length</text>
+<text fill="#787268" font-family="-apple-system,sans-serif" font-size="10.5" x="18" y="278">Surface area (cooling, load)</text>
+<text fill="#787268" font-family="-apple-system,sans-serif" font-size="10.5" x="18" y="300">Volume (weight, heat)</text>
+<text fill="#cd7f9b" font-family="-apple-system,sans-serif" font-size="10.5" x="18" y="324">Surface per unit volume</text>
+<g fill="#c9c2b6" font-family="SF Mono,monospace" font-size="13" text-anchor="middle">
+<text x="200" y="256">×1</text><text x="400" y="256">×2</text><text x="600" y="256">×3</text>
+<text x="200" y="278">×1</text><text x="400" y="278">×4</text><text x="600" y="278">×9</text>
+<text x="200" y="300">×1</text><text x="400" y="300">×8</text><text x="600" y="300">×27</text>
+</g>
+<g fill="#cd7f9b" font-family="SF Mono,monospace" font-size="13.5" font-weight="700" text-anchor="middle">
+<text x="200" y="324">1.00</text><text x="400" y="324">0.50</text><text x="600" y="324">0.33</text>
+</g>
+</svg>
+<figcaption>The last row is the source of all the trouble: the bigger a thing gets, the less surface each unit of its interior is allotted — for cooling, for load, for absorption alike.</figcaption>
+</figure>
+<p>Heat is a worse problem than bone. Suppose that after enlargement each gram of flesh still produces heat at the same rate. Then total heat production follows volume and grows as <em>k</em>³, while shedding it depends on skin and grows only as <em>k</em>². Divide one by the other: the heat each unit of skin must handle grows as <em>k</em>. Ten times bigger means ten times the cooling load per unit of surface — and whatever the skin cannot handle turns into a rising body temperature.</p>
+<p>In 1883 the German physiologist Max Rubner drew the elegant conclusion: since an organism must keep heat production within what its skin can dump, metabolic rate ought to track <b>body surface area</b> — that is, mass to the <b>2/3</b> power. The argument is airtight, and it stood for half a century. Its only problem is that the data disagree.</p>
+<div class="crossx-inline">
+🌀 <b>Literature · Swift got Gulliver's rations wrong</b>　In <i>Gulliver's Travels</i>, the Lilliputian mathematicians measure Gulliver at twelve times their height and conclude that his body "must contain at least 1728 of theirs" (12³), so he must be fed 1728 Lilliputian rations a day. That is isometric arithmetic — food converted from volume. But food tracks metabolic rate, not volume: even on the most conservative 2/3 exponent it is 144 rations, and on the 3/4 exponent below it is 320. Swift wrote satire, but the joke lands on the wrong target here: Lilliput's treasury could actually have afforded Gulliver. It was its mathematicians who frightened the king.
+</div>
+<h2><span class="n">02</span>The Three-Quarters Exponent</h2>
+<p class="lead">In 1932 Max Kleiber, a Swiss-born physiologist at UC Davis, plotted the <b>basal metabolic rate</b> (BMR — the energy burned per unit time while awake, at rest, fasted, and neither hot nor cold) of a range of animals against body mass on a <b>log-log plot</b>, where both axes are marked off in factors of ten.</p>
+<p>What he got was not Rubner's 2/3 but a straight line of slope about <b>0.75</b>. The relation became <b>Kleiber's law</b>, usually written in a form you can use directly: BMR ≈ 3.4 × mass<sup>3/4</sup> watts, with mass in kilograms. Put a 70 kg human in and you get about 82 W — roughly an incandescent bulb, which matches measurement.</p>
+<figure>
+<svg aria-label="On log-log axes the basal metabolic rate of animals from mouse to elephant falls on a line of slope three quarters" role="img" viewbox="0 0 720 384" xmlns="http://www.w3.org/2000/svg">
+<text fill="#aba498" font-family="-apple-system,sans-serif" font-size="13" text-anchor="middle" x="360" y="28">Across five orders of magnitude of mass, one straight line</text>
+<line stroke="rgba(255,255,255,0.18)" stroke-width="1.5" x1="90" x2="672" y1="320" y2="320"></line>
+<line stroke="rgba(255,255,255,0.18)" stroke-width="1.5" x1="90" x2="90" y1="320" y2="56"></line>
+<g fill="#57524b" font-family="SF Mono,monospace" font-size="10.5" text-anchor="middle">
+<text x="90" y="338">10 g</text><text x="183" y="338">100 g</text><text x="277" y="338">1 kg</text><text x="370" y="338">10 kg</text><text x="463" y="338">100 kg</text><text x="557" y="338">1 t</text><text x="650" y="338">10 t</text>
+</g>
+<g fill="#57524b" font-family="SF Mono,monospace" font-size="10.5" text-anchor="end">
+<text x="82" y="324">0.1 W</text><text x="82" y="267">1 W</text><text x="82" y="211">10 W</text><text x="82" y="154">100 W</text><text x="82" y="98">1 kW</text>
+</g>
+<text fill="#8d867b" font-family="-apple-system,sans-serif" font-size="12" text-anchor="middle" x="370" y="360">Body mass (log scale) →</text>
+<text fill="#8d867b" font-family="-apple-system,sans-serif" font-size="12" transform="rotate(-90 26 190)" x="26" y="190">Basal metabolic rate (log scale)</text>
+<line opacity="0.75" stroke="#79a6d2" stroke-dasharray="6 5" stroke-width="2" x1="135" x2="500" y1="298" y2="77"></line>
+<text fill="#79a6d2" font-family="SF Mono,monospace" font-size="12" x="105" y="96">Slope 1: if every gram were equally busy</text>
+<text fill="#5c7f9e" font-family="-apple-system,sans-serif" font-size="11" x="105" y="114">Linear extrapolation → 33 kW for an elephant (19× real)</text>
+<line stroke="#a693cd" stroke-width="3" x1="90" x2="650" y1="318" y2="64"></line>
+<g fill="#a693cd">
+<circle cx="135" cy="298" r="5"></circle><circle cx="333" cy="208" r="5"></circle><circle cx="449" cy="155" r="5"></circle><circle cx="529" cy="119" r="5"></circle><circle cx="613" cy="81" r="5"></circle>
+</g>
+<g fill="#c9c2b6" font-family="-apple-system,sans-serif" font-size="11.5">
+<text x="145" y="314">Mouse 30 g · 0.25 W</text>
+<text x="343" y="224">Cat 4 kg · 9.6 W</text>
+<text x="459" y="171">Human 70 kg · 82 W</text>
+<text x="539" y="135">Horse 500 kg · 359 W</text>
+</g>
+<text fill="#c9c2b6" font-family="-apple-system,sans-serif" font-size="11.5" text-anchor="end" x="605" y="66">Elephant 4 t · 1.7 kW</text>
+<text fill="#a693cd" font-family="SF Mono,monospace" font-size="12.5" x="240" y="276">Slope 3/4: measured</text>
+<text fill="#8d867b" font-family="-apple-system,sans-serif" font-size="11.5" text-anchor="middle" x="360" y="378">An elephant has 130,000× a mouse's mass but only 7,000× the power — each gram ~19× slower</text>
+</svg>
+<figcaption>A slope below 1 means the power per gram of flesh falls with body size. The line spans five orders of magnitude and has stood for a century — though whether its slope is exactly 3/4 is still argued over (section 4).</figcaption>
+</figure>
+<p>That the slope is below 1 matters more than its exact value. It means <b>the bigger the animal, the more frugally each of its grams burns</b>. Divide both sides by mass and metabolic rate per gram falls as mass<sup>−1/4</sup>. An elephant has roughly 130,000 times a mouse's mass; the fourth root of 130,000 is about 19, so each of the elephant's grams runs about twenty times slower.</p>
+<p>That −1/4 is not confined to metabolism. Heart rate and breathing rate go as mass<sup>−1/4</sup>; lifespan, gestation time and gut transit time go as mass<sup>+1/4</sup>. The two exponents are equal and opposite, so their <em>product</em> — "how many times does a heart beat in a lifetime" — should in theory be independent of body size. That is where the widely repeated claim that every mammal gets about a billion heartbeats comes from.</p>
+<p>Does it hold? Partly — and where it fails is more interesting than where it holds.</p>
+<figure>
+<svg aria-label="Resting heart rate, lifespan and total lifetime heartbeats for five mammals, with humans clearly above the rest" role="img" viewbox="0 0 720 312" xmlns="http://www.w3.org/2000/svg">
+<text fill="#aba498" font-family="-apple-system,sans-serif" font-size="13" text-anchor="middle" x="360" y="28">Rate falls, lifespan rises, the product is roughly flat — except for us</text>
+<g fill="#787268" font-family="-apple-system,sans-serif" font-size="11">
+<text x="36" y="58">Animal</text><text text-anchor="middle" x="170" y="58">Body mass</text><text text-anchor="middle" x="280" y="58">Resting heart rate</text><text text-anchor="middle" x="390" y="58">Typical lifespan</text><text x="470" y="58">Lifetime heartbeats (est.)</text>
+</g>
+<line stroke="rgba(255,255,255,0.16)" x1="30" x2="690" y1="68" y2="68"></line>
+<line opacity="0.55" stroke="#8d867b" stroke-dasharray="4 4" x1="540" x2="540" y1="76" y2="264"></line>
+<text fill="#8d867b" font-family="SF Mono,monospace" font-size="10.5" text-anchor="middle" x="540" y="278">1 billion</text>
+<g fill="#c9c2b6" font-family="-apple-system,sans-serif" font-size="12">
+<text x="36" y="100">Mouse</text><text text-anchor="middle" x="170" y="100">30 g</text><text text-anchor="middle" x="280" y="100">600 /min</text><text text-anchor="middle" x="390" y="100">3 yr</text>
+<text x="36" y="136">Cat</text><text text-anchor="middle" x="170" y="136">4 kg</text><text text-anchor="middle" x="280" y="136">150 /min</text><text text-anchor="middle" x="390" y="136">15 yr</text>
+<text x="36" y="172">Horse</text><text text-anchor="middle" x="170" y="172">500 kg</text><text text-anchor="middle" x="280" y="172">40 /min</text><text text-anchor="middle" x="390" y="172">25 yr</text>
+<text x="36" y="208">Elephant</text><text text-anchor="middle" x="170" y="208">4 t</text><text text-anchor="middle" x="280" y="208">30 /min</text><text text-anchor="middle" x="390" y="208">65 yr</text>
+</g>
+<g fill="#a693cd">
+<rect height="12" width="66" x="470" y="90"></rect>
+<rect height="12" width="83" x="470" y="126"></rect>
+<rect height="12" width="37" x="470" y="162"></rect>
+<rect height="12" width="71" x="470" y="198"></rect>
+</g>
+<g fill="#a693cd" font-family="SF Mono,monospace" font-size="11">
+<text x="544" y="100">0.95 bn</text><text x="561" y="136">1.2 bn</text><text x="515" y="172">0.53 bn</text><text x="549" y="208">1.0 bn</text>
+</g>
+<line stroke="rgba(255,255,255,0.14)" stroke-dasharray="5 5" x1="30" x2="690" y1="226" y2="226"></line>
+<g fill="#e4ded5" font-family="-apple-system,sans-serif" font-size="12" font-weight="600">
+<text x="36" y="252">Human</text><text text-anchor="middle" x="170" y="252">70 kg</text><text text-anchor="middle" x="280" y="252">70 /min</text><text text-anchor="middle" x="390" y="252">60 yr</text>
+</g>
+<rect fill="#e0895e" height="12" width="155" x="470" y="242"></rect>
+<text fill="#e0895e" font-family="SF Mono,monospace" font-size="11" x="631" y="252">2.2 bn</text>
+<text fill="#787268" font-family="-apple-system,sans-serif" font-size="11" text-anchor="middle" x="300" y="298">The first four sit within one order of magnitude; humans are the clear outlier</text>
+</svg>
+<figcaption>Figures follow compilations of the Levine (1997) kind and are estimates. The point is not the decimals: non-human mammals cluster around a billion, and humans have more than twice that — before counting the extra years modern medicine adds.</figcaption>
+</figure>
+<p>So this "conservation law" is conserved to within about one order of magnitude, and humans violate it systematically. Treating it as a rough statement about magnitudes is fine. Treating it as a budget — "my heartbeats are rationed, so I should not exercise" — inverts it completely: regular exercise lowers resting heart rate <em>and</em> extends life, moving both terms in the favourable direction. <b>An identity that holds approximately between two products is not a trade-off between them.</b></p>
+<div class="decide">
+<span class="lb">🎯 DECISION LINE</span>
+<p>When comparing across scales, drop "per capita", "per unit", "per machine". Those phrases assume an exponent of 1, which almost never holds in a system with a distribution network. Write the exponent out: replace <em>y</em>/<em>x</em> with <em>y</em>/<em>x</em><sup>β</sup>. Concretely: for any "cost per head", "throughput per box", "dose per kilo" metric, take the two raw columns, plot them log-log, and measure whether the slope is 1. If it isn't, that per-unit figure is misleading you systematically — and the wider the size range, the worse.</p>
+</div>
+<div class="crossx-inline">
+🌀 <b>Ecology · large animals are supposed to be rare</b>　In 1981 John Damuth compiled population densities for a large set of mammals and found that density falls as mass<sup>−3/4</sup> — exactly cancelling the mass<sup>+3/4</sup> rise in each individual's energy demand. So the energy a species' population consumes per square kilometre is independent of its body size: the energetic equivalence rule. That yields a hard conclusion for conservation: what a reserve supports is not "a number of animals" but a fixed flow of energy, and body size only decides how many shares that flow is cut into. Sizing habitat by scaling area linearly with body mass therefore underestimates what large animals need.
+</div>
+<h2><span class="n">03</span>Where the Exponent Comes From</h2>
+<p class="lead">2/3 has a clean reason (the cooling surface). 1 has a clean reason (every gram equally busy). 3/4 sits in between, and for sixty years nobody could say what entitled it to be there. In 1997 Geoffrey West, James Brown and Brian Enquist published an answer in <i>Science</i>, now generally called the <b>WBE model</b> after their initials.</p>
+<p>They changed the question. Not "how does an organism shed heat" but "<b>how does an organism deliver resources to every one of its cells</b>". Every cell you have must receive oxygen and nutrients, and that is done by a branching network of pipes running from the aorta down to the capillaries — roughly twenty-odd levels of branching in a human. They proposed three assumptions:</p>
+<p><b>One: the network must fill the whole body.</b> No cell may sit too far from a supply point, so the network is <em>space-filling</em> — and this is what forces its branching structure to be a <b>fractal</b>, a structure whose magnified parts resemble the whole <a class="reflink" href="ref-allometric-scaling.en.html">→ ref · Allometric scaling laws</a>.</p>
+<p><b>Two: the size of the terminal unit is independent of the size of the animal.</b> This is the pivot of the whole argument and the assumption most often skipped. Capillary diameter is around five to ten micrometres in every mammal — a shrew and a blue whale use the same model of capillary. Exchange happens at the tip, and the physics of the tip (the distance a gas must diffuse) has nothing to do with how big the animal is.</p>
+<p><b>Three: evolution has minimised the energy spent moving resources around.</b> A heart pushing blood costs energy, and that expenditure produces no biological return, so selection has pressed on it for a very long time.</p>
+<figure>
+<svg aria-label="Supply network: a bigger body adds branching levels while the terminal units stay the same size" role="img" viewbox="0 0 720 316" xmlns="http://www.w3.org/2000/svg">
+<text fill="#aba498" font-family="-apple-system,sans-serif" font-size="13" text-anchor="middle" x="360" y="24">Body grows → more branching levels → but the tips stay the same width</text>
+<defs>
+<marker id="a33b" markerheight="10" markerunits="userSpaceOnUse" markerwidth="10" orient="auto" refx="9" refy="5" viewbox="0 0 10 10">
+<path d="M0,1 L9,5 L0,9 z" fill="#8d867b"></path>
+</marker>
+</defs>
+<text fill="#9fbc7a" font-family="SF Mono,monospace" font-size="12" text-anchor="middle" x="190" y="76">Small animal · 3 levels</text>
+<g fill="none" stroke="#8f8672" stroke-linecap="round">
+<line stroke-width="6" x1="190" x2="190" y1="90" y2="126"></line>
+<g stroke-width="5"><line x1="190" x2="150" y1="126" y2="168"></line><line x1="190" x2="230" y1="126" y2="168"></line></g>
+<g stroke-width="3.4"><line x1="150" x2="130" y1="168" y2="206"></line><line x1="150" x2="170" y1="168" y2="206"></line><line x1="230" x2="210" y1="168" y2="206"></line><line x1="230" x2="250" y1="168" y2="206"></line></g>
+<g stroke-width="2.2"><line x1="130" x2="120" y1="206" y2="244"></line><line x1="130" x2="140" y1="206" y2="244"></line><line x1="170" x2="160" y1="206" y2="244"></line><line x1="170" x2="180" y1="206" y2="244"></line><line x1="210" x2="200" y1="206" y2="244"></line><line x1="210" x2="220" y1="206" y2="244"></line><line x1="250" x2="240" y1="206" y2="244"></line><line x1="250" x2="260" y1="206" y2="244"></line></g>
+</g>
+<g fill="#63b3a6">
+<circle cx="120" cy="250" r="4"></circle><circle cx="140" cy="250" r="4"></circle><circle cx="160" cy="250" r="4"></circle><circle cx="180" cy="250" r="4"></circle><circle cx="200" cy="250" r="4"></circle><circle cx="220" cy="250" r="4"></circle><circle cx="240" cy="250" r="4"></circle><circle cx="260" cy="250" r="4"></circle>
+</g>
+<text fill="#a693cd" font-family="SF Mono,monospace" font-size="12" text-anchor="middle" x="538" y="46">Large animal · 4 levels</text>
+<g fill="none" stroke="#8f8672" stroke-linecap="round">
+<line stroke-width="6" x1="538.5" x2="538.5" y1="54" y2="90"></line>
+<g stroke-width="5"><line x1="538.5" x2="462.5" y1="90" y2="126"></line><line x1="538.5" x2="614.5" y1="90" y2="126"></line></g>
+<g stroke-width="3.4"><line x1="462.5" x2="424.5" y1="126" y2="164"></line><line x1="462.5" x2="500.5" y1="126" y2="164"></line><line x1="614.5" x2="576.5" y1="126" y2="164"></line><line x1="614.5" x2="652.5" y1="126" y2="164"></line></g>
+<g stroke-width="2.2"><line x1="424.5" x2="405.5" y1="164" y2="204"></line><line x1="424.5" x2="443.5" y1="164" y2="204"></line><line x1="500.5" x2="481.5" y1="164" y2="204"></line><line x1="500.5" x2="519.5" y1="164" y2="204"></line><line x1="576.5" x2="557.5" y1="164" y2="204"></line><line x1="576.5" x2="595.5" y1="164" y2="204"></line><line x1="652.5" x2="633.5" y1="164" y2="204"></line><line x1="652.5" x2="671.5" y1="164" y2="204"></line></g>
+<g stroke-width="1.4"><line x1="405.5" x2="396" y1="204" y2="244"></line><line x1="405.5" x2="415" y1="204" y2="244"></line><line x1="443.5" x2="434" y1="204" y2="244"></line><line x1="443.5" x2="453" y1="204" y2="244"></line><line x1="481.5" x2="472" y1="204" y2="244"></line><line x1="481.5" x2="491" y1="204" y2="244"></line><line x1="519.5" x2="510" y1="204" y2="244"></line><line x1="519.5" x2="529" y1="204" y2="244"></line><line x1="557.5" x2="548" y1="204" y2="244"></line><line x1="557.5" x2="567" y1="204" y2="244"></line><line x1="595.5" x2="586" y1="204" y2="244"></line><line x1="595.5" x2="605" y1="204" y2="244"></line><line x1="633.5" x2="624" y1="204" y2="244"></line><line x1="633.5" x2="643" y1="204" y2="244"></line><line x1="671.5" x2="662" y1="204" y2="244"></line><line x1="671.5" x2="681" y1="204" y2="244"></line></g>
+</g>
+<g fill="#63b3a6">
+<circle cx="396" cy="250" r="4"></circle><circle cx="415" cy="250" r="4"></circle><circle cx="434" cy="250" r="4"></circle><circle cx="453" cy="250" r="4"></circle><circle cx="472" cy="250" r="4"></circle><circle cx="491" cy="250" r="4"></circle><circle cx="510" cy="250" r="4"></circle><circle cx="529" cy="250" r="4"></circle><circle cx="548" cy="250" r="4"></circle><circle cx="567" cy="250" r="4"></circle><circle cx="586" cy="250" r="4"></circle><circle cx="605" cy="250" r="4"></circle><circle cx="624" cy="250" r="4"></circle><circle cx="643" cy="250" r="4"></circle><circle cx="662" cy="250" r="4"></circle><circle cx="681" cy="250" r="4"></circle></g>
+<line marker-end="url(#a33b)" stroke="#8d867b" stroke-width="1.5" x1="292" x2="360" y1="150" y2="150"></line>
+<text fill="#787268" font-family="-apple-system,sans-serif" font-size="11" text-anchor="middle" x="326" y="140">grows</text>
+<text fill="#63b3a6" font-family="-apple-system,sans-serif" font-size="11.5" text-anchor="middle" x="360" y="278">The teal terminal units (capillaries) are identical on both sides — this is where 3/4 comes from</text>
+<text fill="#57524b" font-family="-apple-system,sans-serif" font-size="11" text-anchor="middle" x="360" y="300">Schematic. A real mammal branches roughly twenty-odd levels from aorta to capillary, not three or four</text>
+</svg>
+<figcaption>With the tips fixed, the only way for the network to grow is to add levels. And each added level means a thicker trunk and slower flow — that geometric surcharge is why metabolism per gram falls with size.</figcaption>
+</figure>
+<p>Solve the three assumptions together and out comes 3/4, along with a whole family of quarter powers: metabolic rate 3/4, heart rate −1/4, lifespan +1/4, aortic radius 3/8. <b>The key sentence is this: 3/4 does not come from the three-dimensional geometry of the body, it comes from the geometry of the supply network.</b> If an organism exchanged directly across its surface — as very small, purely diffusive things do — then 2/3 would be right. The moment you need a pipe network to carry things inward, and its tips cannot be enlarged along with everything else, the network starts charging a toll, and that toll rises superlinearly with size.</p>
+<p>Which is why every gram of the elephant has to slow down. Its cells did not get lazier. <b>Getting oxygen to those cells got more expensive.</b></p>
+<div class="decide">
+<span class="lb">🎯 DECISION LINE</span>
+<p>To judge whether something can still get bigger, first find its <b>distribution network</b> — cooling, power, bandwidth, approvals, attention: anything that must reach every endpoint. Then ask one question: can that network's <b>terminal unit</b> grow too? If the tips are fixed while the total keeps rising, supply cost rises superlinearly and your ceiling is there, independent of how much resource you have. There are only two ways through: make the tips bigger (a fatter interface), or split the system in two and give each half its own network. Spending more money is on neither path.</p>
+</div>
+<div class="crossx-inline">
+🌀 <b>Neuroscience · a bigger brain has no choice but to modularise</b>　Zhang and Sejnowski found in 2000 that across mammals the volume of white matter (long-range wiring) grows as the <b>4/3</b> power of grey matter volume (local processing) — the same geometry of fixed tips and a network absorbing a superlinear cost. The implication is blunt: to keep every part of the cortex directly connected to every other, wiring volume would grow faster than the brain itself, so a brain <b>cannot</b> get bigger while preserving global connectivity. It has to break into modules and sacrifice long-range bandwidth. Modularity here is not a design virtue; it is geometry forcing your hand.
+</div>
+<h2><span class="n">04</span>Where This Breaks Down</h2>
+<p class="lead">Now the other side. Scaling laws are one of the most confidently cited pieces of complexity science, and the arguments inside the field are far larger than the ones visible outside it.</p>
+<p><b>First, whether the exponent is 3/4 has never been settled.</b> In 2001 Dodds, Rothman and Weitz re-examined several historical mammal and bird datasets and concluded that, treating 2/3 as the hypothesis to be rejected, the data do not reject it. In 2003 White and Seymour assembled 619 mammal species across five orders of magnitude and, after correcting for body temperature and digestive state, obtained 2/3. WBE's own datasets give 3/4. Nobody has miscalculated; there is simply no consensus about which data to include and what to correct for.</p>
+<figure>
+<svg aria-label="Left: over two orders of magnitude the 2/3 and 3/4 lines nearly coincide. Right: real data is curved on log axes" role="img" viewbox="0 0 720 350" xmlns="http://www.w3.org/2000/svg">
+<text fill="#aba498" font-family="-apple-system,sans-serif" font-size="13" text-anchor="middle" x="360" y="26">Why this argument has run for a century</text>
+<text fill="#9fbc7a" font-family="SF Mono,monospace" font-size="12" text-anchor="middle" x="195" y="56">① Data spanning only 2 decades</text>
+<line stroke="rgba(255,255,255,0.18)" stroke-width="1.5" x1="70" x2="330" y1="288" y2="288"></line>
+<line stroke="rgba(255,255,255,0.18)" stroke-width="1.5" x1="70" x2="70" y1="288" y2="80"></line>
+<line stroke="#a693cd" stroke-width="2.5" x1="70" x2="320" y1="268" y2="178"></line>
+<line stroke="#e0895e" stroke-dasharray="6 4" stroke-width="2.5" x1="70" x2="320" y1="268" y2="188"></line>
+<g fill="#c9c2b6">
+<circle cx="90" cy="259" r="3.5"></circle><circle cx="120" cy="235" r="3.5"></circle><circle cx="150" cy="235" r="3.5"></circle><circle cx="180" cy="215" r="3.5"></circle><circle cx="210" cy="218" r="3.5"></circle><circle cx="240" cy="196" r="3.5"></circle><circle cx="270" cy="193" r="3.5"></circle><circle cx="300" cy="171" r="3.5"></circle>
+</g>
+<text fill="#a693cd" font-family="SF Mono,monospace" font-size="11.5" x="326" y="176">3/4</text>
+<text fill="#e0895e" font-family="SF Mono,monospace" font-size="11.5" x="326" y="198">2/3</text>
+<text fill="#8d867b" font-family="-apple-system,sans-serif" font-size="11" text-anchor="middle" x="195" y="310">The two lines differ by less than the scatter</text>
+<text fill="#8d867b" font-family="-apple-system,sans-serif" font-size="11" text-anchor="middle" x="195" y="328">Which one you fit depends on which species you collected</text>
+<text fill="#cd7f9b" font-family="SF Mono,monospace" font-size="12" text-anchor="middle" x="535" y="56">② And the real data is curved</text>
+<line stroke="rgba(255,255,255,0.18)" stroke-width="1.5" x1="410" x2="690" y1="288" y2="288"></line>
+<line stroke="rgba(255,255,255,0.18)" stroke-width="1.5" x1="410" x2="410" y1="288" y2="80"></line>
+<line opacity="0.8" stroke="#79a6d2" stroke-dasharray="6 4" stroke-width="2" x1="410" x2="680" y1="272" y2="96"></line>
+<path d="M410,272 Q545,232 680,96" fill="none" stroke="#cd7f9b" stroke-width="2.8"></path>
+<text fill="#79a6d2" font-family="SF Mono,monospace" font-size="11.5" text-anchor="end" x="672" y="92">single power-law fit</text>
+<text fill="#cd7f9b" font-family="SF Mono,monospace" font-size="11.5" x="470" y="262">measured</text>
+<text fill="#8d867b" font-family="-apple-system,sans-serif" font-size="11" text-anchor="middle" x="550" y="310">Shallower slope at small masses, steeper at large</text>
+<text fill="#8d867b" font-family="-apple-system,sans-serif" font-size="11" text-anchor="middle" x="550" y="328">"The one true exponent" may simply not exist</text>
+</svg>
+<figcaption>The left panel explains why the argument never ends: inside a window of two or three decades, 2/3 and 3/4 differ by less than the scatter. The right is what Kolokotrones et al. reported in <i>Nature</i> in 2010 — the slope is not constant.</figcaption>
+</figure>
+<p><b>Second, and worse: the line may not be a line.</b> In 2010 Kolokotrones and colleagues used a much larger dataset and found that mammalian metabolic rate is <em>curved</em> on log-log axes — shallower at small masses, steeper at large — and still curved after correcting for body temperature. If it is curved, then "what is the exponent of this law" has no single answer, only "what is the local slope over the range you care about". The left panel above shows the other half of the problem: within two or three orders of magnitude, 2/3 and 3/4 are drawn almost on top of each other.</p>
+<p><b>Third, the WBE derivation itself has been contested.</b> Kozłowski and Konarzewski argued in 2004 that the model has specific mathematical problems — for instance that it needs the number of terminal units to be proportional to body mass, which the model cannot consistently derive from within. WBE replied; the two sides have never reconciled. That a model can be attacked this concretely is exactly what makes it scientific. It also means "3/4 has been explained" was said too early.</p>
+<p><b>Fourth, an interspecific law does not transfer to within a species.</b> Kleiber's law compares different species. Inside one species, the relation between individual size and metabolic rate is a separate question with often different exponents, sometimes near 1. So "elephants burn less per gram, therefore a heavier person burns less per kilo" has no support — it takes a line drawn between species and uses it to explain points within one. The Gulliver arithmetic in section 1 commits the same error; it survives only because its conclusion is coarse enough (1728 is far above what any sublinear exponent gives).</p>
+<p><b>Fifth, do not read a scaling law as destiny.</b> 3/4 describes an evolved, geometrically constrained central tendency, not an impassable physical ceiling. Animals of the same mass differ several-fold in metabolic rate; birds and mammals have visibly different intercepts; endotherms and ectotherms differ by an order of magnitude. A scaling law tells you roughly which band you will land in, not which point.</p>
+<div class="decide">
+<span class="lb">🎯 DECISION LINE</span>
+<p>Before quoting any scaling exponent, state three things: <b>①</b> whether the line runs across individuals, across species, or across institutions — the exponents routinely differ; <b>②</b> how many orders of magnitude the data span — under three, you cannot separate 2/3 from 3/4 and any decimal you report is false precision; <b>③</b> whether curvature was tested — fit only a straight line and you will never learn that it bends. If you cannot answer all three, report the direction ("sublinear") and not the number. Do not say 0.75.</p>
+</div>
+<div class="bigcat">
+<h3>🎒 Scenarios · BigCat</h3>
+<ol>
+<li><span class="dm">Teams &amp; organisations</span>Once a team goes from 8 people to 25, the old arrangement — one weekly sync where everyone knows what everyone is doing — starts to fail: the meeting gets longer and information still leaks. Nobody got lazier. The number of <b>pairs</b> that need aligning grows as the square of headcount while each person's weekly hours are a constant, so alignment bandwidth per person necessarily falls with size. What to change: kill the round-the-table status update and have each module commit to exactly <b>one</b> number and one contact person externally. The test is concrete — if sync-meeting length has grown in step with headcount over the last two quarters, you are still running an allometric team isometrically.</li>
+<li><span class="dm">Investing &amp; position sizing</span>A strategy works, so the natural move is to add capital. But as size grows, what fails first is usually not the thesis — it is the <b>distribution network</b>. Market liquidity is the plumbing, your order is what must go through it, and the terminal unit (the depth a single fill can consume) does not widen because you have more money. Impact cost therefore rises superlinearly and returns start being eaten while the logic is still entirely correct. What to change: give every strategy an estimated capacity ceiling (back it out from a fixed fraction of the instrument's average daily volume) and, once there, stop adding and open an uncorrelated line instead. Watch not the return but the <b>slippage between your average fill and the price at the moment you decided</b> — it is the direct read-out of a network beginning to clog, and it arrives long before performance does.</li>
+<li><span class="dm">Health &amp; energy</span>"I'm 20% stronger than last year, so add 20% to the volume" is isometric arithmetic. Load can be added linearly; recovery cannot. Sleep has a hard ceiling, and tendon and connective tissue adapt far more slowly than muscle — they are the tip that does not scale up with you. What to change: when adding, move only one variable at a time (intensity, frequency or duration — pick one), and treat <b>morning resting heart rate</b> as the read-out of whether the supply side is keeping up; three consecutive days above your own baseline means stop adding, rather than deciding by how you feel that morning. Note this is the opposite of the "heartbeats are rationed" misreading in section 2: what you watch here is the <em>change</em> in rate, not the <em>total</em> count.</li>
+</ol>
+</div>
+<div class="crossx">
+<h3>🌀 Crossings</h3>
+<ul>
+<li><b>Eastern thought · Zhuangzi on water not piled deep enough</b>: In the <i>Free and Easy Wandering</i> chapter Zhuangzi writes that if you pour a cup of water into a hollow in the hall, a mustard seed will float there as a boat — but set the cup itself down and it sticks fast, because the water is shallow and the boat is large. His point is that the great Peng bird must "depend on something": the larger a thing, the more support it requires. All three mechanisms of this topic together show that his intuition was half right, and that the wrong half matters more. He assumed a linear relation — pile the water deeper and it will float more, so in principle you can always pile enough. But the square-cube law says weight and supporting area grow with different exponents; Kleiber's law says supply grows as 3/4 while demand grows as 1; WBE says that gap comes from tips that cannot be enlarged. Together they give something he could not: there is no point at which the water is "deep enough". <b>Every doubling in size demands proportionally more support than the last</b>, and what finally stops the Peng bird is geometry, not the quantity of water. <b>But this does not hold</b>: Zhuangzi's "depending on something" is a claim about dependence and freedom in a contemplative register; the Peng is a parable, not an organism, and he promises no quantitative relation at all. Using exponents to "complete" him turns an argument about the mind into an argument about logistics. What can be borrowed is the intuition that <i>large is not small enlarged</i> — on which he was earlier than anyone of his era.</li>
+<li><b>Engineering history · after Galileo, the bottleneck moved</b>: What Galileo gave in 1638 was a purely static answer — enlarge and you must thicken, because strength follows cross-section as <em>L</em>² while weight follows volume as <em>L</em>³. That intuition governed engineering for centuries and it genuinely works. But the last two mechanisms of this topic together mark a turn he could not see: what actually caps size is usually not <b>load-bearing</b> but <b>flow</b>. Kleiber says supply rises as 3/4 rather than 1; WBE says that discount comes from a distribution network with fixed tips. So the same geometric argument bites in two different places: statics limits whether a thing can stand, network geometry limits whether it can be supplied. That yields a counterintuitive ordering — a server room's ceiling is usually cooling rather than floor loading, a database's ceiling is usually connections rather than disk, a city's ceiling is usually its pipes and cables rather than its land. <b>To judge whether a system can scale, find its distribution network first and its load-bearing members second.</b> Galileo rescued engineering from copying the small thing bigger; three hundred and fifty years later WBE rescued it from staring only at the beams.</li>
+<li><b>Military history · why six hundred thousand men could not move</b>: The army Napoleon led into Russia in 1812 numbered roughly six hundred thousand, several times any force he had previously commanded, and most of it had dissolved before any decisive battle. The standard explanations are weather and scorched earth. This topic's mechanisms suggest something more structural: double an army and the radius it must forage over grows only as the square root (the area supplies the food), while column length, the time to cross a single bridge, and the delay before an order reaches the periphery all grow linearly with headcount. So kilometres advanced per man per day falls with size — the same mechanism as rates falling with a negative power of scale, with roads and supply lines playing the part of the network. The conclusion: six hundred thousand was itself part of the problem, reinforcement had negative returns at that point, and the winter merely pushed over a system that had already stopped moving. <b>But this does not hold</b>: an army has no terminal unit of strictly invariant size the way a capillary does, and its supply tree was improvised rather than optimised over millions of years to minimise transport loss, so it sits far below any optimum. What transfers is the reasoning that the distribution network is the bottleneck; the specific exponent 3/4 does not. Napoleon's problem lives in the same family of geometry, but not on the same curve.</li>
+</ul>
+</div>
+<div class="thinking">
+<h3>Going Deeper</h3>
+<details><summary>If terminal units could be enlarged, would the ceiling on size disappear?</summary><p>It would move, not vanish. Bigger tips mean proportionally less exchange area (the square-cube law again), so you are trading exchange efficiency for supply cost. A real case is the bird lung, which raises exchange efficiency using unidirectional airflow rather than larger alveoli — and birds have higher metabolic rates than mammals of the same mass. So the knob is not only "how big are the tips" but "how do the tips work".</p></details>
+<details><summary>Why is the gap between 2/3 and 3/4 worth a century of argument?</summary><p>Because they point to entirely different causal stories: 2/3 says the constraint lives at the interface with the outside world (shedding heat), 3/4 says it lives in internal transport. Which you pick determines what you would try to change. And within the window of real data the two are nearly indistinguishable — which is the characteristic bind of complexity science: vast disagreement about mechanism, minute difference in observation.</p></details>
+<details><summary>Do scaling laws hold in systems that learn and restructure themselves?</summary><p>Be careful. A biological supply network has been optimised by evolution, so its geometric constraints bind tightly. An organisation can redesign its information network — add a management layer, change tooling, split into two independent units. In human-made systems a scaling law is closer to "where you end up if you don't change the structure" than to an inviolable law. Its use is telling you when you <em>must</em> restructure.</p></details>
+<details><summary>Can "metabolism per gram falls with size" be turned into a longevity prescription?</summary><p>That is exactly where the "rationed heartbeats" misreading comes from. A correlation that holds between species cannot be moved onto individuals as causation — caloric restriction extends life in some animals and has given mixed results in primates, and "slowing metabolism" and "reducing metabolic damage" are not the same thing at all. An interspecific line tells you where to look for a mechanism. It does not tell you how many meals to eat.</p></details>
+</div>
+<div class="refs">
+<h3>Further Reading</h3>
+<ul>
+<li>Max Kleiber, <a href="https://doi.org/10.3733/hilg.v06n11p315">Body size and metabolism</a> (Hilgardia, 1932 — the original 3/4 paper)</li>
+<li>West, Brown &amp; Enquist, <a href="https://www.science.org/doi/10.1126/science.276.5309.122">A General Model for the Origin of Allometric Scaling Laws in Biology</a> (Science, 1997 — the WBE model)</li>
+<li>Dodds, Rothman &amp; Weitz, <a href="https://arxiv.org/abs/physics/0007096">Re-examination of the "3/4-law" of Metabolism</a> (2001 — 2/3 cannot be rejected)</li>
+<li>White &amp; Seymour, <a href="https://www.pnas.org/doi/full/10.1073/pnas.0436428100">Mammalian basal metabolic rate is proportional to body mass<sup>2/3</sup></a> (PNAS, 2003 — 619 species)</li>
+<li>Kolokotrones et al., <a href="https://www.nature.com/articles/nature08920">Curvature in metabolic scaling</a> (Nature, 2010 — the slope is not constant)</li>
+<li>Brown, West &amp; Enquist, <a href="https://besjournals.onlinelibrary.wiley.com/doi/10.1111/j.1365-2435.2005.01022.x">Yes, WBE's model of allometric scaling is both mathematically correct and biologically relevant</a> (2005 — the reply to Kozłowski &amp; Konarzewski; the contested points are laid out inside)</li>
+<li>John Damuth, <a href="https://www.nature.com/articles/290699a0">Population density and body size in mammals</a> (Nature, 1981 — energetic equivalence)</li>
+<li>Zhang &amp; Sejnowski, <a href="https://www.pnas.org/doi/10.1073/pnas.090504197">A universal scaling law between gray matter and white matter of cerebral cortex</a> (PNAS, 2000 — the 4/3)</li>
+<li>Herbert J. Levine, <a href="https://doi.org/10.1016/S0735-1097(97)00246-5">Rest heart rate and life expectancy</a> (JACC, 1997 — the lifetime-heartbeat table)</li>
+<li>J.B.S. Haldane, <a href="https://en.wikipedia.org/wiki/On_Being_the_Right_Size">On Being the Right Size</a> (1926 — the best two pages ever written about scale)</li>
+<li>Galileo Galilei, <a href="https://en.wikipedia.org/wiki/Two_New_Sciences">Two New Sciences</a> (1638 — the square-cube law and those two bones)</li>
+<li>Geoffrey West, <a href="https://www.penguinrandomhouse.com/books/312476/scale-by-geoffrey-west/">Scale</a> (2017 — the full case from the WBE side, and the most criticised book of the lot)</li>
+</ul>
+</div>
+<footer>BigCat · Complexity Science · <a href="index.en.html">← All Topics</a></footer>
+</div>
+<script defer="" src="https://hub.cissychen.com/comments.js"></script>
+<script defer="" src="https://hub.cissychen.com/search.js"></script>
+<script defer="" src="https://hub.cissychen.com/index-button.js"></script>
+<script defer="" src="https://hub.cissychen.com/lightbox.js"></script>
+<script defer="" src="https://hub.cissychen.com/i18n-tts.js"></script>
+</body></html>

@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+
+<html lang="en"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Allometric Scaling Laws · Reference · Complexity Science</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,"SF Pro Display","Noto Sans SC",sans-serif;color:#e4ded5;line-height:1.85;min-height:100vh;
+  background:radial-gradient(1100px 620px at 12% -6%,rgba(99,179,166,0.09),transparent 62%),radial-gradient(950px 700px at 100% 2%,rgba(166,147,205,0.08),transparent 58%),linear-gradient(168deg,#100f0d 0%,#15161b 48%,#0a0a0c 100%);background-attachment:fixed}
+.wrap{max-width:720px;margin:0 auto;padding:30px 22px 90px}
+header{padding:52px 0 8px;border-bottom:1px solid rgba(255,255,255,0.07);margin-bottom:32px}
+.rtag{font-family:"SF Mono",Menlo,monospace;font-size:0.72rem;font-weight:700;letter-spacing:2px;color:#63b3a6;border:1px solid rgba(99,179,166,0.4);background:rgba(99,179,166,0.07);padding:3px 11px;border-radius:20px}
+h1{font-size:2.15rem;font-weight:800;line-height:1.2;margin:20px 0 0;color:#f0eae0}
+.sub{font-size:0.98rem;color:#aba498;margin-top:12px}
+.meta{font-family:"SF Mono",Menlo,monospace;font-size:0.75rem;color:#57524b;margin-top:16px;letter-spacing:1px}
+h2{font-size:1.25rem;font-weight:700;color:#e9e3d9;margin:44px 0 10px}
+h2 .n{font-family:"SF Mono",Menlo,monospace;font-size:0.8rem;color:#63b3a6;display:block;margin-bottom:5px;letter-spacing:2px}
+p{margin-bottom:16px}
+b,strong{color:#f0eae0;font-weight:600}
+em{color:#d9b45f;font-style:normal;font-weight:500}
+.rule{border:1px solid rgba(99,179,166,0.3);background:rgba(99,179,166,0.05);border-radius:12px;padding:16px 20px;margin:22px 0;font-size:0.94rem;color:#d5cdc1}
+.rule ol{padding-left:20px;margin:0}
+.rule li{margin-bottom:7px}
+.rule li:last-child{margin-bottom:0}
+figure{margin:28px 0}
+figure svg{display:block;width:100%;height:auto;border-radius:12px;background:rgba(255,255,255,0.018);border:1px solid rgba(255,255,255,0.06)}
+figcaption{font-size:0.82rem;color:#787268;margin-top:10px;text-align:center;line-height:1.6}
+.cant{border:1px solid rgba(205,127,155,0.36);background:rgba(205,127,155,0.05);border-radius:12px;padding:18px 21px;margin:26px 0 10px}
+.cant h3{font-size:1rem;color:#cd7f9b;margin-bottom:12px}
+.cant ul{list-style:none;padding:0}
+.cant li{margin-bottom:13px;font-size:0.93rem;color:#d5cdc1;line-height:1.76}
+.cant li:last-child{margin-bottom:0}
+.cant li b{color:#cd7f9b}
+.refs{margin:40px 0 10px}
+.refs h3{font-size:1rem;color:#79a6d2;margin-bottom:12px}
+.refs ul{list-style:none;padding:0}
+.refs li{margin-bottom:9px;font-size:0.89rem;color:#8d867b;line-height:1.7}
+.refs a{color:#79a6d2;text-decoration:none;border-bottom:1px solid rgba(121,166,210,0.3)}
+.refs a:hover{color:#a6c4e2}
+footer{text-align:center;padding:52px 0 10px;font-size:0.78rem;color:#57524b;font-family:"SF Mono",Menlo,monospace;border-top:1px solid rgba(255,255,255,0.06);margin-top:46px}
+footer a{color:#79a6d2;text-decoration:none}
+@media(max-width:600px){h1{font-size:1.7rem}.wrap{padding:24px 16px 60px}}
+</style></head><body>
+<div class="wrap">
+<header>
+<span class="rtag">REF · CLASSIC MODEL</span>
+<h1>Allometric Scaling Laws</h1>
+<p class="sub">Kleiber's law and the West-Brown-Enquist supply-network model (WBE)</p>
+<p class="meta">Cited from: Topic 33 Allometric scaling laws</p>
+</header>
+<h2><span class="n">01</span>The Question It Poses</h2>
+<p>When something gets bigger, its parts do not grow in step. Bones must get relatively thicker, the heart must beat more slowly, life gets longer. Growth in which proportions shift with size is <b>allometry</b>; growth that preserves the shape exactly is <b>isometry</b>.</p>
+<p>Galileo had half the answer in 1638: strength follows cross-section as <em>L</em>², weight follows volume as <em>L</em>³, so enlargement forces a change of proportion. That is the <b>square-cube law</b>. Following the same logic, Max Rubner concluded in 1883 that metabolic rate should track body surface area — mass to the <b>2/3</b> power.</p>
+<p>What Max Kleiber measured in 1932 was <b>3/4</b>. So the question became: <b>why a fraction that is neither 1 nor 2/3? And why does it drag a whole family of exponents behind it, all of them multiples of one quarter?</b> That is what this page answers.</p>
+<h2><span class="n">02</span>The Rules</h2>
+<p>Write every scaling law in the same form: <b>some quantity <em>y</em> = constant × mass<sup>β</sup></b>. Everything reduces to one question — what is β, and why. The answer West, Brown and Enquist gave in 1997 (jointly, <b>WBE</b>) uses only three assumptions:</p>
+<div class="rule">
+<ol>
+<li><b>Space-filling.</b> The supply network must reach every corner of the body; no cell may sit too far from a tip. This is what forces the branching structure to be a <b>fractal</b> — a structure whose magnified parts resemble the whole.</li>
+<li><b>Size-invariant terminal units.</b> Capillary diameter is five to ten micrometres in every mammal, regardless of the animal's size — exchange happens by diffusion, and the physics of diffusion does not care how big its host is.</li>
+<li><b>Minimised transport energy.</b> Pushing blood is a net cost with no biological return, so selection has pressed on it for a very long time; the network's geometry is the solution to that minimisation.</li>
+<li>Solve them and you get β = <b>3/4</b> for metabolic rate, plus a family of quarter powers — heart rate −1/4, lifespan +1/4, aortic radius 3/8.</li>
+</ol>
+</div>
+<p>The second assumption is the pivot of the argument and the one most often skipped. <b>If the tips could be enlarged along with the animal, the exponent would return to 1</b> — every gram equally busy. It is precisely because the tips are pinned down by physics that the network can only grow by adding levels, and the geometric price of each added level is that sub-one exponent.</p>
+<figure>
+<svg aria-label="The three WBE assumptions: space-filling, size-invariant terminal units, minimised transport energy" role="img" viewbox="0 0 700 246" xmlns="http://www.w3.org/2000/svg">
+<defs>
+<marker id="rf1" markerheight="10" markerunits="userSpaceOnUse" markerwidth="10" orient="auto" refx="9" refy="5" viewbox="0 0 10 10">
+<path d="M0,1 L9,5 L0,9 z" fill="#d9b45f"></path>
+</marker>
+</defs>
+<text fill="#aba498" font-family="-apple-system,sans-serif" font-size="13" text-anchor="middle" x="350" y="28">Three assumptions, and 3/4 comes out</text>
+<rect fill="rgba(255,255,255,0.02)" height="120" rx="26" stroke="rgba(255,255,255,0.12)" width="160" x="50" y="66"></rect>
+<g fill="none" stroke="#8f8672" stroke-linecap="round">
+<line stroke-width="4.5" x1="130" x2="130" y1="76" y2="100"></line>
+<g stroke-width="3.4"><line x1="130" x2="105" y1="100" y2="128"></line><line x1="130" x2="155" y1="100" y2="128"></line></g>
+<g stroke-width="2.4"><line x1="105" x2="92" y1="128" y2="155"></line><line x1="105" x2="118" y1="128" y2="155"></line><line x1="155" x2="142" y1="128" y2="155"></line><line x1="155" x2="168" y1="128" y2="155"></line></g>
+<g stroke-width="1.5"><line x1="92" x2="86" y1="155" y2="178"></line><line x1="92" x2="98" y1="155" y2="178"></line><line x1="118" x2="112" y1="155" y2="178"></line><line x1="118" x2="124" y1="155" y2="178"></line><line x1="142" x2="136" y1="155" y2="178"></line><line x1="142" x2="148" y1="155" y2="178"></line><line x1="168" x2="162" y1="155" y2="178"></line><line x1="168" x2="174" y1="155" y2="178"></line></g>
+</g>
+<g fill="#63b3a6">
+<circle cx="86" cy="181" r="3.2"></circle><circle cx="98" cy="181" r="3.2"></circle><circle cx="112" cy="181" r="3.2"></circle><circle cx="124" cy="181" r="3.2"></circle><circle cx="136" cy="181" r="3.2"></circle><circle cx="148" cy="181" r="3.2"></circle><circle cx="162" cy="181" r="3.2"></circle><circle cx="174" cy="181" r="3.2"></circle>
+</g>
+<text fill="#9fbc7a" font-family="-apple-system,sans-serif" font-size="12" text-anchor="middle" x="130" y="212">① Space-filling</text>
+<text fill="#787268" font-family="-apple-system,sans-serif" font-size="10.5" text-anchor="middle" x="130" y="230">reaches every corner</text>
+<text fill="#787268" font-family="-apple-system,sans-serif" font-size="11" text-anchor="middle" x="350" y="88">capillary ≈ 5–10 µm</text>
+<circle cx="296" cy="128" fill="#63b3a6" r="17"></circle>
+<circle cx="404" cy="128" fill="#63b3a6" r="17"></circle>
+<text fill="#aba498" font-family="SF Mono,monospace" font-size="17" text-anchor="middle" x="350" y="134">=</text>
+<text fill="#c9c2b6" font-family="-apple-system,sans-serif" font-size="11" text-anchor="middle" x="296" y="166">shrew 2 g</text>
+<text fill="#c9c2b6" font-family="-apple-system,sans-serif" font-size="11" text-anchor="middle" x="404" y="166">blue whale 150 t</text>
+<text fill="#9fbc7a" font-family="-apple-system,sans-serif" font-size="12" text-anchor="middle" x="350" y="212">② Tips do not scale</text>
+<text fill="#787268" font-family="-apple-system,sans-serif" font-size="10.5" text-anchor="middle" x="350" y="230">same tip across species</text>
+<line stroke="rgba(255,255,255,0.16)" x1="510" x2="632" y1="182" y2="182"></line>
+<g fill="#a693cd">
+<rect height="72" width="26" x="516" y="110"></rect>
+<rect height="46" width="26" x="556" y="136"></rect>
+<rect height="24" width="26" x="596" y="158"></rect>
+</g>
+<line marker-end="url(#rf1)" stroke="#d9b45f" stroke-width="2" x1="512" x2="628" y1="96" y2="96"></line>
+<text fill="#d9b45f" font-family="-apple-system,sans-serif" font-size="11" text-anchor="middle" x="570" y="86">pressed down by selection</text>
+<text fill="#9fbc7a" font-family="-apple-system,sans-serif" font-size="12" text-anchor="middle" x="570" y="212">③ Minimum transport cost</text>
+<text fill="#787268" font-family="-apple-system,sans-serif" font-size="10.5" text-anchor="middle" x="570" y="230">geometry is the optimum</text>
+</svg>
+<figcaption>Of the three, the second is the least conspicuous and the most consequential: once the tips are pinned, the network can only grow by adding levels, and the exponent drops below one.</figcaption>
+</figure>
+<h2><span class="n">03</span>What You See When It Runs</h2>
+<p>Plot various quantities against body mass on log-log axes and you get a family of straight lines whose slopes differ but are all integer multiples of 1/4. Collectively this is <b>quarter-power scaling</b>.</p>
+<figure>
+<svg aria-label="The quarter-power family: exponents of various biological quantities against body mass, arranged on a number line" role="img" viewbox="0 0 700 302" xmlns="http://www.w3.org/2000/svg">
+<text fill="#aba498" font-family="-apple-system,sans-serif" font-size="13" text-anchor="middle" x="350" y="28">One family of exponents, all multiples of 1/4</text>
+<line stroke="rgba(255,255,255,0.2)" stroke-width="1.5" x1="80" x2="640" y1="176" y2="176"></line>
+<g stroke="rgba(255,255,255,0.35)" stroke-width="1.5">
+<line x1="145" x2="145" y1="170" y2="182"></line><line x1="255" x2="255" y1="170" y2="182"></line><line x1="310" x2="310" y1="170" y2="182"></line><line x1="365" x2="365" y1="170" y2="182"></line><line x1="475" x2="475" y1="170" y2="182"></line><line x1="530" x2="530" y1="170" y2="182"></line><line x1="603" x2="603" y1="170" y2="182"></line>
+</g>
+<g fill="#63b3a6">
+<circle cx="145" cy="176" r="5"></circle><circle cx="255" cy="176" r="5"></circle><circle cx="310" cy="176" r="5"></circle><circle cx="365" cy="176" r="5"></circle><circle cx="475" cy="176" r="5"></circle><circle cx="603" cy="176" r="5"></circle>
+</g>
+<circle cx="530" cy="176" fill="#57524b" r="5"></circle>
+<g fill="#aba498" font-family="SF Mono,monospace" font-size="11.5" text-anchor="middle">
+<text x="145" y="198">−3/4</text><text x="255" y="198">−1/4</text><text x="310" y="198">0</text><text x="365" y="198">+1/4</text><text x="475" y="198">+3/4</text><text x="530" y="198">+1</text><text x="603" y="198">+4/3</text>
+</g>
+<g fill="#d5cdc1" font-family="-apple-system,sans-serif" font-size="11.5" text-anchor="middle">
+<text x="145" y="150">population density</text>
+<text x="310" y="150">capillary diameter</text>
+<text x="475" y="150">basal metabolic rate</text>
+<text x="603" y="150">white vs grey matter</text>
+<text x="255" y="222">heart &amp; breathing rate</text>
+<text x="365" y="242">lifespan, gestation</text>
+</g>
+<text fill="#787268" font-family="-apple-system,sans-serif" font-size="11.5" text-anchor="middle" x="530" y="222">body mass itself (isometric)</text>
+<text fill="#8d867b" font-family="-apple-system,sans-serif" font-size="11.5" text-anchor="middle" x="350" y="270">exponent β, where the quantity ∝ mass<tspan dy="-5" font-size="9">β</tspan></text>
+<text fill="#57524b" font-family="-apple-system,sans-serif" font-size="11" text-anchor="middle" x="350" y="290">The item at β = 0 is the pinned tip; negative β are rates, positive β are durations and totals</text>
+</svg>
+<figcaption>Rates (heart, breathing) sit on the negative side, durations (lifespan, gestation) on the positive side, equally far from zero — which is where "lifetime heartbeats are roughly conserved" comes from.</figcaption>
+</figure>
+<p>The most-used line concretely: <b>BMR ≈ 3.4 × mass<sup>3/4</sup> watts</b>, mass in kilograms, BMR being basal metabolic rate. A 70 kg human comes out at about 82 W, which matches measurement. Divide both sides by mass and metabolic rate per gram falls as mass<sup>−1/4</sup> — an elephant has some 130,000 times a mouse's mass, the fourth root of 130,000 is about 19, so each of its grams runs about twenty times slower.</p>
+<h2><span class="n">04</span>What It Explains</h2>
+<p>What it gives is a set of <b>expectations you can put numbers into</b>, not a metaphor. The firmest:</p>
+<p><b>Why large animals beat slowly and live long.</b> The two exponents are equal and opposite, so their product is approximately independent of size. That is the origin of "every mammal gets about a billion heartbeats" — true to within an order of magnitude, and systematically violated by humans, who get about 2.2 billion.</p>
+<p><b>Why large animals are naturally rare.</b> Damuth found in 1981 that mammalian population density falls as mass<sup>−3/4</sup>, exactly cancelling the mass<sup>+3/4</sup> rise in each individual's energy demand. The <em>total</em> energy a species' population uses per unit area is therefore independent of body size — the energetic equivalence rule.</p>
+<p><b>Why drug doses cannot be scaled linearly by weight.</b> Clearance tracks metabolism rather than mass, so linear extrapolation across body sizes and species systematically overdoses the small. Dosing chemotherapy by body surface area is in practice a compromise sitting between exponents of 1 and 3/4.</p>
+<p><b>Why brains must modularise.</b> Zhang and Sejnowski showed in 2000 that across mammals white matter volume grows as the 4/3 power of grey matter volume. Keeping every part of the cortex directly connected to every other would make wiring volume grow faster than the brain, so a growing brain must sacrifice long-range connectivity and break into modules.</p>
+<p>Every one of these can be falsified by data, which is exactly what makes the model scientific — and the panel below is where it has been falsified, or never applied in the first place.</p>
+<div class="cant">
+<h3>What It Cannot Explain</h3>
+<ul>
+<li><b>It cannot hand you a settled exponent.</b> 3/4 has never been settled. Dodds, Rothman and Weitz re-examined the historical data in 2001 and found it insufficient to reject 2/3; White and Seymour got 2/3 from 619 mammal species in 2003. Worse, Kolokotrones et al. found in 2010 that real data is <em>curved</em> on log-log axes — shallower at small masses, steeper at large. If it curves, "the exponent of this law" has no single answer.</li>
+<li><b>It cannot be distinguished on fewer than three orders of magnitude.</b> Inside a window of two or three decades, 2/3 and 3/4 are drawn almost on top of each other, differing by less than the scatter. Reporting two decimal places from such data is false precision.</li>
+<li><b>It does not transfer from between species to within one.</b> Kleiber's law compares species. Inside a species, the relation between individual size and metabolic rate is a separate question with often different exponents, sometimes near 1. "Elephants burn less per gram, so heavier people burn less per kilo" has no support.</li>
+<li><b>It says nothing about intercepts, only slopes.</b> Animals of equal mass differ several-fold in metabolic rate; birds and mammals have visibly different intercepts; endotherms and ectotherms differ by an order of magnitude. The model tells you which band, not which point.</li>
+<li><b>The derivation itself is contested.</b> Kozłowski and Konarzewski argued in 2004 that WBE has specific mathematical problems — for instance that it requires the number of terminal units to be proportional to body mass, which the model cannot derive from within. WBE replied; the two sides have never reconciled.</li>
+<li><b>It does not apply where there is no distribution network.</b> The whole argument presumes resources must be carried inward by a pipe network whose tips cannot be enlarged. Tiny organisms living on diffusion, and systems exchanging purely across a surface, do not meet that premise — there 2/3 is the right answer. Applying this framework to a system whose "terminal unit" you cannot even name is borrowing vocabulary, not mechanism.</li>
+<li><b>It is not a causal prescription.</b> A correlation across species is not causation within an individual. "Slowing metabolism" and "reducing metabolic damage" are not the same thing, and reading −1/4 as health advice swaps a statistical claim for a physiological one.</li>
+</ul>
+</div>
+<div class="refs">
+<h3>Further Reading</h3>
+<ul>
+<li>Max Kleiber, <a href="https://doi.org/10.3733/hilg.v06n11p315">Body size and metabolism</a> (Hilgardia, 1932)</li>
+<li>West, Brown &amp; Enquist, <a href="https://www.science.org/doi/10.1126/science.276.5309.122">A General Model for the Origin of Allometric Scaling Laws in Biology</a> (Science, 1997)</li>
+<li>Dodds, Rothman &amp; Weitz, <a href="https://arxiv.org/abs/physics/0007096">Re-examination of the "3/4-law" of Metabolism</a> (2001)</li>
+<li>White &amp; Seymour, <a href="https://www.pnas.org/doi/full/10.1073/pnas.0436428100">Mammalian basal metabolic rate is proportional to body mass<sup>2/3</sup></a> (PNAS, 2003)</li>
+<li>Kolokotrones et al., <a href="https://www.nature.com/articles/nature08920">Curvature in metabolic scaling</a> (Nature, 2010)</li>
+<li>Brown, West &amp; Enquist, <a href="https://besjournals.onlinelibrary.wiley.com/doi/10.1111/j.1365-2435.2005.01022.x">Yes, WBE's model of allometric scaling is both mathematically correct and biologically relevant</a> (2005 — the reply to the critique)</li>
+<li>John Damuth, <a href="https://www.nature.com/articles/290699a0">Population density and body size in mammals</a> (Nature, 1981)</li>
+<li>Zhang &amp; Sejnowski, <a href="https://www.pnas.org/doi/10.1073/pnas.090504197">A universal scaling law between gray matter and white matter of cerebral cortex</a> (PNAS, 2000)</li>
+<li>J.B.S. Haldane, <a href="https://en.wikipedia.org/wiki/On_Being_the_Right_Size">On Being the Right Size</a> (1926)</li>
+</ul>
+</div>
+<footer>BigCat · Complexity Science · <a href="index.en.html">← All Topics</a></footer>
+</div>
+<script defer="" src="https://hub.cissychen.com/comments.js"></script>
+<script defer="" src="https://hub.cissychen.com/search.js"></script>
+<script defer="" src="https://hub.cissychen.com/index-button.js"></script>
+<script defer="" src="https://hub.cissychen.com/lightbox.js"></script>
+<script defer="" src="https://hub.cissychen.com/i18n-tts.js"></script>
+</body></html>
