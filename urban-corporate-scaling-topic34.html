@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+
+<html lang="zh-CN"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>城市与公司的规模律 — 为什么城市几乎不死，公司却必死 · 复杂性科学 T34</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,"SF Pro Display","Noto Sans SC",sans-serif;color:#e4ded5;line-height:1.85;min-height:100vh;
+  background:radial-gradient(1100px 620px at 12% -6%,rgba(224,137,94,0.10),transparent 62%),radial-gradient(950px 700px at 100% 2%,rgba(166,147,205,0.09),transparent 58%),linear-gradient(168deg,#100f0d 0%,#15161b 48%,#0a0a0c 100%);background-attachment:fixed}
+.wrap{max-width:760px;margin:0 auto;padding:30px 22px 90px}
+header{padding:52px 0 8px;border-bottom:1px solid rgba(255,255,255,0.07);margin-bottom:34px}
+.week-tag{font-family:"SF Mono",Menlo,monospace;font-size:0.72rem;font-weight:700;letter-spacing:2px;color:#a693cd;border:1px solid rgba(166,147,205,0.4);background:rgba(166,147,205,0.07);padding:3px 11px;border-radius:20px}
+h1{font-size:2.5rem;font-weight:800;letter-spacing:0.5px;line-height:1.2;margin:20px 0 0;background:linear-gradient(106deg,#e0895e 0%,#d9b45f 34%,#9fbc7a 68%,#63b3a6 100%);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+h1 .h1en{display:block;font-size:0.40em;font-weight:600;letter-spacing:2.5px;color:#847d72;-webkit-text-fill-color:#847d72;background:none;margin-top:13px}
+.sub{font-size:1.05rem;color:#aba498;margin-top:14px;font-weight:500}
+.date{font-family:"SF Mono",Menlo,monospace;font-size:0.75rem;color:#57524b;margin-top:18px;letter-spacing:1px}
+.pitch{margin:22px 0 30px;font-size:0.97rem;color:#cd7f9b;border-left:2px solid rgba(205,127,155,0.5);padding-left:16px;font-style:italic}
+.intro{font-size:1.02rem;color:#cfc8bc;margin-bottom:14px}
+.intro p{margin-bottom:16px}
+h2{font-size:1.42rem;font-weight:700;color:#e9e3d9;margin:56px 0 8px;letter-spacing:0.3px}
+h2 .n{font-family:"SF Mono",Menlo,monospace;font-size:0.85rem;color:#9fbc7a;display:block;margin-bottom:6px;letter-spacing:2px}
+.he{font-size:0.68em;color:#8d867b;font-weight:500;letter-spacing:0}
+p{margin-bottom:17px}
+.lead{color:#cfc8bc}
+b,strong{color:#f0eae0;font-weight:600}
+em{color:#d9b45f;font-style:normal;font-weight:500}
+.dim{color:#8d867b}
+a.reflink{display:inline-block;font-size:0.82rem;font-family:"SF Mono",Menlo,monospace;color:#63b3a6;border:1px solid rgba(99,179,166,0.38);background:rgba(99,179,166,0.07);padding:1px 9px;border-radius:20px;text-decoration:none;transition:all 0.15s;white-space:nowrap}
+a.reflink:hover{background:rgba(99,179,166,0.16);border-color:rgba(99,179,166,0.7)}
+figure{margin:30px 0}
+figure svg{display:block;width:100%;height:auto;border-radius:12px;background:rgba(255,255,255,0.018);border:1px solid rgba(255,255,255,0.06)}
+figcaption{font-size:0.82rem;color:#787268;margin-top:11px;text-align:center;line-height:1.6}
+.en-brief{font-size:0.85rem;color:#847d72;border-top:1px dashed rgba(255,255,255,0.09);padding-top:12px;margin-top:22px;line-height:1.65}
+.en-brief b{font-family:"SF Mono",Menlo,monospace;font-size:0.72rem;color:#63b3a6;letter-spacing:1px;margin-right:7px}
+.decide{margin:24px 0;border:1px solid rgba(224,137,94,0.36);background:rgba(224,137,94,0.055);border-radius:12px;padding:15px 19px}
+.decide .lb{font-family:"SF Mono",Menlo,monospace;font-size:0.73rem;letter-spacing:1.5px;color:#e0895e;font-weight:700;display:block;margin-bottom:7px}
+.decide p{margin:0;font-size:0.95rem;color:#ddd5c9}
+.crossx-inline{margin:20px 0 22px;border-left:2px solid rgba(205,127,155,0.55);padding:2px 0 2px 15px;font-size:0.89rem;color:#a9a096;line-height:1.72}
+.crossx-inline b{color:#cd7f9b;font-weight:600}
+.bigcat{margin:46px 0 10px;border:1px solid rgba(217,180,95,0.38);background:rgba(217,180,95,0.05);border-radius:14px;padding:20px 22px}
+.bigcat h3{font-size:1.02rem;color:#d9b45f;margin-bottom:14px;letter-spacing:0.5px}
+.bigcat ol{list-style:none;padding:0}
+.bigcat li{margin-bottom:15px;font-size:0.94rem;color:#d5cdc1;line-height:1.78}
+.bigcat li:last-child{margin-bottom:0}
+.bigcat .dm{font-family:"SF Mono",Menlo,monospace;font-size:0.73rem;color:#d9b45f;border:1px solid rgba(217,180,95,0.32);border-radius:4px;padding:1px 7px;margin-right:8px;white-space:nowrap}
+.crossx{margin:46px 0 10px;border:1px solid rgba(205,127,155,0.38);background:rgba(205,127,155,0.05);border-radius:14px;padding:20px 22px}
+.crossx h3{font-size:1.02rem;color:#cd7f9b;margin-bottom:14px;letter-spacing:0.5px}
+.crossx ul{list-style:none;padding:0}
+.crossx li{margin-bottom:16px;font-size:0.94rem;color:#d5cdc1;line-height:1.78}
+.crossx li:last-child{margin-bottom:0}
+.crossx li b{color:#cd7f9b;font-weight:600}
+.thinking{margin:46px 0 10px}
+.thinking h3{font-size:1.02rem;color:#a693cd;margin-bottom:14px;letter-spacing:0.5px}
+details{border:1px solid rgba(166,147,205,0.22);border-radius:10px;padding:12px 16px;margin-bottom:10px;background:rgba(166,147,205,0.035)}
+summary{cursor:pointer;font-size:0.93rem;color:#c9c2b6;font-weight:500}
+summary::marker{color:#a693cd}
+details p{margin:12px 0 0;font-size:0.9rem;color:#a9a096;line-height:1.75}
+.refs{margin:46px 0 10px}
+.refs h3{font-size:1.02rem;color:#79a6d2;margin-bottom:14px;letter-spacing:0.5px}
+.refs ul{list-style:none;padding:0}
+.refs li{margin-bottom:10px;font-size:0.9rem;color:#8d867b;line-height:1.7}
+.refs a{color:#79a6d2;text-decoration:none;border-bottom:1px solid rgba(121,166,210,0.3)}
+.refs a:hover{color:#a6c4e2;border-bottom-color:rgba(121,166,210,0.7)}
+footer{text-align:center;padding:56px 0 10px;font-size:0.78rem;color:#57524b;font-family:"SF Mono",Menlo,monospace;border-top:1px solid rgba(255,255,255,0.06);margin-top:50px}
+footer a{color:#79a6d2;text-decoration:none}
+@media(max-width:600px){h1{font-size:1.85rem}.wrap{padding:24px 16px 60px}h2{font-size:1.22rem}}
+</style></head><body>
+<div class="wrap">
+<header>
+<span class="week-tag">TOPIC 34 · PHASE F</span>
+<h1>城市与公司的规模律<span class="h1en">URBAN &amp; CORPORATE SCALING</span></h1>
+<p class="sub">为什么城市几乎不死，公司却必死<span class="he">（Why cities almost never die, and companies always do）</span></p>
+<p class="date">2026-08-20 · 尺度</p>
+</header>
+<p class="pitch">把一座城市的人口翻一倍，你不会得到两倍的一切。加油站和电缆只多了不到两倍，而工资、专利、犯罪、连人走路的速度，都比两倍还多。这一半"变超"、一半"变省"的裂缝，正是城市和公司命运不同的全部原因。</p>
+<div class="intro">
+<p>上一期的动物有一件事是统一的：什么都随体型变<em>慢</em>、变<em>省</em>。心跳慢下来、每克代谢降下来，一个指数从头管到尾。城市把这件事撕成了两半。</p>
+<p>属于"管子"的那一半——道路总长、水管电缆、加油站数目——确实和动物一样，随规模变省：城市大一倍，这些东西只需要多八成左右。但属于"人"的那一半——工资、GDP、专利、餐馆种类，还有犯罪、疾病、垃圾——走的是<em>反方向</em>：城市大一倍，它们多的比一倍还多。同一座城市，一半在减速，一半在加速。</p>
+<p class="dim">这一期是"尺度"这个 Phase 的落点。第 32 期讲自相似（同一个形状在各尺度重复），第 33 期讲异速生长（生物随体型必须改比例，而且全都<b>次线性</b>地慢下来）。本期的新东西只有一个词：<b>超线性</b>（superlinear）。生物没有超线性的那一半，城市有——而正是这一半，让城市的行为不再像一个器官，倒像一台永远在加速的机器。<b>本期只追一个问题：为什么这台机器几乎停不下来，而公司这台，寿命只有十年出头。</b></p>
+</div>
+
+<h2><span class="n">01</span>省下来的那一半：基础设施<span class="he">（The Half That Saves: Infrastructure）</span></h2>
+<p class="lead">先说容易接受的一半。一座一千万人的城市，需要的加油站数目，并不是一座五百万人城市的两倍。</p>
+<p>2007 年，物理学家 Luís Bettencourt、Geoffrey West 和几位合作者把美国、欧洲、中国上百座城市的数据摊开来，量各种量随人口怎么变。结果异常干净：<b>凡是基础设施类的东西——道路总里程、电缆总长、加油站数量、供水管道——都随人口按大约 0.85 次幂增长。</b>指数小于 1，意思就是"人均用量随城市变大而下降"。城市翻一倍（人口 ×2），这些设施只需要约 1.8 倍（2 的 0.85 次幂 ≈ 1.8）。</p>
+<p>这背后的机制，和上一期动物的供给网络是同一个 <a class="reflink" href="ref-allometric-scaling.html">→ 参考 · 异速生长与规模律</a>：一套要通达每一个末端（每一户、每一栋楼）的分配网络，随着服务范围变大，会共享干线、摊薄成本，于是单位成本往下走。这就是"规模经济"（economy of scale）四个字最硬核的版本——它不是一句管理口号，是一条能量出指数来的几何规律。大城市在物理上更"绿"：纽约人的人均碳排、人均道路，都低于美国的小镇。</p>
+<figure>
+<svg aria-label="城市翻倍时，基础设施只增长约1.8倍，低于成比例的2倍" role="img" viewbox="0 0 720 260" xmlns="http://www.w3.org/2000/svg">
+<defs>
+<marker id="ar34a" markerheight="10" markerunits="userSpaceOnUse" markerwidth="10" orient="auto" refx="9" refy="5" viewbox="0 0 10 10">
+<path d="M0,1 L9,5 L0,9 z" fill="#9fbc7a"></path>
+</marker>
+</defs>
+<text fill="#aba498" font-family="-apple-system,sans-serif" font-size="13" text-anchor="middle" x="360" y="28">人口 ×2，基础设施只 ×1.8 —— 每一份"里子"分到的管子更少</text>
+<!-- small city -->
+<text fill="#787268" font-family="SF Mono,monospace" font-size="12" text-anchor="middle" x="150" y="66">城市 A · 500 万人</text>
+<rect fill="rgba(159,188,122,0.16)" height="60" stroke="#9fbc7a" stroke-width="1.5" width="120" x="90" y="86"></rect>
+<text fill="#c9c2b6" font-family="SF Mono,monospace" font-size="15" text-anchor="middle" x="150" y="122">100</text>
+<text fill="#787268" font-family="-apple-system,sans-serif" font-size="11" text-anchor="middle" x="150" y="164">加油站（示意）</text>
+<!-- arrow -->
+<line marker-end="url(#ar34a)" stroke="#9fbc7a" stroke-width="2.5" x1="238" x2="300" y1="116" y2="116"></line>
+<text fill="#9fbc7a" font-family="-apple-system,sans-serif" font-size="11" text-anchor="middle" x="269" y="104">人口翻倍</text>
+<!-- big city: proportional ghost -->
+<rect fill="none" height="120" stroke="rgba(224,137,94,0.35)" stroke-dasharray="5 4" stroke-width="1.5" width="120" x="330" y="86"></rect>
+<text fill="#c0703f" font-family="SF Mono,monospace" font-size="12" text-anchor="middle" x="390" y="80">成比例会是 200</text>
+<!-- big city actual -->
+<rect fill="rgba(159,188,122,0.16)" height="108" stroke="#9fbc7a" stroke-width="1.5" width="120" x="330" y="98"></rect>
+<text fill="#c9c2b6" font-family="SF Mono,monospace" font-size="15" text-anchor="middle" x="390" y="158">180</text>
+<text fill="#787268" font-family="-apple-system,sans-serif" font-size="12" text-anchor="middle" x="390" y="66">城市 B · 1000 万人</text>
+<!-- gap annotation -->
+<text fill="#c0703f" font-family="-apple-system,sans-serif" font-size="11" text-anchor="middle" x="390" y="182">省下的 20</text>
+<!-- exponent box -->
+<text fill="#9fbc7a" font-family="SF Mono,monospace" font-size="14" text-anchor="middle" x="600" y="112">设施 ∝ 人口⁰·⁸⁵</text>
+<text fill="#8d867b" font-family="-apple-system,sans-serif" font-size="11.5" text-anchor="middle" x="600" y="136">指数 &lt; 1</text>
+<text fill="#8d867b" font-family="-apple-system,sans-serif" font-size="11.5" text-anchor="middle" x="600" y="154">= 越大越省</text>
+<text fill="#57524b" font-family="-apple-system,sans-serif" font-size="11" text-anchor="middle" x="360" y="238">数字为示意；真实数据里道路、电缆、加油站的指数都落在 0.8–0.9 之间</text>
+</svg>
+<figcaption>基础设施的次线性：翻倍的城市不需要翻倍的管网。这一半和上一期的动物同源。</figcaption>
+</figure>
+<div class="crossx-inline">
+🌀 <b>工程与技术史 · 把机房合并</b>　云计算凭什么便宜？把一万台分散的服务器并进一个大数据中心，散热、供电、占地、运维都不会跟着翻十倍——基础设施随规模<b>次线性</b>增长，正是这条规律。但要小心它只管这一半：省下来的全在"管子"这边，它一个字都没说产出会不会涨。把"我们合并了机房、成本降了"读成"所以我们更有产出了"，是拿次线性的省，去冒充另一条完全独立的曲线上的事。
+</div>
+<p class="en-brief"><b>EN</b> Bettencourt, West et al. (2007) found urban infrastructure — road length, cables, gas stations — scales as population^0.85. The exponent below one means per-capita use falls with size: doubling a city needs only ~1.8× the pipes. It is the same supply-network geometry as biological allometry, and it makes big cities physically greener per head.</p>
+
+<h2><span class="n">02</span>超出来的那一半：人与人<span class="he">（The Half That Surges: People）</span></h2>
+<p class="lead">现在是反直觉的一半。同一批城市里，工资、GDP、专利数、餐馆种类、专业分工的细密程度——这些随人口按大约 <b>1.15</b> 次幂增长。指数<em>大于</em> 1。</p>
+<p>大于 1 意味着"人均产出随城市变大而<b>上升</b>"。城市翻一倍，经济产出不是两倍，是约 2.2 倍；人均工资、人均专利凭空多出约 15%。这就是为什么人往大城市挤——不只是那里有更多工作，是同样一个人，在更大的城市里平均更值钱。这一半叫<b>超线性</b>（superlinear，指数大于 1，产出增速快过规模本身）。</p>
+<p>机制不在管子，在<b>连接</b>。城市的价值不是它有多少条路，是路上跑的人彼此能撞上多少次。城市越大，每个人能接触到的其他人、其他技能、其他点子就越多，而这个"能接触到的对数"随人口增长得比人口本身还快。于是想法配想法、买家配卖家、师傅配徒弟——产出就从这些配对里冒出来，冒得比人头还快。</p>
+<figure>
+<svg aria-label="双对数图上，基础设施斜率0.85在成比例线之下，社会产出斜率1.15在其之上" role="img" viewbox="0 0 720 320" xmlns="http://www.w3.org/2000/svg">
+<!-- axes -->
+<line stroke="rgba(255,255,255,0.18)" stroke-width="1.5" x1="92" x2="648" y1="256" y2="256"></line>
+<line stroke="rgba(255,255,255,0.18)" stroke-width="1.5" x1="92" x2="92" y1="256" y2="48"></line>
+<text fill="#8d867b" font-family="-apple-system,sans-serif" font-size="12" text-anchor="middle" x="370" y="292">城市人口（对数）→</text>
+<text fill="#8d867b" font-family="-apple-system,sans-serif" font-size="12" transform="rotate(-90 32 155)" x="32" y="155">该项总量（对数）</text>
+<!-- proportional slope-1 dashed -->
+<line stroke="#8d867b" stroke-dasharray="6 5" stroke-width="2" x1="120" x2="620" y1="228" y2="86"></line>
+<text fill="#8d867b" font-family="SF Mono,monospace" font-size="12" x="470" y="150">成比例 (斜率 1)</text>
+<text fill="#8d867b" font-family="-apple-system,sans-serif" font-size="11" x="470" y="168">"人均不变"的假想线</text>
+<!-- superlinear 1.15 -->
+<line marker-end="url(#ar34s)" stroke="#cd7f9b" stroke-width="2.8" x1="120" x2="616" y1="236" y2="60"></line>
+<circle cx="180" cy="215" fill="#cd7f9b" r="3.5"></circle><circle cx="300" cy="173" fill="#cd7f9b" r="3.5"></circle><circle cx="430" cy="127" fill="#cd7f9b" r="3.5"></circle><circle cx="540" cy="88" fill="#cd7f9b" r="3.5"></circle>
+<text fill="#cd7f9b" font-family="SF Mono,monospace" font-size="13" x="524" y="52">产出 ∝ 人口¹·¹⁵</text>
+<text fill="#cd7f9b" font-family="-apple-system,sans-serif" font-size="11" x="248" y="120">工资·专利·GDP·犯罪·疾病</text>
+<!-- sublinear 0.85 -->
+<line marker-end="url(#ar34i)" stroke="#9fbc7a" stroke-width="2.8" x1="120" x2="616" y1="222" y2="118"></line>
+<circle cx="180" cy="205" fill="#9fbc7a" r="3.5"></circle><circle cx="300" cy="180" fill="#9fbc7a" r="3.5"></circle><circle cx="430" cy="153" fill="#9fbc7a" r="3.5"></circle><circle cx="540" cy="130" fill="#9fbc7a" r="3.5"></circle>
+<text fill="#9fbc7a" font-family="SF Mono,monospace" font-size="13" x="470" y="112">设施 ∝ 人口⁰·⁸⁵</text>
+<text fill="#9fbc7a" font-family="-apple-system,sans-serif" font-size="11" x="150" y="242">道路·电缆·加油站</text>
+<defs>
+<marker id="ar34s" markerheight="11" markerunits="userSpaceOnUse" markerwidth="11" orient="auto" refx="9" refy="5" viewbox="0 0 10 10"><path d="M0,1 L9,5 L0,9 z" fill="#cd7f9b"></path></marker>
+<marker id="ar34i" markerheight="11" markerunits="userSpaceOnUse" markerwidth="11" orient="auto" refx="9" refy="5" viewbox="0 0 10 10"><path d="M0,1 L9,5 L0,9 z" fill="#9fbc7a"></path></marker>
+</defs>
+<text fill="#57524b" font-family="-apple-system,sans-serif" font-size="11" text-anchor="middle" x="370" y="312">一座城市同时活在两条斜率上：管子在成比例线下方（省），人在其上方（涨）</text>
+</svg>
+<figcaption>整期的核心图：基础设施的斜率 0.85 与社会产出的斜率 1.15，分居"成比例"虚线两侧。生物只有下面那条，城市两条都有。</figcaption>
+</figure>
+<p>这条超线性有个不留情面的地方：<b>好的和坏的，用的是同一个指数。</b>工资按 1.15 涨，专利按 1.15 涨，可犯罪、传染病、精神压力，也都按差不多的 1.15 涨。它们不是三件事，是同一件事——更密的连接——的三个出口。城市的活力和城市的病，是同一台发动机的两个排气口，你没法只留一个。</p>
+<div class="decide">
+<span class="lb">🎯 决策线</span>
+<p>凡是想靠"做大"获得好处的场合，先分清你要的东西挂在哪条斜率上。想省成本（基础设施、后勤、算力）——做大有利，那是次线性。想要产出、创新、匹配（人才、点子、成交）——做大也有利，但你会<b>连带</b>把犯罪式的副产品（内耗、事故率、疾病、噪声）按同一个指数一起放大。别只算你想要的那条，把同指数的副产品也列进账，否则规模拉得越开，你没算的那笔越大。</p>
+</div>
+<div class="crossx-inline">
+🌀 <b>生物 / 医学 · 城市与瘟疫共用一个指数</b>　同一批研究里，艾滋病例、流感就诊随城市人口的超线性指数，和工资、专利几乎一样（都在 1.15 上下）。这推出一个规划上很硬的结论：你没办法设计一座"留住高薪与创新、却甩掉高传染风险"的城市——因为两者骑的是同一条连接度。所以"疏散开来更安全"这句话在字面上对，但它甩掉的正是当初让这座城市值钱的东西；安全不是免费拿的，是拿产出去换的。
+</div>
+<p class="en-brief"><b>EN</b> Socioeconomic outputs — wages, GDP, patents, restaurant variety — scale as population^1.15. The exponent above one means per-capita output <i>rises</i> with size, driven not by pipes but by social connectivity: bigger cities let each person meet more others, and matches produce output faster than headcount grows. Crucially, crime and disease scale with the same ~1.15 exponent — the buzz and the pathology are two exhausts of one engine.</p>
+
+<h2><span class="n">03</span>城市不死，公司必死<span class="he">（Cities Persist, Companies Perish）</span></h2>
+<p class="lead">现在把两条斜率的账，结算到"活多久"上。</p>
+<p>先看公司。2015 年，Madeleine Daepp、West 等人把 1950–2009 年间两万五千家在北美上市的公司拉出来做生存分析（survival analysis，医学里算病人存活率的那套方法）。结论出奇地干净：<b>上市公司的"半衰期"大约十年</b>——每过十年左右，一批公司里就有一半以某种方式消失（破产、被并购、退市）。而且死亡率<em>不随年龄变化</em>：一家开了五十年的老公司，明年消失的概率，和一家开了五年的，基本一样。</p>
+<p>这在统计上叫<b>恒定风险率</b>（constant hazard rate）。它意味着公司的存活曲线是一条指数衰减——和放射性原子核衰变、和"没有记忆"的随机事件是同一个形状。公司不像人那样"年轻时死亡率低、老了才升高"；它更像一枚随时可能衰变的原子，资历不给它任何保护。</p>
+<figure>
+<svg aria-label="公司存活率随时间指数衰减，半衰期约十年；城市存活率几乎不下降" role="img" viewbox="0 0 720 300" xmlns="http://www.w3.org/2000/svg">
+<defs>
+<marker id="ar34h" markerheight="10" markerunits="userSpaceOnUse" markerwidth="10" orient="auto" refx="9" refy="5" viewbox="0 0 10 10"><path d="M0,1 L9,5 L0,9 z" fill="#8d867b"></path></marker>
+</defs>
+<!-- axes -->
+<line marker-end="url(#ar34h)" stroke="rgba(255,255,255,0.2)" stroke-width="1.5" x1="88" x2="656" y1="248" y2="248"></line>
+<line stroke="rgba(255,255,255,0.2)" stroke-width="1.5" x1="88" x2="88" y1="248" y2="52"></line>
+<text fill="#8d867b" font-family="-apple-system,sans-serif" font-size="12" text-anchor="middle" x="370" y="284">成立以来的年数 →</text>
+<text fill="#8d867b" font-family="-apple-system,sans-serif" font-size="12" transform="rotate(-90 30 150)" x="30" y="150">还活着的比例</text>
+<!-- gridline 50% -->
+<line stroke="rgba(255,255,255,0.10)" stroke-dasharray="4 5" stroke-width="1" x1="88" x2="656" y1="150" y2="150"></line>
+<text fill="#57524b" font-family="SF Mono,monospace" font-size="11" x="60" y="154">50%</text>
+<text fill="#57524b" font-family="SF Mono,monospace" font-size="11" x="66" y="60">100%</text>
+<!-- cities line: nearly flat -->
+<path d="M88,58 C260,62 460,68 656,74" fill="none" stroke="#63b3a6" stroke-width="2.8"></path>
+<text fill="#63b3a6" font-family="SF Mono,monospace" font-size="13" x="470" y="60">城市</text>
+<text fill="#63b3a6" font-family="-apple-system,sans-serif" font-size="11" x="360" y="94">被炸平也会重建</text>
+<!-- companies: exponential decay S=0.5^(t/10) -->
+<path d="M88,58 C168,110 236,150 300,170 C380,196 470,214 560,226 C600,231 630,234 656,236" fill="none" stroke="#cd7f9b" stroke-width="2.8"></path>
+<text fill="#cd7f9b" font-family="SF Mono,monospace" font-size="13" x="150" y="120">公司</text>
+<!-- half life marker -->
+<line stroke="rgba(205,127,155,0.5)" stroke-dasharray="3 4" stroke-width="1.5" x1="300" x2="300" y1="150" y2="248"></line>
+<circle cx="300" cy="150" fill="#cd7f9b" r="5"></circle>
+<text fill="#cd7f9b" font-family="-apple-system,sans-serif" font-size="11.5" text-anchor="middle" x="300" y="266">≈10 年少一半</text>
+<text fill="#8d867b" font-family="-apple-system,sans-serif" font-size="11" x="360" y="200">指数衰减 = 死亡率不随年龄变</text>
+<text fill="#57524b" font-family="-apple-system,sans-serif" font-size="11" text-anchor="middle" x="370" y="300">同一张图上两种命运：公司像会衰变的原子核，城市像近乎不朽的结构</text>
+</svg>
+<figcaption>上市公司半衰期约十年、恒定风险率（Daepp 等 2015）。城市则几乎从名单上消失不了。</figcaption>
+</figure>
+<p>城市恰好相反。你几乎数不出几座真正"死掉"的大城市。广岛被原子弹夷平，几十年后是繁华都会；欧洲被战争反复碾过的城市，一座座都还在原地。城市极难杀死。</p>
+<p>West 给出的解释，正好落在前两节那两条斜率上。<b>公司主要活在次线性的那条曲线上</b>：它像一个器官——追求规模经济、削减冗余、把流程标准化。这让它年轻时高效，但也让它越来越僵：管理层级、合规、内部协调的成本随规模上升，而这些恰恰挤压掉了让它当初起飞的那点探索。多数公司围着少数几个产品转，一旦市场变了、那个 S 形增长曲线见顶，它没有第二次呼吸，于是死。<b>城市主要活在超线性的那条曲线上</b>：它不靠单一产品，它靠人和人不断的新组合；一个行业衰落，会有另一个在同一批人里长出来。城市因此能一次次自我重启，公司多半只能长一次。</p>
+<div class="decide">
+<span class="lb">🎯 决策线</span>
+<p>判断你手里的组织（公司、团队、产品线，乃至你自己的职业）主要挂在哪条曲线上：它的优势来自<b>把一件事做得更省更标准</b>（次线性，规模经济，终会见顶后衰减），还是来自<b>不断产生新组合</b>（超线性，越大越活）？前者要预设死亡、提前准备下一条曲线，别把当下的高效当成安全；后者要保护多样性和内部连接，别为了短期效率把它标准化成一家公司。把"我们在哪条曲线上"当成一个要定期重答的问题，而不是一次性的定位。</p>
+</div>
+<div class="crossx-inline">
+🌀 <b>经济与制度 · "蓝筹"不等于"安全"</b>　恒定风险率说：一家五十年的老牌公司，明年出事的概率并不比一家五年的低。这直接戳破了把"历史悠久 / 蓝筹 / 大到不能倒"当成安全同义词的用法——在这份数据里，资历几乎不携带任何存活信息。所以"它都活了这么多年，不会突然倒"这句安慰，把年龄错当成了护城河；真正决定它明年在不在的，是它还在不在产生新组合，而不是它已经存在了多久。
+</div>
+<p class="en-brief"><b>EN</b> Daepp, West et al. (2015) found publicly traded companies have a half-life of ~10 years and a roughly constant hazard rate — mortality independent of age and sector, an exponential survival curve like radioactive decay. Cities almost never die. West's reading: companies live mostly on the sublinear curve (economies of scale, rigidity, one sigmoidal product), while cities live on the superlinear one (open-ended recombination), so cities keep reinventing while companies grow only once.</p>
+
+<h2><span class="n">04</span>这套说法在哪儿不成立<span class="he">（Where This Breaks Down）</span></h2>
+<p class="lead">现在说反面。城市规模律是复杂性科学里最上镜的一块——它有漂亮的指数、宏大的推论、一本畅销书。正因为如此，它被反驳的地方也格外多，用之前必须知道。</p>
+<p><b>第一，指数没那么稳，而且它取决于你怎么划"城市"。</b>一座城市的边界在哪？行政市界、都会区、还是通勤圈？换一种划法，同一批数据能给出不同的斜率。2015 年 Arcaute 等人和 Cottineau 等人分别证明：把英国、法国的城市按不同定义重新切，超线性可以减弱甚至消失。这是地理学里出了名的"可变面积单元问题"（modifiable areal unit problem，缩写 MAUP）——你先画了边界，边界再决定你测出什么指数。所以 1.15 这个数不是一块石头，它随定义漂。</p>
+<p><b>第二，1.15 是一条中心趋势，不是每座城的命运。</b>围绕那条直线，单个城市散布很大。对一座具体的城市，它偏离那条线多少（叫"标度调整后的城市指标"，SAMI）往往比那条线本身更有用——旧金山的专利远在趋势之上，另一些同等规模的城市远在其下。用整条线的斜率去预测某一座城，等于用平均身高去猜某个人的身高。</p>
+<p><b>第三，"城市不死"是幸存者偏差。</b>确实有大量城市死了：底特律从一百八十万人掉到不足七十万；罗马城在帝国崩溃后从约百万人缩到几万人，花了一千多年才缓过来；玛雅、吴哥的都会被彻底弃置。城市的韧性是<em>有条件</em>的——它依赖所在的区域和国家还在运转。把"广岛重建了"当成"城市不会死"，是只数了活下来的那些。</p>
+<p><b>第四，把公司死亡说成"物理定律"是过度修辞。</b>恒定风险率是一条统计规律，不是一个机制——它没告诉你为什么，只告诉你形状。而且这份数据是<em>上市</em>公司，本身经过一层筛选；"死亡"里还混着并购（公司没了，人和资产往往还在，被并进了别处），这和破产完全是两回事。把三种很不一样的结局合并成一条"死亡曲线"，曲线好看，但抹掉了你最想知道的那部分区别。</p>
+<p><b>第五，"超线性必然导致有限时间奇点、逼你越创新越快否则崩溃"是模型外推。</b>West 由超线性推出：城市的增长若不被打断会在有限时间内冲向无穷，而现实资源有限，于是必须靠一波接一波、间隔越来越短的创新来"重置时钟"，否则停滞崩溃。这是个引人入胜的论证，但它是把方程往边界外推得到的<em>预测</em>，不是已经观测到的<em>事实</em>。方程在奇点附近本来就未必还成立。把它当成对未来的描述，需要比"曲线现在拟合得好"多得多的证据。</p>
+<div class="decide">
+<span class="lb">🎯 决策线</span>
+<p>引用任何城市规模律的数字之前，先答三件事：① 这条线用的是哪种城市边界（行政 / 都会 / 通勤）——换定义，指数会变；② 你关心的是整条趋势，还是某一座城相对趋势的偏离——对单个对象，后者才有用；③ 你说的"城市不死 / 公司必死"，剔除幸存者偏差和"并购≠破产"之后还剩多少。三条答不上来，就只说方向（"社会产出随规模超线性、基础设施次线性"），别报 1.15、别把它当预言。</p>
+</div>
+
+<div class="bigcat">
+<h3>🎒 场景 · BigCat</h3>
+<ol>
+<li><span class="dm">工程与系统设计</span>一个平台从服务十个团队涨到服务一百个团队，真正先扛不住的，通常不是服务器（那条是次线性，加机器就行），是<b>人之间要对齐的东西</b>——评审、接口约定、跨团队的依赖协调，这些随接入方按超线性涨。可改的动作：别再用"加实例、扩容量"回应每一次变慢，先分清这次瓶颈挂在哪条斜率上。给自己一个判据——如果新增一个接入方带来的沟通会议、来回确认的时间在变长，你撞的是超线性的那堵墙，扩容量没用，得改的是接口的自治程度（让每个接入方少依赖别人），而不是机器数。</li>
+<li><span class="dm">投资与仓位</span>把一家龙头公司的"历史悠久、地位稳固"当成低风险的理由，正是本期恒定风险率戳破的那件事：资历不是护城河。可改的动作：给持仓里每一家"因为它是行业老大所以放心"的公司，单独问一句——它现在还在不在产生新组合（新产品线、新市场），还是只在把老产品做得更省？把这个"是否还在超线性曲线上"当成复核指标，替换掉"它都存在这么多年了"这种基于年龄的安心。看的东西从公司的年龄，换成它最近三年营收里来自五年内新业务的占比。</li>
+<li><span class="dm">写作与这个学习站本身</span>这个站每多写一期，价值来自哪？如果只是"页面数 +1"，那是次线性的堆量，迟早见顶。真正的超线性红利在<b>期与期之间的连接</b>——这一期的机制能不能照亮此前某几期，形成新的交叉。可改的判据：不看累计写了多少期，看每期平均能诚实地勾连回几期旧内容（本站的"越界"栏正是这个连接的显式产物）。如果新一期越来越自成一体、跟旧期无法互指，说明这个站在被写成一串独立页面（一家公司的产品线），而不是一座会自我重启的城。停掉的动作：停止用"这个月更了几篇"评估进度。</li>
+</ol>
+</div>
+
+<div class="crossx">
+<h3>🌀 越界 · 跨学科的联想<span class="he">（Crossings）</span></h3>
+<ul>
+<li><b>历史与军事 · 帝国的半径由信使速度定</b>：罗马的国家邮驿（cursus publicus）常速约每天 80 公里、急件可上 160 公里；蒙古的驿站（yam）靠密集换马，信使一天能跑 200–300 公里。本期几条机制合起来，给"帝国能有多大"一个不靠武力的上限：要控制的领土越大，需要协调的事务按超线性涨，而命令传递的速度是那个"不会随帝国变大而变快的末端单元"（正是上一期毛细血管的角色）。于是有效控制半径，由"信号速度 ÷ 协调需求的增速"卡死。罗马和蒙古是在同一堵墙上用了两种解法：罗马靠修更密的路（抬高基础设施），蒙古靠换马接力（抬高末端速度本身）。<b>但这里不成立</b>：帝国缺了城市那超线性的<em>产出</em>回馈——多吞一个行省，只增加协调成本，不像城市多一批人那样带来创新红利；被征服地的产出还常常是负的。所以帝国坐在生物那一侧（次线性、终会见顶），命运更像公司而不是城市——这恰好解释了为什么历史上的帝国像公司一样一个个died，而它们治下的城市一座座活到了今天。能借走的是"分配网络的末端速度设上限"这条推理，不能借城市那条乐观的超线性。</li>
+<li><b>文学与艺术 · 流派会死，而"场景"不会</b>：一个艺术或文学流派（立体主义、某本先锋杂志、某个乐种）的寿命，出奇地像一家公司——它围着一套风格这个"单一产品"转，风格一旦被穷尽或被市场消化，它就以近乎恒定的速率退场，资历不救它。而一座城市的整个艺术生态（"场景"，scene）却像城市本身：巴黎、纽约的艺术不绑在任何一个流派上，一个衰了，另一个从同一批人里长出来。本期的机制对照给出一个对创作者不太舒服的推论：想让作品<em>延续</em>，别把一种风格优化到极致（那是公司路径，通向见顶后的恒定死亡率），而要维持能不断重组的多样输入（城市路径）。<b>但这里不成立</b>：流派的短命未必是失败——一场先锋运动本就可能<em>意在</em>燃尽、以完成为目的，用"活了多少年"去评判它是套错了尺子，就像拿公司寿命去要求一首诗。能借走的是"单一产品挂在次线性、终会恒定衰减"这条结构，不能顺手把"越长寿越好"这个价值判断一起夹带进艺术。</li>
+</ul>
+</div>
+
+<div class="thinking">
+<h3>深入思考<span class="he">（Going Deeper）</span></h3>
+<details><summary>如果好的（工资、创新）和坏的（犯罪、疾病）真的共用一个指数，那"更好的大城市"还可能吗？</summary><p>可能，但方向不是压低指数，是抬高截距、或让某一项脱离那条共同的连接度。同样规模的城市，犯罪率能差好几倍——差在制度、信任、分配，而不在人口。规模律给的是"这座城大概会落在哪条带子上"，落在带子里的高处还是低处，是另一层可干预的变量。危险的读法是把指数当宿命，用它替治理不善开脱。</p></details>
+<details><summary>公司能不能把自己改造得"像城市"，从而摆脱十年半衰期？</summary><p>这正是"集团化""内部创业""平台化"想做的事：在一家公司里养出多样的、能重组的内部生态。理论上能把它往超线性那侧推一点。但要小心：城市的多样性没有一个 CEO 去优化它、没有季度目标去修剪它，而公司的治理天然倾向于消除冗余、统一方向——这恰恰是在把超线性改回次线性。所以"像城市的公司"是个不稳定的状态，得靠持续对抗自身的效率冲动才能维持。</p></details>
+<details><summary>为什么走路速度也随城市变快，这只是比喻还是真有意义？</summary><p>是真数据：大城市里人均步速更快，和工资、专利一样超线性。它之所以重要，是因为它把抽象的"连接度"落成了一个能测的物理量——"生活节奏"不是文学修辞，是可以量的。同一条机制既加速了想法的流转，也加速了人的代谢式消耗。这也提示：城市的病（压力、倦怠）和城市的好（机会）确实是同一个加速度的两面。</p></details>
+<details><summary>如果 1.15 随城市定义而漂，那这条定律还剩下什么是硬的？</summary><p>剩下的硬核不是那个具体数字，是"基础设施次线性、社会产出超线性"这个<em>定性的分裂</em>——它在多种合理定义下都稳健地存在，方向不翻。软的是小数点（是 1.12 还是 1.20）、是奇点那类外推。区分"方向稳健"和"数值精确"，是用任何规模律时最该先做的一刀。</p></details>
+</div>
+
+<div class="refs">
+<h3>延伸阅读<span class="he">（Further Reading）</span></h3>
+<ul>
+<li>Bettencourt, Lobo, Helbing, Kühnert &amp; West, <a href="https://www.pnas.org/doi/10.1073/pnas.0610172104">Growth, innovation, scaling, and the pace of life in cities</a>（PNAS 2007，城市规模律的奠基论文）</li>
+<li>Daepp, Hochberg, Bettencourt &amp; West, <a href="https://royalsocietypublishing.org/doi/10.1098/rsif.2015.0120">The mortality of companies</a>（J. R. Soc. Interface 2015，公司半衰期与恒定风险率）</li>
+<li>Bettencourt, <a href="https://www.science.org/doi/10.1126/science.1235823">The Origins of Scaling in Cities</a>（Science 2013，超线性的连接度推导）</li>
+<li>Arcaute et al., <a href="https://royalsocietypublishing.org/doi/10.1098/rsif.2014.0745">Constructing cities, deconstructing scaling laws</a>（2015，指数随城市定义而变）</li>
+<li>Louf &amp; Barthelemy, <a href="https://arxiv.org/abs/1410.4964">Scaling: lost in the smog</a>（2014，对城市规模律稳健性的批评）</li>
+<li>Geoffrey West, <a href="https://us.macmillan.com/books/9781594205583/scale">Scale</a>（2017，WBE 一方的完整论述，也是被批评最多的那本）</li>
+<li><a href="https://en.wikipedia.org/wiki/Cursus_publicus">Cursus publicus</a> / <a href="https://en.wikipedia.org/wiki/Yam_(route)">Yam（驿传）</a>（罗马与蒙古邮驿系统）</li>
+</ul>
+</div>
+<footer>BigCat · 复杂性科学 · <a href="index.html">← 全部 Topic</a></footer>
+</div>
+<script src="https://hub.cissychen.com/comments.js" defer></script>
+<script src="https://hub.cissychen.com/search.js" defer></script>
+<script src="https://hub.cissychen.com/index-button.js" defer></script>
+<script src="https://hub.cissychen.com/i18n-tts.js" defer></script>
+</body></html>

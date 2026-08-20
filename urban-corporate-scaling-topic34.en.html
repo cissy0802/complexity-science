@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+
+<html lang="en"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Urban &amp; Corporate Scaling — Why Cities Almost Never Die, and Companies Always Do · Complexity Science T34</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,"SF Pro Display","Noto Sans SC",sans-serif;color:#e4ded5;line-height:1.85;min-height:100vh;
+  background:radial-gradient(1100px 620px at 12% -6%,rgba(224,137,94,0.10),transparent 62%),radial-gradient(950px 700px at 100% 2%,rgba(166,147,205,0.09),transparent 58%),linear-gradient(168deg,#100f0d 0%,#15161b 48%,#0a0a0c 100%);background-attachment:fixed}
+.wrap{max-width:760px;margin:0 auto;padding:30px 22px 90px}
+header{padding:52px 0 8px;border-bottom:1px solid rgba(255,255,255,0.07);margin-bottom:34px}
+.week-tag{font-family:"SF Mono",Menlo,monospace;font-size:0.72rem;font-weight:700;letter-spacing:2px;color:#a693cd;border:1px solid rgba(166,147,205,0.4);background:rgba(166,147,205,0.07);padding:3px 11px;border-radius:20px}
+h1{font-size:2.5rem;font-weight:800;letter-spacing:0.5px;line-height:1.2;margin:20px 0 0;background:linear-gradient(106deg,#e0895e 0%,#d9b45f 34%,#9fbc7a 68%,#63b3a6 100%);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+.sub{font-size:1.05rem;color:#aba498;margin-top:14px;font-weight:500}
+.date{font-family:"SF Mono",Menlo,monospace;font-size:0.75rem;color:#57524b;margin-top:18px;letter-spacing:1px}
+.pitch{margin:22px 0 30px;font-size:0.97rem;color:#cd7f9b;border-left:2px solid rgba(205,127,155,0.5);padding-left:16px;font-style:italic}
+.intro{font-size:1.02rem;color:#cfc8bc;margin-bottom:14px}
+.intro p{margin-bottom:16px}
+h2{font-size:1.42rem;font-weight:700;color:#e9e3d9;margin:56px 0 8px;letter-spacing:0.3px}
+h2 .n{font-family:"SF Mono",Menlo,monospace;font-size:0.85rem;color:#9fbc7a;display:block;margin-bottom:6px;letter-spacing:2px}
+p{margin-bottom:17px}
+.lead{color:#cfc8bc}
+b,strong{color:#f0eae0;font-weight:600}
+em{color:#d9b45f;font-style:normal;font-weight:500}
+.dim{color:#8d867b}
+a.reflink{display:inline-block;font-size:0.82rem;font-family:"SF Mono",Menlo,monospace;color:#63b3a6;border:1px solid rgba(99,179,166,0.38);background:rgba(99,179,166,0.07);padding:1px 9px;border-radius:20px;text-decoration:none;transition:all 0.15s;white-space:nowrap}
+a.reflink:hover{background:rgba(99,179,166,0.16);border-color:rgba(99,179,166,0.7)}
+figure{margin:30px 0}
+figure svg{display:block;width:100%;height:auto;border-radius:12px;background:rgba(255,255,255,0.018);border:1px solid rgba(255,255,255,0.06)}
+figcaption{font-size:0.82rem;color:#787268;margin-top:11px;text-align:center;line-height:1.6}
+.decide{margin:24px 0;border:1px solid rgba(224,137,94,0.36);background:rgba(224,137,94,0.055);border-radius:12px;padding:15px 19px}
+.decide .lb{font-family:"SF Mono",Menlo,monospace;font-size:0.73rem;letter-spacing:1.5px;color:#e0895e;font-weight:700;display:block;margin-bottom:7px}
+.decide p{margin:0;font-size:0.95rem;color:#ddd5c9}
+.crossx-inline{margin:20px 0 22px;border-left:2px solid rgba(205,127,155,0.55);padding:2px 0 2px 15px;font-size:0.89rem;color:#a9a096;line-height:1.72}
+.crossx-inline b{color:#cd7f9b;font-weight:600}
+.bigcat{margin:46px 0 10px;border:1px solid rgba(217,180,95,0.38);background:rgba(217,180,95,0.05);border-radius:14px;padding:20px 22px}
+.bigcat h3{font-size:1.02rem;color:#d9b45f;margin-bottom:14px;letter-spacing:0.5px}
+.bigcat ol{list-style:none;padding:0}
+.bigcat li{margin-bottom:15px;font-size:0.94rem;color:#d5cdc1;line-height:1.78}
+.bigcat li:last-child{margin-bottom:0}
+.bigcat .dm{font-family:"SF Mono",Menlo,monospace;font-size:0.73rem;color:#d9b45f;border:1px solid rgba(217,180,95,0.32);border-radius:4px;padding:1px 7px;margin-right:8px;white-space:nowrap}
+.crossx{margin:46px 0 10px;border:1px solid rgba(205,127,155,0.38);background:rgba(205,127,155,0.05);border-radius:14px;padding:20px 22px}
+.crossx h3{font-size:1.02rem;color:#cd7f9b;margin-bottom:14px;letter-spacing:0.5px}
+.crossx ul{list-style:none;padding:0}
+.crossx li{margin-bottom:16px;font-size:0.94rem;color:#d5cdc1;line-height:1.78}
+.crossx li:last-child{margin-bottom:0}
+.crossx li b{color:#cd7f9b;font-weight:600}
+.thinking{margin:46px 0 10px}
+.thinking h3{font-size:1.02rem;color:#a693cd;margin-bottom:14px;letter-spacing:0.5px}
+details{border:1px solid rgba(166,147,205,0.22);border-radius:10px;padding:12px 16px;margin-bottom:10px;background:rgba(166,147,205,0.035)}
+summary{cursor:pointer;font-size:0.93rem;color:#c9c2b6;font-weight:500}
+summary::marker{color:#a693cd}
+details p{margin:12px 0 0;font-size:0.9rem;color:#a9a096;line-height:1.75}
+.refs{margin:46px 0 10px}
+.refs h3{font-size:1.02rem;color:#79a6d2;margin-bottom:14px;letter-spacing:0.5px}
+.refs ul{list-style:none;padding:0}
+.refs li{margin-bottom:10px;font-size:0.9rem;color:#8d867b;line-height:1.7}
+.refs a{color:#79a6d2;text-decoration:none;border-bottom:1px solid rgba(121,166,210,0.3)}
+.refs a:hover{color:#a6c4e2;border-bottom-color:rgba(121,166,210,0.7)}
+footer{text-align:center;padding:56px 0 10px;font-size:0.78rem;color:#57524b;font-family:"SF Mono",Menlo,monospace;border-top:1px solid rgba(255,255,255,0.06);margin-top:50px}
+footer a{color:#79a6d2;text-decoration:none}
+@media(max-width:600px){h1{font-size:1.85rem}.wrap{padding:24px 16px 60px}h2{font-size:1.22rem}}
+</style></head><body>
+<div class="wrap">
+<header>
+<span class="week-tag">TOPIC 34 · PHASE F</span>
+<h1>Urban &amp; Corporate Scaling</h1>
+<p class="sub">Why cities almost never die, and companies always do</p>
+<p class="date">2026-08-20 · Scale</p>
+</header>
+<p class="pitch">Double a city's population and you do not get twice of everything. Gas stations and cables grow by less than double, while wages, patents, crime — even how fast people walk — grow by more than double. That split, one half surging and one half saving, is the whole reason cities and companies meet different fates.</p>
+<div class="intro">
+<p>Last topic's animals were unanimous about one thing: everything slows down and cheapens with size. Heartbeats slow, per-gram metabolism drops, a single exponent runs the whole show. Cities tear that unanimity in two.</p>
+<p>The "pipes" half — road length, water mains, cables, gas stations — behaves just like an animal and cheapens with size: double the city and you need only about 80% more of these. But the "people" half — wages, GDP, patents, restaurant variety, and also crime, disease, waste — runs the <em>other</em> way: double the city and these grow by more than double. The same city is decelerating in one half and accelerating in the other.</p>
+<p class="dim">This is where the "Scale" phase lands. Topic 32 was self-similarity (one shape repeating across scales), Topic 33 was allometry (organisms must change proportion with size, and all of it <b>sublinearly</b>, slowing down). The one new word here is <b>superlinear</b>. Organisms have no superlinear half; cities do — and it is that half that makes a city behave less like an organ and more like a machine forever picking up speed. <b>This topic chases a single question: why is that machine nearly impossible to stop, while a company's runs for barely a decade?</b></p>
+</div>
+
+<h2><span class="n">01</span>The Half That Saves: Infrastructure</h2>
+<p class="lead">Start with the easy half. A city of ten million does not need twice as many gas stations as a city of five million.</p>
+<p>In 2007, physicists Luís Bettencourt, Geoffrey West and colleagues laid out data on hundreds of cities across the US, Europe and China and measured how quantities scale with population. The result was unusually clean: <b>everything infrastructural — total road length, cable length, number of gas stations, water pipes — grows as population to the power of about 0.85.</b> An exponent below one means per-capita use falls as the city grows. Double the city (population ×2) and these need only about 1.8× as much (2 to the 0.85 ≈ 1.8).</p>
+<p>The mechanism is the same supply network as last topic's animals <a class="reflink" href="ref-allometric-scaling.en.html">→ ref · Allometric Scaling</a>: a distribution network that must reach every terminal (every household, every building) shares trunk lines and spreads cost as its reach grows, so unit cost drops. This is the hardest version of "economy of scale" — not a management slogan but a geometric law that spits out an exponent. Big cities are physically greener: a New Yorker's per-capita carbon and per-capita road are lower than a small town's.</p>
+<figure>
+<svg aria-label="When a city doubles, infrastructure grows only about 1.8x, below the proportional 2x" role="img" viewbox="0 0 720 260" xmlns="http://www.w3.org/2000/svg">
+<defs>
+<marker id="ar34a" markerheight="10" markerunits="userSpaceOnUse" markerwidth="10" orient="auto" refx="9" refy="5" viewbox="0 0 10 10">
+<path d="M0,1 L9,5 L0,9 z" fill="#9fbc7a"></path>
+</marker>
+</defs>
+<text fill="#aba498" font-family="-apple-system,sans-serif" font-size="13" text-anchor="middle" x="360" y="28">Population ×2, infrastructure only ×1.8 — each unit shares more pipe</text>
+<text fill="#787268" font-family="SF Mono,monospace" font-size="12" text-anchor="middle" x="150" y="66">City A · 5M people</text>
+<rect fill="rgba(159,188,122,0.16)" height="60" stroke="#9fbc7a" stroke-width="1.5" width="120" x="90" y="86"></rect>
+<text fill="#c9c2b6" font-family="SF Mono,monospace" font-size="15" text-anchor="middle" x="150" y="122">100</text>
+<text fill="#787268" font-family="-apple-system,sans-serif" font-size="11" text-anchor="middle" x="150" y="164">gas stations (illustrative)</text>
+<line marker-end="url(#ar34a)" stroke="#9fbc7a" stroke-width="2.5" x1="238" x2="300" y1="116" y2="116"></line>
+<text fill="#9fbc7a" font-family="-apple-system,sans-serif" font-size="11" text-anchor="middle" x="269" y="104">double it</text>
+<rect fill="none" height="120" stroke="rgba(224,137,94,0.35)" stroke-dasharray="5 4" stroke-width="1.5" width="120" x="330" y="86"></rect>
+<text fill="#c0703f" font-family="SF Mono,monospace" font-size="12" text-anchor="middle" x="390" y="80">proportional = 200</text>
+<rect fill="rgba(159,188,122,0.16)" height="108" stroke="#9fbc7a" stroke-width="1.5" width="120" x="330" y="98"></rect>
+<text fill="#c9c2b6" font-family="SF Mono,monospace" font-size="15" text-anchor="middle" x="390" y="158">180</text>
+<text fill="#787268" font-family="-apple-system,sans-serif" font-size="12" text-anchor="middle" x="390" y="66">City B · 10M people</text>
+<text fill="#c0703f" font-family="-apple-system,sans-serif" font-size="11" text-anchor="middle" x="390" y="182">20 saved</text>
+<text fill="#9fbc7a" font-family="SF Mono,monospace" font-size="14" text-anchor="middle" x="600" y="112">infra ∝ pop⁰·⁸⁵</text>
+<text fill="#8d867b" font-family="-apple-system,sans-serif" font-size="11.5" text-anchor="middle" x="600" y="136">exponent &lt; 1</text>
+<text fill="#8d867b" font-family="-apple-system,sans-serif" font-size="11.5" text-anchor="middle" x="600" y="154">= cheaper when bigger</text>
+<text fill="#57524b" font-family="-apple-system,sans-serif" font-size="11" text-anchor="middle" x="360" y="238">numbers illustrative; real road, cable and gas-station exponents all fall in 0.8–0.9</text>
+</svg>
+<figcaption>Sublinear infrastructure: a doubled city does not need a doubled network. This half is the same as last topic's organisms.</figcaption>
+</figure>
+<div class="crossx-inline">
+🌀 <b>Engineering &amp; the history of tech · Consolidating server rooms</b>　Why is cloud computing cheap? Merge ten thousand scattered servers into one big data center and cooling, power, floor space and operations do not grow tenfold — infrastructure scales <b>sublinearly</b>, exactly this law. But it governs only this half: the savings all sit on the "pipe" side and say nothing about whether output rises. Reading "we consolidated and cut cost" as "so we're more productive" borrows a sublinear saving to impersonate an event on a completely separate curve.
+</div>
+
+<h2><span class="n">02</span>The Half That Surges: People</h2>
+<p class="lead">Now the counterintuitive half. Across the same cities, wages, GDP, patent counts, restaurant variety, the fineness of specialization — these grow as population to the power of about <b>1.15</b>. The exponent is <em>above</em> one.</p>
+<p>Above one means per-capita output <b>rises</b> as the city grows. Double the city and economic output is not twice but about 2.2×; per-capita wages and patents gain roughly 15% out of thin air. This is why people crowd into big cities — not just for more jobs, but because the same person is on average worth more in a bigger one. This half is <b>superlinear</b> (exponent above one, output growing faster than size itself).</p>
+<p>The mechanism is not pipes but <b>connection</b>. A city's value is not how many roads it has but how many times the people on them can run into one another. The bigger the city, the more other people, skills and ideas each person can reach — and that reachable count grows faster than population itself. Ideas meet ideas, buyers meet sellers, masters meet apprentices, and output pours out of the matches faster than heads are added.</p>
+<figure>
+<svg aria-label="On a log-log plot, infrastructure slope 0.85 sits below the proportional line, social output slope 1.15 above it" role="img" viewbox="0 0 720 320" xmlns="http://www.w3.org/2000/svg">
+<line stroke="rgba(255,255,255,0.18)" stroke-width="1.5" x1="92" x2="648" y1="256" y2="256"></line>
+<line stroke="rgba(255,255,255,0.18)" stroke-width="1.5" x1="92" x2="92" y1="256" y2="48"></line>
+<text fill="#8d867b" font-family="-apple-system,sans-serif" font-size="12" text-anchor="middle" x="370" y="292">city population (log) →</text>
+<text fill="#8d867b" font-family="-apple-system,sans-serif" font-size="12" transform="rotate(-90 32 155)" x="32" y="155">total of the quantity (log)</text>
+<line stroke="#8d867b" stroke-dasharray="6 5" stroke-width="2" x1="120" x2="620" y1="228" y2="86"></line>
+<text fill="#8d867b" font-family="SF Mono,monospace" font-size="12" x="470" y="150">proportional (slope 1)</text>
+<text fill="#8d867b" font-family="-apple-system,sans-serif" font-size="11" x="470" y="168">the "per-capita constant" line</text>
+<line marker-end="url(#ar34s)" stroke="#cd7f9b" stroke-width="2.8" x1="120" x2="616" y1="236" y2="60"></line>
+<circle cx="180" cy="215" fill="#cd7f9b" r="3.5"></circle><circle cx="300" cy="173" fill="#cd7f9b" r="3.5"></circle><circle cx="430" cy="127" fill="#cd7f9b" r="3.5"></circle><circle cx="540" cy="88" fill="#cd7f9b" r="3.5"></circle>
+<text fill="#cd7f9b" font-family="SF Mono,monospace" font-size="13" x="524" y="52">output ∝ pop¹·¹⁵</text>
+<text fill="#cd7f9b" font-family="-apple-system,sans-serif" font-size="11" x="236" y="120">wages · patents · GDP · crime · disease</text>
+<line marker-end="url(#ar34i)" stroke="#9fbc7a" stroke-width="2.8" x1="120" x2="616" y1="222" y2="118"></line>
+<circle cx="180" cy="205" fill="#9fbc7a" r="3.5"></circle><circle cx="300" cy="180" fill="#9fbc7a" r="3.5"></circle><circle cx="430" cy="153" fill="#9fbc7a" r="3.5"></circle><circle cx="540" cy="130" fill="#9fbc7a" r="3.5"></circle>
+<text fill="#9fbc7a" font-family="SF Mono,monospace" font-size="13" x="470" y="112">infra ∝ pop⁰·⁸⁵</text>
+<text fill="#9fbc7a" font-family="-apple-system,sans-serif" font-size="11" x="150" y="242">roads · cables · gas stations</text>
+<defs>
+<marker id="ar34s" markerheight="11" markerunits="userSpaceOnUse" markerwidth="11" orient="auto" refx="9" refy="5" viewbox="0 0 10 10"><path d="M0,1 L9,5 L0,9 z" fill="#cd7f9b"></path></marker>
+<marker id="ar34i" markerheight="11" markerunits="userSpaceOnUse" markerwidth="11" orient="auto" refx="9" refy="5" viewbox="0 0 10 10"><path d="M0,1 L9,5 L0,9 z" fill="#9fbc7a"></path></marker>
+</defs>
+<text fill="#57524b" font-family="-apple-system,sans-serif" font-size="11" text-anchor="middle" x="370" y="312">one city lives on two slopes: pipes below the proportional line (saving), people above it (surging)</text>
+</svg>
+<figcaption>The topic's central figure: infrastructure's slope 0.85 and social output's slope 1.15 straddle the "proportional" dashed line. Organisms have only the lower one; cities have both.</figcaption>
+</figure>
+<p>This superlinearity has a merciless feature: <b>the good and the bad use the same exponent.</b> Wages scale at 1.15, patents at 1.15 — and so do crime, contagious disease, mental stress, at roughly the same 1.15. They are not three things but three exhausts of one thing: denser connection. A city's vitality and a city's pathology are two tailpipes on one engine; you cannot keep just one.</p>
+<div class="decide">
+<span class="lb">🎯 DECISION</span>
+<p>Whenever you hope to gain something "by getting bigger," first decide which slope your prize hangs on. Want to cut cost (infrastructure, logistics, compute)? Bigger helps — that's sublinear. Want output, innovation, matching (talent, ideas, deals)? Bigger helps too — but you will <b>drag along</b> the crime-like byproducts (friction, accident rates, disease, noise) magnified by the same exponent. Don't budget only the slope you want; list the same-exponent byproducts too, or the further you scale, the bigger the line you forgot.</p>
+</div>
+<div class="crossx-inline">
+🌀 <b>Biology / medicine · Cities and plagues share one exponent</b>　In the same studies, AIDS cases and flu visits scale with city population at almost the same superlinear exponent as wages and patents (all around 1.15). The planning consequence is hard: you cannot design a city that keeps the high wages and innovation but sheds the high contagion risk — both ride the same connectivity. So "spread out to be safer" is literally true, but what it sheds is exactly what made the city valuable; safety here is not free, it is paid for in output.
+</div>
+
+<h2><span class="n">03</span>Cities Persist, Companies Perish</h2>
+<p class="lead">Now settle the account of both slopes onto the question of how long things live.</p>
+<p>Take companies first. In 2015, Madeleine Daepp, West and colleagues pulled 25,000 companies publicly traded in North America between 1950 and 2009 and ran survival analysis (the method medicine uses to compute patient survival). The result was strikingly clean: <b>the half-life of a publicly traded company is about ten years</b> — every decade or so, half of a cohort disappears (bankruptcy, acquisition, delisting). And the mortality rate <em>does not change with age</em>: a fifty-year-old firm's chance of vanishing next year is basically the same as a five-year-old's.</p>
+<p>Statistically this is a <b>constant hazard rate</b>. It means the survival curve is an exponential decay — the same shape as radioactive decay and other memoryless random events. A company is not like a person, low mortality when young and rising with age; it is more like an atom that may decay at any moment, with seniority buying it no protection.</p>
+<figure>
+<svg aria-label="Company survival decays exponentially with a half-life of about ten years; city survival barely falls" role="img" viewbox="0 0 720 300" xmlns="http://www.w3.org/2000/svg">
+<defs>
+<marker id="ar34h" markerheight="10" markerunits="userSpaceOnUse" markerwidth="10" orient="auto" refx="9" refy="5" viewbox="0 0 10 10"><path d="M0,1 L9,5 L0,9 z" fill="#8d867b"></path></marker>
+</defs>
+<line marker-end="url(#ar34h)" stroke="rgba(255,255,255,0.2)" stroke-width="1.5" x1="88" x2="656" y1="248" y2="248"></line>
+<line stroke="rgba(255,255,255,0.2)" stroke-width="1.5" x1="88" x2="88" y1="248" y2="52"></line>
+<text fill="#8d867b" font-family="-apple-system,sans-serif" font-size="12" text-anchor="middle" x="370" y="284">years since founding →</text>
+<text fill="#8d867b" font-family="-apple-system,sans-serif" font-size="12" transform="rotate(-90 30 150)" x="30" y="150">fraction still alive</text>
+<line stroke="rgba(255,255,255,0.10)" stroke-dasharray="4 5" stroke-width="1" x1="88" x2="656" y1="150" y2="150"></line>
+<text fill="#57524b" font-family="SF Mono,monospace" font-size="11" x="60" y="154">50%</text>
+<text fill="#57524b" font-family="SF Mono,monospace" font-size="11" x="66" y="60">100%</text>
+<path d="M88,58 C260,62 460,68 656,74" fill="none" stroke="#63b3a6" stroke-width="2.8"></path>
+<text fill="#63b3a6" font-family="SF Mono,monospace" font-size="13" x="470" y="60">cities</text>
+<text fill="#63b3a6" font-family="-apple-system,sans-serif" font-size="11" x="352" y="94">rebuilt even when flattened</text>
+<path d="M88,58 C168,110 236,150 300,170 C380,196 470,214 560,226 C600,231 630,234 656,236" fill="none" stroke="#cd7f9b" stroke-width="2.8"></path>
+<text fill="#cd7f9b" font-family="SF Mono,monospace" font-size="13" x="150" y="120">companies</text>
+<line stroke="rgba(205,127,155,0.5)" stroke-dasharray="3 4" stroke-width="1.5" x1="300" x2="300" y1="150" y2="248"></line>
+<circle cx="300" cy="150" fill="#cd7f9b" r="5"></circle>
+<text fill="#cd7f9b" font-family="-apple-system,sans-serif" font-size="11.5" text-anchor="middle" x="300" y="266">≈10 yrs to halve</text>
+<text fill="#8d867b" font-family="-apple-system,sans-serif" font-size="11" x="360" y="200">exponential decay = mortality ignores age</text>
+<text fill="#57524b" font-family="-apple-system,sans-serif" font-size="11" text-anchor="middle" x="370" y="300">two fates on one plot: a company like a decaying atom, a city like a near-immortal structure</text>
+</svg>
+<figcaption>Publicly traded companies: ~10-year half-life, constant hazard (Daepp et al. 2015). Cities almost never leave the list.</figcaption>
+</figure>
+<p>Cities are the opposite. You can barely name a handful of major cities that truly "died." Hiroshima was flattened by an atomic bomb and is a thriving metropolis decades later; the cities Europe's wars rolled over again and again are still there. Cities are extraordinarily hard to kill.</p>
+<p>West's explanation lands exactly on the two slopes above. <b>A company lives mostly on the sublinear curve</b>: it behaves like an organ — chasing economies of scale, cutting redundancy, standardizing process. That makes it efficient young but also steadily rigid: layers of management, compliance and internal coordination rise with size and squeeze out the very exploration that let it take off. Most companies orbit a few products, and once the market shifts and that sigmoidal growth curve tops out, they have no second breath, and die. <b>A city lives mostly on the superlinear curve</b>: it rides not one product but the endless recombination of people; one industry fades and another grows out of the same crowd. So a city can reboot itself again and again, while a company mostly gets to grow only once.</p>
+<div class="decide">
+<span class="lb">🎯 DECISION</span>
+<p>Judge which curve your organization (company, team, product line, even your own career) sits on: does its edge come from <b>doing one thing cheaper and more standardized</b> (sublinear, economy of scale, destined to top out and decay), or from <b>generating new combinations</b> (superlinear, more alive when bigger)? The former should presuppose death and prepare the next curve early, never mistaking present efficiency for safety; the latter should protect diversity and internal connection, never standardizing it into a company for short-term efficiency. Treat "which curve are we on" as a question to re-answer periodically, not a one-time positioning.</p>
+</div>
+<div class="crossx-inline">
+🌀 <b>Economics &amp; institutions · "Blue chip" is not "safe"</b>　A constant hazard rate says a fifty-year-old firm is no less likely to go under next year than a five-year-old one. That directly punctures using "long-established / blue chip / too big to fail" as a synonym for safety — in this data, seniority carries almost no survival information. So "it's lasted this long, it won't suddenly fall" mistakes age for a moat; what actually decides whether it's here next year is whether it's still generating new combinations, not how long it has already existed.
+</div>
+
+<h2><span class="n">04</span>Where This Breaks Down</h2>
+<p class="lead">Now the other side. Urban scaling is the most photogenic block of complexity science — a clean exponent, sweeping conclusions, a bestseller. Which is exactly why it draws so much rebuttal, and you must know it before you use it.</p>
+<p><b>First, the exponent isn't that stable, and it depends on how you draw "the city."</b> Where is a city's boundary — administrative limits, the metropolitan area, or the commuting zone? Change the definition and the same data yields a different slope. In 2015 Arcaute et al. and Cottineau et al. showed that recutting British and French cities by different definitions can weaken or even erase superlinearity. This is geography's notorious modifiable areal unit problem (MAUP): you draw the boundary first, and the boundary decides the exponent you measure. So 1.15 is not a rock; it drifts with the definition.</p>
+<p><b>Second, 1.15 is a central tendency, not any single city's destiny.</b> Around that line, individual cities scatter widely. For a specific city, how far it sits off the line (its "scale-adjusted metropolitan indicator," SAMI) is often more useful than the line itself — San Francisco's patents sit far above trend, while other cities of equal size sit far below. Using the slope of the whole line to predict one city is like using average height to guess one person's height.</p>
+<p><b>Third, "cities don't die" is survivorship bias.</b> Plenty of cities did die: Detroit fell from 1.8 million to under 700,000; the city of Rome shrank from about a million after the empire's collapse to a few tens of thousands and took over a thousand years to recover; the metropolises of the Maya and Angkor were abandoned outright. Urban resilience is <em>conditional</em> — it depends on the surrounding region and nation still functioning. Taking "Hiroshima rebuilt" as "cities don't die" counts only the ones that survived.</p>
+<p><b>Fourth, calling company death a "law of physics" overreaches.</b> A constant hazard rate is a statistical regularity, not a mechanism — it tells you the shape, not the why. And the data is <em>publicly traded</em> companies, itself a filter; "death" also lumps in acquisition (the company is gone, but the people and assets often continue, absorbed elsewhere), which is nothing like bankruptcy. Merging three very different endings into one "mortality curve" looks clean but erases exactly the distinction you most want.</p>
+<p><b>Fifth, "superlinearity must produce a finite-time singularity, forcing you to innovate ever faster or collapse" is a model extrapolation.</b> West argues that a city's growth, left undisturbed, races to infinity in finite time; since real resources are finite, it must keep "resetting the clock" with waves of ever-more-frequent innovation, or stagnate and collapse. It is a gripping argument, but it is a <em>prediction</em> from pushing the equations past their boundary, not an observed <em>fact</em>. The equations need not even hold near the singularity. Treating it as a description of the future requires far more than "the curve fits well now."</p>
+<div class="decide">
+<span class="lb">🎯 DECISION</span>
+<p>Before citing any urban-scaling number, answer three things: (1) which city boundary the line uses (administrative / metro / commuting) — change it and the exponent moves; (2) whether you care about the whole trend or one city's deviation from it — for a single object, the latter is what matters; (3) how much of "cities never die / companies always do" survives after stripping survivorship bias and "acquisition ≠ bankruptcy." If you can't answer all three, state only the direction ("social output is superlinear in size, infrastructure sublinear") — don't quote 1.15, and don't treat it as prophecy.</p>
+</div>
+
+<div class="bigcat">
+<h3>🎒 Scenario · BigCat</h3>
+<ol>
+<li><span class="dm">Engineering &amp; system design</span>When a platform grows from serving ten teams to serving a hundred, what breaks first is usually not the servers (that's the sublinear curve — add machines) but <b>what people must align on</b> — reviews, interface contracts, cross-team dependency coordination, all rising superlinearly with the number of consumers. What to change: stop answering every slowdown with "add instances, add capacity"; first tell which slope this bottleneck is on. Give yourself a test — if each new consumer brings longer coordination meetings and more back-and-forth confirmation, you're hitting the superlinear wall, and scaling capacity won't help; what needs changing is how autonomous each interface is (so consumers depend on each other less), not the machine count.</li>
+<li><span class="dm">Investing &amp; positioning</span>Treating a market leader's "long history, secure position" as a reason it's low-risk is exactly what this topic's constant hazard rate punctures: seniority is not a moat. What to change: for every holding you keep "because it's the industry number one," ask separately — is it still generating new combinations (new product lines, new markets), or just making the old product cheaper? Make "is it still on the superlinear curve" your review metric, replacing the age-based comfort of "it's existed this long." Watch not the company's age but the share of revenue in the last three years coming from businesses less than five years old.</li>
+<li><span class="dm">Writing &amp; this learning site itself</span>Each new issue this site adds — where does the value come from? If it's just "page count +1," that's sublinear bulk, and it tops out. The real superlinear dividend is in the <b>connections between issues</b> — whether this issue's mechanism can illuminate several earlier ones and form new crossings. What to change as a test: don't count how many issues you've written; count how many earlier issues each one can honestly link back to (this site's "crossings" section is the explicit product of that connection). If new issues grow ever more self-contained and can't cross-reference old ones, the site is being written as a string of independent pages (a company's product lines) rather than a self-rebooting city. Action to stop: stop measuring progress by "how many posts this month."</li>
+</ol>
+</div>
+
+<div class="crossx">
+<h3>🌀 Crossings</h3>
+<ul>
+<li><b>History &amp; the military · An empire's radius is set by courier speed</b>: Rome's state post (cursus publicus) ran at about 80 km per day, up to 160 for urgent dispatches; the Mongol relay (yam), with dense horse changes, let a courier cover 200–300 km a day. This topic's mechanisms together give a ceiling on "how big an empire can be" that owes nothing to armies: the more territory to control, the more affairs to coordinate, rising superlinearly, while the speed of command is the "terminal unit that does not get faster as the empire grows" (exactly last topic's capillary role). So the radius of effective control is pinned by "signal speed ÷ the growth rate of coordination demand." Rome and the Mongols hit the same wall with two solutions: Rome built denser roads (raising infrastructure), the Mongols relayed fresh horses (raising the terminal speed itself). <b>But here it breaks down</b>: an empire lacks the city's superlinear <em>output</em> feedback — swallowing another province only adds coordination cost, unlike a city's extra people bringing an innovation dividend; the output of conquered land is often negative. So empires sit on the biological side (sublinear, destined to top out), and their fate is more like a company's than a city's — which is exactly why the empires of history died one by one while the cities under them survived to today. What you can borrow is "the terminal speed of the distribution network caps size"; what you cannot borrow is the city's optimistic superlinearity.</li>
+<li><b>Literature &amp; art · Movements die, but "scenes" do not</b>: the lifespan of an art or literary movement (Cubism, some avant-garde magazine, a musical genre) is oddly like a company's — it orbits one style as its "single product," and once the style is exhausted or absorbed by the market, it exits at a near-constant rate, with seniority no help. But a city's whole art ecology (its "scene") behaves like the city itself: the art of Paris or New York is not tied to any one movement; one fades and another grows out of the same crowd. The contrast gives creators an uncomfortable corollary: to make work <em>endure</em>, don't optimize one style to perfection (the company path, toward the constant mortality after a peak) but sustain the recombining, diverse inputs (the city path). <b>But here it breaks down</b>: a movement's short life need not be failure — an avant-garde may <em>mean</em> to burn out, completion being its goal, and judging it by "years lived" is the wrong ruler, like demanding a poem match a company's lifespan. Borrow the structure "a single product on the sublinear curve decays at a constant rate"; do not smuggle "longer-lived is better" as a value into art along with it.</li>
+</ul>
+</div>
+
+<div class="thinking">
+<h3>Going Deeper</h3>
+<details><summary>If the good (wages, innovation) and the bad (crime, disease) really share one exponent, is a "better big city" still possible?</summary><p>Possible, but the lever is not lowering the exponent — it's raising the intercept, or detaching one item from the shared connectivity. Cities of the same size differ several-fold in crime rate, and the difference is institutions, trust, distribution, not population. Scaling gives you "which band this city will roughly land in"; whether it lands high or low within the band is another, interveneable layer. The dangerous reading treats the exponent as destiny and uses it to excuse bad governance.</p></details>
+<details><summary>Can a company remake itself to be "more like a city" and escape the ten-year half-life?</summary><p>This is exactly what "conglomerate," "intrapreneurship" and "platform" try: growing a diverse, recombining internal ecology inside one firm. In principle it can nudge the firm toward the superlinear side. But beware: a city's diversity has no CEO optimizing it and no quarterly target pruning it, whereas corporate governance naturally tends to eliminate redundancy and unify direction — which is precisely converting superlinear back to sublinear. So "a city-like company" is an unstable state, sustainable only by constantly fighting one's own drive for efficiency.</p></details>
+<details><summary>Why does walking speed rise with city size too — is this a metaphor or does it mean something?</summary><p>It's real data: people walk faster on average in bigger cities, superlinearly, like wages and patents. It matters because it turns the abstract "connectivity" into a measurable physical quantity — "pace of life" is not literary flourish but something you can measure. The same mechanism both speeds the circulation of ideas and speeds a metabolism-like wear on people. It also hints that a city's pathology (stress, burnout) and its good (opportunity) really are two faces of one acceleration.</p></details>
+<details><summary>If 1.15 drifts with city definition, what's left that's hard about this law?</summary><p>What's left hard is not the specific number but the <em>qualitative split</em>: "infrastructure sublinear, social output superlinear" holds robustly across many reasonable definitions, and the direction does not flip. What's soft is the decimal (1.12 or 1.20) and the singularity-type extrapolations. Separating "robust direction" from "precise value" is the first cut to make with any scaling law.</p></details>
+</div>
+
+<div class="refs">
+<h3>Further Reading</h3>
+<ul>
+<li>Bettencourt, Lobo, Helbing, Kühnert &amp; West, <a href="https://www.pnas.org/doi/10.1073/pnas.0610172104">Growth, innovation, scaling, and the pace of life in cities</a> (PNAS 2007, the founding paper)</li>
+<li>Daepp, Hochberg, Bettencourt &amp; West, <a href="https://royalsocietypublishing.org/doi/10.1098/rsif.2015.0120">The mortality of companies</a> (J. R. Soc. Interface 2015, company half-life and constant hazard)</li>
+<li>Bettencourt, <a href="https://www.science.org/doi/10.1126/science.1235823">The Origins of Scaling in Cities</a> (Science 2013, the connectivity derivation of superlinearity)</li>
+<li>Arcaute et al., <a href="https://royalsocietypublishing.org/doi/10.1098/rsif.2014.0745">Constructing cities, deconstructing scaling laws</a> (2015, exponents vary with city definition)</li>
+<li>Louf &amp; Barthelemy, <a href="https://arxiv.org/abs/1410.4964">Scaling: lost in the smog</a> (2014, a critique of urban-scaling robustness)</li>
+<li>Geoffrey West, <a href="https://us.macmillan.com/books/9781594205583/scale">Scale</a> (2017, the full WBE-side account, and the most criticized book on it)</li>
+<li><a href="https://en.wikipedia.org/wiki/Cursus_publicus">Cursus publicus</a> / <a href="https://en.wikipedia.org/wiki/Yam_(route)">Yam (route)</a> (the Roman and Mongol postal systems)</li>
+</ul>
+</div>
+<footer>BigCat · Complexity Science · <a href="index.en.html">← All Topics</a></footer>
+</div>
+<script src="https://hub.cissychen.com/comments.js" defer></script>
+<script src="https://hub.cissychen.com/search.js" defer></script>
+<script src="https://hub.cissychen.com/index-button.js" defer></script>
+<script src="https://hub.cissychen.com/i18n-tts.js" defer></script>
+</body></html>
