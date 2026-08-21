@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+
+<html lang="zh-CN"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>增长的极限与 S 曲线 — 指数在有限系统里必然折返 · 复杂性科学 T35</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,"SF Pro Display","Noto Sans SC",sans-serif;color:#e4ded5;line-height:1.85;min-height:100vh;
+  background:radial-gradient(1100px 620px at 12% -6%,rgba(224,137,94,0.10),transparent 62%),radial-gradient(950px 700px at 100% 2%,rgba(166,147,205,0.09),transparent 58%),linear-gradient(168deg,#100f0d 0%,#15161b 48%,#0a0a0c 100%);background-attachment:fixed}
+.wrap{max-width:760px;margin:0 auto;padding:30px 22px 90px}
+header{padding:52px 0 8px;border-bottom:1px solid rgba(255,255,255,0.07);margin-bottom:34px}
+.week-tag{font-family:"SF Mono",Menlo,monospace;font-size:0.72rem;font-weight:700;letter-spacing:2px;color:#a693cd;border:1px solid rgba(166,147,205,0.4);background:rgba(166,147,205,0.07);padding:3px 11px;border-radius:20px}
+h1{font-size:2.5rem;font-weight:800;letter-spacing:0.5px;line-height:1.2;margin:20px 0 0;background:linear-gradient(106deg,#e0895e 0%,#d9b45f 34%,#9fbc7a 68%,#63b3a6 100%);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+h1 .h1en{display:block;font-size:0.40em;font-weight:600;letter-spacing:2.5px;color:#847d72;-webkit-text-fill-color:#847d72;background:none;margin-top:13px}
+.sub{font-size:1.05rem;color:#aba498;margin-top:14px;font-weight:500}
+.date{font-family:"SF Mono",Menlo,monospace;font-size:0.75rem;color:#57524b;margin-top:18px;letter-spacing:1px}
+.pitch{margin:22px 0 30px;font-size:0.97rem;color:#cd7f9b;border-left:2px solid rgba(205,127,155,0.5);padding-left:16px;font-style:italic}
+.intro{font-size:1.02rem;color:#cfc8bc;margin-bottom:14px}
+.intro p{margin-bottom:16px}
+h2{font-size:1.42rem;font-weight:700;color:#e9e3d9;margin:56px 0 8px;letter-spacing:0.3px}
+h2 .n{font-family:"SF Mono",Menlo,monospace;font-size:0.85rem;color:#9fbc7a;display:block;margin-bottom:6px;letter-spacing:2px}
+.he{font-size:0.68em;color:#8d867b;font-weight:500;letter-spacing:0}
+p{margin-bottom:17px}
+.lead{color:#cfc8bc}
+b,strong{color:#f0eae0;font-weight:600}
+em{color:#d9b45f;font-style:normal;font-weight:500}
+.dim{color:#8d867b}
+a.reflink{display:inline-block;font-size:0.82rem;font-family:"SF Mono",Menlo,monospace;color:#63b3a6;border:1px solid rgba(99,179,166,0.38);background:rgba(99,179,166,0.07);padding:1px 9px;border-radius:20px;text-decoration:none;transition:all 0.15s;white-space:nowrap}
+a.reflink:hover{background:rgba(99,179,166,0.16);border-color:rgba(99,179,166,0.7)}
+figure{margin:30px 0}
+figure svg{display:block;width:100%;height:auto;border-radius:12px;background:rgba(255,255,255,0.018);border:1px solid rgba(255,255,255,0.06)}
+figcaption{font-size:0.82rem;color:#787268;margin-top:11px;text-align:center;line-height:1.6}
+.en-brief{font-size:0.85rem;color:#847d72;border-top:1px dashed rgba(255,255,255,0.09);padding-top:12px;margin-top:22px;line-height:1.65}
+.en-brief b{font-family:"SF Mono",Menlo,monospace;font-size:0.72rem;color:#63b3a6;letter-spacing:1px;margin-right:7px}
+.decide{margin:24px 0;border:1px solid rgba(224,137,94,0.36);background:rgba(224,137,94,0.055);border-radius:12px;padding:15px 19px}
+.decide .lb{font-family:"SF Mono",Menlo,monospace;font-size:0.73rem;letter-spacing:1.5px;color:#e0895e;font-weight:700;display:block;margin-bottom:7px}
+.decide p{margin:0;font-size:0.95rem;color:#ddd5c9}
+.crossx-inline{margin:20px 0 22px;border-left:2px solid rgba(205,127,155,0.55);padding:2px 0 2px 15px;font-size:0.89rem;color:#a9a096;line-height:1.72}
+.crossx-inline b{color:#cd7f9b;font-weight:600}
+.bigcat{margin:46px 0 10px;border:1px solid rgba(217,180,95,0.38);background:rgba(217,180,95,0.05);border-radius:14px;padding:20px 22px}
+.bigcat h3{font-size:1.02rem;color:#d9b45f;margin-bottom:14px;letter-spacing:0.5px}
+.bigcat ol{list-style:none;padding:0}
+.bigcat li{margin-bottom:15px;font-size:0.94rem;color:#d5cdc1;line-height:1.78}
+.bigcat li:last-child{margin-bottom:0}
+.bigcat .dm{font-family:"SF Mono",Menlo,monospace;font-size:0.73rem;color:#d9b45f;border:1px solid rgba(217,180,95,0.32);border-radius:4px;padding:1px 7px;margin-right:8px;white-space:nowrap}
+.crossx{margin:46px 0 10px;border:1px solid rgba(205,127,155,0.38);background:rgba(205,127,155,0.05);border-radius:14px;padding:20px 22px}
+.crossx h3{font-size:1.02rem;color:#cd7f9b;margin-bottom:14px;letter-spacing:0.5px}
+.crossx ul{list-style:none;padding:0}
+.crossx li{margin-bottom:16px;font-size:0.94rem;color:#d5cdc1;line-height:1.78}
+.crossx li:last-child{margin-bottom:0}
+.crossx li b{color:#cd7f9b;font-weight:600}
+.thinking{margin:46px 0 10px}
+.thinking h3{font-size:1.02rem;color:#a693cd;margin-bottom:14px;letter-spacing:0.5px}
+details{border:1px solid rgba(166,147,205,0.22);border-radius:10px;padding:12px 16px;margin-bottom:10px;background:rgba(166,147,205,0.035)}
+summary{cursor:pointer;font-size:0.93rem;color:#c9c2b6;font-weight:500}
+summary::marker{color:#a693cd}
+details p{margin:12px 0 0;font-size:0.9rem;color:#a9a096;line-height:1.75}
+.refs{margin:46px 0 10px}
+.refs h3{font-size:1.02rem;color:#79a6d2;margin-bottom:14px;letter-spacing:0.5px}
+.refs ul{list-style:none;padding:0}
+.refs li{margin-bottom:10px;font-size:0.9rem;color:#8d867b;line-height:1.7}
+.refs a{color:#79a6d2;text-decoration:none;border-bottom:1px solid rgba(121,166,210,0.3)}
+.refs a:hover{color:#a6c4e2;border-bottom-color:rgba(121,166,210,0.7)}
+footer{text-align:center;padding:56px 0 10px;font-size:0.78rem;color:#57524b;font-family:"SF Mono",Menlo,monospace;border-top:1px solid rgba(255,255,255,0.06);margin-top:50px}
+footer a{color:#79a6d2;text-decoration:none}
+@media(max-width:600px){h1{font-size:1.85rem}.wrap{padding:24px 16px 60px}h2{font-size:1.22rem}}
+</style></head><body>
+<div class="wrap">
+<header>
+<span class="week-tag">TOPIC 35 · PHASE F</span>
+<h1>增长的极限与 S 曲线<span class="h1en">LIMITS TO GROWTH AND THE S-CURVE</span></h1>
+<p class="sub">指数在有限系统里必然折返<span class="he">（Exponential growth always bends in a finite system）</span></p>
+<p class="date">2026-08-21 · 尺度</p>
+</header>
+<p class="pitch">一池睡莲，面积每天翻一倍，第 30 天铺满整个池塘。那么第 29 天，池塘看上去是什么样？——还有一半是空的。所有关于"还早着呢"的判断，都是在第 29 天做出的。</p>
+<div class="intro">
+<p>指数增长（exponential growth）会停，这件事没有悬念：任何有边界的地方，翻倍不可能一直翻下去。真正值得问的是<b>停下来的那一下长什么样</b>——因为它至少有三种完全不同的长法，而且结局的差别比"增长有多快"大得多。</p>
+<p>更麻烦的一件事在后面：<b>你几乎不可能从曲线内部知道自己在哪一段。</b>接近极限时的减速，和两条曲线交接时的暂歇，在数据上长得一模一样。1920 年两位统计学家用当时全部的美国人口数据算出了一个上限，曲线漂亮地贴合了此后三十年——然后那个上限在 1967 年被越过，今天已经被超出七成。他们的算术没错，错的是"存在一个固定上限"这个前设。</p>
+<p class="dim">这条线索本站已经碰过两次，视角各不相同：第 9 期讲的是逻辑斯蒂<b>映射</b>（离散的、一年一代的版本，它通向混沌）；第 10 期讲的是系统从一个稳态<b>跳到另一个稳态</b>。<b>本期讲的是同名的另一个东西：连续时间的逻辑斯蒂方程，以及撞上天花板之后的三种后果。</b>名字撞车，问的问题完全不同。</p>
+</div>
+<h2><span class="n">01</span>指数为什么必然折返<span class="he">（Why Exponentials Must Bend）</span></h2>
+<p class="lead">先把"指数"这个词拆开。它的意思只有一句话：<b>每一段时间里增加的量，正比于当前已有的量。</b>钱生钱、人生人、一个用户拉来一个用户，都是这个形状。它的标志是有一个固定的<b>倍增时间</b>（doubling time）——每年涨 7%，大约十年翻一番；涨 10%，大约七年翻一番。</p>
+<p>倍增时间固定，会带来一个人脑几乎无法直觉的后果：<b>指数增长的绝大部分动静，都发生在最后一两个倍增周期里。</b>睡莲铺满池塘的那一半工作，是在最后一天完成的。第 25 天，水面只有 3% 被盖住，任何人站在池边都会说"这不成问题"。</p>
+<p>但有限的系统里，增长率没法一直保持不变。多一个个体，就多一份对同一批食物、同一片土地、同一段带宽的分摊。1838 年，比利时人 Pierre-François Verhulst 把这件事写成了最简单的形式，只在指数上乘了一个折扣因子：</p>
+<p><b>增长速度 = r × N × (1 − N/K)</b>。这里 N 是当前的量，r 是不受约束时的增长率，K 是这个环境养得住的最大量——叫<b>承载力</b>（carrying capacity）。括号里那一项是全部的机关：N 很小时它接近 1，折扣几乎不存在，增长就是纯指数；N 接近 K 时它趋近 0，增长被掐灭。</p>
+<p>这条规则跑出来的曲线是一个拉长的 S，叫<b>逻辑斯蒂增长</b>（logistic growth）。它有一个坐标特别值得记住：<b>增长最快的时刻，恰好是走完一半的时刻</b>（N = K/2）。这个转折点叫<b>拐点</b>（inflection point）——过了它，总量还在涨，但<em>涨的速度开始下降</em>。</p>
+<figure>
+<svg aria-label="指数曲线与逻辑斯蒂 S 曲线的对照，以及增长速率的钟形曲线" role="img" viewbox="0 0 720 370" xmlns="http://www.w3.org/2000/svg">
+<text fill="#aba498" font-family="-apple-system,sans-serif" font-size="13" text-anchor="middle" x="360" y="24">同一个开头，两种结局 — 而增速的顶点在半程</text>
+<line stroke="rgba(255,255,255,0.18)" stroke-width="1.5" x1="70" x2="700" y1="192" y2="192"></line>
+<line stroke="rgba(255,255,255,0.18)" stroke-width="1.5" x1="70" x2="70" y1="192" y2="40"></line>
+<text fill="#8d867b" font-family="-apple-system,sans-serif" font-size="11.5" x="78" y="52">数量 N</text>
+<line stroke="rgba(217,180,95,0.5)" stroke-dasharray="5,4" stroke-width="1.4" x1="70" x2="700" y1="60" y2="60"></line>
+<text fill="#d9b45f" font-family="SF Mono,monospace" font-size="11.5" x="620" y="54">K 承载力</text>
+<polyline fill="none" points="70,189.8 173,188.8 260,181.2 328,166.1 380,125 405,100 421,45.3 429,22" stroke="#8d867b" stroke-dasharray="6,4" stroke-width="2"></polyline>
+<text fill="#8d867b" font-family="-apple-system,sans-serif" font-size="11.5" x="437" y="40">指数：没有约束时</text>
+<text fill="#8d867b" font-family="-apple-system,sans-serif" font-size="11.5" x="437" y="56">的样子</text>
+<polyline fill="none" points="70,189.7 121,189.1 173,187.7 225,183.8 277,174.5 328,155 380,125 432,95 483,75.5 535,66.2 587,62.3 638,60.9 690,60.3" stroke="#63b3a6" stroke-width="2.6"></polyline>
+<text fill="#63b3a6" font-family="-apple-system,sans-serif" font-size="11.5" x="500" y="88">逻辑斯蒂：S 曲线</text>
+<line stroke="rgba(224,137,94,0.55)" stroke-dasharray="4,4" stroke-width="1.3" x1="380" x2="380" y1="125" y2="330"></line>
+<circle cx="380" cy="125" fill="#e0895e" r="5"></circle>
+<text fill="#e0895e" font-family="-apple-system,sans-serif" font-size="11.5" text-anchor="middle" x="380" y="114">拐点 · N = K/2</text>
+<text fill="#787268" font-family="-apple-system,sans-serif" font-size="11.5" text-anchor="middle" x="385" y="210">时间 →</text>
+<line stroke="rgba(255,255,255,0.18)" stroke-width="1.5" x1="70" x2="700" y1="330" y2="330"></line>
+<line stroke="rgba(255,255,255,0.18)" stroke-width="1.5" x1="70" x2="70" y1="330" y2="232"></line>
+<text fill="#8d867b" font-family="-apple-system,sans-serif" font-size="11.5" x="78" y="244">增长速度</text>
+<polyline fill="none" points="70,319.2 121,317.9 173,314.3 225,305.5 277,286.4 328,257.1 380,240 432,257.1 483,286.4 535,305.5 587,314.3 638,317.9 690,319.2" stroke="#9fbc7a" stroke-width="2.6"></polyline>
+<text fill="#9fbc7a" font-family="-apple-system,sans-serif" font-size="11.5" text-anchor="middle" x="380" y="230">增速在这里见顶，然后一路降</text>
+<text fill="#787268" font-family="-apple-system,sans-serif" font-size="11" x="86" y="348">看总量：一路在涨</text>
+<text fill="#787268" font-family="-apple-system,sans-serif" font-size="11" x="470" y="348">看增速：一半的时候就开始掉头</text>
+</svg>
+<figcaption>上下两张图是同一件事的两种看法。总量的曲线要到很晚才显出疲态，而增速的顶点早在半程就过去了——看哪个量，决定你什么时候知道。</figcaption>
+</figure>
+<p>顺带说一句名字上的坑：把这条规则从"连续流动的时间"改成"一年结算一次"，它就变成了另一个东西——同名的逻辑斯蒂映射，行为完全不同，会一路走到混沌去 <a class="reflink" href="ref-logistic-map.html">→ 参考 · 逻辑斯蒂映射</a>。同一个公式，时间连续还是离散，是两个世界。</p>
+<div class="crossx-inline">
+🌀 <b>生物学 · 马尔萨斯递给达尔文的那把钥匙</b>　达尔文和华莱士各自读过马尔萨斯《人口论》里那条算术：繁殖能力是指数的，食物不是。他们从中取走的不是"竞争"这个隐喻，而是一个可以量化的缺口——<b>每一代生下来的个体数，远多于环境能养活的数</b>，所以淘汰是算术上的必然，不需要任何意图。这推出一个不太被提起的结论：自然选择的强度取决于这个缺口的大小。繁殖不再过剩的地方（比如生育率极低的现代社会），达尔文式选择的作用力会真实地变弱——不是道德判断，是这条算术自己给的。
+</div>
+<p class="en-brief"><b>EN</b> Exponential growth means the increment is proportional to the current stock, which fixes a doubling time — and puts nearly all of the drama in the final one or two doublings. Verhulst (1838) added one discount factor, (1 − N/K), where K is the carrying capacity. The result is the S-curve, whose one genuinely useful landmark is the inflection point at N = K/2: growth <i>rate</i> peaks at the halfway mark, long before the total shows any strain.</p>
+<h2><span class="n">02</span>撞上天花板的三种方式<span class="he">（Three Ways to Hit a Ceiling）</span></h2>
+<p class="lead">教科书上的 S 曲线是温柔的：贴着承载力停住，然后一直待在那里。现实里这只是三种结局中最少见的一种。</p>
+<p>决定是哪一种的，不是增长有多猛，而是两个不起眼的量：</p>
+<p><b>第一个是时滞</b>（delay）——从"已经超载"到"你察觉到超载"再到"你真的停下来"，中间隔了多久。系统总是在对<em>过去的</em>状态做反应。刹车踩得再狠，如果信号迟到两年，这两年里的增长照样发生。</p>
+<p><b>第二个是被消耗的东西恢复得多快。</b>草原被啃秃了，几年能长回来；地衣被啃光了，要几十年。如果消耗的速度超过再生的速度，那么 K 本身会被打低——你不是撞到天花板，你是把天花板撞塌了一块。</p>
+<p>这两个量的组合给出三种结局：<b>信号即时</b>，就平滑地贴上去；<b>有时滞、但资源能恢复</b>，就绕着 K 上下振荡，慢慢收敛；<b>有时滞、且资源恢复得比消耗慢</b>，就是<b>超调与崩溃</b>（overshoot and collapse）——冲过头，然后掉到一个比原来更低的水平上。</p>
+<figure>
+<svg aria-label="撞上承载力的三种方式：平滑趋近、阻尼振荡、超调与崩溃" role="img" viewbox="0 0 720 330" xmlns="http://www.w3.org/2000/svg">
+<defs>
+<marker id="a35b" markerheight="9" markerunits="userSpaceOnUse" markerwidth="9" orient="auto" refx="9" refy="5" viewbox="0 0 10 10">
+<path d="M0,1 L9,5 L0,9 z" fill="#8d867b"></path>
+</marker>
+</defs>
+<text fill="#aba498" font-family="-apple-system,sans-serif" font-size="13" text-anchor="middle" x="360" y="24">同一个 K，三种撞法 — 差别只在时滞与恢复速度</text>
+<line stroke="rgba(255,255,255,0.18)" stroke-width="1.5" x1="70" x2="700" y1="252" y2="252"></line>
+<line stroke="rgba(255,255,255,0.18)" stroke-width="1.5" x1="70" x2="70" y1="252" y2="36"></line>
+<line stroke="rgba(217,180,95,0.5)" stroke-dasharray="5,4" stroke-width="1.4" x1="70" x2="700" y1="90" y2="90"></line>
+<text fill="#d9b45f" font-family="SF Mono,monospace" font-size="11.5" x="660" y="84">K</text>
+<line stroke="rgba(205,127,155,0.45)" stroke-dasharray="5,4" stroke-width="1.4" x1="400" x2="700" y1="190" y2="190"></line>
+<text fill="#cd7f9b" font-family="SF Mono,monospace" font-size="11.5" x="640" y="184">被打坏后的 K′</text>
+<polyline fill="none" points="70,247.6 150,237.2 200,216.5 260,170 320,123.5 380,100.4 440,92.9 520,90.5 600,90 690,90" stroke="#63b3a6" stroke-width="2.6"></polyline>
+<polyline fill="none" points="70,248 150,236 200,214 250,175 290,110 330,55 370,72 420,115 460,102 500,78 540,84 575,98 615,93 650,88 690,90" stroke="#d9b45f" stroke-width="2.6"></polyline>
+<polyline fill="none" points="70,248 150,234 200,208 250,165 290,95 330,40 360,48 390,95 410,160 430,215 450,232 490,236 540,232 600,222 650,212 690,203" stroke="#cd7f9b" stroke-width="2.6"></polyline>
+<line marker-end="url(#a35b)" stroke="#8d867b" stroke-width="1.3" x1="596" x2="640" y1="120" y2="95"></line>
+<text fill="#63b3a6" font-family="-apple-system,sans-serif" font-size="11.5" x="520" y="128">① 平滑趋近</text>
+<text fill="#787268" font-family="-apple-system,sans-serif" font-size="10.5" x="520" y="143">信号即时</text>
+<text fill="#d9b45f" font-family="-apple-system,sans-serif" font-size="11.5" x="430" y="46">② 阻尼振荡</text>
+<text fill="#787268" font-family="-apple-system,sans-serif" font-size="10.5" x="430" y="61">有时滞，资源能恢复</text>
+<line marker-end="url(#a35b)" stroke="#8d867b" stroke-width="1.3" x1="497" x2="500" y1="70" y2="90"></line>
+<text fill="#cd7f9b" font-family="-apple-system,sans-serif" font-size="11.5" x="120" y="290">③ 超调与崩溃</text>
+<text fill="#787268" font-family="-apple-system,sans-serif" font-size="10.5" x="120" y="305">有时滞，且资源恢复得比消耗慢 — 天花板本身被撞塌了一块</text>
+<line marker-end="url(#a35b)" stroke="#8d867b" stroke-width="1.3" x1="255" x2="437" y1="278" y2="226"></line>
+<text fill="#787268" font-family="-apple-system,sans-serif" font-size="11" x="600" y="268">时间 →</text>
+</svg>
+<figcaption>三条曲线的前半段几乎一样。分岔发生在越过 K 之后，而那时候能改的东西已经很少了。</figcaption>
+</figure>
+<p>第三种有一个干净得刺眼的现实版本。1944 年，为了给驻岛人员留个应急肉源，美国人往白令海的圣马修岛放了 <b>29 头驯鹿</b>。岛上没有狼、没有熊、没有猎人，地面上是厚厚一层几十年长成的地衣。1957 年生物学家 David Klein 上岛清点，1350 头，个个膘肥体壮。1963 年他再上岛：<b>6000 头。</b></p>
+<p>然后是 1963 到 64 年的冬天。等 1966 年 Klein 第三次上岛，全岛还剩 <b>42 头</b>——除一头之外全是母鹿，岛上到处是骨骸，地衣被啃到了基岩。三年里掉了 99%。</p>
+<p>这里的关键不是"鹿太多了"。鹿群从来不知道自己太多了：驯鹿的繁殖决策只看当年的身体状况，而当年的身体状况反映的是去年夏天的草情——<em>信号迟到一整年</em>。等饥饿这个信号真正到达时，地衣早已被吃进了不可恢复的区间。地衣每年只长几个毫米，K 塌了，于是曲线不是振荡回落到 6000，是直接掉到几十。</p>
+<p class="dim">（诚实起见：后来有研究指出那年冬天的积雪异常深，崩溃里有天气的一份。这不推翻超调的结构，但提醒一件事——超调让系统失去了扛住一次坏天气的余量，而不是自己单独完成了崩溃。）</p>
+<div class="decide">
+<span class="lb">🎯 决策线</span>
+<p>别问"我们离极限还有多远"（那个数字通常估不出来，见第 04 节）。改量两个能估出来的数：<b>①</b> 从超载发生到你能看见它，隔多久；<b>②</b> 你正在消耗的那个东西，恢复一轮要多久。<b>只要 ① 明显大于 ②，你的系统在结构上就注定超调</b>——意志、纪律、更努力都不改变这个结论，能改的只有这两个数本身：缩短测量周期，或者换一个再生更快的资源。</p>
+</div>
+<div class="crossx-inline">
+🌀 <b>经济与制度 · 造船业为什么总是过剩</b>　订一条船到交船要两三年，而船东下单看的是当下的运价。于是运价高峰引发的订单，全都在两三年后运价已经掉头时集中下水——这个行业一百多年来周期性过剩，靠的正是这条时滞，不需要任何非理性。由此能推出一个不太顺耳的结论：针对<em>价格</em>的干预（补贴、限价、拆船补助）改的是振荡的幅度，改不了相位，因为造成振荡的是交付周期而不是价格本身。真正能改结构的只有两件事：缩短交付时滞，或者让在建订单总量对所有人可见——后者相当于把迟到的信号提前送到。
+</div>
+<p class="en-brief"><b>EN</b> Whether a system lands softly, oscillates, or overshoots and collapses is decided by two quantities: the delay between overload and its detection, and the regeneration time of whatever is being consumed. When the delay exceeds the regeneration time, overshoot is structural. St. Matthew Island: 29 reindeer in 1944, 6,000 by summer 1963, 42 by 1966 — the lichen took decades to grow and the hunger signal arrived a year late, so the ceiling itself was broken rather than merely reached.</p>
+<h2><span class="n">03</span>一条 S 曲线只回答一个约束<span class="he">（One Curve, One Constraint）</span></h2>
+<p class="lead">上一节把 K 当成了给定的。但 K 从来不是自然常数，它是<b>当下那个绑着你的约束</b>的度量——换掉约束，就换了一条曲线。</p>
+<p>农业最清楚。很长时间里粮食产量的天花板是<b>耕地面积</b>，人多地少就是硬顶。二十世纪初，合成氨把氮从空气里固定下来，天花板变成了<b>肥料</b>；再往后，矮秆高产品种和灌溉把天花板换成了<b>品种与水</b>。每一次不是把旧的 K 往上推了一点，而是<em>换了一个完全不同的量在当天花板</em>——旧曲线该停还是停了，只是另一条曲线在它停下之前就已经起来了。</p>
+<p>把若干条这样接力的 S 曲线的上沿连起来，得到的东西叫<b>包络曲线</b>（envelope curve）。远看它像一条平滑上升的指数，近看是一段一段接上去的。摩尔定律就是最有名的包络：从双极晶体管到 CMOS 到应变硅到 FinFET 到三维堆叠，每一次"摩尔定律要终结了"的预言对<em>当时那条曲线</em>都是对的，对包络都是错的。</p>
+<figure>
+<svg aria-label="三条 S 曲线接力形成的包络曲线，以及换车时点" role="img" viewbox="0 0 720 320" xmlns="http://www.w3.org/2000/svg">
+<defs>
+<marker id="a35c" markerheight="9" markerunits="userSpaceOnUse" markerwidth="9" orient="auto" refx="9" refy="5" viewbox="0 0 10 10">
+<path d="M0,1 L9,5 L0,9 z" fill="#8d867b"></path>
+</marker>
+</defs>
+<text fill="#aba498" font-family="-apple-system,sans-serif" font-size="13" text-anchor="middle" x="360" y="24">看起来像一条指数，其实是三次接力</text>
+<line stroke="rgba(255,255,255,0.18)" stroke-width="1.5" x1="60" x2="700" y1="262" y2="262"></line>
+<line stroke="rgba(255,255,255,0.18)" stroke-width="1.5" x1="60" x2="60" y1="262" y2="40"></line>
+<text fill="#8d867b" font-family="-apple-system,sans-serif" font-size="11.5" x="68" y="52">性能 / 产出</text>
+<polyline fill="none" points="60,247 100,241 130,230 160,212.5 190,195 220,184 250,178.5 280,176.3 340,175 450,175 690,175" stroke="#63b3a6" stroke-width="2.4"></polyline>
+<polyline fill="none" points="230,244.3 266,234 298,213.7 330,182.5 362,151.3 394,131 426,121.4 458,117.4 500,115.5 600,115 690,115" stroke="#d9b45f" stroke-width="2.4"></polyline>
+<polyline fill="none" points="400,242.6 442,226.8 476,197.5 510,152.5 544,107.5 578,78.2 612,64.2 646,58.5 690,55.6" stroke="#e0895e" stroke-width="2.4"></polyline>
+<polyline fill="none" points="60,246.5 130,229.8 190,195.2 250,178.5 310,175 350,160 394,131 440,120 490,115.4 530,112 546,106 578,78 612,64 690,55.6" stroke="#a8a49c" stroke-dasharray="7,5" stroke-width="1.8"></polyline>
+<text fill="#a8a49c" font-family="-apple-system,sans-serif" font-size="11.5" x="440" y="88">包络：三条曲线的上沿</text>
+<text fill="#63b3a6" font-family="-apple-system,sans-serif" font-size="11.5" x="120" y="164">曲线一</text>
+<text fill="#d9b45f" font-family="-apple-system,sans-serif" font-size="11.5" x="600" y="107">曲线二</text>
+<text fill="#e0895e" font-family="-apple-system,sans-serif" font-size="11.5" x="628" y="46">曲线三</text>
+<line stroke="rgba(205,127,155,0.55)" stroke-dasharray="4,4" stroke-width="1.3" x1="300" x2="300" y1="120" y2="262"></line>
+<circle cx="300" cy="175.5" fill="#63b3a6" r="4.5"></circle>
+<circle cx="300" cy="212" fill="#d9b45f" r="4.5"></circle>
+<text fill="#cd7f9b" font-family="-apple-system,sans-serif" font-size="11.5" text-anchor="middle" x="300" y="112">换车的正确时点</text>
+<line marker-end="url(#a35c)" stroke="#8d867b" stroke-width="1.3" x1="176" x2="258" y1="292" y2="220"></line>
+<text fill="#787268" font-family="-apple-system,sans-serif" font-size="11" x="70" y="300">此刻曲线二的绝对水平更低（点更靠下），但它的斜率已经远高于曲线一</text>
+<text fill="#787268" font-family="-apple-system,sans-serif" font-size="11" x="612" y="286">时间 →</text>
+</svg>
+<figcaption>三条曲线各有各的天花板。包络之所以看着平滑，是因为下一条在上一条停住之前就起来了——一旦某次接力没接上，包络当场变成一条 S。</figcaption>
+</figure>
+<p>1986 年，管理学者 Richard Foster 把这件事变成了一个投资判据，也顺手解释了在位者为什么总是错过换代。他的观察是：在旧曲线的尾部，你每多投一块钱换来的性能提升在持续下降；而此时新曲线还在自己的起步段，<b>绝对水平必然更低</b>。于是在换车真正正确的那个时点上，新方案摆在桌面上看起来一定像个更差的选择——差的不是判断力，是判据。用绝对量比较，你必然晚；晚多久，取决于旧曲线的尾巴有多长。</p>
+<div class="decide">
+<span class="lb">🎯 决策线</span>
+<p>要决定"加注还是换车"，别比绝对水平，比两件事：<b>①</b> 旧方案的<em>边际产出</em>——每多投入一个单位换来的提升，是不是已经连续几期在降；<b>②</b> 新方案的<em>斜率</em>是不是已经超过旧方案的斜率（注意是斜率，不是高度）。斜率的交叉往往比高度的交叉早很多年，而那段时间正是换车的全部窗口。落到操作上：把"我们比对手强多少"这一栏，从报表里换成"我们这一年的提升幅度对比他们这一年的提升幅度"。</p>
+</div>
+<div class="crossx-inline">
+🌀 <b>医学 · 抗生素的接力棒掉了</b>　每一类抗生素都是一条 S 曲线：发现、普及、耐药累积、效力衰减。整体的"感染可治率"是这些曲线的包络。而 1987 年之后近三十年里，人类没有发现过任何一个新类别（直到 2015 年的 teixobactin 才勉强破例）——也就是说，包络在几十年前就已经停了，只是旧曲线的余量还够用，所以要过很久才在死亡数字上显形。由此得到的监测指标是反直觉的：真正该盯的不是"现在的一线药还能顶几年"（那只是旧曲线的余量），而是<b>新类别的发现速率</b>——那是接力棒有没有被接住。发现速率为零的时候，剩下的都是在花余额。
+</div>
+<p class="en-brief"><b>EN</b> K is not a constant of nature; it measures whichever constraint currently binds. Replace the constraint and you start a new curve. Stack them and the upper hull — the envelope — looks exponential from far away while being made of discrete relays. Foster's point (1986): near the top of the old curve, marginal return per unit invested is falling while the new curve is still low in absolute terms, so at the correct moment to switch, the new option necessarily looks worse. Compare slopes, not levels.</p>
+<h2><span class="n">04</span>你没法从曲线内部知道自己在哪儿<span class="he">（You Cannot Locate Yourself From Inside）</span></h2>
+<p class="lead">前面三节都假设你知道自己在曲线的哪一段。这一节要说的是：在你最需要知道的那个阶段，你恰恰不可能知道。</p>
+<p>原因藏在公式里。N 远小于 K 的时候，折扣项 (1 − N/K) 几乎等于 1，逻辑斯蒂增长<em>就是</em>指数增长——不是"很接近"，是在数据的噪声里根本分不开。而 K 这个数，只能靠曲线开始弯的那一段来估计。<b>于是想知道 K 的时候没有数据，等有了数据的时候，答案已经不重要了。</b></p>
+<p>1920 年，Raymond Pearl 和 Lowell Reed 做了教科书级的示范。他们拿 1790 到 1910 年的美国人口普查数据拟合一条 S 曲线，得到承载力 K = <b>1.97 亿</b>。这条曲线不是胡来——它贴着实际数据一路走到 1950 年前后都吻合得很好，是当时最好的人口预测。然后美国人口在 <b>1967 年</b>越过了那个"绝对上限"，今天是 3.4 亿，超出他们的 K 大约 70%。</p>
+<p>他们的错不在算术，也不在数据。错在<b>那个 1.97 亿并不是一堵墙的位置，而是"如果当时的农业、城市化、移民政策一直不变，会停在哪里"的一个投影</b>。约束换了，投影就作废了。</p>
+<figure>
+<svg aria-label="拐点之前，指数与不同承载力的 S 曲线几乎无法分辨" role="img" viewbox="0 0 720 300" xmlns="http://www.w3.org/2000/svg">
+<text fill="#aba498" font-family="-apple-system,sans-serif" font-size="13" text-anchor="middle" x="360" y="24">同一批数据，三条同样合身的外推</text>
+<line stroke="rgba(255,255,255,0.18)" stroke-width="1.5" x1="70" x2="700" y1="252" y2="252"></line>
+<line stroke="rgba(255,255,255,0.18)" stroke-width="1.5" x1="70" x2="70" y1="252" y2="36"></line>
+<text fill="#8d867b" font-family="-apple-system,sans-serif" font-size="11.5" x="78" y="48">数量</text>
+<polyline fill="none" points="70,242 125,239.6 180,235.7 235,229.6 290,220 345,205 380,190.5" stroke="#cfc8bc" stroke-width="2.6"></polyline>
+<circle cx="98" cy="242.6" fill="#79a6d2" r="3.2"></circle>
+<circle cx="140" cy="236.4" fill="#79a6d2" r="3.2"></circle>
+<circle cx="182" cy="237.1" fill="#79a6d2" r="3.2"></circle>
+<circle cx="224" cy="229.2" fill="#79a6d2" r="3.2"></circle>
+<circle cx="266" cy="226.5" fill="#79a6d2" r="3.2"></circle>
+<circle cx="308" cy="214.2" fill="#79a6d2" r="3.2"></circle>
+<circle cx="350" cy="201.8" fill="#79a6d2" r="3.2"></circle>
+<line stroke="rgba(205,127,155,0.6)" stroke-dasharray="4,4" stroke-width="1.3" x1="380" x2="380" y1="60" y2="252"></line>
+<text fill="#cd7f9b" font-family="-apple-system,sans-serif" font-size="11.5" text-anchor="middle" x="380" y="52">已有数据到此为止</text>
+<polyline fill="none" points="380,190.5 405,163 425,131 442,88 455,50 462,38" stroke="#8d867b" stroke-dasharray="6,4" stroke-width="2.2"></polyline>
+<text fill="#8d867b" font-family="-apple-system,sans-serif" font-size="11.5" x="470" y="46">继续指数</text>
+<polyline fill="none" points="380,190.5 420,150 460,118 500,98 545,88 600,84 690,82" stroke="#e0895e" stroke-width="2.4"></polyline>
+<text fill="#e0895e" font-family="-apple-system,sans-serif" font-size="11.5" x="600" y="74">K 较高的 S</text>
+<polyline fill="none" points="380,190.5 415,172 450,162 495,157 550,155 620,154 690,154" stroke="#63b3a6" stroke-width="2.4"></polyline>
+<text fill="#63b3a6" font-family="-apple-system,sans-serif" font-size="11.5" x="600" y="146">K 较低的 S</text>
+<text fill="#787268" font-family="-apple-system,sans-serif" font-size="11" x="90" y="278">在这一段里，三条曲线的差别小于数据本身的抖动 — 争论无法用数据解决</text>
+<text fill="#787268" font-family="-apple-system,sans-serif" font-size="11" x="612" y="278">时间 →</text>
+</svg>
+<figcaption>1920 年 Pearl 与 Reed 的美国人口拟合正是这张图的左半边：曲线在数据范围内近乎完美，K 却差了 70%。</figcaption>
+</figure>
+<p>这件事有一个直接的后果：所有"这次不一样 / 这是新范式 / 天花板就在眼前"的争论，在拐点之前<b>原则上无法用数据判定</b>。不是参与争论的人不够聪明，是那段数据里确实不含区分两个假设所需的信息。继续争，只是在互相展示先验。</p>
+<p>出路不在于把 K 估得更准，而在于<b>换一个可观测的量</b>。承载力是个抽象的极限，看不见；但此刻拦着你的那个具体东西是看得见的。问题从"我们还能涨多久"改成"<em>现在是哪一个投入在拦着我们，它每多一个单位换来的产出，这一年是升还是降</em>"——后者每个季度都能测。</p>
+<div class="decide">
+<span class="lb">🎯 决策线</span>
+<p>停掉"还能涨多久"这类争论——它在拐点之前不可判定，开会只会消耗信任。换成一张两列的表：左列列出当前增长依赖的 3–5 个投入（人手、渠道、算力、资金、注意力……），右列记录<b>每单位投入换来的产出</b>这一期相比上一期的变化。K 测不了，边际产出测得了。哪一项连续两期在降，哪一项就是你现在的 K——而它通常不是你以为的那一项。</p>
+</div>
+<div class="crossx-inline">
+🌀 <b>西方哲学 · 休谟问题的工程版</b>　休谟说，"过去一直如此"推不出"以后还会如此"，归纳法（induction）没有逻辑保证。这话对，但太笼统，笼统到没法用。本节给的是它的一个可操作版本：不是"归纳原则上不可靠"，而是<b>在两个具体的候选模型之间，把它们分开需要多少数据，是可以算出来的</b>——给定噪声水平和两条曲线的差距，你能算出还要几期观测才够。于是"这次是不是不一样"这个哲学僵局变成了一道工程题：不是继续争，而是先算一算按现在的数据质量，这个争论还要多久才可能有答案；如果答案是"十年"，那么正确的做法是承认它现在不可判定，转去测那些能测的东西。
+</div>
+<p class="en-brief"><b>EN</b> Below the inflection point, logistic growth <i>is</i> exponential growth to within the noise, so early data carries almost no information about K. Pearl &amp; Reed (1920) fit US census data from 1790–1910 and got a ceiling of 197 million; the curve tracked well until about 1950, the ceiling was passed in 1967, and today's figure is roughly 70% above it. The fix is not a better estimate of K but a different observable: name the binding input and track its marginal return quarter by quarter.</p>
+<h2><span class="n">05</span>这套说法在哪儿不成立<span class="he">（Where This Breaks Down）</span></h2>
+<p class="lead">S 曲线是复杂性科学里流通最广的形状，也因此最容易被滥用。用它之前，下面四条必须知道。</p>
+<p><b>第一，复活节岛不是证据。</b>那个故事你大概听过：岛民砍光了所有的树来运送石像，失去独木舟和土壤，人口崩溃，文明自杀——它被写进了无数关于增长极限的科普，当作超调与崩溃的活标本。但它这些年被大幅修正了。考古学家 Terry Hunt 和 Carl Lipo 指出，森林的消失里，随人迁入的波利尼西亚鼠啃食棕榈种子起了很大作用；而 2024 年《自然》上一项对 15 个古代拉帕努伊人基因组的研究，<b>没有找到欧洲人到达之前存在人口骤降的遗传信号</b>。真正的人口崩溃发生在 1862–63 年的秘鲁奴隶掠夺以及随之而来的天花之后。这里的教训不是"生态崩溃不存在"，而是：<b>一个被转述了一万遍的故事，不因为转述次数多就变成证据。</b>圣马修岛的驯鹿是有清点数字的，复活节岛没有。</p>
+<p><b>第二，减速不一定是撞到了 K。</b>全球人口增长率在 1963 年前后见顶（约每年 2%），此后一路降到今天不足 1%；联合国 2024 年的预测是本世纪 80 年代在约 103 亿见顶，然后回落。这条曲线的形状完美地符合 S。但它的机制<em>不是</em>马尔萨斯式的撞墙——这几十年里粮食产量涨得比人口更快。减速来自生育率下降，也就是<b>人口转变</b>（demographic transition）：收入、教育、婴儿存活率、城市化改变了人们想要几个孩子。这个机制和承载力毫无关系。所以：<b>S 形是许多不同机制的共同外观，不是任何一个机制的签名。</b>看到曲线变弯就说"接近承载力了"，等于看到发烧就说是流感。</p>
+<p><b>第三，《增长的极限》的账要分两笔算。</b>1972 年 Meadows 等人用 World3 模型跑出十二个情景 <a class="reflink" href="ref-world3.html">→ 参考 · World3 与增长的极限</a>，这本书至今被两边同时当靶子和圣经。诚实的说法是：书里那张著名的"某某矿产还够用多少年"的表格是在演示指数算术会多快吃掉储量，<em>不是预测</em>，却被当成预测批判了五十年；另一边，Turner（2008、2014）和 Herrington（2021）把实际数据与情景对照，发现人口、工业产出、污染这些<b>聚合变量</b>确实大体贴着"标准运行"那条走。但这也不能算它赢——变量聚合得极粗、时间尺度极长，"大体贴合"的证据力本来就弱，而且模型里很多关系无法独立校准。它真正的贡献在<b>结构</b>（时滞 + 超调 + K 可被损伤），不在任何一个数字上。</p>
+<p><b>第四，也是最要命的：S 曲线的叙事天然不可证伪。</b>任何减速都可以事后叫做"接近 K 了"，任何再加速都可以事后叫做"新曲线开始了"。一个能解释所有结果的框架，什么都没解释。要让它成为工具而不是修辞，必须<em>事先</em>做两件事：<b>指名那个约束</b>（到底是什么在拦着），以及<b>给出它的度量方式</b>（这个约束松没松，看哪个数）。两件里少一件，你手上就只是一个形状。</p>
+<div class="decide">
+<span class="lb">🎯 决策线</span>
+<p>用 S 曲线下任何判断之前，先写下一句能被证伪的话：<b>「如果 ×××（那个被你指名的约束）的边际产出在未来 N 期内没有下降，那我这个『接近极限』的判断就是错的。」</b>写得出来，这个判断才进入可以下注的范畴；写不出来，你做的只是给已经发生的事配了一个形状。这句话也顺便决定了你该盯哪个数——它就是你监控面板上唯一新增的那一行。</p>
+</div>
+<div class="crossx-inline">
+🌀 <b>文学与艺术 · 亚里士多德的"逆转"</b>　《诗学》给悲剧规定的形状是上升、逆转（peripeteia）、下坠——这不是对世界的观察，是对<b>叙事</b>的要求：观众需要一个顶点，故事才能收束。这解释了为什么"兴起—鼎盛—衰落"的模型能套住几乎任何被讲完的事：行业生命周期、帝国兴衰、王朝周期、一个人的职业生涯。<b>套得上，是因为它是叙事语法，不是因为它是系统机制。</b>由此可得一条实用的分界线：一个生命周期模型只在<em>事后</em>被套用，它提供的就是修辞；只有当它<em>事前</em>指名了约束变量与度量方式，它才开始承担预测的风险——这与本节第四条要求的是同一件事，只不过《诗学》比我们早两千三百年就把那个形状写下来了。
+</div>
+<p class="en-brief"><b>EN</b> Four limits. Easter Island is not evidence — 2024 ancient-genome work found no signal of a pre-European population crash, and the real collapse followed the 1862–63 slave raids and smallpox. Slowdown does not imply a ceiling: global population growth peaked around 1963 and is projected to peak near 10.3 billion in the 2080s, driven by the demographic transition, a mechanism unrelated to carrying capacity. The Limits to Growth deserves credit for structure, not numbers. And the S-curve story is unfalsifiable unless you name the binding constraint and its measure in advance.</p>
+<div class="bigcat">
+<h3>🎒 场景 · BigCat</h3>
+<ol>
+<li><span class="dm">带团队与组织</span>招人这件事几乎必然超调，而且原因不在判断力。触发招聘的信号通常是"上个季度已经忙不过来"，而从批岗、面试、入职到真正产出要四到六个月——于是每一波人到位的时候，那个波峰早就过去了，接着是"招进来没活干"，然后再一次忙疯。这是第 02 节那条时滞机制的标准形状。可改的地方很具体：把触发指标从<b>负载的绝对值</b>（这个季度的加班时长、工单积压量）换成<b>负载的斜率</b>——连续两个月的增速超过某个阈值就启动，而不是等到超标。停掉的动作：停掉用上季度加班时长批人头。</li>
+<li><span class="dm">育儿</span>孩子学一样东西——乐器、运动、一门语言——进入平台期，几个月看不出进步，家里的讨论就会滑向"是不是没天赋""要不要换一个"。本期的机制说：平台期在两种完全不同的情形下长得一模一样，一种是当前方法接近了它自己的 K，一种是两条曲线之间的空档（旧方法耗尽了，新方法还没起量）。区分它们的不是"进步了多少"，而是<b>练的内容有没有换过</b>：如果最近三个月练的还是同一套东西，那么平台期说明的是方法到顶，不是人到顶——该换的是训练里那个绑着的约束（从熟练度换成难度、换一种分解方式、换一个反馈来源），而不是换项目。顺手停掉的一个指标：每周练习时长——那是在旧曲线的尾巴上加投入。</li>
+<li><span class="dm">修行与心性</span>一段高强度的精进之后（密集禅修、一次闭关、或者只是连着几周严格的作息与用功），常常不是回到原来的节奏，而是掉到<em>低于</em>原来的水平：坐不住、提不起劲，要很久才缓过来。这正是超调打坏 K 的形状——被消耗的那个东西（对练习本身的意愿、身体的耐受）恢复得比消耗慢。可改的动作只有一个，但很硬：给每一次高强度期后面记一条<b>恢复用时</b>——从结束到重新回到常态节奏用了几天。把它当成本记进去，而不是当作意志薄弱的证据。判据也随之而来：<b>如果恢复期比精进期还长，那一次就是净负的</b>。停掉的动作：停掉拿"当时确实坚持下来了"当作那个强度可持续的证据——超调的定义就是当时撑住了。</li>
+</ol>
+</div>
+<div class="crossx">
+<h3>🌀 越界 · 跨学科的联想<span class="he">（Crossings）</span></h3>
+<ul>
+<li><b>历史 · 王朝周期与人口—土地比</b>：传统史观里，一个王朝的寿命常被写成一条人口曲线：开国时地广人稀，人口指数增长，百余年后人多地少、赋税加重、流民四起、王朝崩解，然后人口锐减、土地重新充裕，下一轮开始。本期的三条机制刚好把这个叙事拆成可检验的零件：<em>指数繁殖</em>（第 01 节）遇上<em>由耕地面积×单产定义的 K</em>（第 03 节），中间隔着<em>极长的时滞</em>——开垦、水利、新作物传播都要几十年，而饥荒的信号是当年就到的。三条合起来推出一个不那么显然的结论：明清人口能一路突破前朝的天花板，靠的不是"周期被打破"，而是玉米、番薯这些美洲作物把 K 换到了另一条曲线上——那是第 03 节的接力，不是同一条曲线的延长。<b>但这里不成立</b>：马尔萨斯式的人口—土地比解释近几十年被大幅修正。李中清与王丰用族谱与户籍数据指出，明清家庭远不是被动地繁殖到撞墙——晚婚、溺婴、过继、分家的时机，都是主动的生育调节；也就是说这个系统里有一条<em>内生的负反馈</em>，而马尔萨斯模型假设它不存在。加上王朝崩溃的时点常常和人口峰值对不上（财政、气候、边防的权重更大），能借走的只有"超调会损伤 K、因此恢复是不对称的"这条结构，借不走"人口压力导致改朝换代"这个因果论断。</li>
+<li><b>生态与制度 · 最大可持续产量的系统性失败</b>：二十世纪的渔业管理有一条写进法律的目标，叫<b>最大可持续产量</b>（maximum sustainable yield，缩写 MSY）：既然增长最快的点在 K/2（第 01 节），那就把鱼群维持在 K/2，年年捕走那个最大增量。逻辑无懈可击，实践中它主持了纽芬兰鳕鱼在内的一连串崩溃。本期几条机制合起来说明这不是执行不力，是目标设错了位置：<em>K/2 恰好是拐点</em>，那里增长曲线的顶部意味着任何低估都把种群推到增长开始下降的一侧，越捞越少、越少越该捞（第 01 节）；<em>资源评估有时滞</em>，配额依据的永远是前几年的存量（第 02 节）；<em>K 本身会被捕捞损伤</em>，大鱼被优先捞走，年龄结构被削平，甚至在遗传上选择出更早熟、更小型的鱼——K 和 r 一起往下走（第 02 节）；而<em>拐点之前根本估不准 K</em>（第 04 节），所以"K/2 在哪儿"这个数字本身就是最不可靠的那一个。由此推出一个原本看不出来的结论：把目标定在 K/2 的<b>右侧</b>（保留更高的存量）代价极小——增长曲线在顶点附近是平的，存量留到 0.6K，年产量只损失约 4%，却换来一大截安全边际。不对称性不来自谨慎，来自那条钟形曲线顶部的平坦。</li>
+<li><b>东方思想 ·《周易》乾卦的"亢龙有悔"</b>：乾卦六爻，从"潜龙勿用"一路到上九"亢龙有悔"——升到极处再升就有悔。它给的是一个纯粹的<b>位置</b>判据：你在第几爻，而不是你有多高。本期的机制正好补上了这个判据缺的东西：位置怎么测。答案是不看高度（绝对量），看增速的顶点过没过（第 01 节），看边际产出弯没弯（第 03、04 节）。于是"知进退存亡而不失其正"在这里成了一个可以计算的量，而不只是德性。<b>但这里不成立</b>：易的六爻是<em>事先给定</em>的、离散的、必然走完的六段，"亢"是位置的必然；而 S 曲线的 K 既不事先给定，也可以被抬高——第 03 节整节讲的就是接力如何让一条曲线在该结束的地方不结束。把"亢龙有悔"读成"物极必反的必然"，会把一件可以被创新推翻的事当成命定，从而在该换车的时候选择退守。能借走的是那把尺子（看位置而不看高度），借不走它的宿命论。</li>
+</ul>
+</div>
+<div class="thinking">
+<h3>深入思考<span class="he">（Going Deeper）</span></h3>
+<details><summary>如果 K 可以被创新不断抬高，"极限"这个词还有意义吗？</summary><p>有，但意义变了。它不再指一个固定的数，而指"当前这个约束下的上限"。承认这一点会带来一个更难的问题：接力本身有没有速率上限？包络之所以看着像指数，是因为每次接力都及时发生；抗生素那条包络就是接力速率降到零之后停住的。于是极限的问题从"资源还剩多少"变成了"我们生产新曲线的速度有多快"。</p></details>
+<details><summary>什么样的减速值得再等一等，什么样的必须立刻换车？</summary><p>一个可操作的分界：如果边际产出的下降来自<em>规模本身</em>（越大越难协调、越拥挤），继续加投入不会改善，因为约束就是规模；如果下降来自某个可替换的具体投入（某种原料、某个渠道、某种算力），那么换掉它就是新曲线的起点。所以先做的不是决定等不等，是把"到底哪一项在降"分离出来。</p></details>
+<details><summary>超调之后一定回得到原来的 K 吗？</summary><p>取决于被消耗的东西是不是可再生，以及有没有过某个不可逆的门槛。地衣几十年、表土上百年、物种灭绝则是永久的。这里和第 10 期的滞后回线接上了：有些系统即使把压力完全撤掉，也不会沿原路回去。判断标准是问一句——"如果现在停止消耗，恢复到原状要多久"，而不是"能不能恢复"。</p></details>
+<details><summary>人口转变说明减速可以来自系统内部的规范而非外部的资源。还有哪些"自发刹车"？</summary><p>值得想的例子：疫情里的自发减少外出（在政策之前就发生）、市场里价格上涨引发的替代、组织长大后自发生出的层级。它们的共同点是负反馈来自主体的<em>预期</em>而不是资源的枯竭——这也意味着它们可以因为预期变化而突然失灵，这是纯资源约束不会有的脆弱性。</p></details>
+<details><summary>为什么在位者几乎总是在旧曲线上加注？</summary><p>除了判据的问题（比绝对量必然晚），还有一层结构原因：旧曲线尾部的边际产出虽然在降，但<em>总量</em>仍是最高的，而组织的成本、人员、考核全都挂在那个总量上。所以换车不是一个认知问题，是一个"谁的预算被砍"的问题——这也解释了为什么外来者做同样的判断容易得多。</p></details>
+</div>
+<div class="refs">
+<h3>延伸阅读<span class="he">（Further Reading）</span></h3>
+<ul>
+<li>Verhulst 与逻辑斯蒂方程（1838）：<a href="https://link.springer.com/chapter/10.1007/978-0-85729-115-8_6">A Short History of Mathematical Population Dynamics, 第 6 章</a></li>
+<li>Pearl &amp; Reed, <a href="https://doi.org/10.1073/pnas.6.6.275">On the Rate of Growth of the Population of the United States since 1790</a>（1920，那个 1.97 亿的上限）</li>
+<li>David R. Klein, <a href="https://www.frames.gov/catalog/4236">The introduction, increase, and crash of reindeer on St. Matthew Island</a>（1968，圣马修岛的清点记录）</li>
+<li>Meadows et al., <a href="https://en.wikipedia.org/wiki/The_Limits_to_Growth">The Limits to Growth</a>（1972，World3 与十二个情景）</li>
+<li>Graham Turner, <a href="https://www.sciencedirect.com/science/article/abs/pii/S0959378008000435">A comparison of The Limits to Growth with 30 years of reality</a>（2008）</li>
+<li>Gaya Herrington, <a href="https://mahb.stanford.edu/wp-content/uploads/2021/07/yale-publication-1.pdf">Update to Limits to Growth: Comparing the World3 Model with Empirical Data</a>（2021）</li>
+<li><a href="https://www.nature.com/articles/d41586-024-02620-1">Rapa Nui's population history rewritten using ancient DNA</a>（《自然》2024，复活节岛"生态自杀"叙事的反证）</li>
+<li>联合国 <a href="https://population.un.org/wpp/">World Population Prospects 2024</a>（人口峰值与增长率的原始数据）</li>
+<li>Our World in Data, <a href="https://ourworldindata.org/population-growth">Population Growth</a>（增长率在 1963 年见顶的那张图）</li>
+<li>Ling et al., <a href="https://www.nature.com/articles/nature14098">A new antibiotic kills pathogens without detectable resistance</a>（2015，teixobactin，打破近三十年的空窗）</li>
+<li><a href="https://en.wikipedia.org/wiki/Technology_life_cycle">Technology life cycle</a>（技术 S 曲线与包络的通用介绍）</li>
+</ul>
+</div>
+<footer>BigCat · 复杂性科学 · <a href="index.html">← 全部 Topic</a></footer>
+</div>
+<script src="https://hub.cissychen.com/comments.js" defer></script>
+<script src="https://hub.cissychen.com/search.js" defer></script>
+<script src="https://hub.cissychen.com/index-button.js" defer></script>
+<script src="https://hub.cissychen.com/i18n-tts.js" defer></script>
+</body></html>

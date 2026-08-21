@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+
+<html lang="en"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Limits to Growth and the S-Curve — Exponential growth always bends · Complexity Science T35</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,"SF Pro Display","Noto Sans SC",sans-serif;color:#e4ded5;line-height:1.85;min-height:100vh;
+  background:radial-gradient(1100px 620px at 12% -6%,rgba(224,137,94,0.10),transparent 62%),radial-gradient(950px 700px at 100% 2%,rgba(166,147,205,0.09),transparent 58%),linear-gradient(168deg,#100f0d 0%,#15161b 48%,#0a0a0c 100%);background-attachment:fixed}
+.wrap{max-width:760px;margin:0 auto;padding:30px 22px 90px}
+header{padding:52px 0 8px;border-bottom:1px solid rgba(255,255,255,0.07);margin-bottom:34px}
+.week-tag{font-family:"SF Mono",Menlo,monospace;font-size:0.72rem;font-weight:700;letter-spacing:2px;color:#a693cd;border:1px solid rgba(166,147,205,0.4);background:rgba(166,147,205,0.07);padding:3px 11px;border-radius:20px}
+h1{font-size:2.5rem;font-weight:800;letter-spacing:0.5px;line-height:1.2;margin:20px 0 0;background:linear-gradient(106deg,#e0895e 0%,#d9b45f 34%,#9fbc7a 68%,#63b3a6 100%);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+h1 .h1en{display:block;font-size:0.40em;font-weight:600;letter-spacing:2.5px;color:#847d72;-webkit-text-fill-color:#847d72;background:none;margin-top:13px}
+.sub{font-size:1.05rem;color:#aba498;margin-top:14px;font-weight:500}
+.date{font-family:"SF Mono",Menlo,monospace;font-size:0.75rem;color:#57524b;margin-top:18px;letter-spacing:1px}
+.pitch{margin:22px 0 30px;font-size:0.97rem;color:#cd7f9b;border-left:2px solid rgba(205,127,155,0.5);padding-left:16px;font-style:italic}
+.intro{font-size:1.02rem;color:#cfc8bc;margin-bottom:14px}
+.intro p{margin-bottom:16px}
+h2{font-size:1.42rem;font-weight:700;color:#e9e3d9;margin:56px 0 8px;letter-spacing:0.3px}
+h2 .n{font-family:"SF Mono",Menlo,monospace;font-size:0.85rem;color:#9fbc7a;display:block;margin-bottom:6px;letter-spacing:2px}
+.he{font-size:0.68em;color:#8d867b;font-weight:500;letter-spacing:0}
+p{margin-bottom:17px}
+.lead{color:#cfc8bc}
+b,strong{color:#f0eae0;font-weight:600}
+em{color:#d9b45f;font-style:normal;font-weight:500}
+.dim{color:#8d867b}
+a.reflink{display:inline-block;font-size:0.82rem;font-family:"SF Mono",Menlo,monospace;color:#63b3a6;border:1px solid rgba(99,179,166,0.38);background:rgba(99,179,166,0.07);padding:1px 9px;border-radius:20px;text-decoration:none;transition:all 0.15s;white-space:nowrap}
+a.reflink:hover{background:rgba(99,179,166,0.16);border-color:rgba(99,179,166,0.7)}
+figure{margin:30px 0}
+figure svg{display:block;width:100%;height:auto;border-radius:12px;background:rgba(255,255,255,0.018);border:1px solid rgba(255,255,255,0.06)}
+figcaption{font-size:0.82rem;color:#787268;margin-top:11px;text-align:center;line-height:1.6}
+.decide{margin:24px 0;border:1px solid rgba(224,137,94,0.36);background:rgba(224,137,94,0.055);border-radius:12px;padding:15px 19px}
+.decide .lb{font-family:"SF Mono",Menlo,monospace;font-size:0.73rem;letter-spacing:1.5px;color:#e0895e;font-weight:700;display:block;margin-bottom:7px}
+.decide p{margin:0;font-size:0.95rem;color:#ddd5c9}
+.crossx-inline{margin:20px 0 22px;border-left:2px solid rgba(205,127,155,0.55);padding:2px 0 2px 15px;font-size:0.89rem;color:#a9a096;line-height:1.72}
+.crossx-inline b{color:#cd7f9b;font-weight:600}
+.bigcat{margin:46px 0 10px;border:1px solid rgba(217,180,95,0.38);background:rgba(217,180,95,0.05);border-radius:14px;padding:20px 22px}
+.bigcat h3{font-size:1.02rem;color:#d9b45f;margin-bottom:14px;letter-spacing:0.5px}
+.bigcat ol{list-style:none;padding:0}
+.bigcat li{margin-bottom:15px;font-size:0.94rem;color:#d5cdc1;line-height:1.78}
+.bigcat li:last-child{margin-bottom:0}
+.bigcat .dm{font-family:"SF Mono",Menlo,monospace;font-size:0.73rem;color:#d9b45f;border:1px solid rgba(217,180,95,0.32);border-radius:4px;padding:1px 7px;margin-right:8px;white-space:nowrap}
+.crossx{margin:46px 0 10px;border:1px solid rgba(205,127,155,0.38);background:rgba(205,127,155,0.05);border-radius:14px;padding:20px 22px}
+.crossx h3{font-size:1.02rem;color:#cd7f9b;margin-bottom:14px;letter-spacing:0.5px}
+.crossx ul{list-style:none;padding:0}
+.crossx li{margin-bottom:16px;font-size:0.94rem;color:#d5cdc1;line-height:1.78}
+.crossx li:last-child{margin-bottom:0}
+.crossx li b{color:#cd7f9b;font-weight:600}
+.thinking{margin:46px 0 10px}
+.thinking h3{font-size:1.02rem;color:#a693cd;margin-bottom:14px;letter-spacing:0.5px}
+details{border:1px solid rgba(166,147,205,0.22);border-radius:10px;padding:12px 16px;margin-bottom:10px;background:rgba(166,147,205,0.035)}
+summary{cursor:pointer;font-size:0.93rem;color:#c9c2b6;font-weight:500}
+summary::marker{color:#a693cd}
+details p{margin:12px 0 0;font-size:0.9rem;color:#a9a096;line-height:1.75}
+.refs{margin:46px 0 10px}
+.refs h3{font-size:1.02rem;color:#79a6d2;margin-bottom:14px;letter-spacing:0.5px}
+.refs ul{list-style:none;padding:0}
+.refs li{margin-bottom:10px;font-size:0.9rem;color:#8d867b;line-height:1.7}
+.refs a{color:#79a6d2;text-decoration:none;border-bottom:1px solid rgba(121,166,210,0.3)}
+.refs a:hover{color:#a6c4e2;border-bottom-color:rgba(121,166,210,0.7)}
+footer{text-align:center;padding:56px 0 10px;font-size:0.78rem;color:#57524b;font-family:"SF Mono",Menlo,monospace;border-top:1px solid rgba(255,255,255,0.06);margin-top:50px}
+footer a{color:#79a6d2;text-decoration:none}
+@media(max-width:600px){h1{font-size:1.85rem}.wrap{padding:24px 16px 60px}h2{font-size:1.22rem}}
+</style></head><body>
+<div class="wrap">
+<header>
+<span class="week-tag">TOPIC 35 · PHASE F</span>
+<h1>Limits to Growth and the S-Curve</h1>
+<p class="sub">Exponential growth always bends in a finite system</p>
+<p class="date">2026-08-21 · Scale</p>
+</header>
+<p class="pitch">A pond of water lilies doubles its covered area every day and fills the pond on day 30. What does the pond look like on day 29? Half empty. Every judgement of the form "we've got plenty of room" is made on day 29.</p>
+<div class="intro">
+<p>That exponential growth stops is not in doubt: nothing bounded can keep doubling. The question worth asking is <b>what the stopping looks like</b> — because it has at least three quite different shapes, and the difference between them matters far more than how fast the growth was.</p>
+<p>Worse: <b>you almost never can tell, from inside the curve, which segment you are on.</b> Slowing down near a ceiling and pausing between two curves look identical in the data. In 1920 two statisticians took every scrap of US census data then available and computed an upper limit; their curve tracked reality beautifully for the next thirty years — and then the limit was crossed in 1967 and has since been exceeded by about 70%. Their arithmetic was fine. What was wrong was the premise that a fixed limit existed at all.</p>
+<p class="dim">This site has crossed this thread twice already, from different angles. Topic 9 was about the logistic <b>map</b> — the discrete, one-generation-per-year version, which leads to chaos. Topic 10 was about a system <b>jumping from one steady state to another</b>. <b>This issue is about the other object with the same name: the continuous-time logistic equation, and the three things that happen after you hit a ceiling.</b> Same name, different question.</p>
+</div>
+<h2><span class="n">01</span>Why Exponentials Must Bend</h2>
+<p class="lead">Start by unpacking the word. Exponential growth means one thing: <b>the amount added in each interval is proportional to the amount already there.</b> Money earning interest, people having children, one user bringing in one more user. Its signature is a fixed <b>doubling time</b> — 7% a year doubles in about ten years; 10% a year doubles in about seven.</p>
+<p>A fixed doubling time has a consequence the human mind is almost incapable of feeling: <b>nearly all the drama of exponential growth happens in the last one or two doublings.</b> Half the work of covering the pond gets done on the final day. On day 25 only 3% of the water is covered, and anyone standing at the edge would say this is clearly not a problem.</p>
+<p>But in a finite system the growth rate cannot stay constant. Each additional individual is one more claim on the same food, the same land, the same bandwidth. In 1838 the Belgian mathematician Pierre-François Verhulst wrote this down in the simplest possible way, multiplying the exponential by a single discount factor:</p>
+<p><b>growth rate = r × N × (1 − N/K)</b>. Here N is the current amount, r is the unconstrained growth rate, and K is the largest amount the environment can sustain — the <b>carrying capacity</b>. The bracket is the whole trick: when N is small it is close to 1 and the discount barely exists, so growth is purely exponential; as N approaches K it goes to zero and growth is snuffed out.</p>
+<p>The curve this produces is a stretched S, called <b>logistic growth</b>. It has one landmark worth memorising: <b>the moment of fastest growth is exactly the halfway moment</b> (N = K/2). That turning point is the <b>inflection point</b> — past it the total is still rising, but the <em>rate</em> of rise has begun to fall.</p>
+<figure>
+<svg aria-label="Exponential curve versus the logistic S-curve, with the bell-shaped growth rate below" role="img" viewbox="0 0 720 370" xmlns="http://www.w3.org/2000/svg">
+<text fill="#aba498" font-family="-apple-system,sans-serif" font-size="13" text-anchor="middle" x="360" y="24">Same beginning, two endings — and the growth rate peaks at the halfway mark</text>
+<line stroke="rgba(255,255,255,0.18)" stroke-width="1.5" x1="70" x2="700" y1="192" y2="192"></line>
+<line stroke="rgba(255,255,255,0.18)" stroke-width="1.5" x1="70" x2="70" y1="192" y2="40"></line>
+<text fill="#8d867b" font-family="-apple-system,sans-serif" font-size="11.5" x="78" y="52">amount N</text>
+<line stroke="rgba(217,180,95,0.5)" stroke-dasharray="5,4" stroke-width="1.4" x1="70" x2="700" y1="60" y2="60"></line>
+<text fill="#d9b45f" font-family="SF Mono,monospace" font-size="11.5" x="235" y="54">K = carrying capacity</text>
+<polyline fill="none" points="70,189.8 173,188.8 260,181.2 328,166.1 380,125 405,100 421,45.3 429,22" stroke="#8d867b" stroke-dasharray="6,4" stroke-width="2"></polyline>
+<text fill="#8d867b" font-family="-apple-system,sans-serif" font-size="11.5" x="437" y="40">exponential: what it</text>
+<text fill="#8d867b" font-family="-apple-system,sans-serif" font-size="11.5" x="437" y="56">looks like unconstrained</text>
+<polyline fill="none" points="70,189.7 121,189.1 173,187.7 225,183.8 277,174.5 328,155 380,125 432,95 483,75.5 535,66.2 587,62.3 638,60.9 690,60.3" stroke="#63b3a6" stroke-width="2.6"></polyline>
+<text fill="#63b3a6" font-family="-apple-system,sans-serif" font-size="11.5" x="500" y="88">logistic: the S-curve</text>
+<line stroke="rgba(224,137,94,0.55)" stroke-dasharray="4,4" stroke-width="1.3" x1="380" x2="380" y1="125" y2="330"></line>
+<circle cx="380" cy="125" fill="#e0895e" r="5"></circle>
+<text fill="#e0895e" font-family="-apple-system,sans-serif" font-size="11.5" text-anchor="middle" x="330" y="114">inflection · N = K/2</text>
+<text fill="#787268" font-family="-apple-system,sans-serif" font-size="11.5" text-anchor="middle" x="385" y="210">time →</text>
+<line stroke="rgba(255,255,255,0.18)" stroke-width="1.5" x1="70" x2="700" y1="330" y2="330"></line>
+<line stroke="rgba(255,255,255,0.18)" stroke-width="1.5" x1="70" x2="70" y1="330" y2="232"></line>
+<text fill="#8d867b" font-family="-apple-system,sans-serif" font-size="11.5" x="78" y="244">growth rate</text>
+<polyline fill="none" points="70,319.2 121,317.9 173,314.3 225,305.5 277,286.4 328,257.1 380,240 432,257.1 483,286.4 535,305.5 587,314.3 638,317.9 690,319.2" stroke="#9fbc7a" stroke-width="2.6"></polyline>
+<text fill="#9fbc7a" font-family="-apple-system,sans-serif" font-size="11.5" text-anchor="middle" x="380" y="230">the rate peaks here, then falls all the way</text>
+<text fill="#787268" font-family="-apple-system,sans-serif" font-size="11" x="86" y="348">watch the total: still rising</text>
+<text fill="#787268" font-family="-apple-system,sans-serif" font-size="11" x="420" y="348">watch the rate: it turned over at the halfway point</text>
+</svg>
+<figcaption>Two views of one thing. The total shows strain very late; the rate peaked long before. Which quantity you watch decides when you find out.</figcaption>
+</figure>
+<p>A trap in the naming, while we are here: take this same rule and change time from "continuously flowing" to "settled once a year" and it becomes a different object — the logistic map, whose behaviour is nothing like this and which runs all the way into chaos <a class="reflink" href="ref-logistic-map.en.html">→ ref · The Logistic Map</a>. One formula, two worlds, depending on whether time is continuous or discrete.</p>
+<div class="crossx-inline">
+🌀 <b>Biology · the key Malthus handed Darwin</b>　Darwin and Wallace each read the arithmetic in Malthus's <i>Essay on the Principle of Population</i>: reproductive capacity is exponential, food is not. What they took from it was not the metaphor of competition but a quantifiable gap — <b>every generation produces far more individuals than the environment can feed</b> — so culling is an arithmetic necessity requiring no intent whatsoever. That implies something rarely mentioned: the strength of natural selection depends on the size of that gap. Where reproduction is no longer in excess (a modern society with very low fertility, say), the force of Darwinian selection genuinely weakens. That is not a moral judgement; it is what the arithmetic itself says.
+</div>
+<h2><span class="n">02</span>Three Ways to Hit a Ceiling</h2>
+<p class="lead">The textbook S-curve is gentle: it slides up to the carrying capacity and stays there. In the real world that is the rarest of three outcomes.</p>
+<p>Which one you get is decided not by how violent the growth was, but by two unglamorous quantities:</p>
+<p><b>The first is delay</b> — how long it takes to get from "already overloaded" to "you notice you are overloaded" to "you actually stop". A system is always reacting to a state that is already in the past. However hard you brake, if the signal arrives two years late, those two years of growth happen anyway.</p>
+<p><b>The second is how fast the consumed thing regenerates.</b> Grazed grassland grows back in a few years; grazed lichen takes decades. If consumption outruns regeneration, K itself is dragged down — you have not reached the ceiling, you have broken a piece of it.</p>
+<p>The combinations give three outcomes: <b>an immediate signal</b> and you glide up to K; <b>delay, but a resource that recovers</b> and you oscillate around K, converging slowly; <b>delay plus a resource that recovers more slowly than it is consumed</b> and you get <b>overshoot and collapse</b> — you sail past, then fall to a level lower than where you started.</p>
+<figure>
+<svg aria-label="Three ways of hitting the carrying capacity: smooth approach, damped oscillation, overshoot and collapse" role="img" viewbox="0 0 720 330" xmlns="http://www.w3.org/2000/svg">
+<defs>
+<marker id="a35b" markerheight="9" markerunits="userSpaceOnUse" markerwidth="9" orient="auto" refx="9" refy="5" viewbox="0 0 10 10">
+<path d="M0,1 L9,5 L0,9 z" fill="#8d867b"></path>
+</marker>
+</defs>
+<text fill="#aba498" font-family="-apple-system,sans-serif" font-size="13" text-anchor="middle" x="360" y="24">One K, three ways of hitting it — the difference is delay and recovery speed</text>
+<line stroke="rgba(255,255,255,0.18)" stroke-width="1.5" x1="70" x2="700" y1="252" y2="252"></line>
+<line stroke="rgba(255,255,255,0.18)" stroke-width="1.5" x1="70" x2="70" y1="252" y2="36"></line>
+<line stroke="rgba(217,180,95,0.5)" stroke-dasharray="5,4" stroke-width="1.4" x1="70" x2="700" y1="90" y2="90"></line>
+<text fill="#d9b45f" font-family="SF Mono,monospace" font-size="11.5" x="660" y="84">K</text>
+<line stroke="rgba(205,127,155,0.45)" stroke-dasharray="5,4" stroke-width="1.4" x1="400" x2="700" y1="190" y2="190"></line>
+<text fill="#cd7f9b" font-family="SF Mono,monospace" font-size="11.5" x="530" y="184">K′ after the damage</text>
+<polyline fill="none" points="70,247.6 150,237.2 200,216.5 260,170 320,123.5 380,100.4 440,92.9 520,90.5 600,90 690,90" stroke="#63b3a6" stroke-width="2.6"></polyline>
+<polyline fill="none" points="70,248 150,236 200,214 250,175 290,110 330,55 370,72 420,115 460,102 500,78 540,84 575,98 615,93 650,88 690,90" stroke="#d9b45f" stroke-width="2.6"></polyline>
+<polyline fill="none" points="70,248 150,234 200,208 250,165 290,95 330,40 360,48 390,95 410,160 430,215 450,232 490,236 540,232 600,222 650,212 690,203" stroke="#cd7f9b" stroke-width="2.6"></polyline>
+<line marker-end="url(#a35b)" stroke="#8d867b" stroke-width="1.3" x1="596" x2="640" y1="120" y2="95"></line>
+<text fill="#63b3a6" font-family="-apple-system,sans-serif" font-size="11.5" x="505" y="128">① smooth approach</text>
+<text fill="#787268" font-family="-apple-system,sans-serif" font-size="10.5" x="505" y="143">signal arrives at once</text>
+<text fill="#d9b45f" font-family="-apple-system,sans-serif" font-size="11.5" x="405" y="46">② damped oscillation</text>
+<text fill="#787268" font-family="-apple-system,sans-serif" font-size="10.5" x="405" y="61">delay, but the resource recovers</text>
+<line marker-end="url(#a35b)" stroke="#8d867b" stroke-width="1.3" x1="497" x2="500" y1="70" y2="90"></line>
+<text fill="#cd7f9b" font-family="-apple-system,sans-serif" font-size="11.5" x="110" y="290">③ overshoot and collapse</text>
+<text fill="#787268" font-family="-apple-system,sans-serif" font-size="10.5" x="110" y="305">delay, and the resource recovers slower than it is consumed — the ceiling itself is broken</text>
+<line marker-end="url(#a35b)" stroke="#8d867b" stroke-width="1.3" x1="255" x2="437" y1="278" y2="226"></line>
+<text fill="#787268" font-family="-apple-system,sans-serif" font-size="11" x="600" y="268">time →</text>
+</svg>
+<figcaption>The first halves of the three curves are nearly identical. They part after K is crossed — by which point there is very little left to change.</figcaption>
+</figure>
+<p>The third case has a real-world version of almost cruel clarity. In 1944, to leave an emergency meat supply for personnel stationed there, the US released <b>29 reindeer</b> on St. Matthew Island in the Bering Sea. No wolves, no bears, no hunters, and a thick mat of lichen that had taken decades to grow. In 1957 the biologist David Klein walked the island and counted 1,350 animals, all fat and healthy. He returned in 1963: <b>6,000</b>.</p>
+<p>Then came the winter of 1963–64. When Klein landed a third time in 1966, <b>42</b> reindeer were left — all but one of them female, bones everywhere, the lichen grazed down to bedrock. A 99% loss in three years.</p>
+<p>The point is not "there were too many deer". The herd never knows there are too many: a reindeer's reproductive condition tracks its own body state, and its body state reflects last summer's forage — <em>the signal is a full year late</em>. By the time hunger arrived as information, the lichen had already been eaten past the point of recovery. Lichen grows a few millimetres a year. K collapsed, so the curve did not oscillate back down to 6,000; it fell to a few dozen.</p>
+<p class="dim">(In fairness: later work noted that the snowfall that winter was exceptionally deep, so weather had a hand in it. That does not overturn the structure of overshoot, but it sharpens the lesson — overshoot removes the margin a system needs to survive one bad winter, rather than causing the collapse single-handedly.)</p>
+<div class="decide">
+<span class="lb">🎯 DECISION LINE</span>
+<p>Stop asking "how far are we from the limit" — that number usually cannot be estimated (see section 04). Measure two numbers that can be: <b>①</b> how long it takes for overload to become visible to you, and <b>②</b> how long one recovery cycle of the resource you are consuming takes. <b>Whenever ① is clearly larger than ②, your system is structurally committed to overshoot</b> — willpower, discipline and effort do not change that conclusion. The only things that do are those two numbers themselves: shorten the measurement cycle, or switch to a faster-regenerating resource.</p>
+</div>
+<div class="crossx-inline">
+🌀 <b>Economics · why shipbuilding is always in surplus</b>　Ordering a ship to taking delivery takes two or three years, and owners order on today's freight rates. So the orders triggered by a rate peak all hit the water two or three years later, when rates have already turned. That single delay has produced a century of cyclical overcapacity without any irrationality at all. Which implies something unwelcome: interventions aimed at <em>price</em> (subsidies, price floors, scrapping schemes) change the amplitude of the oscillation but not its phase, because the oscillation is generated by the delivery lag, not by the price. Only two things touch the structure: shorten delivery time, or make the total orderbook visible to everyone — the second being a way to deliver the late signal early.
+</div>
+<h2><span class="n">03</span>One Curve, One Constraint</h2>
+<p class="lead">The last section treated K as given. But K is never a constant of nature. It measures <b>whichever constraint is currently binding</b> — replace the constraint and you have a different curve.</p>
+<p>Agriculture shows this most plainly. For a long time the ceiling on food output was <b>arable land</b>: more people on less land was a hard stop. In the early twentieth century the synthesis of ammonia pulled nitrogen out of the air and the ceiling became <b>fertiliser</b>; later, short-stalked high-yield varieties and irrigation made it <b>seed and water</b>. Each time the old K was not nudged upward — <em>a completely different quantity took over as the ceiling</em>. The old curve still flattened out on schedule; another curve had simply started before it did.</p>
+<p>Join the upper edges of a series of such relayed S-curves and you get an <b>envelope curve</b>. From a distance it looks like a smooth exponential; up close it is made of discrete handoffs. Moore's law is the most famous envelope there is: bipolar transistors, CMOS, strained silicon, FinFET, three-dimensional stacking. Every prediction that "Moore's law is about to end" was right about <em>the curve then in play</em>, and wrong about the envelope.</p>
+<figure>
+<svg aria-label="Three relayed S-curves forming an envelope, and the correct moment to switch" role="img" viewbox="0 0 720 320" xmlns="http://www.w3.org/2000/svg">
+<defs>
+<marker id="a35c" markerheight="9" markerunits="userSpaceOnUse" markerwidth="9" orient="auto" refx="9" refy="5" viewbox="0 0 10 10">
+<path d="M0,1 L9,5 L0,9 z" fill="#8d867b"></path>
+</marker>
+</defs>
+<text fill="#aba498" font-family="-apple-system,sans-serif" font-size="13" text-anchor="middle" x="360" y="24">Looks like one exponential; is actually three relays</text>
+<line stroke="rgba(255,255,255,0.18)" stroke-width="1.5" x1="60" x2="700" y1="262" y2="262"></line>
+<line stroke="rgba(255,255,255,0.18)" stroke-width="1.5" x1="60" x2="60" y1="262" y2="40"></line>
+<text fill="#8d867b" font-family="-apple-system,sans-serif" font-size="11.5" x="68" y="52">performance / output</text>
+<polyline fill="none" points="60,247 100,241 130,230 160,212.5 190,195 220,184 250,178.5 280,176.3 340,175 450,175 690,175" stroke="#63b3a6" stroke-width="2.4"></polyline>
+<polyline fill="none" points="230,244.3 266,234 298,213.7 330,182.5 362,151.3 394,131 426,121.4 458,117.4 500,115.5 600,115 690,115" stroke="#d9b45f" stroke-width="2.4"></polyline>
+<polyline fill="none" points="400,242.6 442,226.8 476,197.5 510,152.5 544,107.5 578,78.2 612,64.2 646,58.5 690,55.6" stroke="#e0895e" stroke-width="2.4"></polyline>
+<polyline fill="none" points="60,246.5 130,229.8 190,195.2 250,178.5 310,175 350,160 394,131 440,120 490,115.4 530,112 546,106 578,78 612,64 690,55.6" stroke="#a8a49c" stroke-dasharray="7,5" stroke-width="1.8"></polyline>
+<text fill="#a8a49c" font-family="-apple-system,sans-serif" font-size="11.5" x="428" y="88">envelope: the upper hull</text>
+<text fill="#63b3a6" font-family="-apple-system,sans-serif" font-size="11.5" x="112" y="164">curve 1</text>
+<text fill="#d9b45f" font-family="-apple-system,sans-serif" font-size="11.5" x="600" y="107">curve 2</text>
+<text fill="#e0895e" font-family="-apple-system,sans-serif" font-size="11.5" x="628" y="46">curve 3</text>
+<line stroke="rgba(205,127,155,0.55)" stroke-dasharray="4,4" stroke-width="1.3" x1="300" x2="300" y1="120" y2="262"></line>
+<circle cx="300" cy="175.5" fill="#63b3a6" r="4.5"></circle>
+<circle cx="300" cy="212" fill="#d9b45f" r="4.5"></circle>
+<text fill="#cd7f9b" font-family="-apple-system,sans-serif" font-size="11.5" text-anchor="middle" x="300" y="112">the right moment to switch</text>
+<line marker-end="url(#a35c)" stroke="#8d867b" stroke-width="1.3" x1="176" x2="258" y1="292" y2="220"></line>
+<text fill="#787268" font-family="-apple-system,sans-serif" font-size="11" x="66" y="300">here curve 2 is lower in absolute terms (the lower dot) but its slope already far exceeds curve 1's</text>
+<text fill="#787268" font-family="-apple-system,sans-serif" font-size="11" x="612" y="286">time →</text>
+</svg>
+<figcaption>Each curve has its own ceiling. The envelope looks smooth only because the next curve starts before the last one stops — miss one handoff and the envelope becomes an S on the spot.</figcaption>
+</figure>
+<p>In 1986 the management scholar Richard Foster turned this into an investment criterion, and incidentally explained why incumbents keep missing transitions. His observation: near the top of the old curve, the performance you buy with each additional dollar keeps falling, while the new curve is still in its own slow beginning and <b>is necessarily lower in absolute terms</b>. So at the moment when switching is genuinely correct, the new option on the table necessarily looks like the worse choice. What fails is not judgement, it is the criterion. Compare absolute levels and you will always be late; how late depends on how long the old curve's tail is.</p>
+<div class="decide">
+<span class="lb">🎯 DECISION LINE</span>
+<p>To decide between doubling down and switching, do not compare levels. Compare two things: <b>①</b> the old option's <em>marginal return</em> — has the performance bought per additional unit of input been falling for several periods running; and <b>②</b> whether the new option's <em>slope</em> has passed the old option's slope (the slope, not the height). The slopes cross years before the heights do, and those years are the entire window for switching. Concretely: replace the line in your reporting that reads "how far ahead of the competition are we" with "how much did we improve this year versus how much did they improve this year".</p>
+</div>
+<div class="crossx-inline">
+🌀 <b>Medicine · the antibiotic baton was dropped</b>　Every class of antibiotic is an S-curve: discovery, adoption, accumulating resistance, decaying efficacy. Overall "treatability of infection" is the envelope of those curves. And for nearly thirty years after 1987 no new class was discovered at all (teixobactin in 2015 barely broke the streak) — which means the envelope stopped decades ago, and only the remaining headroom of the old curves has kept the consequences from showing up in mortality figures yet. The monitoring implication is counterintuitive: the number to watch is not "how many years does our current first-line drug have left" (that is headroom on an old curve) but <b>the discovery rate of new classes</b> — whether the baton is being caught at all. When that rate is zero, everything remaining is spending down a balance.
+</div>
+<h2><span class="n">04</span>You Cannot Locate Yourself From Inside</h2>
+<p class="lead">The last three sections assumed you know which part of the curve you are on. This one says: during the phase when you most need to know, you cannot.</p>
+<p>The reason is hidden in the formula. While N is much smaller than K, the discount term (1 − N/K) is almost exactly 1, and logistic growth <em>is</em> exponential growth — not "close to", but indistinguishable within the noise of the data. And K can only be estimated from the stretch where the curve begins to bend. <b>So when you want to know K there is no data, and by the time the data exists the answer no longer matters.</b></p>
+<p>In 1920 Raymond Pearl and Lowell Reed gave the textbook demonstration. They fitted an S-curve to US census figures from 1790 to 1910 and obtained a carrying capacity of <b>197 million</b>. This was not a careless exercise — the curve hugged the actual data all the way to about 1950 and was the best population forecast of its era. Then the US population crossed that "absolute upper limit" in <b>1967</b>, and today stands at 340 million, roughly 70% above their K.</p>
+<p>Their error was not in the arithmetic, nor in the data. It was that <b>197 million was never the location of a wall; it was a projection of where things would settle if the agriculture, urbanisation and immigration policy of the time never changed</b>. The constraint changed, and the projection expired.</p>
+<figure>
+<svg aria-label="Before the inflection point, exponential growth and S-curves with different carrying capacities are nearly indistinguishable" role="img" viewbox="0 0 720 300" xmlns="http://www.w3.org/2000/svg">
+<text fill="#aba498" font-family="-apple-system,sans-serif" font-size="13" text-anchor="middle" x="360" y="24">One dataset, three equally good extrapolations</text>
+<line stroke="rgba(255,255,255,0.18)" stroke-width="1.5" x1="70" x2="700" y1="252" y2="252"></line>
+<line stroke="rgba(255,255,255,0.18)" stroke-width="1.5" x1="70" x2="70" y1="252" y2="36"></line>
+<text fill="#8d867b" font-family="-apple-system,sans-serif" font-size="11.5" x="78" y="48">amount</text>
+<polyline fill="none" points="70,242 125,239.6 180,235.7 235,229.6 290,220 345,205 380,190.5" stroke="#cfc8bc" stroke-width="2.6"></polyline>
+<circle cx="98" cy="242.6" fill="#79a6d2" r="3.2"></circle>
+<circle cx="140" cy="236.4" fill="#79a6d2" r="3.2"></circle>
+<circle cx="182" cy="237.1" fill="#79a6d2" r="3.2"></circle>
+<circle cx="224" cy="229.2" fill="#79a6d2" r="3.2"></circle>
+<circle cx="266" cy="226.5" fill="#79a6d2" r="3.2"></circle>
+<circle cx="308" cy="214.2" fill="#79a6d2" r="3.2"></circle>
+<circle cx="350" cy="201.8" fill="#79a6d2" r="3.2"></circle>
+<line stroke="rgba(205,127,155,0.6)" stroke-dasharray="4,4" stroke-width="1.3" x1="380" x2="380" y1="60" y2="252"></line>
+<text fill="#cd7f9b" font-family="-apple-system,sans-serif" font-size="11.5" text-anchor="middle" x="380" y="52">data ends here</text>
+<polyline fill="none" points="380,190.5 405,163 425,131 442,88 455,50 462,38" stroke="#8d867b" stroke-dasharray="6,4" stroke-width="2.2"></polyline>
+<text fill="#8d867b" font-family="-apple-system,sans-serif" font-size="11.5" x="470" y="46">still exponential</text>
+<polyline fill="none" points="380,190.5 420,150 460,118 500,98 545,88 600,84 690,82" stroke="#e0895e" stroke-width="2.4"></polyline>
+<text fill="#e0895e" font-family="-apple-system,sans-serif" font-size="11.5" x="590" y="74">S-curve, higher K</text>
+<polyline fill="none" points="380,190.5 415,172 450,162 495,157 550,155 620,154 690,154" stroke="#63b3a6" stroke-width="2.4"></polyline>
+<text fill="#63b3a6" font-family="-apple-system,sans-serif" font-size="11.5" x="590" y="146">S-curve, lower K</text>
+<text fill="#787268" font-family="-apple-system,sans-serif" font-size="11" x="90" y="278">here the three curves differ by less than the data's own wobble — no amount of arguing settles it</text>
+<text fill="#787268" font-family="-apple-system,sans-serif" font-size="11" x="612" y="292">time →</text>
+</svg>
+<figcaption>Pearl and Reed's 1920 US population fit is the left half of this picture: near-perfect within the data range, and 70% wrong about K.</figcaption>
+</figure>
+<p>This has a direct consequence. Every argument of the form "this time is different / this is a new paradigm / the ceiling is right there" is, before the inflection point, <b>undecidable in principle from the data</b>. It is not that the arguers are insufficiently clever; the data in that stretch genuinely does not contain the information needed to separate the hypotheses. Continuing to argue is just an exchange of priors.</p>
+<p>The way out is not a better estimate of K but <b>a different observable</b>. Carrying capacity is an abstract limit and invisible; the specific thing blocking you right now is not. Change the question from "how much longer can we grow" to "<em>which input is binding us right now, and is the output bought by one more unit of it rising or falling this year</em>" — the second can be measured every quarter.</p>
+<div class="decide">
+<span class="lb">🎯 DECISION LINE</span>
+<p>Kill the "how much longer can we grow" debate — it is undecidable before the inflection point, and holding it only burns trust. Replace it with a two-column table: on the left, the 3–5 inputs current growth depends on (headcount, channels, compute, capital, attention); on the right, the change since last period in <b>output per unit of that input</b>. K is unmeasurable; marginal return is measurable. Whichever line falls two periods running is your actual K — and it is usually not the one you assumed.</p>
+</div>
+<div class="crossx-inline">
+🌀 <b>Philosophy · the engineering version of Hume's problem</b>　Hume argued that "it has always been so" cannot yield "it will continue to be so": induction has no logical guarantee. True, but so general that it is unusable. This section supplies an operational version: not "induction is unreliable in principle" but <b>how much data it takes to separate two specific candidate models is a computable quantity</b> — given the noise level and the gap between the curves, you can work out how many more observations you need. So the philosophical deadlock over "is this time different" becomes an engineering question: instead of continuing the argument, first compute how long, at the current data quality, the argument could possibly take to resolve. If the answer is ten years, the right move is to declare it undecidable now and go measure the things that are measurable.
+</div>
+<h2><span class="n">05</span>Where This Breaks Down</h2>
+<p class="lead">The S-curve is the most widely circulated shape in complexity science, and therefore the most abused. Four things to know before using it.</p>
+<p><b>First, Easter Island is not evidence.</b> You have probably heard the story: the islanders cut down every tree to move their statues, lost their canoes and their soil, and the population collapsed — civilisational suicide. It has been written into countless popular accounts of limits to growth as the specimen case of overshoot and collapse. It has also been substantially revised. The archaeologists Terry Hunt and Carl Lipo argue that the Polynesian rat, which arrived with the settlers and ate palm seeds, played a large part in the deforestation; and a 2024 <i>Nature</i> study of 15 ancient Rapanui genomes <b>found no genetic signal of a population crash before Europeans arrived</b>. The real collapse followed the Peruvian slave raids of 1862–63 and the smallpox that came after. The lesson is not that ecological collapse never happens, but this: <b>a story does not become evidence by being retold ten thousand times.</b> The St. Matthew reindeer were counted. Easter Island was not.</p>
+<p><b>Second, slowing down does not imply a ceiling.</b> The global population growth rate peaked around 1963 at roughly 2% a year and has fallen ever since, to under 1% today; the UN's 2024 projection has the population peaking near 10.3 billion in the 2080s and then declining. The shape fits an S perfectly. But the mechanism is <em>not</em> Malthusian: food output grew faster than population across those same decades. The slowdown comes from falling fertility — the <b>demographic transition</b>, driven by income, education, infant survival and urbanisation changing how many children people want. That mechanism has nothing to do with carrying capacity. Hence: <b>the S-shape is the common appearance of many different mechanisms, not the signature of any one of them.</b> Seeing a curve bend and concluding "we are near the carrying capacity" is like seeing a fever and concluding influenza.</p>
+<p><b>Third, the ledger of </b><i><b>The Limits to Growth</b></i><b> has two columns.</b> In 1972 Meadows and colleagues ran twelve scenarios through the World3 model <a class="reflink" href="ref-world3.en.html">→ ref · World3 and The Limits to Growth</a>, and the book still serves both as scripture and as target practice. The honest account: the famous table of "years of this mineral remaining" was a demonstration of how fast exponential arithmetic eats a reserve, <em>not a forecast</em>, yet it has been attacked as a forecast for fifty years. On the other side, Turner (2008, 2014) and Herrington (2021) compared observed data against the scenarios and found that the <b>aggregate variables</b> — population, industrial output, pollution — do broadly track the "standard run". But that is not a victory either: the variables are aggregated extremely coarsely over an extremely long horizon, so "broadly tracks" is weak evidence, and many of the model's relationships cannot be independently calibrated. Its real contribution is <b>structural</b> (delay + overshoot + a K that can be damaged), not numerical.</p>
+<p><b>Fourth, and most dangerous: the S-curve story is inherently unfalsifiable.</b> Any slowdown can be relabelled after the fact as "approaching K", and any reacceleration as "a new curve starting". A framework that explains every outcome explains nothing. To make it a tool rather than a rhetoric, two things have to be done <em>in advance</em>: <b>name the constraint</b> (what exactly is holding you back), and <b>state how it is measured</b> (which number tells you whether it has loosened). Miss either one and all you are holding is a shape.</p>
+<div class="decide">
+<span class="lb">🎯 DECISION LINE</span>
+<p>Before drawing any conclusion from an S-curve, write down a falsifiable sentence: <b>"If the marginal return on ××× (the constraint I have named) does not fall within the next N periods, then my judgement that we are near the limit is wrong."</b> If you can write it, the judgement is the kind of thing you can bet on. If you cannot, you have only fitted a shape to something that already happened. That sentence also settles which number to watch — it is the single new line on your dashboard.</p>
+</div>
+<div class="crossx-inline">
+🌀 <b>Literature · Aristotle's reversal</b>　The shape the <i>Poetics</i> prescribes for tragedy is rise, reversal (<i>peripeteia</i>), fall. That is not an observation about the world; it is a requirement of <b>narrative</b>: an audience needs a peak for the story to close. Which explains why the "rise, peak, decline" model fits almost anything once it has been told to the end — industry life cycles, the fall of empires, dynastic cycles, a career. <b>It fits because it is narrative grammar, not because it is a system mechanism.</b> That yields a usable dividing line: a life-cycle model applied only <em>after</em> the fact is rhetoric; only when it names the constraint variable and its measure <em>in advance</em> does it start bearing predictive risk — the same demand as the fourth point above, written down twenty-three centuries earlier.
+</div>
+<div class="bigcat">
+<h3>🎒 Scenarios · BigCat</h3>
+<ol>
+<li><span class="dm">teams &amp; organisations</span>Hiring almost inevitably overshoots, and not because of poor judgement. The trigger signal is usually "we were swamped last quarter", while headcount approval, interviewing, onboarding and actual productivity take four to six months — so every wave of new people lands after the peak has passed, producing "nothing for them to do", followed by another period of drowning. That is the standard shape of the delay mechanism from section 02. The fix is specific: change the trigger from <b>the level of load</b> (overtime hours, ticket backlog this quarter) to <b>the slope of load</b> — start hiring when the rate of increase has exceeded a threshold for two months, not when the level has exceeded a limit. Stop approving headcount on the basis of last quarter's overtime.</li>
+<li><span class="dm">parenting</span>A child learning something — an instrument, a sport, a language — hits a plateau, months pass with no visible progress, and the household conversation slides towards "maybe there's no talent for it" and "should we switch to something else". This issue's mechanism says: a plateau looks identical in two completely different situations — one where the current method is approaching its own K, and one where it is the gap between two curves (the old method exhausted, the new one not yet producing). What distinguishes them is not "how much progress" but <b>whether the content of practice has changed</b>: if the same material has been practised for three months, the plateau is telling you the method has topped out, not the person. What should change is the binding constraint inside the training (from fluency to difficulty, a different decomposition, a different source of feedback) — not the activity. And one metric to drop: weekly practice hours, which is just more input on the old curve's tail.</li>
+<li><span class="dm">practice &amp; mind</span>After an intense stretch of practice — a retreat, a period of strict schedule and effort — what often follows is not a return to the usual rhythm but a drop to <em>below</em> it: unable to sit, unable to summon the will, and slow to come back. That is the shape of overshoot damaging K: the thing consumed (willingness to practise, physical tolerance) recovers more slowly than it was spent. There is one action, and it is a hard one: after each intense period, record the <b>recovery time</b> — how many days from the end until the ordinary rhythm returned. Book it as a cost rather than treating it as evidence of weak will. The criterion follows: <b>if recovery took longer than the intense period itself, that round was net negative.</b> And stop treating "I did get through it at the time" as evidence the intensity was sustainable — getting through it at the time is the definition of overshoot.</li>
+</ol>
+</div>
+<div class="crossx">
+<h3>🌀 Crossings · Where Else This Runs</h3>
+<ul>
+<li><b>History · dynastic cycles and the people-to-land ratio</b>: The traditional account of a Chinese dynasty's life is a population curve: land is plentiful at the founding, population grows exponentially, and a century or so later there are too many people for the land, taxes bite, refugees appear, the dynasty falls, population crashes, land is abundant again, and the next round begins. Three of this issue's mechanisms cut that narrative into checkable parts: <em>exponential reproduction</em> (section 01) meets <em>a K defined by arable area × yield</em> (section 03), with <em>a very long delay</em> in between — clearing land, building irrigation, spreading a new crop all take decades, while the famine signal arrives the same year. Together they give a less obvious conclusion: the reason Ming and Qing populations broke through every earlier ceiling was not that "the cycle was broken" but that maize and sweet potato from the Americas moved K onto a different curve — that is the relay of section 03, not an extension of the same curve. <b>But here it does not hold</b>: the Malthusian people-to-land account has been heavily revised. Using genealogical and household-registration data, James Lee and Wang Feng showed that families in this period were nothing like passive breeders running into a wall — late marriage, infanticide, adoption and the timing of household division were all active regulation of fertility. In other words the system contained an <em>endogenous negative feedback</em> that the Malthusian model assumes away. Add that the timing of dynastic collapse often fails to line up with population peaks (fiscal, climatic and frontier factors weigh more), and what can be borrowed is only the structure — overshoot damages K, so recovery is asymmetric — not the causal claim that population pressure brings dynasties down.</li>
+<li><b>Ecology &amp; institutions · the systematic failure of maximum sustainable yield</b>: Twentieth-century fisheries management wrote a goal into law: <b>maximum sustainable yield</b> (MSY). Since growth is fastest at K/2 (section 01), hold the stock at K/2 and harvest that maximum increment every year. The logic is airtight, and in practice it presided over a string of collapses including Newfoundland cod. Several of this issue's mechanisms together show this was not poor execution but a target set in the wrong place. <em>K/2 is precisely the inflection point</em>, so any overestimate pushes the stock onto the side where growth is falling — the less there is, the more you must take (section 01). <em>Stock assessment is delayed</em>, so quotas are always based on a stock level from several years ago (section 02). <em>K itself is damaged by fishing</em>: big fish are taken first, the age structure is flattened, and selection even favours earlier-maturing, smaller fish, so K and r fall together (section 02). And <em>K cannot be estimated accurately before the inflection point</em> (section 04), which makes "where is K/2" the least reliable number in the whole scheme. From which follows a conclusion that is not obvious in advance: setting the target to the <b>right</b> of K/2 (holding a larger stock) costs almost nothing — the growth curve is flat near its peak, so holding 0.6K sacrifices only about 4% of the annual yield while buying a large margin of safety. The asymmetry comes not from caution but from the flatness of the top of that bell.</li>
+<li><b>Eastern thought · the "arrogant dragon" of the </b><i><b>Yijing</b></i>: The first hexagram of the <i>Yijing</i> runs from "the hidden dragon: do not act" up to the top line, <i>kang long you hui</i> — the dragon that has risen to the extreme and rises further will have cause for regret. What it offers is a purely <b>positional</b> criterion: which line you are on, not how high you are. This issue supplies exactly what that criterion lacks — how to measure the position. The answer: not by height (the absolute level) but by whether the growth rate has passed its peak (section 01) and whether the marginal return has begun to bend (sections 03, 04). "Knowing advance and retreat, survival and ruin, without losing what is right" thus becomes a computable quantity rather than a virtue. <b>But here it does not hold</b>: the six lines of a hexagram are <em>given in advance</em>, discrete, and necessarily traversed, so reaching the extreme is positional destiny; whereas the K of an S-curve is neither given in advance nor fixed — section 03 is entirely about how a relay lets a curve fail to end where it should. Reading "the arrogant dragon" as the necessity of reversal at every extreme turns something innovation can overturn into fate, and leads to retreating exactly when one should be switching curves. What can be borrowed is the ruler — watch position, not height — not the fatalism.</li>
+</ul>
+</div>
+<div class="thinking">
+<h3>Going Deeper</h3>
+<details><summary>If K can be raised indefinitely by innovation, does the word "limit" still mean anything?</summary><p>Yes, but it means something else. It no longer denotes a fixed number but the ceiling under the current constraint. Accepting that raises a harder question: is there a rate limit on the relays themselves? The envelope looks exponential only because each handoff happened in time; the antibiotic envelope stopped when the handoff rate went to zero. So the question of limits shifts from "how much resource is left" to "how fast can we manufacture new curves".</p></details>
+<details><summary>Which slowdowns are worth waiting out, and which demand switching now?</summary><p>An operational dividing line: if the falling marginal return comes from <em>scale itself</em> (bigger means harder to coordinate, more crowded), more input will not help, because scale is the constraint. If it comes from a specific replaceable input (a material, a channel, a kind of compute), replacing it is the start of a new curve. So the first job is not deciding whether to wait, but isolating which line is actually falling.</p></details>
+<details><summary>After an overshoot, does the system always come back to the old K?</summary><p>It depends on whether the consumed thing is renewable and whether an irreversible threshold was crossed. Lichen takes decades, topsoil centuries, extinction is permanent. This connects to the hysteresis loop of Topic 10: some systems will not retrace their path even if the pressure is removed entirely. The question to ask is "if consumption stopped now, how long until recovery" — not "can it recover".</p></details>
+<details><summary>The demographic transition shows a slowdown can come from internal norms rather than external resources. What other "spontaneous brakes" are there?</summary><p>Worth thinking about: voluntary reduction in movement during an epidemic (which happens before policy does), substitution triggered by rising prices in a market, hierarchy emerging spontaneously as an organisation grows. What they share is that the negative feedback comes from agents' <em>expectations</em> rather than from resource depletion — which also means they can fail abruptly when expectations change, a fragility that a pure resource constraint does not have.</p></details>
+<details><summary>Why do incumbents almost always double down on the old curve?</summary><p>Beyond the criterion problem (comparing absolute levels makes you late), there is a structural layer: marginal return on the old curve's tail is falling, but its <em>total</em> is still the largest in the business, and the organisation's costs, staffing and performance measures all hang off that total. So switching is not a cognitive problem but a question of whose budget gets cut — which is also why outsiders find the same judgement so much easier to make.</p></details>
+</div>
+<div class="refs">
+<h3>Further Reading</h3>
+<ul>
+<li>Verhulst and the logistic equation (1838): <a href="https://link.springer.com/chapter/10.1007/978-0-85729-115-8_6">A Short History of Mathematical Population Dynamics, ch. 6</a></li>
+<li>Pearl &amp; Reed, <a href="https://doi.org/10.1073/pnas.6.6.275">On the Rate of Growth of the Population of the United States since 1790</a> (1920 — the 197 million ceiling)</li>
+<li>David R. Klein, <a href="https://www.frames.gov/catalog/4236">The introduction, increase, and crash of reindeer on St. Matthew Island</a> (1968)</li>
+<li>Meadows et al., <a href="https://en.wikipedia.org/wiki/The_Limits_to_Growth">The Limits to Growth</a> (1972 — World3 and the twelve scenarios)</li>
+<li>Graham Turner, <a href="https://www.sciencedirect.com/science/article/abs/pii/S0959378008000435">A comparison of The Limits to Growth with 30 years of reality</a> (2008)</li>
+<li>Gaya Herrington, <a href="https://mahb.stanford.edu/wp-content/uploads/2021/07/yale-publication-1.pdf">Update to Limits to Growth: Comparing the World3 Model with Empirical Data</a> (2021)</li>
+<li><a href="https://www.nature.com/articles/d41586-024-02620-1">Rapa Nui's population history rewritten using ancient DNA</a> (Nature, 2024)</li>
+<li>UN <a href="https://population.un.org/wpp/">World Population Prospects 2024</a> (the source data for the peak and the growth rate)</li>
+<li>Our World in Data, <a href="https://ourworldindata.org/population-growth">Population Growth</a> (the chart showing the 1963 peak)</li>
+<li>Ling et al., <a href="https://www.nature.com/articles/nature14098">A new antibiotic kills pathogens without detectable resistance</a> (2015 — teixobactin, breaking a thirty-year void)</li>
+<li><a href="https://en.wikipedia.org/wiki/Technology_life_cycle">Technology life cycle</a> (general introduction to technology S-curves and envelopes)</li>
+</ul>
+</div>
+<footer>BigCat · Complexity Science · <a href="index.en.html">← All Topics</a></footer>
+</div>
+<script src="https://hub.cissychen.com/comments.js" defer></script>
+<script src="https://hub.cissychen.com/search.js" defer></script>
+<script src="https://hub.cissychen.com/index-button.js" defer></script>
+<script src="https://hub.cissychen.com/i18n-tts.js" defer></script>
+</body></html>

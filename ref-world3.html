@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+
+<html lang="zh-CN"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>World3 与增长的极限 · 参考库 · 复杂性科学</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,"SF Pro Display","Noto Sans SC",sans-serif;color:#e4ded5;line-height:1.85;min-height:100vh;
+  background:radial-gradient(1100px 620px at 12% -6%,rgba(99,179,166,0.09),transparent 62%),radial-gradient(950px 700px at 100% 2%,rgba(166,147,205,0.08),transparent 58%),linear-gradient(168deg,#100f0d 0%,#15161b 48%,#0a0a0c 100%);background-attachment:fixed}
+.wrap{max-width:720px;margin:0 auto;padding:30px 22px 90px}
+header{padding:52px 0 8px;border-bottom:1px solid rgba(255,255,255,0.07);margin-bottom:32px}
+.rtag{font-family:"SF Mono",Menlo,monospace;font-size:0.72rem;font-weight:700;letter-spacing:2px;color:#63b3a6;border:1px solid rgba(99,179,166,0.4);background:rgba(99,179,166,0.07);padding:3px 11px;border-radius:20px}
+h1{font-size:2.15rem;font-weight:800;line-height:1.2;margin:20px 0 0;color:#f0eae0}
+h1 .h1en{display:block;font-size:0.42em;font-weight:600;letter-spacing:2.5px;color:#847d72;margin-top:11px}
+.sub{font-size:0.98rem;color:#aba498;margin-top:12px}
+.meta{font-family:"SF Mono",Menlo,monospace;font-size:0.75rem;color:#57524b;margin-top:16px;letter-spacing:1px}
+h2{font-size:1.25rem;font-weight:700;color:#e9e3d9;margin:44px 0 10px}
+h2 .n{font-family:"SF Mono",Menlo,monospace;font-size:0.8rem;color:#63b3a6;display:block;margin-bottom:5px;letter-spacing:2px}
+.he{font-size:0.68em;color:#8d867b;font-weight:500;letter-spacing:0}
+p{margin-bottom:16px}
+b,strong{color:#f0eae0;font-weight:600}
+em{color:#d9b45f;font-style:normal;font-weight:500}
+.rule{border:1px solid rgba(99,179,166,0.3);background:rgba(99,179,166,0.05);border-radius:12px;padding:16px 20px;margin:22px 0;font-size:0.94rem;color:#d5cdc1}
+.rule ol{padding-left:20px;margin:0}
+.rule li{margin-bottom:7px}
+.rule li:last-child{margin-bottom:0}
+figure{margin:28px 0}
+figure svg{display:block;width:100%;height:auto;border-radius:12px;background:rgba(255,255,255,0.018);border:1px solid rgba(255,255,255,0.06)}
+figcaption{font-size:0.82rem;color:#787268;margin-top:10px;text-align:center;line-height:1.6}
+.cant{border:1px solid rgba(205,127,155,0.36);background:rgba(205,127,155,0.05);border-radius:12px;padding:18px 21px;margin:26px 0 10px}
+.cant h3{font-size:1rem;color:#cd7f9b;margin-bottom:12px}
+.cant ul{list-style:none;padding:0}
+.cant li{margin-bottom:13px;font-size:0.93rem;color:#d5cdc1;line-height:1.76}
+.cant li:last-child{margin-bottom:0}
+.cant li b{color:#cd7f9b}
+.refs{margin:40px 0 10px}
+.refs h3{font-size:1rem;color:#79a6d2;margin-bottom:12px}
+.refs ul{list-style:none;padding:0}
+.refs li{margin-bottom:9px;font-size:0.89rem;color:#8d867b;line-height:1.7}
+.refs a{color:#79a6d2;text-decoration:none;border-bottom:1px solid rgba(121,166,210,0.3)}
+.refs a:hover{color:#a6c4e2}
+footer{text-align:center;padding:52px 0 10px;font-size:0.78rem;color:#57524b;font-family:"SF Mono",Menlo,monospace;border-top:1px solid rgba(255,255,255,0.06);margin-top:46px}
+footer a{color:#79a6d2;text-decoration:none}
+@media(max-width:600px){h1{font-size:1.7rem}.wrap{padding:24px 16px 60px}}
+</style></head><body>
+<div class="wrap">
+<header>
+<span class="rtag">REF · 经典模型</span>
+<h1>World3 与增长的极限<span class="h1en">WORLD3 AND THE LIMITS TO GROWTH</span></h1>
+<p class="sub">Meadows 等，1972 — 把整个世界压缩成五个存量和一堆带时滞的反馈</p>
+<p class="meta">被引用于：Topic 35 增长的极限与 S 曲线</p>
+</header>
+<h2><span class="n">01</span>它问的是什么问题<span class="he">（The Question It Poses）</span></h2>
+<p>1970 年前后，关于资源的争论几乎都是静态的账：某种矿的储量除以当年用量，得出"还够用多少年"。这个算法有两个大洞。一是用量本身在增长，所以真实答案比它短得多；二是用量增长的原因（人口、工业）反过来又被资源、污染、粮食影响——五件事互相咬着，谁也不是外生的。</p>
+<p>Jay Forrester 和随后的 Meadows 团队问的不是"什么时候用完"，而是：<b>如果这五件事互相反馈，而且每条反馈都要几十年才走完，这个结构本身会给出什么形状？</b>World3 是回答这个问题的装置。它从一开始就不是预测机器，而是一台<em>形状发生器</em>——问的是"这类结构能长出哪几种未来"，不是"哪一年会发生什么"。</p>
+<h2><span class="n">02</span>规则本身<span class="he">（The Rules）</span></h2>
+<div class="rule">
+<ol>
+<li><b>五个存量</b>（stock，只能靠流量慢慢改变的量）：人口、工业资本、农业资本与耕地、持久性污染、不可再生资源。</li>
+<li><b>一组正反馈</b>：人口 → 劳动力 → 工业产出 → 一部分再投资成资本 → 更多产出；资本 → 农业投入 → 人均粮食上升 → 死亡率下降 → 人口更多。转得快，没有上限。</li>
+<li><b>一组负反馈，全都带长时滞</b>：工业产出 → 污染排放 →（几十年后才充分显效）→ 土地产量与预期寿命下降；资本 → 资源开采 → 剩余资源变少 → 每获得一单位资源要投入更多资本 → 能用于别处的资本变少。</li>
+<li><b>每个存量都在漏</b>：资本折旧、土地侵蚀、污染自然降解、人口死亡。</li>
+<li><b>十二个情景不是十二个模型</b>：结构一模一样，改的只是参数——资源储量翻倍、加装污染控制、土地产量翻番、普及生育控制，等等。看的是同一个结构在不同假设下会怎么走。</li>
+</ol>
+</div>
+<p>最要紧的是第 3 条里那个"长时滞"。它不是一个技术细节，是整个模型的发动机：<b>正反馈跑得快、负反馈来得慢</b>，这个速度差本身就足以产生超调，不需要任何人犯错。</p>
+<figure>
+<svg aria-label="World3 的两组回路：快速正反馈与带长时滞的负反馈" role="img" viewbox="0 0 700 300" xmlns="http://www.w3.org/2000/svg">
+<defs>
+<marker id="w3a" markerheight="10" markerunits="userSpaceOnUse" markerwidth="10" orient="auto" refx="9" refy="5" viewbox="0 0 10 10">
+<path d="M0,1 L9,5 L0,9 z" fill="#9fbc7a"></path>
+</marker>
+<marker id="w3b" markerheight="10" markerunits="userSpaceOnUse" markerwidth="10" orient="auto" refx="9" refy="5" viewbox="0 0 10 10">
+<path d="M0,1 L9,5 L0,9 z" fill="#cd7f9b"></path>
+</marker>
+</defs>
+<text fill="#9fbc7a" font-family="-apple-system,sans-serif" font-size="12.5" text-anchor="middle" x="175" y="28">快的那一组：正反馈</text>
+<text fill="#cd7f9b" font-family="-apple-system,sans-serif" font-size="12.5" text-anchor="middle" x="520" y="28">慢的那一组：负反馈</text>
+<line stroke="rgba(255,255,255,0.10)" stroke-width="1" x1="350" x2="350" y1="45" y2="285"></line>
+<rect fill="rgba(159,188,122,0.10)" height="38" rx="8" stroke="rgba(159,188,122,0.45)" width="110" x="120" y="52"></rect>
+<text fill="#d5cdc1" font-family="-apple-system,sans-serif" font-size="13" text-anchor="middle" x="175" y="76">人口</text>
+<rect fill="rgba(159,188,122,0.10)" height="38" rx="8" stroke="rgba(159,188,122,0.45)" width="110" x="230" y="170"></rect>
+<text fill="#d5cdc1" font-family="-apple-system,sans-serif" font-size="13" text-anchor="middle" x="285" y="194">工业产出</text>
+<rect fill="rgba(159,188,122,0.10)" height="38" rx="8" stroke="rgba(159,188,122,0.45)" width="110" x="20" y="170"></rect>
+<text fill="#d5cdc1" font-family="-apple-system,sans-serif" font-size="13" text-anchor="middle" x="75" y="194">粮食</text>
+<line marker-end="url(#w3a)" stroke="#9fbc7a" stroke-width="1.8" x1="212" x2="268" y1="94" y2="164"></line>
+<text fill="#9fbc7a" font-family="SF Mono,monospace" font-size="12" x="242" y="128">+</text>
+<line marker-end="url(#w3a)" stroke="#9fbc7a" stroke-width="1.8" x1="226" x2="136" y1="192" y2="192"></line>
+<text fill="#9fbc7a" font-family="SF Mono,monospace" font-size="12" x="176" y="182">+</text>
+<line marker-end="url(#w3a)" stroke="#9fbc7a" stroke-width="1.8" x1="86" x2="140" y1="164" y2="94"></line>
+<text fill="#9fbc7a" font-family="SF Mono,monospace" font-size="12" x="94" y="128">+</text>
+<text fill="#787268" font-family="-apple-system,sans-serif" font-size="11" text-anchor="middle" x="175" y="240">劳动力 → 产出 → 农业投入 →</text>
+<text fill="#787268" font-family="-apple-system,sans-serif" font-size="11" text-anchor="middle" x="175" y="256">人均粮食上升 → 死亡率下降</text>
+<text fill="#787268" font-family="-apple-system,sans-serif" font-size="11" text-anchor="middle" x="175" y="276">这一圈以年为单位转</text>
+<rect fill="rgba(205,127,155,0.10)" height="34" rx="8" stroke="rgba(205,127,155,0.45)" width="120" x="460" y="48"></rect>
+<text fill="#d5cdc1" font-family="-apple-system,sans-serif" font-size="13" text-anchor="middle" x="520" y="70">工业产出</text>
+<rect fill="rgba(205,127,155,0.10)" height="34" rx="8" stroke="rgba(205,127,155,0.45)" width="120" x="460" y="122"></rect>
+<text fill="#d5cdc1" font-family="-apple-system,sans-serif" font-size="13" text-anchor="middle" x="520" y="144">污染存量</text>
+<rect fill="rgba(205,127,155,0.10)" height="34" rx="8" stroke="rgba(205,127,155,0.45)" width="120" x="460" y="196"></rect>
+<text fill="#d5cdc1" font-family="-apple-system,sans-serif" font-size="13" text-anchor="middle" x="520" y="218">土地产量</text>
+<rect fill="rgba(205,127,155,0.10)" height="34" rx="8" stroke="rgba(205,127,155,0.45)" width="120" x="460" y="252"></rect>
+<text fill="#d5cdc1" font-family="-apple-system,sans-serif" font-size="13" text-anchor="middle" x="520" y="274">人口</text>
+<line marker-end="url(#w3b)" stroke="#cd7f9b" stroke-width="1.8" x1="520" x2="520" y1="82" y2="118"></line>
+<text fill="#cd7f9b" font-family="SF Mono,monospace" font-size="12" x="530" y="104">+</text>
+<line marker-end="url(#w3b)" stroke="#cd7f9b" stroke-width="1.8" x1="520" x2="520" y1="156" y2="192"></line>
+<text fill="#cd7f9b" font-family="SF Mono,monospace" font-size="12" x="530" y="178">−</text>
+<line marker-end="url(#w3b)" stroke="#cd7f9b" stroke-width="1.8" x1="520" x2="520" y1="230" y2="248"></line>
+<text fill="#cd7f9b" font-family="SF Mono,monospace" font-size="12" x="530" y="244">−</text>
+<text fill="#d9b45f" font-family="-apple-system,sans-serif" font-size="11.5" x="592" y="178">⏳ 这一步要几十年</text>
+<text fill="#787268" font-family="-apple-system,sans-serif" font-size="11" x="592" y="196">才充分显效</text>
+</svg>
+<figcaption>左边这圈以年为单位转，右边这条链以几十年为单位。两者速度差本身就是超调的来源——不需要谁犯错。</figcaption>
+</figure>
+<h2><span class="n">03</span>跑起来会看到什么<span class="he">（What You See When It Runs）</span></h2>
+<p>最常被引用的那条叫<b>标准运行</b>（standard run），意思是"参数不做任何乐观假设"。跑出来的不是一条曲线，是五条错开峰值的曲线：资源存量一路下滑；人均工业产出先见顶回落；粮食与服务随后；<b>人口是最后一个转折的</b>，而且要晚几十年。</p>
+<p>顺序和时差比数值重要得多。它说的是：等你在人口或者福利上看到问题，工业那一头已经过顶很久了。信号是按队排着来的，而不是一起到。</p>
+<p>第二个观察更结实，也更容易被忽略。把资源储量设成两倍再跑一遍，<b>崩溃并没有消失——它推迟了几十年，然后由污染引发。</b>放宽一个约束，形状不变，只是换了一个绑定约束（binding constraint）。这是这个模型最有价值的一条输出，也是它唯一一条不依赖具体参数的结论。</p>
+<figure>
+<svg aria-label="标准运行与资源翻倍两个情景的曲线对照" role="img" viewbox="0 0 700 300" xmlns="http://www.w3.org/2000/svg">
+<text fill="#aba498" font-family="-apple-system,sans-serif" font-size="12.5" text-anchor="middle" x="195" y="26">标准运行</text>
+<text fill="#aba498" font-family="-apple-system,sans-serif" font-size="12.5" text-anchor="middle" x="525" y="26">资源储量翻倍</text>
+<line stroke="rgba(255,255,255,0.18)" stroke-width="1.4" x1="55" x2="335" y1="192" y2="192"></line>
+<line stroke="rgba(255,255,255,0.18)" stroke-width="1.4" x1="55" x2="55" y1="192" y2="50"></line>
+<polyline fill="none" points="55,68 110,76 160,92 210,122 265,158 335,182" stroke="#a8a49c" stroke-width="2.2"></polyline>
+<polyline fill="none" points="55,182 95,166 125,145 155,124 185,133 225,155 280,175 335,186" stroke="#e0895e" stroke-width="2.2"></polyline>
+<polyline fill="none" points="55,180 105,170 155,150 205,131 245,141 285,160 335,178" stroke="#63b3a6" stroke-width="2.2"></polyline>
+<polyline fill="none" points="55,188 110,185 160,175 205,155 250,140 290,144 335,152" stroke="#cd7f9b" stroke-width="2.2"></polyline>
+<line stroke="rgba(99,179,166,0.5)" stroke-dasharray="4,4" stroke-width="1.2" x1="205" x2="205" y1="131" y2="192"></line>
+<text fill="#63b3a6" font-family="-apple-system,sans-serif" font-size="10.5" text-anchor="middle" x="205" y="206">人口峰值</text>
+<text fill="#787268" font-family="-apple-system,sans-serif" font-size="10.5" text-anchor="middle" x="195" y="224">约束是资源：开采成本吃掉资本</text>
+<line stroke="rgba(255,255,255,0.18)" stroke-width="1.4" x1="385" x2="665" y1="192" y2="192"></line>
+<line stroke="rgba(255,255,255,0.18)" stroke-width="1.4" x1="385" x2="385" y1="192" y2="50"></line>
+<polyline fill="none" points="385,68 445,72 505,80 560,95 610,115 665,138" stroke="#a8a49c" stroke-width="2.2"></polyline>
+<polyline fill="none" points="385,184 430,172 480,152 520,128 545,116 580,128 620,152 665,176" stroke="#e0895e" stroke-width="2.2"></polyline>
+<polyline fill="none" points="385,182 440,174 495,158 545,138 600,124 630,133 665,152" stroke="#63b3a6" stroke-width="2.2"></polyline>
+<polyline fill="none" points="385,189 445,183 500,168 545,145 585,128 620,132 665,140" stroke="#cd7f9b" stroke-width="2.2"></polyline>
+<line stroke="rgba(99,179,166,0.5)" stroke-dasharray="4,4" stroke-width="1.2" x1="600" x2="600" y1="124" y2="192"></line>
+<text fill="#63b3a6" font-family="-apple-system,sans-serif" font-size="10.5" text-anchor="middle" x="600" y="206">人口峰值</text>
+<text fill="#787268" font-family="-apple-system,sans-serif" font-size="10.5" text-anchor="middle" x="525" y="224">约束换成污染：形状一样，死因不同</text>
+<rect fill="#a8a49c" height="3" width="18" x="80" y="252"></rect><text fill="#8d867b" font-family="-apple-system,sans-serif" font-size="11" x="104" y="257">剩余资源</text>
+<rect fill="#e0895e" height="3" width="18" x="200" y="252"></rect><text fill="#8d867b" font-family="-apple-system,sans-serif" font-size="11" x="224" y="257">人均工业产出</text>
+<rect fill="#63b3a6" height="3" width="18" x="350" y="252"></rect><text fill="#8d867b" font-family="-apple-system,sans-serif" font-size="11" x="374" y="257">人口</text>
+<rect fill="#cd7f9b" height="3" width="18" x="440" y="252"></rect><text fill="#8d867b" font-family="-apple-system,sans-serif" font-size="11" x="464" y="257">污染存量</text>
+<text fill="#787268" font-family="-apple-system,sans-serif" font-size="10.5" text-anchor="middle" x="350" y="284">纵轴是各自的相对水平，不是同一把尺子；这张图要看的是峰值的先后，不是高低</text>
+</svg>
+<figcaption>把资源翻倍，形状不变、时间推后、绑定约束从资源换成污染。这是 World3 最不依赖参数的一条结论。</figcaption>
+</figure>
+<h2><span class="n">04</span>它解释了现实中的什么<span class="he">（What It Explains）</span></h2>
+<p>World3 不解释任何一件具体的事，它给的是一整类系统的<b>形状目录</b>：凡是"增长有惯性、约束反馈很慢、被消耗的东西恢复不快"的系统，可能的结局就那么几种——平滑趋近、绕着上限振荡、或者超调之后掉到一个更低的水平。</p>
+<p>它同时解释了一个反复出现的政策失败模式：<b>单点技术修复常常只是把崩溃推后，并且换一个死因。</b>这不是对技术的悲观，是对"只放宽一个约束"的诊断——除非几个约束一起松开，否则系统只是换个地方卡住。</p>
+<p>至于它跟现实对得上对不上：Graham Turner（2008、2014）和 Gaya Herrington（2021）把观测数据与情景做过对照，结论是人口、工业产出、污染这些<b>聚合变量</b>大体贴着标准运行那一条走。这个结论应该谨慎地读——见下一节。</p>
+<div class="cant">
+<h3>它不能解释什么<span class="he">（What It Cannot Explain）</span></h3>
+<ul>
+<li><b>不能预测时间。</b>整个地球被聚合成一个格子：没有国家、没有地理、没有贸易、没有分配。任何一条曲线在横轴上的具体位置都不该被当真，"某年会怎样"这类读法是模型明确拒绝提供的东西。</li>
+<li><b>没有价格，因此没有替代。</b>这是 William Nordhaus 1973 年那篇著名批评的核心：现实里稀缺会抬价，抬价会引发勘探、替代与效率投资——这条反馈很强，而模型里它基本不存在。少了它，资源约束被系统性地画得太硬。</li>
+<li><b>参数无法独立校准。</b>模型里大量关系是拍出来的形状函数（比如污染对寿命的影响曲线），没有独立数据源。所以"跑出来像现实"这件事的证据力天然就弱——聚合得越粗，能拟合的东西越多。</li>
+<li><b>那张矿产年数表不是预测。</b>书里"某某矿还够几年"的表格是在演示指数算术吃储量有多快，却被当成预测批判了五十年。批评它等于没批评到模型。</li>
+<li><b>情景不是政策，它也不含任何政治。</b>模型里没有"谁来决定""谁承担代价""如何达成一致"。它能告诉你某类结构会长出什么形状，不能告诉你该做什么，更不能替任何具体政策背书。</li>
+</ul>
+</div>
+<div class="refs">
+<h3>延伸阅读<span class="he">（Further Reading）</span></h3>
+<ul>
+<li>Meadows et al., <a href="https://en.wikipedia.org/wiki/The_Limits_to_Growth">The Limits to Growth</a>（1972，含批评综述）</li>
+<li><a href="https://en.wikipedia.org/wiki/World3">World3</a>（模型结构、变量与各版本的差异）</li>
+<li>Graham Turner, <a href="https://www.sciencedirect.com/science/article/abs/pii/S0959378008000435">A comparison of The Limits to Growth with 30 years of reality</a>（2008）</li>
+<li>Gaya Herrington, <a href="https://mahb.stanford.edu/wp-content/uploads/2021/07/yale-publication-1.pdf">Update to Limits to Growth: Comparing the World3 Model with Empirical Data</a>（2021）</li>
+<li><a href="https://en.wikipedia.org/wiki/Jay_Wright_Forrester">Jay Forrester</a>（系统动力学与 World1/World2 的来路）</li>
+</ul>
+</div>
+<footer>BigCat · 复杂性科学 · <a href="index.html">← 全部 Topic</a></footer>
+</div>
+<script src="https://hub.cissychen.com/comments.js" defer></script>
+<script src="https://hub.cissychen.com/search.js" defer></script>
+<script src="https://hub.cissychen.com/index-button.js" defer></script>
+<script src="https://hub.cissychen.com/i18n-tts.js" defer></script>
+</body></html>
