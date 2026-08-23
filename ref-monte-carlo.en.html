@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+
+<html lang="en"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Monte Carlo &amp; Ensemble Simulation · Reference · Complexity Science</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,"SF Pro Display","Noto Sans SC",sans-serif;color:#e4ded5;line-height:1.85;min-height:100vh;
+  background:radial-gradient(1100px 620px at 12% -6%,rgba(99,179,166,0.09),transparent 62%),radial-gradient(950px 700px at 100% 2%,rgba(166,147,205,0.08),transparent 58%),linear-gradient(168deg,#100f0d 0%,#15161b 48%,#0a0a0c 100%);background-attachment:fixed}
+.wrap{max-width:720px;margin:0 auto;padding:30px 22px 90px}
+header{padding:52px 0 8px;border-bottom:1px solid rgba(255,255,255,0.07);margin-bottom:32px}
+.rtag{font-family:"SF Mono",Menlo,monospace;font-size:0.72rem;font-weight:700;letter-spacing:2px;color:#63b3a6;border:1px solid rgba(99,179,166,0.4);background:rgba(99,179,166,0.07);padding:3px 11px;border-radius:20px}
+h1{font-size:2.15rem;font-weight:800;line-height:1.2;margin:20px 0 0;color:#f0eae0}
+h1 .h1en{display:block;font-size:0.42em;font-weight:600;letter-spacing:2.5px;color:#847d72;margin-top:11px}
+.sub{font-size:0.98rem;color:#aba498;margin-top:12px}
+.meta{font-family:"SF Mono",Menlo,monospace;font-size:0.75rem;color:#57524b;margin-top:16px;letter-spacing:1px}
+h2{font-size:1.25rem;font-weight:700;color:#e9e3d9;margin:44px 0 10px}
+h2 .n{font-family:"SF Mono",Menlo,monospace;font-size:0.8rem;color:#63b3a6;display:block;margin-bottom:5px;letter-spacing:2px}
+.he{font-size:0.68em;color:#8d867b;font-weight:500;letter-spacing:0}
+p{margin-bottom:16px}
+b,strong{color:#f0eae0;font-weight:600}
+em{color:#d9b45f;font-style:normal;font-weight:500}
+.rule{border:1px solid rgba(99,179,166,0.3);background:rgba(99,179,166,0.05);border-radius:12px;padding:16px 20px;margin:22px 0;font-size:0.94rem;color:#d5cdc1}
+.rule ol{padding-left:20px;margin:0}
+.rule li{margin-bottom:7px}
+.rule li:last-child{margin-bottom:0}
+figure{margin:28px 0}
+figure svg{display:block;width:100%;height:auto;border-radius:12px;background:rgba(255,255,255,0.018);border:1px solid rgba(255,255,255,0.06)}
+figcaption{font-size:0.82rem;color:#787268;margin-top:10px;text-align:center;line-height:1.6}
+.cant{border:1px solid rgba(205,127,155,0.36);background:rgba(205,127,155,0.05);border-radius:12px;padding:18px 21px;margin:26px 0 10px}
+.cant h3{font-size:1rem;color:#cd7f9b;margin-bottom:12px}
+.cant ul{list-style:none;padding:0}
+.cant li{margin-bottom:13px;font-size:0.93rem;color:#d5cdc1;line-height:1.76}
+.cant li:last-child{margin-bottom:0}
+.cant li b{color:#cd7f9b}
+.refs{margin:40px 0 10px}
+.refs h3{font-size:1rem;color:#79a6d2;margin-bottom:12px}
+.refs ul{list-style:none;padding:0}
+.refs li{margin-bottom:9px;font-size:0.89rem;color:#8d867b;line-height:1.7}
+.refs a{color:#79a6d2;text-decoration:none;border-bottom:1px solid rgba(121,166,210,0.3)}
+.refs a:hover{color:#a6c4e2}
+footer{text-align:center;padding:52px 0 10px;font-size:0.78rem;color:#57524b;font-family:"SF Mono",Menlo,monospace;border-top:1px solid rgba(255,255,255,0.06);margin-top:46px}
+footer a{color:#79a6d2;text-decoration:none}
+@media(max-width:600px){h1{font-size:1.7rem}.wrap{padding:24px 16px 60px}}
+</style></head><body>
+<div class="wrap">
+<header>
+<span class="rtag">REF · METHOD</span>
+<h1>Monte Carlo &amp; Ensemble Simulation</h1>
+<p class="sub">Ulam and von Neumann, 1946 — when you cannot compute the distribution, run the process ten thousand times</p>
+<p class="meta">Cited in: Topic 37, Risk in a Heavy-Tailed World</p>
+</header>
+<h2><span class="n">01</span>The Question It Poses</h2>
+<p>In 1946, recovering from illness and playing solitaire, the mathematician Stanisław Ulam wondered what the chances were that a given deal would come out. The combinatorics were hopeless — far too many arrangements. Then the thought: <b>rather than compute it, deal a hundred hands and count how many succeed.</b> He described the idea to John von Neumann and the two of them soon had it running on neutron diffusion at Los Alamos. The code name came from the casino in Monaco, where an uncle of Ulam's used to gamble.</p>
+<p>The question it addresses: <b>when a system's distribution of outcomes has no closed form, how do you find out what it looks like?</b> In complex systems that is the norm rather than the exception — thresholds, feedback and path dependence between the inputs and the outcome leave nothing to solve analytically.</p>
+<p>There is a harder version too. Some quantities are not properties of a distribution at all but of a <em>path</em> — the probability of going bust along the way, of touching a floor before day 30, of three consecutive failures. Those cannot be computed even from a known distribution, because they ask how the process travelled rather than where it ended. Simulation answers them directly, since travelling is exactly what it does.</p>
+<h2><span class="n">02</span>The Rules</h2>
+<div class="rule">
+<ol>
+<li>Write down <b>the process that produces the outcome</b> — not the distribution of the outcome, the mechanism.</li>
+<li>Give every uncertain input a distribution (demand, task duration, failure rate, returns…).</li>
+<li>Draw one value for each, run the whole process once, record the outcome.</li>
+<li>Repeat N times, where N is usually thousands to millions.</li>
+<li>Read <b>the whole distribution</b> of those N outcomes — median, percentiles, the worst handful — not just the mean.</li>
+</ol>
+</div>
+<p><b>Ensemble simulation</b> is the same idea worn differently: one model, run repeatedly from slightly different initial conditions and parameters, producing a bundle of futures. Ensemble weather forecasting works exactly this way — the uncertainty comes from sensitive dependence on initial conditions, so a bundle of trajectories is more honest than a single one. What both share: <b>a crowd of samples in place of one answer.</b></p>
+<figure>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 190" role="img" aria-label="The Monte Carlo loop"><defs><marker id="mc2" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="9" markerHeight="9" markerUnits="userSpaceOnUse" orient="auto"><path d="M0,1 L9,5 L0,9 z" fill="#8d867b"/></marker><marker id="mc3" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="9" markerHeight="9" markerUnits="userSpaceOnUse" orient="auto"><path d="M0,1 L9,5 L0,9 z" fill="#d9b45f"/></marker></defs><text x="360.0" y="26.0" fill="#aba498" font-family="-apple-system,sans-serif" font-size="13" text-anchor="middle">The loop</text><rect x="26" y="62" width="108" height="58" rx="10" fill="rgba(255,255,255,0.03)" stroke="#9fbc7a" stroke-opacity="0.45"/><text x="80.0" y="77.0" fill="#9fbc7a" font-family="-apple-system,sans-serif" font-size="10.8" text-anchor="middle">the process,</text><text x="80.0" y="92.0" fill="#9fbc7a" font-family="-apple-system,sans-serif" font-size="10.8" text-anchor="middle">written as rules</text><line x1="136" y1="91" x2="160" y2="91" stroke="#8d867b" stroke-width="1.5" marker-end="url(#mc2)"/><rect x="166" y="62" width="108" height="58" rx="10" fill="rgba(255,255,255,0.03)" stroke="#d9b45f" stroke-opacity="0.45"/><text x="220.0" y="70.0" fill="#d9b45f" font-family="-apple-system,sans-serif" font-size="10.8" text-anchor="middle">draw one value</text><text x="220.0" y="85.0" fill="#d9b45f" font-family="-apple-system,sans-serif" font-size="10.8" text-anchor="middle">for each</text><text x="220.0" y="100.0" fill="#d9b45f" font-family="-apple-system,sans-serif" font-size="10.8" text-anchor="middle">uncertain input</text><line x1="276" y1="91" x2="300" y2="91" stroke="#8d867b" stroke-width="1.5" marker-end="url(#mc2)"/><rect x="306" y="62" width="108" height="58" rx="10" fill="rgba(255,255,255,0.03)" stroke="#63b3a6" stroke-opacity="0.45"/><text x="360.0" y="70.0" fill="#63b3a6" font-family="-apple-system,sans-serif" font-size="10.8" text-anchor="middle">run it once</text><text x="360.0" y="85.0" fill="#63b3a6" font-family="-apple-system,sans-serif" font-size="10.8" text-anchor="middle">&#8594; one</text><text x="360.0" y="100.0" fill="#63b3a6" font-family="-apple-system,sans-serif" font-size="10.8" text-anchor="middle">outcome</text><line x1="416" y1="91" x2="440" y2="91" stroke="#8d867b" stroke-width="1.5" marker-end="url(#mc2)"/><rect x="446" y="62" width="108" height="58" rx="10" fill="rgba(255,255,255,0.03)" stroke="#79a6d2" stroke-opacity="0.45"/><text x="500.0" y="70.0" fill="#79a6d2" font-family="-apple-system,sans-serif" font-size="10.8" text-anchor="middle">repeat N times,</text><text x="500.0" y="85.0" fill="#79a6d2" font-family="-apple-system,sans-serif" font-size="10.8" text-anchor="middle">keep every</text><text x="500.0" y="100.0" fill="#79a6d2" font-family="-apple-system,sans-serif" font-size="10.8" text-anchor="middle">outcome</text><line x1="556" y1="91" x2="580" y2="91" stroke="#8d867b" stroke-width="1.5" marker-end="url(#mc2)"/><rect x="586" y="62" width="108" height="58" rx="10" fill="rgba(255,255,255,0.03)" stroke="#cd7f9b" stroke-opacity="0.45"/><text x="640.0" y="70.0" fill="#cd7f9b" font-family="-apple-system,sans-serif" font-size="10.8" text-anchor="middle">read the</text><text x="640.0" y="85.0" fill="#cd7f9b" font-family="-apple-system,sans-serif" font-size="10.8" text-anchor="middle">distribution,</text><text x="640.0" y="100.0" fill="#cd7f9b" font-family="-apple-system,sans-serif" font-size="10.8" text-anchor="middle">not the mean</text><path d="M500,124 C480,168 260,168 194,132" fill="none" stroke="#d9b45f" stroke-width="1.5" marker-end="url(#mc3)"/><text x="350.0" y="172.0" fill="#d9b45f" font-family="SF Mono,monospace" font-size="11" text-anchor="middle">N times</text></svg>
+<figcaption>The method is just this loop. The loop was never the hard part — steps 1 and 2 are, because that is where the assumptions go in.</figcaption>
+</figure>
+<h2><span class="n">03</span>What You See When It Runs</h2>
+<p>Take a situation everyone has met: a project of five sequential tasks, each "most likely" taking 5 days, each able to run long (rarely early, occasionally very late). Add the five most-likely values and you get 25 days — the schedule almost anybody would commit to.</p>
+<p>Run it twenty thousand times and this is what is actually there:</p>
+<figure>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 316" role="img" aria-label="Simulated project duration distribution"><defs><marker id="mc1" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="9" markerHeight="9" markerUnits="userSpaceOnUse" orient="auto"><path d="M0,1 L9,5 L0,9 z" fill="#8d867b"/></marker></defs><text x="360.0" y="26.0" fill="#aba498" font-family="-apple-system,sans-serif" font-size="13" text-anchor="middle">20,000 runs of the same five-task project</text><g fill="rgba(99,179,166,0.42)"><rect x="88.0" y="249.8" width="11.9" height="0.2"/><rect x="100.7" y="249.3" width="11.9" height="0.7"/><rect x="113.4" y="248.9" width="11.9" height="1.1"/><rect x="126.1" y="245.9" width="11.9" height="4.1"/><rect x="138.8" y="240.0" width="11.9" height="10.0"/><rect x="151.6" y="231.9" width="11.9" height="18.1"/><rect x="164.3" y="214.7" width="11.9" height="35.3"/><rect x="177.0" y="189.6" width="11.9" height="60.4"/><rect x="189.7" y="161.5" width="11.9" height="88.5"/><rect x="202.4" y="135.0" width="11.9" height="115.0"/><rect x="215.1" y="114.5" width="11.9" height="135.5"/><rect x="227.8" y="80.3" width="11.9" height="169.7"/><rect x="240.5" y="67.3" width="11.9" height="182.7"/><rect x="253.2" y="58.1" width="11.9" height="191.9"/><rect x="266.0" y="58.0" width="11.9" height="192.0"/><rect x="278.7" y="59.2" width="11.9" height="190.8"/><rect x="291.4" y="89.3" width="11.9" height="160.7"/><rect x="304.1" y="103.8" width="11.9" height="146.2"/><rect x="316.8" y="125.5" width="11.9" height="124.5"/><rect x="329.5" y="150.7" width="11.9" height="99.3"/><rect x="342.2" y="165.6" width="11.9" height="84.4"/><rect x="354.9" y="182.9" width="11.9" height="67.1"/><rect x="367.6" y="198.9" width="11.9" height="51.1"/><rect x="380.4" y="210.6" width="11.9" height="39.4"/><rect x="393.1" y="222.6" width="11.9" height="27.4"/><rect x="405.8" y="230.4" width="11.9" height="19.6"/><rect x="418.5" y="233.6" width="11.9" height="16.4"/><rect x="431.2" y="237.2" width="11.9" height="12.8"/><rect x="443.9" y="241.2" width="11.9" height="8.8"/><rect x="456.6" y="244.6" width="11.9" height="5.4"/><rect x="469.3" y="247.3" width="11.9" height="2.7"/><rect x="482.0" y="248.2" width="11.9" height="1.8"/><rect x="494.8" y="248.8" width="11.9" height="1.2"/><rect x="507.5" y="249.1" width="11.9" height="0.9"/><rect x="520.2" y="249.3" width="11.9" height="0.7"/><rect x="532.9" y="249.1" width="11.9" height="0.9"/><rect x="545.6" y="249.7" width="11.9" height="0.3"/><rect x="558.3" y="249.9" width="11.9" height="0.1"/><rect x="571.0" y="250.0" width="11.9" height="0.0"/><rect x="583.7" y="249.9" width="11.9" height="0.1"/><rect x="596.4" y="250.0" width="11.9" height="0.0"/><rect x="609.2" y="250.0" width="11.9" height="0.0"/><rect x="621.9" y="250.0" width="11.9" height="0.0"/><rect x="634.6" y="250.0" width="11.9" height="0.0"/><rect x="647.3" y="250.0" width="11.9" height="0.0"/></g><line x1="88.0" y1="250.0" x2="660.0" y2="250.0" stroke="rgba(255,255,255,0.18)" stroke-width="1.4"/><text x="151.6" y="268.0" fill="#787268" font-family="SF Mono,monospace" font-size="11" text-anchor="middle">20</text><text x="278.7" y="268.0" fill="#787268" font-family="SF Mono,monospace" font-size="11" text-anchor="middle">30</text><text x="405.8" y="268.0" fill="#787268" font-family="SF Mono,monospace" font-size="11" text-anchor="middle">40</text><text x="532.9" y="268.0" fill="#787268" font-family="SF Mono,monospace" font-size="11" text-anchor="middle">50</text><text x="660.0" y="268.0" fill="#787268" font-family="SF Mono,monospace" font-size="11" text-anchor="middle">60</text><text x="360.0" y="288.0" fill="#8d867b" font-family="-apple-system,sans-serif" font-size="11.5" text-anchor="middle">total duration, days</text><line x1="215.1" y1="250.0" x2="215.1" y2="66.0" stroke="#e0895e" stroke-width="2"/><text x="209.1" y="60.0" fill="#e0895e" font-family="-apple-system,sans-serif" font-size="11.5" text-anchor="end">sum of the five most-likely times</text><text x="209.1" y="76.0" fill="#e0895e" font-family="-apple-system,sans-serif" font-size="11.5" text-anchor="end">25 d</text><line x1="274.0" y1="250.0" x2="274.0" y2="66.0" stroke="#d9b45f" stroke-width="2"/><text x="280.0" y="60.0" fill="#d9b45f" font-family="-apple-system,sans-serif" font-size="11.5" text-anchor="start">median</text><text x="280.0" y="76.0" fill="#d9b45f" font-family="-apple-system,sans-serif" font-size="11.5" text-anchor="start">30 d</text><line x1="359.9" y1="250.0" x2="359.9" y2="66.0" stroke="#cd7f9b" stroke-width="2"/><text x="365.9" y="60.0" fill="#cd7f9b" font-family="-apple-system,sans-serif" font-size="11.5" text-anchor="start">90th percentile</text><text x="365.9" y="76.0" fill="#cd7f9b" font-family="-apple-system,sans-serif" font-size="11.5" text-anchor="start">36 d</text><text x="360.0" y="308.0" fill="#57524b" font-family="-apple-system,sans-serif" font-size="11" text-anchor="middle">The point estimate sits at the 14th percentile: adding "most likely" times ignores that overruns are right-skewed and do not cancel out.</text></svg>
+<figcaption>The 25-day point estimate sits at the 14th percentile: commit to that schedule and roughly one delivery in seven arrives on time.</figcaption>
+</figure>
+<p>The median is 30 days and the 90th percentile is 36. <b>25 days is not the average case; it is the lucky case.</b> The reason is plain once seen: delay is right-skewed (a task can run very long but rarely finishes very early), and five skewed tasks do not cancel each other out, they add. Intuition has almost no chance with this. One simulation shows it immediately.</p>
+<p>Two other regularities show up every time. <b>Convergence is slow and has a fixed rhythm</b>: accuracy improves roughly as 1/√N, so halving the error costs four times the runs. <b>And tails are far more expensive than middles</b>: a few hundred runs pin down a median, while a 99.9th percentile needs orders of magnitude more — the tail is the rarest part of the sample and simulation does not manufacture extra copies of it.</p>
+<h2><span class="n">04</span>What It Explains</h2>
+<p>Strictly it explains nothing. It is a machine for <b>translating assumptions into consequences</b>. Its value is threefold:</p>
+<p><b>It returns a distribution instead of a point.</b> Schedules, capacity plans, budgets — anywhere a single number gets promised, the promise can become a percentile ("90% confident of delivery within 36 days"), and that sentence can only be said by someone who ran it.</p>
+<p><b>It computes path properties.</b> Probability of ruin, of touching a floor, of at least one occurrence within a year — none of these come out of an expected-value formula, and they are usually the variables the decision actually turns on.</p>
+<p><b>It makes uncertainty portable.</b> Ensemble weather forecasting (the ECMWF runs dozens of members), option pricing, engineering reliability, particle transport, supply-chain break analysis — all the same loop. Their shared predicament: the mechanism is clear, the analytic solution is absent, and the tail is what matters.</p>
+<div class="cant">
+<h3>What It Cannot Explain</h3>
+<ul>
+<li><b>It cannot be truer than your assumptions.</b> The output distribution is entirely determined by what you wrote in steps 1 and 2. The tail especially: a distribution's tail is almost never told to you by data, it is prescribed by the family you picked. Choose a normal and you will never simulate a black swan — not because the world lacks them, but because you excluded them at step 2.</li>
+<li><b>The dependence structure is what goes wrong, not the marginals.</b> Treating inputs as independent is the default move and the most common fatal error in simulation. The Gaussian-copula models used to price mortgage pools before 2008 had perfectly reasonable marginals; what they got wrong was the correlation of simultaneous default. <b>Miss the tail dependence and the whole simulation is running experiments on a world that does not exist.</b></li>
+<li><b>It cannot see the tail cheaply.</b> The 1/√N convergence rate makes extreme percentiles expensive to estimate — and those are exactly the numbers you wanted. Serious tail work needs dedicated techniques such as importance sampling; "just run it more" does not get there.</li>
+<li><b>More runs are not more evidence.</b> A million runs of one model give you a million consequences of that model, not a million facts about the world. Simulation answers "if my assumptions hold, what follows"; it can never answer "do my assumptions hold" — only data and falsifiable predictions do that.</li>
+<li><b>The random numbers are not random.</b> Standard practice uses pseudo-random generators: the same seed reproduces the same stream exactly. Excellent for reproducibility, but do not treat two runs from one seed as independent evidence, and do not use them where cryptographic strength is required.</li>
+</ul>
+</div>
+<div class="refs">
+<h3>Further Reading</h3>
+<ul>
+<li>Metropolis &amp; Ulam, <a href="https://www.tandfonline.com/doi/abs/10.1080/01621459.1949.10483310">The Monte Carlo Method</a> (1949, the formal statement)</li>
+<li>Nicholas Metropolis, <a href="https://library.lanl.gov/cgi-bin/getfile?00326866.pdf">The Beginning of the Monte Carlo Method</a> (1987, a participant on the origin and the code name)</li>
+<li><a href="https://en.wikipedia.org/wiki/Monte_Carlo_method">Monte Carlo method</a> · <a href="https://en.wikipedia.org/wiki/Ensemble_forecasting">ensemble forecasting</a> (the weather version)</li>
+<li>Felix Salmon, <a href="https://www.wired.com/2009/02/wp-quant/">Recipe for Disaster: The Formula That Killed Wall Street</a> (2009, the Gaussian copula and its correlation assumption)</li>
+<li><a href="https://en.wikipedia.org/wiki/Importance_sampling">Importance sampling</a> (the technique built for estimating tails)</li>
+</ul>
+</div>
+<footer>BigCat · Complexity Science · <a href="index.en.html">← All Topics</a></footer>
+</div>
+<script src="https://hub.cissychen.com/comments.js" defer></script>
+<script src="https://hub.cissychen.com/search.js" defer></script>
+<script src="https://hub.cissychen.com/index-button.js" defer></script>
+<script src="https://hub.cissychen.com/i18n-tts.js" defer></script>
+</body></html>

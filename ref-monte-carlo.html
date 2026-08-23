@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+
+<html lang="zh-CN"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>蒙特卡罗与集合模拟 · 参考库 · 复杂性科学</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,"SF Pro Display","Noto Sans SC",sans-serif;color:#e4ded5;line-height:1.85;min-height:100vh;
+  background:radial-gradient(1100px 620px at 12% -6%,rgba(99,179,166,0.09),transparent 62%),radial-gradient(950px 700px at 100% 2%,rgba(166,147,205,0.08),transparent 58%),linear-gradient(168deg,#100f0d 0%,#15161b 48%,#0a0a0c 100%);background-attachment:fixed}
+.wrap{max-width:720px;margin:0 auto;padding:30px 22px 90px}
+header{padding:52px 0 8px;border-bottom:1px solid rgba(255,255,255,0.07);margin-bottom:32px}
+.rtag{font-family:"SF Mono",Menlo,monospace;font-size:0.72rem;font-weight:700;letter-spacing:2px;color:#63b3a6;border:1px solid rgba(99,179,166,0.4);background:rgba(99,179,166,0.07);padding:3px 11px;border-radius:20px}
+h1{font-size:2.15rem;font-weight:800;line-height:1.2;margin:20px 0 0;color:#f0eae0}
+h1 .h1en{display:block;font-size:0.42em;font-weight:600;letter-spacing:2.5px;color:#847d72;margin-top:11px}
+.sub{font-size:0.98rem;color:#aba498;margin-top:12px}
+.meta{font-family:"SF Mono",Menlo,monospace;font-size:0.75rem;color:#57524b;margin-top:16px;letter-spacing:1px}
+h2{font-size:1.25rem;font-weight:700;color:#e9e3d9;margin:44px 0 10px}
+h2 .n{font-family:"SF Mono",Menlo,monospace;font-size:0.8rem;color:#63b3a6;display:block;margin-bottom:5px;letter-spacing:2px}
+.he{font-size:0.68em;color:#8d867b;font-weight:500;letter-spacing:0}
+p{margin-bottom:16px}
+b,strong{color:#f0eae0;font-weight:600}
+em{color:#d9b45f;font-style:normal;font-weight:500}
+.rule{border:1px solid rgba(99,179,166,0.3);background:rgba(99,179,166,0.05);border-radius:12px;padding:16px 20px;margin:22px 0;font-size:0.94rem;color:#d5cdc1}
+.rule ol{padding-left:20px;margin:0}
+.rule li{margin-bottom:7px}
+.rule li:last-child{margin-bottom:0}
+figure{margin:28px 0}
+figure svg{display:block;width:100%;height:auto;border-radius:12px;background:rgba(255,255,255,0.018);border:1px solid rgba(255,255,255,0.06)}
+figcaption{font-size:0.82rem;color:#787268;margin-top:10px;text-align:center;line-height:1.6}
+.cant{border:1px solid rgba(205,127,155,0.36);background:rgba(205,127,155,0.05);border-radius:12px;padding:18px 21px;margin:26px 0 10px}
+.cant h3{font-size:1rem;color:#cd7f9b;margin-bottom:12px}
+.cant ul{list-style:none;padding:0}
+.cant li{margin-bottom:13px;font-size:0.93rem;color:#d5cdc1;line-height:1.76}
+.cant li:last-child{margin-bottom:0}
+.cant li b{color:#cd7f9b}
+.refs{margin:40px 0 10px}
+.refs h3{font-size:1rem;color:#79a6d2;margin-bottom:12px}
+.refs ul{list-style:none;padding:0}
+.refs li{margin-bottom:9px;font-size:0.89rem;color:#8d867b;line-height:1.7}
+.refs a{color:#79a6d2;text-decoration:none;border-bottom:1px solid rgba(121,166,210,0.3)}
+.refs a:hover{color:#a6c4e2}
+footer{text-align:center;padding:52px 0 10px;font-size:0.78rem;color:#57524b;font-family:"SF Mono",Menlo,monospace;border-top:1px solid rgba(255,255,255,0.06);margin-top:46px}
+footer a{color:#79a6d2;text-decoration:none}
+@media(max-width:600px){h1{font-size:1.7rem}.wrap{padding:24px 16px 60px}}
+</style></head><body>
+<div class="wrap">
+<header>
+<span class="rtag">REF · 方法</span>
+<h1>蒙特卡罗与集合模拟<span class="h1en">MONTE CARLO &amp; ENSEMBLE SIMULATION</span></h1>
+<p class="sub">Ulam 与 von Neumann，1946 — 当你算不出分布，就把过程跑一万遍</p>
+<p class="meta">被引用于：Topic 37 厚尾世界的风险</p>
+</header>
+<h2><span class="n">01</span>它问的是什么问题<span class="he">（The Question It Poses）</span></h2>
+<p>1946 年，数学家 Stanisław Ulam 在病中打单人纸牌，想算某种牌局能顺利走完的概率。组合数学的路子走不通——可能的排列太多了。于是他冒出一个念头：<b>与其算，不如发一百次牌，数一下成功了几次。</b>他把这个想法说给 John von Neumann 听，两人很快把它用到了洛斯阿拉莫斯的中子扩散问题上。代号取自摩纳哥的赌场，因为 Ulam 有位叔叔常去那里。</p>
+<p>它要问的问题是：<b>当一个系统的结果分布写不出公式时，怎么知道它长什么样？</b>这在复杂系统里是常态而不是例外——过程里有阈值、有反馈、有路径依赖，输入的一点分布叠加起来就没有解析解了。</p>
+<p>还有一个更硬的版本：有些量<em>本来就不是</em>分布的性质，而是路径的性质——"中途破产的概率""在第 30 天之前触及某个下限的概率""连续三次失败的可能"。这类问题即使你知道分布也算不出来，因为它们问的是过程怎么走的，而不是终点在哪儿。模拟能直接回答它们，因为模拟本来就是在走路径。</p>
+<h2><span class="n">02</span>规则本身<span class="he">（The Rules）</span></h2>
+<div class="rule">
+<ol>
+<li>把<b>产生结果的过程</b>写成规则——不是写结果的分布，是写机制。</li>
+<li>给每个不确定的输入指定一个分布（销量、工期、故障率、收益率……）。</li>
+<li>抽一组输入，把过程完整跑一遍，记下结果。</li>
+<li>重复 N 次，N 通常是几千到几百万。</li>
+<li>看这 N 个结果的<b>整个分布</b>：中位数、分位数、最坏的那一小撮，而不只是均值。</li>
+</ol>
+</div>
+<p><b>集合模拟</b>（ensemble simulation）是同一个想法的另一种用法：模型只有一个，但你用略微不同的初始条件和参数各跑一遍，得到一"束"未来。天气预报里的集合预报就是这么做的——不确定性来自初值的敏感依赖，跑一束轨迹比跑一条更诚实。两者的共同点是：<b>用一群样本代替一个答案。</b></p>
+<figure>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 190" role="img" aria-label="蒙特卡罗的循环"><defs><marker id="mc2" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="9" markerHeight="9" markerUnits="userSpaceOnUse" orient="auto"><path d="M0,1 L9,5 L0,9 z" fill="#8d867b"/></marker><marker id="mc3" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="9" markerHeight="9" markerUnits="userSpaceOnUse" orient="auto"><path d="M0,1 L9,5 L0,9 z" fill="#d9b45f"/></marker></defs><text x="360.0" y="26.0" fill="#aba498" font-family="-apple-system,sans-serif" font-size="13" text-anchor="middle">整个方法就是这个循环</text><rect x="26" y="62" width="108" height="58" rx="10" fill="rgba(255,255,255,0.03)" stroke="#9fbc7a" stroke-opacity="0.45"/><text x="80.0" y="84.0" fill="#9fbc7a" font-family="-apple-system,sans-serif" font-size="10.8" text-anchor="middle">把过程写成规则</text><line x1="136" y1="91" x2="160" y2="91" stroke="#8d867b" stroke-width="1.5" marker-end="url(#mc2)"/><rect x="166" y="62" width="108" height="58" rx="10" fill="rgba(255,255,255,0.03)" stroke="#d9b45f" stroke-opacity="0.45"/><text x="220.0" y="77.0" fill="#d9b45f" font-family="-apple-system,sans-serif" font-size="10.8" text-anchor="middle">给每个不确定输入抽</text><text x="220.0" y="92.0" fill="#d9b45f" font-family="-apple-system,sans-serif" font-size="10.8" text-anchor="middle">一个值</text><line x1="276" y1="91" x2="300" y2="91" stroke="#8d867b" stroke-width="1.5" marker-end="url(#mc2)"/><rect x="306" y="62" width="108" height="58" rx="10" fill="rgba(255,255,255,0.03)" stroke="#63b3a6" stroke-opacity="0.45"/><text x="360.0" y="77.0" fill="#63b3a6" font-family="-apple-system,sans-serif" font-size="10.8" text-anchor="middle">跑完一次 → 得到</text><text x="360.0" y="92.0" fill="#63b3a6" font-family="-apple-system,sans-serif" font-size="10.8" text-anchor="middle">一个结果</text><line x1="416" y1="91" x2="440" y2="91" stroke="#8d867b" stroke-width="1.5" marker-end="url(#mc2)"/><rect x="446" y="62" width="108" height="58" rx="10" fill="rgba(255,255,255,0.03)" stroke="#79a6d2" stroke-opacity="0.45"/><text x="500.0" y="77.0" fill="#79a6d2" font-family="-apple-system,sans-serif" font-size="10.8" text-anchor="middle">重复 N 次，把结</text><text x="500.0" y="92.0" fill="#79a6d2" font-family="-apple-system,sans-serif" font-size="10.8" text-anchor="middle">果都留着</text><line x1="556" y1="91" x2="580" y2="91" stroke="#8d867b" stroke-width="1.5" marker-end="url(#mc2)"/><rect x="586" y="62" width="108" height="58" rx="10" fill="rgba(255,255,255,0.03)" stroke="#cd7f9b" stroke-opacity="0.45"/><text x="640.0" y="77.0" fill="#cd7f9b" font-family="-apple-system,sans-serif" font-size="10.8" text-anchor="middle">看整个分布，而不是</text><text x="640.0" y="92.0" fill="#cd7f9b" font-family="-apple-system,sans-serif" font-size="10.8" text-anchor="middle">那个均值</text><path d="M500,124 C480,168 260,168 194,132" fill="none" stroke="#d9b45f" stroke-width="1.5" marker-end="url(#mc3)"/><text x="350.0" y="172.0" fill="#d9b45f" font-family="SF Mono,monospace" font-size="11" text-anchor="middle">重复 N 次</text></svg>
+<figcaption>方法本身只有这一个循环。难的从来不是循环，是第 1 步和第 2 步里那些你不得不做的假设。</figcaption>
+</figure>
+<h2><span class="n">03</span>跑起来会看到什么<span class="he">（What You See When It Runs）</span></h2>
+<p>拿一个人人都碰到过的例子：一个项目由五道工序串起来，每道工序"最可能"耗时 5 天，但都有拖长的可能（很少提前，偶尔大拖）。把五个"最可能"加起来是 25 天——这是几乎所有人给出的排期。</p>
+<p>把它跑两万遍，看到的是这样：</p>
+<figure>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 316" role="img" aria-label="模拟出的项目工期分布"><defs><marker id="mc1" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="9" markerHeight="9" markerUnits="userSpaceOnUse" orient="auto"><path d="M0,1 L9,5 L0,9 z" fill="#8d867b"/></marker></defs><text x="360.0" y="26.0" fill="#aba498" font-family="-apple-system,sans-serif" font-size="13" text-anchor="middle">同一个五道工序的项目，跑两万遍</text><g fill="rgba(99,179,166,0.42)"><rect x="88.0" y="249.8" width="11.9" height="0.2"/><rect x="100.7" y="249.3" width="11.9" height="0.7"/><rect x="113.4" y="248.9" width="11.9" height="1.1"/><rect x="126.1" y="245.9" width="11.9" height="4.1"/><rect x="138.8" y="240.0" width="11.9" height="10.0"/><rect x="151.6" y="231.9" width="11.9" height="18.1"/><rect x="164.3" y="214.7" width="11.9" height="35.3"/><rect x="177.0" y="189.6" width="11.9" height="60.4"/><rect x="189.7" y="161.5" width="11.9" height="88.5"/><rect x="202.4" y="135.0" width="11.9" height="115.0"/><rect x="215.1" y="114.5" width="11.9" height="135.5"/><rect x="227.8" y="80.3" width="11.9" height="169.7"/><rect x="240.5" y="67.3" width="11.9" height="182.7"/><rect x="253.2" y="58.1" width="11.9" height="191.9"/><rect x="266.0" y="58.0" width="11.9" height="192.0"/><rect x="278.7" y="59.2" width="11.9" height="190.8"/><rect x="291.4" y="89.3" width="11.9" height="160.7"/><rect x="304.1" y="103.8" width="11.9" height="146.2"/><rect x="316.8" y="125.5" width="11.9" height="124.5"/><rect x="329.5" y="150.7" width="11.9" height="99.3"/><rect x="342.2" y="165.6" width="11.9" height="84.4"/><rect x="354.9" y="182.9" width="11.9" height="67.1"/><rect x="367.6" y="198.9" width="11.9" height="51.1"/><rect x="380.4" y="210.6" width="11.9" height="39.4"/><rect x="393.1" y="222.6" width="11.9" height="27.4"/><rect x="405.8" y="230.4" width="11.9" height="19.6"/><rect x="418.5" y="233.6" width="11.9" height="16.4"/><rect x="431.2" y="237.2" width="11.9" height="12.8"/><rect x="443.9" y="241.2" width="11.9" height="8.8"/><rect x="456.6" y="244.6" width="11.9" height="5.4"/><rect x="469.3" y="247.3" width="11.9" height="2.7"/><rect x="482.0" y="248.2" width="11.9" height="1.8"/><rect x="494.8" y="248.8" width="11.9" height="1.2"/><rect x="507.5" y="249.1" width="11.9" height="0.9"/><rect x="520.2" y="249.3" width="11.9" height="0.7"/><rect x="532.9" y="249.1" width="11.9" height="0.9"/><rect x="545.6" y="249.7" width="11.9" height="0.3"/><rect x="558.3" y="249.9" width="11.9" height="0.1"/><rect x="571.0" y="250.0" width="11.9" height="0.0"/><rect x="583.7" y="249.9" width="11.9" height="0.1"/><rect x="596.4" y="250.0" width="11.9" height="0.0"/><rect x="609.2" y="250.0" width="11.9" height="0.0"/><rect x="621.9" y="250.0" width="11.9" height="0.0"/><rect x="634.6" y="250.0" width="11.9" height="0.0"/><rect x="647.3" y="250.0" width="11.9" height="0.0"/></g><line x1="88.0" y1="250.0" x2="660.0" y2="250.0" stroke="rgba(255,255,255,0.18)" stroke-width="1.4"/><text x="151.6" y="268.0" fill="#787268" font-family="SF Mono,monospace" font-size="11" text-anchor="middle">20</text><text x="278.7" y="268.0" fill="#787268" font-family="SF Mono,monospace" font-size="11" text-anchor="middle">30</text><text x="405.8" y="268.0" fill="#787268" font-family="SF Mono,monospace" font-size="11" text-anchor="middle">40</text><text x="532.9" y="268.0" fill="#787268" font-family="SF Mono,monospace" font-size="11" text-anchor="middle">50</text><text x="660.0" y="268.0" fill="#787268" font-family="SF Mono,monospace" font-size="11" text-anchor="middle">60</text><text x="360.0" y="288.0" fill="#8d867b" font-family="-apple-system,sans-serif" font-size="11.5" text-anchor="middle">总工期（天）</text><line x1="215.1" y1="250.0" x2="215.1" y2="66.0" stroke="#e0895e" stroke-width="2"/><text x="209.1" y="60.0" fill="#e0895e" font-family="-apple-system,sans-serif" font-size="11.5" text-anchor="end">五道工序「最可能耗时」直接相加</text><text x="209.1" y="76.0" fill="#e0895e" font-family="-apple-system,sans-serif" font-size="11.5" text-anchor="end">25 天</text><line x1="274.0" y1="250.0" x2="274.0" y2="66.0" stroke="#d9b45f" stroke-width="2"/><text x="280.0" y="60.0" fill="#d9b45f" font-family="-apple-system,sans-serif" font-size="11.5" text-anchor="start">中位数</text><text x="280.0" y="76.0" fill="#d9b45f" font-family="-apple-system,sans-serif" font-size="11.5" text-anchor="start">30 天</text><line x1="359.9" y1="250.0" x2="359.9" y2="66.0" stroke="#cd7f9b" stroke-width="2"/><text x="365.9" y="60.0" fill="#cd7f9b" font-family="-apple-system,sans-serif" font-size="11.5" text-anchor="start">90 分位</text><text x="365.9" y="76.0" fill="#cd7f9b" font-family="-apple-system,sans-serif" font-size="11.5" text-anchor="start">36 天</text><text x="360.0" y="308.0" fill="#57524b" font-family="-apple-system,sans-serif" font-size="11" text-anchor="middle">点估计落在 14 分位 — 把「最可能耗时」相加，忽略了拖延是右偏的、不会互相抵消</text></svg>
+<figcaption>点估计 25 天落在第 14 分位：也就是说，按这个排期承诺，大约每七次里只有一次能按时交付。</figcaption>
+</figure>
+<p>中位数是 30 天，90 分位是 36 天。<b>25 天不是"平均情况"，它是好运气的情况。</b>原因很简单：拖延是右偏的（能拖很久，很难提前很多），五道工序的偏斜不会互相抵消，而是加起来。这件事凭直觉几乎不可能想清楚，但模拟一跑就直接看见了。</p>
+<p>还会看到两个稳定的现象。<b>一是收敛慢且有节奏</b>：估计的精度大致按 1/√N 提高，也就是精度翻一倍要四倍的样本量。<b>二是尾部比中间难得多</b>：估中位数几百次就够了，估 99.9% 分位需要的样本量高好几个数量级——尾部本来就是最稀有的那一小撮，而模拟并不会凭空多给你几个。</p>
+<h2><span class="n">04</span>它解释了现实中的什么<span class="he">（What It Explains）</span></h2>
+<p>它算不上"解释"什么，它是一台<b>把假设翻译成后果</b>的机器。真正的价值有三个：</p>
+<p><b>给出分布而不是点估计。</b>项目排期、产能规划、预算，凡是承诺一个数字的地方，都可以改成承诺一个分位数（"90% 的把握在 36 天内交付"），而这句话只有跑过才说得出口。</p>
+<p><b>算得出路径属性。</b>破产概率、触及某个下限的概率、一年内至少发生一次的概率——这些是期望值公式给不了的，而它们往往才是真正的决策变量。</p>
+<p><b>让不确定性可以被搬运。</b>天气的集合预报（欧洲中期天气预报中心跑几十个成员）、期权定价、工程可靠性、粒子输运、供应链断点分析，用的都是同一个循环。它们的共同处境是：机制清楚、解析解没有、而尾部要命。</p>
+<div class="cant">
+<h3>它不能解释什么<span class="he">（What It Cannot Explain）</span></h3>
+<ul>
+<li><b>不能比你的假设更真。</b>输出分布完全由你在第 1、2 步写下的东西决定。尤其是尾部：分布的尾巴几乎从来不是数据告诉你的，是你选的那个分布族替你规定的。选了正态，你就永远模拟不出黑天鹅——不是因为世界没有，是因为你在第 2 步就把它排除了。</li>
+<li><b>最容易错的是依赖结构，不是边缘分布。</b>把各个输入当成独立的，是默认动作，也是模拟里最常见的致命错。2008 年前后用高斯 copula 给按揭组合定价的那一批模型，边缘分布都合理，错的是把"同时违约"的相关性设得太低。<b>尾部相关性一漏，整个模拟就是在给一个不存在的世界做实验。</b></li>
+<li><b>不能便宜地看清尾巴。</b>1/√N 的收敛速度意味着极端分位数的估计代价极高，而这恰恰是你最想知道的部分。真要做尾部，得用重要性抽样这类专门技术，不能靠"多跑几次"硬来。</li>
+<li><b>跑得多不等于证据多。</b>同一个模型跑一百万次，得到的是这个模型的一百万个后果，不是关于世界的一百万条证据。模拟能告诉你"如果我的假设对，会怎样"，永远不能告诉你"我的假设对不对"——后者只能靠数据和可证伪的预测。</li>
+<li><b>随机数不是随机的。</b>常用的是伪随机数发生器，同一个种子给出完全相同的一串数。这对复现是好事，但别把同一个种子下的两次运行当成两条独立证据，也别在需要密码学强度时用它。</li>
+</ul>
+</div>
+<div class="refs">
+<h3>延伸阅读<span class="he">（Further Reading）</span></h3>
+<ul>
+<li>Metropolis &amp; Ulam, <a href="https://www.tandfonline.com/doi/abs/10.1080/01621459.1949.10483310">The Monte Carlo Method</a>（1949，方法的正式提出）</li>
+<li>Nicholas Metropolis, <a href="https://library.lanl.gov/cgi-bin/getfile?00326866.pdf">The Beginning of the Monte Carlo Method</a>（1987，当事人回忆代号与起源）</li>
+<li><a href="https://en.wikipedia.org/wiki/Monte_Carlo_method">Monte Carlo method</a> · <a href="https://en.wikipedia.org/wiki/Ensemble_forecasting">集合预报</a>（天气里的用法）</li>
+<li>Felix Salmon, <a href="https://www.wired.com/2009/02/wp-quant/">Recipe for Disaster: The Formula That Killed Wall Street</a>（2009，高斯 copula 与相关性假设）</li>
+<li><a href="https://en.wikipedia.org/wiki/Importance_sampling">重要性抽样</a>（专门用来估尾部的技术）</li>
+</ul>
+</div>
+<footer>BigCat · 复杂性科学 · <a href="index.html">← 全部 Topic</a></footer>
+</div>
+<script src="https://hub.cissychen.com/comments.js" defer></script>
+<script src="https://hub.cissychen.com/search.js" defer></script>
+<script src="https://hub.cissychen.com/index-button.js" defer></script>
+<script src="https://hub.cissychen.com/i18n-tts.js" defer></script>
+</body></html>
