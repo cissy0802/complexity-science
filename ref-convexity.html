@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+
+<html lang="zh-CN"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>凸性与 Jensen 不等式 · 参考库 · 复杂性科学</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,"SF Pro Display","Noto Sans SC",sans-serif;color:#e4ded5;line-height:1.85;min-height:100vh;
+  background:radial-gradient(1100px 620px at 12% -6%,rgba(99,179,166,0.09),transparent 62%),radial-gradient(950px 700px at 100% 2%,rgba(166,147,205,0.08),transparent 58%),linear-gradient(168deg,#100f0d 0%,#15161b 48%,#0a0a0c 100%);background-attachment:fixed}
+.wrap{max-width:720px;margin:0 auto;padding:30px 22px 90px}
+header{padding:52px 0 8px;border-bottom:1px solid rgba(255,255,255,0.07);margin-bottom:32px}
+.rtag{font-family:"SF Mono",Menlo,monospace;font-size:0.72rem;font-weight:700;letter-spacing:2px;color:#63b3a6;border:1px solid rgba(99,179,166,0.4);background:rgba(99,179,166,0.07);padding:3px 11px;border-radius:20px}
+h1{font-size:2.15rem;font-weight:800;line-height:1.2;margin:20px 0 0;color:#f0eae0}
+h1 .h1en{display:block;font-size:0.42em;font-weight:600;letter-spacing:2.5px;color:#847d72;margin-top:11px}
+.sub{font-size:0.98rem;color:#aba498;margin-top:12px}
+.meta{font-family:"SF Mono",Menlo,monospace;font-size:0.75rem;color:#57524b;margin-top:16px;letter-spacing:1px}
+h2{font-size:1.25rem;font-weight:700;color:#e9e3d9;margin:44px 0 10px}
+h2 .n{font-family:"SF Mono",Menlo,monospace;font-size:0.8rem;color:#63b3a6;display:block;margin-bottom:5px;letter-spacing:2px}
+.he{font-size:0.68em;color:#8d867b;font-weight:500;letter-spacing:0}
+p{margin-bottom:16px}
+b,strong{color:#f0eae0;font-weight:600}
+em{color:#d9b45f;font-style:normal;font-weight:500}
+.rule{border:1px solid rgba(99,179,166,0.3);background:rgba(99,179,166,0.05);border-radius:12px;padding:16px 20px;margin:22px 0;font-size:0.94rem;color:#d5cdc1}
+.rule ol{padding-left:20px;margin:0}
+.rule li{margin-bottom:7px}
+.rule li:last-child{margin-bottom:0}
+figure{margin:28px 0}
+figure svg{display:block;width:100%;height:auto;border-radius:12px;background:rgba(255,255,255,0.018);border:1px solid rgba(255,255,255,0.06)}
+figcaption{font-size:0.82rem;color:#787268;margin-top:10px;text-align:center;line-height:1.6}
+.cant{border:1px solid rgba(205,127,155,0.36);background:rgba(205,127,155,0.05);border-radius:12px;padding:18px 21px;margin:26px 0 10px}
+.cant h3{font-size:1rem;color:#cd7f9b;margin-bottom:12px}
+.cant ul{list-style:none;padding:0}
+.cant li{margin-bottom:13px;font-size:0.93rem;color:#d5cdc1;line-height:1.76}
+.cant li:last-child{margin-bottom:0}
+.cant li b{color:#cd7f9b}
+.refs{margin:40px 0 10px}
+.refs h3{font-size:1rem;color:#79a6d2;margin-bottom:12px}
+.refs ul{list-style:none;padding:0}
+.refs li{margin-bottom:9px;font-size:0.89rem;color:#8d867b;line-height:1.7}
+.refs a{color:#79a6d2;text-decoration:none;border-bottom:1px solid rgba(121,166,210,0.3)}
+.refs a:hover{color:#a6c4e2}
+footer{text-align:center;padding:52px 0 10px;font-size:0.78rem;color:#57524b;font-family:"SF Mono",Menlo,monospace;border-top:1px solid rgba(255,255,255,0.06);margin-top:46px}
+footer a{color:#79a6d2;text-decoration:none}
+@media(max-width:600px){h1{font-size:1.7rem}.wrap{padding:24px 16px 60px}}
+</style></head><body>
+<div class="wrap">
+<header>
+<span class="rtag">REF · 方法</span>
+<h1>凸性与 Jensen 不等式<span class="h1en">CONVEXITY AND JENSEN'S INEQUALITY</span></h1>
+<p class="sub">Johan Jensen，1906 — 一个量在波动的时候，"平均值"能不能代进去</p>
+<p class="meta">被引用于：Topic 39 反脆弱与选择权</p>
+</header>
+<h2><span class="n">01</span>它问的是什么问题<span class="he">（The Question It Poses）</span></h2>
+<p>你手上有一个会波动的量：明年的客流、这批零件的应力、这次给药的剂量、服务器的并发数。你通常只知道它的<b>平均值</b>。于是你把平均值代进公式，算出一个结果，然后拿这个结果去做计划。</p>
+<p>这个动作合不合法？答案完全取决于一件事：结果对这个量的响应曲线是<b>直的</b>还是<b>弯的</b>。直的时候代平均值毫无问题；弯的时候，你算出来的那个数根本不是平均结果，而且偏差有固定方向。Jensen 不等式回答的就是这个方向朝哪儿、以及为什么必然朝那儿。</p>
+<h2><span class="n">02</span>规则本身<span class="he">（The Rules）</span></h2>
+<div class="rule">
+<ol>
+<li>有一个会波动的输入 <em>x</em>，和一个把它变成结果的函数 <em>f</em>；你关心的是 <em>f(x)</em>。</li>
+<li>在某个区间上，如果曲线上任取两点、把它们连成一条直线（叫作<b>弦</b>），这条弦总是落在曲线<b>上方</b>，就说 <em>f</em> 在这段区间上是<b>凸的</b>（convex）；弦总在下方就是<b>凹的</b>（concave）；弦与曲线重合就是直线。</li>
+<li><b>Jensen 不等式</b>：<em>f</em> 凸时，"结果的平均" ≥ "平均的结果"；<em>f</em> 凹时不等号反过来；<em>f</em> 是直线时两者相等。用记号写就是 E[f(x)] ≥ f(E[x])，其中 E[·] 读作"取平均"。</li>
+<li>差多少，由两件事决定：<b>曲线弯得多厉害</b>（二阶导数 f″）和 <b>x 波动得多大</b>（方差）。波动不大时有个好用的近似：落差 ≈ ½ × f″ × 方差。</li>
+<li>不想求导也能测：把 <em>x</em> 往上下各推同样的幅度，把两侧结果的变化量绝对值比一比。下行大于上行 = 凹，反过来 = 凸。</li>
+</ol>
+</div>
+<p>第 2 条里"弦在上方"这个说法值得记住，因为它就是整件事的图像版：弦上的每个点，都是"两端结果按比例平均"；曲线上的对应点，是"先把输入平均、再算结果"。两者不重合，正是波动的全部效果。</p>
+<figure>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 700 300" role="img" aria-label="凸函数上两点连成的弦高于曲线，图示 Jensen 不等式">
+<defs><marker id="rja" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" markerUnits="userSpaceOnUse" orient="auto"><path d="M0,1 L9,5 L0,9 z" fill="#d9b45f"/></marker></defs>
+<text x="350" y="26" fill="#aba498" font-family="-apple-system,sans-serif" font-size="13" text-anchor="middle">Jensen 不等式：弦在曲线上方</text>
+<line x1="70" x2="640" y1="255" y2="255" stroke="rgba(255,255,255,0.16)" stroke-width="1.4"/>
+<line x1="78" x2="78" y1="255" y2="56" stroke="rgba(255,255,255,0.16)" stroke-width="1.4"/>
+<polyline points="185.0,158.5 190.0,162.4 195.0,166.0 200.0,169.5 205.0,172.7 210.0,175.8 215.0,178.7 220.0,181.3 225.0,183.8 230.0,186.1 235.0,188.2 240.0,190.1 245.0,191.8 250.0,193.3 255.0,194.6 260.0,195.7 265.0,196.6 270.0,197.3 275.0,197.8 280.0,198.2 285.0,198.3 290.0,198.2 295.0,198.0 300.0,197.5 305.0,196.9 310.0,196.0 315.0,195.0 320.0,193.8 325.0,192.3 330.0,190.7 335.0,188.9 340.0,186.9 345.0,184.6 350.0,182.2 355.0,179.6 360.0,176.8 365.0,173.8 370.0,170.6 375.0,167.3 380.0,163.7 385.0,159.9 390.0,155.9 395.0,151.8 400.0,147.4 405.0,142.8 410.0,138.1 415.0,133.1 420.0,128.0 425.0,122.6 430.0,117.1 435.0,111.4 440.0,105.4 445.0,99.3 450.0,93.0 455.0,86.5 460.0,79.8 465.0,72.9 470.0,65.8 475.0,58.5" fill="none" stroke="#9fbc7a" stroke-width="2.8"/>
+<line x1="230.0" x2="430.0" y1="186.1" y2="117.1" stroke="#d9b45f" stroke-width="2"/>
+<circle cx="230.0" cy="186.1" r="4.5" fill="#9fbc7a"/>
+<line x1="230.0" x2="230.0" y1="186.1" y2="255" stroke="rgba(255,255,255,0.2)" stroke-width="1.2" stroke-dasharray="3 3"/>
+<circle cx="430.0" cy="117.1" r="4.5" fill="#9fbc7a"/>
+<line x1="430.0" x2="430.0" y1="117.1" y2="255" stroke="rgba(255,255,255,0.2)" stroke-width="1.2" stroke-dasharray="3 3"/>
+<circle cx="330.0" cy="190.7" r="5" fill="#9fbc7a"/>
+<circle cx="330.0" cy="151.6" r="5" fill="#d9b45f"/>
+<line x1="330.0" x2="330.0" y1="157.6" y2="182.7" stroke="#d9b45f" stroke-width="1.6" marker-end="url(#rja)"/>
+<line x1="330.0" x2="330.0" y1="190.7" y2="255" stroke="rgba(255,255,255,0.2)" stroke-width="1.2" stroke-dasharray="3 3"/>
+<text x="342.0" y="175.15" fill="#d9b45f" font-family="SF Mono,monospace" font-size="11.5" text-anchor="start">这段落差 = 波动的红利</text>
+<text x="230.0" y="274" fill="#787268" font-family="SF Mono,monospace" font-size="11" text-anchor="middle">低值</text>
+<text x="330.0" y="274" fill="#787268" font-family="SF Mono,monospace" font-size="11" text-anchor="middle">平均值</text>
+<text x="430.0" y="274" fill="#787268" font-family="SF Mono,monospace" font-size="11" text-anchor="middle">高值</text>
+<text x="420.0" y="101.10000000000002" fill="#9fbc7a" font-family="SF Mono,monospace" font-size="11.5" text-anchor="middle">曲线 f</text>
+<text x="244.0" y="142.10000000000002" fill="#d9b45f" font-family="SF Mono,monospace" font-size="11.5" text-anchor="start">弦 = 两端结果的平均</text>
+<text x="350" y="292" fill="#57524b" font-family="-apple-system,sans-serif" font-size="11" text-anchor="middle">凸函数：先平均再代入 < 先代入再平均。凹函数把图上下翻过来，不等号跟着翻。</text>
+</svg>
+<figcaption>凸函数上，任意两点的弦都在曲线上方。弦与曲线之间的那段距离，就是波动带来的全部差别。</figcaption>
+</figure>
+<h2><span class="n">03</span>跑起来会看到什么<span class="he">（What You See When It Runs）</span></h2>
+<p>做一个最能说明问题的实验：<b>把平均值钉死，只调波动。</b>让 <em>x</em> 的平均值一直是 100，先让它完全不动，再让它在 90 和 110 之间跳，最后让它在 60 和 140 之间跳。三种情况下的平均值一模一样。</p>
+<figure>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 700 270" role="img" aria-label="同一均值下波动增大时，凸响应与凹响应的平均结果反向变化">
+<text x="350" y="26" fill="#aba498" font-family="-apple-system,sans-serif" font-size="13" text-anchor="middle">均值一动不动，只把波动调大</text>
+<line x1="70" x2="640" y1="214" y2="214" stroke="rgba(255,255,255,0.16)" stroke-width="1.4"/>
+<rect x="132" y="154" width="34" height="60" rx="3" fill="#9fbc7a" opacity="0.8"/>
+<rect x="174" y="154" width="34" height="60" rx="3" fill="#cd7f9b" opacity="0.8"/>
+<text x="170" y="236" fill="#787268" font-family="SF Mono,monospace" font-size="11" text-anchor="middle">不波动</text>
+<text x="149" y="146" fill="#9fbc7a" font-family="SF Mono,monospace" font-size="11" text-anchor="middle">60</text>
+<text x="191" y="146" fill="#cd7f9b" font-family="SF Mono,monospace" font-size="11" text-anchor="middle">60</text>
+<rect x="300" y="140" width="34" height="74" rx="3" fill="#9fbc7a" opacity="0.8"/>
+<rect x="342" y="168" width="34" height="46" rx="3" fill="#cd7f9b" opacity="0.8"/>
+<text x="338" y="236" fill="#787268" font-family="SF Mono,monospace" font-size="11" text-anchor="middle">小波动</text>
+<text x="317" y="132" fill="#9fbc7a" font-family="SF Mono,monospace" font-size="11" text-anchor="middle">74</text>
+<text x="359" y="160" fill="#cd7f9b" font-family="SF Mono,monospace" font-size="11" text-anchor="middle">46</text>
+<rect x="468" y="110" width="34" height="104" rx="3" fill="#9fbc7a" opacity="0.8"/>
+<rect x="510" y="198" width="34" height="16" rx="3" fill="#cd7f9b" opacity="0.8"/>
+<text x="506" y="236" fill="#787268" font-family="SF Mono,monospace" font-size="11" text-anchor="middle">大波动</text>
+<text x="485" y="102" fill="#9fbc7a" font-family="SF Mono,monospace" font-size="11" text-anchor="middle">104</text>
+<text x="527" y="190" fill="#cd7f9b" font-family="SF Mono,monospace" font-size="11" text-anchor="middle">16</text>
+<rect x="118" y="52" width="14" height="12" rx="2" fill="#9fbc7a" opacity="0.8"/>
+<text x="138" y="63" fill="#9fbc7a" font-family="SF Mono,monospace" font-size="11.5" text-anchor="start">凸响应的平均结果</text>
+<rect x="352" y="52" width="14" height="12" rx="2" fill="#cd7f9b" opacity="0.8"/>
+<text x="372" y="63" fill="#cd7f9b" font-family="SF Mono,monospace" font-size="11.5" text-anchor="start">凹响应的平均结果</text>
+<text x="350" y="260" fill="#57524b" font-family="-apple-system,sans-serif" font-size="11" text-anchor="middle">均值全程没变。凸的那条靠波动本身赚钱，凹的那条靠波动本身亏钱。</text>
+</svg>
+<figcaption>三组的平均值完全相同，只有波动在变。凸的那条靠波动赚钱，凹的那条靠波动亏钱。</figcaption>
+</figure>
+<p>凸响应的平均结果一路上升，凹响应的一路下降。<b>均值一动没动，结果却在系统性地移动</b>——这就是"波动本身有价格"的来源。金融里给这个敏感度起了个名字叫 <b>vega</b>：期权价格随波动率上升而上升，说到底就是因为期权的收益结构是凸的。</p>
+<p>反过来这也给出了一个诊断法：如果有人的方案"平均看没问题、就是怕波动"，那不是心理素质问题，是他手上那条曲线是凹的。</p>
+<h2><span class="n">04</span>它解释了现实中的什么<span class="he">（What It Explains）</span></h2>
+<p>凸性的应用面宽得有点吓人，因为"弯曲的响应"实在太普遍了：</p>
+<p><b>期权定价</b>：波动率越高期权越贵，是 Jensen 的直接后果。<b>放射治疗的分次给药</b>：正常组织的损伤里有一项随单次剂量平方增长（凸），所以同样的总剂量分成几十次给，损伤显著更小。<b>容量规划</b>：排队延迟随利用率是凸的，用平均利用率估算高峰体验会严重乐观。<b>工期估计</b>：一堆并行任务的完工时间取决于最慢的那个，而"取最大值"是一个凸运算，所以用每项的平均工期算出来的总工期，系统性地早于实际。<b>投资的波动拖累</b>：复利下长期增长率取决于几何平均，而几何平均总是小于等于算术平均，差距随波动增大——这也是同一条不等式。<b>农业与气候</b>：作物产量对高温的响应在阈值之上急剧变凹，因此只看"平均升温多少"会低估损失，真正要看的是极端高温天数的分布。</p>
+<p>共同的教训只有一句：<b>凡是关系弯曲的地方，"平均值"这个词就不再是一个中性的概括，而是一个带方向的错误。</b></p>
+<div class="cant">
+<h3>它不能解释什么<span class="he">（What It Cannot Explain）</span></h3>
+<ul>
+<li><b>不能告诉你差多少。</b>Jensen 只保证方向，不给量级。方向本身已经很有用（知道自己在被系统性高估还是低估），但要回答"到底差多少"，必须真的把分布代进去算，或者做模拟。</li>
+<li><b>不能跨出区间。</b>凸凹几乎总是<em>局部</em>性质：同一条曲线可以在一段凸、另一段凹（S 形曲线到处都是）。把某一段测出的结论外推到全程，是这个工具最常见的误用，也是"某某东西反脆弱"这类断言翻车的主要方式。</li>
+<li><b>不能处理"波动改变了函数本身"的情况。</b>不等式假定 <em>f</em> 固定不变，只有 <em>x</em> 在动。可现实里大的波动常常把规则本身改掉：对手换打法、监管介入、供应商倒闭。这时前提已经不成立，再套公式只是自我安慰。</li>
+<li><b>不能替你决定纵轴是什么。</b>凹凸随纵轴的定义整个翻转（时间还是结果、成本还是收益）。任何没说清"纵轴是什么、越大越好还是越小越好"的凸性讨论，都无法判断对错。</li>
+<li><b>不能给你概率。</b>它讲的是同一个分布下两种算法的关系，完全不告诉你 <em>x</em> 实际怎么分布、尾巴有多厚。要知道尾巴，得另做功课。</li>
+</ul>
+</div>
+<div class="refs">
+<h3>延伸阅读<span class="he">（Further Reading）</span></h3>
+<ul>
+<li><a href="https://en.wikipedia.org/wiki/Jensen%27s_inequality">Jensen's inequality</a>（定义、证明与图示）</li>
+<li><a href="https://en.wikipedia.org/wiki/Convex_function">Convex function</a>（凸函数的等价刻画：弦、切线、二阶导）</li>
+<li>Taleb &amp; Douady, <a href="https://arxiv.org/abs/1208.1189">Mathematical definition, mapping, and detection of (anti)fragility</a>（2013，把凸性做成一套可操作的检测）</li>
+<li>Taleb &amp; West, <a href="https://arxiv.org/abs/2209.14631">Working With Convex Responses: Antifragility From Finance to Oncology</a>（2022，剂量设计里的凸性）</li>
+<li><a href="https://en.wikipedia.org/wiki/Vega_(finance)">Vega</a>（期权价格对波动率的敏感度，凸性的金融名字）</li>
+</ul>
+</div>
+<footer>BigCat · 复杂性科学 · <a href="index.html">← 全部 Topic</a></footer>
+</div>
+<script src="https://hub.cissychen.com/comments.js" defer></script>
+<script src="https://hub.cissychen.com/search.js" defer></script>
+<script src="https://hub.cissychen.com/index-button.js" defer></script>
+<script src="https://hub.cissychen.com/i18n-tts.js" defer></script>
+</body></html>

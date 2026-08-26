@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+
+<html lang="en"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Convexity and Jensen's Inequality · Reference · Complexity Science</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,"SF Pro Display","Noto Sans SC",sans-serif;color:#e4ded5;line-height:1.85;min-height:100vh;
+  background:radial-gradient(1100px 620px at 12% -6%,rgba(99,179,166,0.09),transparent 62%),radial-gradient(950px 700px at 100% 2%,rgba(166,147,205,0.08),transparent 58%),linear-gradient(168deg,#100f0d 0%,#15161b 48%,#0a0a0c 100%);background-attachment:fixed}
+.wrap{max-width:720px;margin:0 auto;padding:30px 22px 90px}
+header{padding:52px 0 8px;border-bottom:1px solid rgba(255,255,255,0.07);margin-bottom:32px}
+.rtag{font-family:"SF Mono",Menlo,monospace;font-size:0.72rem;font-weight:700;letter-spacing:2px;color:#63b3a6;border:1px solid rgba(99,179,166,0.4);background:rgba(99,179,166,0.07);padding:3px 11px;border-radius:20px}
+h1{font-size:2.15rem;font-weight:800;line-height:1.2;margin:20px 0 0;color:#f0eae0}
+h1 .h1en{display:block;font-size:0.42em;font-weight:600;letter-spacing:2.5px;color:#847d72;margin-top:11px}
+.sub{font-size:0.98rem;color:#aba498;margin-top:12px}
+.meta{font-family:"SF Mono",Menlo,monospace;font-size:0.75rem;color:#57524b;margin-top:16px;letter-spacing:1px}
+h2{font-size:1.25rem;font-weight:700;color:#e9e3d9;margin:44px 0 10px}
+h2 .n{font-family:"SF Mono",Menlo,monospace;font-size:0.8rem;color:#63b3a6;display:block;margin-bottom:5px;letter-spacing:2px}
+.he{font-size:0.68em;color:#8d867b;font-weight:500;letter-spacing:0}
+p{margin-bottom:16px}
+b,strong{color:#f0eae0;font-weight:600}
+em{color:#d9b45f;font-style:normal;font-weight:500}
+.rule{border:1px solid rgba(99,179,166,0.3);background:rgba(99,179,166,0.05);border-radius:12px;padding:16px 20px;margin:22px 0;font-size:0.94rem;color:#d5cdc1}
+.rule ol{padding-left:20px;margin:0}
+.rule li{margin-bottom:7px}
+.rule li:last-child{margin-bottom:0}
+figure{margin:28px 0}
+figure svg{display:block;width:100%;height:auto;border-radius:12px;background:rgba(255,255,255,0.018);border:1px solid rgba(255,255,255,0.06)}
+figcaption{font-size:0.82rem;color:#787268;margin-top:10px;text-align:center;line-height:1.6}
+.cant{border:1px solid rgba(205,127,155,0.36);background:rgba(205,127,155,0.05);border-radius:12px;padding:18px 21px;margin:26px 0 10px}
+.cant h3{font-size:1rem;color:#cd7f9b;margin-bottom:12px}
+.cant ul{list-style:none;padding:0}
+.cant li{margin-bottom:13px;font-size:0.93rem;color:#d5cdc1;line-height:1.76}
+.cant li:last-child{margin-bottom:0}
+.cant li b{color:#cd7f9b}
+.refs{margin:40px 0 10px}
+.refs h3{font-size:1rem;color:#79a6d2;margin-bottom:12px}
+.refs ul{list-style:none;padding:0}
+.refs li{margin-bottom:9px;font-size:0.89rem;color:#8d867b;line-height:1.7}
+.refs a{color:#79a6d2;text-decoration:none;border-bottom:1px solid rgba(121,166,210,0.3)}
+.refs a:hover{color:#a6c4e2}
+footer{text-align:center;padding:52px 0 10px;font-size:0.78rem;color:#57524b;font-family:"SF Mono",Menlo,monospace;border-top:1px solid rgba(255,255,255,0.06);margin-top:46px}
+footer a{color:#79a6d2;text-decoration:none}
+@media(max-width:600px){h1{font-size:1.7rem}.wrap{padding:24px 16px 60px}}
+</style></head><body>
+<div class="wrap">
+<header>
+<span class="rtag">REF · METHOD</span>
+<h1>Convexity and Jensen's Inequality</h1>
+<p class="sub">Johan Jensen, 1906 — when a quantity fluctuates, may you substitute its average?</p>
+<p class="meta">Cited from: Topic 39 Antifragility and Optionality</p>
+</header>
+<h2><span class="n">01</span>The Question It Poses</h2>
+<p>You have a quantity that fluctuates: next year's footfall, the stress on this batch of parts, the dose in this session, the concurrency on your servers. Usually all you know is its <b>average</b>. So you substitute the average into your formula, get a number, and plan around that number.</p>
+<p>Is that move legitimate? It depends entirely on one thing: whether the response of the outcome to that quantity is <b>straight</b> or <b>curved</b>. If straight, substituting the average is perfectly fine. If curved, the number you computed is not the average outcome at all, and the error has a fixed direction. Jensen's inequality answers which direction, and why it must be that one.</p>
+<h2><span class="n">02</span>The Rules</h2>
+<div class="rule">
+<ol>
+<li>There is a fluctuating input <em>x</em> and a function <em>f</em> turning it into an outcome; what you care about is <em>f(x)</em>.</li>
+<li>Over some interval, if you pick any two points on the curve and join them with a straight line (a <b>chord</b>), and that chord always lies <b>above</b> the curve, then <em>f</em> is <b>convex</b> there; a chord always below means <b>concave</b>; a chord lying on the curve means it is a straight line.</li>
+<li><b>Jensen's inequality</b>: when <em>f</em> is convex, the average of the outcomes ≥ the outcome of the average; when concave, the inequality reverses; when straight, the two are equal. In symbols, E[f(x)] ≥ f(E[x]), where E[·] means "take the average".</li>
+<li>How large the gap is depends on two things: <b>how sharply the curve bends</b> (the second derivative f″) and <b>how much x fluctuates</b> (the variance). For modest fluctuation there is a handy approximation: gap ≈ ½ × f″ × variance.</li>
+<li>You can measure it without any calculus: push <em>x</em> the same distance up and down, and compare the magnitudes of the two changes in the outcome. Downside bigger than upside means concave; the reverse means convex.</li>
+</ol>
+</div>
+<p>Rule 2's "the chord lies above" is worth memorising, because it is the picture of the whole thing: every point on the chord is "average the two outcomes"; the corresponding point on the curve is "average the inputs first, then compute". That they do not coincide is the entire effect of volatility.</p>
+<figure>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 700 300" role="img" aria-label="The chord between two points on a convex curve lies above the curve, illustrating Jensen's inequality">
+<defs><marker id="rja" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" markerUnits="userSpaceOnUse" orient="auto"><path d="M0,1 L9,5 L0,9 z" fill="#d9b45f"/></marker></defs>
+<text x="350" y="26" fill="#aba498" font-family="-apple-system,sans-serif" font-size="13" text-anchor="middle">Jensen's inequality: the chord sits above the curve</text>
+<line x1="70" x2="640" y1="255" y2="255" stroke="rgba(255,255,255,0.16)" stroke-width="1.4"/>
+<line x1="78" x2="78" y1="255" y2="56" stroke="rgba(255,255,255,0.16)" stroke-width="1.4"/>
+<polyline points="185.0,158.5 190.0,162.4 195.0,166.0 200.0,169.5 205.0,172.7 210.0,175.8 215.0,178.7 220.0,181.3 225.0,183.8 230.0,186.1 235.0,188.2 240.0,190.1 245.0,191.8 250.0,193.3 255.0,194.6 260.0,195.7 265.0,196.6 270.0,197.3 275.0,197.8 280.0,198.2 285.0,198.3 290.0,198.2 295.0,198.0 300.0,197.5 305.0,196.9 310.0,196.0 315.0,195.0 320.0,193.8 325.0,192.3 330.0,190.7 335.0,188.9 340.0,186.9 345.0,184.6 350.0,182.2 355.0,179.6 360.0,176.8 365.0,173.8 370.0,170.6 375.0,167.3 380.0,163.7 385.0,159.9 390.0,155.9 395.0,151.8 400.0,147.4 405.0,142.8 410.0,138.1 415.0,133.1 420.0,128.0 425.0,122.6 430.0,117.1 435.0,111.4 440.0,105.4 445.0,99.3 450.0,93.0 455.0,86.5 460.0,79.8 465.0,72.9 470.0,65.8 475.0,58.5" fill="none" stroke="#9fbc7a" stroke-width="2.8"/>
+<line x1="230.0" x2="430.0" y1="186.1" y2="117.1" stroke="#d9b45f" stroke-width="2"/>
+<circle cx="230.0" cy="186.1" r="4.5" fill="#9fbc7a"/>
+<line x1="230.0" x2="230.0" y1="186.1" y2="255" stroke="rgba(255,255,255,0.2)" stroke-width="1.2" stroke-dasharray="3 3"/>
+<circle cx="430.0" cy="117.1" r="4.5" fill="#9fbc7a"/>
+<line x1="430.0" x2="430.0" y1="117.1" y2="255" stroke="rgba(255,255,255,0.2)" stroke-width="1.2" stroke-dasharray="3 3"/>
+<circle cx="330.0" cy="190.7" r="5" fill="#9fbc7a"/>
+<circle cx="330.0" cy="151.6" r="5" fill="#d9b45f"/>
+<line x1="330.0" x2="330.0" y1="157.6" y2="182.7" stroke="#d9b45f" stroke-width="1.6" marker-end="url(#rja)"/>
+<line x1="330.0" x2="330.0" y1="190.7" y2="255" stroke="rgba(255,255,255,0.2)" stroke-width="1.2" stroke-dasharray="3 3"/>
+<text x="342.0" y="175.15" fill="#d9b45f" font-family="SF Mono,monospace" font-size="11.5" text-anchor="start">this gap = the dividend of volatility</text>
+<text x="230.0" y="274" fill="#787268" font-family="SF Mono,monospace" font-size="11" text-anchor="middle">low</text>
+<text x="330.0" y="274" fill="#787268" font-family="SF Mono,monospace" font-size="11" text-anchor="middle">average</text>
+<text x="430.0" y="274" fill="#787268" font-family="SF Mono,monospace" font-size="11" text-anchor="middle">high</text>
+<text x="420.0" y="101.10000000000002" fill="#9fbc7a" font-family="SF Mono,monospace" font-size="11.5" text-anchor="middle">curve f</text>
+<text x="244.0" y="142.10000000000002" fill="#d9b45f" font-family="SF Mono,monospace" font-size="11.5" text-anchor="start">chord = average of both outcomes</text>
+<text x="350" y="292" fill="#57524b" font-family="-apple-system,sans-serif" font-size="11" text-anchor="middle">Convex: average first, then apply f, and you get less than applying f first. Flip the picture for concave and the inequality flips too.</text>
+</svg>
+<figcaption>On a convex curve every chord lies above the curve. The distance between chord and curve is the whole difference volatility makes.</figcaption>
+</figure>
+<h2><span class="n">03</span>What You See When It Runs</h2>
+<p>Run the experiment that settles it: <b>nail the mean down and move only the volatility.</b> Keep the average of <em>x</em> at 100 throughout — first perfectly still, then bouncing between 90 and 110, finally between 60 and 140. The average is identical in all three.</p>
+<figure>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 700 270" role="img" aria-label="With the mean held fixed, raising volatility moves convex and concave average outcomes in opposite directions">
+<text x="350" y="26" fill="#aba498" font-family="-apple-system,sans-serif" font-size="13" text-anchor="middle">Mean held fixed, volatility turned up</text>
+<line x1="70" x2="640" y1="214" y2="214" stroke="rgba(255,255,255,0.16)" stroke-width="1.4"/>
+<rect x="132" y="154" width="34" height="60" rx="3" fill="#9fbc7a" opacity="0.8"/>
+<rect x="174" y="154" width="34" height="60" rx="3" fill="#cd7f9b" opacity="0.8"/>
+<text x="170" y="236" fill="#787268" font-family="SF Mono,monospace" font-size="11" text-anchor="middle">no volatility</text>
+<text x="149" y="146" fill="#9fbc7a" font-family="SF Mono,monospace" font-size="11" text-anchor="middle">60</text>
+<text x="191" y="146" fill="#cd7f9b" font-family="SF Mono,monospace" font-size="11" text-anchor="middle">60</text>
+<rect x="300" y="140" width="34" height="74" rx="3" fill="#9fbc7a" opacity="0.8"/>
+<rect x="342" y="168" width="34" height="46" rx="3" fill="#cd7f9b" opacity="0.8"/>
+<text x="338" y="236" fill="#787268" font-family="SF Mono,monospace" font-size="11" text-anchor="middle">mild</text>
+<text x="317" y="132" fill="#9fbc7a" font-family="SF Mono,monospace" font-size="11" text-anchor="middle">74</text>
+<text x="359" y="160" fill="#cd7f9b" font-family="SF Mono,monospace" font-size="11" text-anchor="middle">46</text>
+<rect x="468" y="110" width="34" height="104" rx="3" fill="#9fbc7a" opacity="0.8"/>
+<rect x="510" y="198" width="34" height="16" rx="3" fill="#cd7f9b" opacity="0.8"/>
+<text x="506" y="236" fill="#787268" font-family="SF Mono,monospace" font-size="11" text-anchor="middle">wild</text>
+<text x="485" y="102" fill="#9fbc7a" font-family="SF Mono,monospace" font-size="11" text-anchor="middle">104</text>
+<text x="527" y="190" fill="#cd7f9b" font-family="SF Mono,monospace" font-size="11" text-anchor="middle">16</text>
+<rect x="118" y="52" width="14" height="12" rx="2" fill="#9fbc7a" opacity="0.8"/>
+<text x="138" y="63" fill="#9fbc7a" font-family="SF Mono,monospace" font-size="11.5" text-anchor="start">average outcome, convex response</text>
+<rect x="352" y="52" width="14" height="12" rx="2" fill="#cd7f9b" opacity="0.8"/>
+<text x="372" y="63" fill="#cd7f9b" font-family="SF Mono,monospace" font-size="11.5" text-anchor="start">average outcome, concave response</text>
+<text x="350" y="260" fill="#57524b" font-family="-apple-system,sans-serif" font-size="11" text-anchor="middle">The mean never moved. The convex one earns from volatility itself; the concave one loses from it.</text>
+</svg>
+<figcaption>All three groups have exactly the same mean; only the volatility changes. The convex response earns from it, the concave one pays.</figcaption>
+</figure>
+<p>The convex response's average outcome climbs the whole way; the concave one falls. <b>The mean never budged, yet the result moves systematically</b> — that is where "volatility itself has a price" comes from. Finance has a name for this sensitivity: <b>vega</b>. Option prices rise with volatility ultimately because an option's payoff structure is convex.</p>
+<p>Read backwards, it also gives you a diagnostic. If someone's plan "looks fine on average, it just can't take volatility", that is not a matter of nerves — the curve in their hands is concave.</p>
+<h2><span class="n">04</span>What It Explains</h2>
+<p>The reach of convexity is almost alarmingly wide, because curved responses are everywhere:</p>
+<p><b>Option pricing</b>: options get more expensive as volatility rises, a direct consequence of Jensen. <b>Fractionated radiotherapy</b>: part of the damage to normal tissue grows with the square of the single-session dose (convex), so the same total split into dozens of sessions does markedly less harm. <b>Capacity planning</b>: queueing delay is convex in utilisation, so estimating the peak experience from average utilisation is badly optimistic. <b>Schedule estimation</b>: a set of parallel tasks finishes when the slowest one does, and "take the maximum" is a convex operation, so a completion date computed from each task's average duration is systematically earlier than reality. <b>Volatility drag in investing</b>: compounded long-run growth is governed by the geometric mean, which is always ≤ the arithmetic mean, with the gap widening as volatility rises — the same inequality again. <b>Agriculture and climate</b>: crop yield turns sharply concave in temperature above a threshold, so looking only at "average warming" understates the loss; what matters is the distribution of extreme-heat days.</p>
+<p>The shared lesson is one sentence: <b>wherever the relationship is curved, "the average" stops being a neutral summary and becomes an error with a direction.</b></p>
+<div class="cant">
+<h3>What It Cannot Explain</h3>
+<ul>
+<li><b>It cannot tell you how big the gap is.</b> Jensen guarantees a direction, not a magnitude. The direction alone is useful — knowing you are being systematically overestimated or underestimated is worth a lot — but answering "by how much" requires substituting an actual distribution, or simulating.</li>
+<li><b>It does not travel outside the interval.</b> Convexity and concavity are nearly always <em>local</em>: one curve can be convex over one stretch and concave over another (S-shaped curves are everywhere). Extrapolating a locally measured conclusion across the whole range is this tool's most common misuse, and the main way claims of the form "X is antifragile" come apart.</li>
+<li><b>It cannot handle volatility that changes the function itself.</b> The inequality assumes <em>f</em> is fixed and only <em>x</em> moves. In reality large shocks often rewrite the rules: competitors change tactics, regulators step in, a supplier disappears. The premise is gone, and applying the formula anyway is just self-soothing.</li>
+<li><b>It cannot choose your vertical axis for you.</b> Curvature flips entirely with the definition of the axis (time or outcome, cost or benefit). Any discussion of convexity that has not stated what the vertical axis is, and whether more is better, cannot be adjudicated.</li>
+<li><b>It gives you no probabilities.</b> It relates two ways of computing under the same distribution, and says nothing about how <em>x</em> is actually distributed or how heavy its tail is. Finding out about the tail is separate homework.</li>
+</ul>
+</div>
+<div class="refs">
+<h3>Further Reading</h3>
+<ul>
+<li><a href="https://en.wikipedia.org/wiki/Jensen%27s_inequality">Jensen's inequality</a> (definition, proof and pictures)</li>
+<li><a href="https://en.wikipedia.org/wiki/Convex_function">Convex function</a> (equivalent characterisations: chords, tangents, second derivative)</li>
+<li>Taleb &amp; Douady, <a href="https://arxiv.org/abs/1208.1189">Mathematical definition, mapping, and detection of (anti)fragility</a> (2013 — convexity turned into an operational test)</li>
+<li>Taleb &amp; West, <a href="https://arxiv.org/abs/2209.14631">Working With Convex Responses: Antifragility From Finance to Oncology</a> (2022 — convexity in dose design)</li>
+<li><a href="https://en.wikipedia.org/wiki/Vega_(finance)">Vega</a> (an option price's sensitivity to volatility — convexity's name in finance)</li>
+</ul>
+</div>
+<footer>BigCat · Complexity Science · <a href="index.en.html">← All Topics</a></footer>
+</div>
+<script src="https://hub.cissychen.com/comments.js" defer></script>
+<script src="https://hub.cissychen.com/search.js" defer></script>
+<script src="https://hub.cissychen.com/index-button.js" defer></script>
+<script src="https://hub.cissychen.com/i18n-tts.js" defer></script>
+</body></html>
