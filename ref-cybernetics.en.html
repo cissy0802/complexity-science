@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+
+<html lang="en"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Cybernetics and Its Lineage · Reference Library · Complexity Science</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,"SF Pro Display","Noto Sans SC",sans-serif;color:#e4ded5;line-height:1.85;min-height:100vh;
+  background:radial-gradient(1100px 620px at 12% -6%,rgba(99,179,166,0.09),transparent 62%),radial-gradient(950px 700px at 100% 2%,rgba(166,147,205,0.08),transparent 58%),linear-gradient(168deg,#100f0d 0%,#15161b 48%,#0a0a0c 100%);background-attachment:fixed}
+.wrap{max-width:720px;margin:0 auto;padding:30px 22px 90px}
+header{padding:52px 0 8px;border-bottom:1px solid rgba(255,255,255,0.07);margin-bottom:32px}
+.rtag{font-family:"SF Mono",Menlo,monospace;font-size:0.72rem;font-weight:700;letter-spacing:2px;color:#63b3a6;border:1px solid rgba(99,179,166,0.4);background:rgba(99,179,166,0.07);padding:3px 11px;border-radius:20px}
+h1{font-size:2.15rem;font-weight:800;line-height:1.2;margin:20px 0 0;color:#f0eae0}
+h1 .h1en{display:block;font-size:0.42em;font-weight:600;letter-spacing:2.5px;color:#847d72;margin-top:11px}
+.sub{font-size:0.98rem;color:#aba498;margin-top:12px}
+.meta{font-family:"SF Mono",Menlo,monospace;font-size:0.75rem;color:#57524b;margin-top:16px;letter-spacing:1px}
+h2{font-size:1.25rem;font-weight:700;color:#e9e3d9;margin:44px 0 10px}
+h2 .n{font-family:"SF Mono",Menlo,monospace;font-size:0.8rem;color:#63b3a6;display:block;margin-bottom:5px;letter-spacing:2px}
+.he{font-size:0.68em;color:#8d867b;font-weight:500;letter-spacing:0}
+p{margin-bottom:16px}
+b,strong{color:#f0eae0;font-weight:600}
+em{color:#d9b45f;font-style:normal;font-weight:500}
+a.reflink{display:inline-block;font-size:0.82rem;font-family:"SF Mono",Menlo,monospace;color:#63b3a6;border:1px solid rgba(99,179,166,0.38);background:rgba(99,179,166,0.07);padding:1px 9px;border-radius:20px;text-decoration:none;transition:all 0.15s;white-space:nowrap}
+a.reflink:hover{background:rgba(99,179,166,0.16);border-color:rgba(99,179,166,0.7)}
+.rule{border:1px solid rgba(99,179,166,0.3);background:rgba(99,179,166,0.05);border-radius:12px;padding:16px 20px;margin:22px 0;font-size:0.94rem;color:#d5cdc1}
+.rule ol{padding-left:20px;margin:0}
+.rule li{margin-bottom:7px}
+.rule li:last-child{margin-bottom:0}
+figure{margin:28px 0}
+figure svg{display:block;width:100%;height:auto;border-radius:12px;background:rgba(255,255,255,0.018);border:1px solid rgba(255,255,255,0.06)}
+figcaption{font-size:0.82rem;color:#787268;margin-top:10px;text-align:center;line-height:1.6}
+.cant{border:1px solid rgba(205,127,155,0.36);background:rgba(205,127,155,0.05);border-radius:12px;padding:18px 21px;margin:26px 0 10px}
+.cant h3{font-size:1rem;color:#cd7f9b;margin-bottom:12px}
+.cant ul{list-style:none;padding:0}
+.cant li{margin-bottom:13px;font-size:0.93rem;color:#d5cdc1;line-height:1.76}
+.cant li:last-child{margin-bottom:0}
+.cant li b{color:#cd7f9b}
+.refs{margin:40px 0 10px}
+.refs h3{font-size:1rem;color:#79a6d2;margin-bottom:12px}
+.refs ul{list-style:none;padding:0}
+.refs li{margin-bottom:9px;font-size:0.89rem;color:#8d867b;line-height:1.7}
+.refs a{color:#79a6d2;text-decoration:none;border-bottom:1px solid rgba(121,166,210,0.3)}
+.refs a:hover{color:#a6c4e2}
+footer{text-align:center;padding:52px 0 10px;font-size:0.78rem;color:#57524b;font-family:"SF Mono",Menlo,monospace;border-top:1px solid rgba(255,255,255,0.06);margin-top:46px}
+footer a{color:#79a6d2;text-decoration:none}
+@media(max-width:600px){h1{font-size:1.7rem}.wrap{padding:24px 16px 60px}}
+</style></head><body>
+<div class="wrap">
+<header>
+<span class="rtag">REF · SCHOOL</span>
+<h1>Cybernetics and Its Lineage</h1>
+<p class="sub">In the 1940s a group of people asked one question: is a gun tracking a plane, a body holding its temperature, and a hand reaching for a cup the same thing?</p>
+<p class="meta">Referenced by: Topic 40 Intervening in Complex Systems · Topic 44 Intellectual History</p>
+</header>
+
+<h2><span class="n">01</span>The Problem It Was Built For</h2>
+<p>During the Second World War the mathematician Norbert Wiener worked on automatic aiming for anti-aircraft guns. A shell takes seconds to reach its target, the aircraft manoeuvres during those seconds, so the gun must fire at where the plane is <em>going to be</em> and correct continuously against where it actually went. Working on it, Wiener noticed something: the behaviour of that machine and the behaviour of a person reaching for a cup are structurally the same thing. <b>Both have a goal, both continuously measure how far the present state is from it, and both use that difference to choose the next action.</b></p>
+<p>More tellingly, when the structure is damaged, machine and person fail in the same way. Set a servo's gain too high and it starts oscillating around the target; a patient with cerebellar damage reaching for an object develops a tremor that grows as the hand closes in. The same mathematical fault, once in steel and once in nerve.</p>
+<p>That is the problem cybernetics set out to solve — Wiener coined the word in 1948 from the Greek for "steersman": <b>a language for goal-directed behaviour that holds regardless of whether the substrate is a machine, an organism or an organisation.</b> The Macy Conferences of 1946–1953 locked mathematicians, neurophysiologists, anthropologists and psychologists into one room to argue it out, and the discipline took shape in those meetings.</p>
+
+<h2><span class="n">02</span>The Core Claims</h2>
+<p>Cybernetics accumulated a great many concepts. These are the ones that are load-bearing — the ones from which testable conclusions follow.</p>
+<div class="rule">
+<ol>
+<li><b>Negative feedback is what a goal is made of.</b> For a system to "want" a state is mechanically identical to: it continuously measures the gap between the current value and that state, and acts against the gap. Teleology is reduced here to a loop, with no mysterious ingredient left over.</li>
+<li><b>Variety is a countable quantity.</b> The number of distinct states a thing can take is its variety. W. Ross Ashby made it the basic currency of every control problem.</li>
+<li><b>The law of requisite variety (1956): only variety can destroy variety.</b> How far a regulator can compress the outcomes is limited by how many distinct actions it can itself produce. In numbers: number of outcomes ≥ number of disturbances ÷ number of regulator actions.</li>
+<li><b>The good regulator theorem (Conant &amp; Ashby, 1970): every good regulator of a system must be a model of that system.</b> Not "it helps to have a model" — rather, if the regulation is good enough, a model of the regulated object can be read out of the regulator's structure, whether or not the designer intended to put one there.</li>
+<li><b>The black-box method.</b> When you cannot open a system, you can still build a model of it purely from what goes in and what comes out. This step converts "we don't know the internals" from an obstacle into a workable position.</li>
+</ol>
+</div>
+<p>Claims 3 and 4 are the most durable things the discipline left behind. What they share: <b>both say that control has a ceiling independent of effort, and that the ceiling can be computed.</b></p>
+
+<h2><span class="n">03</span>What You See When It Runs</h2>
+<p>Ashby actually built a machine to demonstrate the first claim. The <b>Homeostat</b> (1948) consisted of four interconnected electromagnetic units, each trying to pull its own current back to a mid-point. Disturb it — even rewire it at random — and it thrashes for a while and then finds its way back to a stable state, not because anyone programmed a response to each disturbance, but because every unit is doing the same thing inside its own loop. Wiener called it the closest thing yet to an artificial brain, a claim later judged overheated; but the machine did demonstrate one real thing: <b>homeostasis can grow out of local loops without a central table of responses.</b></p>
+<p>Claim 3 can simply be computed. The chart below draws a regulator's ceiling: horizontally, how many distinct actions it can produce; vertically, the smallest number of outcomes it can be left with.</p>
+<figure>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 700 300" role="img" aria-label="With 24 disturbances, the minimum number of remaining outcomes as a function of the regulator's action count">
+<defs><marker id="cy1" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="9" markerHeight="9" markerUnits="userSpaceOnUse" orient="auto"><path d="M0,1 L9,5 L0,9 z" fill="#8d867b"/></marker></defs>
+<text x="350" y="26" fill="#aba498" font-family="-apple-system,sans-serif" font-size="13" text-anchor="middle">With 24 kinds of disturbance: more actions, fewer outcomes left</text>
+<line x1="70" x2="660" y1="240" y2="240" stroke="rgba(255,255,255,0.2)" stroke-width="1.5" marker-end="url(#cy1)"/>
+<line x1="70" x2="70" y1="240" y2="52" stroke="rgba(255,255,255,0.2)" stroke-width="1.5" marker-end="url(#cy1)"/>
+<text x="370" y="278" fill="#8d867b" font-family="-apple-system,sans-serif" font-size="11.5" text-anchor="middle">distinct actions the regulator can produce →</text>
+<text x="28" y="146" fill="#8d867b" font-family="-apple-system,sans-serif" font-size="11.5" text-anchor="middle" transform="rotate(-90 28 146)">min. outcomes left</text>
+<text x="62" y="68" fill="#57524b" font-family="SF Mono,monospace" font-size="10" text-anchor="end">24</text>
+<text x="62" y="152" fill="#57524b" font-family="SF Mono,monospace" font-size="10" text-anchor="end">12</text>
+<text x="62" y="230" fill="#57524b" font-family="SF Mono,monospace" font-size="10" text-anchor="end">1</text>
+<polyline points="94,64 118,148.5 142,176.7 166,190.8 190,197.8 214,204.9 238,204.9 262,211.9 286,211.9 310,211.9 334,211.9 358,219 382,219 406,219 430,219 454,219 478,219 502,219 526,219 550,219 574,219 598,219 622,219 646,226" fill="none" stroke="#63b3a6" stroke-width="2.6"/>
+<circle cx="94" cy="64" r="4.5" fill="#cd7f9b"/>
+<text x="104" y="68" fill="#cd7f9b" font-family="SF Mono,monospace" font-size="11">1 action → 24 outcomes</text>
+<circle cx="142" cy="176.7" r="4.5" fill="#d9b45f"/>
+<text x="152" y="172" fill="#d9b45f" font-family="SF Mono,monospace" font-size="11">3 actions → 8 outcomes</text>
+<circle cx="262" cy="211.9" r="4.5" fill="#9fbc7a"/>
+<text x="272" y="207" fill="#9fbc7a" font-family="SF Mono,monospace" font-size="11">8 actions → 3 outcomes</text>
+<circle cx="646" cy="226" r="4.5" fill="#63b3a6"/>
+<text x="640" y="212" fill="#63b3a6" font-family="SF Mono,monospace" font-size="11" text-anchor="end">24 actions → only then can it be 1</text>
+</svg>
+<figcaption>The line is a floor, not a forecast: it says "at best, this far." Double the actions and you halve the outcomes left — effort does not appear in the formula.</figcaption>
+</figure>
+<p>The useful thing about this curve is its shape: <b>the first few actions buy enormous improvement, and then it flattens fast.</b> Going from 1 action to 3 takes the remaining outcomes from 24 to 8; going from 8 to 12 takes it only from 3 to 2. So the marginal value of "having one more move ready" is startlingly high early and nearly zero later — which cuts directly against the intuition that more contingency plans are always better.</p>
+
+<h2><span class="n">04</span>What It Explains</h2>
+<p><b>Why a thermostat, body-temperature regulation and the price mechanism look like the same kind of thing.</b> They are: all negative feedback loops, all with the same three steps of measure, compare, act. Cybernetics' historical contribution was stating that precisely enough that conclusions could be carried across substrates — which makes it the direct ancestor of general systems theory, system dynamics <a class="reflink" href="ref-system-dynamics.en.html">→ ref · System Dynamics (Stocks &amp; Flows)</a> and eventually complex adaptive systems research.</p>
+<p><b>Why regulators are always a step behind.</b> The law of requisite variety turns a complaint into a prediction: the kinds of manoeuvre available to the regulated normally far outnumber the kinds of action available to the regulator, so the number of remaining outcomes has a floor above zero. That floor does not move with the regulator's virtue or working hours.</p>
+<p><b>Why a well-controlled system always turns out to contain a model.</b> The good regulator theorem explains a common observation: a person or organisation that has managed something well for years often cannot state any systematic theory when asked, yet a fairly accurate model of the object can be reconstructed from their actions. The theorem says this is not a coincidence — good regulation itself requires that model to exist, whether or not it was ever written down.</p>
+<p><b>It also explains one real political experiment.</b> From 1971 to 1973 Stafford Beer ran Project Cybersyn in Chile, an attempt to schedule a national economy in near-real time on cybernetic principles: factories reported a small number of key indicators daily, anomalies escalated automatically to the level above, and each level handled only the deviations that were its own. That design is requisite variety turned into engineering — not centralising all information, but matching each level's action count to the variety it faces. The project ended with the 1973 coup.</p>
+
+<div class="cant">
+<h3>What It Cannot Explain</h3>
+<ul>
+<li><b>It cannot tell you what the variety is.</b> The whole framework rests on counting kinds, and in real systems the count depends on how you carve: slice user behaviour into 5 classes or 500 and the law holds either way while the conclusions differ entirely. It is a structural constraint, not a calculator — any claim that computes a precise number from it owes you its carving rule first.</li>
+<li><b>It cannot handle systems whose goals move.</b> All the mathematics of a negative feedback loop presupposes a given target value. In complex adaptive systems the agents change their own goals — this is the dividing line drawn in Topic 26. Once the goal is endogenous, "how far from the target" is no longer well defined, and cybernetics' central quantity goes with it.</li>
+<li><b>It did not deliver on its own promise about the brain.</b> The cyberneticists of the 1940s believed this language was about to explain mind. What actually happened is that it hatched neural networks, artificial intelligence and cognitive science, and was then absorbed by its own descendants as a standalone discipline. Saying today that cybernetics explained the brain is mistaking a programme for a result.</li>
+<li><b>Its generality has a price: it slides easily into unfalsifiable phrasing.</b> Anything can be described as "a system with feedback", and that description predicts nothing. There is exactly one test for whether a cybernetic account has content: does it name <em>which specific quantity</em> is measured and <em>which specific action</em> is triggered? If it cannot, it is rhetoric.</li>
+<li><b>First-order cybernetics placed the observer outside the system, which often fails.</b> That is precisely why Heinz von Foerster and others pushed "second-order cybernetics" in the 1970s — the researcher is part of the system being researched. The turn is honest, but it also made the field far less able to produce checkable propositions, which is part of why it faded from the mainstream.</li>
+</ul>
+</div>
+
+<div class="refs">
+<h3>Further Reading</h3>
+<ul>
+<li>Norbert Wiener, <a href="https://mitpress.mit.edu/9780262730099/cybernetics/">Cybernetics: or Control and Communication in the Animal and the Machine</a> (1948, the book that named the field)</li>
+<li>W. Ross Ashby, <a href="http://panarchy.org/ashby/variety.1956.html">Cybernetics and Requisite Variety</a> (chapter 11 of <em>An Introduction to Cybernetics</em>, 1956)</li>
+<li>Conant &amp; Ashby, <a href="https://doi.org/10.1080/00207727008920220">Every Good Regulator of a System Must Be a Model of That System</a> (1970)</li>
+<li>Rosenblueth, Wiener &amp; Bigelow, <a href="https://doi.org/10.1086/286788">Behavior, Purpose and Teleology</a> (1943, the short paper reducing purpose to negative feedback)</li>
+<li>Eden Medina, <a href="https://mitpress.mit.edu/9780262525961/cybernetic-revolutionaries/">Cybernetic Revolutionaries</a> (the archival history of Chile's Cybersyn)</li>
+<li>American Society for Cybernetics, <a href="https://asc-cybernetics.org/foundations/history/MacySummary.htm">The Macy Conferences</a> (overview of the 1946–1953 meetings)</li>
+</ul>
+</div>
+<footer>BigCat · Complexity Science · <a href="index.en.html">← All Topics</a></footer>
+</div>
+<script src="https://hub.cissychen.com/comments.js" defer></script>
+<script src="https://hub.cissychen.com/search.js" defer></script>
+<script src="https://hub.cissychen.com/index-button.js" defer></script>
+<script src="https://hub.cissychen.com/i18n-tts.js" defer></script>
+</body></html>

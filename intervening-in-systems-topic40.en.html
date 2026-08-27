@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+
+<html lang="en"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Intervening in Complex Systems — Good intentions are not a reason; the place is · Complexity Science T40</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,"SF Pro Display","Noto Sans SC",sans-serif;color:#e4ded5;line-height:1.85;min-height:100vh;
+  background:radial-gradient(1100px 620px at 12% -6%,rgba(224,137,94,0.10),transparent 62%),radial-gradient(950px 700px at 100% 2%,rgba(166,147,205,0.09),transparent 58%),linear-gradient(168deg,#100f0d 0%,#15161b 48%,#0a0a0c 100%);background-attachment:fixed}
+.wrap{max-width:760px;margin:0 auto;padding:30px 22px 90px}
+header{padding:52px 0 8px;border-bottom:1px solid rgba(255,255,255,0.07);margin-bottom:34px}
+.week-tag{font-family:"SF Mono",Menlo,monospace;font-size:0.72rem;font-weight:700;letter-spacing:2px;color:#cd7f9b;border:1px solid rgba(205,127,155,0.4);background:rgba(205,127,155,0.07);padding:3px 11px;border-radius:20px}
+h1{font-size:2.5rem;font-weight:800;letter-spacing:0.5px;line-height:1.2;margin:20px 0 0;background:linear-gradient(106deg,#e0895e 0%,#d9b45f 34%,#9fbc7a 68%,#63b3a6 100%);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+h1 .h1en{display:block;font-size:0.40em;font-weight:600;letter-spacing:2.5px;color:#847d72;-webkit-text-fill-color:#847d72;background:none;margin-top:13px}
+.sub{font-size:1.05rem;color:#aba498;margin-top:14px;font-weight:500}
+.date{font-family:"SF Mono",Menlo,monospace;font-size:0.75rem;color:#57524b;margin-top:18px;letter-spacing:1px}
+.pitch{margin:22px 0 30px;font-size:0.97rem;color:#cd7f9b;border-left:2px solid rgba(205,127,155,0.5);padding-left:16px;font-style:italic}
+.intro{font-size:1.02rem;color:#cfc8bc;margin-bottom:14px}
+.intro p{margin-bottom:16px}
+h2{font-size:1.42rem;font-weight:700;color:#e9e3d9;margin:56px 0 8px;letter-spacing:0.3px}
+h2 .n{font-family:"SF Mono",Menlo,monospace;font-size:0.85rem;color:#cd7f9b;display:block;margin-bottom:6px;letter-spacing:2px}
+.he{font-size:0.68em;color:#8d867b;font-weight:500;letter-spacing:0}
+p{margin-bottom:17px}
+.lead{color:#cfc8bc}
+b,strong{color:#f0eae0;font-weight:600}
+em{color:#d9b45f;font-style:normal;font-weight:500}
+.dim{color:#8d867b}
+a.reflink{display:inline-block;font-size:0.82rem;font-family:"SF Mono",Menlo,monospace;color:#63b3a6;border:1px solid rgba(99,179,166,0.38);background:rgba(99,179,166,0.07);padding:1px 9px;border-radius:20px;text-decoration:none;transition:all 0.15s;white-space:nowrap}
+a.reflink:hover{background:rgba(99,179,166,0.16);border-color:rgba(99,179,166,0.7)}
+figure{margin:30px 0}
+figure svg{display:block;width:100%;height:auto;border-radius:12px;background:rgba(255,255,255,0.018);border:1px solid rgba(255,255,255,0.06)}
+figcaption{font-size:0.82rem;color:#787268;margin-top:11px;text-align:center;line-height:1.6}
+.decide{margin:24px 0;border:1px solid rgba(224,137,94,0.36);background:rgba(224,137,94,0.055);border-radius:12px;padding:15px 19px}
+.decide .lb{font-family:"SF Mono",Menlo,monospace;font-size:0.73rem;letter-spacing:1.5px;color:#e0895e;font-weight:700;display:block;margin-bottom:7px}
+.decide p{margin:0;font-size:0.95rem;color:#ddd5c9}
+.crossx-inline{margin:20px 0 22px;border-left:2px solid rgba(205,127,155,0.55);padding:2px 0 2px 15px;font-size:0.89rem;color:#a9a096;line-height:1.72}
+.crossx-inline b{color:#cd7f9b;font-weight:600}
+.bigcat{margin:46px 0 10px;border:1px solid rgba(217,180,95,0.38);background:rgba(217,180,95,0.05);border-radius:14px;padding:20px 22px}
+.bigcat h3{font-size:1.02rem;color:#d9b45f;margin-bottom:14px;letter-spacing:0.5px}
+.bigcat ol{list-style:none;padding:0}
+.bigcat li{margin-bottom:15px;font-size:0.94rem;color:#d5cdc1;line-height:1.78}
+.bigcat li:last-child{margin-bottom:0}
+.bigcat .dm{font-family:"SF Mono",Menlo,monospace;font-size:0.73rem;color:#d9b45f;border:1px solid rgba(217,180,95,0.32);border-radius:4px;padding:1px 7px;margin-right:8px;white-space:nowrap}
+.crossx{margin:46px 0 10px;border:1px solid rgba(205,127,155,0.38);background:rgba(205,127,155,0.05);border-radius:14px;padding:20px 22px}
+.crossx h3{font-size:1.02rem;color:#cd7f9b;margin-bottom:14px;letter-spacing:0.5px}
+.crossx ul{list-style:none;padding:0}
+.crossx li{margin-bottom:16px;font-size:0.94rem;color:#d5cdc1;line-height:1.78}
+.crossx li:last-child{margin-bottom:0}
+.crossx li b{color:#cd7f9b;font-weight:600}
+.thinking{margin:46px 0 10px}
+.thinking h3{font-size:1.02rem;color:#a693cd;margin-bottom:14px;letter-spacing:0.5px}
+details{border:1px solid rgba(166,147,205,0.22);border-radius:10px;padding:12px 16px;margin-bottom:10px;background:rgba(166,147,205,0.035)}
+summary{cursor:pointer;font-size:0.93rem;color:#c9c2b6;font-weight:500}
+summary::marker{color:#a693cd}
+details p{margin:12px 0 0;font-size:0.9rem;color:#a9a096;line-height:1.75}
+.refs{margin:46px 0 10px}
+.refs h3{font-size:1.02rem;color:#79a6d2;margin-bottom:14px;letter-spacing:0.5px}
+.refs ul{list-style:none;padding:0}
+.refs li{margin-bottom:10px;font-size:0.9rem;color:#8d867b;line-height:1.7}
+.refs a{color:#79a6d2;text-decoration:none;border-bottom:1px solid rgba(121,166,210,0.3)}
+.refs a:hover{color:#a6c4e2;border-bottom-color:rgba(121,166,210,0.7)}
+footer{text-align:center;padding:56px 0 10px;font-size:0.78rem;color:#57524b;font-family:"SF Mono",Menlo,monospace;border-top:1px solid rgba(255,255,255,0.06);margin-top:50px}
+footer a{color:#79a6d2;text-decoration:none}
+@media(max-width:600px){h1{font-size:1.85rem}.wrap{padding:24px 16px 60px}h2{font-size:1.22rem}}
+</style></head><body>
+<div class="wrap">
+<header>
+<span class="week-tag">TOPIC 40 · PHASE G</span>
+<h1>Intervening in Complex Systems</h1>
+<p class="sub">Good intentions are not a reason; the place is</p>
+<p class="date">2026-08-27 · Fragility, Resilience &amp; Early Warning</p>
+</header>
+<p class="pitch">There is a finding that keeps turning up in systems work: people usually <em>locate</em> the right place to push, and then push it in <em>the wrong direction</em>. Failing to find the leverage point is not the main failure mode. Finding it and reversing the sign is.</p>
+<div class="intro">
+<p>Hanoi, 1902. Plague was closing in, and the French colonial administration decided to kill every rat in the city. The method was blunt: bring in a rat tail, collect a few cents. The first days brought a few hundred. Soon it was seven thousand a day, then fourteen thousand; on the worst day for Hanoi's rodents, more than twenty thousand tails were reported.</p>
+<p>Three months in, officials discovered two things. On the city's edge, households were breeding rats, cutting off the tails for the bounty and releasing the tailless animals to breed again — and there was a smuggling route bringing rats into Hanoi from the surrounding province. <b>They wanted fewer rats. What they bought was tails. The system supplied, in full, exactly the thing they had priced.</b></p>
+<p>This is not a story about stupidity. The bounty was a perfectly reasonable policy, and it failed for reasons that have nothing to do with diligence, ethics or intelligence. It failed because of <em>where</em> it pushed: too shallow, while the system had its own moves available at a deeper place. This issue is about <b>place</b> — when you intervene in a system that answers back, which places are available to push, how far apart their effects are, and how to design the push given that you will almost certainly get it wrong.</p>
+<p class="dim">How this sits with earlier issues: Topic 6 covered the structure of feedback loops; Topic 26 covered the fact that adaptive agents learn your model once you publish it; Topics 38 and 39 covered how to build yourself to take a hit. This issue closes out the phase by converting all of it into one question: <b>when it is your turn to act, where does the hand go?</b></p>
+</div>
+
+<h2><span class="n">01</span>The system eats your intervention<span class="he">（Policy Resistance）</span></h2>
+<p class="lead">First, how the eating actually happens.</p>
+<p>A quantity in a complex system usually sits at its current value not because nobody is managing it, but because several forces are pulling it in different directions and currently balance. The rat population of a city sits where it sits because food, shelter, predators, disease and human clearance are holding each other off. Add a force from outside and the others do not stand still: each one's strength already depends on the current state, so when the state moves, they move.</p>
+<p>Systems researchers call this <b>policy resistance</b>, and the mechanism underneath it is <b>compensating feedback</b>: your push activates a balancing loop that was previously dormant, the loop drags the system back toward where it was, and you keep paying to push. <a class="reflink" href="ref-system-dynamics.en.html">→ ref · System Dynamics (Stocks &amp; Flows)</a></p>
+<p>Hanoi is one notch worse than that. The bounty did not merely meet resistance; it <em>created</em> an inflow that had not existed before. Rats went from being a thing to be removed to being a thing that could be produced. That step is specific to complex systems: the objects of your intervention include agents who do arithmetic, and they will go find the price you just posted.</p>
+<figure>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 350" role="img" aria-label="Two causal chains for the rat bounty: the one imagined and the one the system actually ran">
+<defs><marker id="t40a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="9" markerHeight="9" markerUnits="userSpaceOnUse" orient="auto"><path d="M0,1 L9,5 L0,9 z" fill="#8d867b"/></marker>
+<marker id="t40b" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="9" markerHeight="9" markerUnits="userSpaceOnUse" orient="auto"><path d="M0,1 L9,5 L0,9 z" fill="#cd7f9b"/></marker></defs>
+<text x="360" y="26" fill="#aba498" font-family="-apple-system,sans-serif" font-size="13" text-anchor="middle">One policy, two different chains</text>
+<text x="40" y="56" fill="#8d867b" font-family="SF Mono,monospace" font-size="11.5">① The chain you drew</text>
+<rect x="40" y="66" width="178" height="44" rx="8" fill="rgba(255,255,255,0.04)" stroke="rgba(255,255,255,0.16)"/>
+<text x="129" y="93" fill="#cfc8bc" font-family="-apple-system,sans-serif" font-size="12" text-anchor="middle">Bounty: cents per rat tail</text>
+<line x1="220" x2="256" y1="88" y2="88" stroke="#8d867b" stroke-width="1.8" marker-end="url(#t40a)"/>
+<rect x="262" y="66" width="158" height="44" rx="8" fill="rgba(159,188,122,0.09)" stroke="rgba(159,188,122,0.4)"/>
+<text x="341" y="93" fill="#9fbc7a" font-family="-apple-system,sans-serif" font-size="12" text-anchor="middle">Tails turned in soar</text>
+<line x1="422" x2="458" y1="88" y2="88" stroke="#8d867b" stroke-width="1.8" marker-end="url(#t40a)"/>
+<rect x="464" y="66" width="150" height="44" rx="8" fill="rgba(159,188,122,0.09)" stroke="rgba(159,188,122,0.4)"/>
+<text x="539" y="93" fill="#9fbc7a" font-family="-apple-system,sans-serif" font-size="12" text-anchor="middle">Fewer rats</text>
+<line x1="40" x2="680" y1="132" y2="132" stroke="rgba(255,255,255,0.09)" stroke-width="1"/>
+<text x="40" y="158" fill="#8d867b" font-family="SF Mono,monospace" font-size="11.5">② The chain the system ran</text>
+<rect x="40" y="196" width="178" height="46" rx="8" fill="rgba(255,255,255,0.04)" stroke="rgba(255,255,255,0.16)"/>
+<text x="129" y="224" fill="#cfc8bc" font-family="-apple-system,sans-serif" font-size="12" text-anchor="middle">Bounty: cents per rat tail</text>
+<line x1="220" x2="256" y1="210" y2="184" stroke="#8d867b" stroke-width="1.8" marker-end="url(#t40a)"/>
+<rect x="260" y="152" width="192" height="44" rx="8" fill="rgba(159,188,122,0.09)" stroke="rgba(159,188,122,0.4)"/>
+<text x="356" y="179" fill="#9fbc7a" font-family="-apple-system,sans-serif" font-size="12" text-anchor="middle">Tails turned in soar</text>
+<text x="470" y="179" fill="#787268" font-family="-apple-system,sans-serif" font-size="11" text-anchor="start">← the number you watch</text>
+<line x1="220" x2="256" y1="228" y2="256" stroke="#cd7f9b" stroke-width="1.8" marker-end="url(#t40b)"/>
+<rect x="260" y="240" width="192" height="46" rx="8" fill="rgba(205,127,155,0.08)" stroke="rgba(205,127,155,0.45)"/>
+<text x="356" y="269" fill="#d5cdc1" font-family="-apple-system,sans-serif" font-size="11" text-anchor="middle">Breeding · docking · smuggling in</text>
+<line x1="454" x2="490" y1="263" y2="263" stroke="#cd7f9b" stroke-width="1.8" marker-end="url(#t40b)"/>
+<rect x="496" y="240" width="150" height="46" rx="8" fill="rgba(205,127,155,0.08)" stroke="rgba(205,127,155,0.45)"/>
+<text x="571" y="269" fill="#cd7f9b" font-family="-apple-system,sans-serif" font-size="12" text-anchor="middle">More rats overall</text>
+<text x="360" y="322" fill="#787268" font-family="-apple-system,sans-serif" font-size="11.5" text-anchor="middle">The indicator moved, the goal reversed — the intervention posted a new price</text>
+</svg>
+<figcaption>The failure was not poor execution. Execution was excellent: the system supplied the thing that had been priced.</figcaption>
+</figure>
+<p>There is a test you can take away immediately. <b>When your intervention lands on an indicator, and human behaviour sits between that indicator and the goal you actually want, the indicator will move first — and may be the only thing that moves.</b> The difference is not between good people and bad people: the rat farmers and the tail collectors in Hanoi were the same people, taking the cheapest path across the terrain you had just redrawn.</p>
+<p class="dim">A correction on the better-known version of this. The phenomenon is usually called the "cobra effect", after the German economist Horst Siebert's 2001 book of that name, which tells of a British bounty on dead cobras in Delhi and the cobra farms that followed. <b>No archival evidence for that story has ever been found, and it is very likely a later invention.</b> The Hanoi tail bounty, by contrast, is documented in the colonial files — the historian Michael Vann found it in a dossier marked "Destruction of Hazardous Animals". Keep the name if you like; swap the example for the one with a paper trail.</p>
+<div class="decide">
+<span class="lb">🎯 DECISION LINE</span>
+<p>Before launching any intervention, write down two sentences. First: "If this works, which specific number moves in three months?" Second: <b>"Where will the system get it back from?"</b> If you cannot answer the second, it is not because there is no answer — it is because you have not looked. Do not push until you have. Otherwise you will see either the indicator move while the goal does not, or the goal move and then return, and you will already have paid.</p>
+</div>
+<div class="crossx-inline">
+🌀 <b>Engineering &amp; technology history · Add a road, everyone gets slower</b>　In 1968 Dietrich Braess proved something perverse — what is now called Braess's paradox: adding a road to a congested network can make the commute longer for <b>every single</b> driver. The reason is exactly Hanoi's — the new road changes each person's best choice, everyone reroutes rationally, and the whole settles into a worse equilibrium. The converse holds too: when New York closed 42nd Street for Earth Day in 1990, traffic flowed better; when Seoul tore down the Cheonggyecheon elevated freeway in 2003, travel times did not deteriorate. <b>The unnatural conclusion for planning is this: you cannot appraise a new road by asking how many cars it can carry — you have to ask who it will pull off other roads.</b> The first is an engineering quantity, the second is the solution of a game, and they can point opposite ways.
+</div>
+
+<h2><span class="n">02</span>Twelve places, orders of magnitude apart<span class="he">（Twelve Leverage Points）</span></h2>
+<p class="lead">If pushing the wrong way is the norm, you first need a map of where the places are.</p>
+<p>The person who drew that map was Donella Meadows, one of the principal authors of <em>The Limits to Growth</em>. In 1997 she was sitting in a meeting about the North American Free Trade Agreement, listening to a room argue about tariff rates, when it struck her that everyone was arguing at one single level — and that level determines almost nothing. Afterwards she wrote a list: <b>leverage points</b>, twelve places in a system where you can push, ordered from least useful to most.</p>
+<figure>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 560" role="img" aria-label="Meadows' twelve leverage points as a ladder, with effectiveness and resistance both increasing upward">
+<defs><marker id="t40c" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="9" markerHeight="9" markerUnits="userSpaceOnUse" orient="auto"><path d="M0,1 L9,5 L0,9 z" fill="#e0895e"/></marker>
+<marker id="t40d" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="9" markerHeight="9" markerUnits="userSpaceOnUse" orient="auto"><path d="M0,1 L9,5 L0,9 z" fill="#79a6d2"/></marker></defs>
+<text x="360" y="26" fill="#aba498" font-family="-apple-system,sans-serif" font-size="13" text-anchor="middle">Twelve places to push — higher is stronger, and harder to move</text>
+<line x1="36" x2="36" y1="500" y2="60" stroke="#e0895e" stroke-width="1.8" marker-end="url(#t40c)"/>
+<text x="22" y="290" fill="#e0895e" font-family="SF Mono,monospace" font-size="11" text-anchor="middle" transform="rotate(-90 22 290)">POWER ↑</text>
+<line x1="690" x2="690" y1="500" y2="60" stroke="#79a6d2" stroke-width="1.8" marker-end="url(#t40d)"/>
+<text x="706" y="290" fill="#79a6d2" font-family="SF Mono,monospace" font-size="11" text-anchor="middle" transform="rotate(90 706 290)">RESISTANCE ↑</text>
+
+<rect x="56" y="52" width="616" height="30" rx="6" fill="rgba(224,137,94,0.12)" stroke="rgba(224,137,94,0.42)"/>
+<text x="76" y="72" fill="#e0895e" font-family="SF Mono,monospace" font-size="13" text-anchor="middle">1</text>
+<text x="98" y="72" fill="#f0d8c8" font-family="-apple-system,sans-serif" font-size="12.5">Transcending paradigms: holding no mental model as final</text>
+<rect x="56" y="88" width="616" height="30" rx="6" fill="rgba(224,137,94,0.10)" stroke="rgba(224,137,94,0.38)"/>
+<text x="76" y="108" fill="#e0895e" font-family="SF Mono,monospace" font-size="13" text-anchor="middle">2</text>
+<text x="98" y="108" fill="#f0d8c8" font-family="-apple-system,sans-serif" font-size="12.5">The paradigm: assumptions the whole system rests on</text>
+<rect x="56" y="124" width="616" height="30" rx="6" fill="rgba(224,137,94,0.08)" stroke="rgba(224,137,94,0.34)"/>
+<text x="76" y="144" fill="#e0895e" font-family="SF Mono,monospace" font-size="13" text-anchor="middle">3</text>
+<text x="98" y="144" fill="#f0d8c8" font-family="-apple-system,sans-serif" font-size="12.5">Goals: what the system is actually running for</text>
+<text x="656" y="144" fill="#a06a4a" font-family="-apple-system,sans-serif" font-size="10.5" text-anchor="end">change the goal = a different system</text>
+<rect x="56" y="160" width="616" height="30" rx="6" fill="rgba(224,137,94,0.06)" stroke="rgba(224,137,94,0.30)"/>
+<text x="76" y="180" fill="#e0895e" font-family="SF Mono,monospace" font-size="13" text-anchor="middle">4</text>
+<text x="98" y="180" fill="#e8d5c6" font-family="-apple-system,sans-serif" font-size="12.5">Self-organisation: power to change its own structure</text>
+
+<rect x="56" y="196" width="616" height="30" rx="6" fill="rgba(217,180,95,0.09)" stroke="rgba(217,180,95,0.38)"/>
+<text x="76" y="216" fill="#d9b45f" font-family="SF Mono,monospace" font-size="13" text-anchor="middle">5</text>
+<text x="98" y="216" fill="#e6dcc4" font-family="-apple-system,sans-serif" font-size="12.5">Rules: incentives, punishments, constraints — and defaults</text>
+<rect x="56" y="232" width="616" height="30" rx="6" fill="rgba(217,180,95,0.07)" stroke="rgba(217,180,95,0.32)"/>
+<text x="76" y="252" fill="#d9b45f" font-family="SF Mono,monospace" font-size="13" text-anchor="middle">6</text>
+<text x="98" y="252" fill="#e6dcc4" font-family="-apple-system,sans-serif" font-size="12.5">Information flows: who can see what, and who cannot</text>
+
+<rect x="56" y="268" width="616" height="30" rx="6" fill="rgba(121,166,210,0.08)" stroke="rgba(121,166,210,0.32)"/>
+<text x="76" y="288" fill="#79a6d2" font-family="SF Mono,monospace" font-size="13" text-anchor="middle">7</text>
+<text x="98" y="288" fill="#d7dee6" font-family="-apple-system,sans-serif" font-size="12.5">Gain around reinforcing loops: how fast the snowball rolls</text>
+<rect x="56" y="304" width="616" height="30" rx="6" fill="rgba(121,166,210,0.06)" stroke="rgba(121,166,210,0.28)"/>
+<text x="76" y="324" fill="#79a6d2" font-family="SF Mono,monospace" font-size="13" text-anchor="middle">8</text>
+<text x="98" y="324" fill="#d7dee6" font-family="-apple-system,sans-serif" font-size="12.5">Strength of balancing loops, relative to the error they correct</text>
+
+<rect x="56" y="340" width="616" height="30" rx="6" fill="rgba(255,255,255,0.035)" stroke="rgba(255,255,255,0.14)"/>
+<text x="76" y="360" fill="#8d867b" font-family="SF Mono,monospace" font-size="13" text-anchor="middle">9</text>
+<text x="98" y="360" fill="#aba498" font-family="-apple-system,sans-serif" font-size="12.5">Delays, relative to the rate of system change</text>
+<rect x="56" y="376" width="616" height="30" rx="6" fill="rgba(255,255,255,0.03)" stroke="rgba(255,255,255,0.12)"/>
+<text x="76" y="396" fill="#8d867b" font-family="SF Mono,monospace" font-size="13" text-anchor="middle">10</text>
+<text x="98" y="396" fill="#aba498" font-family="-apple-system,sans-serif" font-size="12.5">Structure of stocks and flows: how the pipes are connected</text>
+<rect x="56" y="412" width="616" height="30" rx="6" fill="rgba(255,255,255,0.025)" stroke="rgba(255,255,255,0.10)"/>
+<text x="76" y="432" fill="#8d867b" font-family="SF Mono,monospace" font-size="13" text-anchor="middle">11</text>
+<text x="98" y="432" fill="#aba498" font-family="-apple-system,sans-serif" font-size="12.5">Sizes of buffers, relative to the flows through them</text>
+<rect x="56" y="448" width="616" height="30" rx="6" fill="rgba(255,255,255,0.02)" stroke="rgba(255,255,255,0.09)"/>
+<text x="76" y="468" fill="#8d867b" font-family="SF Mono,monospace" font-size="13" text-anchor="middle">12</text>
+<text x="98" y="468" fill="#aba498" font-family="-apple-system,sans-serif" font-size="12.5">Constants, parameters, numbers: subsidies, taxes, standards</text>
+<text x="656" y="468" fill="#6d675e" font-family="-apple-system,sans-serif" font-size="10.5" text-anchor="end">most pushed · least effect</text>
+<text x="360" y="514" fill="#787268" font-family="-apple-system,sans-serif" font-size="11.5" text-anchor="middle">Most meetings, most budgets and most arguments happen in the bottom two rows.</text>
+<text x="360" y="536" fill="#a06a4a" font-family="-apple-system,sans-serif" font-size="11.5" text-anchor="middle">Meadows' own caveat: the ranking is a heuristic, not a theorem — it says where to look first.</text>
+</svg>
+<figcaption>Proposed in 1997, expanded into a standalone paper in 1999. The numbering is hers: 12 weakest, 1 strongest.</figcaption>
+</figure>
+<p>The part worth chewing on is not the ranking itself but the mismatch it exposes: <b>effectiveness and resistance run in the same direction.</b> The easiest place to move — a number — barely changes behaviour, because behaviour is produced by structure and the number is just a blank being filled in. The place that does change behaviour — goals, paradigms — is precisely what everyone defends hardest. So a rational organisation drifts, all by itself, into spending everything in the bottom two rows. That is not laziness; it is the path of least resistance.</p>
+<p>Here is an example that makes the difference between levels visible. To raise organ donation rates, the level-12 move is more advertising and more subsidy. The level-5 move is the tick-box default on the form: is it "not a donor unless you tick", or "a donor unless you tick"? Johnson and Goldstein compared European countries in <em>Science</em> in 2003. Countries with the first default had registered consent in the single digits to the low twenties per cent; countries with the second were close to 100%. <b>Same people, same values, same piece of paper — one default value apart, and tens of percentage points of difference.</b></p>
+<p>Notice what is easy to miss here: the advertising budget can be increased without limit, and no amount of it produces that gap. <em>The force was not insufficient; the place was wrong.</em> Which is also why "try harder" is so often a completely inert piece of advice in a complex system.</p>
+<div class="decide">
+<span class="lb">🎯 DECISION LINE</span>
+<p>Take every intervention you are running or about to run and label it with a level number. If nine tenths of a year's actions sit at levels 12 and 11 — tuning numbers, adding buffers — that is not an execution problem, it is <b>a year spent pushing where the resistance is lowest</b>. Then do one thing: pick an action at level 6 (information flows) — take a number that someone currently cannot see and make it a number they see every day. That level is usually the best value on the whole list, because it is easier to move than rules and far more effective than parameters.</p>
+</div>
+<div class="crossx-inline">
+🌀 <b>Economics &amp; institutions · A default is a piece of legislation</b>　Push the donation example to its limit and you get something faintly alarming: <b>in any institution that runs on forms, whoever sets the default values holds more power than whoever argues about the wording of the clauses.</b> Pension auto-enrolment, the initial state of a privacy setting, the pre-ticked box in an installer — none of these are details; they are level-5 actions, while nearly all public debate about those institutions happens at level 12. The corollary applies to the debate itself: if an argument is entirely about a numeric value, then whoever wins it, the system's behaviour will most likely be unchanged.
+</div>
+
+<h2><span class="n">03</span>Do you have enough hands?<span class="he">（Requisite Variety）</span></h2>
+<p class="lead">Finding the place is not sufficient. There is a harder constraint, and it has nothing to do with how clever you are — only with counting.</p>
+<p>In 1956 the British psychiatrist and cyberneticist W. Ross Ashby stated a law in <em>An Introduction to Cybernetics</em> — the <b>law of requisite variety</b> — in wording short enough to pass for a proverb: <b>only variety can destroy variety</b>. <a class="reflink" href="ref-cybernetics.en.html">→ ref · Cybernetics and Its Lineage</a></p>
+<p>"Variety" here is countable: the number of distinct states a thing can take. The weather's variety is how many different ways it can be; your variety is how many genuinely different responses you can produce. The law says: <b>how far you can compress the outcomes depends on the number of distinct responses you have. When your hands are fewer than the situations, the remainder leaks through, and effort does not enter the calculation.</b></p>
+<p>Count it and it is obvious. Suppose there are 8 situations you must handle and you can produce 3 distinct responses. Those 3 responses partition the 8 situations into at most 3 classes; different situations inside one class receive the same action, so their outcomes still differ. The number of distinct outcomes is therefore at least 8 ÷ 3, rounded up — 3. You can squeeze 8 outcomes down to 3. You cannot squeeze them into 1.</p>
+<figure>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 330" role="img" aria-label="Eight situations passed through three responses still leave at least three distinct outcomes">
+<defs><marker id="t40e" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="9" markerHeight="9" markerUnits="userSpaceOnUse" orient="auto"><path d="M0,1 L9,5 L0,9 z" fill="#79a6d2"/></marker>
+<marker id="t40f" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="9" markerHeight="9" markerUnits="userSpaceOnUse" orient="auto"><path d="M0,1 L9,5 L0,9 z" fill="#cd7f9b"/></marker></defs>
+<text x="360" y="24" fill="#aba498" font-family="-apple-system,sans-serif" font-size="13" text-anchor="middle">8 situations, 3 responses</text>
+<text x="360" y="48" fill="#787268" font-family="-apple-system,sans-serif" font-size="11.5" text-anchor="middle">situations you have to handle</text>
+<rect x="53" y="58" width="68" height="38" rx="7" fill="rgba(255,255,255,0.04)" stroke="rgba(255,255,255,0.16)"/><text x="87" y="83" fill="#cfc8bc" font-family="SF Mono,monospace" font-size="14" text-anchor="middle">1</text>
+<rect x="131" y="58" width="68" height="38" rx="7" fill="rgba(255,255,255,0.04)" stroke="rgba(255,255,255,0.16)"/><text x="165" y="83" fill="#cfc8bc" font-family="SF Mono,monospace" font-size="14" text-anchor="middle">2</text>
+<rect x="209" y="58" width="68" height="38" rx="7" fill="rgba(255,255,255,0.04)" stroke="rgba(255,255,255,0.16)"/><text x="243" y="83" fill="#cfc8bc" font-family="SF Mono,monospace" font-size="14" text-anchor="middle">3</text>
+<rect x="287" y="58" width="68" height="38" rx="7" fill="rgba(255,255,255,0.04)" stroke="rgba(255,255,255,0.16)"/><text x="321" y="83" fill="#cfc8bc" font-family="SF Mono,monospace" font-size="14" text-anchor="middle">4</text>
+<rect x="365" y="58" width="68" height="38" rx="7" fill="rgba(255,255,255,0.04)" stroke="rgba(255,255,255,0.16)"/><text x="399" y="83" fill="#cfc8bc" font-family="SF Mono,monospace" font-size="14" text-anchor="middle">5</text>
+<rect x="443" y="58" width="68" height="38" rx="7" fill="rgba(255,255,255,0.04)" stroke="rgba(255,255,255,0.16)"/><text x="477" y="83" fill="#cfc8bc" font-family="SF Mono,monospace" font-size="14" text-anchor="middle">6</text>
+<rect x="521" y="58" width="68" height="38" rx="7" fill="rgba(255,255,255,0.04)" stroke="rgba(255,255,255,0.16)"/><text x="555" y="83" fill="#cfc8bc" font-family="SF Mono,monospace" font-size="14" text-anchor="middle">7</text>
+<rect x="599" y="58" width="68" height="38" rx="7" fill="rgba(255,255,255,0.04)" stroke="rgba(255,255,255,0.16)"/><text x="633" y="83" fill="#cfc8bc" font-family="SF Mono,monospace" font-size="14" text-anchor="middle">8</text>
+
+<line x1="87" x2="87" y1="96" y2="116" stroke="rgba(255,255,255,0.22)" stroke-width="1.4"/>
+<line x1="165" x2="165" y1="96" y2="116" stroke="rgba(255,255,255,0.22)" stroke-width="1.4"/>
+<line x1="243" x2="243" y1="96" y2="116" stroke="rgba(255,255,255,0.22)" stroke-width="1.4"/>
+<line x1="87" x2="243" y1="116" y2="116" stroke="rgba(255,255,255,0.22)" stroke-width="1.4"/>
+<line x1="165" x2="165" y1="116" y2="146" stroke="#79a6d2" stroke-width="1.8" marker-end="url(#t40e)"/>
+<line x1="321" x2="321" y1="96" y2="116" stroke="rgba(255,255,255,0.22)" stroke-width="1.4"/>
+<line x1="399" x2="399" y1="96" y2="116" stroke="rgba(255,255,255,0.22)" stroke-width="1.4"/>
+<line x1="477" x2="477" y1="96" y2="116" stroke="rgba(255,255,255,0.22)" stroke-width="1.4"/>
+<line x1="321" x2="477" y1="116" y2="116" stroke="rgba(255,255,255,0.22)" stroke-width="1.4"/>
+<line x1="399" x2="399" y1="116" y2="146" stroke="#79a6d2" stroke-width="1.8" marker-end="url(#t40e)"/>
+<line x1="555" x2="555" y1="96" y2="116" stroke="rgba(255,255,255,0.22)" stroke-width="1.4"/>
+<line x1="633" x2="633" y1="96" y2="116" stroke="rgba(255,255,255,0.22)" stroke-width="1.4"/>
+<line x1="555" x2="633" y1="116" y2="116" stroke="rgba(255,255,255,0.22)" stroke-width="1.4"/>
+<line x1="594" x2="594" y1="116" y2="146" stroke="#79a6d2" stroke-width="1.8" marker-end="url(#t40e)"/>
+
+<rect x="92" y="150" width="146" height="42" rx="8" fill="rgba(121,166,210,0.10)" stroke="rgba(121,166,210,0.42)"/>
+<text x="165" y="176" fill="#79a6d2" font-family="-apple-system,sans-serif" font-size="12.5" text-anchor="middle">response A</text>
+<rect x="326" y="150" width="146" height="42" rx="8" fill="rgba(121,166,210,0.10)" stroke="rgba(121,166,210,0.42)"/>
+<text x="399" y="176" fill="#79a6d2" font-family="-apple-system,sans-serif" font-size="12.5" text-anchor="middle">response B</text>
+<rect x="521" y="150" width="146" height="42" rx="8" fill="rgba(121,166,210,0.10)" stroke="rgba(121,166,210,0.42)"/>
+<text x="594" y="176" fill="#79a6d2" font-family="-apple-system,sans-serif" font-size="12.5" text-anchor="middle">response C</text>
+
+<line x1="165" x2="165" y1="192" y2="226" stroke="#cd7f9b" stroke-width="1.8" marker-end="url(#t40f)"/>
+<line x1="399" x2="399" y1="192" y2="226" stroke="#cd7f9b" stroke-width="1.8" marker-end="url(#t40f)"/>
+<line x1="594" x2="594" y1="192" y2="226" stroke="#cd7f9b" stroke-width="1.8" marker-end="url(#t40f)"/>
+
+<rect x="92" y="230" width="146" height="42" rx="8" fill="rgba(205,127,155,0.09)" stroke="rgba(205,127,155,0.45)"/>
+<text x="165" y="256" fill="#cd7f9b" font-family="-apple-system,sans-serif" font-size="12.5" text-anchor="middle">outcome Ⅰ</text>
+<rect x="326" y="230" width="146" height="42" rx="8" fill="rgba(205,127,155,0.09)" stroke="rgba(205,127,155,0.45)"/>
+<text x="399" y="256" fill="#cd7f9b" font-family="-apple-system,sans-serif" font-size="12.5" text-anchor="middle">outcome Ⅱ</text>
+<rect x="521" y="230" width="146" height="42" rx="8" fill="rgba(205,127,155,0.09)" stroke="rgba(205,127,155,0.45)"/>
+<text x="594" y="256" fill="#cd7f9b" font-family="-apple-system,sans-serif" font-size="12.5" text-anchor="middle">outcome Ⅲ</text>
+<text x="360" y="304" fill="#d9b45f" font-family="-apple-system,sans-serif" font-size="12.5" text-anchor="middle">number of outcomes ≥ number of situations ÷ number of responses</text>
+</svg>
+<figcaption>8 ÷ 3 rounds up to 3. You can compress the outcomes to three; you cannot compress them to one — and that step is arithmetic, not effort.</figcaption>
+</figure>
+<p>The law earns its keep by turning a vague kind of frustration into a number you can compute. When someone repeatedly "cannot get a grip" on something, the usual diagnosis is willpower, competence, focus. Ashby's diagnosis is <b>not enough kinds of response</b> — and the three exits are exhaustive: add distinct responses; reduce the number of situations you face (block some at the door, or standardise them); or openly declare which outcomes you do not guarantee. The third sounds like surrender and is in fact the only honest way to downgrade — at minimum it tells other people where else to go for cover.</p>
+<div class="decide">
+<span class="lb">🎯 DECISION LINE</span>
+<p>Take something you have chronically "failed to control" and do the count: <b>list the distinct situations that actually occurred last month, and count them; then list the distinct responses you actually produced, and count those.</b> If the second number is clearly smaller, stop adding effort — effort only performs the same response harder, and the law constrains kinds, not intensity. Pick one of the three exits: add response types, cut the scope you accept responsibility for, or state plainly which part you do not guarantee.</p>
+</div>
+<div class="crossx-inline">
+🌀 <b>Biology · The immune system does not memorise answers</b>　Pathogens come in more kinds than can be listed, and the genome cannot store a ready-made antibody for each. The immune system's solution is not to store more answers but to store <b>a rule for generating answers on the spot</b> — randomly recombining gene segments into a receptor repertoire of enormous size, then amplifying whichever receptor meets an antigen. That architecture is exactly what Ashby's law forces: <b>when the kinds of situation far exceed what you can enumerate, the correct move is not a longer checklist but a machine that manufactures new responses.</b> The corollary is usable anywhere the contingency plans cannot be finished — when they cannot, what needs changing is how plans get generated, not how many there are.
+</div>
+
+<h2><span class="n">04</span>If you cannot pick the right one, pick the one you can undo<span class="he">（Reversibility First）</span></h2>
+<p class="lead">Put the first three sections side by side and you land somewhere uncomfortable.</p>
+<p>The system eats your intervention; you are probably pushing at the least useful level; and your hands are fewer than the situations. Add what Topic 11 established — that for some systems there is, in principle, no shortcut to computing the behaviour — and the standard procedure ("work out which option is right, then execute") turns out to be unrunnable. It presupposes a judgement you have just been told you cannot make.</p>
+<p>So change the criterion. Since "which is more right?" cannot be answered in advance, ask something that can be: <b>which option can be undone if it turns out wrong?</b> That question requires no prediction of the system's response — only an inventory of your own exits, and exits can be counted.</p>
+<p>In engineering and ecosystem management this goes by one name: <b>safe-to-fail</b>. It does not aim to get this step right; it requires that getting it wrong is bounded in loss and productive in information. It is the opposite of fail-safe design, which assumes you already know what to guard against.</p>
+<figure>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 320" role="img" aria-label="One big bet versus several small safe-to-fail probes">
+<defs><marker id="t40g" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="9" markerHeight="9" markerUnits="userSpaceOnUse" orient="auto"><path d="M0,1 L9,5 L0,9 z" fill="#cd7f9b"/></marker>
+<marker id="t40h" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="9" markerHeight="9" markerUnits="userSpaceOnUse" orient="auto"><path d="M0,1 L9,5 L0,9 z" fill="#8d867b"/></marker>
+<marker id="t40i" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="9" markerHeight="9" markerUnits="userSpaceOnUse" orient="auto"><path d="M0,1 L9,5 L0,9 z" fill="#9fbc7a"/></marker></defs>
+<text x="360" y="24" fill="#aba498" font-family="-apple-system,sans-serif" font-size="13" text-anchor="middle">Same budget, two ways to spend it</text>
+<line x1="360" x2="360" y1="42" y2="292" stroke="rgba(255,255,255,0.08)" stroke-width="1"/>
+<text x="180" y="60" fill="#cd7f9b" font-family="SF Mono,monospace" font-size="12" text-anchor="middle">① all in, once</text>
+<rect x="70" y="72" width="220" height="40" rx="8" fill="rgba(255,255,255,0.04)" stroke="rgba(255,255,255,0.16)"/>
+<text x="180" y="97" fill="#cfc8bc" font-family="-apple-system,sans-serif" font-size="12" text-anchor="middle">the option that looks best</text>
+<line x1="180" x2="180" y1="112" y2="146" stroke="#cd7f9b" stroke-width="1.8" marker-end="url(#t40g)"/>
+<rect x="95" y="150" width="170" height="36" rx="8" fill="rgba(205,127,155,0.10)" stroke="rgba(205,127,155,0.5)"/>
+<text x="180" y="173" fill="#cd7f9b" font-family="-apple-system,sans-serif" font-size="12" text-anchor="middle">a one-way door</text>
+<line x1="180" x2="180" y1="186" y2="216" stroke="#cd7f9b" stroke-width="1.8" marker-end="url(#t40g)"/>
+<rect x="62" y="220" width="236" height="46" rx="8" fill="rgba(205,127,155,0.06)" stroke="rgba(205,127,155,0.35)"/>
+<text x="180" y="241" fill="#d5cdc1" font-family="-apple-system,sans-serif" font-size="11.5" text-anchor="middle">wrong: no way back</text>
+<text x="180" y="259" fill="#8d867b" font-family="-apple-system,sans-serif" font-size="11" text-anchor="middle">the only move left is to raise the bet</text>
+
+<text x="531" y="60" fill="#9fbc7a" font-family="SF Mono,monospace" font-size="12" text-anchor="middle">② small probes · safe-to-fail</text>
+<rect x="431" y="72" width="200" height="40" rx="8" fill="rgba(255,255,255,0.04)" stroke="rgba(255,255,255,0.16)"/>
+<text x="531" y="97" fill="#cfc8bc" font-family="-apple-system,sans-serif" font-size="12" text-anchor="middle">four small options in parallel</text>
+<line x1="520" x2="436" y1="112" y2="146" stroke="#8d867b" stroke-width="1.5" marker-end="url(#t40h)"/>
+<line x1="527" x2="498" y1="112" y2="146" stroke="#8d867b" stroke-width="1.5" marker-end="url(#t40h)"/>
+<line x1="535" x2="562" y1="112" y2="146" stroke="#8d867b" stroke-width="1.5" marker-end="url(#t40h)"/>
+<line x1="542" x2="626" y1="112" y2="146" stroke="#8d867b" stroke-width="1.5" marker-end="url(#t40h)"/>
+<rect x="404" y="150" width="56" height="36" rx="7" fill="rgba(205,127,155,0.07)" stroke="rgba(205,127,155,0.35)"/>
+<text x="432" y="173" fill="#cd7f9b" font-family="-apple-system,sans-serif" font-size="14" text-anchor="middle">✗</text>
+<rect x="470" y="150" width="56" height="36" rx="7" fill="rgba(205,127,155,0.07)" stroke="rgba(205,127,155,0.35)"/>
+<text x="498" y="173" fill="#cd7f9b" font-family="-apple-system,sans-serif" font-size="14" text-anchor="middle">✗</text>
+<rect x="536" y="150" width="56" height="36" rx="7" fill="rgba(159,188,122,0.12)" stroke="rgba(159,188,122,0.5)"/>
+<text x="564" y="173" fill="#9fbc7a" font-family="-apple-system,sans-serif" font-size="14" text-anchor="middle">✓</text>
+<rect x="602" y="150" width="56" height="36" rx="7" fill="rgba(205,127,155,0.07)" stroke="rgba(205,127,155,0.35)"/>
+<text x="630" y="173" fill="#cd7f9b" font-family="-apple-system,sans-serif" font-size="14" text-anchor="middle">✗</text>
+<line x1="564" x2="564" y1="186" y2="216" stroke="#9fbc7a" stroke-width="1.8" marker-end="url(#t40i)"/>
+<rect x="489" y="220" width="150" height="36" rx="8" fill="rgba(159,188,122,0.10)" stroke="rgba(159,188,122,0.45)"/>
+<text x="564" y="243" fill="#9fbc7a" font-family="-apple-system,sans-serif" font-size="12" text-anchor="middle">scale this one up</text>
+<text x="531" y="270" fill="#8d867b" font-family="-apple-system,sans-serif" font-size="11" text-anchor="middle">three failures cost one small step in total</text>
+<text x="360" y="308" fill="#787268" font-family="-apple-system,sans-serif" font-size="11.5" text-anchor="middle">The left buys a chance of being right; the right buys the certainty of still being here.</text>
+</svg>
+<figcaption>The right-hand column usually looks worse on an expected-value ledger — because that ledger puts no price on still being in the game.</figcaption>
+</figure>
+<p>Making the criterion operational takes three extra columns next to each option: <em>how long to undo</em>, <em>how much it costs to undo</em>, <em>whose sign-off undoing requires</em>. Options where all three can be filled in are reversible doors. Any option with a blank column should be treated as a one-way door — which does not mean never walking through it, but means walking slower, smaller, and having said out loud in advance what you will live on once you are through.</p>
+<div class="decide">
+<span class="lb">🎯 DECISION LINE</span>
+<p>Make the first question at any design review not "which is better?" but "<b>which one can be undone if it is wrong — how long, how much, whose sign-off?</b>" When expected returns are close, take the reversible one. When the irreversible one has a clearly higher return, shrink it and run it once at small scale until it becomes reversible, then talk. This rule will always look costly on an expected-value ledger: what it buys is not return, it is the right to keep sitting at the table.</p>
+</div>
+<div class="crossx-inline">
+🌀 <b>Art &amp; letters · The conservator's rule of reversibility</b>　Modern heritage conservation carries a strange rule: material added in a repair must be removable, and the added part must be visibly distinguishable as an addition (the 1964 Venice Charter, Article 12, requires that replacements of missing parts be distinguishable from the original). What is strange is that it explicitly refuses to choose the best available repair — the strongest adhesive is very often the least reversible one. <b>The conclusion this forces: when you do not know what later generations will know, "optimal" has no definition, and the criterion has to become "can this be undone?"</b> It also explains why that profession treats an invisible repair as a defect rather than an achievement — invisible means you have erased the possibility of anyone correcting you later.
+</div>
+
+<h2><span class="n">05</span>Where this account breaks down<span class="he">（Where This Breaks Down）</span></h2>
+<p class="lead">All four sections above are useful, and being useful is exactly why they get overextended. Boundaries, one at a time.</p>
+<p><b>The leverage-point list is not a theory; it is a list.</b> Meadows was explicit that the ordering came from experience and intuition rather than being derived from any model, and she invited readers to argue with it. It provides no operational rule telling you which level an action belongs to — the same act, re-described, moves from level 12 to level 5. This produces its characteristic misuse: <em>after the fact</em>, successful interventions get called high-leverage and failed ones low-leverage, so the list is always right and never predictive. There is only one defence: <b>write the level down before you act, and write down what should happen in three months if it really is that level.</b></p>
+<p><b>"Variety" is usually uncountable in the field.</b> The 8-divided-by-3 in section 3 was clean because I enumerated both sets in advance. In a real situation, "how many kinds of case do I face" depends entirely on how you carve them: carve coarsely and it is 3, carve finely and it is 300 — and the law holds for both carvings while giving different conclusions. So treat it as a <em>structural reminder</em> (the number of kinds of response is a constraint independent of effort), not as a calculator. Any claim that computes a precise conclusion from it owes you its carving rule first.</p>
+<p><b>Reversibility-first is not universally optimal, and it is not free.</b> Choosing a second-best option to keep an exit costs real expected value, and over a long run it loses to a rival who always takes the best option — provided that rival survives. Worse, an entire class of interventions is indivisible by nature: a dam, a constitution, a mass vaccination campaign, a surgical procedure. You cannot build a quarter of a dam as a trial. For that class, this issue does not say "don't" — it says shift the effort into making every step <em>before</em> the irreversible one reversible, and into agreeing in advance who declares failure, and when.</p>
+<p><b>And the one most often skipped: doing nothing is also an intervention.</b> "Complex systems are hard to intervene in" is regularly read as "so don't touch it", but holding still changes the system too — it lets the currently dominant loop keep running. Every criterion above has to be applied symmetrically to the do-nothing option: it has a level number, it has an exit cost, and if it is wrong it may not be undoable either. <b>Treating caution as the default answer is the easiest mistake in this issue to make and the hardest to notice</b>, because it always looks like the more sober choice.</p>
+
+<div class="bigcat">
+<h3>🎒 Scenario · BigCat</h3>
+<ol>
+<li><span class="dm">Teams &amp; organisations</span>Something breaks in production, the post-mortem is held, and the output is "everyone please be careful" plus one more line on the checklist. Three months later the checklist has grown a dozen lines and nobody reads it through. This is not an attitude problem — adding a line to a checklist sits at the very bottom of the leverage table and is also the lowest-resistance move there, so it gets selected automatically every time. The concrete change: make the post-mortem's output not "one new check" but the answers to two questions — <b>who noticed something was wrong first, at what time, and how long did that information take to reach someone who could make a call</b>. Those two answers live at the information-flow level; changing them is harder than adding a check, and it changes whether next time is twenty minutes earlier. Stop doing: letting a post-mortem close on "we added a rule."</li>
+<li><span class="dm">Practice &amp; mind</span>You decide to break a habit — say, half an hour of scrolling after you have already lain down — so you set a rule, set an alarm, tell someone. Ten days later you are back, and you explain it as insufficient discipline. By the counting method in section 3, the problem is more likely kinds than intensity: the occasions that break you actually fall into several classes — too tired to move, still churning after an argument, plain boredom, waiting for the result of something — and you prepared exactly one response (grit). The concrete change: <b>write down the times you actually broke last week, sorted by trigger, and give each class its own different substitute action</b> — one response per kind of trigger. Stop doing: reading a relapse as a moral fact. That is a counting result being received as a verdict on yourself.</li>
+<li><span class="dm">Health &amp; energy</span>You feel persistently off, so you start four things at once: earlier nights, no coffee, more exercise, different diet. Two weeks later — better or not — you cannot tell which one did it, and you cannot withdraw just one of them. The concrete change: <b>move one thing at a time, and move the one you can take back immediately first</b> (coffee can be reinstated any day; sleep debt and injury cannot). At the same time, replace the vague "how I feel" with one specific number readable within seven to ten days — for instance, rate your alertness at three in the afternoon from 1 to 5. Stop doing: changing several variables together and then holding a review about which one worked. That review is structurally incapable of producing an answer.</li>
+</ol>
+</div>
+
+<div class="crossx">
+<h3>🌀 Crossing Over · Interdisciplinary Echoes</h3>
+<ul>
+<li><b>History &amp; the military · Why Prohibition was bound to look bad</b>: the Eighteenth Amendment banned the manufacture and sale of alcohol in the United States from 1920. All three of this issue's mechanisms hold at once here, and together they yield a judgement far more specific than "human nature". First, policy resistance: the ban did not remove demand, it pushed demand out of legal channels into moonshining, smuggling, and the permitted exits — medicinal whiskey prescriptions, sacramental wine. Second, requisite variety: the kinds of evasion route vastly outnumbered the kinds of enforcement action, and by the arithmetic in section 3, enforcement can compress the outcome set but cannot take it to zero. Third, irreversibility: the ban itself was repealed cleanly, but the distribution networks and enforcement corruption it grew over thirteen years did not vanish with the amendment. <b>Hence a test you can apply beforehand: to judge whether a prohibition will fail, do not look at whether the goal is legitimate — count two things, how far the kinds of evasion route exceed the kinds of enforcement action, and whether repeal returns the system to its prior state.</b> One fact must be stated alongside this: Prohibition was not wholly ineffective. Miron and Zwiebel's 1991 estimates put per-capita alcohol consumption at roughly 30% of its pre-Prohibition level at first, recovering to 60–70%. "Failure" here means it did not reach its goal and left behind things that could not be removed — not that nothing happened.</li>
+<li><b>Western philosophy &amp; philosophy of science · Popper's piecemeal engineering</b>: in 1945 Karl Popper argued that social reform can only be "piecemeal social engineering" — change one thing, observe, correct continuously — and rejected holistic utopian planning. His argument was epistemological: we do not know what the ideal society looks like, so trial and error is all we have. This issue reaches the same conclusion by a completely different and harsher route: policy resistance says a large intervention will be pushed back; requisite variety says a central planner's kinds of action cannot cover the planned-for population's kinds of behaviour; irreversibility says a large intervention has no undo button when it goes wrong. <b>Together they yield a conclusion Popper did not need: the case for piecemeal engineering does not rest on the premise that we are ignorant — even an omniscient planner is still bound by Ashby's law, because that law constrains the number of kinds of action, not the amount of knowledge.</b> This upgrades an argument about knowing into an argument about structure. <b>But here it does not hold</b>: Popper's position is simultaneously an ethical prohibition — you may not run whole-society experiments on living people — and that part cannot be derived from any dynamics whatsoever. Using systems theory to "prove" piecemeal engineering quietly swaps a moral constraint for an efficiency claim; the day someone computes that a large intervention is more efficient, the prohibition goes with it. What you can borrow here is the ruler, not the line in the sand.</li>
+<li><b>Engineering &amp; technology history · The fifty years of putting every fire out</b>: in 1935 the U.S. Forest Service adopted the "10 a.m. policy" — every wildfire was to be controlled by 10 a.m. the day after it was reported — and did not formally abandon it until 1978. At the parameter level the policy was a great success (burned area fell year on year), but it also removed the system's own unloading mechanism: litter that never burned accumulated year after year, the understory filled with dense small trees, and later fires stopped being low-intensity surface fires and became crown fires that could not be put out at all. In this issue's language: a level-12 intervention (push the trigger threshold down) suppressed something at level 4 (the system's self-organised redistribution of fuel), and the consequence was irreversible — fifty years of accumulated fuel and an already-altered stand structure cannot be quickly wound back. <b>The usable corollary is a question: for any policy that removes small disturbances, establish first whether those small disturbances are the system's unloading mechanism.</b> If they are, what you have suppressed is not the risk but the instalment plan for it. <b>But here it does not hold</b>: not every small disturbance is an unloading mechanism. Suppressing small outbreaks of an infectious disease does not breed a larger one — the susceptible pool is continually replenished by births and migration, so there is no stock that only the event itself can consume. Treating "suppressing the small breeds the large" as a universal law is the easiest abuse of this issue; it holds only where <em>there exists a stock that accumulates and can be drawn down only by the events themselves</em>.</li>
+</ul>
+</div>
+
+<div class="thinking">
+<h3>🤔 Going Deeper</h3>
+<details><summary>Why should effectiveness and resistance run in the same direction?</summary><p>One conjecture: the things that can be changed easily are easy precisely because changing them does not threaten the system's persistence, so no protective mechanism ever evolved around them. Conversely, goals and paradigms are defended fiercely because changing them makes the system a different system — the strength of the guard is itself evidence that this is the vital spot. If the conjecture holds, resistance becomes a detector for leverage: the more violently someone reacts to your proposal, the closer you are to a high leverage point. That corollary is suspiciously convenient — it could equally be a way of repackaging "annoying people" as "having insight". Telling those two apart is a real problem.</p></details>
+<details><summary>Why is the third exit from Ashby's law — declaring what you do not guarantee — so hard to say out loud?</summary><p>Technically it is the most honest way to downgrade; organisationally it is often the most expensive sentence available. A possible reason: the other two exits (add capability, cut scope) both look like solving the problem, whereas this one looks like shirking, even though it is the only one that conceals no constraint. There may be something more general hiding here — when a constraint is mathematical rather than moral, people still receive it morally.</p></details>
+<details><summary>Taken to its limit, does reversibility-first become never deciding at all?</summary><p>Yes. That is this rule's most realistic failure mode: any option can be asked to become smaller and more reversible, so intervention is deferred indefinitely while inaction keeps changing the system. One possible fix is to attach an expiry to reversibility — not "is this reversible?" but "before what date is it reversible, and after which it is not?" That turns "when must this be decided" into a quantity rather than a matter of temperament.</p></details>
+<details><summary>If the thing being intervened in can read this method, does the method still work?</summary><p>Topic 26 covered this: agents in complex adaptive systems learn, and publishing a model changes the thing modelled. Once the leverage-point list is public, defenders will use the same list to position their defences, and high leverage points get guarded harder. Interestingly, this need not invalidate the list — it might make the "resistance" signal more reliable. But the opposite is also available: both sides know level 5 matters, so the fight over default values becomes as fierce and as deadlocked as the fight over tax rates was. Which of these two futures happens is not something this issue's mechanisms can answer.</p></details>
+</div>
+
+<div class="refs">
+<h3>Further Reading</h3>
+<ul>
+<li>Donella Meadows, <a href="https://donellameadows.org/archives/leverage-points-places-to-intervene-in-a-system/">Leverage Points: Places to Intervene in a System</a> (the full 1999 version)</li>
+<li>Donella Meadows, <a href="https://www.chelseagreen.com/product/thinking-in-systems/">Thinking in Systems: A Primer</a> (2008; chapter 6 is the leverage points, with a catalogue of "system traps")</li>
+<li>W. Ross Ashby, <a href="http://panarchy.org/ashby/variety.1956.html">Cybernetics and Requisite Variety</a> (chapter 11 of <em>An Introduction to Cybernetics</em>, 1956)</li>
+<li>Conant &amp; Ashby, <a href="https://doi.org/10.1080/00207727008920220">Every Good Regulator of a System Must Be a Model of That System</a> (1970)</li>
+<li>Michael G. Vann, <a href="https://madeinchinajournal.com/2020/08/20/the-great-hanoi-rat-hunt/">The Great Hanoi Rat Hunt</a> (interview on the archival research behind the 1902 bounty)</li>
+<li>Johnson &amp; Goldstein, <a href="https://doi.org/10.1126/science.1091721">Do Defaults Save Lives?</a> (Science, 2003)</li>
+<li>Lueck &amp; Michael, <a href="https://doi.org/10.1086/345412">Preemptive Habitat Destruction under the Endangered Species Act</a> (2003)</li>
+<li>Miron &amp; Zwiebel, <a href="https://www.nber.org/papers/w3675">Alcohol Consumption During Prohibition</a> (1991)</li>
+<li>Dietrich Braess, <a href="https://doi.org/10.1287/trsc.1050.0127">On a Paradox of Traffic Planning</a> (English translation of the 1968 paper, 2005)</li>
+<li>Forest History Society, <a href="https://foresthistory.org/research-explore/us-forest-service-history/policy-and-law/fire-u-s-forest-service/u-s-forest-service-fire-suppression/">U.S. Forest Service Fire Suppression</a> (policy history of the 10 a.m. rule)</li>
+<li>Karl Popper, <a href="https://press.princeton.edu/books/paperback/9780691158136/the-open-society-and-its-enemies">The Open Society and Its Enemies</a> (1945)</li>
+<li>ICOMOS, <a href="https://www.icomos.org/charters/venice_e.pdf">The Venice Charter</a> (1964; Article 12 on distinguishable replacements)</li>
+</ul>
+</div>
+<footer>BigCat · Complexity Science · <a href="index.en.html">← All Topics</a></footer>
+</div>
+<script src="https://hub.cissychen.com/comments.js" defer></script>
+<script src="https://hub.cissychen.com/search.js" defer></script>
+<script src="https://hub.cissychen.com/index-button.js" defer></script>
+<script src="https://hub.cissychen.com/i18n-tts.js" defer></script>
+</body></html>

@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+
+<html lang="zh-CN"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>控制论谱系 · 参考库 · 复杂性科学</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,"SF Pro Display","Noto Sans SC",sans-serif;color:#e4ded5;line-height:1.85;min-height:100vh;
+  background:radial-gradient(1100px 620px at 12% -6%,rgba(99,179,166,0.09),transparent 62%),radial-gradient(950px 700px at 100% 2%,rgba(166,147,205,0.08),transparent 58%),linear-gradient(168deg,#100f0d 0%,#15161b 48%,#0a0a0c 100%);background-attachment:fixed}
+.wrap{max-width:720px;margin:0 auto;padding:30px 22px 90px}
+header{padding:52px 0 8px;border-bottom:1px solid rgba(255,255,255,0.07);margin-bottom:32px}
+.rtag{font-family:"SF Mono",Menlo,monospace;font-size:0.72rem;font-weight:700;letter-spacing:2px;color:#63b3a6;border:1px solid rgba(99,179,166,0.4);background:rgba(99,179,166,0.07);padding:3px 11px;border-radius:20px}
+h1{font-size:2.15rem;font-weight:800;line-height:1.2;margin:20px 0 0;color:#f0eae0}
+h1 .h1en{display:block;font-size:0.42em;font-weight:600;letter-spacing:2.5px;color:#847d72;margin-top:11px}
+.sub{font-size:0.98rem;color:#aba498;margin-top:12px}
+.meta{font-family:"SF Mono",Menlo,monospace;font-size:0.75rem;color:#57524b;margin-top:16px;letter-spacing:1px}
+h2{font-size:1.25rem;font-weight:700;color:#e9e3d9;margin:44px 0 10px}
+h2 .n{font-family:"SF Mono",Menlo,monospace;font-size:0.8rem;color:#63b3a6;display:block;margin-bottom:5px;letter-spacing:2px}
+.he{font-size:0.68em;color:#8d867b;font-weight:500;letter-spacing:0}
+p{margin-bottom:16px}
+b,strong{color:#f0eae0;font-weight:600}
+em{color:#d9b45f;font-style:normal;font-weight:500}
+a.reflink{display:inline-block;font-size:0.82rem;font-family:"SF Mono",Menlo,monospace;color:#63b3a6;border:1px solid rgba(99,179,166,0.38);background:rgba(99,179,166,0.07);padding:1px 9px;border-radius:20px;text-decoration:none;transition:all 0.15s;white-space:nowrap}
+a.reflink:hover{background:rgba(99,179,166,0.16);border-color:rgba(99,179,166,0.7)}
+.rule{border:1px solid rgba(99,179,166,0.3);background:rgba(99,179,166,0.05);border-radius:12px;padding:16px 20px;margin:22px 0;font-size:0.94rem;color:#d5cdc1}
+.rule ol{padding-left:20px;margin:0}
+.rule li{margin-bottom:7px}
+.rule li:last-child{margin-bottom:0}
+figure{margin:28px 0}
+figure svg{display:block;width:100%;height:auto;border-radius:12px;background:rgba(255,255,255,0.018);border:1px solid rgba(255,255,255,0.06)}
+figcaption{font-size:0.82rem;color:#787268;margin-top:10px;text-align:center;line-height:1.6}
+.cant{border:1px solid rgba(205,127,155,0.36);background:rgba(205,127,155,0.05);border-radius:12px;padding:18px 21px;margin:26px 0 10px}
+.cant h3{font-size:1rem;color:#cd7f9b;margin-bottom:12px}
+.cant ul{list-style:none;padding:0}
+.cant li{margin-bottom:13px;font-size:0.93rem;color:#d5cdc1;line-height:1.76}
+.cant li:last-child{margin-bottom:0}
+.cant li b{color:#cd7f9b}
+.refs{margin:40px 0 10px}
+.refs h3{font-size:1rem;color:#79a6d2;margin-bottom:12px}
+.refs ul{list-style:none;padding:0}
+.refs li{margin-bottom:9px;font-size:0.89rem;color:#8d867b;line-height:1.7}
+.refs a{color:#79a6d2;text-decoration:none;border-bottom:1px solid rgba(121,166,210,0.3)}
+.refs a:hover{color:#a6c4e2}
+footer{text-align:center;padding:52px 0 10px;font-size:0.78rem;color:#57524b;font-family:"SF Mono",Menlo,monospace;border-top:1px solid rgba(255,255,255,0.06);margin-top:46px}
+footer a{color:#79a6d2;text-decoration:none}
+@media(max-width:600px){h1{font-size:1.7rem}.wrap{padding:24px 16px 60px}}
+</style></head><body>
+<div class="wrap">
+<header>
+<span class="rtag">REF · 学派</span>
+<h1>控制论谱系<span class="h1en">CYBERNETICS AND ITS LINEAGE</span></h1>
+<p class="sub">一群人在 1940 年代问了同一个问题：导弹的追踪、体温的恒定、人伸手去拿杯子，是不是同一件事</p>
+<p class="meta">被引用于：Topic 40 干预复杂系统 · Topic 44 思想史与人物</p>
+</header>
+
+<h2><span class="n">01</span>它想解决什么问题<span class="he">（The Problem It Was Built For）</span></h2>
+<p>二战期间，数学家 Norbert Wiener（诺伯特·维纳）在做高射炮的自动瞄准：炮弹飞到目标要几秒，这几秒里飞机会机动，所以炮必须打向飞机<em>将要</em>在的地方，还要根据它实际去了哪儿不断修正。做着做着他注意到一件事——这台机器的行为，和一个人伸手去够杯子的行为，在结构上是同一回事：<b>都有一个目标，都在持续测量"现在离目标还差多少"，都用这个差值决定下一步动作。</b></p>
+<p>更关键的是，这个结构一旦被破坏，机器和人会以同一种方式出错。伺服系统的增益调得太高会开始来回摆动；小脑受损的病人伸手去拿东西时也会出现越接近越抖的震颤（意向性震颤）。同一个数学毛病，一个在钢铁里，一个在神经里。</p>
+<p>这就是控制论（cybernetics，Wiener 1948 年从希腊语"舵手"造的词）要解决的问题：<b>为"有目标的行为"找一套不管载体是机器、生物还是组织都适用的语言。</b>1946 到 1953 年间的梅西会议（Macy Conferences）把数学家、神经生理学家、人类学家、心理学家关进同一个房间反复吵这件事，这门学科就是在那些会议室里成形的。</p>
+
+<h2><span class="n">02</span>核心命题<span class="he">（The Core Claims）</span></h2>
+<p>控制论有一大堆概念，但真正硬、能推出可检验结论的只有下面几条。</p>
+<div class="rule">
+<ol>
+<li><b>负反馈是目标的物理实现。</b>一个系统"想要"某个状态，在机制上就等于：它持续测量当前值与那个状态的差，并按这个差反向施加动作。目的论在这里被还原成了一个回路，不需要任何神秘成分。</li>
+<li><b>变异度（variety）是可以数的量。</b>一件事情能取多少个不同状态，这个数就是它的变异度。W. Ross Ashby 把它当成控制问题的基本货币。</li>
+<li><b>必要多样性定律（law of requisite variety，1956）：只有多样性能消灭多样性。</b>调节者能把结局压缩到多少种，受限于它自己能做出多少种不同动作。用数说：结局的种类数 ≥ 扰动的种类数 ÷ 调节者的种类数。</li>
+<li><b>好调节器定理（good regulator theorem，Conant 与 Ashby，1970）：每一个好的调节器，必然是被调节系统的一个模型。</b>不是"最好带个模型"，是——只要调节效果足够好，你就可以从它的结构里读出一个被调对象的模型，不管设计者有没有打算放一个进去。</li>
+<li><b>黑箱方法。</b>当你打不开一个系统，你仍然可以只通过"给它什么输入、它给出什么输出"来建立它的模型。这一步把"不知道内部构造"从障碍变成了一个可操作的处境。</li>
+</ol>
+</div>
+<p>第 3 条和第 4 条是这门学科留下的最耐用的两件东西。它们的共同点是：<b>都在说"控制"这件事有一个与努力无关的上限，而这个上限可以被算出来。</b></p>
+
+<h2><span class="n">03</span>把它跑起来会看到什么<span class="he">（What You See When It Runs）</span></h2>
+<p>Ashby 真的造了一台机器来演示第一条。1948 年的<b>恒温器</b>（Homeostat，直译"稳态机"）由四个互相连着的电磁单元组成，每个单元都想把自己的电流拉回中位。你去扰动它、甚至把它的接线随机改掉，它会一通乱动，然后自己找回一个稳定态——不是因为有人写了应对每种扰动的程序，而是因为每个单元都在自己那条回路里做同一件事。Wiener 说它是当时"最接近人造大脑的东西"，这个说法后来被认为过头了，但机器本身确实展示了一件事：<b>稳态可以从局部回路里长出来，不需要中央的应对表。</b></p>
+<p>第 3 条则是可以直接算的。下面这张图把一个调节者的能力画成一条上限线：横轴是它能做出多少种不同动作，纵轴是它最少要留下多少种结局。</p>
+<figure>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 700 300" role="img" aria-label="扰动 24 种时，调节者手段数与最少剩余结局数的关系曲线">
+<defs><marker id="cy1" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="9" markerHeight="9" markerUnits="userSpaceOnUse" orient="auto"><path d="M0,1 L9,5 L0,9 z" fill="#8d867b"/></marker></defs>
+<text x="350" y="26" fill="#aba498" font-family="-apple-system,sans-serif" font-size="13" text-anchor="middle">扰动有 24 种时：你的手段越多，剩下的结局越少</text>
+<line x1="70" x2="660" y1="240" y2="240" stroke="rgba(255,255,255,0.2)" stroke-width="1.5" marker-end="url(#cy1)"/>
+<line x1="70" x2="70" y1="240" y2="52" stroke="rgba(255,255,255,0.2)" stroke-width="1.5" marker-end="url(#cy1)"/>
+<text x="370" y="278" fill="#8d867b" font-family="-apple-system,sans-serif" font-size="11.5" text-anchor="middle">调节者能做出的不同动作数 →</text>
+<text x="28" y="146" fill="#8d867b" font-family="-apple-system,sans-serif" font-size="11.5" text-anchor="middle" transform="rotate(-90 28 146)">最少剩余结局数</text>
+<text x="62" y="68" fill="#57524b" font-family="SF Mono,monospace" font-size="10" text-anchor="end">24</text>
+<text x="62" y="152" fill="#57524b" font-family="SF Mono,monospace" font-size="10" text-anchor="end">12</text>
+<text x="62" y="230" fill="#57524b" font-family="SF Mono,monospace" font-size="10" text-anchor="end">1</text>
+<polyline points="94,64 118,148.5 142,176.7 166,190.8 190,197.8 214,204.9 238,204.9 262,211.9 286,211.9 310,211.9 334,211.9 358,219 382,219 406,219 430,219 454,219 478,219 502,219 526,219 550,219 574,219 598,219 622,219 646,226" fill="none" stroke="#63b3a6" stroke-width="2.6"/>
+<circle cx="94" cy="64" r="4.5" fill="#cd7f9b"/>
+<text x="104" y="68" fill="#cd7f9b" font-family="SF Mono,monospace" font-size="11">1 种手段 → 24 种结局</text>
+<circle cx="142" cy="176.7" r="4.5" fill="#d9b45f"/>
+<text x="152" y="172" fill="#d9b45f" font-family="SF Mono,monospace" font-size="11">3 种手段 → 8 种结局</text>
+<circle cx="262" cy="211.9" r="4.5" fill="#9fbc7a"/>
+<text x="272" y="207" fill="#9fbc7a" font-family="SF Mono,monospace" font-size="11">8 种手段 → 3 种结局</text>
+<circle cx="646" cy="226" r="4.5" fill="#63b3a6"/>
+<text x="640" y="212" fill="#63b3a6" font-family="SF Mono,monospace" font-size="11" text-anchor="end">24 种手段 → 才可能压成 1 种</text>
+</svg>
+<figcaption>这条线是下限，不是预测：它说的是"最好也只能到这儿"。手段数翻倍，剩余结局数减半——努力不出现在这个公式里。</figcaption>
+</figure>
+<p>这条曲线最有用的地方是它的形状：<b>前几种手段带来的改善极大，后面迅速变平。</b>从 1 种手段增加到 3 种，剩余结局从 24 掉到 8；从 8 种增加到 12 种，只从 3 掉到 2。所以"多备一手"的边际收益在早期高得惊人，在后期几乎为零——这直接反对了"预案越多越好"那种直觉。</p>
+
+<h2><span class="n">04</span>它解释了现实中的什么<span class="he">（What It Explains）</span></h2>
+<p><b>为什么恒温器、体温调节和价格机制看起来像同一种东西。</b>它们确实是：都是负反馈回路，都有测量、比较、动作三步。控制论的历史贡献就是第一次把这句话说得足够精确，让人能在不同载体之间搬运结论——这也是后来一般系统论、系统动力学<a class="reflink" href="ref-system-dynamics.html">→ 参考 · 系统动力学（存量-流量）</a>乃至复杂适应系统研究的直接源头。</p>
+<p><b>为什么监管机构总是慢一步。</b>必要多样性定律给的不是抱怨而是预测：被监管方能做出的花样种类，一般远多于监管方的处置手段种类，所以剩余结局数有一个不为零的下限。这个下限不随监管者的道德水平或工作强度变化。</p>
+<p><b>为什么"控制得好"的系统里总能找到一个模型。</b>好调节器定理解释了一个很常见的观察：一个长期把某件事管得很好的人或组织，你去问他们，往往说不出成体系的理论；但从他们的动作里能反推出一套相当准确的对象模型。定理说这不是巧合——调节效果本身就要求那个模型存在，无论它是不是被明确写下来过。</p>
+<p><b>它还解释了一次真实的政治实验。</b>1971 至 1973 年，Stafford Beer 在智利主持 Cybersyn 项目，试图用控制论原理实时调度全国经济：工厂每天上报少量关键指标，异常自动上报到上一层，各层只处理自己该处理的偏差。这套设计是必要多样性的直接工程化——不是让中央掌握全部信息，而是让每一层的手段数与它面对的变异度匹配。项目随 1973 年政变终止。</p>
+
+<div class="cant">
+<h3>它不能解释什么<span class="he">（What It Cannot Explain）</span></h3>
+<ul>
+<li><b>不能告诉你变异度是多少。</b>整套理论建立在"数一数有多少种"上，而真实系统里"多少种"取决于你怎么切分：把用户行为切成 5 类还是 500 类，定律都成立，结论却完全不同。它是结构性约束，不是计算器——任何用它算出精确数字的说法，得先交代切分标准。</li>
+<li><b>不能处理目标本身在变的系统。</b>负反馈回路的全部数学都建立在"有一个给定的目标值"上。而复杂适应系统里，主体会改自己的目标（Topic 26 的分水岭就在这儿）。一旦目标是内生的，"离目标还差多少"这个量就不再良定义，控制论的核心量随之失效。</li>
+<li><b>不能兑现它自己关于大脑的承诺。</b>1940 年代的控制论者认为这套语言马上就能解释心智；实际发生的是它孵化出了神经网络、人工智能、认知科学这些后代，然后作为一门独立学科被它们吸收掉了。今天说"控制论解释了大脑"，是把一个纲领当成了结果。</li>
+<li><b>它的通用性有代价：太容易变成不可证伪的措辞。</b>任何东西都可以被描述成"一个带反馈的系统"，而这个描述本身不预测任何事。判断一次控制论式论述有没有内容，只有一个办法：看它有没有指出<em>具体哪个量</em>被测量、<em>具体哪个动作</em>被触发。指不出来的，是修辞。</li>
+<li><b>第一代控制论把观察者放在系统外，而这在很多场合不成立。</b>这正是 1970 年代 Heinz von Foerster 等人推动"二阶控制论"的理由——研究者本身是被研究系统的一部分。这个转向诚实，但也让这门学科更难给出可检验的命题，是它逐渐淡出主流的原因之一。</li>
+</ul>
+</div>
+
+<div class="refs">
+<h3>延伸阅读<span class="he">（Further Reading）</span></h3>
+<ul>
+<li>Norbert Wiener, <a href="https://mitpress.mit.edu/9780262730099/cybernetics/">Cybernetics: or Control and Communication in the Animal and the Machine</a>（1948，这门学科的命名之作）</li>
+<li>W. Ross Ashby, <a href="http://panarchy.org/ashby/variety.1956.html">Cybernetics and Requisite Variety</a>（《控制论导论》1956 年第 11 章原文）</li>
+<li>Conant &amp; Ashby, <a href="https://doi.org/10.1080/00207727008920220">Every Good Regulator of a System Must Be a Model of That System</a>（1970）</li>
+<li>Rosenblueth, Wiener &amp; Bigelow, <a href="https://doi.org/10.1086/286788">Behavior, Purpose and Teleology</a>（1943，把"目的"还原成负反馈的那篇短文）</li>
+<li>Eden Medina, <a href="https://mitpress.mit.edu/9780262525961/cybernetic-revolutionaries/">Cybernetic Revolutionaries</a>（智利 Cybersyn 项目的完整史料研究）</li>
+<li>American Society for Cybernetics, <a href="https://asc-cybernetics.org/foundations/history/MacySummary.htm">The Macy Conferences</a>（1946–1953 年会议的概览）</li>
+</ul>
+</div>
+<footer>BigCat · 复杂性科学 · <a href="index.html">← 全部 Topic</a></footer>
+</div>
+<script src="https://hub.cissychen.com/comments.js" defer></script>
+<script src="https://hub.cissychen.com/search.js" defer></script>
+<script src="https://hub.cissychen.com/index-button.js" defer></script>
+<script src="https://hub.cissychen.com/i18n-tts.js" defer></script>
+</body></html>
