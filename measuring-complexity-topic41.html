@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+
+<html lang="zh-CN"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>复杂度到底怎么量 — 纯随机和纯有序，都不复杂 · 复杂性科学 T41</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,"SF Pro Display","Noto Sans SC",sans-serif;color:#e4ded5;line-height:1.85;min-height:100vh;
+  background:radial-gradient(1100px 620px at 12% -6%,rgba(224,137,94,0.10),transparent 62%),radial-gradient(950px 700px at 100% 2%,rgba(166,147,205,0.09),transparent 58%),linear-gradient(168deg,#100f0d 0%,#15161b 48%,#0a0a0c 100%);background-attachment:fixed}
+.wrap{max-width:760px;margin:0 auto;padding:30px 22px 90px}
+header{padding:52px 0 8px;border-bottom:1px solid rgba(255,255,255,0.07);margin-bottom:34px}
+.week-tag{font-family:"SF Mono",Menlo,monospace;font-size:0.72rem;font-weight:700;letter-spacing:2px;color:#a8a49c;border:1px solid rgba(168,164,156,0.4);background:rgba(168,164,156,0.07);padding:3px 11px;border-radius:20px}
+h1{font-size:2.5rem;font-weight:800;letter-spacing:0.5px;line-height:1.2;margin:20px 0 0;background:linear-gradient(106deg,#e0895e 0%,#d9b45f 34%,#9fbc7a 68%,#63b3a6 100%);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+h1 .h1en{display:block;font-size:0.40em;font-weight:600;letter-spacing:2.5px;color:#847d72;-webkit-text-fill-color:#847d72;background:none;margin-top:13px}
+.sub{font-size:1.05rem;color:#aba498;margin-top:14px;font-weight:500}
+.date{font-family:"SF Mono",Menlo,monospace;font-size:0.75rem;color:#57524b;margin-top:18px;letter-spacing:1px}
+.pitch{margin:22px 0 30px;font-size:0.97rem;color:#cd7f9b;border-left:2px solid rgba(205,127,155,0.5);padding-left:16px;font-style:italic}
+.intro{font-size:1.02rem;color:#cfc8bc;margin-bottom:14px}
+.intro p{margin-bottom:16px}
+h2{font-size:1.42rem;font-weight:700;color:#e9e3d9;margin:56px 0 8px;letter-spacing:0.3px}
+h2 .n{font-family:"SF Mono",Menlo,monospace;font-size:0.85rem;color:#a8a49c;display:block;margin-bottom:6px;letter-spacing:2px}
+.he{font-size:0.68em;color:#8d867b;font-weight:500;letter-spacing:0}
+p{margin-bottom:17px}
+.lead{color:#cfc8bc}
+b,strong{color:#f0eae0;font-weight:600}
+em{color:#d9b45f;font-style:normal;font-weight:500}
+.dim{color:#8d867b}
+a.reflink{display:inline-block;font-size:0.82rem;font-family:"SF Mono",Menlo,monospace;color:#63b3a6;border:1px solid rgba(99,179,166,0.38);background:rgba(99,179,166,0.07);padding:1px 9px;border-radius:20px;text-decoration:none;transition:all 0.15s;white-space:nowrap}
+a.reflink:hover{background:rgba(99,179,166,0.16);border-color:rgba(99,179,166,0.7)}
+figure{margin:30px 0}
+figure svg{display:block;width:100%;height:auto;border-radius:12px;background:rgba(255,255,255,0.018);border:1px solid rgba(255,255,255,0.06)}
+figcaption{font-size:0.82rem;color:#787268;margin-top:11px;text-align:center;line-height:1.6}
+.en-brief{font-size:0.85rem;color:#847d72;border-top:1px dashed rgba(255,255,255,0.09);padding-top:12px;margin-top:22px;line-height:1.65}
+.en-brief b{font-family:"SF Mono",Menlo,monospace;font-size:0.72rem;color:#63b3a6;letter-spacing:1px;margin-right:7px}
+.decide{margin:24px 0;border:1px solid rgba(224,137,94,0.36);background:rgba(224,137,94,0.055);border-radius:12px;padding:15px 19px}
+.decide .lb{font-family:"SF Mono",Menlo,monospace;font-size:0.73rem;letter-spacing:1.5px;color:#e0895e;font-weight:700;display:block;margin-bottom:7px}
+.decide p{margin:0;font-size:0.95rem;color:#ddd5c9}
+.crossx-inline{margin:20px 0 22px;border-left:2px solid rgba(205,127,155,0.55);padding:2px 0 2px 15px;font-size:0.89rem;color:#a9a096;line-height:1.72}
+.crossx-inline b{color:#cd7f9b;font-weight:600}
+.bigcat{margin:46px 0 10px;border:1px solid rgba(217,180,95,0.38);background:rgba(217,180,95,0.05);border-radius:14px;padding:20px 22px}
+.bigcat h3{font-size:1.02rem;color:#d9b45f;margin-bottom:14px;letter-spacing:0.5px}
+.bigcat ol{list-style:none;padding:0}
+.bigcat li{margin-bottom:15px;font-size:0.94rem;color:#d5cdc1;line-height:1.78}
+.bigcat li:last-child{margin-bottom:0}
+.bigcat .dm{font-family:"SF Mono",Menlo,monospace;font-size:0.73rem;color:#d9b45f;border:1px solid rgba(217,180,95,0.32);border-radius:4px;padding:1px 7px;margin-right:8px;white-space:nowrap}
+.crossx{margin:46px 0 10px;border:1px solid rgba(205,127,155,0.38);background:rgba(205,127,155,0.05);border-radius:14px;padding:20px 22px}
+.crossx h3{font-size:1.02rem;color:#cd7f9b;margin-bottom:14px;letter-spacing:0.5px}
+.crossx ul{list-style:none;padding:0}
+.crossx li{margin-bottom:16px;font-size:0.94rem;color:#d5cdc1;line-height:1.78}
+.crossx li:last-child{margin-bottom:0}
+.crossx li b{color:#cd7f9b;font-weight:600}
+.thinking{margin:46px 0 10px}
+.thinking h3{font-size:1.02rem;color:#a693cd;margin-bottom:14px;letter-spacing:0.5px}
+details{border:1px solid rgba(166,147,205,0.22);border-radius:10px;padding:12px 16px;margin-bottom:10px;background:rgba(166,147,205,0.035)}
+summary{cursor:pointer;font-size:0.93rem;color:#c9c2b6;font-weight:500}
+summary::marker{color:#a693cd}
+details p{margin:12px 0 0;font-size:0.9rem;color:#a9a096;line-height:1.75}
+.refs{margin:46px 0 10px}
+.refs h3{font-size:1.02rem;color:#79a6d2;margin-bottom:14px;letter-spacing:0.5px}
+.refs ul{list-style:none;padding:0}
+.refs li{margin-bottom:10px;font-size:0.9rem;color:#8d867b;line-height:1.7}
+.refs a{color:#79a6d2;text-decoration:none;border-bottom:1px solid rgba(121,166,210,0.3)}
+.refs a:hover{color:#a6c4e2;border-bottom-color:rgba(121,166,210,0.7)}
+footer{text-align:center;padding:56px 0 10px;font-size:0.78rem;color:#57524b;font-family:"SF Mono",Menlo,monospace;border-top:1px solid rgba(255,255,255,0.06);margin-top:50px}
+footer a{color:#79a6d2;text-decoration:none}
+@media(max-width:600px){h1{font-size:1.85rem}.wrap{padding:24px 16px 60px}h2{font-size:1.22rem}}
+</style></head><body>
+<div class="wrap">
+<header>
+<span class="week-tag">TOPIC 41 · PHASE H</span>
+<h1>复杂度到底怎么量<span class="h1en">MEASURING COMPLEXITY</span></h1>
+<p class="sub">纯随机和纯有序，都不复杂<span class="he">（Neither pure order nor pure randomness is complex）</span></p>
+<p class="date">2026-08-28 · 方法与限度</p>
+</header>
+<p class="pitch">你能想到的每一种"复杂度"量法，几乎都会把一页乱码判成最复杂的东西。而一页乱码不是复杂，是无聊。这门学科花了三十年补这个洞，补法本身比问题有用得多。</p>
+<div class="intro">
+<p>"这也太复杂了"是办公室里最常见的一句评价，而它同时用来形容两种正好相反的东西：一份四十页、层层嵌套、每一步都写死了的审批流程；和一个根本没有流程、谁都可以随时插一脚的项目。前者是规则太多，后者是规则太少。用同一个词描述它们，再用同一句"要简化"去处理，是很多失败的起点。</p>
+<p>这一期问的是：复杂度能不能真的量出一个数来。这听起来学究气，但它决定一件很实际的事——当有人说"降低复杂度"的时候，你有没有办法追问他降的到底是什么。</p>
+<p>反直觉的地方在这儿：几乎所有你第一时间想得到的量法——信息量、猜不猜得到、描述有多长——都会把随机排在最高。<em>随机是这些尺子上的满分。</em>而随机显然不是我们想说的那个"复杂"。这一期讲四把尺子：前两把在这一点上翻了车，后两把是为了修它才被造出来的。</p>
+<p class="dim">本站前面用过很多次"复杂"这个词：第 1 期分了复杂与繁杂（complex vs complicated），第 2 期讲涌现，第 26 期讲复杂适应系统。<b>本期不添新机制，只做一件事：把"复杂"这个词拆成几个互不相同、各自可算的量，并且指出它们在哪儿互相打架。</b></p>
+</div>
+
+<h2><span class="n">01</span>"复杂"这个词同时指着两个反方向<span class="he">（Two Opposite Things, One Word）</span></h2>
+<p class="lead">先把要求写清楚。任何一把够格的复杂度尺子，都应该在两端给出低分。</p>
+<p>一端是<b>完全有序</b>：一页纸上全是字母 A，一块食盐晶体里钠和氯永远隔一个排一个，一首只有一个音符反复的曲子。这些东西你看一小块就知道全部，没有任何东西需要解释。</p>
+<p>另一端是<b>完全随机</b>：抛一千次硬币记下来的那串正反，电视机没信号时的雪花点。这些东西你看一小块推不出任何别的部分——但同样没有东西需要解释，因为"它就是随机的"这五个字已经把它说完了。</p>
+<p>我们真正想用"复杂"指的东西，全都落在中间：一个细胞、一门语言、一座城市、一本小说。它们既不是照抄自己，也不是毫无章法；你看一部分能推出一些别的部分，但推不全。</p>
+<figure>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 400" role="img" aria-label="复杂度沿有序—随机轴的倒 U 形曲线，两端各配一张缩略图案">
+<defs><marker id="t41a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="9" markerHeight="9" markerUnits="userSpaceOnUse" orient="auto"><path d="M0,1 L9,5 L0,9 z" fill="#8d867b"/></marker></defs>
+<text x="360" y="28" fill="#aba498" font-family="-apple-system,sans-serif" font-size="13" text-anchor="middle">我们想要的那种"复杂"，两端都必须给低分</text>
+<line x1="90" y1="252" x2="672" y2="252" stroke="#6b665e" stroke-width="1.4" marker-end="url(#t41a)"/>
+<line x1="90" y1="252" x2="90" y2="52" stroke="#6b665e" stroke-width="1.4" marker-end="url(#t41a)"/>
+<text x="70" y="150" fill="#8d867b" font-family="-apple-system,sans-serif" font-size="12" text-anchor="middle" transform="rotate(-90 70 150)">复杂度</text>
+<path d="M 118,248 C 210,110 300,72 372,72 C 444,72 534,110 626,248" fill="none" stroke="#d9b45f" stroke-width="2.2"/>
+<line x1="372" y1="72" x2="372" y2="252" stroke="#57524b" stroke-width="1" stroke-dasharray="4 4"/>
+<circle cx="372" cy="72" r="5" fill="#d9b45f"/>
+<text x="372" y="58" fill="#d9b45f" font-family="-apple-system,sans-serif" font-size="12.5" text-anchor="middle">细胞 · 语言 · 城市 · 小说</text>
+<circle cx="140" cy="238" r="4.5" fill="#63b3a6"/>
+<circle cx="604" cy="238" r="4.5" fill="#cd7f9b"/>
+<g transform="translate(104,276)">
+<rect x="0" y="0" width="72" height="72" fill="none" stroke="rgba(255,255,255,0.13)"/>
+<rect x="0" y="0" width="24" height="24" fill="#3d4a46"/><rect x="24" y="0" width="24" height="24" fill="#243330"/><rect x="48" y="0" width="24" height="24" fill="#3d4a46"/>
+<rect x="0" y="24" width="24" height="24" fill="#243330"/><rect x="24" y="24" width="24" height="24" fill="#3d4a46"/><rect x="48" y="24" width="24" height="24" fill="#243330"/>
+<rect x="0" y="48" width="24" height="24" fill="#3d4a46"/><rect x="24" y="48" width="24" height="24" fill="#243330"/><rect x="48" y="48" width="24" height="24" fill="#3d4a46"/>
+</g>
+<g transform="translate(336,276)">
+<rect x="0" y="0" width="72" height="72" fill="none" stroke="rgba(255,255,255,0.13)"/>
+<rect x="0" y="0" width="24" height="24" fill="#6b5f45"/><rect x="24" y="0" width="24" height="24" fill="#2a2a26"/><rect x="48" y="0" width="24" height="24" fill="#8a7a4f"/>
+<rect x="0" y="24" width="24" height="24" fill="#8a7a4f"/><rect x="24" y="24" width="24" height="24" fill="#6b5f45"/><rect x="48" y="24" width="24" height="24" fill="#2a2a26"/>
+<rect x="0" y="48" width="24" height="24" fill="#2a2a26"/><rect x="24" y="48" width="24" height="24" fill="#8a7a4f"/><rect x="48" y="48" width="24" height="24" fill="#6b5f45"/>
+</g>
+<g transform="translate(568,276)">
+<rect x="0" y="0" width="72" height="72" fill="none" stroke="rgba(255,255,255,0.13)"/>
+<rect x="0" y="0" width="24" height="24" fill="#4b2f3a"/><rect x="24" y="0" width="24" height="24" fill="#4b2f3a"/><rect x="48" y="0" width="24" height="24" fill="#241a1e"/>
+<rect x="0" y="24" width="24" height="24" fill="#241a1e"/><rect x="24" y="24" width="24" height="24" fill="#4b2f3a"/><rect x="48" y="24" width="24" height="24" fill="#4b2f3a"/>
+<rect x="0" y="48" width="24" height="24" fill="#4b2f3a"/><rect x="24" y="48" width="24" height="24" fill="#241a1e"/><rect x="48" y="48" width="24" height="24" fill="#241a1e"/>
+</g>
+<text x="140" y="366" fill="#63b3a6" font-family="-apple-system,sans-serif" font-size="12.5" text-anchor="middle">完全有序</text>
+<text x="140" y="386" fill="#787268" font-family="-apple-system,sans-serif" font-size="11" text-anchor="middle">一小块就说完了全部</text>
+<text x="372" y="366" fill="#d9b45f" font-family="-apple-system,sans-serif" font-size="12.5" text-anchor="middle">有章法，但推不全</text>
+<text x="372" y="386" fill="#787268" font-family="-apple-system,sans-serif" font-size="11" text-anchor="middle">这才是我们想说的"复杂"</text>
+<text x="604" y="366" fill="#cd7f9b" font-family="-apple-system,sans-serif" font-size="12.5" text-anchor="middle">完全随机</text>
+<text x="604" y="386" fill="#787268" font-family="-apple-system,sans-serif" font-size="11" text-anchor="middle">"它是随机的"就说完了全部</text>
+</svg>
+<figcaption>这条曲线不是一个已被证实的规律，是我们对尺子提出的<b>要求</b>。下面两节会看到，前两把尺子做不到；第 06 节会回头质疑这条要求本身。</figcaption>
+</figure>
+<div class="crossx-inline">
+🌀 <b>文学与艺术 · 音乐落在两端之间</b>　1975 年 Voss 和 Clarke 把大量录音的响度与音高涨落做频谱分析，发现它们既不像白噪声（前后完全不相关），也不像慢漂移的随机游走，而是落在中间的 1/f 谱上：短程有关联，长程也有关联，但都不锁死。这给上面那条曲线的中点提供了一个可测的坐标，并且推出一个可验的预测——纯随机音符与纯周期循环生成的曲子，失败方式应该是<em>相反</em>的两种（一种没有走向，一种没有意外），而不是同一种"不好听"。<b>但别多读</b>：1/f 是必要不充分，把噪声整成 1/f 谱并不会得到音乐。
+</div>
+<p class="en-brief"><b>EN</b> Any usable measure of complexity must score low at both ends: a page of nothing but A, and a page of coin flips. Everything we actually want to call complex — a cell, a language, a city, a novel — sits in between: partly predictable from a sample, never fully. This inverted-U is a requirement we impose on the ruler, not a law that has been proven; section 06 returns to question it.</p>
+
+<h2><span class="n">02</span>熵：测的是"你猜不猜得到"<span class="he">（Entropy — How Surprised You Are）</span></h2>
+<p class="lead">第一把尺子来自通信工程。1948 年，贝尔实验室的 Claude Shannon 要解决的问题很具体：一条电报线一秒钟最多能传多少东西。</p>
+<p>他给出的量叫<b>信息熵</b>（Shannon entropy），单位是<b>比特</b>（bit）。定义可以用一句大白话说完：<em>平均而言，你要问多少个"是不是"的问题，才能确定下一个符号是什么。</em></p>
+<p>如果下一个字母永远是 A，你一个问题都不用问，熵是 0。如果下一个字母是 26 个字母里等概率的一个，你大概要问 4.7 个问题（因为 2 的 4.7 次方约等于 26），熵是 4.70 比特。真实英文介于两者之间：按单个字母出现的频率算，大约 4.1 比特——e 比 z 常见得多，所以你能少问一点。</p>
+<figure>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 300" role="img" aria-label="三种信源的字母频率分布与对应的信息熵">
+<text x="360" y="28" fill="#aba498" font-family="-apple-system,sans-serif" font-size="13" text-anchor="middle">熵的排序：乱码最高，有意义的文本紧随其后，纯重复垫底</text>
+<g>
+<text x="130" y="56" fill="#63b3a6" font-family="SF Mono,monospace" font-size="12" text-anchor="middle">① 一页全是 A</text>
+<line x1="60" y1="170" x2="200" y2="170" stroke="#4a4438" stroke-width="1"/>
+<rect x="61" y="100" width="11" height="70" fill="#63b3a6"/>
+<rect x="75" y="168" width="11" height="2" fill="#3d4a46"/><rect x="89" y="168" width="11" height="2" fill="#3d4a46"/><rect x="103" y="168" width="11" height="2" fill="#3d4a46"/><rect x="117" y="168" width="11" height="2" fill="#3d4a46"/><rect x="131" y="168" width="11" height="2" fill="#3d4a46"/><rect x="145" y="168" width="11" height="2" fill="#3d4a46"/><rect x="159" y="168" width="11" height="2" fill="#3d4a46"/><rect x="173" y="168" width="11" height="2" fill="#3d4a46"/><rect x="187" y="168" width="11" height="2" fill="#3d4a46"/>
+<text x="130" y="190" fill="#787268" font-family="-apple-system,sans-serif" font-size="10.5" text-anchor="middle">字母出现频率</text>
+<rect x="60" y="208" width="140" height="16" fill="rgba(255,255,255,0.05)"/>
+<rect x="60" y="208" width="3" height="16" fill="#63b3a6"/>
+<text x="130" y="248" fill="#63b3a6" font-family="SF Mono,monospace" font-size="14" text-anchor="middle">0 比特/字母</text>
+<text x="130" y="272" fill="#787268" font-family="-apple-system,sans-serif" font-size="11" text-anchor="middle">一个问题都不用问</text>
+</g>
+<g>
+<text x="360" y="56" fill="#d9b45f" font-family="SF Mono,monospace" font-size="12" text-anchor="middle">② 一段真实英文</text>
+<line x1="290" y1="170" x2="430" y2="170" stroke="#4a4438" stroke-width="1"/>
+<rect x="291" y="119" width="11" height="51" fill="#d9b45f"/><rect x="305" y="134" width="11" height="36" fill="#d9b45f"/><rect x="319" y="137" width="11" height="33" fill="#d9b45f"/><rect x="333" y="140" width="11" height="30" fill="#d9b45f"/><rect x="347" y="142" width="11" height="28" fill="#d9b45f"/><rect x="361" y="143" width="11" height="27" fill="#d9b45f"/><rect x="375" y="145" width="11" height="25" fill="#d9b45f"/><rect x="389" y="146" width="11" height="24" fill="#d9b45f"/><rect x="403" y="146" width="11" height="24" fill="#d9b45f"/><rect x="417" y="153" width="11" height="17" fill="#d9b45f"/>
+<text x="360" y="190" fill="#787268" font-family="-apple-system,sans-serif" font-size="10.5" text-anchor="middle">e t a o i n s h r d …</text>
+<rect x="290" y="208" width="140" height="16" fill="rgba(255,255,255,0.05)"/>
+<rect x="290" y="208" width="122" height="16" fill="#d9b45f"/>
+<text x="360" y="248" fill="#d9b45f" font-family="SF Mono,monospace" font-size="14" text-anchor="middle">约 4.1 比特/字母</text>
+<text x="360" y="272" fill="#787268" font-family="-apple-system,sans-serif" font-size="11" text-anchor="middle">只按单字母频率算</text>
+</g>
+<g>
+<text x="590" y="56" fill="#cd7f9b" font-family="SF Mono,monospace" font-size="12" text-anchor="middle">③ 26 字母均匀乱码</text>
+<line x1="520" y1="170" x2="660" y2="170" stroke="#4a4438" stroke-width="1"/>
+<rect x="521" y="142" width="11" height="28" fill="#cd7f9b"/><rect x="535" y="142" width="11" height="28" fill="#cd7f9b"/><rect x="549" y="142" width="11" height="28" fill="#cd7f9b"/><rect x="563" y="142" width="11" height="28" fill="#cd7f9b"/><rect x="577" y="142" width="11" height="28" fill="#cd7f9b"/><rect x="591" y="142" width="11" height="28" fill="#cd7f9b"/><rect x="605" y="142" width="11" height="28" fill="#cd7f9b"/><rect x="619" y="142" width="11" height="28" fill="#cd7f9b"/><rect x="633" y="142" width="11" height="28" fill="#cd7f9b"/><rect x="647" y="142" width="11" height="28" fill="#cd7f9b"/>
+<text x="590" y="190" fill="#787268" font-family="-apple-system,sans-serif" font-size="10.5" text-anchor="middle">每个字母一样常见</text>
+<rect x="520" y="208" width="140" height="16" fill="rgba(255,255,255,0.05)"/>
+<rect x="520" y="208" width="140" height="16" fill="#cd7f9b"/>
+<text x="590" y="248" fill="#cd7f9b" font-family="SF Mono,monospace" font-size="14" text-anchor="middle">4.70 比特/字母</text>
+<text x="590" y="272" fill="#787268" font-family="-apple-system,sans-serif" font-size="11" text-anchor="middle">满分</text>
+</g>
+</svg>
+<figcaption>注意 ② 和 ③ 挨得有多近：4.1 对 4.70。在这把尺子上，一本小说和一页乱码几乎是同一个东西。</figcaption>
+</figure>
+<p>问题就在这张图里。<b>熵给出的排序是：乱码 &gt; 有意义的文本 &gt; 纯重复。</b>对通信工程，这个排序完全正确——乱码确实最占带宽。对我们要的那个"复杂"，它错得离谱：它把满分发给了最无聊的东西，还把一本小说和一页乱码放到了几乎同一个位置。</p>
+<p>还有一件更容易被忽略的事：<b>熵不是某个对象自带的属性，它是相对于一个概率分布算出来的。</b>"这串字母的熵"这个说法严格说不成立，成立的是"在假定它由某个信源产生的前提下，每个符号的熵"。换一个信源假设，同一串东西的熵就变了。上图里英文取 4.1 比特，是因为只考虑了单个字母的频率；Shannon 1951 年那篇文章里让人去猜下一个字母、把上下文也算进来之后，英文每字母的熵掉到了大约 1 比特出头。<em>同一段文字，两个数字差四倍，因为问的不是同一个问题。</em></p>
+<div class="crossx-inline">
+🌀 <b>工程与技术史 · "口令强度"这个说法从一开始就搭错了</b>　既然熵是分布的属性而不是字符串的属性，那么"Tr0ub4dor&amp;3 的熵是多少"这个问题就没有答案；有答案的是"生成它的那套流程能等可能地产出多少种结果"。xkcd 第 936 号漫画讲的正是这件事：四个随机常用词拼起来的口令看着"简单"，但它的生成分布远大于一个被逐字符改写的单词。结论是可操作的——口令强度只能审计生成方式，审计成品是在量错的那一头。美国国家标准与技术研究院（NIST）2017 年的口令指南干脆删掉了"必须含大写与符号"这类对成品的硬性要求，理由正是如此。
+</div>
+<div class="decide">
+<span class="lb">🎯 决策线</span>
+<p>下次看到"这个系统的熵是 X"或者任何一个"多样性指标"，先问两件事：<b>符号表是什么</b>（你把什么算作一个符号），<b>粗粒化怎么切的</b>（多细算一个不同的状态）。这两项不同，两个数字就不可比——这是跨团队的复杂度指标永远吵不出结果的头号原因。要做的动作：上报任何熵/多样性数字时，把这两项写在同一行；写不出来，这个数字不进决策。</p>
+</div>
+<p class="en-brief"><b>EN</b> Shannon entropy measures how many yes/no questions you need to pin down the next symbol. Zero for a page of A, about 4.1 bits per letter for English by single-letter frequency, 4.70 bits for uniform gibberish. Its ordering is gibberish &gt; prose &gt; repetition — correct for a telegraph line, wrong for what we mean by complex. Entropy is also a property of an assumed distribution, not of the object: Shannon's 1951 context experiments put English near 1 bit per letter, four times lower, for the same text.</p>
+
+<h2><span class="n">03</span>柯尔莫哥洛夫复杂度：最短的那段程序<span class="he">（Kolmogorov Complexity — The Shortest Program）</span></h2>
+<p class="lead">第二把尺子想绕开"要先假定一个信源"这个麻烦，直接问对象本身。</p>
+<p>1960 年代，Ray Solomonoff、Andrey Kolmogorov 和 Gregory Chaitin 各自独立想到了同一件事：一个东西的复杂度，就是<b>能生成它的最短那段程序的长度</b>。这个量叫<b>柯尔莫哥洛夫复杂度</b>（Kolmogorov complexity）。</p>
+<p>好处是它彻底摆脱了概率。不用假定谁在产生这串东西，只问：要把它完整重建出来，你最少得写多少字。</p>
+<figure>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 300" role="img" aria-label="三段长度相同的字符串与生成各自所需的最短程序长度对比">
+<defs><marker id="t41b" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="9" markerHeight="9" markerUnits="userSpaceOnUse" orient="auto"><path d="M0,1 L9,5 L0,9 z" fill="#8d867b"/></marker></defs>
+<text x="360" y="28" fill="#aba498" font-family="-apple-system,sans-serif" font-size="13" text-anchor="middle">三段都是 1000 个字符 — 生成它们的最短程序差了两个数量级</text>
+<text x="46" y="56" fill="#8d867b" font-family="SF Mono,monospace" font-size="11">字符串（都是 1000 字符）</text>
+<text x="420" y="56" fill="#8d867b" font-family="SF Mono,monospace" font-size="11">最短程序的长度</text>
+<g>
+<rect x="46" y="70" width="264" height="42" rx="6" fill="rgba(99,179,166,0.07)" stroke="rgba(99,179,166,0.3)"/>
+<text x="60" y="88" fill="#c2bbb0" font-family="SF Mono,monospace" font-size="11.5">ABABABABABABABAB…AB</text>
+<text x="60" y="105" fill="#787268" font-family="-apple-system,sans-serif" font-size="10.5">AB 重复 500 遍</text>
+<line x1="320" y1="91" x2="406" y2="91" stroke="#8d867b" stroke-width="1.3" marker-end="url(#t41b)"/>
+<rect x="414" y="80" width="58" height="22" rx="4" fill="#63b3a6"/>
+<text x="482" y="96" fill="#63b3a6" font-family="-apple-system,sans-serif" font-size="11.5">「打印 AB 五百遍」</text>
+</g>
+<g>
+<rect x="46" y="130" width="264" height="42" rx="6" fill="rgba(217,180,95,0.07)" stroke="rgba(217,180,95,0.3)"/>
+<text x="60" y="148" fill="#c2bbb0" font-family="SF Mono,monospace" font-size="11.5">14159265358979323846…</text>
+<text x="60" y="165" fill="#787268" font-family="-apple-system,sans-serif" font-size="10.5">圆周率小数点后 1000 位</text>
+<line x1="320" y1="151" x2="406" y2="151" stroke="#8d867b" stroke-width="1.3" marker-end="url(#t41b)"/>
+<rect x="414" y="140" width="86" height="22" rx="4" fill="#d9b45f"/>
+<text x="510" y="156" fill="#d9b45f" font-family="-apple-system,sans-serif" font-size="11.5">「跑圆周率算法，取前 1000 位」</text>
+</g>
+<g>
+<rect x="46" y="190" width="264" height="42" rx="6" fill="rgba(205,127,155,0.07)" stroke="rgba(205,127,155,0.3)"/>
+<text x="60" y="208" fill="#c2bbb0" font-family="SF Mono,monospace" font-size="11.5">QJXFVMZTLKDPWRHBSNCG…</text>
+<text x="60" y="225" fill="#787268" font-family="-apple-system,sans-serif" font-size="10.5">抛硬币抛出来的</text>
+<line x1="320" y1="211" x2="406" y2="211" stroke="#8d867b" stroke-width="1.3" marker-end="url(#t41b)"/>
+<rect x="414" y="200" width="252" height="22" rx="4" fill="#cd7f9b"/>
+<text x="540" y="215" fill="#241a1e" font-family="-apple-system,sans-serif" font-size="11.5" text-anchor="middle">「打印 QJXFVMZ…」整串照抄</text>
+</g>
+<text x="360" y="266" fill="#787268" font-family="-apple-system,sans-serif" font-size="11.5" text-anchor="middle">随机串没有比它自己更短的描述 — 于是它又拿了满分</text>
+</svg>
+<figcaption>圆周率的小数展开看起来完全没规律，但它的柯氏复杂度极低：几行算法就能重建任意多位。"看起来随机"和"真的随机"是两件事。</figcaption>
+</figure>
+<p>这把尺子确实修好了一件事：它把<em>看起来随机</em>和<em>真的随机</em>分开了。圆周率的小数位通不过任何随机性检验之外的直觉判断——你盯着它看不出任何规律——但它的最短程序只有几行。凡是"能算出来"的东西，柯氏复杂度都低。</p>
+<p>然后它在同一个地方翻了同样的车：<b>真正随机的串没有比整串照抄更短的描述，所以它的柯氏复杂度是最高的。</b>抛硬币的结果又一次成了世界上最复杂的东西。</p>
+<p>它还多带了一个麻烦：<b>柯氏复杂度算不出来。</b>不是"很难算"，是数学上已经证明不存在一个通用程序，能对任意输入给出它的最短描述长度。你永远只能得到一个上界（"我已经压到这么短了"），永远不能确认这是最短的。Chaitin 把这件事推得更远：存在一个常数，使得任何形式系统都无法证明任何一个具体的对象的柯氏复杂度超过这个常数。用大白话说——<em>"这个东西确实很复杂"这句话，在绝大多数情况下不可证明。</em></p>
+<div class="crossx-inline">
+🌀 <b>生物学 · 基因组大得没道理</b>　日本重楼（Paris japonica）的基因组约 1490 亿个碱基对，是人类的约五十倍；肺鱼和一些两栖类也远超人类。这曾被当成难题，叫"C 值悖论"。柯氏复杂度一上手，难题就消失了：这些庞大基因组里绝大部分是重复序列，而重复序列的最短描述极短——人类自己的脱氧核糖核酸（DNA）里也有一半以上是可高度压缩的重复元件。由此推出一个原本容易忽略的结论：基因组长度量的是<b>存储量</b>，不是描述长度，拿它给物种排"复杂度"从一开始就拿错了尺子——而这也顺带说明，"垃圾 DNA 有多少"这个问题，与"这个物种有多复杂"根本不在同一个量纲上。
+</div>
+<div class="decide">
+<span class="lb">🎯 决策线</span>
+<p>有人说"这东西太复杂了"，先分清是<b>确实没有更短的描述</b>，还是<b>他还没找到规律</b>。有一个便宜到近乎作弊的检验：把它压缩一下。日志、配置文件、报表、代码——gzip 能压到原来 5% 的东西，它的"复杂"是重复，该做的是去重，不是加人。注意这个检验只在一个方向上有效：<em>压得动就证明它简单，压不动只证明你还没证明它简单。</em></p>
+</div>
+<p class="en-brief"><b>EN</b> Kolmogorov complexity is the length of the shortest program that outputs the object. It fixes one thing — the digits of π look random but compress to a few lines, so "looks random" and "is random" finally separate. It fails in the same place as entropy: a truly random string has no description shorter than itself, so it scores highest again. And it is uncomputable — you only ever get an upper bound, and by Chaitin's result, "this object really is complex" is unprovable beyond a fixed constant.</p>
+
+<h2><span class="n">04</span>有效复杂度：把随机的部分扣掉<span class="he">（Effective Complexity — Subtracting the Noise）</span></h2>
+<p class="lead">两把尺子在同一个地方翻车，说明问题不在尺子，在问法。Murray Gell-Mann 和 Seth Lloyd 在 1996 年换了个问法。</p>
+<p>他们说：一个对象的完整描述，可以拆成两部分——<b>规律的那部分</b>（这个对象所属的那一类东西共有的结构）和<b>随机的那部分</b>（在这个结构之内、纯属偶然的具体取值）。<b>有效复杂度</b>（effective complexity）只算前者的长度。</p>
+<p>拿抛硬币的记录说事：完整描述它需要一千位，但其中"规律"的部分只有一句话——"一千次独立、公平的抛掷"。这句话很短，所以随机串的有效复杂度接近零。而食盐晶体的规律部分也很短——"钠氯交替，无限重复"。<em>两端同时被压到低分。</em>只有那些规律本身就很长、需要一大段话才能说清结构的东西，才能拿高分。</p>
+<figure>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 340" role="img" aria-label="三种对象的完整描述被拆成规律部分与随机部分，有效复杂度只取规律部分">
+<text x="360" y="28" fill="#aba498" font-family="-apple-system,sans-serif" font-size="13" text-anchor="middle">把完整描述拆开：只有铜色那一段算数</text>
+<rect x="70" y="44" width="12" height="12" fill="#e0895e"/>
+<text x="90" y="55" fill="#aba498" font-family="-apple-system,sans-serif" font-size="11.5">规律部分 = 有效复杂度</text>
+<rect x="70" y="64" width="12" height="12" fill="#4a4438"/>
+<text x="90" y="75" fill="#aba498" font-family="-apple-system,sans-serif" font-size="11.5">随机部分（不算数）</text>
+<line x1="70" y1="272" x2="680" y2="272" stroke="#4a4438" stroke-width="1"/>
+<g>
+<rect x="110" y="212" width="90" height="60" fill="#e0895e"/>
+<rect x="110" y="204" width="90" height="8" fill="#4a4438"/>
+<text x="155" y="292" fill="#c2bbb0" font-family="-apple-system,sans-serif" font-size="12" text-anchor="middle">食盐晶体</text>
+<text x="155" y="311" fill="#787268" font-family="-apple-system,sans-serif" font-size="10.5" text-anchor="middle">「钠氯交替，无限重复」</text>
+<text x="155" y="329" fill="#e0895e" font-family="SF Mono,monospace" font-size="11" text-anchor="middle">有效复杂度：低</text>
+</g>
+<g>
+<rect x="330" y="152" width="90" height="120" fill="#e0895e"/>
+<rect x="330" y="72" width="90" height="80" fill="#4a4438"/>
+<text x="375" y="292" fill="#c2bbb0" font-family="-apple-system,sans-serif" font-size="12" text-anchor="middle">一段真实基因组</text>
+<text x="375" y="311" fill="#787268" font-family="-apple-system,sans-serif" font-size="10.5" text-anchor="middle">一大段结构 + 一堆中性突变</text>
+<text x="375" y="329" fill="#e0895e" font-family="SF Mono,monospace" font-size="11" text-anchor="middle">有效复杂度：高</text>
+</g>
+<g>
+<rect x="550" y="266" width="90" height="6" fill="#e0895e"/>
+<rect x="550" y="32" width="90" height="234" fill="#4a4438"/>
+<text x="595" y="292" fill="#c2bbb0" font-family="-apple-system,sans-serif" font-size="12" text-anchor="middle">抛一千次硬币</text>
+<text x="595" y="311" fill="#787268" font-family="-apple-system,sans-serif" font-size="10.5" text-anchor="middle">「一千次公平独立抛掷」</text>
+<text x="595" y="329" fill="#e0895e" font-family="SF Mono,monospace" font-size="11" text-anchor="middle">有效复杂度：≈ 0</text>
+</g>
+<text x="70" y="120" fill="#8d867b" font-family="-apple-system,sans-serif" font-size="11" text-anchor="middle" transform="rotate(-90 70 120)">完整描述长度</text>
+</svg>
+<figcaption>整根柱子的高度是柯氏复杂度，铜色那一段才是有效复杂度。最右边那根柱子最高，有效复杂度却几乎为零——这正是前两把尺子修不好的地方。</figcaption>
+</figure>
+<p>这一步是真的进展。但它带来一个新东西，而这个新东西是本期最要紧的一句话：<b>"哪部分算规律、哪部分算随机"这条线，不在对象里，在切它的人手上。</b></p>
+<p>同一份基因组，在研究物种分类的人手里，个体之间的差异是噪声；在研究群体遗传的人手里，那些差异就是全部的信号。同一份销售数据，季节性对某个部门是规律，对另一个部门是要剔除的干扰。Gell-Mann 和 Lloyd 自己就明说了这一点：有效复杂度只有在指定了"由谁、以什么粗粒化程度来看"之后才有值。科学哲学家 James McAllister 在 2003 年把这条批评推到底——既然任何一组数据都能被不同的观察者切出不同的规律集，有效复杂度就<em>不是</em>对象的客观属性。</p>
+<p>该怎么看待这件事，取决于你要它干什么。如果你要一个能刻在石头上的宇宙常数，那这是致命伤。如果你要的是一把工作用的尺子，那它只是把一个隐含的选择变成了必须写出来的参数——而这多半是好事。</p>
+<div class="crossx-inline">
+🌀 <b>经济与制度 · 出口清单里的"规律部分"</b>　Hidalgo 和 Hausmann 的经济复杂度指数不看一个国家出口多少，看它出口的东西里有多少是别人做不了的——做法是把"国家—产品"矩阵反复迭代，把随行情年年涨落的那一层洗掉，只留下稳定的能力结构。这就是"扣掉随机、只留规律"的一次真实实做。由此得到一个从总量里看不出来的结论：两个人均收入相同的国家，后续增长可以差得很远，而差别不在收入这个标量里，在被洗出来的那部分结构里——所以看一个经济体（或者一家公司），要看它<b>产品清单的形状</b>，不是它的总量。
+</div>
+<p class="en-brief"><b>EN</b> Gell-Mann and Lloyd split a full description into regularities plus random detail, and count only the regularities. Coin flips need one short sentence of structure, so they score near zero; a salt crystal also needs one short sentence. Both ends collapse, which is exactly what was wanted. The cost: the line between regularity and noise is drawn by an observer at a chosen coarse-graining, so effective complexity is not an objective property of the object (McAllister 2003). For a working ruler that is a parameter you must declare, not a fatal flaw.</p>
+
+<h2><span class="n">05</span>逻辑深度：生成它花了多少功夫<span class="he">（Logical Depth — What It Cost to Make）</span></h2>
+<p class="lead">还有一条完全不同的路。1988 年 Charles Bennett 问的不是"描述有多长"，而是"<b>从最短的那段描述出发，跑出这个东西要多少步</b>"。</p>
+<p>这个量叫<b>逻辑深度</b>（logical depth）。它把"描述"和"生成"分开了，而这一分立刻解释了一件前面几把尺子都解释不了的事。</p>
+<p>抛硬币的记录，程序很长（整串照抄），但运行只要一步——打印。它是<em>浅</em>的。食盐晶体，程序很短，运行也几乎不用算。它也是浅的。而圆周率小数点后第十亿位开始的那一千位，程序很短，但要拿到它必须实打实地算上十亿位——它是<em>深</em>的。一个物种的基因组同理：描述它的规则不算太长，但那套东西是几十亿年的试错一步步跑出来的，没有捷径可以跳过去。</p>
+<figure>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 340" role="img" aria-label="以最短描述长度为横轴、生成步数为纵轴，四类对象的位置">
+<defs><marker id="t41c" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="9" markerHeight="9" markerUnits="userSpaceOnUse" orient="auto"><path d="M0,1 L9,5 L0,9 z" fill="#8d867b"/></marker></defs>
+<text x="360" y="26" fill="#aba498" font-family="-apple-system,sans-serif" font-size="13" text-anchor="middle">"描述有多长"和"生成要多久"是两个独立的方向</text>
+<rect x="96" y="52" width="574" height="106" fill="rgba(217,180,95,0.05)"/>
+<text x="660" y="148" fill="#8a7a4f" font-family="-apple-system,sans-serif" font-size="11.5" text-anchor="end">深：短描述 + 大量计算，跳不过去</text>
+<line x1="96" y1="268" x2="686" y2="268" stroke="#6b665e" stroke-width="1.4" marker-end="url(#t41c)"/>
+<line x1="96" y1="268" x2="96" y2="46" stroke="#6b665e" stroke-width="1.4" marker-end="url(#t41c)"/>
+<line x1="96" y1="158" x2="670" y2="158" stroke="#57524b" stroke-width="1" stroke-dasharray="4 4"/>
+<text x="390" y="300" fill="#8d867b" font-family="-apple-system,sans-serif" font-size="12" text-anchor="middle">最短描述有多长（柯尔莫哥洛夫复杂度）→</text>
+<text x="72" y="160" fill="#8d867b" font-family="-apple-system,sans-serif" font-size="12" text-anchor="middle" transform="rotate(-90 72 160)">生成要跑多少步 →</text>
+<circle cx="168" cy="246" r="6" fill="#63b3a6"/>
+<text x="184" y="243" fill="#63b3a6" font-family="-apple-system,sans-serif" font-size="12">食盐晶体（浅）</text>
+<text x="184" y="260" fill="#787268" font-family="-apple-system,sans-serif" font-size="10.5">短程序，几步就摆完</text>
+<circle cx="596" cy="250" r="6" fill="#cd7f9b"/>
+<text x="580" y="243" fill="#cd7f9b" font-family="-apple-system,sans-serif" font-size="12" text-anchor="end">抛硬币记录（浅）</text>
+<text x="580" y="260" fill="#787268" font-family="-apple-system,sans-serif" font-size="10.5" text-anchor="end">长程序，但只用打印一次</text>
+<circle cx="176" cy="96" r="6" fill="#d9b45f"/>
+<text x="192" y="93" fill="#d9b45f" font-family="-apple-system,sans-serif" font-size="12">圆周率第十亿位起的一千位</text>
+<text x="192" y="110" fill="#787268" font-family="-apple-system,sans-serif" font-size="10.5">几行算法，十亿步计算</text>
+<circle cx="392" cy="76" r="6" fill="#d9b45f"/>
+<text x="408" y="73" fill="#d9b45f" font-family="-apple-system,sans-serif" font-size="12">一个物种的基因组</text>
+<text x="408" y="90" fill="#787268" font-family="-apple-system,sans-serif" font-size="10.5">几十亿年试错，没有捷径</text>
+<text x="360" y="326" fill="#787268" font-family="-apple-system,sans-serif" font-size="11.5" text-anchor="middle">两端在横轴上离得最远，在纵轴上却挨在一起 — 它们共同的特征是"便宜"</text>
+</svg>
+<figcaption>逻辑深度把价值放在生成历史上：一个深的对象携带着无法回放的计算，你拿到它的唯一办法是重跑一遍。</figcaption>
+</figure>
+<p>这把尺子最有用的地方是它对"值不值钱"给了一个说法。一段深的东西——一套跑了十年的流程、一个物种、一份积累出来的客户名单——它的<b>描述</b>可以很短，但<b>它自己</b>不能被便宜地重造，因为里面压着一段跑过的计算。这和"它有多大""它写了多少条"完全无关。</p>
+<div class="crossx-inline">
+🌀 <b>历史与制度 · 抄得来条文，抄不来判例</b>　十九世纪多个拉美共和国按美国宪法的样子立国，条文相似度很高，运行结果差异极大。逻辑深度给这件事一个不必归咎于民情或素质的解释：一部宪法真正在起作用的部分，是几百年判例一步一步跑出来、无法从条文回放的那段计算；条文是最短描述，判例是运行步数。于是有个很实用的判据——评估一套制度（或一份公司流程手册）能不能照搬，别数它有多少条，数<b>其中有多少条是被具体案子逼出来的</b>：那部分不会跟着文本一起搬走。
+</div>
+<div class="decide">
+<span class="lb">🎯 决策线</span>
+<p>评估一个<em>已经存在</em>的东西（祖传代码、走了十年的流程、一份客户名单），别用"它有多大"，用"从零重建它要跑多少次真实反馈"。可操作的近似问法：<b>这里面有多少条规则，是当初被一次具体事故打出来的？</b>说不出几条 → 它是浅的，重写的成本就是写代码的时间。能说出几十条、每条都对得上一次事故 → 它是深的，重写的成本是重新踩一遍那些坑的时间，通常高一个数量级。</p>
+</div>
+<p class="en-brief"><b>EN</b> Bennett's logical depth asks not how long the description is but how many steps it takes to run. A random string is shallow (long program, one print). A crystal is shallow (short program, trivial run). The billionth digits of π are deep: short program, a billion steps you cannot skip. So is a genome. Depth prices the thing that cannot be cheaply recreated — the computation frozen inside an object, independent of its size.</p>
+
+<h2><span class="n">06</span>这套说法在哪儿不成立<span class="he">（Where This Breaks Down）</span></h2>
+<p class="lead">现在说反面，而这一节比前面五节都重要。</p>
+<p><b>第一，这四把尺子在同一个对象上会给出互相矛盾的排序。</b>它们不是"同一个东西的四种测法"，是四个不同的量，只是共用了"复杂度"这个词。</p>
+<figure>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 290" role="img" aria-label="四种复杂度度量在三种对象上的取值对照表">
+<text x="360" y="28" fill="#aba498" font-family="-apple-system,sans-serif" font-size="13" text-anchor="middle">同样三个对象，四把尺子给出的排序互相打架</text>
+<text x="300" y="66" fill="#63b3a6" font-family="-apple-system,sans-serif" font-size="12.5" text-anchor="middle">食盐晶体</text>
+<text x="450" y="66" fill="#d9b45f" font-family="-apple-system,sans-serif" font-size="12.5" text-anchor="middle">一本小说</text>
+<text x="606" y="66" fill="#cd7f9b" font-family="-apple-system,sans-serif" font-size="12.5" text-anchor="middle">一页乱码</text>
+<line x1="40" y1="78" x2="680" y2="78" stroke="rgba(255,255,255,0.10)" stroke-width="1"/>
+<g>
+<text x="40" y="110" fill="#c2bbb0" font-family="-apple-system,sans-serif" font-size="12.5">香农熵</text>
+<rect x="240" y="92" width="120" height="26" rx="4" fill="rgba(99,179,166,0.16)"/><text x="300" y="110" fill="#8ecfc2" font-family="-apple-system,sans-serif" font-size="12" text-anchor="middle">最低</text>
+<rect x="390" y="92" width="120" height="26" rx="4" fill="rgba(217,180,95,0.22)"/><text x="450" y="110" fill="#e8ca85" font-family="-apple-system,sans-serif" font-size="12" text-anchor="middle">高</text>
+<rect x="540" y="92" width="120" height="26" rx="4" fill="rgba(205,127,155,0.30)"/><text x="600" y="110" fill="#e8a3bb" font-family="-apple-system,sans-serif" font-size="12" text-anchor="middle">最高</text>
+</g>
+<g>
+<text x="40" y="152" fill="#c2bbb0" font-family="-apple-system,sans-serif" font-size="12.5">柯氏复杂度</text>
+<rect x="240" y="134" width="120" height="26" rx="4" fill="rgba(99,179,166,0.16)"/><text x="300" y="152" fill="#8ecfc2" font-family="-apple-system,sans-serif" font-size="12" text-anchor="middle">最低</text>
+<rect x="390" y="134" width="120" height="26" rx="4" fill="rgba(217,180,95,0.22)"/><text x="450" y="152" fill="#e8ca85" font-family="-apple-system,sans-serif" font-size="12" text-anchor="middle">高</text>
+<rect x="540" y="134" width="120" height="26" rx="4" fill="rgba(205,127,155,0.30)"/><text x="600" y="152" fill="#e8a3bb" font-family="-apple-system,sans-serif" font-size="12" text-anchor="middle">最高</text>
+</g>
+<g>
+<text x="40" y="194" fill="#c2bbb0" font-family="-apple-system,sans-serif" font-size="12.5">有效复杂度</text>
+<rect x="240" y="176" width="120" height="26" rx="4" fill="rgba(99,179,166,0.16)"/><text x="300" y="194" fill="#8ecfc2" font-family="-apple-system,sans-serif" font-size="12" text-anchor="middle">低</text>
+<rect x="390" y="176" width="120" height="26" rx="4" fill="rgba(224,137,94,0.34)"/><text x="450" y="194" fill="#f0a87d" font-family="-apple-system,sans-serif" font-size="12" text-anchor="middle">最高</text>
+<rect x="540" y="176" width="120" height="26" rx="4" fill="rgba(255,255,255,0.05)"/><text x="600" y="194" fill="#787268" font-family="-apple-system,sans-serif" font-size="12" text-anchor="middle">≈ 0</text>
+</g>
+<g>
+<text x="40" y="236" fill="#c2bbb0" font-family="-apple-system,sans-serif" font-size="12.5">逻辑深度</text>
+<rect x="240" y="218" width="120" height="26" rx="4" fill="rgba(99,179,166,0.16)"/><text x="300" y="236" fill="#8ecfc2" font-family="-apple-system,sans-serif" font-size="12" text-anchor="middle">浅</text>
+<rect x="390" y="218" width="120" height="26" rx="4" fill="rgba(224,137,94,0.34)"/><text x="450" y="236" fill="#f0a87d" font-family="-apple-system,sans-serif" font-size="12" text-anchor="middle">深</text>
+<rect x="540" y="218" width="120" height="26" rx="4" fill="rgba(255,255,255,0.05)"/><text x="600" y="236" fill="#787268" font-family="-apple-system,sans-serif" font-size="12" text-anchor="middle">浅</text>
+</g>
+<text x="360" y="276" fill="#787268" font-family="-apple-system,sans-serif" font-size="11.5" text-anchor="middle">看最右一列：前两把尺子给"一页乱码"发满分，后两把给它垫底</text>
+</svg>
+<figcaption>所以"把复杂度降下来"这句话在没有指明是哪一把尺子之前，没有内容。</figcaption>
+</figure>
+<p><b>第二，这些量基本都算不出来。</b>柯氏复杂度不可计算已经说过；有效复杂度依赖一个你必须自己指定的粗粒化；逻辑深度同样绕不开"最短程序"这个不可计算的起点。实践中能拿到的永远是替代品——压缩率、模型的参数量、拟合残差——而替代品和原量的关系，多数时候没人验证过。</p>
+<p><b>第三，"两端都低、中间高"这条曲线是被假设的，不是被证明的。</b>Seth Lloyd 曾经列过一份清单，收录了四十来种不同的"复杂度"定义，它们分别是为不同学科的不同问题造的。把它们全都摆在同一条有序—随机轴上、指望它们在同一个位置取峰值，这个期待本身没有依据。</p>
+<p>元胞自动机（cellular automata）这边有过一次很清楚的教训 <a class="reflink" href="ref-cellular-automata.html">→ 参考 · 生命游戏与元胞自动机</a>：1990 年前后 Chris Langton 提出用一个参数 λ 刻画规则的"有序—混沌"位置，Norman Packard 的实验似乎显示演化会把规则推向"混沌边缘"。1993 年 Melanie Mitchell、Peter Hraber 和 James Crutchfield 重做了这个实验，发现原结果主要是实验设置和遗传算法的机制造成的，不是"混沌边缘"本身的性质。这不是说边缘不存在，是说<em>那次证据不成立</em>——而"混沌边缘"至今仍然是本领域被引用最随意的短语之一。</p>
+<p><b>第四，也是最要紧的：这四把尺子都不预测任何东西。</b>它们是描述性的量，不是动力学。知道一个系统"有效复杂度很高"，不能推出它会不会崩、什么时候崩、往哪儿走。本站前四十期讲的机制——反馈、临界、幂律、韧性——每一条都能推出可检验的预言；本期这四把尺子一条都不能。它们的价值在别处：<b>它们把"复杂"这个模糊词拆成几个各自意思明确的量，从而让"这很复杂"这句话变成一个可以追问的说法。</b>这是词汇上的进展，不是理论上的进展——把它当成后者，就是复杂性科学被批评得最多的那种毛病。</p>
+<div class="decide">
+<span class="lb">🎯 决策线</span>
+<p>不要把"复杂度"做成一个单一的考核数字。任何"把复杂度降下来"的目标，必须先说明降哪一种：降熵（减少不确定性，通常好）、降柯氏复杂度（减少规则条数，通常好）、降有效复杂度（砍掉真实存在的结构，多半坏）、降逻辑深度（丢掉积累的经验，几乎总是坏）。上报模板里那一栏笼统的"复杂度"，要么拆成这四条，要么删掉——它现在唯一稳定的作用是让四种意见看起来像在讨论同一件事。</p>
+</div>
+<p class="en-brief"><b>EN</b> Four limits. The four measures disagree with each other on the same object, so "complexity" names four quantities, not one. Almost none of them is computable, so what gets used in practice are proxies whose relation to the original is rarely checked. The inverted-U is an assumption, not a result — Seth Lloyd catalogued roughly forty rival definitions, and the 1993 Mitchell-Hraber-Crutchfield reanalysis dissolved the best-known "evolution to the edge of chaos" evidence. Most importantly, none of these measures predicts anything. They are a gain in vocabulary, not in theory.</p>
+
+<div class="bigcat">
+<h3>🎒 场景 · BigCat</h3>
+<ol>
+<li><span class="dm">投资与仓位</span>每次一个策略的回测曲线变得更漂亮，几乎都是因为往规则里又加了一个条件。把这套规则当成一段描述来看：手上真正<b>独立</b>的历史事件有多少个（不是多少根 K 线，是多少段互不相同的市场状态）？规则条数一旦逼近这个数，回测拟合的就是那段本该被扣掉的随机部分——有效复杂度接近零，柯氏复杂度却在涨。具体动作：策略表里加一栏"规则条数 ÷ 独立事件数"，自己定一条线（比如 1/10），超线的策略直接不看回测曲线。</li>
+<li><span class="dm">育儿</span>孩子把一件事做得特别"绕"——一套自己编的游戏规则、一个多此一举的步骤——大人的两种本能反应（"简化一下吧"和"真聪明"）测的是同一件事的两个错误维度。改问的那一句：<b>这一条是怎么来的？</b>答得出"上次那样不行"的，是逻辑深度，那段计算是他自己跑出来的，你替他简化就是把它抹掉；答不出、纯粹是一次性想出来的，才是可以随便讨论的描述长度。具体动作：打断之前先问那一句，答得上来就闭嘴看着。</li>
+<li><span class="dm">写作与这个学习站本身</span>每期定稿前那句"这期够不够有分量"，下意识的判据是长度和术语密度——而这两样量的都是熵那一头，乱码在这把尺子上永远赢。改看的是：这一期里，有多少段是<b>删掉之后结论会变</b>的（规律部分），有多少段删了什么都不影响（随机部分）。具体动作：定稿前做一遍删除测试，逐段问"删了结论变不变"；如果一次能删掉三段以上而结论不动，说明有效复杂度低，该重写而不是再加长。</li>
+</ol>
+</div>
+
+<div class="crossx">
+<h3>🌀 越界 · 跨学科的联想<span class="he">（Crossings）</span></h3>
+<ul>
+<li><b>科学哲学与生物学 · 薛定谔的"非周期晶体"</b>：1944 年 Erwin Schrödinger 在《生命是什么》里推断遗传物质必须是一种<em>非周期</em>晶体——不能是周期的（周期结构装不下信息），也不能是无序的（无序结构没法稳定复制）。本期四把尺子合起来，把这句直觉变成了可算的：周期晶体熵低、柯氏复杂度低、逻辑深度浅；随机聚合物熵高、柯氏复杂度高，但有效复杂度接近零、深度也浅；只有"非周期而受约束"的序列同时拿到高有效复杂度和高逻辑深度。这推出一个原本看不出的结论：薛定谔另一个更流行的说法"生命以负熵为食"，指错了方向——低熵的是冰，不是你；生命要的从来不是熵低，是<b>规律部分够长而且是跑出来的</b>。<b>但这里不成立</b>：薛定谔的论证是关于信息容量与热稳定性的物理约束，它既不需要也不承诺"复杂度在中间取峰值"这条曲线。把两者等同，就会得到"越接近中点越像生命"这种没有内容的话——能借的是他那个"非周期"的判据，不是那条曲线。</li>
+<li><b>历史与军事 · 珍珠港的"噪声"</b>：Roberta Wohlstetter 1962 年那本关于珍珠港的研究得出的结论是：情报不缺，缺的是把信号从噪声里分出来，而"什么算噪声"事后才看得清。本期的机制成套地说明了为什么这不是能力问题：熵告诉你每条电报的意外程度取决于你事前假设的分布；有效复杂度告诉你切开"规律/噪声"的那把刀是观察者带来的、不在数据里；柯氏复杂度不可计算则意味着不存在一个机械程序能替你切。三条合起来推出一个和常规复盘方向相反的结论：<b>情报失败的正确复盘对象不是"漏了哪一条"，而是"当时的模型允许什么东西被算作信号"</b>——复盘电报是在最容易的那一层用力，复盘模型才动得了下一次的结果。</li>
+<li><b>工程与技术史 · "压缩即智能"这句口号该划到哪儿</b>：2023 年 Delétang 等人做了一个漂亮的实验，把大语言模型（large language model）当通用无损压缩器用——一个 700 亿参数的模型能把从没训练过的图像块压到 43.4%、语音压到 16.4%，都优于该领域的专用压缩器。这被广泛读成"压缩就是智能"。本期机制给这句口号划了两条界：柯氏复杂度抓的是<em>全部</em>规律，它不区分哪一部分是你要的结构、哪一部分只是数据里碰巧稳定的偏斜；逻辑深度则完全不进压缩率的账——一个便宜生成的对象和一个跑了十亿步的对象，压完可以一样短。于是有个具体的结论：用困惑度（perplexity，模型对下一个词的平均意外程度）给模型排序，本质上是拿熵去代理有效复杂度，而这两把尺子在最随机的那一端会给出<em>相反</em>的排序——这也正是为什么困惑度低的模型不一定更有用。</li>
+</ul>
+</div>
+
+<div class="thinking">
+<h3>深入思考<span class="he">（Going Deeper）</span></h3>
+<details><summary>如果"复杂度在中间取峰值"是我们强加的要求，那我们凭什么这么要求？</summary><p>一个不太舒服的可能：因为我们自己和我们关心的一切都在中间，所以我们把"有意思"编码成了"复杂"。这未必是错的——尺子本来就是为用途造的——但它意味着这条曲线的地位是工程规范，不是自然规律。区别在于：工程规范可以按用途改，自然规律不能。谁要把它当后者用，就得先拿出一个独立于"我们觉得有意思"的判据。</p></details>
+<details><summary>熵一直在增加，那复杂度是不是也一直在增加？</summary><p>不是，而且它们的形状不一样。Scott Aaronson、Sean Carroll 和 Lauren Ouellette 2014 年做了个很直观的模拟：让"咖啡"和"奶"在一个格子世界里混合，熵单调上升到底，而他们定义的一种复杂度先升后降——刚倒进去时是两块纯色（简单），完全混匀后是均匀的灰（也简单），中间那段丝缕交错的花纹才是峰值。这至少说明"熵增"和"复杂度增"是两条不同的曲线，也提示复杂结构可能本来就是一段过渡期的产物。</p></details>
+<details><summary>一个组织的复杂度能量吗？</summary><p>能量的是替代品，而且要先挑尺子。想量柯氏复杂度，可以数不重复的流程规则条数（去掉重复项之后）。想量逻辑深度，可以数其中有多少条能追溯到一次具体事故。想量熵，可以看同一类请求的处理路径分布有多分散。这三个数会指向不同的整改方向，而这恰恰是好事——"我们组织太复杂了"这句话的问题就在于它同时暗示了三种互相冲突的整改。</p></details>
+<details><summary>为什么一个算不出来的量还值得学？</summary><p>因为它划边界。柯氏复杂度不可计算这件事本身就是可用的结论：它意味着"最简解"永远不能被机械地找到，所以任何声称"我们已经做到最简"的说法都超出了可证明的范围；也意味着压缩率这类上界估计是原则上无法被消除的近似，而不是暂时的技术不足。一个量的价值有时不在它的数值，在它证明了哪些事做不到。</p></details>
+</div>
+
+<div class="refs">
+<h3>延伸阅读<span class="he">（Further Reading）</span></h3>
+<ul>
+<li>Claude Shannon, <a href="https://doi.org/10.1002/j.1538-7305.1948.tb01338.x">A Mathematical Theory of Communication</a>（1948，信息熵的原始论文）</li>
+<li>Claude Shannon, <a href="https://doi.org/10.1002/j.1538-7305.1951.tb01366.x">Prediction and Entropy of Printed English</a>（1951，让人猜下一个字母，算出英文每字母约 1 比特）</li>
+<li><a href="https://en.wikipedia.org/wiki/Kolmogorov_complexity">Kolmogorov complexity</a>（柯氏复杂度、不可计算性与 Chaitin 定理的词条）</li>
+<li><a href="https://en.wikipedia.org/wiki/Effective_complexity">Effective complexity</a>（Gell-Mann 与 Lloyd 1996 年提出的有效复杂度）</li>
+<li>James McAllister, <a href="https://doi.org/10.1086/377408">Effective Complexity as a Measure of Information Content</a>（2003，观察者依赖这条批评）</li>
+<li><a href="https://en.wikipedia.org/wiki/Logical_depth">Logical depth</a>（Bennett 1988 年的逻辑深度）</li>
+<li>Voss &amp; Clarke, <a href="https://www.nature.com/articles/258317a0">1/f noise in music and speech</a>（1975，音乐的频谱落在两端之间）</li>
+<li>Mitchell, Hraber &amp; Crutchfield, <a href="https://arxiv.org/abs/adap-org/9303003">Revisiting the Edge of Chaos</a>（1993，把"演化到混沌边缘"那个著名结果重做了一遍）</li>
+<li>Aaronson, Carroll &amp; Ouellette, <a href="https://arxiv.org/abs/1405.6903">Quantifying the Rise and Fall of Complexity in Closed Systems</a>（2014，咖啡与奶的模拟）</li>
+<li>Delétang et al., <a href="https://arxiv.org/abs/2309.10668">Language Modeling Is Compression</a>（2023，把大模型当通用压缩器）</li>
+<li>Hidalgo &amp; Hausmann, <a href="https://doi.org/10.1073/pnas.0900943106">The building blocks of economic complexity</a>（2009，经济复杂度指数）</li>
+<li>Erwin Schrödinger, <a href="https://en.wikipedia.org/wiki/What_Is_Life%3F">What Is Life?</a>（1944，"非周期晶体"那个判据）</li>
+</ul>
+</div>
+<footer>BigCat · 复杂性科学 · <a href="index.html">← 全部 Topic</a></footer>
+</div>
+<script src="https://hub.cissychen.com/comments.js" defer></script>
+<script src="https://hub.cissychen.com/search.js" defer></script>
+<script src="https://hub.cissychen.com/index-button.js" defer></script>
+<script src="https://hub.cissychen.com/i18n-tts.js" defer></script>
+</body></html>
