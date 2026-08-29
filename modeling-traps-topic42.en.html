@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+
+<html lang="en"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Traps in Modeling — a better fit is not a better model · Complexity Science T42</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,"SF Pro Display","Noto Sans SC",sans-serif;color:#e4ded5;line-height:1.85;min-height:100vh;
+  background:radial-gradient(1100px 620px at 12% -6%,rgba(224,137,94,0.10),transparent 62%),radial-gradient(950px 700px at 100% 2%,rgba(166,147,205,0.09),transparent 58%),linear-gradient(168deg,#100f0d 0%,#15161b 48%,#0a0a0c 100%);background-attachment:fixed}
+.wrap{max-width:760px;margin:0 auto;padding:30px 22px 90px}
+header{padding:52px 0 8px;border-bottom:1px solid rgba(255,255,255,0.07);margin-bottom:34px}
+.week-tag{font-family:"SF Mono",Menlo,monospace;font-size:0.72rem;font-weight:700;letter-spacing:2px;color:#a8a49c;border:1px solid rgba(168,164,156,0.4);background:rgba(168,164,156,0.07);padding:3px 11px;border-radius:20px}
+h1{font-size:2.5rem;font-weight:800;letter-spacing:0.5px;line-height:1.2;margin:20px 0 0;background:linear-gradient(106deg,#e0895e 0%,#d9b45f 34%,#9fbc7a 68%,#63b3a6 100%);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+h1 .h1en{display:block;font-size:0.40em;font-weight:600;letter-spacing:2.5px;color:#847d72;-webkit-text-fill-color:#847d72;background:none;margin-top:13px}
+.sub{font-size:1.05rem;color:#aba498;margin-top:14px;font-weight:500}
+.date{font-family:"SF Mono",Menlo,monospace;font-size:0.75rem;color:#57524b;margin-top:18px;letter-spacing:1px}
+.pitch{margin:22px 0 30px;font-size:0.97rem;color:#cd7f9b;border-left:2px solid rgba(205,127,155,0.5);padding-left:16px;font-style:italic}
+.intro{font-size:1.02rem;color:#cfc8bc;margin-bottom:14px}
+.intro p{margin-bottom:16px}
+h2{font-size:1.42rem;font-weight:700;color:#e9e3d9;margin:56px 0 8px;letter-spacing:0.3px}
+h2 .n{font-family:"SF Mono",Menlo,monospace;font-size:0.85rem;color:#a8a49c;display:block;margin-bottom:6px;letter-spacing:2px}
+.he{font-size:0.68em;color:#8d867b;font-weight:500;letter-spacing:0}
+p{margin-bottom:17px}
+.lead{color:#cfc8bc}
+b,strong{color:#f0eae0;font-weight:600}
+em{color:#d9b45f;font-style:normal;font-weight:500}
+.dim{color:#8d867b}
+a.reflink{display:inline-block;font-size:0.82rem;font-family:"SF Mono",Menlo,monospace;color:#63b3a6;border:1px solid rgba(99,179,166,0.38);background:rgba(99,179,166,0.07);padding:1px 9px;border-radius:20px;text-decoration:none;transition:all 0.15s;white-space:nowrap}
+a.reflink:hover{background:rgba(99,179,166,0.16);border-color:rgba(99,179,166,0.7)}
+figure{margin:30px 0}
+figure svg{display:block;width:100%;height:auto;border-radius:12px;background:rgba(255,255,255,0.018);border:1px solid rgba(255,255,255,0.06)}
+figcaption{font-size:0.82rem;color:#787268;margin-top:11px;text-align:center;line-height:1.6}
+.en-brief{font-size:0.85rem;color:#847d72;border-top:1px dashed rgba(255,255,255,0.09);padding-top:12px;margin-top:22px;line-height:1.65}
+.en-brief b{font-family:"SF Mono",Menlo,monospace;font-size:0.72rem;color:#63b3a6;letter-spacing:1px;margin-right:7px}
+.decide{margin:24px 0;border:1px solid rgba(224,137,94,0.36);background:rgba(224,137,94,0.055);border-radius:12px;padding:15px 19px}
+.decide .lb{font-family:"SF Mono",Menlo,monospace;font-size:0.73rem;letter-spacing:1.5px;color:#e0895e;font-weight:700;display:block;margin-bottom:7px}
+.decide p{margin:0;font-size:0.95rem;color:#ddd5c9}
+.crossx-inline{margin:20px 0 22px;border-left:2px solid rgba(205,127,155,0.55);padding:2px 0 2px 15px;font-size:0.89rem;color:#a9a096;line-height:1.72}
+.crossx-inline b{color:#cd7f9b;font-weight:600}
+.bigcat{margin:46px 0 10px;border:1px solid rgba(217,180,95,0.38);background:rgba(217,180,95,0.05);border-radius:14px;padding:20px 22px}
+.bigcat h3{font-size:1.02rem;color:#d9b45f;margin-bottom:14px;letter-spacing:0.5px}
+.bigcat ol{list-style:none;padding:0}
+.bigcat li{margin-bottom:15px;font-size:0.94rem;color:#d5cdc1;line-height:1.78}
+.bigcat li:last-child{margin-bottom:0}
+.bigcat .dm{font-family:"SF Mono",Menlo,monospace;font-size:0.73rem;color:#d9b45f;border:1px solid rgba(217,180,95,0.32);border-radius:4px;padding:1px 7px;margin-right:8px;white-space:nowrap}
+.crossx{margin:46px 0 10px;border:1px solid rgba(205,127,155,0.38);background:rgba(205,127,155,0.05);border-radius:14px;padding:20px 22px}
+.crossx h3{font-size:1.02rem;color:#cd7f9b;margin-bottom:14px;letter-spacing:0.5px}
+.crossx ul{list-style:none;padding:0}
+.crossx li{margin-bottom:16px;font-size:0.94rem;color:#d5cdc1;line-height:1.78}
+.crossx li:last-child{margin-bottom:0}
+.crossx li b{color:#cd7f9b;font-weight:600}
+.thinking{margin:46px 0 10px}
+.thinking h3{font-size:1.02rem;color:#a693cd;margin-bottom:14px;letter-spacing:0.5px}
+details{border:1px solid rgba(166,147,205,0.22);border-radius:10px;padding:12px 16px;margin-bottom:10px;background:rgba(166,147,205,0.035)}
+summary{cursor:pointer;font-size:0.93rem;color:#c9c2b6;font-weight:500}
+summary::marker{color:#a693cd}
+details p{margin:12px 0 0;font-size:0.9rem;color:#a9a096;line-height:1.75}
+.refs{margin:46px 0 10px}
+.refs h3{font-size:1.02rem;color:#79a6d2;margin-bottom:14px;letter-spacing:0.5px}
+.refs ul{list-style:none;padding:0}
+.refs li{margin-bottom:10px;font-size:0.9rem;color:#8d867b;line-height:1.7}
+.refs a{color:#79a6d2;text-decoration:none;border-bottom:1px solid rgba(121,166,210,0.3)}
+.refs a:hover{color:#a6c4e2;border-bottom-color:rgba(121,166,210,0.7)}
+footer{text-align:center;padding:56px 0 10px;font-size:0.78rem;color:#57524b;font-family:"SF Mono",Menlo,monospace;border-top:1px solid rgba(255,255,255,0.06);margin-top:50px}
+footer a{color:#79a6d2;text-decoration:none}
+@media(max-width:600px){h1{font-size:1.85rem}.wrap{padding:24px 16px 60px}h2{font-size:1.22rem}}
+</style></head><body>
+<div class="wrap">
+<header>
+<span class="week-tag">TOPIC 42 · PHASE H</span>
+<h1>Traps in Modeling</h1>
+<p class="sub">A better fit is not a better model</p>
+<p class="date">2026-08-29 · Method &amp; Limits</p>
+</header>
+<p class="pitch">The more beautifully a model fits the data you already have, the less its statements about tomorrow tend to be worth. That is not a figure of speech — it is a curve, and it has been drawn.</p>
+<div class="intro">
+<p>Every December somebody walks through the year just past — the markets, the company, the state of the world — and it all hangs together: because of that, this; because of this structure, that outcome. You listen and think, yes, that's how it went. The same people wrote predictions in January, and when you dig those out, they are wrong with remarkable consistency.</p>
+<p>Both things are true at once, and that is the phenomenon this issue is about: <em>explaining well</em> and <em>guessing right</em> are not the same skill, and they frequently work against each other. The tighter a model — or a story — fits what already happened, the less constraint it has left over for what hasn't.</p>
+<p class="dim">The first forty-one issues built tools: power laws, networks, criticality, resilience, measures of complexity. <b>This one goes back and checks how those tools get misused.</b> It introduces no new mechanism. It covers four gates: overfitting, after-the-fact narrative, the statistical mistake behind "that looks like a power law", and what it actually takes for a model to count as tested. Issue 43 will ask the bigger question — what the field as a whole stands accused of.</p>
+</div>
+
+<h2><span class="n">01</span>The better the fit, the more likely it memorised noise</h2>
+<p class="lead">Start with the smallest possible example. You have eight points and you want the pattern behind them. You can draw a straight line through the middle of them, or you can draw a wandering curve that passes <em>exactly</em> through every single one.</p>
+<p>The second curve has zero error on those eight points. By the standard of "fits well", it wins outright. But go measure a ninth point and it will probably land far from that wandering curve — further than it would from the clumsy straight line.</p>
+<p>The reason is not subtle. Those eight points contain a real pattern, and they also contain measurement error, chance fluctuation, and whatever mood the instrument was in that day. <b>The model cannot tell which is which.</b> Give it enough freedom — enough knobs to turn — and it will memorise the errors too, as though they were the pattern. That is <b>overfitting</b>.</p>
+<figure>
+<svg aria-label="One dataset fitted three ways: underfit, just right, overfit" role="img" viewBox="0 0 720 300" xmlns="http://www.w3.org/2000/svg">
+<text fill="#aba498" font-family="-apple-system,sans-serif" font-size="13" text-anchor="middle" x="360" y="26">One dataset, three fits — which one learned, which one memorised</text>
+<text fill="#79a6d2" font-family="SF Mono,monospace" font-size="12" text-anchor="middle" x="138" y="56">① Underfit (too simple)</text>
+<g transform="translate(40,66)">
+<rect fill="none" height="160" stroke="rgba(255,255,255,0.10)" width="196" x="0" y="0"></rect>
+<line stroke="#79a6d2" stroke-width="2.5" x1="14" x2="184" y1="91" y2="91"></line>
+<circle cx="22" cy="126" fill="#8d867b" r="3.6"></circle><circle cx="44" cy="104" fill="#8d867b" r="3.6"></circle><circle cx="66" cy="118" fill="#8d867b" r="3.6"></circle><circle cx="88" cy="88" fill="#8d867b" r="3.6"></circle><circle cx="110" cy="98" fill="#8d867b" r="3.6"></circle><circle cx="132" cy="68" fill="#8d867b" r="3.6"></circle><circle cx="154" cy="78" fill="#8d867b" r="3.6"></circle><circle cx="176" cy="50" fill="#8d867b" r="3.6"></circle>
+</g>
+<text fill="#787268" font-family="-apple-system,sans-serif" font-size="11" text-anchor="middle" x="138" y="248">Error on these points: large</text>
+<text fill="#9fbc7a" font-family="SF Mono,monospace" font-size="12" text-anchor="middle" x="360" y="56">② Just right</text>
+<g transform="translate(262,66)">
+<rect fill="none" height="160" stroke="rgba(255,255,255,0.10)" width="196" x="0" y="0"></rect>
+<line stroke="#9fbc7a" stroke-width="2.5" x1="14" x2="184" y1="128" y2="54"></line>
+<circle cx="22" cy="126" fill="#8d867b" r="3.6"></circle><circle cx="44" cy="104" fill="#8d867b" r="3.6"></circle><circle cx="66" cy="118" fill="#8d867b" r="3.6"></circle><circle cx="88" cy="88" fill="#8d867b" r="3.6"></circle><circle cx="110" cy="98" fill="#8d867b" r="3.6"></circle><circle cx="132" cy="68" fill="#8d867b" r="3.6"></circle><circle cx="154" cy="78" fill="#8d867b" r="3.6"></circle><circle cx="176" cy="50" fill="#8d867b" r="3.6"></circle>
+</g>
+<text fill="#787268" font-family="-apple-system,sans-serif" font-size="11" text-anchor="middle" x="360" y="248">Error on these points: medium</text>
+<text fill="#e0895e" font-family="SF Mono,monospace" font-size="12" text-anchor="middle" x="582" y="56">③ Overfit (through every point)</text>
+<g transform="translate(484,66)">
+<rect fill="none" height="160" stroke="rgba(255,255,255,0.10)" width="196" x="0" y="0"></rect>
+<path d="M22,126 C33,104 33,96 44,104 C55,112 55,124 66,118 C77,112 77,92 88,88 C99,84 99,102 110,98 C121,94 121,70 132,68 C143,66 143,80 154,78 C165,76 165,56 176,50" fill="none" stroke="#e0895e" stroke-width="2.5"></path>
+<circle cx="22" cy="126" fill="#8d867b" r="3.6"></circle><circle cx="44" cy="104" fill="#8d867b" r="3.6"></circle><circle cx="66" cy="118" fill="#8d867b" r="3.6"></circle><circle cx="88" cy="88" fill="#8d867b" r="3.6"></circle><circle cx="110" cy="98" fill="#8d867b" r="3.6"></circle><circle cx="132" cy="68" fill="#8d867b" r="3.6"></circle><circle cx="154" cy="78" fill="#8d867b" r="3.6"></circle><circle cx="176" cy="50" fill="#8d867b" r="3.6"></circle>
+</g>
+<text fill="#c0703f" font-family="-apple-system,sans-serif" font-size="11" text-anchor="middle" x="582" y="248">Error on these points: zero</text>
+<text fill="#57524b" font-family="-apple-system,sans-serif" font-size="11" text-anchor="middle" x="360" y="282">Same points in all three panels. The third curve memorised every one — noise included.</text>
+</svg>
+<figcaption>The grey dots are one dataset. The curve with zero error is precisely the one you should trust least.</figcaption>
+</figure>
+<p>John von Neumann has a line, relayed by Freeman Dyson, that gets quoted constantly: <b>"With four parameters I can fit an elephant, and with five I can make him wiggle his trunk."</b> Somebody eventually took it as a challenge — a 2010 paper drew a recognisable elephant with four complex parameters. <b>Parameters are not knowledge. Parameters are freedom.</b></p>
+<p>So you cannot judge a model by how it does on <em>the data you tuned it on</em>. That data is <b>in-sample</b>, and the error on it only tells you how much the model memorised. What carries information is <b>out-of-sample</b> data — a batch the model has never seen and that played no part in any tuning decision. Plot both errors on the same axes and the situation becomes obvious.</p>
+<figure>
+<svg aria-label="In-sample error falls monotonically with complexity; out-of-sample error is U-shaped" role="img" viewBox="0 0 720 280" xmlns="http://www.w3.org/2000/svg">
+<defs>
+<marker id="t42ax" markerHeight="9" markerUnits="userSpaceOnUse" markerWidth="9" orient="auto" refX="8" refY="5" viewBox="0 0 10 10">
+<path d="M0,1 L9,5 L0,9 z" fill="#8d867b"></path>
+</marker>
+</defs>
+<text fill="#aba498" font-family="-apple-system,sans-serif" font-size="13" text-anchor="middle" x="360" y="22">Two error curves — only one of them is about tomorrow</text>
+<rect fill="rgba(224,137,94,0.06)" height="163" width="320" x="330" y="52"></rect>
+<line marker-end="url(#t42ax)" stroke="rgba(255,255,255,0.18)" stroke-width="1.5" x1="90" x2="666" y1="215" y2="215"></line>
+<line marker-end="url(#t42ax)" stroke="rgba(255,255,255,0.18)" stroke-width="1.5" x1="90" x2="90" y1="215" y2="44"></line>
+<text fill="#8d867b" font-family="-apple-system,sans-serif" font-size="12" transform="rotate(-90 34 130)" x="34" y="130">Error</text>
+<line stroke="#d9b45f" stroke-dasharray="5 5" stroke-width="1.6" x1="330" x2="330" y1="52" y2="215"></line>
+<text fill="#d9b45f" font-family="SF Mono,monospace" font-size="12" text-anchor="middle" x="330" y="42">Best complexity</text>
+<path d="M110,74 C190,152 280,187 620,206" fill="none" stroke="#79a6d2" stroke-width="2.5"></path>
+<path d="M110,66 C210,142 260,152 320,150 C420,148 520,104 620,62" fill="none" stroke="#e0895e" stroke-width="2.5"></path>
+<text fill="#79a6d2" font-family="SF Mono,monospace" font-size="12.5" x="628" y="206">In-sample</text>
+<text fill="#e0895e" font-family="SF Mono,monospace" font-size="12.5" text-anchor="end" x="616" y="52">Out-of-sample</text>
+<text fill="#c0703f" font-family="-apple-system,sans-serif" font-size="11.5" text-anchor="middle" x="490" y="152">Past this point: better fit to old data,</text>
+<text fill="#c0703f" font-family="-apple-system,sans-serif" font-size="11.5" text-anchor="middle" x="490" y="171">worse prediction on new data</text>
+<text fill="#8d867b" font-family="-apple-system,sans-serif" font-size="12" text-anchor="middle" x="370" y="240">Model's degrees of freedom (tunable parameters)</text>
+<text fill="#57524b" font-family="-apple-system,sans-serif" font-size="11" text-anchor="middle" x="360" y="268">Each step to the right = one more free parameter. Blue always falls. Orange turns around.</text>
+</svg>
+<figcaption>Blue falls monotonically, so it will always encourage you to make the model more complex. Orange is the one you actually care about, and it has a turning point.</figcaption>
+</figure>
+<p>The worst part: if you only watch the blue line, you will feel like you are making progress the whole time. <b>Overfitting does not hurt.</b> While it is happening, every metric is improving.</p>
+<div class="decide">
+<span class="lb">🎯 DECISION</span>
+<p>Before any model ships, hold out a slice of data that <b>took no part in any tuning</b>, and report its error exactly once. Cut that slice by <b>time</b> — take the most recent stretch — rather than sampling at random; random splitting scatters same-day, same-batch, same-source records across both sides, which lets the model peek at the answers. If you have no such slice at all, then do not quote an "accuracy" figure; the number does not mean what it appears to mean.</p>
+</div>
+<div class="crossx-inline">
+🌀 <b>Engineering and the history of technology · Google Flu Trends</b>&nbsp;&nbsp;In 2008 Google launched a model that predicted influenza visit rates from search terms, selecting 45 terms out of 50 million candidates. It fit the historical record beautifully and made the cover of <i>Nature</i>. Then it missed the 2009 H1N1 outbreak, and in the 2012–13 season it overestimated the visit rate by more than a factor of two. Forty-five terms out of fifty million <i>is</i> a statement about degrees of freedom. The non-obvious part: the model was not the problem — <b>the procedure that chose the terms had already selected noise</b>, and no amount of extra data repairs something that overfit at the variable-selection stage.</div>
+
+<h2><span class="n">02</span>Narrative is a free parameter</h2>
+<p class="lead">The parameters in the last section were numbers. But when people forecast and post-mortem, they don't use numbers — they use words: "resilient team", "decisive leadership", "the timing was right", "riding the wave". Words have a property numbers don't: <b>they are free, and there is no limit on how many you may use.</b></p>
+<p>The consequence follows immediately. With unlimited words available, you can assemble a smooth account of any outcome whatsoever. And usually out of the very same facts.</p>
+<figure>
+<svg aria-label="The same set of facts explaining two opposite outcomes equally smoothly" role="img" viewBox="0 0 720 300" xmlns="http://www.w3.org/2000/svg">
+<defs>
+<marker id="t42na" markerHeight="10" markerUnits="userSpaceOnUse" markerWidth="10" orient="auto" refX="9" refY="5" viewBox="0 0 10 10">
+<path d="M0,1 L9,5 L0,9 z" fill="#9fbc7a"></path>
+</marker>
+<marker id="t42nb" markerHeight="10" markerUnits="userSpaceOnUse" markerWidth="10" orient="auto" refX="9" refY="5" viewBox="0 0 10 10">
+<path d="M0,1 L9,5 L0,9 z" fill="#79a6d2"></path>
+</marker>
+</defs>
+<text fill="#aba498" font-family="-apple-system,sans-serif" font-size="13" text-anchor="middle" x="360" y="26">One set of facts, two opposite outcomes, two equally smooth accounts</text>
+<rect fill="rgba(255,255,255,0.03)" height="68" rx="8" stroke="rgba(255,255,255,0.14)" width="196" x="28" y="118"></rect>
+<text fill="#aba498" font-family="-apple-system,sans-serif" font-size="12.5" font-weight="600" text-anchor="middle" x="126" y="143">The same facts</text>
+<text fill="#8d867b" font-family="-apple-system,sans-serif" font-size="11" text-anchor="middle" x="126" y="162">Small team · strong boss</text>
+<text fill="#8d867b" font-family="-apple-system,sans-serif" font-size="11" text-anchor="middle" x="126" y="178">Tight deadline · new tech</text>
+<line marker-end="url(#t42na)" stroke="#9fbc7a" stroke-width="2" x1="230" x2="442" y1="132" y2="88"></line>
+<line marker-end="url(#t42nb)" stroke="#79a6d2" stroke-width="2" x1="230" x2="442" y1="172" y2="212"></line>
+<text fill="#9fbc7a" font-family="-apple-system,sans-serif" font-size="10.5" text-anchor="middle" x="336" y="58">Small team → fast comms · boss → decisive</text>
+<text fill="#9fbc7a" font-family="-apple-system,sans-serif" font-size="10.5" text-anchor="middle" x="336" y="76">deadline → focus · new tech → an edge</text>
+<text fill="#79a6d2" font-family="-apple-system,sans-serif" font-size="10.5" text-anchor="middle" x="336" y="242">Small team → understaffed · boss → steamrolled</text>
+<text fill="#79a6d2" font-family="-apple-system,sans-serif" font-size="10.5" text-anchor="middle" x="336" y="260">deadline → no polish · new tech → not ready</text>
+<rect fill="rgba(159,188,122,0.07)" height="50" rx="8" stroke="rgba(159,188,122,0.42)" width="246" x="446" y="70"></rect>
+<text fill="#9fbc7a" font-family="-apple-system,sans-serif" font-size="13" text-anchor="middle" x="569" y="100">Outcome: the project shipped</text>
+<rect fill="rgba(121,166,210,0.07)" height="50" rx="8" stroke="rgba(121,166,210,0.42)" width="246" x="446" y="182"></rect>
+<text fill="#79a6d2" font-family="-apple-system,sans-serif" font-size="13" text-anchor="middle" x="569" y="212">Outcome: the project died</text>
+<text fill="#57524b" font-family="-apple-system,sans-serif" font-size="11" text-anchor="middle" x="360" y="288">An account that explains both outcomes ruled nothing out in advance.</text>
+</svg>
+<figcaption>Narrative does not have "many" degrees of freedom. It has unlimited ones, at zero cost. Which is why its error on history is always zero.</figcaption>
+</figure>
+<p>Lay this figure over the previous one and you get the most useful sentence in this issue: <b>after-the-fact narrative is the limiting case of overfitting.</b> Unlimited parameters, zero cost, error identically zero — it sits at the far right end of that orange curve, where out-of-sample error is highest. This is not an analogy. It is the same position on the same curve.</p>
+<p>Psychology reinforces it. <b>Hindsight bias</b> means that once something has happened, people sincerely misremember their earlier judgement and feel they "knew it all along". So you don't even notice yourself fitting after the fact — memory has already tuned the parameters for you.</p>
+<p>How do you tell a real explanation from a smooth account? There is exactly one operational test: <b>an explanation must rule some outcomes out in advance.</b> If a story would hold up just as well had the outcome been reversed, its information content is zero, however sensible it sounds. That is all "falsifiable" means in daily life — not the philosophical posture of "could be refuted", but the concrete question of <em>which possibilities it crossed off beforehand</em>.</p>
+<div class="decide">
+<span class="lb">🎯 DECISION</span>
+<p>Keep separate books for <b>explanatory power</b> and <b>predictive power</b>, and don't let the first pass itself off as the second. Run any account — of the company, the market, someone's behaviour — through one reversal test: <b>"if the outcome had gone the other way, could this story be told just as smoothly?"</b> If yes, strike it from your decision inputs; it is comfort, not constraint. What survives the test is what you actually learned.</p>
+</div>
+<div class="crossx-inline">
+🌀 <b>Literature and the arts · the decisive childhood detail</b>&nbsp;&nbsp;Almost every biography of a successful person locates a formative detail in childhood: the move, the book, the demanding teacher. That line of reasoning always goes through, because the supply of candidate childhood details is effectively unlimited and only the ones matching the outcome get picked — free parameters, selected after the fact. Which yields something sharper than "biographies are unreliable": <b>the explanatory power of a biography is uncorrelated with its predictive power, so as input to "how should a person be raised" it carries almost no information</b>. The same childhood details are present in the people who never made it. Nobody wrote their books.</div>
+
+<h2><span class="n">03</span>"That looks like a power law" usually isn't</h2>
+<p class="lead">One straight line has kept recurring on this site: take the logarithm of both event size and frequency, plot them, and a lot of phenomena line up. That line is a <b>power law</b> <a class="reflink" href="ref-power-law.en.html">→ ref · Power-law distributions</a>, and it means there is no typical size — big events are far more common than intuition allows.</p>
+<p>The trouble lives in the phrase "looks like". <b>On log-log axes, human judgement of straightness is terrible.</b> Logs flatten differences, so a gently bending curve is nearly indistinguishable from a line. And several completely different distributions produce that same picture — the usual rivals being the <b>log-normal</b> (bell-shaped once you take logs) and the <b>exponentially truncated power law</b> (a tail that drops off a cliff somewhere).</p>
+<p>Worse, the standard way of drawing the picture <em>manufactures</em> straight lines. Tail data is inherently sparse, so if you count events in equal-width bins, the tail bins hold zeros and ones, the plot turns to confetti, and the eye starts "seeing a trend". (The professional fix is the complementary cumulative distribution — the fraction of events at or above <i>x</i> — which needs no binning and behaves far better in the tail.)</p>
+<p>In 2009 Aaron Clauset, Cosma Shalizi and Mark Newman systematised all of this into one testing procedure (the <b>CSN procedure</b> below) and re-examined two dozen widely cited "power-law" datasets with it. The verdict was deflating: <b>only a handful passed cleanly, and a substantial share could not be distinguished from a log-normal at all.</b></p>
+<figure>
+<svg aria-label="Three distributions nearly coincide on log-log axes, and the five steps of the CSN test" role="img" viewBox="0 0 720 336" xmlns="http://www.w3.org/2000/svg">
+<defs>
+<marker id="t42st" markerHeight="8" markerUnits="userSpaceOnUse" markerWidth="8" orient="auto" refX="7" refY="4" viewBox="0 0 8 8">
+<path d="M0,0.8 L7,4 L0,7.2 z" fill="#a8a49c"></path>
+</marker>
+</defs>
+<text fill="#aba498" font-family="-apple-system,sans-serif" font-size="12.5" text-anchor="middle" x="209" y="30">On log-log axes the first two decades coincide</text>
+<line stroke="rgba(255,255,255,0.18)" stroke-width="1.5" x1="66" x2="352" y1="300" y2="300"></line>
+<line stroke="rgba(255,255,255,0.18)" stroke-width="1.5" x1="66" x2="66" y1="300" y2="66"></line>
+<text fill="#57524b" font-family="-apple-system,sans-serif" font-size="10.5" x="74" y="292">→ Event size (log)</text>
+<text fill="#8d867b" font-family="-apple-system,sans-serif" font-size="11" transform="rotate(-90 40 185)" x="40" y="185">Frequency (log)</text>
+<line stroke="#e0895e" stroke-width="2.4" x1="84" x2="340" y1="88" y2="278"></line>
+<path d="M84,90 C150,136 190,166 240,206 C280,240 312,272 340,298" fill="none" stroke="#a693cd" stroke-width="2.2"></path>
+<path d="M84,89 C150,135 200,172 260,218 C296,248 314,278 322,300" fill="none" stroke="#79a6d2" stroke-width="2.2"></path>
+<text fill="#8d867b" font-family="-apple-system,sans-serif" font-size="11" text-anchor="end" x="332" y="122">the three curves overlap here</text>
+<line stroke="#e0895e" stroke-width="2.4" x1="70" x2="88" y1="322" y2="322"></line>
+<text fill="#e0895e" font-family="-apple-system,sans-serif" font-size="11" x="93" y="326">Power law</text>
+<line stroke="#a693cd" stroke-width="2.2" x1="162" x2="180" y1="322" y2="322"></line>
+<text fill="#a693cd" font-family="-apple-system,sans-serif" font-size="11" x="185" y="326">Log-normal</text>
+<line stroke="#79a6d2" stroke-width="2.2" x1="258" x2="276" y1="322" y2="322"></line>
+<text fill="#79a6d2" font-family="-apple-system,sans-serif" font-size="11" x="281" y="326">Exp. cutoff</text>
+<text fill="#aba498" font-family="-apple-system,sans-serif" font-size="12.5" text-anchor="middle" x="556" y="30">CSN procedure: five steps, none optional</text>
+<rect fill="rgba(168,164,156,0.06)" height="36" rx="7" stroke="rgba(168,164,156,0.3)" width="288" x="412" y="64"></rect>
+<text fill="#cfc8bc" font-family="-apple-system,sans-serif" font-size="12.5" text-anchor="middle" x="556" y="87">① Pick where the tail starts (x_min)</text>
+<line marker-end="url(#t42st)" stroke="#a8a49c" stroke-width="1.6" x1="556" x2="556" y1="100" y2="116"></line>
+<rect fill="rgba(168,164,156,0.06)" height="36" rx="7" stroke="rgba(168,164,156,0.3)" width="288" x="412" y="118"></rect>
+<text fill="#cfc8bc" font-family="-apple-system,sans-serif" font-size="12.5" text-anchor="middle" x="556" y="141">② Estimate α by maximum likelihood</text>
+<line marker-end="url(#t42st)" stroke="#a8a49c" stroke-width="1.6" x1="556" x2="556" y1="154" y2="170"></line>
+<rect fill="rgba(168,164,156,0.06)" height="36" rx="7" stroke="rgba(168,164,156,0.3)" width="288" x="412" y="172"></rect>
+<text fill="#cfc8bc" font-family="-apple-system,sans-serif" font-size="12.5" text-anchor="middle" x="556" y="195">③ Measure the worst gap from the data</text>
+<line marker-end="url(#t42st)" stroke="#a8a49c" stroke-width="1.6" x1="556" x2="556" y1="208" y2="224"></line>
+<rect fill="rgba(168,164,156,0.06)" height="36" rx="7" stroke="rgba(168,164,156,0.3)" width="288" x="412" y="226"></rect>
+<text fill="#cfc8bc" font-family="-apple-system,sans-serif" font-size="12.5" text-anchor="middle" x="556" y="249">④ Simulate a p-value; small p kills it</text>
+<line marker-end="url(#t42st)" stroke="#a8a49c" stroke-width="1.6" x1="556" x2="556" y1="262" y2="278"></line>
+<rect fill="rgba(224,137,94,0.07)" height="36" rx="7" stroke="rgba(224,137,94,0.38)" width="288" x="412" y="280"></rect>
+<text fill="#e6bda7" font-family="-apple-system,sans-serif" font-size="12.5" text-anchor="middle" x="556" y="303">⑤ Compare against a log-normal</text>
+</svg>
+<figcaption>Left: over the range real data can cover, the three distributions nearly coincide. Right: the CSN procedure. Step ⑤ is the one most often skipped, and the one most likely to overturn the result.</figcaption>
+</figure>
+<p>Two terms to unpack. <b>Maximum likelihood</b> means: of all possible parameter values, pick the one that makes this data the least surprising. It is far more reliable than drawing a regression line through a log-log plot, because that line assumes every point carries the same amount of error — and tail points plainly don't. A <b>p-value</b> here answers: if the data really had come from a power law, how often would we see a discrepancy at least as large as the one measured? If that probability is small, the power-law hypothesis does not hold up.</p>
+<p>But the statistics are not the interesting part. The interesting question is: <b>why does everybody want that straight line so badly?</b> Because a power law is not just a shape — throughout this site it has come attached to mechanism stories: self-organised criticality, preferential attachment, fractals. <em>Claiming a power law quietly claims the mechanism too.</em> Meanwhile, for decisions, power law and log-normal differ far less than people assume: both are heavy-tailed, both mean the average is unreliable, both mean tail risk is underpriced and you must not size leverage off historical mean drawdowns. So the insistence on the words "power law" is usually not the decision talking. <b>It is the story talking.</b></p>
+<div class="decide">
+<span class="lb">🎯 DECISION</span>
+<p>Next time you are about to say "this is a power law", run a downgrade test first: <b>replace it with "this is heavy-tailed" — does any decision of yours change?</b> Almost always it doesn't, so say heavy-tailed, which is the weaker claim you can actually support. Only when you genuinely need the numerical value of α — to infer a mechanism, or to extrapolate tail probabilities — is the full CSN procedure worth running, and then you must report x_min alongside it, because α can be tuned simply by sliding x_min.</p>
+</div>
+<div class="crossx-inline">
+🌀 <b>Economics and institutions · that straight line for city sizes</b>&nbsp;&nbsp;"City populations follow a power law" is among the most-cited instances, but the line is acutely sensitive to what counts as a city: administrative boundaries versus contiguous built-up areas give visibly different exponents for the same country, and redrawing the boundary reshuffles exactly the handful of points in the tail. That yields a conclusion no statistics textbook offers — <b>in data like this, part of the "straight line" is manufactured by the measurement convention rather than grown by the system</b>. So the first question to ask of a beautiful power law is not "what is the mechanism", but "who defined the unit, and where did they cut it".</div>
+
+<h2><span class="n">04</span>Calibration: making the word "probability" pay out</h2>
+<p class="lead">The first three sections took things apart. This one is the constructive half: what would it actually take for a model of a complex system to count as tested?</p>
+<p>Forecasts about complex systems are rarely "tomorrow's value will be X". They are "how likely". And a single "how likely" cannot be graded — you say 70% chance of rain, it stays dry, that does not make you wrong. <b>A hundred of them can be graded.</b> If, across the hundred days you said 70%, it rained on thirty, then what you produced was not a probability. It was rhetoric.</p>
+<p>The property is called <b>calibration</b>: the probabilities you state must pay out as long-run frequencies. It draws as a picture — your stated probability on one axis, the fraction of those occasions that actually happened on the other. Perfect calibration is the diagonal.</p>
+<p>And where does the "how likely" come from in the first place? The dominant method is <b>ensemble simulation</b>: since the initial conditions are imprecise and the model is imperfect, don't run it once. Perturb the starting state a hundred times, run each, and look at how far the trajectories spread <a class="reflink" href="ref-monte-carlo.en.html">→ ref · Monte Carlo &amp; ensemble simulation</a>. A narrow spread licenses a confident statement; a wide one demands an uncertain one. <b>The width is part of the forecast, not a defect in it.</b></p>
+<figure>
+<svg aria-label="Left: an ensemble fanning out. Right: a reliability diagram with an overconfident curve" role="img" viewBox="0 0 720 310" xmlns="http://www.w3.org/2000/svg">
+<text fill="#aba498" font-family="-apple-system,sans-serif" font-size="12.5" text-anchor="middle" x="190" y="26">Ensemble simulation: draw the uncertainty</text>
+<path d="M70,175 C150,172 230,140 310,104 L310,248 C230,218 150,184 70,175 Z" fill="rgba(121,166,210,0.10)" stroke="none"></path>
+<path d="M70,175 C150,172 230,140 310,104" fill="none" stroke="rgba(121,166,210,0.55)" stroke-width="1.6"></path>
+<path d="M70,175 C150,174 230,152 310,126" fill="none" stroke="rgba(121,166,210,0.55)" stroke-width="1.6"></path>
+<path d="M70,175 C150,176 230,166 310,150" fill="none" stroke="rgba(121,166,210,0.55)" stroke-width="1.6"></path>
+<path d="M70,175 C150,178 230,180 310,176" fill="none" stroke="#79a6d2" stroke-width="2.4"></path>
+<path d="M70,175 C150,180 230,194 310,202" fill="none" stroke="rgba(121,166,210,0.55)" stroke-width="1.6"></path>
+<path d="M70,175 C150,182 230,206 310,226" fill="none" stroke="rgba(121,166,210,0.55)" stroke-width="1.6"></path>
+<path d="M70,175 C150,184 230,218 310,248" fill="none" stroke="rgba(121,166,210,0.55)" stroke-width="1.6"></path>
+<circle cx="70" cy="175" fill="#d9b45f" r="5"></circle>
+<text fill="#d9b45f" font-family="-apple-system,sans-serif" font-size="11" text-anchor="middle" x="76" y="200">Today's state</text>
+<line stroke="rgba(255,255,255,0.16)" stroke-width="1.4" x1="60" x2="320" y1="262" y2="262"></line>
+<text fill="#57524b" font-family="-apple-system,sans-serif" font-size="10.5" text-anchor="end" x="318" y="256">Time</text>
+<text fill="#57524b" font-family="-apple-system,sans-serif" font-size="11" text-anchor="middle" x="190" y="288">The fan's width is the uncertainty — it is part of the answer</text>
+<text fill="#aba498" font-family="-apple-system,sans-serif" font-size="12.5" text-anchor="middle" x="560" y="26">Reliability diagram: do the numbers pay out?</text>
+<line stroke="rgba(255,255,255,0.18)" stroke-width="1.5" x1="440" x2="440" y1="262" y2="46"></line>
+<line stroke="rgba(255,255,255,0.18)" stroke-width="1.5" x1="440" x2="680" y1="262" y2="262"></line>
+<line stroke="#8d867b" stroke-dasharray="5 5" stroke-width="1.6" x1="440" x2="680" y1="262" y2="46"></line>
+<path d="M440,262 C510,250 552,222 592,172 C624,132 660,84 680,46" fill="none" stroke="#e0895e" stroke-width="2.5"></path>
+<text fill="#8d867b" font-family="-apple-system,sans-serif" font-size="11" text-anchor="end" x="600" y="110">Perfect calibration = this diagonal</text>
+<text fill="#e0895e" font-family="-apple-system,sans-serif" font-size="11" text-anchor="end" x="668" y="236">Overconfident</text>
+<text fill="#57524b" font-family="-apple-system,sans-serif" font-size="10" text-anchor="middle" x="440" y="278">0</text>
+<text fill="#57524b" font-family="-apple-system,sans-serif" font-size="10" text-anchor="middle" x="680" y="278">100%</text>
+<text fill="#8d867b" font-family="-apple-system,sans-serif" font-size="11" text-anchor="middle" x="560" y="298">Your stated probability</text>
+<text fill="#8d867b" font-family="-apple-system,sans-serif" font-size="11" transform="rotate(-90 414 154)" x="414" y="154">Observed frequency</text>
+</svg>
+<figcaption>On the right, the curve sits below the diagonal throughout: the occasions he called at 80% came in around 50%. Drawing this curve is what "tested" means.</figcaption>
+</figure>
+<p>Essentially one industry has made calibration routine: weather forecasting. The reason is unglamorous — <b>it is scored every single day.</b> Forecast published, truth revealed tomorrow, tens of thousands of repetitions, and the reliability diagram draws itself. The field even has a dedicated score, the <b>Brier score</b> (Glenn Brier, 1950): take the gap between your stated probability and what happened (1 or 0), square it, average. Lower is better. It has an elegant property — it decomposes exactly into "how well calibrated" and "how sharp". <em>Being right</em> and <em>saying something</em> are separate virtues: someone who says 50% every day may be well calibrated and completely useless.</p>
+<p>This also explains why the mechanism models earlier on this site so rarely quote an accuracy figure: they mostly never get scored. But wherever the opportunity exists, it should be demanded.</p>
+<div class="decide">
+<span class="lb">🎯 DECISION</span>
+<p>When you present a model, present its <b>failure conditions</b> in the same breath as its conclusion — "this rests on three premises, A, B and C; if B fails, the conclusion reverses." Without that sentence your audience has no way to calibrate how much to believe you. Second: log every probabilistic judgement, yours and your team's and your vendors', and once you have a few dozen, draw the reliability diagram. The cost is a spreadsheet. The return is finding out, for the first time, what your "very likely" is actually worth.</p>
+</div>
+<div class="crossx-inline">
+🌀 <b>Psychology · Meehl's little book</b>&nbsp;&nbsp;In 1954 Paul Meehl compared expert clinical judgement against a simple statistical formula and found the formula matched or beat the experts in nearly every comparison; decades of subsequent work, pooled, still say so. The usual reading is "experts lose to algorithms". Run it through this section's mechanism and you get a sharper one: <b>the difference is not intelligence, it is the presence of a scoring loop.</b> Every output of the formula is recorded, compared and corrected; the expert's judgements are scattered across years and individual cases and never aggregated into a reliability diagram, so his confidence never had the chance to be calibrated. The counterintuitive extension: giving the expert a scorecard is a better investment than replacing him.</div>
+
+<h2><span class="n">05</span>Where this breaks down</h2>
+<p class="lead">Four sections demanding that models submit to testing. Now the other side: this demand itself gets misapplied in several ways, and they are common ones.</p>
+<p><b>First, not every model exists to predict, and grading those on predictive accuracy uses the wrong ruler.</b> Schelling's segregation model <a class="reflink" href="ref-schelling.en.html">→ ref · Schelling's segregation model</a> never set out to predict the segregation level of any actual city. It establishes a <em>sufficiency</em> claim: very mild neighbour preferences are <b>enough</b> to produce a sharply segregated pattern, with nobody harbouring hostility. That claim does not stand on fitting data; it stands on demolishing the default inference that visible segregation implies strong prejudice. What such models should be tested on is different: whether the premises were quietly strengthened, whether the conclusion really follows from the rules, and whether a different but equally reasonable parameter set flips it (robustness).</p>
+<p><b>Second, "all models are wrong, but some are useful" has been degraded into a liability waiver.</b> The line is George Box's, and his point was to direct your effort at <em>whether the wrongness matters</em> — not to hand every model a pass. Used correctly it must be followed by two specifics: <em>wrong in which direction</em> (systematically over- or under-stating?) and <em>by how much</em>. If you cannot supply those two, the model has not been tested, and the quotation is just deflecting the question in advance.</p>
+<p><b>Third, calibration is unavailable for one-off events.</b> A century of climate, one financial crisis, a country's transition — these happen once; there is no "seventy of the hundred times". The standard from section 4 simply does not apply. What remains are substitutes, and they must be labelled as weaker: can the model reproduce the key <em>qualitative</em> behaviour over a known historical stretch (not the numbers — whether the turning point appears at all)? Does a different reasonable parameter set flip the conclusion? And, written down in advance: "if we observe X, this model is finished." All three are weaker than a reliability diagram. All three beat doing nothing.</p>
+<p><b>Fourth, overfitting has an equally lethal mirror image: oversimplification.</b> This issue has spent five sections attacking excess parameters, which reads easily as "simpler is safer". It isn't. The left half of that error curve climbs just as steeply: a model missing a decisive variable is not made safe by its elegance — it has only buried the error deeper. The problem with mainstream macroeconomic models before 2008 was not too many parameters; it was the reverse. The class of frameworks known as <b>dynamic stochastic general equilibrium</b> (DSGE) models generally contained <em>no</em> financial intermediation and no leverage. The real choice is never "simple or complex". It is <b>what to throw away</b>.</p>
+<p><b>Fifth, held-out data is a consumable.</b> It works only while it has never been seen. You evaluate version one on it, dislike the result, go back and revise, and evaluate again — from the second evaluation onward that data has passed through your hands and participated in tuning. It is no longer out-of-sample. This is the standing disease of public leaderboards and shared benchmark sets: an entire community iterating against one test set, collectively and unwittingly overfitting to it.</p>
+<div class="decide">
+<span class="lb">🎯 DECISION</span>
+<p>Put a label on every model you own, and allow only three: <b>point forecast</b> (report out-of-sample error), <b>probabilistic forecast</b> (report a reliability diagram, or say plainly "not yet tested" if you lack the repetitions), and <b>mechanism demonstration</b> (report premises and robustness; never report accuracy). Mislabelling is the cheapest and commonest of all the traps here — talking like a mechanism model while making a point forecast, and mocking a mechanism model for its point accuracy, are two faces of the identical error.</p>
+</div>
+
+<div class="bigcat">
+<h3>🎒 Scenarios · BigCat</h3>
+<ol>
+<li><span class="dm">Engineering &amp; systems design</span>After every production incident you add an alert rule, or nudge a threshold down one notch. That is updating parameters on a sample size of one, and after two years of it the alerting system is a curve threaded through every historical incident: perfect on what already happened, silent on the next one, and drowning everyone in noise meanwhile. What to change is concrete: <b>give each alert rule a hit rate (real incidents ÷ times fired)</b> and delete the bottom of that list every quarter; before adding a rule, replay it against the last 90 days of data and count how often it would have fired. What to stop: adding a rule whose <b>only</b> justification is "if this had alerted sooner last time".</li>
+<li><span class="dm">Leading teams &amp; organisations</span>Estimating a new project, you adjust the number with a piece of reasoning — "we know the architecture this time", "no external dependency to wait on". Those adjustments are free parameters, and their function is to make the estimate agree with the conclusion you wanted. What to change: <b>compute the ratio of actual to originally-estimated duration for your team's last ten projects, take the median, and apply it as a fixed multiplier</b> before any discussion begins. The discussion then shifts from "could this one go faster?" to "what reason do we have that this differs from the previous ten?" — and the second question requires evidence while the first does not.</li>
+<li><span class="dm">Health &amp; energy</span>Every morning you open the wearable and read last night's score, then hunt for causes of the wobble: that afternoon coffee, the phone before bed, the room being too warm. Most day-to-day variation sits inside measurement noise, so daily attribution is fitting to noise — and it will generate a pile of rules you did not actually need to follow. What to change: <b>look only at the 7-day rolling average and its direction; stop looking at the daily score.</b> If you want to attribute, change one variable at a time and hold it for at least two weeks, then compare the two rolling averages. What to stop: attributing today's energy to last night's number — that is the number affecting you, not the sleep.</li>
+</ol>
+</div>
+<div class="crossx">
+<h3>🌀 Crossings</h3>
+<ul>
+<li><b>Literature and the arts · Borges' one-to-one map</b>: In Borges' half-page "On Exactitude in Science" (1946), the cartographers of an Empire produce a map the size of the Empire, coinciding with it point for point; later generations find it useless and leave it to rot in the desert. The usual reading is "precision taken to the limit becomes useless". This issue's mechanisms together give a harder version: that map is not merely useless but actively <i>worse</i>, because it <b>copies the noise along with the signal</b> (section 1: zero error means every accident was memorised), because it <b>cannot be falsified</b> (section 2: a representation that discards nothing rules nothing out), and because it <b>cannot be calibrated</b> (section 4: it emits no checkable judgement, so it never receives feedback). A map's value lies not in what it preserved but in <em>what it dared to drop</em> — the discarding is the model. <b>But here it does not hold</b>: the parable implies precision and usefulness run monotonically opposite, that cruder is better. Section 5 says otherwise — underfitting is just as fatal, and a map missing the rivers is not made safe by being clean. What the parable lends is "representation must be lossy". It cannot lend the direction "the lossier the better".</li>
+<li><b>Western philosophy of science · the Duhem–Quine thesis</b>: The physicist Pierre Duhem (1906) and later the philosopher W. V. O. Quine (1951) argued that no hypothesis is ever tested in isolation. When a prediction fails, you can always preserve the core theory and charge the failure to some auxiliary assumption — the instrument was off, the boundary conditions were unusual, this sample was bad. That is precisely sections 1 and 2 running at the level of scientific theory: auxiliary assumptions are the free parameters, and nominating them after the fact is after-the-fact narrative. The conclusion is not "science is unreliable" but something quite operational: <b>since logic alone can never settle which account a failure should be charged to, only a prior commitment can settle it.</b> That is the whole force of pre-registration — it improves the precision of no single experiment; it merely moves the bookkeeping rule to before the results are seen. The reliability diagram of section 4 is the other half of the same gesture: say it, then look, and no changing the units afterwards.</li>
+<li><b>Economics and institutions · the macro models before the crisis</b>: The class of dynamic stochastic general equilibrium models that central banks ran on before 2008 fit their samples respectably and rested on explicit mechanism derivations. They gave no warning of the crisis, and not because the parameters were off — <b>the variables were not in the state space at all.</b> Financial intermediation, leverage, collateral haircuts were largely absent, so "the interbank market freezes" was not a sentence that language could form. Several of this issue's mechanisms appear here as a set: a good fit (section 1's blue line) masked a structural omission; the rigour of the mechanism derivation was mistaken for predictive warrant (section 5's mislabelling); and the whole apparatus was never required to state probabilities and be scored (section 4). The counterintuitive conclusion: <b>faced with this kind of failure, "improving the model" — more parameters, more data, more compute — is exactly the wrong direction.</b> What was missing did not lie along the parameter axis. It lay in the earlier decision about what gets written into the model at all. That is what the field went back and rebuilt after the crisis, not the precision.</li>
+</ul>
+</div>
+<div class="thinking">
+<h3>Going Deeper</h3>
+<details><summary>If after-the-fact narrative is "zero error, zero information", what is left of history as a discipline?</summary><p>What is left is precisely the part that least resembles narrative: establishing what happened, when, who was present, and what information they had in hand at the time. Those claims can be overturned by new evidence, which is exactly why they carry information. The part that carries none is the connective layer of "and therefore he was bound to act that way". A usable test: tell the episode to someone who does not know the ending — can they rule any endings out? If not, that stretch was narrative rather than record.</p></details>
+<details><summary>Why is out-of-sample testing harder in finance than almost anywhere else?</summary><p>Because new samples are extraordinarily expensive: there is only so much history, and it is non-stationary — institutions, participants and market mechanics all change, so the "out-of-sample" period from twenty years ago may not share a distribution with today. Worse is the social overfitting of strategy research: the whole industry has tried countless strategies against the same stretch of history, and the ones that get published and circulated are naturally those that happened to fit it. So in finance, "this strategy backtests well" carries even less prior information than it would elsewhere.</p></details>
+<details><summary>Must a model be able to predict in order to count as science?</summary><p>Not necessarily, but it must take a risk somewhere. Evolutionary theory predicts the specific path of any given lineage very poorly, yet it makes many refutable claims — the stratigraphic order in which fossils appear, the ranking of genome similarity across species. So the criterion is not "can it produce a number" but "is there a class of observations that would put it out of the game". A model that cannot name such a class, however elegant, has not entered.</p></details>
+<details><summary>If people overfit narratives almost inevitably, why does the brain do it at all?</summary><p>A common account is asymmetric cost: where information is scarce and action is required immediately, a wrong causal story often beats a blank — at least it yields something to do. But that explains its origin, it does not endorse its present use. Worth noticing: the modern decision environment has inverted that cost structure. Data is no longer scarce, and most actions need not be taken this second.</p></details>
+<details><summary>If everyone iterates against the same benchmark, how does a field stop the bleeding?</summary><p>None of the current options is clean: rotate in fresh test sets (expensive, and old results become incomparable), seal the test set and permit a single submission (which kills iteration), or use a hidden set that reports only aggregates. The more fundamental move is to record <i>how many times the dataset has been queried</i> — the degree of overfitting tracks that count directly, and almost nobody counts it.</p></details>
+</div>
+<div class="refs">
+<h3>Further Reading</h3>
+<ul>
+<li>Clauset, Shalizi &amp; Newman, <a href="https://arxiv.org/abs/0706.1062">Power-law distributions in empirical data</a> (2009 — the source of section 3's procedure, with many counterexamples)</li>
+<li>Lazer, Kennedy, King &amp; Vespignani, <a href="https://www.science.org/doi/10.1126/science.1248506">The Parable of Google Flu: Traps in Big Data Analysis</a> (Science, 2014)</li>
+<li>Mayer, Khairy &amp; Howard, <a href="https://doi.org/10.1119/1.3254017">Drawing an elephant with four complex parameters</a> (2010 — they really drew it)</li>
+<li>George E. P. Box, <a href="https://doi.org/10.1080/01621459.1976.10480949">Science and Statistics</a> (1976 — the origin and context of "all models are wrong")</li>
+<li>Glenn W. Brier, <a href="https://doi.org/10.1175/1520-0493(1950)078%3C0001:VOFEIT%3E2.0.CO;2">Verification of forecasts expressed in terms of probability</a> (1950 — the Brier score)</li>
+<li><a href="https://en.wikipedia.org/wiki/Duhem%E2%80%93Quine_thesis">The Duhem–Quine thesis</a> (no hypothesis is testable in isolation)</li>
+<li>Jorge Luis Borges, <a href="https://en.wikipedia.org/wiki/On_Exactitude_in_Science">On Exactitude in Science</a> (1946 — the one-to-one map)</li>
+<li>Grove, Zald, Lebow, Snitz &amp; Nelson, <a href="https://doi.org/10.1037/1040-3590.12.1.19">Clinical versus mechanical prediction: A meta-analysis</a> (2000 — the modern pooling of Meehl's line of work)</li>
+<li>Olivier Blanchard, <a href="https://doi.org/10.1093/oxrep/grx045">On the future of macroeconomic models</a> (2018 — post-crisis reckoning in macro modelling)</li>
+</ul>
+</div>
+<footer>BigCat · Complexity Science · <a href="index.en.html">← All Topics</a></footer>
+</div>
+<script src="https://hub.cissychen.com/comments.js" defer></script>
+<script src="https://hub.cissychen.com/search.js" defer></script>
+<script src="https://hub.cissychen.com/index-button.js" defer></script>
+<script src="https://hub.cissychen.com/i18n-tts.js" defer></script>
+</body></html>

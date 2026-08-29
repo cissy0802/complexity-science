@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+
+<html lang="zh-CN"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>建模的陷阱 — 拟合得越好，越可能什么都没学到 · 复杂性科学 T42</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,"SF Pro Display","Noto Sans SC",sans-serif;color:#e4ded5;line-height:1.85;min-height:100vh;
+  background:radial-gradient(1100px 620px at 12% -6%,rgba(224,137,94,0.10),transparent 62%),radial-gradient(950px 700px at 100% 2%,rgba(166,147,205,0.09),transparent 58%),linear-gradient(168deg,#100f0d 0%,#15161b 48%,#0a0a0c 100%);background-attachment:fixed}
+.wrap{max-width:760px;margin:0 auto;padding:30px 22px 90px}
+header{padding:52px 0 8px;border-bottom:1px solid rgba(255,255,255,0.07);margin-bottom:34px}
+.week-tag{font-family:"SF Mono",Menlo,monospace;font-size:0.72rem;font-weight:700;letter-spacing:2px;color:#a8a49c;border:1px solid rgba(168,164,156,0.4);background:rgba(168,164,156,0.07);padding:3px 11px;border-radius:20px}
+h1{font-size:2.5rem;font-weight:800;letter-spacing:0.5px;line-height:1.2;margin:20px 0 0;background:linear-gradient(106deg,#e0895e 0%,#d9b45f 34%,#9fbc7a 68%,#63b3a6 100%);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+h1 .h1en{display:block;font-size:0.40em;font-weight:600;letter-spacing:2.5px;color:#847d72;-webkit-text-fill-color:#847d72;background:none;margin-top:13px}
+.sub{font-size:1.05rem;color:#aba498;margin-top:14px;font-weight:500}
+.date{font-family:"SF Mono",Menlo,monospace;font-size:0.75rem;color:#57524b;margin-top:18px;letter-spacing:1px}
+.pitch{margin:22px 0 30px;font-size:0.97rem;color:#cd7f9b;border-left:2px solid rgba(205,127,155,0.5);padding-left:16px;font-style:italic}
+.intro{font-size:1.02rem;color:#cfc8bc;margin-bottom:14px}
+.intro p{margin-bottom:16px}
+h2{font-size:1.42rem;font-weight:700;color:#e9e3d9;margin:56px 0 8px;letter-spacing:0.3px}
+h2 .n{font-family:"SF Mono",Menlo,monospace;font-size:0.85rem;color:#a8a49c;display:block;margin-bottom:6px;letter-spacing:2px}
+.he{font-size:0.68em;color:#8d867b;font-weight:500;letter-spacing:0}
+p{margin-bottom:17px}
+.lead{color:#cfc8bc}
+b,strong{color:#f0eae0;font-weight:600}
+em{color:#d9b45f;font-style:normal;font-weight:500}
+.dim{color:#8d867b}
+a.reflink{display:inline-block;font-size:0.82rem;font-family:"SF Mono",Menlo,monospace;color:#63b3a6;border:1px solid rgba(99,179,166,0.38);background:rgba(99,179,166,0.07);padding:1px 9px;border-radius:20px;text-decoration:none;transition:all 0.15s;white-space:nowrap}
+a.reflink:hover{background:rgba(99,179,166,0.16);border-color:rgba(99,179,166,0.7)}
+figure{margin:30px 0}
+figure svg{display:block;width:100%;height:auto;border-radius:12px;background:rgba(255,255,255,0.018);border:1px solid rgba(255,255,255,0.06)}
+figcaption{font-size:0.82rem;color:#787268;margin-top:11px;text-align:center;line-height:1.6}
+.en-brief{font-size:0.85rem;color:#847d72;border-top:1px dashed rgba(255,255,255,0.09);padding-top:12px;margin-top:22px;line-height:1.65}
+.en-brief b{font-family:"SF Mono",Menlo,monospace;font-size:0.72rem;color:#63b3a6;letter-spacing:1px;margin-right:7px}
+.decide{margin:24px 0;border:1px solid rgba(224,137,94,0.36);background:rgba(224,137,94,0.055);border-radius:12px;padding:15px 19px}
+.decide .lb{font-family:"SF Mono",Menlo,monospace;font-size:0.73rem;letter-spacing:1.5px;color:#e0895e;font-weight:700;display:block;margin-bottom:7px}
+.decide p{margin:0;font-size:0.95rem;color:#ddd5c9}
+.crossx-inline{margin:20px 0 22px;border-left:2px solid rgba(205,127,155,0.55);padding:2px 0 2px 15px;font-size:0.89rem;color:#a9a096;line-height:1.72}
+.crossx-inline b{color:#cd7f9b;font-weight:600}
+.bigcat{margin:46px 0 10px;border:1px solid rgba(217,180,95,0.38);background:rgba(217,180,95,0.05);border-radius:14px;padding:20px 22px}
+.bigcat h3{font-size:1.02rem;color:#d9b45f;margin-bottom:14px;letter-spacing:0.5px}
+.bigcat ol{list-style:none;padding:0}
+.bigcat li{margin-bottom:15px;font-size:0.94rem;color:#d5cdc1;line-height:1.78}
+.bigcat li:last-child{margin-bottom:0}
+.bigcat .dm{font-family:"SF Mono",Menlo,monospace;font-size:0.73rem;color:#d9b45f;border:1px solid rgba(217,180,95,0.32);border-radius:4px;padding:1px 7px;margin-right:8px;white-space:nowrap}
+.crossx{margin:46px 0 10px;border:1px solid rgba(205,127,155,0.38);background:rgba(205,127,155,0.05);border-radius:14px;padding:20px 22px}
+.crossx h3{font-size:1.02rem;color:#cd7f9b;margin-bottom:14px;letter-spacing:0.5px}
+.crossx ul{list-style:none;padding:0}
+.crossx li{margin-bottom:16px;font-size:0.94rem;color:#d5cdc1;line-height:1.78}
+.crossx li:last-child{margin-bottom:0}
+.crossx li b{color:#cd7f9b;font-weight:600}
+.thinking{margin:46px 0 10px}
+.thinking h3{font-size:1.02rem;color:#a693cd;margin-bottom:14px;letter-spacing:0.5px}
+details{border:1px solid rgba(166,147,205,0.22);border-radius:10px;padding:12px 16px;margin-bottom:10px;background:rgba(166,147,205,0.035)}
+summary{cursor:pointer;font-size:0.93rem;color:#c9c2b6;font-weight:500}
+summary::marker{color:#a693cd}
+details p{margin:12px 0 0;font-size:0.9rem;color:#a9a096;line-height:1.75}
+.refs{margin:46px 0 10px}
+.refs h3{font-size:1.02rem;color:#79a6d2;margin-bottom:14px;letter-spacing:0.5px}
+.refs ul{list-style:none;padding:0}
+.refs li{margin-bottom:10px;font-size:0.9rem;color:#8d867b;line-height:1.7}
+.refs a{color:#79a6d2;text-decoration:none;border-bottom:1px solid rgba(121,166,210,0.3)}
+.refs a:hover{color:#a6c4e2;border-bottom-color:rgba(121,166,210,0.7)}
+footer{text-align:center;padding:56px 0 10px;font-size:0.78rem;color:#57524b;font-family:"SF Mono",Menlo,monospace;border-top:1px solid rgba(255,255,255,0.06);margin-top:50px}
+footer a{color:#79a6d2;text-decoration:none}
+@media(max-width:600px){h1{font-size:1.85rem}.wrap{padding:24px 16px 60px}h2{font-size:1.22rem}}
+</style></head><body>
+<div class="wrap">
+<header>
+<span class="week-tag">TOPIC 42 · PHASE H</span>
+<h1>建模的陷阱<span class="h1en">TRAPS IN MODELING</span></h1>
+<p class="sub">拟合得越好，越可能什么都没学到<span class="he">（A better fit is not a better model）</span></p>
+<p class="date">2026-08-29 · 方法与限度</p>
+</header>
+<p class="pitch">一个模型对着已有数据拟合得越漂亮，它对明天说的话往往越不值钱。这不是修辞——它是一条可以画出来、也确实被画出来过的曲线。</p>
+<div class="intro">
+<p>每到年底，总有人把这一年的市场、这一年的公司、这一年的世界局势复盘一遍，讲得严丝合缝：因为那件事，所以这件事；因为这个结构，所以那个结果。你听完会觉得"确实是这样"。而同一批人在年初写下的预测，事后翻出来看，错得相当整齐。</p>
+<p>这两件事同时成立，本身就是这一期要解释的现象：<em>解释得通</em>和<em>猜得中</em>不是同一种能力，甚至常常是互相拆台的。一个模型（或一套说辞）对着已经发生的事拟合得越紧，它能剩下多少对没发生的事的约束，就越少。</p>
+<p class="dim">前面四十一期都在造工具：幂律、网络、临界、韧性、复杂度的度量。<b>这一期是回头检查这些工具怎么用会用错。</b>它不讲新机制，讲的是四道关卡——过拟合、事后叙事、"看起来像幂律"的统计误判、以及一个模型要怎样才算被真正检验过。第 43 期会接着问一个更大的问题：这门学科整体上被指控了什么。</p>
+</div>
+
+<h2><span class="n">01</span>拟合得越好，越可能是在背噪声<span class="he">（Overfitting）</span></h2>
+<p class="lead">先从最小的例子开始。你手上有八个点，想找出它们背后的规律。你可以画一条直线穿过它们中间，也可以画一条弯弯绕绕的曲线，让它<em>恰好</em>经过每一个点。</p>
+<p>第二条曲线在这八个点上的误差是零。按"拟合得好"这个标准，它完胜。但如果你再去测第九个点，它多半会离那条弯曲线很远——远到还不如那条笨拙的直线。</p>
+<p>原因不复杂：这八个点里既有真实的规律，也有测量误差、偶然波动、当天的心情。<b>而模型不知道哪部分是哪部分。</b>你给它足够的自由度（也就是足够多可以调的参数），它就会把误差也一并记住，当成规律。这叫<b>过拟合</b>（overfitting）。</p>
+<figure>
+<svg aria-label="同一批数据的三种拟合：欠拟合、刚好、过拟合" role="img" viewBox="0 0 720 300" xmlns="http://www.w3.org/2000/svg">
+<text fill="#aba498" font-family="-apple-system,sans-serif" font-size="13" text-anchor="middle" x="360" y="26">同一批数据，三种拟合 — 谁在学规律，谁在背答案</text>
+<text fill="#79a6d2" font-family="SF Mono,monospace" font-size="12" text-anchor="middle" x="138" y="56">① 欠拟合（太简单）</text>
+<g transform="translate(40,66)">
+<rect fill="none" height="160" stroke="rgba(255,255,255,0.10)" width="196" x="0" y="0"></rect>
+<line stroke="#79a6d2" stroke-width="2.5" x1="14" x2="184" y1="91" y2="91"></line>
+<circle cx="22" cy="126" fill="#8d867b" r="3.6"></circle><circle cx="44" cy="104" fill="#8d867b" r="3.6"></circle><circle cx="66" cy="118" fill="#8d867b" r="3.6"></circle><circle cx="88" cy="88" fill="#8d867b" r="3.6"></circle><circle cx="110" cy="98" fill="#8d867b" r="3.6"></circle><circle cx="132" cy="68" fill="#8d867b" r="3.6"></circle><circle cx="154" cy="78" fill="#8d867b" r="3.6"></circle><circle cx="176" cy="50" fill="#8d867b" r="3.6"></circle>
+</g>
+<text fill="#787268" font-family="-apple-system,sans-serif" font-size="11" text-anchor="middle" x="138" y="248">在这批点上的误差：大</text>
+<text fill="#9fbc7a" font-family="SF Mono,monospace" font-size="12" text-anchor="middle" x="360" y="56">② 刚好</text>
+<g transform="translate(262,66)">
+<rect fill="none" height="160" stroke="rgba(255,255,255,0.10)" width="196" x="0" y="0"></rect>
+<line stroke="#9fbc7a" stroke-width="2.5" x1="14" x2="184" y1="128" y2="54"></line>
+<circle cx="22" cy="126" fill="#8d867b" r="3.6"></circle><circle cx="44" cy="104" fill="#8d867b" r="3.6"></circle><circle cx="66" cy="118" fill="#8d867b" r="3.6"></circle><circle cx="88" cy="88" fill="#8d867b" r="3.6"></circle><circle cx="110" cy="98" fill="#8d867b" r="3.6"></circle><circle cx="132" cy="68" fill="#8d867b" r="3.6"></circle><circle cx="154" cy="78" fill="#8d867b" r="3.6"></circle><circle cx="176" cy="50" fill="#8d867b" r="3.6"></circle>
+</g>
+<text fill="#787268" font-family="-apple-system,sans-serif" font-size="11" text-anchor="middle" x="360" y="248">在这批点上的误差：中</text>
+<text fill="#e0895e" font-family="SF Mono,monospace" font-size="12" text-anchor="middle" x="582" y="56">③ 过拟合（穿过每个点）</text>
+<g transform="translate(484,66)">
+<rect fill="none" height="160" stroke="rgba(255,255,255,0.10)" width="196" x="0" y="0"></rect>
+<path d="M22,126 C33,104 33,96 44,104 C55,112 55,124 66,118 C77,112 77,92 88,88 C99,84 99,102 110,98 C121,94 121,70 132,68 C143,66 143,80 154,78 C165,76 165,56 176,50" fill="none" stroke="#e0895e" stroke-width="2.5"></path>
+<circle cx="22" cy="126" fill="#8d867b" r="3.6"></circle><circle cx="44" cy="104" fill="#8d867b" r="3.6"></circle><circle cx="66" cy="118" fill="#8d867b" r="3.6"></circle><circle cx="88" cy="88" fill="#8d867b" r="3.6"></circle><circle cx="110" cy="98" fill="#8d867b" r="3.6"></circle><circle cx="132" cy="68" fill="#8d867b" r="3.6"></circle><circle cx="154" cy="78" fill="#8d867b" r="3.6"></circle><circle cx="176" cy="50" fill="#8d867b" r="3.6"></circle>
+</g>
+<text fill="#c0703f" font-family="-apple-system,sans-serif" font-size="11" text-anchor="middle" x="582" y="248">在这批点上的误差：0</text>
+<text fill="#57524b" font-family="-apple-system,sans-serif" font-size="11" text-anchor="middle" x="360" y="282">三张图是同一批点。第三条曲线把每一个点都记住了 — 包括其中的测量误差。</text>
+</svg>
+<figcaption>灰点是同一批数据。误差为零的那条曲线，恰恰是最不该被信任的那条。</figcaption>
+</figure>
+<p>物理学家冯·诺伊曼（John von Neumann）有一句被反复引用的话，据费曼的同事戴森转述：<b>"给我四个参数，我能拟合出一头大象；给我五个，我还能让它甩鼻子。"</b>这句话后来真的被人当成挑战做了出来——2010 年有篇论文用四个复数参数画出了一头可辨认的大象。<b>参数不是知识，参数是自由度。</b></p>
+<p>所以判断一个模型好不好，不能看它在<em>已经用来调参的那批数据</em>上表现如何。那批数据叫<b>样本内</b>（in-sample），它上面的误差只反映"你记住了多少"。真正有信息的是<b>样本外</b>（out-of-sample）——一批模型从未见过、也从未参与过任何调参的数据。把这两条误差画在同一张图上，事情就清楚了。</p>
+<figure>
+<svg aria-label="样本内误差随复杂度单调下降，样本外误差呈 U 形" role="img" viewBox="0 0 720 280" xmlns="http://www.w3.org/2000/svg">
+<defs>
+<marker id="t42ax" markerHeight="9" markerUnits="userSpaceOnUse" markerWidth="9" orient="auto" refX="8" refY="5" viewBox="0 0 10 10">
+<path d="M0,1 L9,5 L0,9 z" fill="#8d867b"></path>
+</marker>
+</defs>
+<text fill="#aba498" font-family="-apple-system,sans-serif" font-size="13" text-anchor="middle" x="360" y="22">两条误差曲线 — 只有一条和明天有关系</text>
+<rect fill="rgba(224,137,94,0.06)" height="163" width="320" x="330" y="52"></rect>
+<line marker-end="url(#t42ax)" stroke="rgba(255,255,255,0.18)" stroke-width="1.5" x1="90" x2="666" y1="215" y2="215"></line>
+<line marker-end="url(#t42ax)" stroke="rgba(255,255,255,0.18)" stroke-width="1.5" x1="90" x2="90" y1="215" y2="44"></line>
+<text fill="#8d867b" font-family="-apple-system,sans-serif" font-size="12" transform="rotate(-90 34 130)" x="34" y="130">误差</text>
+<line stroke="#d9b45f" stroke-dasharray="5 5" stroke-width="1.6" x1="330" x2="330" y1="52" y2="215"></line>
+<text fill="#d9b45f" font-family="SF Mono,monospace" font-size="12" text-anchor="middle" x="330" y="42">最佳复杂度</text>
+<path d="M110,74 C190,152 280,187 620,206" fill="none" stroke="#79a6d2" stroke-width="2.5"></path>
+<path d="M110,66 C210,142 260,152 320,150 C420,148 520,104 620,62" fill="none" stroke="#e0895e" stroke-width="2.5"></path>
+<text fill="#79a6d2" font-family="SF Mono,monospace" font-size="12.5" x="628" y="206">样本内</text>
+<text fill="#e0895e" font-family="SF Mono,monospace" font-size="12.5" x="628" y="60">样本外</text>
+<text fill="#c0703f" font-family="-apple-system,sans-serif" font-size="11.5" text-anchor="middle" x="490" y="152">这一段：对旧数据越拟合越好</text>
+<text fill="#c0703f" font-family="-apple-system,sans-serif" font-size="11.5" text-anchor="middle" x="490" y="171">对新数据越预测越差</text>
+<text fill="#8d867b" font-family="-apple-system,sans-serif" font-size="12" text-anchor="middle" x="370" y="240">模型的自由度（可调参数的个数）</text>
+<text fill="#57524b" font-family="-apple-system,sans-serif" font-size="11" text-anchor="middle" x="360" y="268">横轴每右移一步 = 多给模型一个自由参数。蓝线永远在降，橙线会掉头。</text>
+</svg>
+<figcaption>蓝线单调下降，所以它永远在鼓励你把模型做得更复杂。橙线才是你真正关心的那条，而它有一个拐点。</figcaption>
+</figure>
+<p>最要命的一点是：如果你只看蓝线，你会一直觉得自己在进步。<b>过拟合没有痛感。</b>它在发生的时候，所有指标都在变好。</p>
+<div class="decide">
+<span class="lb">🎯 决策线</span>
+<p>任何模型上线前，留出一段<b>从未参与过任何调参</b>的数据，只在它上面报一次误差。而且这段数据要按<b>时间</b>切（拿最靠后的那一段），不要随机抽——随机抽会把同一天、同一批、同一个来源的样本分到两边，等于让模型偷看答案。如果你手上根本没有这样一段数据，那就不要报"准确率"这个数，报了也不成立。</p>
+</div>
+<div class="crossx-inline">
+🌀 <b>工程与技术史 · 谷歌流感趋势</b>　2008 年谷歌上线了一个用搜索词预测流感就诊率的模型，从五千万个候选词里挑出四十五个，在历史数据上拟合得极漂亮，登上了《自然》。然后它错过了 2009 年的甲流暴发，又在 2012–13 流感季把就诊比例高估到实际值的两倍以上。四十五个词是从五千万里挑的——这个比例本身就是"自由度"的另一种写法。推论不显然的地方在于：它不是模型不够好，而是<b>用它去挑词的那个过程</b>已经把噪声选进来了；再多的数据也修不好一个在选变量阶段就过拟合的东西。</div>
+<p class="en-brief"><b>EN</b> With enough free parameters a model memorises noise as if it were signal — von Neumann's four-parameter elephant, later actually drawn. In-sample error falls monotonically with complexity; out-of-sample error is U-shaped. Google Flu Trends picked 45 search terms out of 50 million, fit history beautifully, then overshot the 2012–13 season by more than a factor of two.</p>
+
+<h2><span class="n">02</span>叙事是免费的参数<span class="he">（Narrative as Free Parameters）</span></h2>
+<p class="lead">上一节的参数是数字。而人做预测和复盘时用的不是数字，是词——"团队有韧性""领导果断""时机成熟""行业风口"。这些词有一个数字参数没有的性质：<b>它们不要钱，数量也没有上限。</b></p>
+<p>后果是直接的。既然可用的词无限多，那么无论结果是什么，你总能拼出一套顺畅的解释。而且用的往往是同一批事实。</p>
+<figure>
+<svg aria-label="同一批事实可以同样顺畅地解释两个相反的结果" role="img" viewBox="0 0 720 300" xmlns="http://www.w3.org/2000/svg">
+<defs>
+<marker id="t42na" markerHeight="10" markerUnits="userSpaceOnUse" markerWidth="10" orient="auto" refX="9" refY="5" viewBox="0 0 10 10">
+<path d="M0,1 L9,5 L0,9 z" fill="#9fbc7a"></path>
+</marker>
+<marker id="t42nb" markerHeight="10" markerUnits="userSpaceOnUse" markerWidth="10" orient="auto" refX="9" refY="5" viewBox="0 0 10 10">
+<path d="M0,1 L9,5 L0,9 z" fill="#79a6d2"></path>
+</marker>
+</defs>
+<text fill="#aba498" font-family="-apple-system,sans-serif" font-size="13" text-anchor="middle" x="360" y="26">同一批事实，两个相反的结果，两套同样顺畅的解释</text>
+<rect fill="rgba(255,255,255,0.03)" height="68" rx="8" stroke="rgba(255,255,255,0.14)" width="196" x="28" y="118"></rect>
+<text fill="#aba498" font-family="-apple-system,sans-serif" font-size="12.5" font-weight="600" text-anchor="middle" x="126" y="143">同一批事实</text>
+<text fill="#8d867b" font-family="-apple-system,sans-serif" font-size="11" text-anchor="middle" x="126" y="162">小团队 · 老板强势</text>
+<text fill="#8d867b" font-family="-apple-system,sans-serif" font-size="11" text-anchor="middle" x="126" y="178">时间紧 · 押了新技术</text>
+<line marker-end="url(#t42na)" stroke="#9fbc7a" stroke-width="2" x1="230" x2="442" y1="132" y2="88"></line>
+<line marker-end="url(#t42nb)" stroke="#79a6d2" stroke-width="2" x1="230" x2="442" y1="172" y2="212"></line>
+<text fill="#9fbc7a" font-family="-apple-system,sans-serif" font-size="11.5" text-anchor="middle" x="336" y="58">小团队沟通快 · 老板有决断</text>
+<text fill="#9fbc7a" font-family="-apple-system,sans-serif" font-size="11.5" text-anchor="middle" x="336" y="76">时间紧倒逼聚焦 · 新技术拉开差距</text>
+<text fill="#79a6d2" font-family="-apple-system,sans-serif" font-size="11.5" text-anchor="middle" x="336" y="242">人手不够 · 老板一言堂</text>
+<text fill="#79a6d2" font-family="-apple-system,sans-serif" font-size="11.5" text-anchor="middle" x="336" y="260">时间不够打磨 · 新技术不成熟</text>
+<rect fill="rgba(159,188,122,0.07)" height="50" rx="8" stroke="rgba(159,188,122,0.42)" width="246" x="446" y="70"></rect>
+<text fill="#9fbc7a" font-family="-apple-system,sans-serif" font-size="13" text-anchor="middle" x="569" y="100">结果：项目做成了</text>
+<rect fill="rgba(121,166,210,0.07)" height="50" rx="8" stroke="rgba(121,166,210,0.42)" width="246" x="446" y="182"></rect>
+<text fill="#79a6d2" font-family="-apple-system,sans-serif" font-size="13" text-anchor="middle" x="569" y="212">结果：项目黄了</text>
+<text fill="#57524b" font-family="-apple-system,sans-serif" font-size="11" text-anchor="middle" x="360" y="288">能同时解释两个相反结果的说法，事先没有排除掉任何东西。</text>
+</svg>
+<figcaption>叙事的自由度不是"多"，是"无限且免费"。所以它在历史数据上的误差永远是零。</figcaption>
+</figure>
+<p>把这张图和上一节的图叠起来看，就得到本期最有用的一句话：<b>事后叙事是过拟合的极限情形。</b>参数无限多、成本为零、误差恒等于零——它落在上一张图橙线的最右端，那里样本外误差最高。这不是比喻，这是同一条曲线上的同一个位置。</p>
+<p>心理学上还有一个东西在给它加固：<b>后见之明偏误</b>（hindsight bias）。事情发生之后，人会真心实意地记错自己当初的判断，觉得"我早就觉得会这样"。所以你甚至意识不到自己在事后编——记忆已经替你把参数调好了。</p>
+<p>那怎么区分一个真解释和一套顺畅的话？只有一个操作性的判据：<b>解释必须提前排除某些结果。</b>如果一套说法在结果相反的情况下同样成立，它的信息量就是零——不管它听起来多有道理。这就是"可证伪"（falsifiable）这个词在日常里的全部含义：不是"能被推翻"这个哲学姿态，而是"它事先划掉了哪些可能"。</p>
+<div class="decide">
+<span class="lb">🎯 决策线</span>
+<p>把<b>解释力</b>和<b>预测力</b>分开记账，别让前者冒充后者。任何一套解释——公司的、市场的、别人行为的——先做一次反向测试：<b>"如果结果是反的，这套说法还能不能同样顺畅地讲一遍？"</b>能，就把它从决策依据里删掉，它只是让你舒服，不提供约束。剩下来那些做不到反向讲的，才是你真正学到的东西。</p>
+</div>
+<div class="crossx-inline">
+🌀 <b>文学与艺术 · 传记里的童年细节</b>　几乎每一本成功者传记都能从童年里挑出一个决定性的细节：那次搬家、那本书、那个严厉的老师。这条推理线之所以永远走得通，是因为可选的童年细节数量近乎无限，而只需要挑出与结果匹配的那几个——参数免费、事后挑选。由此可以推出一个比"传记不可信"更硬的结论：<b>传记的解释力和它的预测力无关，所以它作为"该怎么培养一个人"的输入，信息量接近于零</b>——同样的童年细节，在那些没成功的人身上一样存在，只是没人替他们写书。</div>
+<p class="en-brief"><b>EN</b> Verbal explanations have unlimited free parameters at zero cost, so any outcome — and its opposite — can be fitted from the same facts. Post-hoc narrative is therefore the limiting case of overfitting: zero in-sample error, maximal out-of-sample error. Hindsight bias hides the fitting from the fitter. The only operational test: would this account run just as smoothly if the outcome had been reversed?</p>
+
+<h2><span class="n">03</span>「看起来像幂律」多半不是<span class="he">（It Only Looks Like a Power Law）</span></h2>
+<p class="lead">本站前面反复出现过一条直线：把事件规模和出现频率都取对数（也就是画在双对数坐标上），很多现象会排成一条直线。这条直线叫<b>幂律</b>（power law） <a class="reflink" href="ref-power-law.html">→ 参考 · 幂律分布</a>，它意味着没有"典型规模"，大事件比直觉常见得多。</p>
+<p>问题出在"看起来像"这三个字上。<b>在双对数坐标下，人眼判断直线的能力差得离谱。</b>对数把差异压扁了，一段缓慢弯曲的曲线看上去和直线几乎没区别。而好几种完全不同的分布画出来都是这个样子——最常见的竞争者是<b>对数正态分布</b>（log-normal，取对数之后变成钟形）和<b>指数截断的幂律</b>（尾巴到某处突然掉下去）。</p>
+<p>更糟的是，常见的画法会<em>制造</em>直线。尾部的数据天然稀疏，如果你按等宽的区间去数每个区间里有几个事件，尾部那些区间大多是零零一一，画出来抖成一片，然后人就开始"看趋势"。（专业做法是画互补累积分布，也就是"大于等于 x 的事件占比"，它不需要分箱，尾部要干净得多。）</p>
+<p>2009 年，Aaron Clauset、Cosma Shalizi 和 Mark Newman 三个人把这件事系统化了，给出一套统一的检验流程（下文简称 <b>CSN 流程</b>），并用它重审了二十多个被广泛引用的"幂律"数据集。结论相当扫兴：<b>只有少数几个能干净地通过，相当一部分根本无法和对数正态区分开。</b></p>
+<figure>
+<svg aria-label="三种分布在双对数坐标下几乎重合，以及 CSN 检验的五个步骤" role="img" viewBox="0 0 720 336" xmlns="http://www.w3.org/2000/svg">
+<defs>
+<marker id="t42st" markerHeight="8" markerUnits="userSpaceOnUse" markerWidth="8" orient="auto" refX="7" refY="4" viewBox="0 0 8 8">
+<path d="M0,0.8 L7,4 L0,7.2 z" fill="#a8a49c"></path>
+</marker>
+</defs>
+<text fill="#aba498" font-family="-apple-system,sans-serif" font-size="12.5" text-anchor="middle" x="209" y="30">双对数坐标下，前两个数量级几乎重合</text>
+<line stroke="rgba(255,255,255,0.18)" stroke-width="1.5" x1="66" x2="352" y1="300" y2="300"></line>
+<line stroke="rgba(255,255,255,0.18)" stroke-width="1.5" x1="66" x2="66" y1="300" y2="66"></line>
+<text fill="#57524b" font-family="-apple-system,sans-serif" font-size="10.5" x="74" y="292">→ 事件规模（对数）</text>
+<text fill="#8d867b" font-family="-apple-system,sans-serif" font-size="11" transform="rotate(-90 40 185)" x="40" y="185">频率（对数）</text>
+<line stroke="#e0895e" stroke-width="2.4" x1="84" x2="340" y1="88" y2="278"></line>
+<path d="M84,90 C150,136 190,166 240,206 C280,240 312,272 340,298" fill="none" stroke="#a693cd" stroke-width="2.2"></path>
+<path d="M84,89 C150,135 200,172 260,218 C296,248 314,278 322,300" fill="none" stroke="#79a6d2" stroke-width="2.2"></path>
+<text fill="#8d867b" font-family="-apple-system,sans-serif" font-size="11" text-anchor="end" x="332" y="122">前两个数量级里，三条线分不开</text>
+<line stroke="#e0895e" stroke-width="2.4" x1="70" x2="88" y1="322" y2="322"></line>
+<text fill="#e0895e" font-family="-apple-system,sans-serif" font-size="11" x="93" y="326">幂律</text>
+<line stroke="#a693cd" stroke-width="2.2" x1="142" x2="160" y1="322" y2="322"></line>
+<text fill="#a693cd" font-family="-apple-system,sans-serif" font-size="11" x="165" y="326">对数正态</text>
+<line stroke="#79a6d2" stroke-width="2.2" x1="238" x2="256" y1="322" y2="322"></line>
+<text fill="#79a6d2" font-family="-apple-system,sans-serif" font-size="11" x="261" y="326">指数截断</text>
+<text fill="#aba498" font-family="-apple-system,sans-serif" font-size="12.5" text-anchor="middle" x="556" y="30">CSN 流程：五步，少一步都不算检验</text>
+<rect fill="rgba(168,164,156,0.06)" height="36" rx="7" stroke="rgba(168,164,156,0.3)" width="288" x="412" y="64"></rect>
+<text fill="#cfc8bc" font-family="-apple-system,sans-serif" font-size="12.5" text-anchor="middle" x="556" y="87">① 先定尾部从哪里开始（x_min）</text>
+<line marker-end="url(#t42st)" stroke="#a8a49c" stroke-width="1.6" x1="556" x2="556" y1="100" y2="116"></line>
+<rect fill="rgba(168,164,156,0.06)" height="36" rx="7" stroke="rgba(168,164,156,0.3)" width="288" x="412" y="118"></rect>
+<text fill="#cfc8bc" font-family="-apple-system,sans-serif" font-size="12.5" text-anchor="middle" x="556" y="141">② 用最大似然法估幂指数 α</text>
+<line marker-end="url(#t42st)" stroke="#a8a49c" stroke-width="1.6" x1="556" x2="556" y1="154" y2="170"></line>
+<rect fill="rgba(168,164,156,0.06)" height="36" rx="7" stroke="rgba(168,164,156,0.3)" width="288" x="412" y="172"></rect>
+<text fill="#cfc8bc" font-family="-apple-system,sans-serif" font-size="12.5" text-anchor="middle" x="556" y="195">③ 量出拟合与数据的最大偏离</text>
+<line marker-end="url(#t42st)" stroke="#a8a49c" stroke-width="1.6" x1="556" x2="556" y1="208" y2="224"></line>
+<rect fill="rgba(168,164,156,0.06)" height="36" rx="7" stroke="rgba(168,164,156,0.3)" width="288" x="412" y="226"></rect>
+<text fill="#cfc8bc" font-family="-apple-system,sans-serif" font-size="12.5" text-anchor="middle" x="556" y="249">④ 模拟出 p 值：太小就否掉幂律</text>
+<line marker-end="url(#t42st)" stroke="#a8a49c" stroke-width="1.6" x1="556" x2="556" y1="262" y2="278"></line>
+<rect fill="rgba(224,137,94,0.07)" height="36" rx="7" stroke="rgba(224,137,94,0.38)" width="288" x="412" y="280"></rect>
+<text fill="#e6bda7" font-family="-apple-system,sans-serif" font-size="12.5" text-anchor="middle" x="556" y="303">⑤ 和对数正态比：哪个更像</text>
+</svg>
+<figcaption>左：三种分布在真实数据能覆盖的量程里几乎重合。右：CSN 流程。第 ⑤ 步最常被跳过，而它恰恰是最容易翻车的一步。</figcaption>
+</figure>
+<p>这里要说清两个术语。<b>最大似然法</b>（maximum likelihood）就是"在所有可能的参数里，挑出让这批数据最不意外的那个"；它比在双对数图上拉一条回归直线可靠得多，因为后者默认了每个点的误差一样大，而尾部的点显然不是。<b>p 值</b>（p-value）在这里的意思是：如果这批数据真的是幂律生成的，那么出现"偏离程度不小于我们实测到的这么大"的情况，概率有多少；概率很小，就说明幂律这个假设撑不住。</p>
+<p>但真正值得琢磨的不是统计，而是：<b>为什么大家这么想要那条直线？</b>因为幂律不只是一个分布形状，它在本站前面几期里一直挂着机制故事——自组织临界、优先连接、分形。<em>宣称幂律，等于顺手宣称了那个机制。</em>而在决策层面，幂律和对数正态的区别其实小得多：两者都是重尾（heavy-tailed），都意味着均值不可靠、尾部风险被低估、不能拿历史平均值定杠杆。所以人们坚持要"幂律"这两个字，往往不是因为决策需要它，是因为<b>故事需要它</b>。</p>
+<div class="decide">
+<span class="lb">🎯 决策线</span>
+<p>下次想说"这是幂律"时，先做一次降级测试：<b>把这句话改成"这是重尾"，你的决策会变吗？</b>绝大多数时候不会变——那就说"重尾"，这个更弱的断言你有证据支持。只有当你确实要靠幂指数 α 的具体数值做事（比如推断某个机制、外推尾部概率），才值得跑完整套 CSN 流程，并且必须一起报出 x_min ——因为 α 是可以靠挪动 x_min 调出来的。</p>
+</div>
+<div class="crossx-inline">
+🌀 <b>经济与制度 · 城市规模的那条直线</b>　"城市人口服从幂律"是被引用得最多的例子之一，但这条直线对"什么算一座城市"极度敏感：按行政边界统计和按连片建成区统计，同一个国家能得到明显不同的指数，边界画法一变，尾部的那几个点就换了位置。这推出一个统计课本上不会讲的结论——<b>在这类数据里，"直线"有一部分是测量口径造出来的，而不是系统长出来的</b>。所以看到一条漂亮的幂律，第一个该问的不是"机制是什么"，是"这条数据的单位是谁定的、按什么切的"。</div>
+<p class="en-brief"><b>EN</b> On log-log axes the eye cannot separate a power law from a log-normal or an exponentially truncated tail, and equal-width binning manufactures straight lines out of sparse tails. Clauset, Shalizi and Newman (2009) gave a five-step test and found that only a minority of widely cited datasets survive it. Note also what is at stake: for most decisions "heavy-tailed" carries the same implications, so insisting on "power law" is usually the mechanism story talking, not the decision.</p>
+
+<h2><span class="n">04</span>校准：让"概率"这个词兑现<span class="he">（Calibration）</span></h2>
+<p class="lead">前三节都在拆。这一节说建设性的那半：一个关于复杂系统的模型，究竟怎样才算被真正检验过？</p>
+<p>复杂系统的预测大多不是"明天是多少"，而是"多大可能"。而"多大可能"这种话，单看一次是没法判对错的——你说明天 70% 下雨，结果没下，这不能算你错。<b>但看一百次就能判。</b>在你说过 70% 的那一百天里，如果只有三十天真下了雨，那你说的就不是概率，是修辞。</p>
+<p>这个性质叫<b>校准</b>（calibration）：你给出的概率，在长期频率上要兑现。它可以画成一张图——横轴是你说的概率，纵轴是那些日子里实际发生的比例。完美校准就是那条对角线。</p>
+<p>而复杂系统里"多大可能"这个数是怎么算出来的？主流做法是<b>集合模拟</b>（ensemble simulation）：既然初始条件测不准、模型也不完美，那就不要只跑一遍。把初始状态做上百次微小扰动，每次都跑一遍，看这些轨迹散得多开 <a class="reflink" href="ref-monte-carlo.html">→ 参考 · 蒙特卡罗与集合模拟</a>。散得窄，就是这次可以说得比较肯定；散得宽，就该说不确定——<b>宽度本身就是预报的一部分，不是预报的瑕疵。</b></p>
+<figure>
+<svg aria-label="左：集合模拟的发散扇面；右：可靠性图与过度自信曲线" role="img" viewBox="0 0 720 310" xmlns="http://www.w3.org/2000/svg">
+<text fill="#aba498" font-family="-apple-system,sans-serif" font-size="12.5" text-anchor="middle" x="190" y="26">集合模拟：把不确定性画出来</text>
+<path d="M70,175 C150,172 230,140 310,104 L310,248 C230,218 150,184 70,175 Z" fill="rgba(121,166,210,0.10)" stroke="none"></path>
+<path d="M70,175 C150,172 230,140 310,104" fill="none" stroke="rgba(121,166,210,0.55)" stroke-width="1.6"></path>
+<path d="M70,175 C150,174 230,152 310,126" fill="none" stroke="rgba(121,166,210,0.55)" stroke-width="1.6"></path>
+<path d="M70,175 C150,176 230,166 310,150" fill="none" stroke="rgba(121,166,210,0.55)" stroke-width="1.6"></path>
+<path d="M70,175 C150,178 230,180 310,176" fill="none" stroke="#79a6d2" stroke-width="2.4"></path>
+<path d="M70,175 C150,180 230,194 310,202" fill="none" stroke="rgba(121,166,210,0.55)" stroke-width="1.6"></path>
+<path d="M70,175 C150,182 230,206 310,226" fill="none" stroke="rgba(121,166,210,0.55)" stroke-width="1.6"></path>
+<path d="M70,175 C150,184 230,218 310,248" fill="none" stroke="rgba(121,166,210,0.55)" stroke-width="1.6"></path>
+<circle cx="70" cy="175" fill="#d9b45f" r="5"></circle>
+<text fill="#d9b45f" font-family="-apple-system,sans-serif" font-size="11" text-anchor="middle" x="72" y="200">今天的状态</text>
+<line stroke="rgba(255,255,255,0.16)" stroke-width="1.4" x1="60" x2="320" y1="262" y2="262"></line>
+<text fill="#57524b" font-family="-apple-system,sans-serif" font-size="10.5" text-anchor="end" x="318" y="256">时间</text>
+<text fill="#57524b" font-family="-apple-system,sans-serif" font-size="11" text-anchor="middle" x="190" y="288">扇面的宽度 = 这次预报的不确定性，它本身就是结论</text>
+<text fill="#aba498" font-family="-apple-system,sans-serif" font-size="12.5" text-anchor="middle" x="560" y="26">可靠性图：你说的概率兑现了吗</text>
+<line stroke="rgba(255,255,255,0.18)" stroke-width="1.5" x1="440" x2="440" y1="262" y2="46"></line>
+<line stroke="rgba(255,255,255,0.18)" stroke-width="1.5" x1="440" x2="680" y1="262" y2="262"></line>
+<line stroke="#8d867b" stroke-dasharray="5 5" stroke-width="1.6" x1="440" x2="680" y1="262" y2="46"></line>
+<path d="M440,262 C510,250 552,222 592,172 C624,132 660,84 680,46" fill="none" stroke="#e0895e" stroke-width="2.5"></path>
+<text fill="#8d867b" font-family="-apple-system,sans-serif" font-size="11" text-anchor="end" x="600" y="110">完美校准 = 这条对角线</text>
+<text fill="#e0895e" font-family="-apple-system,sans-serif" font-size="11" text-anchor="end" x="668" y="236">过度自信</text>
+<text fill="#57524b" font-family="-apple-system,sans-serif" font-size="10" text-anchor="middle" x="440" y="278">0</text>
+<text fill="#57524b" font-family="-apple-system,sans-serif" font-size="10" text-anchor="middle" x="680" y="278">100%</text>
+<text fill="#8d867b" font-family="-apple-system,sans-serif" font-size="11" text-anchor="middle" x="560" y="298">你说的概率</text>
+<text fill="#8d867b" font-family="-apple-system,sans-serif" font-size="11" transform="rotate(-90 414 154)" x="414" y="154">实际发生的频率</text>
+</svg>
+<figcaption>右图曲线整体压在对角线下方，意思是：他说 80% 的那些次，实际只兑现了约 50%。这条曲线画出来，才叫检验过。</figcaption>
+</figure>
+<p>把校准做成产业的，目前基本只有天气预报一家。原因不神秘：<b>它每天都被记分。</b>预报发布，第二天真相揭晓，成千上万次积累下来，可靠性图自然就画出来了。业内还有一个专门的分数叫 <b>Brier 分数</b>（Brier score，1950 年由 Glenn Brier 提出）：把每次"你说的概率"和"实际发生与否（1 或 0）"的差取平方再平均，越小越好。它有一个漂亮的性质——可以精确拆成"校准得好不好"和"分辨力强不强"两部分。<em>说得准</em>和<em>说得有内容</em>是两件事：天天说 50% 的人校准可能不差，但毫无分辨力。</p>
+<p>这也顺带说清了为什么本站前面那些机制模型很少给出"准确率"这个数：它们大多没有被记分的机会。而一旦有机会，就该去要。</p>
+<div class="decide">
+<span class="lb">🎯 决策线</span>
+<p>汇报模型的时候，把<b>失效条件</b>和结论一起汇报——"这个结论依赖三个前提：A、B、C；其中 B 一旦不成立，结论反向"。没有这段话的模型汇报，读者无法判断该信到什么程度。第二件事：所有带概率的判断（你的、团队的、供应商的）都留档，攒够几十条就画一次可靠性图。这件事的成本是一个表格，收益是你第一次知道自己的"大概率"到底值多少。</p>
+</div>
+<div class="crossx-inline">
+🌀 <b>心理学 · Meehl 的那本小书</b>　1954 年，心理学家 Paul Meehl 比较了临床专家的判断和一个简单统计公式的判断，结果是公式在几乎所有对比里不输甚至更好；后来几十年、上百项研究的汇总仍然如此。通常的解读是"专家不如算法"，但套上本节的机制会得到一个更准的读法：<b>差别不在聪明程度，在有没有记分回路。</b>公式的每一次输出都被记录、被对照、被修正；而专家的判断分散在多年、多个个案里，从来没有被汇总成一张可靠性图，所以他的信心根本没机会被校准。这条推论有个反直觉的推广：给专家配上记分表，比换掉专家更划算。</div>
+<p class="en-brief"><b>EN</b> Most complex-system forecasts are probabilistic, and a single probabilistic statement cannot be scored — a hundred of them can. Calibration means the 70% days rain about 70% of the time; a reliability diagram makes it visible, and the Brier score decomposes cleanly into calibration and resolution. Ensemble simulation produces the probability in the first place: perturb the initial state a hundred times and let the spread be the answer. Weather forecasting is the one field that industrialised this, for the boring reason that it is scored every single day.</p>
+
+<h2><span class="n">05</span>这套说法在哪儿不成立<span class="he">（Where This Breaks Down）</span></h2>
+<p class="lead">前面四节都在要求模型接受检验。现在说反面：这套要求本身有几处会用错，而且用错的方式相当常见。</p>
+<p><b>第一，不是所有模型都以预测为目的，拿预测精度去评价它们是用错了尺子。</b>谢林的隔离模型 <a class="reflink" href="ref-schelling.html">→ 参考 · 谢林隔离模型</a> 从来没打算预测任何一座城市的隔离程度，它证明的是一个<em>充分性</em>命题：非常温和的邻居偏好，<b>足以</b>产生高度隔离的格局，不需要谁抱有敌意。这个命题不靠拟合数据成立，靠的是它推翻了"看到隔离就说明有强烈歧视"这个默认推论。这类模型该被检验的不是准确率，而是三件事：前提有没有被偷偷加强、结论是不是真的从规则推出来的、以及换一批合理的参数会不会翻盘（也就是稳健性）。</p>
+<p><b>第二，"所有模型都是错的，但有些是有用的"被滥用成了免责声明。</b>这句话出自统计学家 George Box，他的原意是提醒你把力气花在"错得要紧不要紧"上——而不是给任何模型发一张通行证。这句话的正确用法是后面必须跟上两个具体的量：<em>错在哪个方向</em>（系统性地高估还是低估）、<em>量级多大</em>。说不出这两样，就说明这个模型压根没被检验过，那句话只是在提前挡住提问。</p>
+<p><b>第三，校准在一次性事件上做不到。</b>气候的百年演化、一次金融危机、一个国家的转型——这些事只发生一次，不存在"一百次里兑现了七十次"。所以第 4 节那套标准在这里直接失灵。能做的是替代品，而且要说清它们更弱：在已知的历史片段上能不能重现关键的<em>定性</em>行为（不是数值，是"有没有出现那个转折"）；换一批合理的参数结论会不会翻；以及事先写下一句"如果观察到 X，这个模型就完了"。这三样都比可靠性图弱，但比什么都不做强得多。</p>
+<p><b>第四，过拟合有一个同样致命的镜像：过度简化。</b>本期一路在批"参数太多"，容易读成"越简单越好"——这是错的。上一张误差图的左半边同样在爬坡：一个漏掉了关键变量的模型不会因为简洁而变得安全，它只是把错误藏得更深。2008 年之前主流宏观经济模型的问题不是参数太多，恰恰相反：那一类被称为<b>动态随机一般均衡</b>模型（dynamic stochastic general equilibrium，缩写 DSGE）的框架里，普遍<em>没有</em>金融中介和杠杆这两个变量。真正的选择从来不是"简单还是复杂"，是<b>丢掉什么</b>。</p>
+<p><b>第五，样本外数据是消耗品。</b>它只在"从未见过"的时候有效。你拿它评估了第一版模型，看到结果不满意，回去改一版再评估——从第二次开始，那批数据就已经通过你的手参与了调参，它不再是样本外的了。这就是公开排行榜和共用基准数据集的通病：整个社区在同一批测试数据上反复迭代，集体地、无人察觉地过拟合到了它上面。</p>
+<div class="decide">
+<span class="lb">🎯 决策线</span>
+<p>给你手上每一个模型贴一个标签，标签只有三种：<b>点预测</b>（该报样本外误差）、<b>概率预测</b>（该报可靠性图，攒不够次数就明说"还没被检验过"）、<b>机制演示</b>（该报前提和稳健性，不该报准确率）。贴错标签是本期所有陷阱里最省事也最常见的一个——用机制模型的口气去做点预测，或者用点预测的精度去嘲笑机制模型，都是同一个错误的两面。</p>
+</div>
+<p class="en-brief"><b>EN</b> Four caveats. Some models are sufficiency demonstrations, not predictors — Schelling's segregation model should be judged on premises and robustness, never on accuracy. "All models are wrong, but some are useful" is a demand for the direction and size of the error, not a licence. Calibration is impossible for one-off events, so weaker substitutes must be labelled as weaker. And the mirror image of overfitting is a model missing the variable that matters — pre-2008 DSGE frameworks generally had no financial intermediation at all. Finally, held-out data is consumable: reuse it and it quietly becomes in-sample.</p>
+
+<div class="bigcat">
+<h3>🎒 场景 · BigCat</h3>
+<ol>
+<li><span class="dm">工程与系统设计</span>每次线上故障之后加一条告警规则、或者把某个阈值往下调一格——这是拿一个样本更新参数，做上两年，告警系统就是一条穿过所有历史故障点的过拟合曲线：对已经发生过的事完美，对下一次沉默，同时把人淹在噪声里。可改的东西很具体：<b>给每条告警规则记一个命中率（真实故障数 ÷ 触发次数）</b>，每季度把命中率垫底的那批直接删掉；新增规则前先拿过去 90 天的数据回放一遍，看它会响多少次。该停掉的动作：以"上次那个要是早点告警就好了"作为新增规则的<b>唯一</b>理由。</li>
+<li><span class="dm">带团队与组织</span>给新项目排期时，用一段推理来修正估算——"这次架构更熟""这次不用等外部依赖"。这些修正项就是免费参数，它们的作用是让估算贴合你想要的结论。可改的东西：<b>把团队过去十个项目的「实际耗时 ÷ 当初估的」都算出来，取中位数当固定乘数</b>，先乘上去再讨论。讨论的内容从"这次会不会更快"换成"有什么理由认为这次和过去十次不同"——后者需要举证，前者不需要。</li>
+<li><span class="dm">健康与精力</span>每天早上打开手环或睡眠 App 看昨晚的分数，然后给波动找原因：下午那杯咖啡、睡前刷手机、房间太热。日间波动大部分落在测量噪声里，逐日归因就是对着噪声拟合，而且会拟合出一堆你其实并不需要遵守的规矩。可改的东西：<b>只看 7 日滚动平均和它的走向，日分数直接不看</b>；要归因就一次只改一个变量、连续保持两周以上，再比较两段的 7 日均值。该停掉的动作：把当天的精力状态归因给昨晚那个分数——那是分数在影响你，不是睡眠在影响你。</li>
+</ol>
+</div>
+<div class="crossx">
+<h3>🌀 越界 · 跨学科的联想<span class="he">（Crossings）</span></h3>
+<ul>
+<li><b>文学与艺术 · 博尔赫斯的一比一地图</b>：博尔赫斯 1946 年那篇不到一页的《论科学的严谨》里，帝国的制图学家造出了一张与帝国等大、逐点重合的地图，后世觉得它无用，任它烂在沙漠里。通常的读法是"精确到极致就没用了"。本期三条机制合起来能给出一个更硬的版本：那张地图之所以更差而不只是无用，是因为它<b>把噪声一起复制了</b>（第 1 节：零误差意味着记住了全部偶然细节）、它<b>无法被证伪</b>（第 2 节：不做任何取舍的表示不排除任何可能）、并且它<b>无法被校准</b>（第 4 节：它不输出可对照的判断，所以永远得不到反馈）。换句话说，地图的价值不在保留了什么，在<em>敢丢掉什么</em>——丢弃就是模型的全部内容。<b>但这里不成立</b>：博尔赫斯的寓言暗示精度和有用性单调反向，越粗略越好；而第 5 节说得很清楚，欠拟合一样致命——一张漏掉了河流的地图不会因为简洁而安全。寓言能借走的是"表示必须有损"这一条，借不走"越简越好"这个方向。</li>
+<li><b>西方哲学与科学哲学 · 迪昂-蒯因论题</b>：物理学家迪昂（Pierre Duhem，1906）和后来的哲学家蒯因（W. V. O. Quine，1951）指出：一个假设从来不能被单独检验。预测失败时，你总可以保住核心理论，把账记到某个辅助假设头上——仪器不准、边界条件特殊、这次样本有问题。这正是第 1 节和第 2 节的机制在<em>科学理论层面</em>的同构：辅助假设就是那批免费参数，事后指定它们就是事后叙事。由此推出的结论不是"科学不可靠"，而是一件很具操作性的事：<b>既然"该把失败记在哪一笔账上"永远无法由逻辑单独决定，那它只能由「事前承诺」来决定。</b>这就是预注册（pre-registration）的全部力量所在——它不提高任何一次实验的精度，它只是把记账规则挪到了看见结果之前。第 4 节的可靠性图是同一个动作的另一半：先说，再看，不许回头改口径。</li>
+<li><b>经济与制度 · 危机前的宏观模型</b>：2008 年之前，各国央行主力使用的那一类动态随机一般均衡模型，在样本内的拟合质量相当不错，也确实建立在明确的机制推导之上。它没能预警危机，原因不是参数估歪了，而是<b>它的状态空间里根本没有那些变量</b>——金融中介、杠杆、抵押品折价大多不在模型里，于是"银行间市场冻结"这件事在那套语言里连表述都表述不出来。本期几条机制在这里成套出现：拟合优良（第 1 节的蓝线）掩盖了结构缺失，机制推导的严谨性被当成了预测能力的保证（第 5 节的贴错标签），而这个体系从未被要求交出概率并接受记分（第 4 节）。推出的结论相当反直觉：<b>面对这种失败，"改进模型"——加参数、加数据、加算力——恰恰是错的方向</b>；缺的东西不在参数轴上，在"该把什么写进模型"这个更早的决定里。危机后宏观学界补的正是这一块，而不是精度。</li>
+</ul>
+</div>
+<div class="thinking">
+<h3>深入思考<span class="he">（Going Deeper）</span></h3>
+<details><summary>如果事后叙事是"零误差、零信息"，那历史学还剩下什么？</summary><p>剩下的恰恰是它最不像叙事的那部分：确定发生了什么、什么时候、谁在场、当时的人手上有哪些信息。这些是可以被新证据推翻的，因此携带信息。真正没信息的是那一层"因此他必然会那样做"的因果连缀。一个可用的判据：把这段历史讲给一个不知道结局的人听，他能不能排除掉某些结局？排不掉，那段就是叙事而不是史实。</p></details>
+<details><summary>为什么样本外检验在金融里比在其他领域更难做？</summary><p>因为金融数据的"新样本"极其昂贵：可用的历史就那么长，而且非平稳——制度、参与者、交易机制都在变，二十年前的样本外未必和今天同分布。更麻烦的是策略研究的社会性过拟合：全行业在同一段历史上试过无数种策略，能被发表和流传的天然是那些恰好拟合了这段历史的。所以在金融里，"这个策略回测很好"这句话的先验信息量比在其他领域还要低。</p></details>
+<details><summary>一个模型必须能预测，才算科学吗？</summary><p>不一定，但它必须在某处承担风险。演化论对具体物种的演化路径预测力很弱，可它做了大量可被推翻的断言——化石出现的地层顺序、不同物种基因组的相似度排序。所以判据不是"能不能报数"，是"有没有一类可观察的结果会让它出局"。说不出这类结果的模型，无论多精致，都还没进场。</p></details>
+<details><summary>既然人几乎必然会过拟合叙事，为什么大脑还要这么干？</summary><p>一个常见的解释是代价不对称：在信息稀少、必须马上行动的处境里，一个错的因果故事往往比一片空白更划算——它至少给出一个可执行的动作。但这解释了它的起源，没有为它在今天的用法背书。值得注意的是，现代决策环境恰好把这个代价结构反过来了：数据不再稀少，行动也大多不必即刻。</p></details>
+<details><summary>如果大家都在同一批基准数据上迭代，整个领域该怎么止损？</summary><p>目前几种做法都不完美：定期换新测试集（成本高，且旧结果不可比）、把测试集完全封存只允许提交一次（限制了迭代）、或者用只公布聚合结果的隐藏集。更根本的一条是记录"这批数据被查询过多少次"——因为过拟合的程度和查询次数直接相关，而这个次数在今天几乎从来没有人统计。</p></details>
+</div>
+<div class="refs">
+<h3>延伸阅读<span class="he">（Further Reading）</span></h3>
+<ul>
+<li>Clauset, Shalizi &amp; Newman, <a href="https://arxiv.org/abs/0706.1062">Power-law distributions in empirical data</a>（2009，本期第 3 节那套检验流程的原始论文，附大量反例）</li>
+<li>Lazer, Kennedy, King &amp; Vespignani, <a href="https://www.science.org/doi/10.1126/science.1248506">The Parable of Google Flu: Traps in Big Data Analysis</a>（Science, 2014）</li>
+<li>Mayer, Khairy &amp; Howard, <a href="https://doi.org/10.1119/1.3254017">Drawing an elephant with four complex parameters</a>（2010，真的把那头大象画了出来）</li>
+<li>George E. P. Box, <a href="https://doi.org/10.1080/01621459.1976.10480949">Science and Statistics</a>（1976，"所有模型都是错的"的出处与上下文）</li>
+<li>Glenn W. Brier, <a href="https://doi.org/10.1175/1520-0493(1950)078%3C0001:VOFEIT%3E2.0.CO;2">Verification of forecasts expressed in terms of probability</a>（1950，Brier 分数）</li>
+<li><a href="https://en.wikipedia.org/wiki/Duhem%E2%80%93Quine_thesis">迪昂-蒯因论题</a>（假设无法被单独检验）</li>
+<li>Jorge Luis Borges, <a href="https://en.wikipedia.org/wiki/On_Exactitude_in_Science">Del rigor en la ciencia / On Exactitude in Science</a>（1946，一比一地图）</li>
+<li>Grove, Zald, Lebow, Snitz &amp; Nelson, <a href="https://doi.org/10.1037/1040-3590.12.1.19">Clinical versus mechanical prediction: A meta-analysis</a>（2000，Meehl 那条线索的现代汇总）</li>
+<li>Olivier Blanchard, <a href="https://doi.org/10.1093/oxrep/grx045">On the future of macroeconomic models</a>（2018，危机后对宏观建模的反省）</li>
+</ul>
+</div>
+<footer>BigCat · 复杂性科学 · <a href="index.html">← 全部 Topic</a></footer>
+</div>
+<script src="https://hub.cissychen.com/comments.js" defer></script>
+<script src="https://hub.cissychen.com/search.js" defer></script>
+<script src="https://hub.cissychen.com/index-button.js" defer></script>
+<script src="https://hub.cissychen.com/i18n-tts.js" defer></script>
+</body></html>
