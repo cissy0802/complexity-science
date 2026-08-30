@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+
+<html lang="en"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Critiques of Complexity Science — the sharpest cuts come from inside · Complexity Science T43</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,"SF Pro Display","Noto Sans SC",sans-serif;color:#e4ded5;line-height:1.85;min-height:100vh;
+  background:radial-gradient(1100px 620px at 12% -6%,rgba(224,137,94,0.10),transparent 62%),radial-gradient(950px 700px at 100% 2%,rgba(166,147,205,0.09),transparent 58%),linear-gradient(168deg,#100f0d 0%,#15161b 48%,#0a0a0c 100%);background-attachment:fixed}
+.wrap{max-width:760px;margin:0 auto;padding:30px 22px 90px}
+header{padding:52px 0 8px;border-bottom:1px solid rgba(255,255,255,0.07);margin-bottom:34px}
+.week-tag{font-family:"SF Mono",Menlo,monospace;font-size:0.72rem;font-weight:700;letter-spacing:2px;color:#a8a49c;border:1px solid rgba(168,164,156,0.4);background:rgba(168,164,156,0.07);padding:3px 11px;border-radius:20px}
+h1{font-size:2.5rem;font-weight:800;letter-spacing:0.5px;line-height:1.2;margin:20px 0 0;background:linear-gradient(106deg,#e0895e 0%,#d9b45f 34%,#9fbc7a 68%,#63b3a6 100%);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+h1 .h1en{display:block;font-size:0.40em;font-weight:600;letter-spacing:2.5px;color:#847d72;-webkit-text-fill-color:#847d72;background:none;margin-top:13px}
+.sub{font-size:1.05rem;color:#aba498;margin-top:14px;font-weight:500}
+.date{font-family:"SF Mono",Menlo,monospace;font-size:0.75rem;color:#57524b;margin-top:18px;letter-spacing:1px}
+.pitch{margin:22px 0 30px;font-size:0.97rem;color:#cd7f9b;border-left:2px solid rgba(205,127,155,0.5);padding-left:16px;font-style:italic}
+.intro{font-size:1.02rem;color:#cfc8bc;margin-bottom:14px}
+.intro p{margin-bottom:16px}
+h2{font-size:1.42rem;font-weight:700;color:#e9e3d9;margin:56px 0 8px;letter-spacing:0.3px}
+h2 .n{font-family:"SF Mono",Menlo,monospace;font-size:0.85rem;color:#a8a49c;display:block;margin-bottom:6px;letter-spacing:2px}
+.he{font-size:0.68em;color:#8d867b;font-weight:500;letter-spacing:0}
+p{margin-bottom:17px}
+.lead{color:#cfc8bc}
+b,strong{color:#f0eae0;font-weight:600}
+em{color:#d9b45f;font-style:normal;font-weight:500}
+.dim{color:#8d867b}
+a.reflink{display:inline-block;font-size:0.82rem;font-family:"SF Mono",Menlo,monospace;color:#63b3a6;border:1px solid rgba(99,179,166,0.38);background:rgba(99,179,166,0.07);padding:1px 9px;border-radius:20px;text-decoration:none;transition:all 0.15s;white-space:nowrap}
+a.reflink:hover{background:rgba(99,179,166,0.16);border-color:rgba(99,179,166,0.7)}
+figure{margin:30px 0}
+figure svg{display:block;width:100%;height:auto;border-radius:12px;background:rgba(255,255,255,0.018);border:1px solid rgba(255,255,255,0.06)}
+figcaption{font-size:0.82rem;color:#787268;margin-top:11px;text-align:center;line-height:1.6}
+.decide{margin:24px 0;border:1px solid rgba(224,137,94,0.36);background:rgba(224,137,94,0.055);border-radius:12px;padding:15px 19px}
+.decide .lb{font-family:"SF Mono",Menlo,monospace;font-size:0.73rem;letter-spacing:1.5px;color:#e0895e;font-weight:700;display:block;margin-bottom:7px}
+.decide p{margin:0;font-size:0.95rem;color:#ddd5c9}
+.crossx-inline{margin:20px 0 22px;border-left:2px solid rgba(205,127,155,0.55);padding:2px 0 2px 15px;font-size:0.89rem;color:#a9a096;line-height:1.72}
+.crossx-inline b{color:#cd7f9b;font-weight:600}
+.bigcat{margin:46px 0 10px;border:1px solid rgba(217,180,95,0.38);background:rgba(217,180,95,0.05);border-radius:14px;padding:20px 22px}
+.bigcat h3{font-size:1.02rem;color:#d9b45f;margin-bottom:14px;letter-spacing:0.5px}
+.bigcat ol{list-style:none;padding:0}
+.bigcat li{margin-bottom:15px;font-size:0.94rem;color:#d5cdc1;line-height:1.78}
+.bigcat li:last-child{margin-bottom:0}
+.bigcat .dm{font-family:"SF Mono",Menlo,monospace;font-size:0.73rem;color:#d9b45f;border:1px solid rgba(217,180,95,0.32);border-radius:4px;padding:1px 7px;margin-right:8px;white-space:nowrap}
+.crossx{margin:46px 0 10px;border:1px solid rgba(205,127,155,0.38);background:rgba(205,127,155,0.05);border-radius:14px;padding:20px 22px}
+.crossx h3{font-size:1.02rem;color:#cd7f9b;margin-bottom:14px;letter-spacing:0.5px}
+.crossx ul{list-style:none;padding:0}
+.crossx li{margin-bottom:16px;font-size:0.94rem;color:#d5cdc1;line-height:1.78}
+.crossx li:last-child{margin-bottom:0}
+.crossx li b{color:#cd7f9b;font-weight:600}
+.thinking{margin:46px 0 10px}
+.thinking h3{font-size:1.02rem;color:#a693cd;margin-bottom:14px;letter-spacing:0.5px}
+details{border:1px solid rgba(166,147,205,0.22);border-radius:10px;padding:12px 16px;margin-bottom:10px;background:rgba(166,147,205,0.035)}
+summary{cursor:pointer;font-size:0.93rem;color:#c9c2b6;font-weight:500}
+summary::marker{color:#a693cd}
+details p{margin:12px 0 0;font-size:0.9rem;color:#a9a096;line-height:1.75}
+.refs{margin:46px 0 10px}
+.refs h3{font-size:1.02rem;color:#79a6d2;margin-bottom:14px;letter-spacing:0.5px}
+.refs ul{list-style:none;padding:0}
+.refs li{margin-bottom:10px;font-size:0.9rem;color:#8d867b;line-height:1.7}
+.refs a{color:#79a6d2;text-decoration:none;border-bottom:1px solid rgba(121,166,210,0.3)}
+.refs a:hover{color:#a6c4e2;border-bottom-color:rgba(121,166,210,0.7)}
+footer{text-align:center;padding:56px 0 10px;font-size:0.78rem;color:#57524b;font-family:"SF Mono",Menlo,monospace;border-top:1px solid rgba(255,255,255,0.06);margin-top:50px}
+footer a{color:#79a6d2;text-decoration:none}
+@media(max-width:600px){h1{font-size:1.85rem}.wrap{padding:24px 16px 60px}h2{font-size:1.22rem}}
+</style></head><body>
+<div class="wrap">
+<header>
+<span class="week-tag">TOPIC 43 · PHASE H</span>
+<h1>Critiques of Complexity Science</h1>
+<p class="sub">The sharpest cuts come from inside</p>
+<p class="date">2026-08-30 · Methods and Limits</p>
+</header>
+<p class="pitch">The louder a field is praised from outside, the more likely it is having an unglamorous fight on the inside. The best critical literature on complexity science was written by its own members — and the lines outsiders love to quote are mostly the ones the insiders buried long ago.</p>
+<div class="intro">
+<p>You have heard sentences like these: "it's a complex system, linear thinking won't work here", "our organisation needs more emergence", "we're operating at the edge of chaos". They land, because each sounds like it is saying something. But ask one follow-up — <em>what does it predict? what observation would make you take it back?</em> — and there is usually nothing behind it.</p>
+<p>Here is the twist: the fiercest critics of that habit are not humanities scholars, nor irritated physicists. They are the field's own core members. Melanie Mitchell, who wrote the best popular book on complexity, personally overturned the most famous experimental result behind "the edge of chaos". Aaron Clauset built a statistical test and then used it to audit his colleagues' published power laws, failing a good many. <b>Criticism from outside mostly misses; criticism from inside mostly lands.</b></p>
+<p class="dim">The previous topic asked how a single model goes wrong. This one asks the bigger question: what is the field <b>as a whole</b> accused of, and which charges stick. Four charges, judged one at a time — and then a final section for something just as important, because the critique has a boundary of its own. "It's complex" used to end a discussion and "it's complex" used to explain everything are the same move.</p>
+</div>
+
+<h2><span class="n">01</span>Metaphor Posing as Explanation</h2>
+<p class="lead">First, a test that the next four sections all lean on: <b>the value of a claim lies not in how many phenomena it fits, but in what it rules out.</b></p>
+<p>"On a two-dimensional square lattice where each site is occupied independently with probability p, no cluster spans the lattice when p is below 0.5927" is a hard claim, because it forbids an enormous number of observations. Run the experiment at p = 0.5, see a spanning cluster, and the claim is dead.</p>
+<p>"This organisation is at the edge of chaos" fits any organisation. No observation would make the speaker withdraw it. It rules nothing out, so it bears no load in an argument — it is an exclamation wearing the clothes of a statement.</p>
+<figure>
+<svg aria-label="How much each of three claims rules out" role="img" viewBox="0 0 720 300" xmlns="http://www.w3.org/2000/svg">
+<text fill="#aba498" font-family="-apple-system,sans-serif" font-size="13" text-anchor="middle" x="360" y="26">The weight of a claim = how many observations it rules out</text>
+<rect fill="#3a3630" height="12" width="26" x="300" y="42"></rect>
+<text fill="#8d867b" font-family="-apple-system,sans-serif" font-size="11" x="332" y="52">what it allows</text>
+<rect fill="#8e4f66" height="12" width="26" x="450" y="42"></rect>
+<text fill="#8d867b" font-family="-apple-system,sans-serif" font-size="11" x="482" y="52">what it rules out</text>
+<text fill="#d5cdc1" font-family="-apple-system,sans-serif" font-size="12.5" x="24" y="98">"Below p = 0.5927, no spanning cluster"</text>
+<rect fill="#3a3630" height="26" width="60" x="300" y="80"></rect>
+<rect fill="#8e4f66" height="26" width="330" x="360" y="80"></rect>
+<text fill="#e6d4da" font-family="-apple-system,sans-serif" font-size="11" text-anchor="middle" x="525" y="98">one experiment can refute it</text>
+<text fill="#d5cdc1" font-family="-apple-system,sans-serif" font-size="12.5" x="24" y="168">"One magnitude up, one-tenth as often"</text>
+<rect fill="#3a3630" height="26" width="130" x="300" y="150"></rect>
+<rect fill="#8e4f66" height="26" width="260" x="430" y="150"></rect>
+<text fill="#e6d4da" font-family="-apple-system,sans-serif" font-size="11" text-anchor="middle" x="560" y="168">a century of catalogues tests it</text>
+<text fill="#d5cdc1" font-family="-apple-system,sans-serif" font-size="12.5" x="24" y="238">"This team is at the edge of chaos"</text>
+<rect fill="#3a3630" height="26" width="390" x="300" y="220"></rect>
+<text fill="#a8a49c" font-family="-apple-system,sans-serif" font-size="11" text-anchor="middle" x="495" y="238">rules nothing out — no observation could refute it</text>
+<text fill="#57524b" font-family="-apple-system,sans-serif" font-size="11" text-anchor="middle" x="360" y="282">The first two can be wrong, so they are useful; the third cannot, so it bears no load</text>
+</svg>
+<figcaption>"What does it forbid?" is the ruler this topic keeps returning to. Fitting well is not a virtue; fitting everything is a defect.</figcaption>
+</figure>
+<p>The "edge of chaos" deserves its own account, because it is the cleanest specimen of this charge. Around 1990 Chris Langton, studying cellular automata (the grid-and-simple-rules models of Topic 4 <a class="reflink" href="ref-cellular-automata.en.html">→ ref · Cellular Automata</a>), proposed that between "rules too rigid" and "rules too random" lies a narrow band where systems compute best. In 1988 Norman Packard had reported something even more seductive: when a genetic algorithm (a search method that mimics evolution <a class="reflink" href="ref-genetic-algorithm.en.html">→ ref · Genetic Algorithms</a>) evolves cellular automata to perform a computational task, the evolved rules <em>cluster by themselves</em> near that critical band.</p>
+<p>That result is too good not to repeat: evolution moves towards the edge of chaos. It went straight into countless books on management and innovation.</p>
+<p>Then, in 1993, Melanie Mitchell, Peter Hraber and James Crutchfield redid the experiment. <b>The clustering did not reproduce.</b> Their conclusion was that what Packard saw was an artifact of the genetic algorithm's own dynamics together with that particular fitness function — not evidence of systems evolving towards criticality.</p>
+<p>That was over thirty years ago. "Keep your organisation at the edge of chaos" is doing fine — precisely because it detached from the falsifiable claim underneath and became pure metaphor. <b>Charge one: upheld.</b></p>
+<div class="decide">
+<span class="lb">🎯 DECISION LINE</span>
+<p>Whenever a complexity term shows up in a conclusion, ask one fixed question: <b>"what does it forbid?"</b> — i.e. what observation would make the speaker admit they were wrong. If there is no answer, strike the term from the conclusion. It may stay in the question-asking phase as a lead; it cannot serve as a reason. The check takes ten seconds and stops most of them.</p>
+</div>
+<div class="crossx-inline">
+🌀 <b>Biology · "the selfish gene"</b>　What Dawkins called selfish was a way of keeping accounts: which allele rises in frequency in the next generation. It asserts nothing about animal motives. But the metaphor was too usable to hold on to — by the time it reached general conversation it had become "humans are innately selfish", premises stripped clean. Dawkins has said he wishes he had taken his publisher's suggestion and called it <i>The Immortal Gene</i>: one word would have saved decades of misreading. That yields an uncomfortable diagnostic: <b>the health of a term is not measured by its citation count but by how many of the people citing it can still state its preconditions</b> — rising usage with falling premise-recall is exactly the signature of a metaphor that has slipped its leash.
+</div>
+
+<h2><span class="n">02</span>Explains Everything, Predicts What?</h2>
+<p class="lead">The second charge is the common one: the field always has a mechanism for what already happened and little to say about what hasn't. In 1995 the science journalist John Horgan published a famous broadside in <i>Scientific American</i> titled "From Complexity to Perplexity", in which even researchers at the Santa Fe Institute doubted the promised unified theory would arrive; he later coined "chaoplexity" for chaos and complexity together in his 1996 book.</p>
+<p>But the charge smuggles in an undeclared premise: <b>prediction means naming the date and the size.</b> There are in fact three kinds of prediction, and they demand entirely different evidence.</p>
+<figure>
+<svg aria-label="Three kinds of prediction: point, distributional, threshold, and what has been delivered" role="img" viewBox="0 0 720 320" xmlns="http://www.w3.org/2000/svg">
+<defs>
+<marker id="ar43b" markerHeight="10" markerUnits="userSpaceOnUse" markerWidth="10" orient="auto" refX="9" refY="5" viewBox="0 0 10 10">
+<path d="M0,1 L9,5 L0,9 z" fill="#cd7f9b"></path>
+</marker>
+<marker id="ar43c" markerHeight="10" markerUnits="userSpaceOnUse" markerWidth="10" orient="auto" refX="9" refY="5" viewBox="0 0 10 10">
+<path d="M0,1 L9,5 L0,9 z" fill="#9fbc7a"></path>
+</marker>
+</defs>
+<text fill="#aba498" font-family="-apple-system,sans-serif" font-size="13" text-anchor="middle" x="360" y="26">Three kinds of prediction — scoring the field by the first is the wrong scorecard</text>
+<text fill="#cd7f9b" font-family="SF Mono,monospace" font-size="12" text-anchor="middle" x="140" y="52">① point</text>
+<rect fill="none" height="180" stroke="rgba(255,255,255,0.10)" width="160" x="60" y="60"></rect>
+<circle cx="140" cy="152" fill="none" r="40" stroke="rgba(255,255,255,0.16)" stroke-width="1.5"></circle>
+<circle cx="140" cy="152" fill="none" r="26" stroke="rgba(255,255,255,0.16)" stroke-width="1.5"></circle>
+<circle cx="140" cy="152" fill="#4a4438" r="11"></circle>
+<line marker-end="url(#ar43b)" stroke="#cd7f9b" stroke-width="2" x1="78" x2="196" y1="88" y2="112"></line>
+<text fill="#8d867b" font-family="-apple-system,sans-serif" font-size="11" text-anchor="middle" x="140" y="222">when, and how big</text>
+<text fill="#cd7f9b" font-family="-apple-system,sans-serif" font-size="11.5" text-anchor="middle" x="140" y="262">cannot</text>
+<text fill="#787268" font-family="-apple-system,sans-serif" font-size="10.5" text-anchor="middle" x="140" y="281">and in theory should not</text>
+<text fill="#9fbc7a" font-family="SF Mono,monospace" font-size="12" text-anchor="middle" x="360" y="52">② distributional</text>
+<rect fill="none" height="180" stroke="rgba(255,255,255,0.10)" width="160" x="280" y="60"></rect>
+<line stroke="rgba(255,255,255,0.16)" stroke-width="1.5" x1="300" x2="420" y1="200" y2="200"></line>
+<rect fill="#6b7f52" height="96" width="18" x="304" y="104"></rect>
+<rect fill="#6b7f52" height="62" width="18" x="326" y="138"></rect>
+<rect fill="#6b7f52" height="38" width="18" x="348" y="162"></rect>
+<rect fill="#6b7f52" height="22" width="18" x="370" y="178"></rect>
+<rect fill="#6b7f52" height="12" width="18" x="392" y="188"></rect>
+<text fill="#8d867b" font-family="-apple-system,sans-serif" font-size="11" text-anchor="middle" x="360" y="222">how many in ten years</text>
+<text fill="#9fbc7a" font-family="-apple-system,sans-serif" font-size="11.5" text-anchor="middle" x="360" y="262">delivered</text>
+<text fill="#787268" font-family="-apple-system,sans-serif" font-size="10.5" text-anchor="middle" x="360" y="281">checked by long-run frequency</text>
+<text fill="#9fbc7a" font-family="SF Mono,monospace" font-size="12" text-anchor="middle" x="580" y="52">③ threshold</text>
+<rect fill="none" height="180" stroke="rgba(255,255,255,0.10)" width="160" x="500" y="60"></rect>
+<line stroke="rgba(255,255,255,0.16)" stroke-width="1.5" x1="516" x2="644" y1="200" y2="200"></line>
+<line stroke="#d9b45f" stroke-dasharray="4 4" stroke-width="1.5" x1="586" x2="586" y1="96" y2="200"></line>
+<path d="M516,190 L560,187 L584,180 L590,120 L616,110 L644,106" fill="none" stroke="#63b3a6" stroke-width="2.5"></path>
+<line marker-end="url(#ar43c)" stroke="#9fbc7a" stroke-width="2" x1="536" x2="576" y1="86" y2="86"></line>
+<text fill="#d9b45f" font-family="SF Mono,monospace" font-size="10.5" text-anchor="middle" x="614" y="86">threshold</text>
+<text fill="#8d867b" font-family="-apple-system,sans-serif" font-size="11" text-anchor="middle" x="580" y="222">cross the value → it spans</text>
+<text fill="#9fbc7a" font-family="-apple-system,sans-serif" font-size="11.5" text-anchor="middle" x="580" y="262">delivered</text>
+<text fill="#787268" font-family="-apple-system,sans-serif" font-size="10.5" text-anchor="middle" x="580" y="281">computable and reusable</text>
+<text fill="#57524b" font-family="-apple-system,sans-serif" font-size="11" text-anchor="middle" x="360" y="308">One acceptance test for all three: was it written down beforehand? Post-hoc coherence counts for none</text>
+</svg>
+<figcaption>Giving up point prediction is not this field's failure — it is one of its claims. But that defence only holds if the other two kinds were actually delivered.</figcaption>
+</figure>
+<p>Topics 8 and 11 already argued the forfeit: chaos means errors grow exponentially, and computational irreducibility means some systems have no shortcut but running them at full length. So "can't tell you when and how big" is not a failure to deliver — it is an <em>assertion that it cannot be done</em>. Scoring the field on it is like judging a swimmer by their sprint time.</p>
+<p>That defence is only half the job, though. The other half: were the remaining two kinds delivered? An honest scorecard —</p>
+<p><b>Delivered:</b> percolation thresholds are computable for specific lattices and networks, and they hold up when you move to another system <a class="reflink" href="ref-percolation.en.html">→ ref · Percolation</a>; the basic reproduction number R₀ crossing 1 flips an outbreak from dying out to spreading, and that threshold is the skeleton of epidemic policy <a class="reflink" href="ref-sir.en.html">→ ref · The SIR Model</a>; and critical slowing down as an early-warning signal was tested in a genuine field experiment in 2011, when researchers gradually stocked predatory bass into one lake to push it over a food-web transition while an adjacent lake served as an untouched control. More than a year before the transition completed, <b>variance and autocorrelation did rise</b> in the manipulated lake and not in the control. That was designed and recorded in advance.</p>
+<p><b>Not delivered:</b> earthquakes. Self-organized criticality (SOC) in fact implies that magnitudes are unpredictable, which the field admits; in 1997 a group of seismologists argued in <i>Science</i> that earthquakes cannot be predicted in any practical sense, and no repeatable forecast has overturned that in the decades since. As for the 2008 financial crisis — complexity economics offers an elegant account after the fact (leverage, network coupling, homogenisation), and essentially no archived forecast before it.</p>
+<p><b>Charge two: partly upheld.</b> The part that sticks is not "it can't do point prediction". It is that <b>practitioners routinely let themselves stop distinguishing "I can explain this" from "I predicted this"</b> — a mechanism write-up composed afterwards and a forecast sealed beforehand look identical on the page. Only a timestamp separates them.</p>
+<div class="decide">
+<span class="lb">🎯 DECISION LINE</span>
+<p>Take any conclusion produced by complexity methods and classify it first: point, distributional, or threshold? Then look for a <b>timestamp</b>. The three have different acceptance tests — a distributional claim is judged by long-run frequencies, a threshold claim by whether the number is computable and reusable in another system. Apply the same to your own judgements: write them down with a date, or six months later you will remember having "seen it coming".</p>
+</div>
+<div class="crossx-inline">
+🌀 <b>Engineering and technology history · the day the weather forecast changed its wording</b>　From the mid-1960s, US public forecasts began issuing a probability of precipitation — "40% chance of rain tomorrow" instead of "rain tomorrow". Plenty of people complained that this was hedging, a way of never being wrong. The forecasts became <i>more</i> valuable, because a user can weigh a number against their own costs: whether to carry an umbrella, whether to pour concrete. That is exactly this section's mechanism: <b>trade point prediction for a distribution and information goes up, not down</b> — provided the probability survives a long-run frequency check. Which means the "weak prediction" charge needs rewriting: the question is not whether a forecast is accurate, but <b>whether the uncertainty was delivered along with it</b>. A single number with no statement of how unreliable it is — that is the genuinely weak forecast.
+</div>
+
+<h2><span class="n">03</span>Power-Law Inflation and the Network Turn</h2>
+<p class="lead">The third charge is technical, and the most bluntly judged: this field sees power laws everywhere, and a good share of them are not power laws.</p>
+<p>The cause is almost optical. On log-log axes the eye readily reads a gentle curve as a straight line, and lognormal distributions or exponentially truncated ones look much the same when plotted. In 2009 Aaron Clauset, Cosma Shalizi and Mark Newman supplied a uniform procedure — maximum-likelihood estimation of the exponent, a goodness-of-fit test, then a head-to-head comparison against alternative distributions — and ran a batch of widely cited datasets through it. Many failed <a class="reflink" href="ref-power-law.en.html">→ ref · Identifying and Misreading Power Laws</a>. In 2019 Anna Broido and Clauset pushed the method across nearly a thousand real networks and concluded that <b>strictly scale-free structure is empirically rare</b>; for most of them a lognormal fits as well or better <a class="reflink" href="ref-preferential-attachment.en.html">→ ref · Preferential Attachment</a>.</p>
+<p>Note the direction of travel. <b>Both papers were written by insiders, using the field's own data.</b> The charge is upheld — but it was raised and enforced from within, which is evidence of health rather than sickness. A field is in real trouble when nobody does this, not when somebody does.</p>
+<p>"Everything is a network" is subtler, because it does not look like a claim at all. Drawing a pile of entities as a network feels like <em>discovering</em> structure. It is a <b>modelling choice</b>: you chose which relation counts as an edge, over what time window, and how weak a tie you discard. Change those three and you change the graph.</p>
+<figure>
+<svg aria-label="The same eight people under three different edge definitions produce three different hubs" role="img" viewBox="0 0 720 366" xmlns="http://www.w3.org/2000/svg">
+<defs>
+<marker id="ar43d" markerHeight="9" markerUnits="userSpaceOnUse" markerWidth="9" orient="auto" refX="9" refY="5" viewBox="0 0 10 10">
+<path d="M0,1 L9,5 L0,9 z" fill="#8d867b"></path>
+</marker>
+</defs>
+<text fill="#aba498" font-family="-apple-system,sans-serif" font-size="13" text-anchor="middle" x="360" y="26">The same eight people — change what counts as an edge and the hub changes</text>
+<circle cx="190" cy="72" fill="#2f2c28" r="13" stroke="rgba(255,255,255,0.18)"></circle><text fill="#c9c2b6" font-family="SF Mono,monospace" font-size="10" text-anchor="middle" x="190" y="76">A</text>
+<circle cx="239" cy="72" fill="#2f2c28" r="13" stroke="rgba(255,255,255,0.18)"></circle><text fill="#c9c2b6" font-family="SF Mono,monospace" font-size="10" text-anchor="middle" x="239" y="76">B</text>
+<circle cx="288" cy="72" fill="#2f2c28" r="13" stroke="rgba(255,255,255,0.18)"></circle><text fill="#c9c2b6" font-family="SF Mono,monospace" font-size="10" text-anchor="middle" x="288" y="76">C</text>
+<circle cx="337" cy="72" fill="#2f2c28" r="13" stroke="rgba(255,255,255,0.18)"></circle><text fill="#c9c2b6" font-family="SF Mono,monospace" font-size="10" text-anchor="middle" x="337" y="76">D</text>
+<circle cx="386" cy="72" fill="#2f2c28" r="13" stroke="rgba(255,255,255,0.18)"></circle><text fill="#c9c2b6" font-family="SF Mono,monospace" font-size="10" text-anchor="middle" x="386" y="76">E</text>
+<circle cx="435" cy="72" fill="#2f2c28" r="13" stroke="rgba(255,255,255,0.18)"></circle><text fill="#c9c2b6" font-family="SF Mono,monospace" font-size="10" text-anchor="middle" x="435" y="76">F</text>
+<circle cx="484" cy="72" fill="#2f2c28" r="13" stroke="rgba(255,255,255,0.18)"></circle><text fill="#c9c2b6" font-family="SF Mono,monospace" font-size="10" text-anchor="middle" x="484" y="76">G</text>
+<circle cx="533" cy="72" fill="#2f2c28" r="13" stroke="rgba(255,255,255,0.18)"></circle><text fill="#c9c2b6" font-family="SF Mono,monospace" font-size="10" text-anchor="middle" x="533" y="76">H</text>
+<line marker-end="url(#ar43d)" stroke="#8d867b" stroke-width="1.5" x1="330" x2="152" y1="96" y2="130"></line>
+<line marker-end="url(#ar43d)" stroke="#8d867b" stroke-width="1.5" x1="360" x2="360" y1="96" y2="130"></line>
+<line marker-end="url(#ar43d)" stroke="#8d867b" stroke-width="1.5" x1="390" x2="568" y1="96" y2="130"></line>
+<text fill="#63b3a6" font-family="-apple-system,sans-serif" font-size="11.5" text-anchor="middle" x="140" y="150">① edge = same meeting</text>
+<text fill="#63b3a6" font-family="-apple-system,sans-serif" font-size="11.5" text-anchor="middle" x="360" y="150">② edge = money transfer</text>
+<text fill="#63b3a6" font-family="-apple-system,sans-serif" font-size="11.5" text-anchor="middle" x="580" y="150">③ edge = had dinner</text>
+<rect fill="none" height="168" stroke="rgba(255,255,255,0.08)" width="176" x="52" y="158"></rect>
+<line stroke="rgba(255,255,255,0.22)" stroke-width="1.4" x1="192" x2="140" y1="245" y2="193"></line>
+<line stroke="rgba(255,255,255,0.22)" stroke-width="1.4" x1="192" x2="177" y1="245" y2="208"></line>
+<line stroke="rgba(255,255,255,0.22)" stroke-width="1.4" x1="192" x2="177" y1="245" y2="282"></line>
+<line stroke="rgba(255,255,255,0.22)" stroke-width="1.4" x1="192" x2="140" y1="245" y2="297"></line>
+<line stroke="rgba(255,255,255,0.22)" stroke-width="1.4" x1="192" x2="103" y1="245" y2="282"></line>
+<line stroke="rgba(255,255,255,0.22)" stroke-width="1.4" x1="88" x2="103" y1="245" y2="208"></line>
+<circle cx="140" cy="193" fill="#3a3630" r="9" stroke="rgba(255,255,255,0.2)"></circle>
+<circle cx="177" cy="208" fill="#3a3630" r="9" stroke="rgba(255,255,255,0.2)"></circle>
+<circle cx="192" cy="245" fill="#e0895e" r="12"></circle>
+<circle cx="177" cy="282" fill="#3a3630" r="9" stroke="rgba(255,255,255,0.2)"></circle>
+<circle cx="140" cy="297" fill="#3a3630" r="9" stroke="rgba(255,255,255,0.2)"></circle>
+<circle cx="103" cy="282" fill="#3a3630" r="9" stroke="rgba(255,255,255,0.2)"></circle>
+<circle cx="88" cy="245" fill="#3a3630" r="9" stroke="rgba(255,255,255,0.2)"></circle>
+<circle cx="103" cy="208" fill="#3a3630" r="9" stroke="rgba(255,255,255,0.2)"></circle>
+<text fill="#8d867b" font-family="SF Mono,monospace" font-size="9.5" text-anchor="middle" x="140" y="179">A</text>
+<text fill="#8d867b" font-family="SF Mono,monospace" font-size="9.5" text-anchor="middle" x="189" y="199">B</text>
+<text fill="#e0895e" font-family="SF Mono,monospace" font-size="10.5" text-anchor="middle" x="211" y="249">C</text>
+<text fill="#8d867b" font-family="SF Mono,monospace" font-size="9.5" text-anchor="middle" x="189" y="299">D</text>
+<text fill="#8d867b" font-family="SF Mono,monospace" font-size="9.5" text-anchor="middle" x="140" y="318">E</text>
+<text fill="#8d867b" font-family="SF Mono,monospace" font-size="9.5" text-anchor="middle" x="91" y="299">F</text>
+<text fill="#8d867b" font-family="SF Mono,monospace" font-size="9.5" text-anchor="middle" x="69" y="249">G</text>
+<text fill="#8d867b" font-family="SF Mono,monospace" font-size="9.5" text-anchor="middle" x="91" y="199">H</text>
+<text fill="#e0895e" font-family="-apple-system,sans-serif" font-size="11.5" text-anchor="middle" x="140" y="346">hub = C</text>
+<rect fill="none" height="168" stroke="rgba(255,255,255,0.08)" width="176" x="272" y="158"></rect>
+<line stroke="rgba(255,255,255,0.22)" stroke-width="1.4" x1="323" x2="397" y1="282" y2="208"></line>
+<line stroke="rgba(255,255,255,0.22)" stroke-width="1.4" x1="323" x2="397" y1="282" y2="282"></line>
+<line stroke="rgba(255,255,255,0.22)" stroke-width="1.4" x1="323" x2="308" y1="282" y2="245"></line>
+<line stroke="rgba(255,255,255,0.22)" stroke-width="1.4" x1="323" x2="323" y1="282" y2="208"></line>
+<line stroke="rgba(255,255,255,0.22)" stroke-width="1.4" x1="323" x2="360" y1="282" y2="297"></line>
+<line stroke="rgba(255,255,255,0.22)" stroke-width="1.4" x1="360" x2="412" y1="193" y2="245"></line>
+<circle cx="360" cy="193" fill="#3a3630" r="9" stroke="rgba(255,255,255,0.2)"></circle>
+<circle cx="397" cy="208" fill="#3a3630" r="9" stroke="rgba(255,255,255,0.2)"></circle>
+<circle cx="412" cy="245" fill="#3a3630" r="9" stroke="rgba(255,255,255,0.2)"></circle>
+<circle cx="397" cy="282" fill="#3a3630" r="9" stroke="rgba(255,255,255,0.2)"></circle>
+<circle cx="360" cy="297" fill="#3a3630" r="9" stroke="rgba(255,255,255,0.2)"></circle>
+<circle cx="323" cy="282" fill="#e0895e" r="12"></circle>
+<circle cx="308" cy="245" fill="#3a3630" r="9" stroke="rgba(255,255,255,0.2)"></circle>
+<circle cx="323" cy="208" fill="#3a3630" r="9" stroke="rgba(255,255,255,0.2)"></circle>
+<text fill="#8d867b" font-family="SF Mono,monospace" font-size="9.5" text-anchor="middle" x="360" y="179">A</text>
+<text fill="#8d867b" font-family="SF Mono,monospace" font-size="9.5" text-anchor="middle" x="409" y="199">B</text>
+<text fill="#8d867b" font-family="SF Mono,monospace" font-size="9.5" text-anchor="middle" x="431" y="249">C</text>
+<text fill="#8d867b" font-family="SF Mono,monospace" font-size="9.5" text-anchor="middle" x="409" y="299">D</text>
+<text fill="#8d867b" font-family="SF Mono,monospace" font-size="9.5" text-anchor="middle" x="360" y="318">E</text>
+<text fill="#e0895e" font-family="SF Mono,monospace" font-size="10.5" text-anchor="middle" x="309" y="301">F</text>
+<text fill="#8d867b" font-family="SF Mono,monospace" font-size="9.5" text-anchor="middle" x="289" y="249">G</text>
+<text fill="#8d867b" font-family="SF Mono,monospace" font-size="9.5" text-anchor="middle" x="311" y="199">H</text>
+<text fill="#e0895e" font-family="-apple-system,sans-serif" font-size="11.5" text-anchor="middle" x="360" y="346">hub = F</text>
+<rect fill="none" height="168" stroke="rgba(255,255,255,0.08)" width="176" x="492" y="158"></rect>
+<line stroke="rgba(255,255,255,0.22)" stroke-width="1.4" x1="580" x2="617" y1="193" y2="208"></line>
+<line stroke="rgba(255,255,255,0.22)" stroke-width="1.4" x1="580" x2="543" y1="193" y2="208"></line>
+<line stroke="rgba(255,255,255,0.22)" stroke-width="1.4" x1="580" x2="528" y1="193" y2="245"></line>
+<line stroke="rgba(255,255,255,0.22)" stroke-width="1.4" x1="580" x2="617" y1="193" y2="282"></line>
+<line stroke="rgba(255,255,255,0.22)" stroke-width="1.4" x1="632" x2="580" y1="245" y2="297"></line>
+<line stroke="rgba(255,255,255,0.22)" stroke-width="1.4" x1="580" x2="543" y1="297" y2="282"></line>
+<circle cx="580" cy="193" fill="#e0895e" r="12"></circle>
+<circle cx="617" cy="208" fill="#3a3630" r="9" stroke="rgba(255,255,255,0.2)"></circle>
+<circle cx="632" cy="245" fill="#3a3630" r="9" stroke="rgba(255,255,255,0.2)"></circle>
+<circle cx="617" cy="282" fill="#3a3630" r="9" stroke="rgba(255,255,255,0.2)"></circle>
+<circle cx="580" cy="297" fill="#3a3630" r="9" stroke="rgba(255,255,255,0.2)"></circle>
+<circle cx="543" cy="282" fill="#3a3630" r="9" stroke="rgba(255,255,255,0.2)"></circle>
+<circle cx="528" cy="245" fill="#3a3630" r="9" stroke="rgba(255,255,255,0.2)"></circle>
+<circle cx="543" cy="208" fill="#3a3630" r="9" stroke="rgba(255,255,255,0.2)"></circle>
+<text fill="#e0895e" font-family="SF Mono,monospace" font-size="10.5" text-anchor="middle" x="580" y="175">A</text>
+<text fill="#8d867b" font-family="SF Mono,monospace" font-size="9.5" text-anchor="middle" x="629" y="199">B</text>
+<text fill="#8d867b" font-family="SF Mono,monospace" font-size="9.5" text-anchor="middle" x="651" y="249">C</text>
+<text fill="#8d867b" font-family="SF Mono,monospace" font-size="9.5" text-anchor="middle" x="629" y="299">D</text>
+<text fill="#8d867b" font-family="SF Mono,monospace" font-size="9.5" text-anchor="middle" x="580" y="318">E</text>
+<text fill="#8d867b" font-family="SF Mono,monospace" font-size="9.5" text-anchor="middle" x="531" y="299">F</text>
+<text fill="#8d867b" font-family="SF Mono,monospace" font-size="9.5" text-anchor="middle" x="509" y="249">G</text>
+<text fill="#8d867b" font-family="SF Mono,monospace" font-size="9.5" text-anchor="middle" x="531" y="199">H</text>
+<text fill="#e0895e" font-family="-apple-system,sans-serif" font-size="11.5" text-anchor="middle" x="580" y="346">hub = A</text>
+</svg>
+<figcaption>"X is the hub of this network" is not yet a statement about the world until you say how an edge was defined.</figcaption>
+</figure>
+<p>So a sentence of the form "X is a hub in this network" has to travel with its construction rules. Drop the rules and readers will think you are describing the people. You are describing your spreadsheet. <b>Charge three: the power-law half is upheld and being repaired; the "everything is a network" half is partly upheld</b> — networks are a fine tool, and the failure is treating a representation as a discovery.</p>
+<div class="decide">
+<span class="lb">🎯 DECISION LINE</span>
+<p>Before reporting any network result, state three things: <b>the edge definition, the time window, and the threshold below which ties were dropped</b>. Then run a substitution check — rebuild the graph under an equally defensible edge definition. If the hub changes, your conclusion belongs to your construction, not to the system, and must be downgraded in the write-up. Likewise, run a goodness-of-fit test before saying "power law"; a line that looks straight on log-log axes is not evidence.</p>
+</div>
+<div class="crossx-inline">
+🌀 <b>Literature and art · drawing <i>Hamlet</i> as a network</b>　In his 2011 essay "Network Theory, Plot Analysis", Franco Moretti connected characters who speak to each other on stage, then ran an experiment: delete the protagonist and the graph nearly falls into two halves, held together by a few edges through Horatio. What is instructive is that he names the cost in the essay itself — the graph <b>turns time into space</b>, so a conversation in Act I and one in Act V are indistinguishable on it. That is this section's mechanism: the edge definition fixes the scope of the conclusion. Which forces a rewrite: deleting Hamlet breaks the graph means he is central under the "spoke on stage with" projection — not central to the dramatic structure. For a tragedy that runs entirely on sequence, those are very different claims.
+</div>
+
+<h2><span class="n">04</span>Why This Field in Particular</h2>
+<p class="lead">Put the first three charges together and a question follows: other fields exaggerate and misuse too, so why does complexity science look so much worse? The answer is structural rather than moral — it has four exposures others do not.</p>
+<p><b>First, its method is analogy.</b> The field's whole claim is that one mechanism recurs across unrelated domains: sandpiles, extinctions and crashes share a statistic. And <em>a sound transfer and a bogus one are identical at the level of the sentence</em> — both say "the same mechanism is running underneath these two things". The only difference is whether the premises travelled too.</p>
+<figure>
+<svg aria-label="Moving a mechanism to a new domain: carrying the premises versus carrying only the conclusion" role="img" viewBox="0 0 720 260" xmlns="http://www.w3.org/2000/svg">
+<defs>
+<marker id="ar43e" markerHeight="10" markerUnits="userSpaceOnUse" markerWidth="10" orient="auto" refX="9" refY="5" viewBox="0 0 10 10">
+<path d="M0,1 L9,5 L0,9 z" fill="#9fbc7a"></path>
+</marker>
+<marker id="ar43f" markerHeight="10" markerUnits="userSpaceOnUse" markerWidth="10" orient="auto" refX="9" refY="5" viewBox="0 0 10 10">
+<path d="M0,1 L9,5 L0,9 z" fill="#cd7f9b"></path>
+</marker>
+</defs>
+<text fill="#aba498" font-family="-apple-system,sans-serif" font-size="13" text-anchor="middle" x="360" y="26">Moving a mechanism to a new domain — the difference is whether the premises travel</text>
+<rect fill="rgba(255,255,255,0.02)" height="130" rx="8" stroke="rgba(255,255,255,0.12)" width="200" x="40" y="70"></rect>
+<text fill="#d9b45f" font-family="SF Mono,monospace" font-size="12" text-anchor="middle" x="140" y="94">source · sandpile</text>
+<text fill="#a9a096" font-family="-apple-system,sans-serif" font-size="11" x="58" y="122">premise ① slow build-up</text>
+<text fill="#a9a096" font-family="-apple-system,sans-serif" font-size="11" x="58" y="146">premise ② threshold release</text>
+<text fill="#a9a096" font-family="-apple-system,sans-serif" font-size="11" x="58" y="170">premise ③ local coupling</text>
+<text fill="#9fbc7a" font-family="-apple-system,sans-serif" font-size="11.5" text-anchor="middle" x="345" y="86">premises travel too</text>
+<line marker-end="url(#ar43e)" stroke="#9fbc7a" stroke-width="2" x1="248" x2="442" y1="110" y2="96"></line>
+<text fill="#cd7f9b" font-family="-apple-system,sans-serif" font-size="11.5" text-anchor="middle" x="345" y="158">conclusion only</text>
+<line marker-end="url(#ar43f)" stroke="#cd7f9b" stroke-width="2" x1="248" x2="442" y1="160" y2="196"></line>
+<rect fill="rgba(159,188,122,0.06)" height="72" rx="8" stroke="rgba(159,188,122,0.35)" width="230" x="450" y="56"></rect>
+<text fill="#9fbc7a" font-family="-apple-system,sans-serif" font-size="12" x="466" y="80">target · forest fuel load</text>
+<text fill="#a9a096" font-family="-apple-system,sans-serif" font-size="10.5" x="466" y="102">all three premises check out</text>
+<text fill="#787268" font-family="-apple-system,sans-serif" font-size="10.5" x="466" y="120">→ usable as a mechanism</text>
+<rect fill="rgba(205,127,155,0.06)" height="72" rx="8" stroke="rgba(205,127,155,0.35)" width="230" x="450" y="160"></rect>
+<text fill="#cd7f9b" font-family="-apple-system,sans-serif" font-size="12" x="466" y="184">target · "at a tipping point"</text>
+<text fill="#a9a096" font-family="-apple-system,sans-serif" font-size="10.5" x="466" y="206">What builds up? What threshold?</text>
+<text fill="#787268" font-family="-apple-system,sans-serif" font-size="10.5" x="466" y="224">→ analogy only</text>
+<text fill="#57524b" font-family="-apple-system,sans-serif" font-size="11" text-anchor="middle" x="360" y="250">Both paths produce the same sentence: "the same mechanism is running underneath"</text>
+</svg>
+<figcaption>Writing out the premise list and checking it item by item is the one operational move that separates a mechanism from an analogy. Failing the check is not being wrong — it is being downgraded.</figcaption>
+</figure>
+<p><b>Second, it owns no data.</b> Physics has laboratories, epidemiology has case registries; complexity science has no observational object of its own and always works on somebody else's data. Where that data is dirty — how it was collected, who is missing, when the definitions changed — is known only to people inside that field. The visitor receives a clean table and never sees what was swept under it.</p>
+<p><b>Third, referees understand half a paper.</b> On an interdisciplinary submission, the mathematically fluent referee often cannot see the flaw in the empirics, and the empirically fluent one is intimidated by the mathematics and assumes it is fine. This is nobody's conspiracy; it is structure: <em>no one is equipped to say no to the whole paper.</em></p>
+<p><b>Fourth, naming has a market.</b> In a January 2000 newspaper interview Stephen Hawking said "I think the next century will be the century of complexity" — a line quoted endlessly since. It is an expectation voiced in an interview, not a research finding, yet it travels with more weight than any paper. Once a field owns a sentence like that, some fraction of the people who arrive have come for the sentence.</p>
+<div class="decide">
+<span class="lb">🎯 DECISION LINE</span>
+<p>Before moving a mechanism into a new domain, write out the <b>premise list</b> it needs (SOC, for instance, needs slow accumulation, threshold release and local coupling), check the new domain item by item, and state which items fail. A failure does not make the connection worthless; it means the connection is <b>downgraded to an analogy</b> and may not enter the conclusion. Do this and most "cross-disciplinary insights" evaporate on the spot. The survivors are the ones worth having.</p>
+</div>
+<div class="crossx-inline">
+🌀 <b>Medicine · Selye's "stress"</b>　The word was borrowed from engineering by Hans Selye, who in 1936 described a fixed sequence of bodily responses that appeared regardless of which noxious agent produced it — a specific physiological referent. The term's range then expanded until almost any discomfort could be called stress, at which point it ruled almost nothing out; Selye himself later said that with better English he would have picked "strain". That is this section's mechanism exactly: the premises stayed home and only the word travelled. Which gives a counterintuitive corollary — <b>the commonest cause of death for a concept is its own success</b>: range always expands faster than testing can follow, so a term's popularity and its falsifiability tend to move in opposite directions.
+</div>
+
+<h2><span class="n">05</span>Where the Critique Itself Breaks Down</h2>
+<p class="lead">Now turn the gun around. The critique overreaches too, and in exactly the way it accuses its target of overreaching.</p>
+<p><b>"No unified theory, therefore not a science" — rejected.</b> It sounds forceful and uses the wrong standard. Ecology has no unified theory. Neither does geology, nor immunology, and nobody concludes they are not sciences. The test was never "is there a Theory with a capital T" but "are there specific models that can be checked and overturned". Of those there are plenty: percolation, SIR, Kuramoto, NK landscapes, preferential attachment — each makes definite assertions, and each has been corrected (the systematic rebuttal of scale-free networks in Topic 22 is a model being disciplined by data, live).</p>
+<p><b>"It failed to predict 2008" — wrong scorecard.</b> Section 2 took this apart: judging a field by point prediction when it explicitly forfeits point prediction is using the wrong instrument. The question is whether its threshold and distributional claims were tested. Note that this defence cannot be flipped into an amnesty: the price of forfeiting point prediction is stricter testing on the other two kinds, not exemption from testing.</p>
+<p><b>And the one that matters most: the critique itself can become a zero-cost posture.</b> "It's complex." "Systems are unpredictable." "Linear thinking doesn't apply here." <em>These forbid nothing either.</em> Using "complexity" to end a discussion and using it to explain everything are the same move in two directions. The first sounds more modest, which is why it is harder to catch.</p>
+<p>By the same token, Sokal-style reckonings have an overreach of their own: going from "some humanities scholars misused physics terms" to "cross-disciplinary transfer is worthless" also drops the domain of validity. What that episode demonstrated was a failure at one refereeing stage, not the bankruptcy of analogy.</p>
+<figure>
+<svg aria-label="Scorecard of four charges and one counter-charge with verdicts" role="img" viewBox="0 0 720 300" xmlns="http://www.w3.org/2000/svg">
+<text fill="#aba498" font-family="-apple-system,sans-serif" font-size="13" text-anchor="middle" x="360" y="26">Scorecard — judged one by one, not as a package</text>
+<text fill="#787268" font-family="SF Mono,monospace" font-size="10.5" x="26" y="56">charge</text>
+<text fill="#787268" font-family="SF Mono,monospace" font-size="10.5" x="326" y="56">verdict</text>
+<text fill="#787268" font-family="SF Mono,monospace" font-size="10.5" x="468" y="56">grounds</text>
+<line stroke="rgba(255,255,255,0.12)" stroke-width="1" x1="24" x2="696" y1="64" y2="64"></line>
+<rect fill="rgba(255,255,255,0.022)" height="40" width="672" x="24" y="70"></rect>
+<text fill="#d5cdc1" font-family="-apple-system,sans-serif" font-size="12.5" x="34" y="95">Metaphor posing as explanation</text>
+<text fill="#cd7f9b" font-family="-apple-system,sans-serif" font-size="12" x="326" y="95">upheld</text>
+<text fill="#8d867b" font-family="-apple-system,sans-serif" font-size="10.5" x="468" y="95">the 1993 replication found nothing</text>
+<rect fill="rgba(255,255,255,0.008)" height="40" width="672" x="24" y="112"></rect>
+<text fill="#d5cdc1" font-family="-apple-system,sans-serif" font-size="12.5" x="34" y="137">Power laws claimed too loosely</text>
+<text fill="#cd7f9b" font-family="-apple-system,sans-serif" font-size="12" x="326" y="137">upheld (being fixed)</text>
+<text fill="#8d867b" font-family="-apple-system,sans-serif" font-size="10.5" x="468" y="137">a test in 2009; ~1000 networks in 2019</text>
+<rect fill="rgba(255,255,255,0.022)" height="40" width="672" x="24" y="154"></rect>
+<text fill="#d5cdc1" font-family="-apple-system,sans-serif" font-size="12.5" x="34" y="179">Everything is a network</text>
+<text fill="#d9b45f" font-family="-apple-system,sans-serif" font-size="12" x="326" y="179">partly upheld</text>
+<text fill="#8d867b" font-family="-apple-system,sans-serif" font-size="10.5" x="468" y="179">state the edge definition or say nothing</text>
+<rect fill="rgba(255,255,255,0.008)" height="40" width="672" x="24" y="196"></rect>
+<text fill="#d5cdc1" font-family="-apple-system,sans-serif" font-size="12.5" x="34" y="221">Weak predictive power</text>
+<text fill="#79a6d2" font-family="-apple-system,sans-serif" font-size="12" x="326" y="221">wrong scorecard</text>
+<text fill="#8d867b" font-family="-apple-system,sans-serif" font-size="10.5" x="468" y="221">were thresholds and distributions archived?</text>
+<rect fill="rgba(255,255,255,0.022)" height="40" width="672" x="24" y="238"></rect>
+<text fill="#d5cdc1" font-family="-apple-system,sans-serif" font-size="12.5" x="34" y="263">No unified theory, so not a science</text>
+<text fill="#9fbc7a" font-family="-apple-system,sans-serif" font-size="12" x="326" y="263">rejected</text>
+<text fill="#8d867b" font-family="-apple-system,sans-serif" font-size="10.5" x="468" y="263">ecology and geology have none either</text>
+<text fill="#57524b" font-family="-apple-system,sans-serif" font-size="11" text-anchor="middle" x="360" y="292">Four charges, four different verdicts — accepting or rejecting them as a bundle is laziness</text>
+</svg>
+<figcaption>Judging one at a time matters: accepting the first two does not require abandoning the field, and rejecting the last does not require defending it.</figcaption>
+</figure>
+<p>So the honest boundary sits roughly here. <b>What this field delivers best is the shape of mechanisms — where the threshold is, what shape the distribution has, how structure drives dynamics. What it delivers worst is anything of the form "when, how big, who".</b> Wherever it starts sounding most like a story, that is where you should insist on hearing what it forbids.</p>
+<div class="decide">
+<span class="lb">🎯 DECISION LINE</span>
+<p>Audit your own vocabulary. List the complexity words you have used in the past three months — emergence, criticality, resilience, antifragility, network effects, positive feedback — and write one line for each: what does it forbid? The ones you cannot answer for do not have to be retired, but they must be <b>downgraded</b> from "a reason in a conclusion" to "a lead when asking questions". Downgraded usage looks like this: not "we're at a tipping point", but "if this really were critical, the accumulation should be rising and recovery times lengthening — go and check those two numbers".</p>
+</div>
+
+<div class="bigcat">
+<h3>🎒 Scenario · BigCat</h3>
+<ol>
+<li><span class="dm">Investing and position sizing</span>In investment notes, the reasons column keeps filling with lines like "this industry has network effects" or "the first-mover advantage will compound". Sentences of that kind can explain any winner after the fact, which is why they separate no two candidates beforehand. What to change: attach an <b>expiry condition</b> and a date to every reason ("void if, twelve months out, unit acquisition cost has not fallen and the number two's share has not been squeezed"). Then track one number each quarter: <b>what fraction of the reasons you originally wrote can now be judged true or false at all</b>. That ratio is the only hard measure of note quality, and it tells you you are running exposed long before returns do. Stop doing: putting a mechanism story with no expiry condition into a buy case.</li>
+<li><span class="dm">Writing and this learning site itself</span>Every issue ends with a cross-disciplinary connection, and the more beautiful the connection, the more likely it was joined on a feeling of similarity — which is charge one arriving at our own door. What to change: put every connection through one fixed gate — <b>could the conclusion it draws be reached without invoking this issue's mechanism?</b> If yes, the connection did no work; cut it. Stop doing: closing with "both of these express…" or "they're both a kind of…". Those are the conjunctions of resemblance, not of mechanism.</li>
+<li><span class="dm">Practice and inner life</span>After a wave of emotion, it is easy to file the case with a general line — "thoughts arise and pass", "this is impermanence". Explanations of that kind fit every episode and therefore distinguish no two of them; structurally they are the same sentence as "this organisation is at the edge of chaos". What to change: replace the closing line with a record you could be wrong about — note <b>the trigger, how long it lasted, and whether it recurred within 24 hours</b>. Thirty entries later you hold a distribution instead of thirty repetitions of the same sigh, and a distribution can show a trend where a sigh cannot. Stop doing: sealing a specific experience with a general doctrine.</li>
+</ol>
+</div>
+
+<div class="crossx">
+<h3>🌀 Crossings</h3>
+<ul>
+<li><b>Western philosophy and philosophy of science · the Sokal affair</b>: in 1996 the physicist Alan Sokal submitted a paper stuffed with quantum gravity, nonlinearity and postmodern vocabulary to the cultural studies journal <i>Social Text</i>, and it was published as written; he and Jean Bricmont then published <i>Fashionable Nonsense</i>, going line by line through a set of French theorists' use of terms from mathematics and physics. The episode is usually read as "humanities scholars don't understand science". Put this issue's three mechanisms together and a different reading falls out: the terms travelled while their domain of validity stayed home (§1), the text could be fitted to anything after the fact and so forbade nothing (§1 and §2), and each referee understood half, so nobody was qualified to say no (§4). When all three hold, what is actually demonstrated is that <b>when no one in a community is equipped to say "no" to a class of sentences, that class of sentences proliferates</b> — regardless of the speaker's discipline. The unwelcome part of that conclusion: the same machine runs in complexity science's own house. <b>But here it does not hold</b>: Sokal's paper was <em>deliberate</em> fabrication, driven by an author choosing to deceive. Metaphor inflation in complexity science is mostly honest — the writers believe they are stating facts. That difference dictates entirely different remedies: fraud is countered by refereeing and replication procedures, metaphor inflation only by line-by-line "what does it forbid" checks. Conflating them leaves people thinking stronger peer review would fix this. It would not.</li>
+<li><b>History and military affairs · Clausewitz's centre of gravity</b>: the <i>Schwerpunkt</i> of <i>On War</i> was a metaphor borrowed from mechanics, naming the hinge on which an enemy's strength rests. Modern US doctrine turned it into a <b>mandatory field in the operational plan</b>; the long-standing complaint, pressed by scholars such as Antulio Echevarria, is that different planners identify different centres of gravity for the same campaign, and each can be justified afterwards. This issue's mechanisms run as a set here: a borrowed metaphor lost its original domain (in mechanics a centre of gravity is uniquely defined; in war it is not), it is compatible with any campaign and so forbids nothing, and the "mandatory field" design converts that compatibility into compulsory production — every plan must yield a centre of gravity, even when the war has none. The conclusion you would not otherwise see: <b>writing a concept into a template is the most effective way to exempt it from testing</b>, because from then on its existence is guaranteed by the process rather than by evidence. This applies unchanged to any company's quarterly review template.</li>
+<li><b>Medicine · parachutes and the evidence hierarchy</b>: evidence-based medicine puts the randomized controlled trial (RCT) at the top of its pyramid, and that hierarchy improved medicine enormously. The side effect: fields where RCTs are hard to run — surgical technique, public health interventions, rare disease — are systematically graded "insufficient evidence", and "no evidence" gets read downstream as "no effect". The famous 2003 joke paper in the <i>BMJ</i> — a systematic review finding no randomized trial of parachute use to prevent death when jumping from aircraft — was aimed precisely at that slippage. Section 5's mechanism runs here as a set: a good ruler used out of bounds, misreporting "my ruler cannot measure this" as "there is nothing there"; and that is the same error as scoring complexity science by point prediction, appearing twice. The conclusion: when criticising a method you must first declare <b>which ruler you are using and what it cannot measure</b> — otherwise the critique will systematically favour whatever happens to fit the ruler, and that bias is harder to spot than the error it corrects, because every step of it looks rigorous.</li>
+</ul>
+</div>
+
+<div class="thinking">
+<h3>Going Deeper</h3>
+<details><summary>If "what does it forbid" is the only test, what happens to early, still-vague ideas?</summary><p>The test governs <em>conclusions</em>, not <em>questions</em>. Plenty of important ideas could not say what they forbade at the outset — continental drift, plate tectonics, the material basis of the gene. The difference is that they later found a checkable form rather than staying suggestive forever. So the right use is to keep a ledger for each vague idea: it currently sits at the "lead" level; when does it move up to "reason"? Three years without moving usually means it never will.</p></details>
+<details><summary>If the insiders' self-criticism is this strong, why does none of it reach the outside?</summary><p>Because criticism costs far more to transmit than a slogan. "Evolution moves towards the edge of chaos" is a thirty-second line in a talk; "that clustering was an artifact of the genetic algorithm and the fitness function" requires the listener to already hold the first sentence. The transmission mechanism is itself a filter: it preferentially passes sentences that need no background to retell — and needing no background is often precisely what happens once the premises have been stripped off.</p></details>
+<details><summary>If "it's complex" forbids nothing, why is it so persuasive?</summary><p>Because it shifts the burden of proof. Whoever asserts "A caused B" has to make a case; whoever says "it's complicated" appears to be asserting nothing and so appears to owe nothing — while in fact asserting something strong: that your causal account is wrong. The way to test it is direct: ask what they would expect to see if the thing turned out <em>not</em> to be complex. No answer means the sentence was a refusal, not a claim.</p></details>
+<details><summary>How long does it take to decide whether a field has delivered?</summary><p>There is no fixed answer, but there is a workable substitute question: has it produced a public record of <b>insiders overturning insiders</b>? Plate tectonics took roughly half a century, and that record fills it. Complexity science can in fact hand in that homework — the 1993 replication, the 2009 test, the 2019 sweep — and those say far more about its condition than any pronouncement that it is "the science of the 21st century".</p></details>
+</div>
+
+<div class="refs">
+<h3>Further Reading</h3>
+<ul>
+<li>Mitchell, Hraber &amp; Crutchfield, <a href="https://arxiv.org/abs/adap-org/9303003">Revisiting the Edge of Chaos</a> (1993 — the failed replication)</li>
+<li>Clauset, Shalizi &amp; Newman, <a href="https://arxiv.org/abs/0706.1062">Power-law distributions in empirical data</a> (2009 — the standard test)</li>
+<li>Broido &amp; Clauset, <a href="https://www.nature.com/articles/s41467-019-08746-5">Scale-free networks are rare</a> (2019 — nearly a thousand real networks)</li>
+<li>John Horgan, <a href="https://www.scientificamerican.com/article/from-complexity-to-perplexity/">From Complexity to Perplexity</a> (1995 — the best-known outside broadside)</li>
+<li>Carpenter et al., <a href="https://www.science.org/doi/10.1126/science.1203672">Early warnings of regime shifts: a whole-ecosystem experiment</a> (2011)</li>
+<li>Geller et al., <a href="https://www.science.org/doi/10.1126/science.275.5306.1616">Earthquakes cannot be predicted</a> (1997)</li>
+<li>Sokal &amp; Bricmont, <a href="https://en.wikipedia.org/wiki/Fashionable_Nonsense">Fashionable Nonsense</a> (1997 — the affair and the borrowing of terms)</li>
+<li>Franco Moretti, <a href="https://newleftreview.org/issues/ii68/articles/franco-moretti-network-theory-plot-analysis">Network Theory, Plot Analysis</a> (2011 — with the limits he states himself)</li>
+<li>Smith &amp; Pell, <a href="https://www.bmj.com/content/327/7429/1459">Parachute use to prevent death and major trauma…</a> (2003 — the evidence hierarchy out of bounds)</li>
+<li>Melanie Mitchell, <a href="https://global.oup.com/academic/product/complexity-9780199798100">Complexity: A Guided Tour</a> (the closing chapter is the field's most restrained self-assessment)</li>
+</ul>
+</div>
+<footer>BigCat · Complexity Science · <a href="index.en.html">← All Topics</a></footer>
+</div>
+<script src="https://hub.cissychen.com/comments.js" defer></script>
+<script src="https://hub.cissychen.com/search.js" defer></script>
+<script src="https://hub.cissychen.com/index-button.js" defer></script>
+<script src="https://hub.cissychen.com/i18n-tts.js" defer></script>
+</body></html>

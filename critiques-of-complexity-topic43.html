@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+
+<html lang="zh-CN"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>对复杂性科学的批判 — 最锋利的那几刀是自己人捅的 · 复杂性科学 T43</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,"SF Pro Display","Noto Sans SC",sans-serif;color:#e4ded5;line-height:1.85;min-height:100vh;
+  background:radial-gradient(1100px 620px at 12% -6%,rgba(224,137,94,0.10),transparent 62%),radial-gradient(950px 700px at 100% 2%,rgba(166,147,205,0.09),transparent 58%),linear-gradient(168deg,#100f0d 0%,#15161b 48%,#0a0a0c 100%);background-attachment:fixed}
+.wrap{max-width:760px;margin:0 auto;padding:30px 22px 90px}
+header{padding:52px 0 8px;border-bottom:1px solid rgba(255,255,255,0.07);margin-bottom:34px}
+.week-tag{font-family:"SF Mono",Menlo,monospace;font-size:0.72rem;font-weight:700;letter-spacing:2px;color:#a8a49c;border:1px solid rgba(168,164,156,0.4);background:rgba(168,164,156,0.07);padding:3px 11px;border-radius:20px}
+h1{font-size:2.5rem;font-weight:800;letter-spacing:0.5px;line-height:1.2;margin:20px 0 0;background:linear-gradient(106deg,#e0895e 0%,#d9b45f 34%,#9fbc7a 68%,#63b3a6 100%);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+h1 .h1en{display:block;font-size:0.40em;font-weight:600;letter-spacing:2.5px;color:#847d72;-webkit-text-fill-color:#847d72;background:none;margin-top:13px}
+.sub{font-size:1.05rem;color:#aba498;margin-top:14px;font-weight:500}
+.date{font-family:"SF Mono",Menlo,monospace;font-size:0.75rem;color:#57524b;margin-top:18px;letter-spacing:1px}
+.pitch{margin:22px 0 30px;font-size:0.97rem;color:#cd7f9b;border-left:2px solid rgba(205,127,155,0.5);padding-left:16px;font-style:italic}
+.intro{font-size:1.02rem;color:#cfc8bc;margin-bottom:14px}
+.intro p{margin-bottom:16px}
+h2{font-size:1.42rem;font-weight:700;color:#e9e3d9;margin:56px 0 8px;letter-spacing:0.3px}
+h2 .n{font-family:"SF Mono",Menlo,monospace;font-size:0.85rem;color:#a8a49c;display:block;margin-bottom:6px;letter-spacing:2px}
+.he{font-size:0.68em;color:#8d867b;font-weight:500;letter-spacing:0}
+p{margin-bottom:17px}
+.lead{color:#cfc8bc}
+b,strong{color:#f0eae0;font-weight:600}
+em{color:#d9b45f;font-style:normal;font-weight:500}
+.dim{color:#8d867b}
+a.reflink{display:inline-block;font-size:0.82rem;font-family:"SF Mono",Menlo,monospace;color:#63b3a6;border:1px solid rgba(99,179,166,0.38);background:rgba(99,179,166,0.07);padding:1px 9px;border-radius:20px;text-decoration:none;transition:all 0.15s;white-space:nowrap}
+a.reflink:hover{background:rgba(99,179,166,0.16);border-color:rgba(99,179,166,0.7)}
+figure{margin:30px 0}
+figure svg{display:block;width:100%;height:auto;border-radius:12px;background:rgba(255,255,255,0.018);border:1px solid rgba(255,255,255,0.06)}
+figcaption{font-size:0.82rem;color:#787268;margin-top:11px;text-align:center;line-height:1.6}
+.en-brief{font-size:0.85rem;color:#847d72;border-top:1px dashed rgba(255,255,255,0.09);padding-top:12px;margin-top:22px;line-height:1.65}
+.en-brief b{font-family:"SF Mono",Menlo,monospace;font-size:0.72rem;color:#63b3a6;letter-spacing:1px;margin-right:7px}
+.decide{margin:24px 0;border:1px solid rgba(224,137,94,0.36);background:rgba(224,137,94,0.055);border-radius:12px;padding:15px 19px}
+.decide .lb{font-family:"SF Mono",Menlo,monospace;font-size:0.73rem;letter-spacing:1.5px;color:#e0895e;font-weight:700;display:block;margin-bottom:7px}
+.decide p{margin:0;font-size:0.95rem;color:#ddd5c9}
+.crossx-inline{margin:20px 0 22px;border-left:2px solid rgba(205,127,155,0.55);padding:2px 0 2px 15px;font-size:0.89rem;color:#a9a096;line-height:1.72}
+.crossx-inline b{color:#cd7f9b;font-weight:600}
+.bigcat{margin:46px 0 10px;border:1px solid rgba(217,180,95,0.38);background:rgba(217,180,95,0.05);border-radius:14px;padding:20px 22px}
+.bigcat h3{font-size:1.02rem;color:#d9b45f;margin-bottom:14px;letter-spacing:0.5px}
+.bigcat ol{list-style:none;padding:0}
+.bigcat li{margin-bottom:15px;font-size:0.94rem;color:#d5cdc1;line-height:1.78}
+.bigcat li:last-child{margin-bottom:0}
+.bigcat .dm{font-family:"SF Mono",Menlo,monospace;font-size:0.73rem;color:#d9b45f;border:1px solid rgba(217,180,95,0.32);border-radius:4px;padding:1px 7px;margin-right:8px;white-space:nowrap}
+.crossx{margin:46px 0 10px;border:1px solid rgba(205,127,155,0.38);background:rgba(205,127,155,0.05);border-radius:14px;padding:20px 22px}
+.crossx h3{font-size:1.02rem;color:#cd7f9b;margin-bottom:14px;letter-spacing:0.5px}
+.crossx ul{list-style:none;padding:0}
+.crossx li{margin-bottom:16px;font-size:0.94rem;color:#d5cdc1;line-height:1.78}
+.crossx li:last-child{margin-bottom:0}
+.crossx li b{color:#cd7f9b;font-weight:600}
+.thinking{margin:46px 0 10px}
+.thinking h3{font-size:1.02rem;color:#a693cd;margin-bottom:14px;letter-spacing:0.5px}
+details{border:1px solid rgba(166,147,205,0.22);border-radius:10px;padding:12px 16px;margin-bottom:10px;background:rgba(166,147,205,0.035)}
+summary{cursor:pointer;font-size:0.93rem;color:#c9c2b6;font-weight:500}
+summary::marker{color:#a693cd}
+details p{margin:12px 0 0;font-size:0.9rem;color:#a9a096;line-height:1.75}
+.refs{margin:46px 0 10px}
+.refs h3{font-size:1.02rem;color:#79a6d2;margin-bottom:14px;letter-spacing:0.5px}
+.refs ul{list-style:none;padding:0}
+.refs li{margin-bottom:10px;font-size:0.9rem;color:#8d867b;line-height:1.7}
+.refs a{color:#79a6d2;text-decoration:none;border-bottom:1px solid rgba(121,166,210,0.3)}
+.refs a:hover{color:#a6c4e2;border-bottom-color:rgba(121,166,210,0.7)}
+footer{text-align:center;padding:56px 0 10px;font-size:0.78rem;color:#57524b;font-family:"SF Mono",Menlo,monospace;border-top:1px solid rgba(255,255,255,0.06);margin-top:50px}
+footer a{color:#79a6d2;text-decoration:none}
+@media(max-width:600px){h1{font-size:1.85rem}.wrap{padding:24px 16px 60px}h2{font-size:1.22rem}}
+</style></head><body>
+<div class="wrap">
+<header>
+<span class="week-tag">TOPIC 43 · PHASE H</span>
+<h1>对复杂性科学的批判<span class="h1en">CRITIQUES OF COMPLEXITY SCIENCE</span></h1>
+<p class="sub">最锋利的那几刀，是自己人捅的<span class="he">（The sharpest critiques come from inside）</span></p>
+<p class="date">2026-08-30 · 方法与限度</p>
+</header>
+<p class="pitch">一门学科被外行夸得越响，多半说明它内部正在打一场不太体面的架。复杂性科学最值得读的批评文献，几乎全部由它自己人写成——而外行最爱引用的那几句，恰恰是圈内早就判过死刑的。</p>
+<div class="intro">
+<p>你大概听过这类句子：「这是个复杂系统，线性思维在这里不管用」「我们的组织需要涌现」「它正处在混沌边缘」。听的时候会点头，因为每一句都像在说什么。但只要追问一句——<em>那它预测什么？什么样的观测会让你承认它错了？</em>——往往就没有下文了。</p>
+<p>反直觉的地方在于：这个毛病最狠的批评者不是人文学者，也不是看不惯的物理学家，而是这门学科的核心成员。写《复杂：一部导览》的 Melanie Mitchell 亲手证伪了「混沌边缘」最著名的那个实验结果；Aaron Clauset 造了一套统计检验，然后用它把同行发表过的幂律（power law）挨个检查了一遍，淘汰了相当一部分。<b>外部的批评多半打偏，内部的批评基本都打中。</b></p>
+<p class="dim">上一期问的是「一个模型怎么会用错」。本期问的是更大的一个问题：这门学科<b>整体上</b>被指控了什么，哪些指控成立。四条指控逐条判，然后留最后一节给一件同样要紧的事——批判本身也会越界，而且「这很复杂」这句话，用来终止讨论和用来解释一切，其实是同一个动作。</p>
+</div>
+
+<h2><span class="n">01</span>把隐喻当解释<span class="he">（Metaphor Posing as Explanation）</span></h2>
+<p class="lead">先说清一条判据，后面四节都要用它：<b>一句话的价值不在于它能贴到多少现象上，而在于它排除掉了什么。</b></p>
+<p>「二维方格网上，每个格子以概率 p 独立地被占据；p 低于 0.5927 时不会出现贯通全图的巨簇」——这句话很硬，因为它禁止了大量观测。你做一次实验，p 取 0.5，却看到贯通，这句话就完了。</p>
+<p>「这个组织处在混沌边缘」这句话则贴得上任何一个组织。没有哪种观测结果会让说这话的人收回它。它不禁止任何东西，所以它在结论里不承重——它是个感叹句，穿着陈述句的衣服。</p>
+<figure>
+<svg aria-label="三句话各自排除掉多少可能的观测" role="img" viewBox="0 0 720 300" xmlns="http://www.w3.org/2000/svg">
+<text fill="#aba498" font-family="-apple-system,sans-serif" font-size="13" text-anchor="middle" x="360" y="26">一句话的分量 = 它排除掉的观测有多少</text>
+<rect fill="#3a3630" height="12" width="26" x="300" y="42"></rect>
+<text fill="#8d867b" font-family="-apple-system,sans-serif" font-size="11" x="332" y="52">它允许发生的</text>
+<rect fill="#8e4f66" height="12" width="26" x="450" y="42"></rect>
+<text fill="#8d867b" font-family="-apple-system,sans-serif" font-size="11" x="482" y="52">它明确排除的</text>
+<text fill="#d5cdc1" font-family="-apple-system,sans-serif" font-size="12.5" x="24" y="98">「p 低于 0.5927 就不会贯通」</text>
+<rect fill="#3a3630" height="26" width="60" x="300" y="80"></rect>
+<rect fill="#8e4f66" height="26" width="330" x="360" y="80"></rect>
+<text fill="#e6d4da" font-family="-apple-system,sans-serif" font-size="11" text-anchor="middle" x="525" y="98">一次实验就能推翻它</text>
+<text fill="#d5cdc1" font-family="-apple-system,sans-serif" font-size="12.5" x="24" y="168">「震级每升 1 级，次数降到十分之一」</text>
+<rect fill="#3a3630" height="26" width="130" x="300" y="150"></rect>
+<rect fill="#8e4f66" height="26" width="260" x="430" y="150"></rect>
+<text fill="#e6d4da" font-family="-apple-system,sans-serif" font-size="11" text-anchor="middle" x="560" y="168">一百年的目录都在检验它</text>
+<text fill="#d5cdc1" font-family="-apple-system,sans-serif" font-size="12.5" x="24" y="238">「这个组织处在混沌边缘」</text>
+<rect fill="#3a3630" height="26" width="390" x="300" y="220"></rect>
+<text fill="#a8a49c" font-family="-apple-system,sans-serif" font-size="11" text-anchor="middle" x="495" y="238">什么也没排除 — 没有任何观测能反驳它</text>
+<text fill="#57524b" font-family="-apple-system,sans-serif" font-size="11" text-anchor="middle" x="360" y="282">前两句能错，所以有用；第三句不能错，所以在结论里不承重</text>
+</svg>
+<figcaption>「它禁止了什么」是本期反复要用的那把尺子。贴合度高不是优点，贴合一切是缺点。</figcaption>
+</figure>
+<p>「混沌边缘」（edge of chaos）值得单独讲，因为它是这条指控最干净的标本。1990 年前后，Chris Langton 在研究元胞自动机（cellular automaton，就是第 4 期讲的那种格子上跑简单规则的模型 <a class="reflink" href="ref-cellular-automata.html">→ 参考 · 生命游戏与元胞自动机</a>）时提出：在「规则太死板」和「规则太随机」之间，存在一个狭窄的地带，那里的系统最能做计算。1988 年 Norman Packard 报告了一个更诱人的结果：用遗传算法（genetic algorithm，一种模拟进化来搜索方案的方法 <a class="reflink" href="ref-genetic-algorithm.html">→ 参考 · 遗传算法</a>）去演化元胞自动机完成一项计算任务时，演化出来的规则会<em>自己聚集</em>到那个边缘地带附近。</p>
+<p>这个结果太漂亮了：进化会主动跑向混沌边缘。它随即被写进无数本管理学与创新学的书。</p>
+<p>然后 1993 年，Melanie Mitchell、Peter Hraber 和 James Crutchfield 把这个实验重做了一遍。<b>聚集现象没有复现。</b>他们的结论是：Packard 观察到的聚集，是遗传算法本身的动力学加上那个特定适应度函数共同造成的假象，不是系统朝临界性演化的证据。</p>
+<p>这件事发生在三十多年前。而「组织要待在混沌边缘」这句话至今活得很好——因为它已经脱离了那个可以被证伪的原始命题，变成了一个纯隐喻。<b>指控一：成立。</b></p>
+<div class="decide">
+<span class="lb">🎯 决策线</span>
+<p>听到任何一个复杂性词汇进入结论时，问一句固定的话：<b>「它禁止了什么？」</b>——即，哪种观测出现，说这话的人会承认自己错了。答不上来，就把这个词从结论里删掉：它可以留在提问阶段当线索，但不能当理由。这条检查花不到十秒，能拦掉一大半。</p>
+</div>
+<div class="crossx-inline">
+🌀 <b>生物学 · 「自私的基因」</b>　Dawkins 用「自私」描述的其实是一种记账方式：哪个等位基因在下一代里占比上升。它对动物的动机不作任何断言。但这个隐喻好用到脱手——传到大众语境里就成了「人天生自私」，前提被剥干净了。Dawkins 后来说这本书本可以叫《不朽的基因》，一个词就能少掉几十年的误读。由此推出一条不太舒服的判据：<b>一个术语的健康度不看它被引用多少次，看引用者里还有多少人复述得出它的前提</b>——引用量上升而前提复述率下降，正是隐喻脱手的信号。
+</div>
+<p class="en-brief"><b>EN</b> The load-bearing test for any claim is what it forbids. "Edge of chaos" is the cleanest specimen of failure: Packard's 1988 result — that evolved cellular automata cluster near Langton's critical λ — did not replicate when Mitchell, Hraber &amp; Crutchfield redid it in 1993; the clustering was an artifact of the genetic algorithm and the fitness function. The falsifiable claim died; the metaphor is still in management books. Charge one: upheld.</p>
+
+<h2><span class="n">02</span>解释一切，预测什么<span class="he">（Weak Predictive Power）</span></h2>
+<p class="lead">第二条指控最常见：这门学科对已经发生的事总能讲出一套机制，对没发生的事却说不出什么。1995 年科学记者 John Horgan 在《科学美国人》上写过一篇著名的檄文，标题就叫《从复杂到困惑》，里面连圣塔菲研究所自己的研究者都在怀疑那个许诺中的统一理论会不会来；他随后在 1996 年的书里把混沌与复杂性合起来讥为「chaoplexity」。</p>
+<p>这条指控里藏着一个没申报的前提：<b>预测 = 说出哪天、多大。</b>而预测其实有三种，它们要求的证据完全不同。</p>
+<figure>
+<svg aria-label="三种预测：点预测、分布预测、阈值预测及其交付情况" role="img" viewBox="0 0 720 320" xmlns="http://www.w3.org/2000/svg">
+<defs>
+<marker id="ar43b" markerHeight="10" markerUnits="userSpaceOnUse" markerWidth="10" orient="auto" refX="9" refY="5" viewBox="0 0 10 10">
+<path d="M0,1 L9,5 L0,9 z" fill="#cd7f9b"></path>
+</marker>
+<marker id="ar43c" markerHeight="10" markerUnits="userSpaceOnUse" markerWidth="10" orient="auto" refX="9" refY="5" viewBox="0 0 10 10">
+<path d="M0,1 L9,5 L0,9 z" fill="#9fbc7a"></path>
+</marker>
+</defs>
+<text fill="#aba498" font-family="-apple-system,sans-serif" font-size="13" text-anchor="middle" x="360" y="26">「预测」有三种 — 用第一种给这门学科打分，是记错了分</text>
+<text fill="#cd7f9b" font-family="SF Mono,monospace" font-size="12" text-anchor="middle" x="140" y="52">① 点预测</text>
+<rect fill="none" height="180" stroke="rgba(255,255,255,0.10)" width="160" x="60" y="60"></rect>
+<circle cx="140" cy="152" fill="none" r="40" stroke="rgba(255,255,255,0.16)" stroke-width="1.5"></circle>
+<circle cx="140" cy="152" fill="none" r="26" stroke="rgba(255,255,255,0.16)" stroke-width="1.5"></circle>
+<circle cx="140" cy="152" fill="#4a4438" r="11"></circle>
+<line marker-end="url(#ar43b)" stroke="#cd7f9b" stroke-width="2" x1="78" x2="196" y1="88" y2="112"></line>
+<text fill="#8d867b" font-family="-apple-system,sans-serif" font-size="11" text-anchor="middle" x="140" y="222">哪天、多大</text>
+<text fill="#cd7f9b" font-family="-apple-system,sans-serif" font-size="11.5" text-anchor="middle" x="140" y="262">做不到</text>
+<text fill="#787268" font-family="-apple-system,sans-serif" font-size="10.5" text-anchor="middle" x="140" y="281">而且理论上就该做不到</text>
+<text fill="#9fbc7a" font-family="SF Mono,monospace" font-size="12" text-anchor="middle" x="360" y="52">② 分布预测</text>
+<rect fill="none" height="180" stroke="rgba(255,255,255,0.10)" width="160" x="280" y="60"></rect>
+<line stroke="rgba(255,255,255,0.16)" stroke-width="1.5" x1="300" x2="420" y1="200" y2="200"></line>
+<rect fill="#6b7f52" height="96" width="18" x="304" y="104"></rect>
+<rect fill="#6b7f52" height="62" width="18" x="326" y="138"></rect>
+<rect fill="#6b7f52" height="38" width="18" x="348" y="162"></rect>
+<rect fill="#6b7f52" height="22" width="18" x="370" y="178"></rect>
+<rect fill="#6b7f52" height="12" width="18" x="392" y="188"></rect>
+<text fill="#8d867b" font-family="-apple-system,sans-serif" font-size="11" text-anchor="middle" x="360" y="222">未来十年大约几次</text>
+<text fill="#9fbc7a" font-family="-apple-system,sans-serif" font-size="11.5" text-anchor="middle" x="360" y="262">交付了</text>
+<text fill="#787268" font-family="-apple-system,sans-serif" font-size="10.5" text-anchor="middle" x="360" y="281">用长期频次可以检验</text>
+<text fill="#9fbc7a" font-family="SF Mono,monospace" font-size="12" text-anchor="middle" x="580" y="52">③ 阈值预测</text>
+<rect fill="none" height="180" stroke="rgba(255,255,255,0.10)" width="160" x="500" y="60"></rect>
+<line stroke="rgba(255,255,255,0.16)" stroke-width="1.5" x1="516" x2="644" y1="200" y2="200"></line>
+<line stroke="#d9b45f" stroke-dasharray="4 4" stroke-width="1.5" x1="586" x2="586" y1="96" y2="200"></line>
+<path d="M516,190 L560,187 L584,180 L590,120 L616,110 L644,106" fill="none" stroke="#63b3a6" stroke-width="2.5"></path>
+<line marker-end="url(#ar43c)" stroke="#9fbc7a" stroke-width="2" x1="536" x2="576" y1="86" y2="86"></line>
+<text fill="#d9b45f" font-family="SF Mono,monospace" font-size="10.5" text-anchor="middle" x="612" y="86">阈值</text>
+<text fill="#8d867b" font-family="-apple-system,sans-serif" font-size="11" text-anchor="middle" x="580" y="222">参数越过某值就贯通</text>
+<text fill="#9fbc7a" font-family="-apple-system,sans-serif" font-size="11.5" text-anchor="middle" x="580" y="262">交付了</text>
+<text fill="#787268" font-family="-apple-system,sans-serif" font-size="10.5" text-anchor="middle" x="580" y="281">阈值算得出、能换系统复用</text>
+<text fill="#57524b" font-family="-apple-system,sans-serif" font-size="11" text-anchor="middle" x="360" y="308">三种都只有一条验收标准：事前写下来了吗 — 事后讲得通的，一种也不算</text>
+</svg>
+<figcaption>放弃点预测不是这门学科的失败，是它的主张之一。但这个辩护只有在真的交付了后两种时才成立。</figcaption>
+</figure>
+<p>放弃点预测这件事，第 8 期和第 11 期已经论证过：混沌意味着误差指数放大，计算不可约性意味着有些系统除了原速跑完没有捷径。所以「说不出哪天多大」不是没做到，是<em>断言了做不到</em>。用这个去打分，像用短跑成绩评价游泳。</p>
+<p>但辩护到这儿只完成了一半。剩下一半是：那你交付的后两种，兑现了没有？诚实地记分——</p>
+<p><b>兑现了的：</b>渗流阈值（percolation threshold）在具体的格子和网络上算得出来，而且换一个系统还是对的 <a class="reflink" href="ref-percolation.html">→ 参考 · 渗流模型</a>；传染病的基本再生数 R₀ 跨过 1 就从熄灭变成流行，这条阈值是防疫政策的骨架 <a class="reflink" href="ref-sir.html">→ 参考 · SIR 模型</a>；临界慢化（critical slowing down）作为预警信号，在 2011 年一场真正的野外实验里被验证过——研究者往一个湖里逐步引入捕食性鱼类，人为推动它翻转，同时用旁边一个未干预的湖作对照。翻转发生前一年多，被干预湖的<b>方差与自相关</b>确实先升上去了，对照湖没有。这是一次事前设计、事前记录的检验。</p>
+<p><b>没兑现的：</b>地震。自组织临界性（self-organized criticality，缩写 SOC）恰恰蕴含着「震级不可预测」，这一点它自己也承认；1997 年一批地震学家在《科学》上打过一场公开辩论，主张地震在实用意义上不可预测，此后二十多年没有出现能推翻它的可重复预报。至于 2008 年的金融危机——复杂性经济学事后给出的解释相当漂亮（杠杆、网络耦合、同质化），但事前可存档的预测基本没有。</p>
+<p><b>指控二：部分成立。</b>成立的部分不在「它做不到点预测」，而在<b>圈内人经常允许自己在解释之后不再区分「我能解释」和「我能预测」</b>——一份事后写的机制说明和一份事前封存的预测，在文本上长得一模一样，只有时间戳能区分它们。</p>
+<div class="decide">
+<span class="lb">🎯 决策线</span>
+<p>拿到任何一条复杂性方法的结论，先归类：它是点预测、分布预测，还是阈值预测？再看它有没有<b>时间戳</b>。三种预测的验收标准不同——分布预测看长期频次对不对，阈值预测看那个数算得出来、并且能在另一个系统上复用。对自己的判断也照此办理：把它写下来、注明日期，否则半年后你会记得自己「早就看出来了」。</p>
+</div>
+<div class="crossx-inline">
+🌀 <b>工程与技术史 · 天气预报改口的那次</b>　美国的公众天气预报在 1960 年代中期开始发布「降水概率」——从「明天有雨」改成「明天降水概率 40%」。当时不少人抱怨这是含糊其辞、推卸责任。结果预报的实际价值反而上升了，因为使用者可以按自己的成本决定要不要带伞、要不要浇混凝土。这正是本节这条机制：<b>放弃点预测、改交分布，信息量不减反增</b>——前提是那个概率经得起长期频次的检验。于是「预测力弱」这条指控该重写：真正该问的不是准不准，是<b>有没有把不确定性也一起交付给使用者</b>。只报一个数、不报它有多不靠谱的预测，才是真的弱。
+</div>
+<p class="en-brief"><b>EN</b> The charge of weak prediction smuggles in a premise: that prediction means naming the date and the size. Complexity science explicitly forfeits that — chaos and computational irreducibility say so. What it owes instead are distributional and threshold predictions, and there the record is mixed: percolation thresholds and the R₀ = 1 threshold hold up, and critical slowing down was confirmed in a pre-registered whole-lake experiment in 2011; earthquake magnitude forecasting and any archived pre-2008 crisis call did not. Charge two: partly upheld — the real fault is not distinguishing an explanation from a time-stamped forecast.</p>
+
+<h2><span class="n">03</span>幂律滥用与「万物皆网络」<span class="he">（Power-Law Inflation and the Network Turn）</span></h2>
+<p class="lead">第三条指控是技术性的，也是判得最干脆的一条：这门学科到处看见幂律，而其中相当一部分根本不是幂律。</p>
+<p>病因很物理：在双对数坐标下，人眼极容易把一段缓弯判成直线，而对数正态分布、带指数截断的分布画出来都很像直线。2009 年 Aaron Clauset、Cosma Shalizi 和 Mark Newman 给了一套统一的做法——最大似然估计指数、用统计检验判断拟合优度、再和几种备选分布做正面比较——然后把一批被广泛引用的数据集重新过了一遍，很多没通过 <a class="reflink" href="ref-power-law.html">→ 参考 · 幂律的识别与误判</a>。2019 年 Anna Broido 和 Clauset 把这套方法推到近千个真实网络上，结论是：<b>严格意义上的无标度网络（scale-free network）其实很罕见</b> <a class="reflink" href="ref-preferential-attachment.html">→ 参考 · 优先连接模型</a>。</p>
+<p>注意这件事的方向：<b>这两篇都是圈内人写的，用的是圈内的数据。</b>指控成立，但它是这门学科自己提出、自己执行的——这是健康的证据，不是病征。一个学科真正的麻烦是无人做这种事，而不是有人做了。</p>
+<p>「万物皆网络」这条更隐蔽，因为它看起来不像一个主张。把一堆东西画成网络，感觉是在<em>发现</em>结构。其实那是一次<b>建模选择</b>：你选了哪种关系当边、用了多长的时间窗口、把多弱的连接切掉。这三样一换，图就换了。</p>
+<figure>
+<svg aria-label="同一批人按三种不同的边定义建图，枢纽完全不同" role="img" viewBox="0 0 720 366" xmlns="http://www.w3.org/2000/svg">
+<defs>
+<marker id="ar43d" markerHeight="9" markerUnits="userSpaceOnUse" markerWidth="9" orient="auto" refX="9" refY="5" viewBox="0 0 10 10">
+<path d="M0,1 L9,5 L0,9 z" fill="#8d867b"></path>
+</marker>
+</defs>
+<text fill="#aba498" font-family="-apple-system,sans-serif" font-size="13" text-anchor="middle" x="360" y="26">同样这八个人 — 换一种「边」的定义，枢纽就换人</text>
+<circle cx="190" cy="72" fill="#2f2c28" r="13" stroke="rgba(255,255,255,0.18)"></circle><text fill="#c9c2b6" font-family="SF Mono,monospace" font-size="10" text-anchor="middle" x="190" y="76">A</text>
+<circle cx="239" cy="72" fill="#2f2c28" r="13" stroke="rgba(255,255,255,0.18)"></circle><text fill="#c9c2b6" font-family="SF Mono,monospace" font-size="10" text-anchor="middle" x="239" y="76">B</text>
+<circle cx="288" cy="72" fill="#2f2c28" r="13" stroke="rgba(255,255,255,0.18)"></circle><text fill="#c9c2b6" font-family="SF Mono,monospace" font-size="10" text-anchor="middle" x="288" y="76">C</text>
+<circle cx="337" cy="72" fill="#2f2c28" r="13" stroke="rgba(255,255,255,0.18)"></circle><text fill="#c9c2b6" font-family="SF Mono,monospace" font-size="10" text-anchor="middle" x="337" y="76">D</text>
+<circle cx="386" cy="72" fill="#2f2c28" r="13" stroke="rgba(255,255,255,0.18)"></circle><text fill="#c9c2b6" font-family="SF Mono,monospace" font-size="10" text-anchor="middle" x="386" y="76">E</text>
+<circle cx="435" cy="72" fill="#2f2c28" r="13" stroke="rgba(255,255,255,0.18)"></circle><text fill="#c9c2b6" font-family="SF Mono,monospace" font-size="10" text-anchor="middle" x="435" y="76">F</text>
+<circle cx="484" cy="72" fill="#2f2c28" r="13" stroke="rgba(255,255,255,0.18)"></circle><text fill="#c9c2b6" font-family="SF Mono,monospace" font-size="10" text-anchor="middle" x="484" y="76">G</text>
+<circle cx="533" cy="72" fill="#2f2c28" r="13" stroke="rgba(255,255,255,0.18)"></circle><text fill="#c9c2b6" font-family="SF Mono,monospace" font-size="10" text-anchor="middle" x="533" y="76">H</text>
+<line marker-end="url(#ar43d)" stroke="#8d867b" stroke-width="1.5" x1="330" x2="152" y1="96" y2="130"></line>
+<line marker-end="url(#ar43d)" stroke="#8d867b" stroke-width="1.5" x1="360" x2="360" y1="96" y2="130"></line>
+<line marker-end="url(#ar43d)" stroke="#8d867b" stroke-width="1.5" x1="390" x2="568" y1="96" y2="130"></line>
+<text fill="#63b3a6" font-family="-apple-system,sans-serif" font-size="11.5" text-anchor="middle" x="140" y="150">① 边 = 一起开过会</text>
+<text fill="#63b3a6" font-family="-apple-system,sans-serif" font-size="11.5" text-anchor="middle" x="360" y="150">② 边 = 互相转过账</text>
+<text fill="#63b3a6" font-family="-apple-system,sans-serif" font-size="11.5" text-anchor="middle" x="580" y="150">③ 边 = 私下吃过饭</text>
+<rect fill="none" height="168" stroke="rgba(255,255,255,0.08)" width="176" x="52" y="158"></rect>
+<line stroke="rgba(255,255,255,0.22)" stroke-width="1.4" x1="192" x2="140" y1="245" y2="193"></line>
+<line stroke="rgba(255,255,255,0.22)" stroke-width="1.4" x1="192" x2="177" y1="245" y2="208"></line>
+<line stroke="rgba(255,255,255,0.22)" stroke-width="1.4" x1="192" x2="177" y1="245" y2="282"></line>
+<line stroke="rgba(255,255,255,0.22)" stroke-width="1.4" x1="192" x2="140" y1="245" y2="297"></line>
+<line stroke="rgba(255,255,255,0.22)" stroke-width="1.4" x1="192" x2="103" y1="245" y2="282"></line>
+<line stroke="rgba(255,255,255,0.22)" stroke-width="1.4" x1="88" x2="103" y1="245" y2="208"></line>
+<circle cx="140" cy="193" fill="#3a3630" r="9" stroke="rgba(255,255,255,0.2)"></circle>
+<circle cx="177" cy="208" fill="#3a3630" r="9" stroke="rgba(255,255,255,0.2)"></circle>
+<circle cx="192" cy="245" fill="#e0895e" r="12"></circle>
+<circle cx="177" cy="282" fill="#3a3630" r="9" stroke="rgba(255,255,255,0.2)"></circle>
+<circle cx="140" cy="297" fill="#3a3630" r="9" stroke="rgba(255,255,255,0.2)"></circle>
+<circle cx="103" cy="282" fill="#3a3630" r="9" stroke="rgba(255,255,255,0.2)"></circle>
+<circle cx="88" cy="245" fill="#3a3630" r="9" stroke="rgba(255,255,255,0.2)"></circle>
+<circle cx="103" cy="208" fill="#3a3630" r="9" stroke="rgba(255,255,255,0.2)"></circle>
+<text fill="#8d867b" font-family="SF Mono,monospace" font-size="9.5" text-anchor="middle" x="140" y="179">A</text>
+<text fill="#8d867b" font-family="SF Mono,monospace" font-size="9.5" text-anchor="middle" x="189" y="199">B</text>
+<text fill="#e0895e" font-family="SF Mono,monospace" font-size="10.5" text-anchor="middle" x="211" y="249">C</text>
+<text fill="#8d867b" font-family="SF Mono,monospace" font-size="9.5" text-anchor="middle" x="189" y="299">D</text>
+<text fill="#8d867b" font-family="SF Mono,monospace" font-size="9.5" text-anchor="middle" x="140" y="318">E</text>
+<text fill="#8d867b" font-family="SF Mono,monospace" font-size="9.5" text-anchor="middle" x="91" y="299">F</text>
+<text fill="#8d867b" font-family="SF Mono,monospace" font-size="9.5" text-anchor="middle" x="69" y="249">G</text>
+<text fill="#8d867b" font-family="SF Mono,monospace" font-size="9.5" text-anchor="middle" x="91" y="199">H</text>
+<text fill="#e0895e" font-family="-apple-system,sans-serif" font-size="11.5" text-anchor="middle" x="140" y="346">枢纽 = C</text>
+<rect fill="none" height="168" stroke="rgba(255,255,255,0.08)" width="176" x="272" y="158"></rect>
+<line stroke="rgba(255,255,255,0.22)" stroke-width="1.4" x1="323" x2="397" y1="282" y2="208"></line>
+<line stroke="rgba(255,255,255,0.22)" stroke-width="1.4" x1="323" x2="397" y1="282" y2="282"></line>
+<line stroke="rgba(255,255,255,0.22)" stroke-width="1.4" x1="323" x2="308" y1="282" y2="245"></line>
+<line stroke="rgba(255,255,255,0.22)" stroke-width="1.4" x1="323" x2="323" y1="282" y2="208"></line>
+<line stroke="rgba(255,255,255,0.22)" stroke-width="1.4" x1="323" x2="360" y1="282" y2="297"></line>
+<line stroke="rgba(255,255,255,0.22)" stroke-width="1.4" x1="360" x2="412" y1="193" y2="245"></line>
+<circle cx="360" cy="193" fill="#3a3630" r="9" stroke="rgba(255,255,255,0.2)"></circle>
+<circle cx="397" cy="208" fill="#3a3630" r="9" stroke="rgba(255,255,255,0.2)"></circle>
+<circle cx="412" cy="245" fill="#3a3630" r="9" stroke="rgba(255,255,255,0.2)"></circle>
+<circle cx="397" cy="282" fill="#3a3630" r="9" stroke="rgba(255,255,255,0.2)"></circle>
+<circle cx="360" cy="297" fill="#3a3630" r="9" stroke="rgba(255,255,255,0.2)"></circle>
+<circle cx="323" cy="282" fill="#e0895e" r="12"></circle>
+<circle cx="308" cy="245" fill="#3a3630" r="9" stroke="rgba(255,255,255,0.2)"></circle>
+<circle cx="323" cy="208" fill="#3a3630" r="9" stroke="rgba(255,255,255,0.2)"></circle>
+<text fill="#8d867b" font-family="SF Mono,monospace" font-size="9.5" text-anchor="middle" x="360" y="179">A</text>
+<text fill="#8d867b" font-family="SF Mono,monospace" font-size="9.5" text-anchor="middle" x="409" y="199">B</text>
+<text fill="#8d867b" font-family="SF Mono,monospace" font-size="9.5" text-anchor="middle" x="431" y="249">C</text>
+<text fill="#8d867b" font-family="SF Mono,monospace" font-size="9.5" text-anchor="middle" x="409" y="299">D</text>
+<text fill="#8d867b" font-family="SF Mono,monospace" font-size="9.5" text-anchor="middle" x="360" y="318">E</text>
+<text fill="#e0895e" font-family="SF Mono,monospace" font-size="10.5" text-anchor="middle" x="309" y="301">F</text>
+<text fill="#8d867b" font-family="SF Mono,monospace" font-size="9.5" text-anchor="middle" x="289" y="249">G</text>
+<text fill="#8d867b" font-family="SF Mono,monospace" font-size="9.5" text-anchor="middle" x="311" y="199">H</text>
+<text fill="#e0895e" font-family="-apple-system,sans-serif" font-size="11.5" text-anchor="middle" x="360" y="346">枢纽 = F</text>
+<rect fill="none" height="168" stroke="rgba(255,255,255,0.08)" width="176" x="492" y="158"></rect>
+<line stroke="rgba(255,255,255,0.22)" stroke-width="1.4" x1="580" x2="617" y1="193" y2="208"></line>
+<line stroke="rgba(255,255,255,0.22)" stroke-width="1.4" x1="580" x2="543" y1="193" y2="208"></line>
+<line stroke="rgba(255,255,255,0.22)" stroke-width="1.4" x1="580" x2="528" y1="193" y2="245"></line>
+<line stroke="rgba(255,255,255,0.22)" stroke-width="1.4" x1="580" x2="617" y1="193" y2="282"></line>
+<line stroke="rgba(255,255,255,0.22)" stroke-width="1.4" x1="632" x2="580" y1="245" y2="297"></line>
+<line stroke="rgba(255,255,255,0.22)" stroke-width="1.4" x1="580" x2="543" y1="297" y2="282"></line>
+<circle cx="580" cy="193" fill="#e0895e" r="12"></circle>
+<circle cx="617" cy="208" fill="#3a3630" r="9" stroke="rgba(255,255,255,0.2)"></circle>
+<circle cx="632" cy="245" fill="#3a3630" r="9" stroke="rgba(255,255,255,0.2)"></circle>
+<circle cx="617" cy="282" fill="#3a3630" r="9" stroke="rgba(255,255,255,0.2)"></circle>
+<circle cx="580" cy="297" fill="#3a3630" r="9" stroke="rgba(255,255,255,0.2)"></circle>
+<circle cx="543" cy="282" fill="#3a3630" r="9" stroke="rgba(255,255,255,0.2)"></circle>
+<circle cx="528" cy="245" fill="#3a3630" r="9" stroke="rgba(255,255,255,0.2)"></circle>
+<circle cx="543" cy="208" fill="#3a3630" r="9" stroke="rgba(255,255,255,0.2)"></circle>
+<text fill="#e0895e" font-family="SF Mono,monospace" font-size="10.5" text-anchor="middle" x="580" y="175">A</text>
+<text fill="#8d867b" font-family="SF Mono,monospace" font-size="9.5" text-anchor="middle" x="629" y="199">B</text>
+<text fill="#8d867b" font-family="SF Mono,monospace" font-size="9.5" text-anchor="middle" x="651" y="249">C</text>
+<text fill="#8d867b" font-family="SF Mono,monospace" font-size="9.5" text-anchor="middle" x="629" y="299">D</text>
+<text fill="#8d867b" font-family="SF Mono,monospace" font-size="9.5" text-anchor="middle" x="580" y="318">E</text>
+<text fill="#8d867b" font-family="SF Mono,monospace" font-size="9.5" text-anchor="middle" x="531" y="299">F</text>
+<text fill="#8d867b" font-family="SF Mono,monospace" font-size="9.5" text-anchor="middle" x="509" y="249">G</text>
+<text fill="#8d867b" font-family="SF Mono,monospace" font-size="9.5" text-anchor="middle" x="531" y="199">H</text>
+<text fill="#e0895e" font-family="-apple-system,sans-serif" font-size="11.5" text-anchor="middle" x="580" y="346">枢纽 = A</text>
+</svg>
+<figcaption>「谁是枢纽」这句话，在你说清边是怎么定义的之前，还不是一个关于世界的陈述。</figcaption>
+</figure>
+<p>所以「在这个网络里 X 是枢纽」这种句子，必须连着建图规则一起说才有意义。省掉规则，读者会以为你在描述这群人，其实你在描述你的表格。<b>指控三：幂律那部分成立且正在被修；「万物皆网络」那部分部分成立</b>——网络确实是个好工具，问题出在把一次表征当成了一次发现。</p>
+<div class="decide">
+<span class="lb">🎯 决策线</span>
+<p>汇报任何网络结论前，先写清三件事：<b>边的定义、时间窗口、切掉弱连接的阈值</b>。然后做一次替换检验——换一种同样合理的边定义重跑一遍。如果枢纽换人了，你的结论属于你的建图方式，不属于这个系统，必须降级表述。同理，说「这是幂律」之前先跑一次拟合优度检验，别拿双对数图上那条看着挺直的线当证据。</p>
+</div>
+<div class="crossx-inline">
+🌀 <b>文学与艺术 · 把《哈姆雷特》画成网络</b>　Franco Moretti 在 2011 年那篇《网络理论，情节分析》里，把剧中人物按「谁跟谁在台上说过话」连成一张图，然后做了个实验：删掉主人公，整张图几乎断成两半，只剩几条边挂着 Horatio。有意思的是他自己在文中就点破了这张图的代价——它<b>把时间换成了空间</b>，第一幕的一次对话和第五幕的一次对话在图上没有区别。这正是本节这条机制：边的定义决定了结论的适用范围。于是那个结论必须重写：删掉 Hamlet 图会散架，说的是「台上说过话」这一种投影下的中心性，不是剧作结构的中心性——而对一部完全靠时序推进的悲剧来说，这两者差得很远。
+</div>
+<p class="en-brief"><b>EN</b> Charge three has two halves. Power-law inflation: upheld, and being repaired from inside — Clauset, Shalizi &amp; Newman (2009) supplied a real test, and Broido &amp; Clauset (2019) applied it to nearly a thousand networks and found strictly scale-free structure to be rare. "Everything is a network": partly upheld. Drawing a network is a modelling choice — which relation counts as an edge, over what time window, above what threshold — and the same eight people yield three different hubs under three defensible edge definitions. A hub claim without its edge definition describes your spreadsheet, not the world.</p>
+
+<h2><span class="n">04</span>为什么偏偏是这门学科<span class="he">（Why This Field Is Especially Exposed）</span></h2>
+<p class="lead">前三条指控放在一起会引出一个问题：别的学科也有夸大和滥用，为什么复杂性科学显得格外严重？答案是结构性的，不是道德性的——它有四个别人没有的暴露面。</p>
+<p><b>第一，它的工作方式本身就是类比。</b>这门学科的全部主张就是同一条机制反复出现在互不相干的领域：沙堆、灭绝、崩盘共享同一条统计。而<em>正确的搬运和错误的搬运，在句子层面长得一模一样</em>——两者都说「这两件事背后是同一条机制」。区别只在有没有把前提一起搬过去。</p>
+<figure>
+<svg aria-label="把一条机制搬到新领域：带前提搬与只搬结论的区别" role="img" viewBox="0 0 720 260" xmlns="http://www.w3.org/2000/svg">
+<defs>
+<marker id="ar43e" markerHeight="10" markerUnits="userSpaceOnUse" markerWidth="10" orient="auto" refX="9" refY="5" viewBox="0 0 10 10">
+<path d="M0,1 L9,5 L0,9 z" fill="#9fbc7a"></path>
+</marker>
+<marker id="ar43f" markerHeight="10" markerUnits="userSpaceOnUse" markerWidth="10" orient="auto" refX="9" refY="5" viewBox="0 0 10 10">
+<path d="M0,1 L9,5 L0,9 z" fill="#cd7f9b"></path>
+</marker>
+</defs>
+<text fill="#aba498" font-family="-apple-system,sans-serif" font-size="13" text-anchor="middle" x="360" y="26">搬一条机制去新领域 — 区别只在前提有没有跟着走</text>
+<rect fill="rgba(255,255,255,0.02)" height="130" rx="8" stroke="rgba(255,255,255,0.12)" width="200" x="40" y="70"></rect>
+<text fill="#d9b45f" font-family="SF Mono,monospace" font-size="12" text-anchor="middle" x="140" y="94">来源 · 沙堆模型</text>
+<text fill="#a9a096" font-family="-apple-system,sans-serif" font-size="11" x="58" y="122">前提① 缓慢积累</text>
+<text fill="#a9a096" font-family="-apple-system,sans-serif" font-size="11" x="58" y="146">前提② 阈值释放</text>
+<text fill="#a9a096" font-family="-apple-system,sans-serif" font-size="11" x="58" y="170">前提③ 局部耦合</text>
+<text fill="#9fbc7a" font-family="-apple-system,sans-serif" font-size="11.5" text-anchor="middle" x="345" y="86">把前提一起搬</text>
+<line marker-end="url(#ar43e)" stroke="#9fbc7a" stroke-width="2" x1="248" x2="442" y1="110" y2="96"></line>
+<text fill="#cd7f9b" font-family="-apple-system,sans-serif" font-size="11.5" text-anchor="middle" x="345" y="158">只搬结论</text>
+<line marker-end="url(#ar43f)" stroke="#cd7f9b" stroke-width="2" x1="248" x2="442" y1="160" y2="196"></line>
+<rect fill="rgba(159,188,122,0.06)" height="72" rx="8" stroke="rgba(159,188,122,0.35)" width="230" x="450" y="56"></rect>
+<text fill="#9fbc7a" font-family="-apple-system,sans-serif" font-size="12" x="466" y="80">目标 · 森林可燃物</text>
+<text fill="#a9a096" font-family="-apple-system,sans-serif" font-size="10.5" x="466" y="102">三条前提逐条核对，都成立</text>
+<text fill="#787268" font-family="-apple-system,sans-serif" font-size="10.5" x="466" y="120">→ 可以当机制用</text>
+<rect fill="rgba(205,127,155,0.06)" height="72" rx="8" stroke="rgba(205,127,155,0.35)" width="230" x="450" y="160"></rect>
+<text fill="#cd7f9b" font-family="-apple-system,sans-serif" font-size="12" x="466" y="184">目标 · 「我们处在临界点」</text>
+<text fill="#a9a096" font-family="-apple-system,sans-serif" font-size="10.5" x="466" y="206">积累量是什么？阈值是多少？</text>
+<text fill="#787268" font-family="-apple-system,sans-serif" font-size="10.5" x="466" y="224">→ 只能当类比用</text>
+<text fill="#57524b" font-family="-apple-system,sans-serif" font-size="11" text-anchor="middle" x="360" y="250">两条路径说出来的句子完全一样：「这两件事背后是同一条机制」</text>
+</svg>
+<figcaption>把前提清单列出来逐条核对，是区分「机制」与「类比」的唯一可操作动作。核不上不等于错，只等于降级。</figcaption>
+</figure>
+<p><b>第二，它没有自己的数据。</b>物理有实验室，流行病学有病例登记，它没有专属的观测对象——它永远在别人的数据上工作。而那份数据哪里有坑（怎么采集的、漏了谁、口径什么时候改过），只有那个领域的人知道。跨进来的人拿到的是一张干净的表，看不见表背后的脏活。</p>
+<p><b>第三，审稿人只懂一半。</b>一篇跨学科论文，懂数学的审稿人往往看不出实证部分的漏洞，懂实证的常常被数学吓住、默认它是对的。这不是谁的阴谋，是结构：<em>没有人有能力对整篇文章说「不」。</em></p>
+<p><b>第四，命名本身有市场。</b>2000 年霍金在一次报纸采访里说「我认为下一个世纪将是复杂性的世纪」——这句话此后被引用了无数次。它是一句采访里的期待，不是一个研究结论，但它在传播中的分量远超任何一篇论文。一个领域一旦有了这种句子，进来的人里就会有一部分是冲着句子来的。</p>
+<div class="decide">
+<span class="lb">🎯 决策线</span>
+<p>每次把一条机制搬到新领域之前，先把它成立的<b>前提清单</b>写下来（比如 SOC 需要「缓慢积累 + 阈值释放 + 局部耦合」三条），再逐条在新领域里核对，并写明核不上的那几条。核不上不等于这个联想没价值，只等于它必须<b>降级为类比</b>、不能进结论。这一步做完，你会发现大部分「跨界洞见」自动消失了——剩下的那些才值钱。</p>
+</div>
+<div class="crossx-inline">
+🌀 <b>医学 · Selye 的「应激」</b>　「压力/应激」（stress）这个词是 Hans Selye 从工程学借来的：1936 年他描述了一种不管用什么有害刺激都会出现的固定反应序列，有明确的生理所指。后来这个词的适用面一路扩张，扩张到几乎任何不适都能叫 stress，也就几乎不排除任何东西了；Selye 本人晚年说过，如果当年他的英文更好，他会选 strain 那个词。这正是本节这条机制：搬运时前提留在了原地，只有词走了。由此得到一个反直觉的推论——<b>一个概念最常见的死因是它的成功</b>：适用面扩张的速度总是快过检验跟上的速度，所以术语流行度和它的可证伪性通常反向而行。
+</div>
+<p class="en-brief"><b>EN</b> Four structural exposures, not moral failings. The field's method <i>is</i> analogy, and a sound transfer and a bogus one are verbally identical — only the premise list distinguishes them. It owns no data of its own, so it never sees where someone else's dataset is dirty. Interdisciplinary referees each understand half a paper, so nobody is equipped to say no to the whole. And the field carries slogans — Hawking's "the next century will be the century of complexity" — that travel further than any result.</p>
+
+<h2><span class="n">05</span>这套批判在哪儿不成立<span class="he">（Where the Critique Itself Breaks Down）</span></h2>
+<p class="lead">现在把枪口调转。批判也会越界，而且越界的方式和它批评的对象一模一样。</p>
+<p><b>「它没有统一理论，所以不算科学」——不成立。</b>这条听起来很有力，其实标准是错的。生态学没有统一理论，地质学没有，免疫学也没有，没人因此说它们不是科学。判据从来不是「有没有一个大写的理论」，而是「有没有可被检验、可被推翻的具体模型」。这个它有一堆：渗流、SIR、Kuramoto、NK 景观、优先连接——每一个都作出过明确断言，也确实都被修正过（第 22 期讲的那次对无标度网络的系统性反驳，就是模型被数据修理的现场）。</p>
+<p><b>「它没预测到 2008 年危机」——记分错了。</b>这条已经在第二节拆过：用点预测给一门明确放弃点预测的学科打分，是拿错了尺子。该问的是它交付的阈值与分布有没有被检验过。要注意的是，这个辩护不能反过来用成免死金牌——放弃点预测的代价，是必须在另外两种预测上接受更严格的检验，而不是从此不受检验。</p>
+<p><b>最要紧的一条：批判本身可以变成零成本的姿态。</b>「这很复杂」「系统是不可预测的」「线性思维在这里不管用」——这些句子和它们所批评的对象犯的是同一个错误：<em>它们也不禁止任何东西</em>。用「复杂」来终止讨论，和用「复杂」来解释一切，是同一个动作的两个方向。前者听起来更谦虚，所以更难被发现。</p>
+<p>同样地，Sokal 式的清算有它自己的越界：从「某些人文学者误用了物理术语」推到「跨学科搬运本身没有价值」，也是丢掉了定义域——那次事件证明的是某个审稿环节失灵，不是类比这件事本身破产。</p>
+<figure>
+<svg aria-label="四条指控与一条反指控的判决记分卡" role="img" viewBox="0 0 720 300" xmlns="http://www.w3.org/2000/svg">
+<text fill="#aba498" font-family="-apple-system,sans-serif" font-size="13" text-anchor="middle" x="360" y="26">记分卡 — 逐条判，不打包</text>
+<text fill="#787268" font-family="SF Mono,monospace" font-size="10.5" x="26" y="56">指控</text>
+<text fill="#787268" font-family="SF Mono,monospace" font-size="10.5" x="330" y="56">判决</text>
+<text fill="#787268" font-family="SF Mono,monospace" font-size="10.5" x="452" y="56">依据</text>
+<line stroke="rgba(255,255,255,0.12)" stroke-width="1" x1="24" x2="696" y1="64" y2="64"></line>
+<rect fill="rgba(255,255,255,0.022)" height="40" width="672" x="24" y="70"></rect>
+<text fill="#d5cdc1" font-family="-apple-system,sans-serif" font-size="12.5" x="34" y="95">把隐喻当解释</text>
+<text fill="#cd7f9b" font-family="-apple-system,sans-serif" font-size="12" x="330" y="95">成立</text>
+<text fill="#8d867b" font-family="-apple-system,sans-serif" font-size="10.5" x="452" y="95">1993 年重做实验，原结果没复现</text>
+<rect fill="rgba(255,255,255,0.008)" height="40" width="672" x="24" y="112"></rect>
+<text fill="#d5cdc1" font-family="-apple-system,sans-serif" font-size="12.5" x="34" y="137">幂律用得太松</text>
+<text fill="#cd7f9b" font-family="-apple-system,sans-serif" font-size="12" x="330" y="137">成立（在自修）</text>
+<text fill="#8d867b" font-family="-apple-system,sans-serif" font-size="10.5" x="452" y="137">2009 年给出检验，2019 年扫近千网络</text>
+<rect fill="rgba(255,255,255,0.022)" height="40" width="672" x="24" y="154"></rect>
+<text fill="#d5cdc1" font-family="-apple-system,sans-serif" font-size="12.5" x="34" y="179">万物皆网络</text>
+<text fill="#d9b45f" font-family="-apple-system,sans-serif" font-size="12" x="330" y="179">部分成立</text>
+<text fill="#8d867b" font-family="-apple-system,sans-serif" font-size="10.5" x="452" y="179">边的定义没申报，结论属于建图方式</text>
+<rect fill="rgba(255,255,255,0.008)" height="40" width="672" x="24" y="196"></rect>
+<text fill="#d5cdc1" font-family="-apple-system,sans-serif" font-size="12.5" x="34" y="221">预测力弱</text>
+<text fill="#79a6d2" font-family="-apple-system,sans-serif" font-size="12" x="330" y="221">记分错了</text>
+<text fill="#8d867b" font-family="-apple-system,sans-serif" font-size="10.5" x="452" y="221">该问阈值与分布有没有事前存档</text>
+<rect fill="rgba(255,255,255,0.022)" height="40" width="672" x="24" y="238"></rect>
+<text fill="#d5cdc1" font-family="-apple-system,sans-serif" font-size="12.5" x="34" y="263">没统一理论就不算科学</text>
+<text fill="#9fbc7a" font-family="-apple-system,sans-serif" font-size="12" x="330" y="263">不成立</text>
+<text fill="#8d867b" font-family="-apple-system,sans-serif" font-size="10.5" x="452" y="263">生态学、地质学也没有统一理论</text>
+<text fill="#57524b" font-family="-apple-system,sans-serif" font-size="11" text-anchor="middle" x="360" y="292">四条指控，四种不同的判决 — 打包接受和打包拒绝，都是偷懒</text>
+</svg>
+<figcaption>逐条判的意义在于：接受前两条并不要求你放弃这门学科，拒绝最后一条也不要求你替它辩护。</figcaption>
+</figure>
+<p>所以诚实的边界大致在这里：<b>这门学科交付得最好的是「机制的形状」——阈值在哪、分布是什么形状、结构怎样决定动力学；交付得最差的是任何形如「哪天、多大、谁」的东西。</b>凡是它讲得越像故事的地方，你越该要求它给出那句「它禁止了什么」。</p>
+<div class="decide">
+<span class="lb">🎯 决策线</span>
+<p>给你自己的词汇表做一次体检：把最近三个月你用过的复杂性词（涌现、临界、韧性、反脆弱、网络效应、正反馈）列出来，每个写一句「它禁止了什么」。写不出来的那些不必停用，但要<b>降级</b>——从「结论里的理由」降到「提问时的线索」。降级后的用法长这样：不说「我们组织处在临界点」，而说「如果这里真的临界，那么积累量应该在涨、恢复时间应该在变长——去查这两个数」。</p>
+</div>
+<p class="en-brief"><b>EN</b> The critique has its own boundary. "No unified theory, therefore not a science" is simply false — ecology and geology have none either; the test is whether there are falsifiable specific models, and there are plenty. "It missed 2008" scores the field with the wrong instrument. And the most seductive failure: "it's complex, it's unpredictable, linear thinking won't work" forbids nothing either, so ending a discussion with complexity and explaining everything with it are the same move. What the field delivers well is the shape of mechanisms — thresholds, distributions, structure driving dynamics; what it delivers badly is anything of the form "when, how big, who".</p>
+
+<div class="bigcat">
+<h3>🎒 场景 · BigCat</h3>
+<ol>
+<li><span class="dm">投资与仓位</span>写投资笔记时，理由那一栏常出现「这个行业有网络效应」「先发优势会滚起来」——这类句子在事后能解释任何一个赢家，所以在事前不区分任何两个候选。可改的东西：给每条理由加一个<b>作废条件</b>和一个日期（例如「若 12 个月后单位获客成本没有下降、且第二名份额没被压缩，本条作废」）。然后每季度统计一个指标：<b>当初写下的理由里，现在还能明确判定成立或不成立的占多少</b>。这个比例是你笔记质量的唯一硬指标，比收益率更早告诉你自己在不在裸奔。停掉的动作：把没有作废条件的机制叙事写进买入理由。</li>
+<li><span class="dm">写作与这个学习站本身</span>每期结尾都要给出跨学科联想，而联想越漂亮，越可能是靠「感觉像」接上的——这正是本期第一条指控在自家门口的版本。可改的东西：给每条联想加一道固定的过关检查——<b>它推出的那个结论，在不引用本期机制的情况下能不能得到？</b>能，则这条联想没有做功，删掉。停掉的动作：用「都体现了……」「都是一种……」这类句式收尾，那是感觉的连词，不是机制的连词。</li>
+<li><span class="dm">修行与心性</span>一次情绪起来之后，很容易用一句通用的话给它结案——「念头本来就是生灭的」「这是无常」。这类解释贴得上每一次情绪，因此不区分任何两次，和「这个组织处在混沌边缘」是同一种句子。可改的东西：把结案的那句话换成一条可被自己推翻的记录——记下<b>触发是什么、持续了多久、24 小时内有没有复现</b>。三十次之后你手上有一张分布，而不是三十遍同样的感慨；而分布是能看出趋势的，感慨不能。停掉的动作：用一句教理给一次具体经验封口。</li>
+</ol>
+</div>
+
+<div class="crossx">
+<h3>🌀 越界 · 跨学科的联想<span class="he">（Crossings）</span></h3>
+<ul>
+<li><b>西方哲学与科学哲学 · 索卡尔事件</b>：1996 年，物理学家 Alan Sokal 把一篇塞满量子引力、非线性与后现代术语的胡话投给文化研究刊物《社会文本》，文章被原样发表；随后他与 Jean Bricmont 出版《时髦的空话》，逐条检查了一批法国理论家对数学物理术语的使用。这件事常被读成「人文学者不懂科学」，但本期三条机制合起来给出的读法完全不同：术语迁移时把定义域留在了原地（第一节）、事后可贴合任何文本因而零禁止（第一、二节）、以及审稿人只懂一半所以无人有资格说不（第四节）。三条一起成立时，被证明的其实是——<b>当一个共同体里没有人有能力对某一类句子说「不」，那类句子就会疯长</b>，与说话人的学科无关。这个结论不受欢迎的地方在于：同一台机器也在复杂性科学自己的屋子里运转着。<b>但这里不成立</b>：Sokal 的稿子是<em>故意</em>造假，靠的是投稿人主动欺骗；而复杂性科学里的隐喻膨胀基本是诚实的，写的人相信自己在陈述事实。这个差别决定了补救方式完全不同——防欺骗靠审稿与复核制度，防隐喻膨胀只能靠「它禁止了什么」这类逐句检查。把两者混为一谈，会让人以为加强同行评议就能解决问题，而它解决不了。</li>
+<li><b>历史与军事 · 克劳塞维茨的「重心」</b>：《战争论》里的 Schwerpunkt（重心）本是一个从力学借来的比喻，指敌方力量所系的那个枢纽。现代美军条令把它变成了作战计划里一个<b>必须填写的栏目</b>；军事学者 Antulio Echevarria 等人长期指出的问题是，不同参谋对同一场战局填出的重心常常互不相同，而且事后都能自圆其说。本期的机制在这里成套跑：借来的隐喻丢了原来的定义域（力学里的重心有唯一定义，战争里没有）、它对任何战局都兼容因此零禁止、而「必填栏」这个制度设计把这种兼容性变成了强制生产——每份计划都必须产出一个重心，哪怕这场仗根本没有。原本看不出的结论是：<b>把一个概念写进模板，是让它免于检验的最有效办法</b>，因为从此它的存在由流程保证、不再由证据保证。这条对任何一家公司的季度汇报模板同样适用。</li>
+<li><b>医学 · 降落伞与证据等级</b>：循证医学把随机对照试验（randomized controlled trial，缩写 RCT）放在证据金字塔顶端，这套等级极大地改善了医学。副作用是：难做 RCT 的领域（外科术式、公共卫生干预、罕见病）被系统性地判成「证据不足」，而「没有证据」在传播中被读成「没有效果」。2003 年《英国医学杂志》上那篇著名的玩笑论文——系统综述发现没有一项 RCT 检验过「跳伞时使用降落伞能否预防伤亡」——正是在戳这个点。本期第五节的机制在这里成套跑：一把好尺子被越界使用，把「我这把尺子量不到」错报成了「那儿没有东西」；而这与「用点预测给复杂性科学打分」是同一个错误的两次出现。推出的结论：批判一个方法时，必须先声明<b>你用的是哪把尺子、它量不到什么</b>——否则批判会系统性地偏袒那些恰好合尺子的对象，而这种偏袒比它要纠正的错误更难被发现，因为它每一步看起来都很严谨。</li>
+</ul>
+</div>
+
+<div class="thinking">
+<h3>深入思考<span class="he">（Going Deeper）</span></h3>
+<details><summary>如果「它禁止了什么」是唯一判据，那早期的、还很模糊的想法怎么办？</summary><p>这条判据管的是<em>结论</em>，不是<em>提问</em>。科学史上大量重要想法起步时都说不清自己禁止什么——大陆漂移、板块构造、基因的物质基础都是。区别在于它们后来找到了可检验的形式，而不是永远停在启发阶段。所以正确的用法是给每个模糊想法记一笔账：它现在处在「线索」层，什么时候能升到「理由」层？三年没升上去的，多半升不上去了。</p></details>
+<details><summary>圈内人的自我批评这么有力，为什么外面几乎听不到？</summary><p>因为批评的传播成本远高于口号。「进化会跑向混沌边缘」是一句可以在演讲里讲三十秒的话；「这个聚集是遗传算法与适应度函数造成的假象」需要读者先懂前一句才能懂。传播机制本身是筛子：它优先放行不需要背景就能转述的句子——而不需要背景就能转述，往往正是因为前提已经被剥掉了。</p></details>
+<details><summary>「这很复杂」既然不禁止任何东西，为什么听起来那么有说服力？</summary><p>因为它把举证责任转移了。断言「A 导致 B」的人要负责举证，而断言「这事很复杂」的人看起来没有作出任何断言，于是不必举证——但他实际上作出了一个很强的断言：你的因果说明是错的。分辨方法很直接：请他说出，如果这事其实并不复杂，会看到什么不同的现象。答不上来，那句话就只是拒绝。</p></details>
+<details><summary>一门学科需要多长时间才能判定它「兑现了」？</summary><p>没有统一答案，但有个可操作的替代问题：它有没有产生过<b>自己人推翻自己人</b>的公开记录？板块构造用了大约半个世纪，其间充满了这种记录。复杂性科学在这一项上其实交得出作业（1993 年那次重做、2009 年的检验、2019 年的扫描），这比任何一句「它是 21 世纪的科学」都更能说明它的状态。</p></details>
+</div>
+
+<div class="refs">
+<h3>延伸阅读<span class="he">（Further Reading）</span></h3>
+<ul>
+<li>Mitchell, Hraber &amp; Crutchfield, <a href="https://arxiv.org/abs/adap-org/9303003">Revisiting the Edge of Chaos</a>（1993，「混沌边缘」原始结果没能复现的那篇）</li>
+<li>Clauset, Shalizi &amp; Newman, <a href="https://arxiv.org/abs/0706.1062">Power-law distributions in empirical data</a>（2009，幂律检验的标准做法）</li>
+<li>Broido &amp; Clauset, <a href="https://www.nature.com/articles/s41467-019-08746-5">Scale-free networks are rare</a>（2019，近千个真实网络的系统扫描）</li>
+<li>John Horgan, <a href="https://www.scientificamerican.com/article/from-complexity-to-perplexity/">From Complexity to Perplexity</a>（1995，最有名的那篇外部檄文）</li>
+<li>Carpenter et al., <a href="https://www.science.org/doi/10.1126/science.1203672">Early warnings of regime shifts: a whole-ecosystem experiment</a>（2011，全湖实验）</li>
+<li>Geller et al., <a href="https://www.science.org/doi/10.1126/science.275.5306.1616">Earthquakes cannot be predicted</a>（1997，地震预测之争）</li>
+<li>Sokal &amp; Bricmont, <a href="https://en.wikipedia.org/wiki/Fashionable_Nonsense">Fashionable Nonsense</a>（1997／索卡尔事件与术语挪用）</li>
+<li>Franco Moretti, <a href="https://newleftreview.org/issues/ii68/articles/franco-moretti-network-theory-plot-analysis">Network Theory, Plot Analysis</a>（2011，把戏剧画成网络，含他自己给出的边界）</li>
+<li>Smith &amp; Pell, <a href="https://www.bmj.com/content/327/7429/1459">Parachute use to prevent death and major trauma…</a>（2003，证据等级的越界）</li>
+<li>Melanie Mitchell, <a href="https://global.oup.com/academic/product/complexity-9780199798100">Complexity: A Guided Tour</a>（全书末章是圈内最克制的一份自评）</li>
+</ul>
+</div>
+<footer>BigCat · 复杂性科学 · <a href="index.html">← 全部 Topic</a></footer>
+</div>
+<script src="https://hub.cissychen.com/comments.js" defer></script>
+<script src="https://hub.cissychen.com/search.js" defer></script>
+<script src="https://hub.cissychen.com/index-button.js" defer></script>
+<script src="https://hub.cissychen.com/i18n-tts.js" defer></script>
+</body></html>
