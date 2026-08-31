@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+
+<html lang="en"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>How This Field Came To Be — every concept was forced out by a concrete problem · Complexity Science T44</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,"SF Pro Display","Noto Sans SC",sans-serif;color:#e4ded5;line-height:1.85;min-height:100vh;
+  background:radial-gradient(1100px 620px at 12% -6%,rgba(224,137,94,0.10),transparent 62%),radial-gradient(950px 700px at 100% 2%,rgba(166,147,205,0.09),transparent 58%),linear-gradient(168deg,#100f0d 0%,#15161b 48%,#0a0a0c 100%);background-attachment:fixed}
+.wrap{max-width:760px;margin:0 auto;padding:30px 22px 90px}
+header{padding:52px 0 8px;border-bottom:1px solid rgba(255,255,255,0.07);margin-bottom:34px}
+.week-tag{font-family:"SF Mono",Menlo,monospace;font-size:0.72rem;font-weight:700;letter-spacing:2px;color:#a8a49c;border:1px solid rgba(168,164,156,0.4);background:rgba(168,164,156,0.07);padding:3px 11px;border-radius:20px}
+h1{font-size:2.5rem;font-weight:800;letter-spacing:0.5px;line-height:1.2;margin:20px 0 0;background:linear-gradient(106deg,#e0895e 0%,#d9b45f 34%,#9fbc7a 68%,#63b3a6 100%);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+h1 .h1en{display:block;font-size:0.40em;font-weight:600;letter-spacing:2.5px;color:#847d72;-webkit-text-fill-color:#847d72;background:none;margin-top:13px}
+.sub{font-size:1.05rem;color:#aba498;margin-top:14px;font-weight:500}
+.date{font-family:"SF Mono",Menlo,monospace;font-size:0.75rem;color:#57524b;margin-top:18px;letter-spacing:1px}
+.pitch{margin:22px 0 30px;font-size:0.97rem;color:#cd7f9b;border-left:2px solid rgba(205,127,155,0.5);padding-left:16px;font-style:italic}
+.intro{font-size:1.02rem;color:#cfc8bc;margin-bottom:14px}
+.intro p{margin-bottom:16px}
+h2{font-size:1.42rem;font-weight:700;color:#e9e3d9;margin:56px 0 8px;letter-spacing:0.3px}
+h2 .n{font-family:"SF Mono",Menlo,monospace;font-size:0.85rem;color:#a8a49c;display:block;margin-bottom:6px;letter-spacing:2px}
+.he{font-size:0.68em;color:#8d867b;font-weight:500;letter-spacing:0}
+p{margin-bottom:17px}
+.lead{color:#cfc8bc}
+b,strong{color:#f0eae0;font-weight:600}
+em{color:#d9b45f;font-style:normal;font-weight:500}
+.dim{color:#8d867b}
+a.reflink{display:inline-block;font-size:0.82rem;font-family:"SF Mono",Menlo,monospace;color:#63b3a6;border:1px solid rgba(99,179,166,0.38);background:rgba(99,179,166,0.07);padding:1px 9px;border-radius:20px;text-decoration:none;transition:all 0.15s;white-space:nowrap}
+a.reflink:hover{background:rgba(99,179,166,0.16);border-color:rgba(99,179,166,0.7)}
+figure{margin:30px 0}
+figure svg{display:block;width:100%;height:auto;border-radius:12px;background:rgba(255,255,255,0.018);border:1px solid rgba(255,255,255,0.06)}
+figcaption{font-size:0.82rem;color:#787268;margin-top:11px;text-align:center;line-height:1.6}
+.en-brief{font-size:0.85rem;color:#847d72;border-top:1px dashed rgba(255,255,255,0.09);padding-top:12px;margin-top:22px;line-height:1.65}
+.en-brief b{font-family:"SF Mono",Menlo,monospace;font-size:0.72rem;color:#63b3a6;letter-spacing:1px;margin-right:7px}
+.decide{margin:24px 0;border:1px solid rgba(224,137,94,0.36);background:rgba(224,137,94,0.055);border-radius:12px;padding:15px 19px}
+.decide .lb{font-family:"SF Mono",Menlo,monospace;font-size:0.73rem;letter-spacing:1.5px;color:#e0895e;font-weight:700;display:block;margin-bottom:7px}
+.decide p{margin:0;font-size:0.95rem;color:#ddd5c9}
+.crossx-inline{margin:20px 0 22px;border-left:2px solid rgba(205,127,155,0.55);padding:2px 0 2px 15px;font-size:0.89rem;color:#a9a096;line-height:1.72}
+.crossx-inline b{color:#cd7f9b;font-weight:600}
+.bigcat{margin:46px 0 10px;border:1px solid rgba(217,180,95,0.38);background:rgba(217,180,95,0.05);border-radius:14px;padding:20px 22px}
+.bigcat h3{font-size:1.02rem;color:#d9b45f;margin-bottom:14px;letter-spacing:0.5px}
+.bigcat ol{list-style:none;padding:0}
+.bigcat li{margin-bottom:15px;font-size:0.94rem;color:#d5cdc1;line-height:1.78}
+.bigcat li:last-child{margin-bottom:0}
+.bigcat .dm{font-family:"SF Mono",Menlo,monospace;font-size:0.73rem;color:#d9b45f;border:1px solid rgba(217,180,95,0.32);border-radius:4px;padding:1px 7px;margin-right:8px;white-space:nowrap}
+.crossx{margin:46px 0 10px;border:1px solid rgba(205,127,155,0.38);background:rgba(205,127,155,0.05);border-radius:14px;padding:20px 22px}
+.crossx h3{font-size:1.02rem;color:#cd7f9b;margin-bottom:14px;letter-spacing:0.5px}
+.crossx ul{list-style:none;padding:0}
+.crossx li{margin-bottom:16px;font-size:0.94rem;color:#d5cdc1;line-height:1.78}
+.crossx li:last-child{margin-bottom:0}
+.crossx li b{color:#cd7f9b;font-weight:600}
+.thinking{margin:46px 0 10px}
+.thinking h3{font-size:1.02rem;color:#a693cd;margin-bottom:14px;letter-spacing:0.5px}
+details{border:1px solid rgba(166,147,205,0.22);border-radius:10px;padding:12px 16px;margin-bottom:10px;background:rgba(166,147,205,0.035)}
+summary{cursor:pointer;font-size:0.93rem;color:#c9c2b6;font-weight:500}
+summary::marker{color:#a693cd}
+details p{margin:12px 0 0;font-size:0.9rem;color:#a9a096;line-height:1.75}
+.refs{margin:46px 0 10px}
+.refs h3{font-size:1.02rem;color:#79a6d2;margin-bottom:14px;letter-spacing:0.5px}
+.refs ul{list-style:none;padding:0}
+.refs li{margin-bottom:10px;font-size:0.9rem;color:#8d867b;line-height:1.7}
+.refs a{color:#79a6d2;text-decoration:none;border-bottom:1px solid rgba(121,166,210,0.3)}
+.refs a:hover{color:#a6c4e2;border-bottom-color:rgba(121,166,210,0.7)}
+footer{text-align:center;padding:56px 0 10px;font-size:0.78rem;color:#57524b;font-family:"SF Mono",Menlo,monospace;border-top:1px solid rgba(255,255,255,0.06);margin-top:50px}
+footer a{color:#79a6d2;text-decoration:none}
+@media(max-width:600px){h1{font-size:1.85rem}.wrap{padding:24px 16px 60px}h2{font-size:1.22rem}}
+</style></head><body>
+<div class="wrap">
+<header>
+<span class="week-tag">TOPIC 44 · PHASE H</span>
+<h1>How This Field Came To Be</h1>
+<p class="sub">Every concept was forced out by a concrete problem</p>
+<p class="date">2026-08-31 · Methods and Limits</p>
+</header>
+<p class="pitch">Not one core concept in this field came out of "studying complex systems". Every one of them came out of some specific job that had to be done — how a gun hits a plane that is deliberately zigzagging, how a pot of chemicals grows stripes without breaking the second law. If you want to know where a concept applies, look up the job, not the definition.</p>
+<div class="intro">
+<p>Intellectual history is easy to write as a parade of names and dates, and it leaves you with nothing but "they were all very clever". That reading is useless. This issue does one thing: <b>it reduces each concept back to the problem that forced it out</b> — because how far a concept reaches is more or less the reach of that original problem.</p>
+<p>The twist is that the trick runs in reverse too. Take any complexity-science term you own. If you cannot find the specific job it was built for — not "studying complex systems", an actual job — then it was probably never forced out of anything. It was just written down.</p>
+<p class="dim">The last three issues asked how complexity is measured, how a model goes wrong, and what the field stands accused of. This is the last piece: where these ideas <b>came from</b> — who got cornered by what, how several disciplines ended up in one room, where the money came from and what it filtered out. The final section is reserved for something unflattering: how badly the method used to tell this story holds up.</p>
+</div>
+
+<h2><span class="n">01</span>Concepts Forced Out by Problems</h2>
+<p class="lead">In 1940 German bombers flew zigzag courses over England specifically to defeat anti-aircraft fire. A shell takes several seconds to reach altitude, so the gunner has to aim at where the plane <em>will be</em>, not where it is. That is a pure engineering problem: given a jittery trajectory so far, estimate the next position.</p>
+<p>The mathematician Norbert Wiener and his assistant Julian Bigelow took the job. They rewrote it as a statistics problem: treat the pilot's manoeuvres as a noisy random signal and find the linear estimate that minimises prediction error. The report went to the US National Defense Research Committee (NDRC) in February 1942 as a classified document. The device itself was judged too complicated to build in wartime and the project was shut down in 1943.</p>
+<p>Two things survived. One was the report, declassified and published in 1949, which founded the theory of signal prediction and filtering. The other was the thought Wiener had while chewing on the problem: <b>the gun, the gunner, the plane and the pilot should be computed as one loop</b> — the pilot sees the flak and changes course, the gunner sees the course and changes aim. Which parts are human and which are machine does not matter; what matters is how information goes round. In 1948 that thought became <em>Cybernetics</em>. <a class="reflink" href="ref-cybernetics.en.html">→ ref · Cybernetics and Its Lineage</a></p>
+<p>This is not an exception. Turn the field's signature concepts over one by one and there is a concrete job pressed underneath each of them:</p>
+<figure>
+<svg aria-label="Five core concepts and the original problems that forced them out" role="img" viewBox="0 0 720 360" xmlns="http://www.w3.org/2000/svg">
+<defs>
+<marker id="f1a" markerHeight="9" markerUnits="userSpaceOnUse" markerWidth="9" orient="auto" refX="8" refY="4.5"><path d="M0,0 L9,4.5 L0,9 z" fill="#8a8278"></path></marker>
+</defs>
+<text fill="#aba498" font-family="-apple-system,sans-serif" font-size="13" text-anchor="middle" x="360" y="26">A concept's boundary is roughly the boundary of its original problem</text>
+<text fill="#787268" font-family="-apple-system,sans-serif" font-size="11" x="16" y="50">The job that had to be done</text>
+<text fill="#787268" font-family="-apple-system,sans-serif" font-size="11" x="378" y="50">The concept it forced out</text>
+<rect fill="rgba(224,137,94,0.07)" height="40" rx="6" stroke="rgba(224,137,94,0.3)" width="298" x="14" y="62"></rect>
+<text fill="#d5cdc1" font-family="-apple-system,sans-serif" font-size="12" x="26" y="87">Hitting a plane that is zigzagging</text>
+<line marker-end="url(#f1a)" stroke="#8a8278" stroke-width="1.6" x1="320" x2="368" y1="82" y2="82"></line>
+<rect fill="rgba(255,255,255,0.03)" height="40" rx="6" stroke="rgba(255,255,255,0.12)" width="222" x="376" y="62"></rect>
+<text fill="#e4ded5" font-family="-apple-system,sans-serif" font-size="12" x="388" y="87">Feedback loop · optimal filter</text>
+<text fill="#8a8278" font-family="SF Mono,Menlo,monospace" font-size="11" x="608" y="87">Wiener '48</text>
+<rect fill="rgba(217,180,95,0.07)" height="40" rx="6" stroke="rgba(217,180,95,0.3)" width="298" x="14" y="118"></rect>
+<text fill="#d5cdc1" font-family="-apple-system,sans-serif" font-size="12" x="26" y="143">Can a machine build one as complex as itself?</text>
+<line marker-end="url(#f1a)" stroke="#8a8278" stroke-width="1.6" x1="320" x2="368" y1="138" y2="138"></line>
+<rect fill="rgba(255,255,255,0.03)" height="40" rx="6" stroke="rgba(255,255,255,0.12)" width="222" x="376" y="118"></rect>
+<text fill="#e4ded5" font-family="-apple-system,sans-serif" font-size="12" x="388" y="143">Self-reproducing automata</text>
+<text fill="#8a8278" font-family="SF Mono,Menlo,monospace" font-size="11" x="608" y="143">von Neumann</text>
+<rect fill="rgba(159,188,122,0.07)" height="40" rx="6" stroke="rgba(159,188,122,0.3)" width="298" x="14" y="174"></rect>
+<text fill="#d5cdc1" font-family="-apple-system,sans-serif" font-size="12" x="26" y="199">How much variety must a regulator absorb?</text>
+<line marker-end="url(#f1a)" stroke="#8a8278" stroke-width="1.6" x1="320" x2="368" y1="194" y2="194"></line>
+<rect fill="rgba(255,255,255,0.03)" height="40" rx="6" stroke="rgba(255,255,255,0.12)" width="222" x="376" y="174"></rect>
+<text fill="#e4ded5" font-family="-apple-system,sans-serif" font-size="12" x="388" y="199">Law of requisite variety</text>
+<text fill="#8a8278" font-family="SF Mono,Menlo,monospace" font-size="11" x="608" y="199">Ashby '56</text>
+<rect fill="rgba(99,179,166,0.07)" height="40" rx="6" stroke="rgba(99,179,166,0.3)" width="298" x="14" y="230"></rect>
+<text fill="#d5cdc1" font-family="-apple-system,sans-serif" font-size="12" x="26" y="255">Why a far-from-equilibrium pot grows stripes</text>
+<line marker-end="url(#f1a)" stroke="#8a8278" stroke-width="1.6" x1="320" x2="368" y1="250" y2="250"></line>
+<rect fill="rgba(255,255,255,0.03)" height="40" rx="6" stroke="rgba(255,255,255,0.12)" width="222" x="376" y="230"></rect>
+<text fill="#e4ded5" font-family="-apple-system,sans-serif" font-size="12" x="388" y="255">Dissipative structures</text>
+<text fill="#8a8278" font-family="SF Mono,Menlo,monospace" font-size="11" x="608" y="255">Prigogine '77</text>
+<rect fill="rgba(166,147,205,0.07)" height="40" rx="6" stroke="rgba(166,147,205,0.3)" width="298" x="14" y="286"></rect>
+<text fill="#d5cdc1" font-family="-apple-system,sans-serif" font-size="12" x="26" y="311">Why metabolic rate scales as mass to the 3/4</text>
+<line marker-end="url(#f1a)" stroke="#8a8278" stroke-width="1.6" x1="320" x2="368" y1="306" y2="306"></line>
+<rect fill="rgba(255,255,255,0.03)" height="40" rx="6" stroke="rgba(255,255,255,0.12)" width="222" x="376" y="286"></rect>
+<text fill="#e4ded5" font-family="-apple-system,sans-serif" font-size="12" x="388" y="311">Fractal supply networks</text>
+<text fill="#8a8278" font-family="SF Mono,Menlo,monospace" font-size="11" x="608" y="311">West et al. '97</text>
+</svg>
+<figcaption>The left column is not "background". It is the concept's domain of validity. Von Neumann's self-reproduction lectures were only edited into print in 1966, after his death; cellular automata were the minimal stage he built so that self-reproduction could be <em>proved</em>.</figcaption>
+</figure>
+<p>Take the last row. What Geoffrey West and colleagues set out to answer in 1997 was narrow: <b>why does an animal's metabolic rate scale as body mass to the 3/4 power rather than to the first power?</b> Their answer was that nutrients must be delivered to every cell through a fractal branching network, and how the efficiency of such a network changes with size pins the exponent. <a class="reflink" href="ref-allometric-scaling.en.html">→ ref · Allometric scaling</a> The explanation holds only where there <em>is</em> a physical branching supply network. So it travels naturally to a city's pipes and cables — and when you push it onto something with no physical network (the activity level of an online community, say), the premise snaps. Not forbidden, but you owe yourself an account of which assumption you just threw away.</p>
+<div class="crossx-inline">
+🌀 <b>Engineering history · Carnot was really asking how good a steam engine could get</b>　When Sadi Carnot wrote <em>Reflections on the Motive Power of Fire</em> in 1824, he had something very practical in mind: French engines were worse than British ones, and he wanted to know how much headroom was left. The second law came out of that question as a by-product; the law did not precede the machine. Same mechanism: <b>a theory's domain equals its original problem's domain</b>. Which gives you a usable move — when a theory fails on what is in front of you, go back and check whether the thing you care about was even <em>an entry</em> in the original problem. Carnot's frame has no line item for information, because a steam engine does not need one; so using pure thermodynamics to talk about information isn't imprecise, it is missing a column that was never opened.
+</div>
+<div class="decide">
+<span class="lb">🎯 DECISION LINE</span>
+<p>For any complexity term you are about to use, spend ten minutes on two questions: which paper it first appeared in, and what specific job that group was trying to do. If you find the job, copy down its assumptions — those are your limits of use. If all you find is "used to describe complex systems", keep the term out of your conclusions; at most let it into your questions.</p>
+</div>
+
+<h2><span class="n">02</span>What Actually Crosses a Shortcut</h2>
+<p class="lead">From 1946 to 1953, ten conferences were held in New York under the title "Circular Causal and Feedback Mechanisms in Biological and Social Systems", paid for by the Josiah Macy Jr. Foundation — hence the <b>Macy Conferences</b>. The convenor was the neurophysiologist Warren McCulloch. In the room: the mathematicians Wiener, von Neumann and Shannon; the anthropologists Gregory Bateson and Margaret Mead; psychiatrists, psychologists, ecologists.</p>
+<p>There is a clean description of this in the language of networks. Each group had been its own <b>dense cluster</b>: mathematicians see mathematicians, anthropologists see anthropologists, and almost no edges run between. What the Macy Conferences did was <em>add a few shortcuts</em> — a tiny number of them (ten meetings, a few dozen people) — and the distance between the clusters collapsed from "no path" to "three steps". That is the small-world mechanism. <a class="reflink" href="ref-small-world.en.html">→ ref · Small-world model</a></p>
+<p>The trouble is that the same mechanism predicts something else, and it matters more: <b>a shortcut has limited bandwidth, so it carries detachable units far better than structures that have to be swapped in whole</b>. Words are detachable: "feedback", "information", "homeostasis" — copy them and go. Constraints are not: the stationarity assumption inside the filtering derivation, the definition of error, the observation that would falsify the model. Those have to travel with an entire body of mathematics, and they don't.</p>
+<figure>
+<svg aria-label="The Macy Conferences as a network rewiring, and what the shortcut actually carried" role="img" viewBox="0 0 720 400" xmlns="http://www.w3.org/2000/svg">
+<defs>
+<marker id="f2a" markerHeight="9" markerUnits="userSpaceOnUse" markerWidth="9" orient="auto" refX="8" refY="4.5"><path d="M0,0 L9,4.5 L0,9 z" fill="#9fbc7a"></path></marker>
+<marker id="f2b" markerHeight="9" markerUnits="userSpaceOnUse" markerWidth="9" orient="auto" refX="8" refY="4.5"><path d="M0,0 L9,4.5 L0,9 z" fill="#8e6070"></path></marker>
+</defs>
+<text fill="#787268" font-family="-apple-system,sans-serif" font-size="11.5" text-anchor="middle" x="180" y="30">Before 1946</text>
+<text fill="#787268" font-family="-apple-system,sans-serif" font-size="11.5" text-anchor="middle" x="540" y="30">After ten Macy Conferences</text>
+<line stroke="rgba(255,255,255,0.09)" stroke-width="1" x1="360" x2="360" y1="16" y2="212"></line>
+<g stroke="#4a4640" stroke-width="1">
+<path d="M100,83 L139.9,112"></path><path d="M100,83 L124.7,159"></path><path d="M100,83 L75.3,159"></path><path d="M100,83 L60.1,112"></path><path d="M139.9,112 L124.7,159"></path><path d="M139.9,112 L75.3,159"></path><path d="M139.9,112 L60.1,112"></path><path d="M124.7,159 L75.3,159"></path><path d="M124.7,159 L60.1,112"></path><path d="M75.3,159 L60.1,112"></path>
+<path d="M260,83 L299.9,112"></path><path d="M260,83 L284.7,159"></path><path d="M260,83 L235.3,159"></path><path d="M260,83 L220.1,112"></path><path d="M299.9,112 L284.7,159"></path><path d="M299.9,112 L235.3,159"></path><path d="M299.9,112 L220.1,112"></path><path d="M284.7,159 L235.3,159"></path><path d="M284.7,159 L220.1,112"></path><path d="M235.3,159 L220.1,112"></path>
+<path d="M460,83 L499.9,112"></path><path d="M460,83 L484.7,159"></path><path d="M460,83 L435.3,159"></path><path d="M460,83 L420.1,112"></path><path d="M499.9,112 L484.7,159"></path><path d="M499.9,112 L435.3,159"></path><path d="M499.9,112 L420.1,112"></path><path d="M484.7,159 L435.3,159"></path><path d="M484.7,159 L420.1,112"></path><path d="M435.3,159 L420.1,112"></path>
+<path d="M620,83 L659.9,112"></path><path d="M620,83 L644.7,159"></path><path d="M620,83 L595.3,159"></path><path d="M620,83 L580.1,112"></path><path d="M659.9,112 L644.7,159"></path><path d="M659.9,112 L595.3,159"></path><path d="M659.9,112 L580.1,112"></path><path d="M644.7,159 L595.3,159"></path><path d="M644.7,159 L580.1,112"></path><path d="M595.3,159 L580.1,112"></path>
+</g>
+<g stroke="#9fbc7a" stroke-width="1.8">
+<path d="M499.9,112 L580.1,112"></path><path d="M484.7,159 L595.3,159"></path><path d="M460,83 L620,83"></path>
+</g>
+<g fill="#c9c2b6">
+<circle cx="100" cy="83" r="5.5"></circle><circle cx="139.9" cy="112" r="5.5"></circle><circle cx="124.7" cy="159" r="5.5"></circle><circle cx="75.3" cy="159" r="5.5"></circle><circle cx="60.1" cy="112" r="5.5"></circle>
+<circle cx="260" cy="83" r="5.5"></circle><circle cx="299.9" cy="112" r="5.5"></circle><circle cx="284.7" cy="159" r="5.5"></circle><circle cx="235.3" cy="159" r="5.5"></circle><circle cx="220.1" cy="112" r="5.5"></circle>
+<circle cx="460" cy="83" r="5.5"></circle><circle cx="499.9" cy="112" r="5.5"></circle><circle cx="484.7" cy="159" r="5.5"></circle><circle cx="435.3" cy="159" r="5.5"></circle><circle cx="420.1" cy="112" r="5.5"></circle>
+<circle cx="620" cy="83" r="5.5"></circle><circle cx="659.9" cy="112" r="5.5"></circle><circle cx="644.7" cy="159" r="5.5"></circle><circle cx="595.3" cy="159" r="5.5"></circle><circle cx="580.1" cy="112" r="5.5"></circle>
+</g>
+<text fill="#8d867b" font-family="-apple-system,sans-serif" font-size="10.5" text-anchor="middle" x="100" y="190">Maths · engineering</text>
+<text fill="#8d867b" font-family="-apple-system,sans-serif" font-size="10.5" text-anchor="middle" x="260" y="190">Anthropology · psychiatry</text>
+<text fill="#8d867b" font-family="-apple-system,sans-serif" font-size="10.5" text-anchor="middle" x="460" y="190">Maths · engineering</text>
+<text fill="#8d867b" font-family="-apple-system,sans-serif" font-size="10.5" text-anchor="middle" x="620" y="190">Anthropology · psychiatry</text>
+<text fill="#787268" font-family="-apple-system,sans-serif" font-size="11" text-anchor="middle" x="180" y="209">Between the clusters: no path</text>
+<text fill="#9fbc7a" font-family="-apple-system,sans-serif" font-size="11" text-anchor="middle" x="540" y="209">Add 3 edges → any two people ≤ 3 steps</text>
+<line stroke="rgba(255,255,255,0.07)" stroke-width="1" x1="20" x2="700" y1="234" y2="234"></line>
+<text fill="#aba498" font-family="-apple-system,sans-serif" font-size="13" text-anchor="middle" x="360" y="262">But a shortcut has bandwidth, and it only carries detachable units</text>
+<text fill="#8d867b" font-family="-apple-system,sans-serif" font-size="11" x="24" y="304">What was in the</text>
+<text fill="#8d867b" font-family="-apple-system,sans-serif" font-size="11" x="24" y="320">cybernetics room</text>
+<line marker-end="url(#f2a)" stroke="#9fbc7a" stroke-width="1.8" x1="128" x2="470" y1="300" y2="300"></line>
+<text fill="#c3cdb2" font-family="-apple-system,sans-serif" font-size="11.5" text-anchor="middle" x="299" y="291">Words: feedback · information · homeostasis</text>
+<text fill="#9fbc7a" font-family="-apple-system,sans-serif" font-size="11.5" x="480" y="304">arrived, everywhere</text>
+<line marker-end="url(#f2b)" stroke="#8e6070" stroke-width="1.8" x1="128" x2="290" y1="352" y2="352"></line>
+<g stroke="#8e6070" stroke-width="2.2">
+<path d="M300,344 L316,360"></path><path d="M316,344 L300,360"></path>
+</g>
+<text fill="#b08894" font-family="-apple-system,sans-serif" font-size="11.5" x="24" y="343">Constraints</text>
+<text fill="#8d867b" font-family="-apple-system,sans-serif" font-size="11" x="330" y="348">did not: stationarity assumptions, the</text>
+<text fill="#8d867b" font-family="-apple-system,sans-serif" font-size="11" x="330" y="365">definition of error, what would falsify it</text>
+</svg>
+<figcaption>Putting several disciplines in one room adds shortcuts to a network: the distance collapses, but what crosses the bridge is vocabulary, not constraints. That is not a failure of seriousness — it is what this mechanism does.</figcaption>
+</figure>
+<p>What followed fits exactly. "Feedback", "information" and "homeostasis" were inside anthropology, psychiatry, management and education within a few years; Wiener's filtering mathematics stayed roughly where it was. By the 1960s cybernetics' standing in the Anglo-American academy was sliding, and one reason cited again and again is precisely this: <b>its words were everywhere and its testable content had not travelled with them</b>. The Macy transcripts, read today, are serious work. This is what the shortcut mechanism does on its own.</p>
+<div class="crossx-inline">
+🌀 <b>Language and art · in language contact, loanwords cross and grammar mostly doesn't</b>　Japanese borrowed tens of thousands of words from Chinese and kept subject–object–verb order throughout; English borrowed half a dictionary from French and stayed Germanic in its core grammar. Same mechanism: a contact channel carries detachable units (words), not structures that would have to be replaced wholesale (grammar). Which gives a hard measure of how deep a crossing went — <b>don't count the words the other side borrowed, ask whether one structural rule changed</b>. By that ruler, cybernetics' entry into the social sciences was heavy borrowing with zero grammatical transfer.
+</div>
+<div class="decide">
+<span class="lb">🎯 DECISION LINE</span>
+<p>To judge whether a cross-disciplinary exchange actually happened, don't look for shared vocabulary — look for <b>one shared constraint</b>: a criterion both sides accept that can rule a specific proposal out. If a cross-team meeting yields nouns and no prohibitions, don't hold the second one. Replace it with half an hour in which the other side's only job is to try to kill one of your concrete proposals. One round tells you whether the channel is open.</p>
+</div>
+
+<h2><span class="n">03</span>Funding as a Selection Pressure</h2>
+<p class="lead">Intellectual history usually puts the money in a footnote. But if you believe in selection at all — variation is produced constantly, the environment decides who stays — then funding is not a footnote. It is <b>the selection function itself</b>.</p>
+<p>To be precise: money does not make a conclusion true or false. Whether Wiener's filtering theory is right has nothing to do with who paid. What money changes is <em>which questions get asked seriously, and for how many decades</em>. And what a field ends up looking like is decided by exactly that.</p>
+<p>From the 1940s through the 1960s, a large share of American basic research was funded through defence channels. That channel has a very specific taste: <b>it prefers problems that improve control and prediction</b>. So filtering and prediction, coding and channel capacity, operations research and optimisation grew fast — their acceptance criteria were clear, results came quickly, and the results were legible to the funder. The historian of physics Peter Galison put it harder in his 1994 essay "The Ontology of the Enemy": cybernetics' whole worldview — treat the adversary as a modellable, noisy servo system — is the shape of the fire-control job.</p>
+<p>Now look at the other end. The <b>Santa Fe Institute (SFI)</b> was founded in 1984. Apart from David Pines and Murray Gell-Mann, its founders — George Cowan, Nicholas Metropolis, Peter Carruthers and others — were Los Alamos scientists. It was first called the Rio Grande Institute, and its founding workshop was held on 5–6 October 1984. <a class="reflink" href="ref-santa-fe.en.html">→ ref · The Santa Fe Institute and its lineage</a></p>
+<p>SFI's founding motive is recorded again and again in the same phrase: a place to do theoretical research <b>outside traditional departmental boundaries and outside government agency science budgets</b>. That sentence matters, because it concedes that the earlier filter existed and states plainly that this is an attempt to swap it. What grew afterwards fits: at the September 1987 workshop, Kenneth Arrow brought ten theoretical economists and ten physicists and biologists, the volume <em>The Economy as an Evolving Complex System</em> came out of it, and in 1988 it became SFI's first resident research programme. Under the defence filter, that sort of topic could hardly have won long-term support — not because it was wrong, but because it could not deliver that kind of deliverable.</p>
+<figure>
+<svg aria-label="Two eras of funding criteria filtering different questions" role="img" viewBox="0 0 720 330" xmlns="http://www.w3.org/2000/svg">
+<defs>
+<marker id="f3a" markerHeight="9" markerUnits="userSpaceOnUse" markerWidth="9" orient="auto" refX="8" refY="4.5"><path d="M0,0 L9,4.5 L0,9 z" fill="#8a8278"></path></marker>
+</defs>
+<text fill="#aba498" font-family="-apple-system,sans-serif" font-size="13" text-anchor="middle" x="360" y="26">Same people, same brains — swap the filter and a different field grows</text>
+<text fill="#e0895e" font-family="SF Mono,Menlo,monospace" font-size="11" x="24" y="68">1945–1965 · defence channels</text>
+<g><circle cx="30" cy="98" fill="#e0895e" r="6"></circle><circle cx="52" cy="98" fill="#4a4640" r="6"></circle><circle cx="74" cy="98" fill="#e0895e" r="6"></circle><circle cx="96" cy="98" fill="#4a4640" r="6"></circle><circle cx="118" cy="98" fill="#4a4640" r="6"></circle><circle cx="140" cy="98" fill="#e0895e" r="6"></circle><circle cx="162" cy="98" fill="#4a4640" r="6"></circle><circle cx="184" cy="98" fill="#4a4640" r="6"></circle></g>
+<text fill="#787268" font-family="-apple-system,sans-serif" font-size="10.5" x="24" y="124">Questions being proposed</text>
+<line marker-end="url(#f3a)" stroke="#8a8278" stroke-width="1.6" x1="204" x2="240" y1="98" y2="98"></line>
+<rect fill="rgba(224,137,94,0.07)" height="46" rx="7" stroke="rgba(224,137,94,0.32)" width="196" x="248" y="75"></rect>
+<text fill="#e6c0aa" font-family="-apple-system,sans-serif" font-size="11.5" text-anchor="middle" x="346" y="94">Acceptance criterion</text>
+<text fill="#c9c2b6" font-family="-apple-system,sans-serif" font-size="11.5" text-anchor="middle" x="346" y="112">improves control and prediction</text>
+<line marker-end="url(#f3a)" stroke="#8a8278" stroke-width="1.6" x1="452" x2="488" y1="98" y2="98"></line>
+<text fill="#e4ded5" font-family="-apple-system,sans-serif" font-size="11.5" x="496" y="86">Filtering and prediction</text>
+<text fill="#e4ded5" font-family="-apple-system,sans-serif" font-size="11.5" x="496" y="103">Coding and capacity</text>
+<text fill="#e4ded5" font-family="-apple-system,sans-serif" font-size="11.5" x="496" y="120">Operations research</text>
+<line stroke="rgba(255,255,255,0.07)" stroke-width="1" x1="20" x2="700" y1="152" y2="152"></line>
+<text fill="#63b3a6" font-family="SF Mono,Menlo,monospace" font-size="11" x="24" y="188">1984– · private foundations and industry</text>
+<g><circle cx="30" cy="218" fill="#4a4640" r="6"></circle><circle cx="52" cy="218" fill="#63b3a6" r="6"></circle><circle cx="74" cy="218" fill="#4a4640" r="6"></circle><circle cx="96" cy="218" fill="#63b3a6" r="6"></circle><circle cx="118" cy="218" fill="#4a4640" r="6"></circle><circle cx="140" cy="218" fill="#4a4640" r="6"></circle><circle cx="162" cy="218" fill="#63b3a6" r="6"></circle><circle cx="184" cy="218" fill="#4a4640" r="6"></circle></g>
+<text fill="#787268" font-family="-apple-system,sans-serif" font-size="10.5" x="24" y="244">Questions being proposed</text>
+<line marker-end="url(#f3a)" stroke="#8a8278" stroke-width="1.6" x1="204" x2="240" y1="218" y2="218"></line>
+<rect fill="rgba(99,179,166,0.07)" height="46" rx="7" stroke="rgba(99,179,166,0.32)" width="196" x="248" y="195"></rect>
+<text fill="#a3d3ca" font-family="-apple-system,sans-serif" font-size="11.5" text-anchor="middle" x="346" y="214">Acceptance criterion</text>
+<text fill="#c9c2b6" font-family="-apple-system,sans-serif" font-size="11.5" text-anchor="middle" x="346" y="232">belongs to no department</text>
+<line marker-end="url(#f3a)" stroke="#8a8278" stroke-width="1.6" x1="452" x2="488" y1="218" y2="218"></line>
+<text fill="#e4ded5" font-family="-apple-system,sans-serif" font-size="11.5" x="496" y="206">Fitness landscapes</text>
+<text fill="#e4ded5" font-family="-apple-system,sans-serif" font-size="11.5" x="496" y="223">Artificial life</text>
+<text fill="#e4ded5" font-family="-apple-system,sans-serif" font-size="11.5" x="496" y="240">The economy as evolving</text>
+<text fill="#787268" font-family="-apple-system,sans-serif" font-size="11" text-anchor="middle" x="360" y="290">Both filters rejected questions needing decades of observation or big instruments</text>
+<text fill="#787268" font-family="-apple-system,sans-serif" font-size="11" text-anchor="middle" x="360" y="309">— those were later picked up by climate and ecology funding: a third filter</text>
+</svg>
+<figcaption>The grey circles are not the bad questions. They are the questions that did not match the era's acceptance criterion. Most of them were never refuted; nobody worked on them.</figcaption>
+</figure>
+<div class="crossx-inline">
+🌀 <b>History and war · the Longitude Prize was an acceptance criterion written into law</b>　The British Longitude Act of 1714 offered £20,000, but the terms were rigid: the method had to be proven on a real ocean voyage, to within half a degree. That criterion rewrote the distribution of what people tried — both the astronomical route (lunar distances) and the mechanical route (a sea clock) were pushed towards "portable and verifiable in the field", while elegant approaches that could not go to sea attracted nobody. John Harrison's H4 is what that filter selected, not what "the mechanical route was inherently better" selected. Hence a way to look: <b>to find out why a field went the way it did, don't read its manifestos, read its acceptance criteria</b> — the selection function is written into the terms of award, not into researchers' interests.
+</div>
+<div class="decide">
+<span class="lb">🎯 DECISION LINE</span>
+<p>Before reading any field's review article, spend twenty minutes on where its money has come from for the last twenty years and what that source accepts as a deliverable. You come out with a list of questions nobody worked on — not refuted, just off-criterion. <b>Almost everything cheap that is left to be picked up is on that list.</b></p>
+</div>
+
+<h2><span class="n">04</span>One Mechanism, Many Names</h2>
+<p class="lead">If this field really has caught hold of some cross-domain mechanisms, that should leave a testable trace: <b>the same rule will be invented over and over by people who never met, each giving it a new name</b>. It happened, and the clearest case is "the more you already have, the more you get".</p>
+<p>The rule is one sentence: the more of something a thing already holds, the higher its chance of getting more. Rich gets richer, poor gets poorer, and the resulting distribution is the brutally unequal shape called a <b>power law</b>. <a class="reflink" href="ref-preferential-attachment.en.html">→ ref · Preferential attachment</a></p>
+<p>How many times it has been invented:</p>
+<figure>
+<svg aria-label="A century of independent inventions of the same mechanism" role="img" viewBox="0 0 720 300" xmlns="http://www.w3.org/2000/svg">
+<text fill="#aba498" font-family="-apple-system,sans-serif" font-size="13" text-anchor="middle" x="360" y="24">"The more you have, the more you get" — one rule, six or seven names</text>
+<rect fill="#79a6d2" height="10" width="10" x="176" y="40"></rect>
+<text fill="#8d867b" font-family="-apple-system,sans-serif" font-size="11" x="192" y="49">described the distribution</text>
+<rect fill="#9fbc7a" height="10" width="10" x="380" y="40"></rect>
+<text fill="#8d867b" font-family="-apple-system,sans-serif" font-size="11" x="396" y="49">gave the rule that generates it</text>
+<line stroke="rgba(255,255,255,0.16)" stroke-width="1.4" x1="26" x2="700" y1="160" y2="160"></line>
+<g stroke="rgba(255,255,255,0.14)" stroke-width="1">
+<path d="M70,134 L70,160"></path><path d="M270,134 L270,160"></path>
+<path d="M170,160 L170,186"></path><path d="M370,160 L370,186"></path><path d="M470,160 L470,186"></path><path d="M570,160 L570,186"></path><path d="M666,160 L666,186"></path>
+</g>
+<g fill="#e4ded5">
+<circle cx="70" cy="160" r="4.5"></circle><circle cx="170" cy="160" r="4.5"></circle><circle cx="270" cy="160" r="4.5"></circle><circle cx="370" cy="160" r="4.5"></circle><circle cx="470" cy="160" r="4.5"></circle><circle cx="570" cy="160" r="4.5"></circle><circle cx="666" cy="160" r="4.5"></circle>
+</g>
+<rect fill="rgba(121,166,210,0.09)" height="38" rx="6" stroke="rgba(121,166,210,0.35)" width="88" x="26" y="96"></rect>
+<text fill="#e4ded5" font-family="-apple-system,sans-serif" font-size="11.5" text-anchor="middle" x="70" y="113">Pareto</text>
+<text fill="#8a8278" font-family="SF Mono,Menlo,monospace" font-size="9.5" text-anchor="middle" x="70" y="128">1896 income</text>
+<rect fill="rgba(121,166,210,0.09)" height="38" rx="6" stroke="rgba(121,166,210,0.35)" width="88" x="226" y="96"></rect>
+<text fill="#e4ded5" font-family="-apple-system,sans-serif" font-size="11.5" text-anchor="middle" x="270" y="113">Zipf</text>
+<text fill="#8a8278" font-family="SF Mono,Menlo,monospace" font-size="9.5" text-anchor="middle" x="270" y="128">1949 word freq.</text>
+<rect fill="rgba(159,188,122,0.09)" height="38" rx="6" stroke="rgba(159,188,122,0.35)" width="88" x="126" y="186"></rect>
+<text fill="#e4ded5" font-family="-apple-system,sans-serif" font-size="11.5" text-anchor="middle" x="170" y="203">Yule</text>
+<text fill="#8a8278" font-family="SF Mono,Menlo,monospace" font-size="9.5" text-anchor="middle" x="170" y="218">1925 species</text>
+<rect fill="rgba(159,188,122,0.09)" height="38" rx="6" stroke="rgba(159,188,122,0.35)" width="88" x="326" y="186"></rect>
+<text fill="#e4ded5" font-family="-apple-system,sans-serif" font-size="11.5" text-anchor="middle" x="370" y="203">Simon</text>
+<text fill="#8a8278" font-family="SF Mono,Menlo,monospace" font-size="9.5" text-anchor="middle" x="370" y="218">1955 skew dist.</text>
+<rect fill="rgba(205,127,155,0.09)" height="38" rx="6" stroke="rgba(205,127,155,0.35)" width="88" x="426" y="186"></rect>
+<text fill="#e4ded5" font-family="-apple-system,sans-serif" font-size="11.5" text-anchor="middle" x="470" y="203">Merton</text>
+<text fill="#8a8278" font-family="SF Mono,Menlo,monospace" font-size="9.5" text-anchor="middle" x="470" y="218">1968 Matthew</text>
+<rect fill="rgba(159,188,122,0.09)" height="38" rx="6" stroke="rgba(159,188,122,0.35)" width="88" x="526" y="186"></rect>
+<text fill="#e4ded5" font-family="-apple-system,sans-serif" font-size="11.5" text-anchor="middle" x="570" y="203">Price</text>
+<text fill="#8a8278" font-family="SF Mono,Menlo,monospace" font-size="9.5" text-anchor="middle" x="570" y="218">1976 citations</text>
+<rect fill="rgba(159,188,122,0.09)" height="38" rx="6" stroke="rgba(159,188,122,0.35)" width="94" x="619" y="186"></rect>
+<text fill="#e4ded5" font-family="-apple-system,sans-serif" font-size="11.5" text-anchor="middle" x="666" y="203">Barabási–Albert</text>
+<text fill="#8a8278" font-family="SF Mono,Menlo,monospace" font-size="9.5" text-anchor="middle" x="666" y="218">1999 networks</text>
+<text fill="#787268" font-family="-apple-system,sans-serif" font-size="11" text-anchor="middle" x="360" y="262">The four green ones give substantially the same generating rule — and the later ones often did not know of the earlier</text>
+<text fill="#b08894" font-family="-apple-system,sans-serif" font-size="11" text-anchor="middle" x="360" y="281">Merton's is the interesting one: he applied the mechanism to how science assigns credit</text>
+</svg>
+<figcaption>Dates are those of each author's representative work. Pareto and Zipf described a shape; Yule, Simon, Price and Barabási–Albert gave a rule that generates the shape. The two are constantly conflated, and they are not the same thing.</figcaption>
+</figure>
+<p>Merton's case is worth pausing on. In 1968 Robert K. Merton published a piece in <em>Science</em> about how scientific credit is allocated: <b>for the same work, the already-famous name on the paper takes nearly all of the recognition</b>. He called it the <em>Matthew effect</em>, after the line in Matthew's gospel — "unto every one that hath shall be given". That is the "more gets more" mechanism turned on knowledge production itself.</p>
+<p>Which yields a neat self-reference: the mechanism this field uses to explain wealth, cities and networks is simultaneously deciding <b>who gets remembered as the inventor</b>. The statistician Stephen Stigler formalised it in 1980 as Stigler's law of eponymy: no scientific discovery is named after its original discoverer. He added the twist himself — the law should be credited to Merton.</p>
+<p>This has a practical consequence for reading. When a concept has appeared in exactly one field but is being sold as a "universal mechanism", treat it as a local fact about that field. Conversely, when the same generating rule has been written down independently in four or five unrelated fields, the rule is worth your time — but spend it on the <em>rule</em>, not on any of the names. <a class="reflink" href="ref-power-law.en.html">→ ref · Identifying (and misidentifying) power laws</a></p>
+<div class="crossx-inline">
+🌀 <b>Biology and medicine · convergent evolution is evidence about constraints, not about lineage</b>　Eyes evolved independently in several animal phyla; the flat-shelled, short-tailed crab body plan arose at least five separate times within the decapods (there is a name for it, carcinization). Same mechanism: when the external constraint is strong enough (optics, hydrodynamics), wildly different starting points get pressed onto the same solution. So independent recurrence is <b>evidence about the constraint, not about ancestry</b>. Carried back into the history of science, that stings a little: a mechanism invented four times over raises the standing of the mechanism, not the priority of any inventor — and our citation habits do exactly the opposite.
+</div>
+<div class="decide">
+<span class="lb">🎯 DECISION LINE</span>
+<p>Run a "reinvention search" on any concept: look for the same generating rule in three or four fields' jargon (search the rule, not the name). Three or more independent sources → put your weight on the rule itself and read the earliest source that states it cleanly. Exactly one source, but marketed as a universal mechanism → demote it to a local fact and stop using it for cross-domain inference.</p>
+</div>
+
+<h2><span class="n">05</span>Where This Account Breaks Down</h2>
+<p class="lead">The previous four sections did something rather arrogant: <b>they used the field's own mechanisms to explain the field's own history</b>. That is tidy. Tidiness is exactly where to get suspicious.</p>
+<p>First, and worst: <b>a selection story can barely be falsified</b>. For "defence funding filtered out certain questions" to be a claim rather than a mood, you need to compare two populations — the questions that were funded and left records, and the questions that were not and therefore left none. The second group has almost no data: never applied for, rejected, thought of but never written, written but never cited and gone. None of it enters the denominator.</p>
+<figure>
+<svg aria-label="The half a selection narrative cannot see" role="img" viewBox="0 0 720 250" xmlns="http://www.w3.org/2000/svg">
+<defs>
+<marker id="f5a" markerHeight="9" markerUnits="userSpaceOnUse" markerWidth="9" orient="auto" refX="8" refY="4.5"><path d="M0,0 L9,4.5 L0,9 z" fill="#cd7f9b"></path></marker>
+</defs>
+<text fill="#aba498" font-family="-apple-system,sans-serif" font-size="13" text-anchor="middle" x="360" y="28">"The money filtered them out" needs data from the right-hand block to be testable</text>
+<rect fill="none" height="120" rx="10" stroke="rgba(255,255,255,0.16)" stroke-dasharray="5 4" width="600" x="60" y="56"></rect>
+<text fill="#787268" font-family="-apple-system,sans-serif" font-size="10.5" x="66" y="50">All questions ever thought of</text>
+<rect fill="rgba(224,137,94,0.12)" height="94" rx="7" stroke="rgba(224,137,94,0.4)" width="152" x="74" y="69"></rect>
+<text fill="#e6c0aa" font-family="-apple-system,sans-serif" font-size="12" text-anchor="middle" x="150" y="106">On the record</text>
+<text fill="#c9c2b6" font-family="-apple-system,sans-serif" font-size="11" text-anchor="middle" x="150" y="126">published · funded</text>
+<text fill="#8a8278" font-family="SF Mono,Menlo,monospace" font-size="10" text-anchor="middle" x="150" y="146">countable</text>
+<rect fill="rgba(255,255,255,0.02)" height="94" rx="7" stroke="rgba(255,255,255,0.10)" width="404" x="242" y="69"></rect>
+<text fill="#8d867b" font-family="-apple-system,sans-serif" font-size="12" text-anchor="middle" x="444" y="100">No record left</text>
+<text fill="#787268" font-family="-apple-system,sans-serif" font-size="11" text-anchor="middle" x="444" y="120">never applied · rejected · never written · never cited</text>
+<text fill="#57524b" font-family="SF Mono,Menlo,monospace" font-size="10" text-anchor="middle" x="444" y="140">size unknown</text>
+<text fill="#57524b" font-family="-apple-system,sans-serif" font-size="34" font-weight="700" text-anchor="middle" x="614" y="126">?</text>
+<line marker-end="url(#f5a)" stroke="#cd7f9b" stroke-width="1.6" x1="360" x2="360" y1="216" y2="172"></line>
+<text fill="#b08894" font-family="-apple-system,sans-serif" font-size="11.5" text-anchor="middle" x="360" y="236">Section 3's whole argument rests on this invisible boundary</text>
+</svg>
+<figcaption>This does not make section 3 wrong. It makes its evidential grade one notch lower than its tone suggests. What is seductive about selection stories is also what is weakest in them: anything that survived can be explained after the fact as "selected".</figcaption>
+</figure>
+<p>Second, <b>"concepts are forced out by problems" misses an entire category</b>. Some concepts were not forced by any external job; someone just worried at them. Benoit Mandelbrot chewing on "pathological" curves had no client waiting for the length of a coastline; John Conway designing the Game of Life was building something close to a mathematical toy. <a class="reflink" href="ref-cellular-automata.en.html">→ ref · Cellular automata</a> Section 1's search comes back empty on those — and when it does, the correct response is "this concept is of another kind", not "this concept is suspect".</p>
+<p>Third, <b>section 4's reinvention argument may itself be stepping into a hole this site dug two issues ago</b>. Pareto, Zipf, Yule and Simon were not strictly talking about one thing: more than one mechanism generates power laws (multiplicative random processes, extreme-value statistics, critical phenomena all do), and rolling them all into "six names for one mechanism" is precisely the move of treating "looks alike" as "is the same". The described/generating split in the figure exists for that reason — but even among the four green ones, equivalence is conditional and has to be checked case by case, not stamped in a sentence.</p>
+<p>Fourth, sample size. This field's history has a few dozen key episodes, no control group and no repeatable experiment. <b>Using the tools of a science of large-sample statistical regularities on a case with n that small is not obviously self-consistent.</b> So read this issue as follows: sections 1, 2 and 4 give you moves you can actually run (find the original problem, check whether constraints crossed the bridge, search for reinvention); section 3 gives you a hypothesis worth suspecting and short of proof. <b>Filing them at the same grade is the easiest mistake this issue offers.</b></p>
+
+<div class="bigcat">
+<h3>🎒 Scenario · BigCat</h3>
+<ol>
+<li><span class="dm">Engineering &amp; systems design</span>Design review comes round every quarter. What survives is largely what can be <em>explained well in the room</em> — that is a filter, of the same kind as defence funding. <b>Change the metric</b>: list the proposals killed over the last four quarters and mark each one with the real reason — "the argument didn't hold" versus "it couldn't be explained, so nobody would carry it". If the second dominates, what needs fixing is not proposal quality but the acceptance criterion — for instance, allowing a one-page "I can't explain this yet, here is my plan to test it".</li>
+<li><span class="dm">Leading a team</span>Every cross-team alignment meeting sends people back with a batch of new nouns. <b>Change the question you ask</b>: is there one thing you brought back this week of the form "we can no longer do X"? Nouns with no prohibitions attached means the shortcut is only carrying vocabulary — in which case cut the meeting to half an hour and give the other side one job: kill one of your concrete proposals. One round tells you whether the channel opened.</li>
+<li><span class="dm">Parenting</span>Once a child is labelled "good at X" at home, the same size of progress in X gets seen, said out loud and remembered, while progress outside X never enters the denominator. That is the Matthew effect running on attention. <b>Change what you look at</b>: keep a log for a month of the specific praise you actually said out loud, tagged by area, and look at how skewed it is. <b>Stop doing this</b>: adding more praise to the area already ahead — not praise less, but move that sentence to whichever area has today's smallest denominator.</li>
+</ol>
+</div>
+
+<div class="crossx">
+<h3>🌀 Crossings</h3>
+<ul>
+<li><b>Eastern thought · the Confucian daotong is a lineage chart drawn after the fact</b>: in "On the Way" (c. 805) the Tang writer Han Yu set out a line of transmission — Yao, Shun, Yu, Tang, King Wen, King Wu, the Duke of Zhou, Confucius, Mencius — and declared that it broke after Mencius. Centuries later Zhu Xi gave <em>daotong</em> its full doctrinal form in his preface to the <em>Doctrine of the Mean</em>, with his own school conveniently attached at the break. Sections 3 and 4's mechanisms together give a reading you would not otherwise get: the Matthew effect drives credit towards whoever is already prominent, and the person drawing the chart is writing an acceptance criterion for a live fight over orthodoxy — so <b>a lineage chart mostly carries information about the moment it was drawn, not about the transmission</b>. That has a checkable corollary: the stretch nearest the draughtsman should be densest and most illustrious, and the retro-appointed ancestor's standing should rise <em>after</em> the chart appears, not before. It checks out — the <em>Mencius</em> was elevated into the Four Books in the Song, and Zhu Xi is the one who elevated it. <b>But here it fails</b>: the daotong was deliberately constructed by named authors for an explicit polemical purpose — top-down design — whereas preferential attachment and the Matthew effect are processes with <em>no designer</em>, where the skew grows out of countless uncoordinated small choices. The shapes coincide; the causes do not. You may borrow the ruler ("a lineage chart exposes the moment of drawing"); you may not borrow "therefore this emerged spontaneously", which is simply false here.</li>
+<li><b>History and war · Chile's Cybersyn</b>: from 1971 to 1973 the British cybernetician Stafford Beer was invited to build a system in Chile called Cybersyn — a telex network linking state-run factories, statistical early-warning software, and a hexagonal operations room. Its theoretical spine was Ashby's requisite variety: a regulator must command at least as many states as the thing being regulated, or it cannot regulate. Two of this issue's mechanisms together give an unpopular reading. Cybersyn's most-cited moment of usefulness came during the October 1972 lorry drivers' strike, when the telex network was used to coordinate roughly two hundred trucks and keep goods moving; meanwhile the operations room prototype was never installed in the presidential palace and the control model never ran as a closed loop. So <b>what that success demonstrated was section 2's shortcut mechanism — a network collapsing distance — and not section 3's variety-matching control theory</b>. The conclusion generalises usefully: the part of a system that gets praised and the part that actually did the work are frequently not the same part, and only asking "which mechanism was running" separates them. After the coup of 11 September 1973 the project ended, so its control theory has never been tested — not refuted, untested, and those are different things.</li>
+<li><b>Economics and institutions · a funder named this field's problem</b>: in 1948 Warren Weaver published "Science and Complexity" in <em>American Scientist</em>, sorting problems into three kinds — problems of simplicity (a few variables), disorganised complexity (so many variables that statistical averages work), and the middle case of <em>organised complexity</em> (many variables that are also entangled, so averaging destroys the thing). What matters is his job: Weaver was director of natural sciences at the Rockefeller Foundation. In other words, <b>this field's taxonomy of problems was written down by a man allocating money</b> — and he prescribed the remedy in the same essay: interdisciplinary "mixed teams". Sections 3 and 2 are both running here: a funder wrote the acceptance criterion (selection pressure), and the language then crossed a shortcut — in 1961 Jane Jacobs quoted Weaver at length in the closing chapter of <em>The Death and Life of Great American Cities</em>, "The kind of problem a city is", using organised complexity against a planning paradigm that treated cities as two-variable problems. The corollary: what crossed was the <em>taxonomy</em>, not the <em>method</em> — Jacobs took a framework for classifying the problem, and tools that could actually compute a city arrived thirty years later. So to judge whether a concept has really entered a field, don't look for the first appearance of the word; look for <b>the first appearance of a measurement</b>.</li>
+</ul>
+</div>
+
+<div class="thinking">
+<h3>Going Deeper</h3>
+<details><summary>If a concept's boundary is its original problem's boundary, is every generalisation illegitimate?</summary><p>Not illegitimate — priced. The cost of generalising is stating explicitly which assumption of the original problem you are discarding and what replaces it. West's 3/4 law extends to cities because cities really do have physical supply networks; extended to something without one, you first owe an answer to "what limits transport here?". No answer means it isn't a generalisation, it's a loan of vocabulary.</p></details>
+<details><summary>Why did cybernetics lose its name while nearly all its content survived?</summary><p>Because the banner carried too much, and the testable parts were long ago broken up, renamed and absorbed elsewhere: feedback and stability into control engineering, information and channels into communications, state estimation into filtering and navigation, self-organisation into physics and biology. A shared banner lets anyone hang anything on it, so nobody owns its bad debt — while each piece that moved out acquired its own acceptance criteria, where bad debt cannot be parked. The lesson applies to any large word today.</p></details>
+<details><summary>If the Matthew effect governs credit, does "read the original source" still hold?</summary><p>Yes, with one word changed: read the earliest source that states the <em>rule</em> clearly, which is not necessarily the earliest to notice the phenomenon. Pareto saw the distribution in 1896; Yule wrote down the generating rule in 1925. What separates them is not time but the difference between description and mechanism — a distinction this site keeps insisting on.</p></details>
+<details><summary>Section 3 admits it cannot be falsified. Is it still worth reading?</summary><p>Yes, at a lower grade. An unfalsifiable hypothesis cannot go in your conclusions, but it can go on your list of things to look up: it hands you the action "find out where this field's money comes from", and that action produces checkable facts — funders, terms of award, which projects were declined. An untestable hypothesis can still generate a productive search. The difference shows up in what you finally write: "because of funding, therefore X", or "nobody worked on these questions at the time; here is the list".</p></details>
+<details><summary>If you were to pick the next twenty years' filter for this field, what acceptance criterion would you write?</summary><p>There is no model answer, but there is a concrete first question: where does this field's money come from now, and what does that source accept as a deliverable? If the answer is "a high-impact-factor paper with a model that looks universal", then what gets filtered out is work that explains only one system but explains it to death — and several earlier issues here have argued that the second kind is worth more.</p></details>
+</div>
+
+<div class="refs">
+<h3>Further Reading</h3>
+<ul>
+<li>Peter Galison, <a href="https://monoskop.org/images/9/9c/Galison_Peter_1994_The_Ontology_of_the_Enemy_Norbert_Wiener_and_the_Cybernetic_Vision.pdf">The Ontology of the Enemy: Norbert Wiener and the Cybernetic Vision</a> (1994 — how the fire-control problem shaped cybernetics' worldview)</li>
+<li><a href="https://en.wikipedia.org/wiki/Macy_conferences">Macy Conferences</a> (overview and participant lists for the ten meetings, 1946–1953)</li>
+<li>Warren Weaver, <a href="https://fernandonogueiracosta.wordpress.com/wp-content/uploads/2015/08/warren-weaver-science-and-complexity-1948.pdf">Science and Complexity</a> (1948 — the source of "organised complexity", full PDF)</li>
+<li>W. Ross Ashby, <a href="http://pespmc1.vub.ac.be/books/IntroCyb.pdf">An Introduction to Cybernetics</a> (1956 — the original statement of requisite variety)</li>
+<li>Herbert Simon, <a href="https://www.jstor.org/stable/985254">The Architecture of Complexity</a> (1962 — near-decomposability and the parable of the two watchmakers)</li>
+<li>P. W. Anderson, <a href="https://www.science.org/doi/10.1126/science.177.4047.393">More Is Different</a> (1972 — why higher-level sciences are not applied lower-level ones)</li>
+<li>Robert K. Merton, <a href="https://www.science.org/doi/10.1126/science.159.3810.56">The Matthew Effect in Science</a> (1968)</li>
+<li>Derek de Solla Price, <a href="https://onlinelibrary.wiley.com/doi/10.1002/asi.4630270505">A general theory of bibliometric and other cumulative advantage processes</a> (1976)</li>
+<li>Stephen Stigler, <a href="https://onlinelibrary.wiley.com/doi/10.1111/j.1749-6632.1980.tb15476.x">Stigler's Law of Eponymy</a> (1980)</li>
+<li>Eden Medina, <a href="https://mitpress.mit.edu/9780262525961/cybernetic-revolutionaries/">Cybernetic Revolutionaries: Technology and Politics in Allende's Chile</a> (2011 — the definitive history of Cybersyn)</li>
+<li><a href="https://www.nber.org/papers/w35002">Networked Information and Industrial Output: Evidence from Chile's 1972 Truckers' Strike</a> (NBER working paper putting the strike's output loss at roughly 9%)</li>
+<li><a href="https://writings.stephenwolfram.com/2019/06/my-part-in-an-origin-story-the-launching-of-the-santa-fe-institute/">My Part in an Origin Story: The Launching of the Santa Fe Institute</a> (a participant's account of the 1984 founding period)</li>
+<li>Anderson, Arrow &amp; Pines (eds.), <a href="https://www.routledge.com/The-Economy-As-An-Evolving-Complex-System/Anderson-Arrow-Pines/p/book/9780201156850">The Economy As An Evolving Complex System</a> (proceedings of the September 1987 workshop)</li>
+</ul>
+</div>
+<footer>BigCat · Complexity Science · <a href="index.en.html">← All topics</a></footer>
+</div>
+<script src="https://hub.cissychen.com/comments.js" defer></script>
+<script src="https://hub.cissychen.com/search.js" defer></script>
+<script src="https://hub.cissychen.com/index-button.js" defer></script>
+<script src="https://hub.cissychen.com/i18n-tts.js" defer></script>
+</body></html>
