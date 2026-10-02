@@ -67,7 +67,7 @@ footer a{color:#79a6d2;text-decoration:none}
 <div class="wrap">
 <header>
 <span class="week-tag">TOPIC 38 · PHASE G</span>
-<h1>韧性与适应循环<span class="h1en">RESILIENCE AND THE ADAPTIVE CYCLE</span></h1>
+<h1 data-tts="8688e3c368488b15">韧性与适应循环<span class="h1en">RESILIENCE AND THE ADAPTIVE CYCLE</span></h1>
 <p class="sub">稳的东西不一定扛得住<span class="he">（Stability is not resilience）</span></p>
 <p class="date">2026-08-25 · 脆弱、韧性与预警</p>
 </header>
@@ -77,18 +77,18 @@ footer a{color:#79a6d2;text-decoration:none}
 <p>1973 年，加拿大生态学家 C. S. Holling 把这件事挑明了：我们其实一直在用一个词说两件事。<em>回到原样有多快</em>和<em>被推多远还回得来</em>，是两个可以背道而驰的量。而管理者、工程师、体检报告，习惯性地只测前一个。</p>
 <p class="dim">本站讲"脆弱与韧性"的有几期，问的不是同一个问题：第 23 期问的是结构上的不对称（为什么同一个网络抗得住随机故障、扛不住定点打击），第 25 期问的是失效怎么传播，第 36 期问的是崩之前能不能测出来，第 37 期问的是损失的分布长什么样。<b>本期只问两件事：一个系统凭什么扛得住，以及它为什么偏偏在最风光的那一段变脆。</b></p>
 </div>
-<h2><span class="n">01</span>稳定不是韧性<span class="he">（Stability Is Not Resilience）</span></h2>
+<h2 data-tts="c7b7bbeb000f3f8f"><span class="n">01</span>稳定不是韧性<span class="he">（Stability Is Not Resilience）</span></h2>
 <p class="lead">先把两个量分开。它们各有名字，混着用是本领域一半误解的来源。</p>
 <p><b>工程韧性</b>（engineering resilience）：受了扰动之后，多快回到原来的状态。度量单位是速度。它默认这个系统只有一个正常状态，扰动只是把它推离一会儿。</p>
 <p><b>生态韧性</b>（ecological resilience）：在被推进另一个状态、再也回不来之前，它最多能吃多大的扰动。度量单位是幅度。它默认这个系统有不止一个稳定状态，而扰动可能把它推过去。</p>
 <p>用一个碗和一颗球来看最清楚。球停在碗底，这是它的稳定状态；碗壁的形状决定一切 <a class="reflink" href="ref-phase-space.html">→ 参考 · 相空间与吸引子</a>。碗又深又窄：球被拨一下，唰地就滚回底部——恢复极快；但只要拨得稍微用力，它就翻过碗沿出去了。碗又浅又宽：球晃悠半天才停下来——恢复很慢；可你想把它推出这个碗，得费大得多的劲。</p>
 <p>这个碗在术语里叫<b>吸引域</b>（basin of attraction），也就是"能回到这个状态的所有起点的集合"。<em>恢复速度取决于碗壁有多陡，能扛多大扰动取决于碗有多宽。</em>这两件事没有任何理由必须一起变好。</p>
 <figure>
-<svg aria-label="深而窄的吸引域与浅而宽的吸引域：恢复快慢与可承受扰动的大小并不一致" role="img" viewBox="0 0 720 300" xmlns="http://www.w3.org/2000/svg">
+<svg aria-label="深而窄的吸引域与浅而宽的吸引域：恢复快慢与可承受扰动的大小并不一致" role="img" viewbox="0 0 720 300" xmlns="http://www.w3.org/2000/svg">
 <defs>
-<marker id="t38a" markerHeight="9" markerUnits="userSpaceOnUse" markerWidth="9" orient="auto" refX="9" refY="5" viewBox="0 0 10 10"><path d="M0,1 L9,5 L0,9 z" fill="#9fbc7a"></path></marker>
-<marker id="t38b" markerHeight="9" markerUnits="userSpaceOnUse" markerWidth="9" orient="auto" refX="9" refY="5" viewBox="0 0 10 10"><path d="M0,1 L9,5 L0,9 z" fill="#63b3a6"></path></marker>
-<marker id="t38c" markerHeight="9" markerUnits="userSpaceOnUse" markerWidth="9" orient="auto" refX="0" refY="5" viewBox="0 0 10 10"><path d="M9,1 L0,5 L9,9 z" fill="#63b3a6"></path></marker>
+<marker id="t38a" markerheight="9" markerunits="userSpaceOnUse" markerwidth="9" orient="auto" refx="9" refy="5" viewbox="0 0 10 10"><path d="M0,1 L9,5 L0,9 z" fill="#9fbc7a"></path></marker>
+<marker id="t38b" markerheight="9" markerunits="userSpaceOnUse" markerwidth="9" orient="auto" refx="9" refy="5" viewbox="0 0 10 10"><path d="M0,1 L9,5 L0,9 z" fill="#63b3a6"></path></marker>
+<marker id="t38c" markerheight="9" markerunits="userSpaceOnUse" markerwidth="9" orient="auto" refx="0" refy="5" viewbox="0 0 10 10"><path d="M9,1 L0,5 L9,9 z" fill="#63b3a6"></path></marker>
 </defs>
 <text fill="#aba498" font-family="-apple-system,sans-serif" font-size="13" text-anchor="middle" x="360" y="26">同一颗球，两种碗</text>
 <text fill="#9fbc7a" font-family="SF Mono,monospace" font-size="12" text-anchor="middle" x="185" y="56">① 深而窄</text>
@@ -122,7 +122,7 @@ footer a{color:#79a6d2;text-decoration:none}
 <p>别再用"多久恢复正常"当韧性指标。改问两个数：<b>把它推到什么程度就回不来了</b>，以及<b>你上一次真的推到那儿是什么时候</b>。第二个问题通常没有答案——那么手上那个"稳定"只是没被推过，不是数据。</p>
 </div>
 <p class="en-brief"><b>EN</b> Holling's 1973 split: engineering resilience is how fast a system returns to equilibrium; ecological resilience is how large a shock it absorbs before it flips into a different basin. A deep narrow basin returns fast and tips easily; a shallow wide one returns slowly and barely tips. Critical slowing down measures the first quantity only — a fast recovery says the walls are steep, never that the basin is wide.</p>
-<h2><span class="n">02</span>一个系统的四季<span class="he">（The Adaptive Cycle）</span></h2>
+<h2 data-tts="c2ba6c70edde3929"><span class="n">02</span>一个系统的四季<span class="he">（The Adaptive Cycle）</span></h2>
 <p class="lead">Holling 后来和 Lance Gunderson 一起把观察推进了一步：系统不是待在某个碗里不动，它的碗本身在按一个循环变形。他们管它叫<b>适应循环</b>（adaptive cycle）。</p>
 <p>循环由两个变量画出来。<b>潜力</b>（potential）：这个系统积累了多少可用的东西——生物量、资本、技能、写好的代码、攒下的信誉。<b>连通度</b>（connectedness）：内部各部分互相锁死到什么程度——有多少环节假设别的环节不会变。第三个量藏在图外面：韧性。</p>
 <p>四个阶段，先说中文，字母是生态学的老习惯：</p>
@@ -132,13 +132,13 @@ footer a{color:#79a6d2;text-decoration:none}
 <p><b>重组期</b>（reorganization，记作 <em>α</em>）：资源散在地上，约束最少，不确定性最高。这是新东西最容易进来的时候，也是外来者最容易占走的时候。</p>
 <p class="dim">（<em>r</em> 和 <em>K</em> 借自生态学里的"r 选择/K 选择"，分别指抢占空地的策略和在满载环境里竞争的策略；<em>Ω</em> 和 <em>α</em> 是 Holling 自己取的，取希腊字母表的末与首，意思就是"终"与"始"。）</p>
 <figure>
-<svg aria-label="适应循环：生长期、保持期、释放期、重组期在潜力—连通度平面上构成一个横躺的八字" role="img" viewBox="0 0 720 394" xmlns="http://www.w3.org/2000/svg">
+<svg aria-label="适应循环：生长期、保持期、释放期、重组期在潜力—连通度平面上构成一个横躺的八字" role="img" viewbox="0 0 720 394" xmlns="http://www.w3.org/2000/svg">
 <defs>
-<marker id="t38g" markerHeight="10" markerUnits="userSpaceOnUse" markerWidth="10" orient="auto" refX="9" refY="5" viewBox="0 0 10 10"><path d="M0,1 L9,5 L0,9 z" fill="#9fbc7a"></path></marker>
-<marker id="t38o" markerHeight="10" markerUnits="userSpaceOnUse" markerWidth="10" orient="auto" refX="9" refY="5" viewBox="0 0 10 10"><path d="M0,1 L9,5 L0,9 z" fill="#e0895e"></path></marker>
-<marker id="t38p" markerHeight="10" markerUnits="userSpaceOnUse" markerWidth="10" orient="auto" refX="9" refY="5" viewBox="0 0 10 10"><path d="M0,1 L9,5 L0,9 z" fill="#a693cd"></path></marker>
-<marker id="t38t" markerHeight="10" markerUnits="userSpaceOnUse" markerWidth="10" orient="auto" refX="9" refY="5" viewBox="0 0 10 10"><path d="M0,1 L9,5 L0,9 z" fill="#63b3a6"></path></marker>
-<marker id="t38x" markerHeight="9" markerUnits="userSpaceOnUse" markerWidth="9" orient="auto" refX="9" refY="5" viewBox="0 0 10 10"><path d="M0,1 L9,5 L0,9 z" fill="#8d867b"></path></marker>
+<marker id="t38g" markerheight="10" markerunits="userSpaceOnUse" markerwidth="10" orient="auto" refx="9" refy="5" viewbox="0 0 10 10"><path d="M0,1 L9,5 L0,9 z" fill="#9fbc7a"></path></marker>
+<marker id="t38o" markerheight="10" markerunits="userSpaceOnUse" markerwidth="10" orient="auto" refx="9" refy="5" viewbox="0 0 10 10"><path d="M0,1 L9,5 L0,9 z" fill="#e0895e"></path></marker>
+<marker id="t38p" markerheight="10" markerunits="userSpaceOnUse" markerwidth="10" orient="auto" refx="9" refy="5" viewbox="0 0 10 10"><path d="M0,1 L9,5 L0,9 z" fill="#a693cd"></path></marker>
+<marker id="t38t" markerheight="10" markerunits="userSpaceOnUse" markerwidth="10" orient="auto" refx="9" refy="5" viewbox="0 0 10 10"><path d="M0,1 L9,5 L0,9 z" fill="#63b3a6"></path></marker>
+<marker id="t38x" markerheight="9" markerunits="userSpaceOnUse" markerwidth="9" orient="auto" refx="9" refy="5" viewbox="0 0 10 10"><path d="M0,1 L9,5 L0,9 z" fill="#8d867b"></path></marker>
 </defs>
 <text fill="#aba498" font-family="-apple-system,sans-serif" font-size="13" text-anchor="middle" x="360" y="28">报表最好看的那一段，正是韧性最低的那一段</text>
 <line marker-end="url(#t38x)" stroke="#8d867b" stroke-width="1.4" x1="90" x2="90" y1="336" y2="56"></line>
@@ -176,7 +176,7 @@ footer a{color:#79a6d2;text-decoration:none}
 <p>给"我们现在在哪个阶段"配两个真能拉出来的数：<b>未承诺资源的比例</b>和<b>单点依赖的个数</b>。前者在跌、后者在涨、而产出还在创新高——这就是 K 期。它是主动安排一次释放的窗口，不是加杠杆的窗口。这两个数要和产出指标并排放，单独放没人会看。</p>
 </div>
 <p class="en-brief"><b>EN</b> Holling and Gunderson's adaptive cycle runs on two variables — potential (accumulated stock) and connectedness (how far parts are locked to each other) — through exploitation (r), conservation (K), release (Ω) and reorganization (α). Resilience bottoms out in K, precisely where every efficiency metric peaks, because the moves that raise efficiency are the moves that raise connectedness. The readable signature of K: output still climbing while slack falls and single-point dependencies rise.</p>
-<h2><span class="n">03</span>崩掉之后靠什么重来<span class="he">（Release, Memory, and Panarchy）</span></h2>
+<h2 data-tts="cb8098bca46e71a7"><span class="n">03</span>崩掉之后靠什么重来<span class="he">（Release, Memory, and Panarchy）</span></h2>
 <p class="lead">释放期看起来是纯粹的损失，但它在循环里干着一件不可替代的活：把 K 期锁死的资本重新变成可用的。一场森林大火把几十年封在木质里的养分一次还给土壤——这不是修辞，是可以称重的物质流。</p>
 <p>真正决定命运的是接下来的重组期。约束最少、谁先到谁占位，所以它的成败取决于一样东西：<b>记忆</b>——重组用的种子从哪儿来。土壤里的种子库、留下来的老树、没被烧掉的菌根网络，决定了这片地长回森林还是长成灌木丛。</p>
 <p>而 Holling 后来给这套东西起了个更大的名字：<b>panarchy</b>（中文有译作"扰沌"，学界多直接用原词）。它的意思是：一个系统不是一个循环，是<em>一叠</em>循环，快慢尺度嵌套在一起。针叶几周一轮，林窗几年，树冠几十年，森林与土壤几百年。每一层都在跑自己的适应循环，各自的节奏差着数量级。</p>
@@ -184,10 +184,10 @@ footer a{color:#79a6d2;text-decoration:none}
 <p><b>造反</b>（revolt）：小而快的那一层进入释放期时，向上点燃大而慢的那一层。关键在于——<em>这条通道只在上层正处于 K 期时才走得通。</em>一根火柴在潮湿的林子里什么也不是；上层可燃物满载、连通度拉满时，同一根火柴是一场冠火。</p>
 <p><b>记忆</b>（remember）：大而慢的那一层在下层进入重组期时向下供给种子、土壤、规范、老员工。它决定崩掉之后长回来的是原来那个东西，还是别的什么东西。</p>
 <figure>
-<svg aria-label="Panarchy：快慢不同的几个尺度各跑各的适应循环，由造反与记忆两条通道相连" role="img" viewBox="0 0 720 340" xmlns="http://www.w3.org/2000/svg">
+<svg aria-label="Panarchy：快慢不同的几个尺度各跑各的适应循环，由造反与记忆两条通道相连" role="img" viewbox="0 0 720 340" xmlns="http://www.w3.org/2000/svg">
 <defs>
-<marker id="t38r" markerHeight="11" markerUnits="userSpaceOnUse" markerWidth="11" orient="auto" refX="9" refY="5" viewBox="0 0 10 10"><path d="M0,1 L9,5 L0,9 z" fill="#e0895e"></path></marker>
-<marker id="t38m" markerHeight="11" markerUnits="userSpaceOnUse" markerWidth="11" orient="auto" refX="9" refY="5" viewBox="0 0 10 10"><path d="M0,1 L9,5 L0,9 z" fill="#63b3a6"></path></marker>
+<marker id="t38r" markerheight="11" markerunits="userSpaceOnUse" markerwidth="11" orient="auto" refx="9" refy="5" viewbox="0 0 10 10"><path d="M0,1 L9,5 L0,9 z" fill="#e0895e"></path></marker>
+<marker id="t38m" markerheight="11" markerunits="userSpaceOnUse" markerwidth="11" orient="auto" refx="9" refy="5" viewbox="0 0 10 10"><path d="M0,1 L9,5 L0,9 z" fill="#63b3a6"></path></marker>
 </defs>
 <text fill="#aba498" font-family="-apple-system,sans-serif" font-size="13" text-anchor="middle" x="360" y="26">同一个系统的几个尺度，各跑各的循环</text>
 <path d="M275,80 C275,28 343,28 380,80 C417,132 485,132 485,80 C485,28 417,28 380,80 C343,132 275,132 275,80 Z" fill="none" stroke="#79a6d2" stroke-width="2.2"></path>
@@ -217,16 +217,16 @@ footer a{color:#79a6d2;text-decoration:none}
 <p>给系统安排<b>便宜的、定期的、不预告的</b>释放：轮岗、随机下线、每季度真拔掉一个依赖跑一遍。注意它的作用不是"验证预案"——预告过的演练只能验证预案；它的作用是清掉 K 期悄悄长出来的隐性耦合，那些耦合没人写下来过，只有拔掉才会现形。另外单独做一件事：写下这个系统的"记忆"存在谁身上、哪里，并确认它不和被演练的部分同生共死。</p>
 </div>
 <p class="en-brief"><b>EN</b> Release is not pure loss: it unlocks capital that conservation had bound up. What decides the outcome is reorganization, and reorganization runs on memory — the seed bank, the surviving trees, the people who were there before. Panarchy nests cycles across timescales, linked by exactly two channels: revolt, where a fast small cycle's collapse ignites the slow large one but only while the large one sits in K, and remember, where the slow cycle feeds seeds back down.</p>
-<h2><span class="n">04</span>韧性到底是拿什么买的<span class="he">（What Actually Buys Resilience）</span></h2>
+<h2 data-tts="bcc9c5816ea13e7f"><span class="n">04</span>韧性到底是拿什么买的<span class="he">（What Actually Buys Resilience）</span></h2>
 <p class="lead">四样东西真的买得到韧性。它们各挡一类事，各有一张确切的账单——分不清挡的是哪一类，就会花了钱还是没扛住。</p>
 <p><b>冗余</b>（redundancy）：多个单元能干同一件事。它挡的是<em>单点失效</em>。账单：养着不产出的产能。</p>
 <p><b>模块化</b>（modularity）：把系统切成内部强耦合、之间弱耦合的块。它挡的是<em>传播</em>——一个模块塌了不把邻居一起拽下去。账单：跨模块的事变慢变贵（第 3 期讲近可分解性时说的是它的另一面）。</p>
 <p><b>响应多样性</b>（response diversity）：同一件事由<em>反应方式不同</em>的单元承担。它挡的是<em>共因失效</em>（common-cause failure）——冗余挡不住的恰恰是这一类。这是四样里最容易被砍掉的，因为它在正常状态下看起来纯属浪费：两套都能用，为什么要留难用的那套。</p>
 <p><b>松散耦合</b>（loose coupling）：单元之间留时间、留缓冲、留可中断的余地。它挡的是<em>速度</em>。Charles Perrow 的正常事故理论（normal accidents）说得很直白：紧耦合真正夺走的不是容错，是<b>你发现自己搞错了所需要的那点时间</b>。账单：库存、延迟、看上去的低效。</p>
 <figure>
-<svg aria-label="同样九个单元的三种结构：紧耦合、模块化、模块化加响应多样性" role="img" viewBox="0 0 720 334" xmlns="http://www.w3.org/2000/svg">
+<svg aria-label="同样九个单元的三种结构：紧耦合、模块化、模块化加响应多样性" role="img" viewbox="0 0 720 334" xmlns="http://www.w3.org/2000/svg">
 <defs>
-<marker id="t38dm" markerHeight="9" markerUnits="userSpaceOnUse" markerWidth="9" orient="auto" refX="9" refY="5" viewBox="0 0 10 10"><path d="M0,1 L9,5 L0,9 z" fill="#e0895e"></path></marker>
+<marker id="t38dm" markerheight="9" markerunits="userSpaceOnUse" markerwidth="9" orient="auto" refx="9" refy="5" viewbox="0 0 10 10"><path d="M0,1 L9,5 L0,9 z" fill="#e0895e"></path></marker>
 </defs>
 <text fill="#aba498" font-family="-apple-system,sans-serif" font-size="13" text-anchor="middle" x="360" y="26">同样 9 个单元，三种结构 — 它们挡住的不是同一件事</text>
 <rect fill="rgba(255,255,255,0.014)" height="148" rx="10" stroke="rgba(255,255,255,0.08)" width="200" x="25" y="86"></rect>
@@ -333,7 +333,7 @@ footer a{color:#79a6d2;text-decoration:none}
 <p>审计冗余时别数副本数，数<b>共因</b>。五个问题：这几份共享同一个供应商吗？同一个机房或同一路电吗？同一份配置吗？同一个人的判断吗？同一个假设吗？有一个答"是"，这组冗余的有效重数就要打折，并把打折后的数字写进文档。把这张单子做成模板，比再加一个副本便宜得多。</p>
 </div>
 <p class="en-brief"><b>EN</b> Four things actually buy resilience, each blocking a different failure and each with a real bill: redundancy blocks single-point failure, modularity blocks propagation, response diversity blocks common-cause failure, loose coupling buys the time to notice you were wrong (Perrow). The crucial distinction is the last two: three identical backups have an effective multiplicity of one against a common cause, so treating them as independent events in an availability calculation is a systematic overestimate.</p>
-<h2><span class="n">05</span>这套说法在哪儿不成立<span class="he">（Where This Breaks Down）</span></h2>
+<h2 data-tts="72a8c5c894abdf23"><span class="n">05</span>这套说法在哪儿不成立<span class="he">（Where This Breaks Down）</span></h2>
 <p class="lead">现在说反面。"韧性"这个词正在同时出现在生态学论文、企业年报和政府白皮书里，这本身就该让人警惕。</p>
 <p><b>第一，不指明对象，这个词就是空的。</b>Carpenter 等人 2001 年那篇文章的标题干脆就是个问句：<em>resilience of what, to what</em>（谁的韧性、抗什么）。这两个空不填，任何系统都能被说成有韧性或没韧性，于是这个说法不再排除任何情况——不排除任何情况的描述，不携带信息。政策文件里的"提升韧性"多半就停在这里。</p>
 <p><b>第二，适应循环是启发式框架，不是模型。</b>Holling 和 Gunderson 自己就用 heuristic（启发式）这个词称呼它。四个阶段的边界在真实数据上极难划出来，而事后总能把任何一段历史套进四个阶段——这正是不可证伪的典型症状。更麻烦的是，不少系统根本走不完整个循环：卡在 K 期出不来叫<b>刚性陷阱</b>（rigidity trap），卡在 α 期长不起来叫<b>贫困陷阱</b>（poverty trap）。把循环当成必然会来的四季，会让人一直等一个不来的春天。</p>
@@ -348,7 +348,7 @@ footer a{color:#79a6d2;text-decoration:none}
 </div>
 <p class="en-brief"><b>EN</b> Four limits. Unqualified, "resilience" excludes nothing (Carpenter et al., "resilience of what, to what?"). The adaptive cycle is a heuristic its own authors decline to call a model, and systems get stuck in rigidity or poverty traps instead of completing it. Resilience is value-neutral — dictatorships and drug-resistant tumours have plenty. And the trade-off is priced in real currency: if you cannot name the annual premium, you have not started designing for uncertainty.</p>
 <div class="bigcat">
-<h3>🎒 场景 · BigCat</h3>
+<h3 data-tts="1b8538cb68962c44">🎒 场景 · BigCat</h3>
 <ol>
 <li><span class="dm">工程与系统设计</span>每次事故复盘产出的行动项，几乎全是"加"：加一条监控、加一层重试、加一个审批。而重试会把一次局部超时放大成一次全局风暴，监控之间会互相触发，审批会把两个原本独立的团队焊在一起——三样都是在往上加连通度，也就是在把系统往 K 期推。可改的东西很具体：复盘模板里强制要求行动项中<b>至少有一条是"删"</b>——删掉一个依赖、关掉一条自动重试、砍掉一个已经没人看的告警——并且这一条必须在下个季度前真的落地，否则复盘不算关闭。</li>
 <li><span class="dm">带团队与组织</span>每次有人要休长假或交接，标准动作是写交接文档，然后开个会评审。但文档只有被人真读过、真跑通过，才算得上"记忆"；没被跑过的文档和没写一样，而且更让人放心。可改的动作：把评审换成一次<b>不预告的半天"这个人今天不在"</b>——当事人在场但不许开口，接手的人自己跑一次真实变更。跑不通的地方才是真正缺的那部分，而那部分通常不在文档里。</li>
@@ -356,7 +356,7 @@ footer a{color:#79a6d2;text-decoration:none}
 </ol>
 </div>
 <div class="crossx">
-<h3>🌀 越界 · 跨学科的联想<span class="he">（Crossings）</span></h3>
+<h3 data-tts="0fa2afeda135f558">🌀 越界 · 跨学科的联想<span class="he">（Crossings）</span></h3>
 <ul>
 <li><b>工程与技术史 · 五重塔的心柱</b>：法隆寺的五重塔立了一千三百多年，塔中央那根心柱（shinbashira）下端只是搁在础石上，不与各层楼板刚接。本期几条机制在这里同时跑：各层能相对滑动，于是能量在许多个界面上一点点耗掉，而不是集中到一处折断（模块化）；心柱与外层的固有摆动周期不同，晃起来互相抵消（响应多样性——两套构件对同一扰动的反应不一样）；而整座塔允许很大的位移本身，就是把碗做宽而不是做深。由此推出的施工指令是反直觉的：<b>"加固"和"抗住"在这里给出相反的指示——把节点做刚，等于把碗做窄。</b>东京晴空塔正是把这条思路重算了一遍：中心一根三百多米高的钢筋混凝土心柱，与外筒之间用油阻尼器连接。<b>但这里不成立</b>：五重塔那边的证据只是"没倒"这一个二值结果，样本极少、幸存者偏差极重，心柱到底起的是阻尼、配重还是别的作用，结构工程界至今没有定论。晴空塔是先有现代计算再回头认亲，不是古人早懂。能借走的是柔性加模块这个组合，不是"传统智慧胜过现代工程"这句话。</li>
 <li><b>历史与军事 · 拿破仑的军团制</b>：1800 年前后，拿破仑把军队拆成若干个军（corps），每个军自带步兵、骑兵、炮兵和参谋班子，能独立支撑一到两天的战斗。三条机制成套出现：模块化（一个军被咬住不等于全军被咬住）、松散耦合（分散行军，各军之间隔着一天的路程，临战才合拢）、以及角色的可互换（哪个军先接敌，哪个就当砧板，其余当锤子）。由此能推出一个通常被漏掉的结论：分散行军最大的收益不是补给方便，而是<b>把一次战役失败的规模上限从"全军"降到"一个军"</b>——它压的是单次释放期的幅度，而不是提高胜率。这两件事在账面上完全不同。<b>但这里不成立</b>：这套结构的重组期完全依赖一个中心——由拿破仑本人重新分派角色；而 panarchy 里的重组是无中心的。所以 1813 年他不得不分兵、由元帅们各自决断时，同一套军团制立刻失灵。<b>模块化本身不产生韧性，除非重组的规则也是分布式的。</b></li>
@@ -364,14 +364,14 @@ footer a{color:#79a6d2;text-decoration:none}
 </ul>
 </div>
 <div class="thinking">
-<h3>深入思考<span class="he">（Going Deeper）</span></h3>
+<h3 data-tts="11844259f633ab03">深入思考<span class="he">（Going Deeper）</span></h3>
 <details><summary>什么时候"追求稳定"反而完全正确？</summary><p>当这个系统确实只有一个稳定状态、且扰动的幅度已知有界时，工程韧性就是韧性，恢复速度就是正确的指标——很多机械和控制系统就是这样。所以本期的判据不是"稳定不好"，而是一个前置问题：<b>你凭什么确定只有一个碗？</b>这个问题在生态、组织、心理这些地方通常答不上来，在伺服电机上通常答得上来。</p></details>
 <details><summary>既然 K 期的签名这么好认，为什么组织几乎总是走到那里？</summary><p>因为每一步都是局部理性的。去掉一处冗余、多接一条依赖，收益立刻可见、归属明确、可以写进本季度的汇报；成本分散、延后、而且落在别人任期内。这是一个每一步都对、合起来错的过程，靠"提醒大家注意韧性"停不下来。要停下它，需要一个显式为余量负责的角色——但这个角色的产出永远看起来是零，所以它是最先被优化掉的那个。</p></details>
 <details><summary>一次崩溃之后，怎么分辨系统进的是重组期，还是刚性陷阱？</summary><p>看两件事：记忆还在不在，以及约束是不是真的松开了。很多所谓的"重组"是原班人马按原来的规则重新搭了一遍——那不是重组期，是 K 期的一次抖动，几个月后一切照旧。一个粗糙但好用的判据：这次崩溃之后，<b>有没有出现一个原来进不来的人或做法</b>。没有，就说明约束根本没松。</p></details>
 <details><summary>如果我这一层的韧性其实是靠上一层不在 K 期撑着的，我怎么知道上一层在哪个阶段？</summary><p>基本测不到——这是 panarchy 最诚实也最不好用的地方。能做的是找上层的代理变量：所在行业整体的杠杆水平、供应链的集中度、监管的松紧、同行的余量。这些都是间接的、滞后的。但知道"我的安全有一部分不归我管"，本身就会改变仓位和承诺的尺度，这已经是这个框架能给的大部分东西了。</p></details>
 </div>
 <div class="refs">
-<h3>延伸阅读<span class="he">（Further Reading）</span></h3>
+<h3 data-tts="93ff3cc250e85a23">延伸阅读<span class="he">（Further Reading）</span></h3>
 <ul>
 <li>C. S. Holling, <a href="https://www.annualreviews.org/doi/10.1146/annurev.es.04.110173.000245">Resilience and Stability of Ecological Systems</a>（1973，两种韧性的分界从这里开始）</li>
 <li>Gunderson &amp; Holling, <a href="https://islandpress.org/books/panarchy">Panarchy: Understanding Transformations in Human and Natural Systems</a>（2002，适应循环与跨尺度通道）</li>
@@ -387,9 +387,9 @@ footer a{color:#79a6d2;text-decoration:none}
 </div>
 <footer>BigCat · 复杂性科学 · <a href="index.html">← 全部 Topic</a></footer>
 </div>
-<script src="https://hub.cissychen.com/comments.js" defer></script>
-<script src="https://hub.cissychen.com/search.js" defer></script>
-<script src="https://hub.cissychen.com/index-button.js" defer></script>
-<script src="https://hub.cissychen.com/i18n-tts.js" defer></script>
-<script src="https://hub.cissychen.com/lightbox.js" defer></script>
+<script defer="" src="https://hub.cissychen.com/comments.js"></script>
+<script defer="" src="https://hub.cissychen.com/search.js"></script>
+<script defer="" src="https://hub.cissychen.com/index-button.js"></script>
+<script defer="" src="https://hub.cissychen.com/i18n-tts.js"></script>
+<script defer="" src="https://hub.cissychen.com/lightbox.js"></script>
 </body></html>

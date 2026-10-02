@@ -67,7 +67,7 @@ footer a{color:#79a6d2;text-decoration:none}
 <div class="wrap">
 <header>
 <span class="week-tag">TOPIC 42 · PHASE H</span>
-<h1>建模的陷阱<span class="h1en">TRAPS IN MODELING</span></h1>
+<h1 data-tts="54728eea1b33b000">建模的陷阱<span class="h1en">TRAPS IN MODELING</span></h1>
 <p class="sub">拟合得越好，越可能什么都没学到<span class="he">（A better fit is not a better model）</span></p>
 <p class="date">2026-08-29 · 方法与限度</p>
 </header>
@@ -77,13 +77,12 @@ footer a{color:#79a6d2;text-decoration:none}
 <p>这两件事同时成立，本身就是这一期要解释的现象：<em>解释得通</em>和<em>猜得中</em>不是同一种能力，甚至常常是互相拆台的。一个模型（或一套说辞）对着已经发生的事拟合得越紧，它能剩下多少对没发生的事的约束，就越少。</p>
 <p class="dim">前面四十一期都在造工具：幂律、网络、临界、韧性、复杂度的度量。<b>这一期是回头检查这些工具怎么用会用错。</b>它不讲新机制，讲的是四道关卡——过拟合、事后叙事、"看起来像幂律"的统计误判、以及一个模型要怎样才算被真正检验过。第 43 期会接着问一个更大的问题：这门学科整体上被指控了什么。</p>
 </div>
-
-<h2><span class="n">01</span>拟合得越好，越可能是在背噪声<span class="he">（Overfitting）</span></h2>
+<h2 data-tts="a2461c397cb37572"><span class="n">01</span>拟合得越好，越可能是在背噪声<span class="he">（Overfitting）</span></h2>
 <p class="lead">先从最小的例子开始。你手上有八个点，想找出它们背后的规律。你可以画一条直线穿过它们中间，也可以画一条弯弯绕绕的曲线，让它<em>恰好</em>经过每一个点。</p>
 <p>第二条曲线在这八个点上的误差是零。按"拟合得好"这个标准，它完胜。但如果你再去测第九个点，它多半会离那条弯曲线很远——远到还不如那条笨拙的直线。</p>
 <p>原因不复杂：这八个点里既有真实的规律，也有测量误差、偶然波动、当天的心情。<b>而模型不知道哪部分是哪部分。</b>你给它足够的自由度（也就是足够多可以调的参数），它就会把误差也一并记住，当成规律。这叫<b>过拟合</b>（overfitting）。</p>
 <figure>
-<svg aria-label="同一批数据的三种拟合：欠拟合、刚好、过拟合" role="img" viewBox="0 0 720 300" xmlns="http://www.w3.org/2000/svg">
+<svg aria-label="同一批数据的三种拟合：欠拟合、刚好、过拟合" role="img" viewbox="0 0 720 300" xmlns="http://www.w3.org/2000/svg">
 <text fill="#aba498" font-family="-apple-system,sans-serif" font-size="13" text-anchor="middle" x="360" y="26">同一批数据，三种拟合 — 谁在学规律，谁在背答案</text>
 <text fill="#79a6d2" font-family="SF Mono,monospace" font-size="12" text-anchor="middle" x="138" y="56">① 欠拟合（太简单）</text>
 <g transform="translate(40,66)">
@@ -113,9 +112,9 @@ footer a{color:#79a6d2;text-decoration:none}
 <p>物理学家冯·诺伊曼（John von Neumann）有一句被反复引用的话，据费曼的同事戴森转述：<b>"给我四个参数，我能拟合出一头大象；给我五个，我还能让它甩鼻子。"</b>这句话后来真的被人当成挑战做了出来——2010 年有篇论文用四个复数参数画出了一头可辨认的大象。<b>参数不是知识，参数是自由度。</b></p>
 <p>所以判断一个模型好不好，不能看它在<em>已经用来调参的那批数据</em>上表现如何。那批数据叫<b>样本内</b>（in-sample），它上面的误差只反映"你记住了多少"。真正有信息的是<b>样本外</b>（out-of-sample）——一批模型从未见过、也从未参与过任何调参的数据。把这两条误差画在同一张图上，事情就清楚了。</p>
 <figure>
-<svg aria-label="样本内误差随复杂度单调下降，样本外误差呈 U 形" role="img" viewBox="0 0 720 280" xmlns="http://www.w3.org/2000/svg">
+<svg aria-label="样本内误差随复杂度单调下降，样本外误差呈 U 形" role="img" viewbox="0 0 720 280" xmlns="http://www.w3.org/2000/svg">
 <defs>
-<marker id="t42ax" markerHeight="9" markerUnits="userSpaceOnUse" markerWidth="9" orient="auto" refX="8" refY="5" viewBox="0 0 10 10">
+<marker id="t42ax" markerheight="9" markerunits="userSpaceOnUse" markerwidth="9" orient="auto" refx="8" refy="5" viewbox="0 0 10 10">
 <path d="M0,1 L9,5 L0,9 z" fill="#8d867b"></path>
 </marker>
 </defs>
@@ -145,17 +144,16 @@ footer a{color:#79a6d2;text-decoration:none}
 <div class="crossx-inline">
 🌀 <b>工程与技术史 · 谷歌流感趋势</b>　2008 年谷歌上线了一个用搜索词预测流感就诊率的模型，从五千万个候选词里挑出四十五个，在历史数据上拟合得极漂亮，登上了《自然》。然后它错过了 2009 年的甲流暴发，又在 2012–13 流感季把就诊比例高估到实际值的两倍以上。四十五个词是从五千万里挑的——这个比例本身就是"自由度"的另一种写法。推论不显然的地方在于：它不是模型不够好，而是<b>用它去挑词的那个过程</b>已经把噪声选进来了；再多的数据也修不好一个在选变量阶段就过拟合的东西。</div>
 <p class="en-brief"><b>EN</b> With enough free parameters a model memorises noise as if it were signal — von Neumann's four-parameter elephant, later actually drawn. In-sample error falls monotonically with complexity; out-of-sample error is U-shaped. Google Flu Trends picked 45 search terms out of 50 million, fit history beautifully, then overshot the 2012–13 season by more than a factor of two.</p>
-
-<h2><span class="n">02</span>叙事是免费的参数<span class="he">（Narrative as Free Parameters）</span></h2>
+<h2 data-tts="d2791322c9f973d7"><span class="n">02</span>叙事是免费的参数<span class="he">（Narrative as Free Parameters）</span></h2>
 <p class="lead">上一节的参数是数字。而人做预测和复盘时用的不是数字，是词——"团队有韧性""领导果断""时机成熟""行业风口"。这些词有一个数字参数没有的性质：<b>它们不要钱，数量也没有上限。</b></p>
 <p>后果是直接的。既然可用的词无限多，那么无论结果是什么，你总能拼出一套顺畅的解释。而且用的往往是同一批事实。</p>
 <figure>
-<svg aria-label="同一批事实可以同样顺畅地解释两个相反的结果" role="img" viewBox="0 0 720 300" xmlns="http://www.w3.org/2000/svg">
+<svg aria-label="同一批事实可以同样顺畅地解释两个相反的结果" role="img" viewbox="0 0 720 300" xmlns="http://www.w3.org/2000/svg">
 <defs>
-<marker id="t42na" markerHeight="10" markerUnits="userSpaceOnUse" markerWidth="10" orient="auto" refX="9" refY="5" viewBox="0 0 10 10">
+<marker id="t42na" markerheight="10" markerunits="userSpaceOnUse" markerwidth="10" orient="auto" refx="9" refy="5" viewbox="0 0 10 10">
 <path d="M0,1 L9,5 L0,9 z" fill="#9fbc7a"></path>
 </marker>
-<marker id="t42nb" markerHeight="10" markerUnits="userSpaceOnUse" markerWidth="10" orient="auto" refX="9" refY="5" viewBox="0 0 10 10">
+<marker id="t42nb" markerheight="10" markerunits="userSpaceOnUse" markerwidth="10" orient="auto" refx="9" refy="5" viewbox="0 0 10 10">
 <path d="M0,1 L9,5 L0,9 z" fill="#79a6d2"></path>
 </marker>
 </defs>
@@ -188,16 +186,15 @@ footer a{color:#79a6d2;text-decoration:none}
 <div class="crossx-inline">
 🌀 <b>文学与艺术 · 传记里的童年细节</b>　几乎每一本成功者传记都能从童年里挑出一个决定性的细节：那次搬家、那本书、那个严厉的老师。这条推理线之所以永远走得通，是因为可选的童年细节数量近乎无限，而只需要挑出与结果匹配的那几个——参数免费、事后挑选。由此可以推出一个比"传记不可信"更硬的结论：<b>传记的解释力和它的预测力无关，所以它作为"该怎么培养一个人"的输入，信息量接近于零</b>——同样的童年细节，在那些没成功的人身上一样存在，只是没人替他们写书。</div>
 <p class="en-brief"><b>EN</b> Verbal explanations have unlimited free parameters at zero cost, so any outcome — and its opposite — can be fitted from the same facts. Post-hoc narrative is therefore the limiting case of overfitting: zero in-sample error, maximal out-of-sample error. Hindsight bias hides the fitting from the fitter. The only operational test: would this account run just as smoothly if the outcome had been reversed?</p>
-
-<h2><span class="n">03</span>「看起来像幂律」多半不是<span class="he">（It Only Looks Like a Power Law）</span></h2>
+<h2 data-tts="fce971b9d7690ad9"><span class="n">03</span>「看起来像幂律」多半不是<span class="he">（It Only Looks Like a Power Law）</span></h2>
 <p class="lead">本站前面反复出现过一条直线：把事件规模和出现频率都取对数（也就是画在双对数坐标上），很多现象会排成一条直线。这条直线叫<b>幂律</b>（power law） <a class="reflink" href="ref-power-law.html">→ 参考 · 幂律分布</a>，它意味着没有"典型规模"，大事件比直觉常见得多。</p>
 <p>问题出在"看起来像"这三个字上。<b>在双对数坐标下，人眼判断直线的能力差得离谱。</b>对数把差异压扁了，一段缓慢弯曲的曲线看上去和直线几乎没区别。而好几种完全不同的分布画出来都是这个样子——最常见的竞争者是<b>对数正态分布</b>（log-normal，取对数之后变成钟形）和<b>指数截断的幂律</b>（尾巴到某处突然掉下去）。</p>
 <p>更糟的是，常见的画法会<em>制造</em>直线。尾部的数据天然稀疏，如果你按等宽的区间去数每个区间里有几个事件，尾部那些区间大多是零零一一，画出来抖成一片，然后人就开始"看趋势"。（专业做法是画互补累积分布，也就是"大于等于 x 的事件占比"，它不需要分箱，尾部要干净得多。）</p>
 <p>2009 年，Aaron Clauset、Cosma Shalizi 和 Mark Newman 三个人把这件事系统化了，给出一套统一的检验流程（下文简称 <b>CSN 流程</b>），并用它重审了二十多个被广泛引用的"幂律"数据集。结论相当扫兴：<b>只有少数几个能干净地通过，相当一部分根本无法和对数正态区分开。</b></p>
 <figure>
-<svg aria-label="三种分布在双对数坐标下几乎重合，以及 CSN 检验的五个步骤" role="img" viewBox="0 0 720 336" xmlns="http://www.w3.org/2000/svg">
+<svg aria-label="三种分布在双对数坐标下几乎重合，以及 CSN 检验的五个步骤" role="img" viewbox="0 0 720 336" xmlns="http://www.w3.org/2000/svg">
 <defs>
-<marker id="t42st" markerHeight="8" markerUnits="userSpaceOnUse" markerWidth="8" orient="auto" refX="7" refY="4" viewBox="0 0 8 8">
+<marker id="t42st" markerheight="8" markerunits="userSpaceOnUse" markerwidth="8" orient="auto" refx="7" refy="4" viewbox="0 0 8 8">
 <path d="M0,0.8 L7,4 L0,7.2 z" fill="#a8a49c"></path>
 </marker>
 </defs>
@@ -243,14 +240,13 @@ footer a{color:#79a6d2;text-decoration:none}
 <div class="crossx-inline">
 🌀 <b>经济与制度 · 城市规模的那条直线</b>　"城市人口服从幂律"是被引用得最多的例子之一，但这条直线对"什么算一座城市"极度敏感：按行政边界统计和按连片建成区统计，同一个国家能得到明显不同的指数，边界画法一变，尾部的那几个点就换了位置。这推出一个统计课本上不会讲的结论——<b>在这类数据里，"直线"有一部分是测量口径造出来的，而不是系统长出来的</b>。所以看到一条漂亮的幂律，第一个该问的不是"机制是什么"，是"这条数据的单位是谁定的、按什么切的"。</div>
 <p class="en-brief"><b>EN</b> On log-log axes the eye cannot separate a power law from a log-normal or an exponentially truncated tail, and equal-width binning manufactures straight lines out of sparse tails. Clauset, Shalizi and Newman (2009) gave a five-step test and found that only a minority of widely cited datasets survive it. Note also what is at stake: for most decisions "heavy-tailed" carries the same implications, so insisting on "power law" is usually the mechanism story talking, not the decision.</p>
-
-<h2><span class="n">04</span>校准：让"概率"这个词兑现<span class="he">（Calibration）</span></h2>
+<h2 data-tts="6ccdba2552090fea"><span class="n">04</span>校准：让"概率"这个词兑现<span class="he">（Calibration）</span></h2>
 <p class="lead">前三节都在拆。这一节说建设性的那半：一个关于复杂系统的模型，究竟怎样才算被真正检验过？</p>
 <p>复杂系统的预测大多不是"明天是多少"，而是"多大可能"。而"多大可能"这种话，单看一次是没法判对错的——你说明天 70% 下雨，结果没下，这不能算你错。<b>但看一百次就能判。</b>在你说过 70% 的那一百天里，如果只有三十天真下了雨，那你说的就不是概率，是修辞。</p>
 <p>这个性质叫<b>校准</b>（calibration）：你给出的概率，在长期频率上要兑现。它可以画成一张图——横轴是你说的概率，纵轴是那些日子里实际发生的比例。完美校准就是那条对角线。</p>
 <p>而复杂系统里"多大可能"这个数是怎么算出来的？主流做法是<b>集合模拟</b>（ensemble simulation）：既然初始条件测不准、模型也不完美，那就不要只跑一遍。把初始状态做上百次微小扰动，每次都跑一遍，看这些轨迹散得多开 <a class="reflink" href="ref-monte-carlo.html">→ 参考 · 蒙特卡罗与集合模拟</a>。散得窄，就是这次可以说得比较肯定；散得宽，就该说不确定——<b>宽度本身就是预报的一部分，不是预报的瑕疵。</b></p>
 <figure>
-<svg aria-label="左：集合模拟的发散扇面；右：可靠性图与过度自信曲线" role="img" viewBox="0 0 720 310" xmlns="http://www.w3.org/2000/svg">
+<svg aria-label="左：集合模拟的发散扇面；右：可靠性图与过度自信曲线" role="img" viewbox="0 0 720 310" xmlns="http://www.w3.org/2000/svg">
 <text fill="#aba498" font-family="-apple-system,sans-serif" font-size="12.5" text-anchor="middle" x="190" y="26">集合模拟：把不确定性画出来</text>
 <path d="M70,175 C150,172 230,140 310,104 L310,248 C230,218 150,184 70,175 Z" fill="rgba(121,166,210,0.10)" stroke="none"></path>
 <path d="M70,175 C150,172 230,140 310,104" fill="none" stroke="rgba(121,166,210,0.55)" stroke-width="1.6"></path>
@@ -288,8 +284,7 @@ footer a{color:#79a6d2;text-decoration:none}
 <div class="crossx-inline">
 🌀 <b>心理学 · Meehl 的那本小书</b>　1954 年，心理学家 Paul Meehl 比较了临床专家的判断和一个简单统计公式的判断，结果是公式在几乎所有对比里不输甚至更好；后来几十年、上百项研究的汇总仍然如此。通常的解读是"专家不如算法"，但套上本节的机制会得到一个更准的读法：<b>差别不在聪明程度，在有没有记分回路。</b>公式的每一次输出都被记录、被对照、被修正；而专家的判断分散在多年、多个个案里，从来没有被汇总成一张可靠性图，所以他的信心根本没机会被校准。这条推论有个反直觉的推广：给专家配上记分表，比换掉专家更划算。</div>
 <p class="en-brief"><b>EN</b> Most complex-system forecasts are probabilistic, and a single probabilistic statement cannot be scored — a hundred of them can. Calibration means the 70% days rain about 70% of the time; a reliability diagram makes it visible, and the Brier score decomposes cleanly into calibration and resolution. Ensemble simulation produces the probability in the first place: perturb the initial state a hundred times and let the spread be the answer. Weather forecasting is the one field that industrialised this, for the boring reason that it is scored every single day.</p>
-
-<h2><span class="n">05</span>这套说法在哪儿不成立<span class="he">（Where This Breaks Down）</span></h2>
+<h2 data-tts="90eefa17b5acea90"><span class="n">05</span>这套说法在哪儿不成立<span class="he">（Where This Breaks Down）</span></h2>
 <p class="lead">前面四节都在要求模型接受检验。现在说反面：这套要求本身有几处会用错，而且用错的方式相当常见。</p>
 <p><b>第一，不是所有模型都以预测为目的，拿预测精度去评价它们是用错了尺子。</b>谢林的隔离模型 <a class="reflink" href="ref-schelling.html">→ 参考 · 谢林隔离模型</a> 从来没打算预测任何一座城市的隔离程度，它证明的是一个<em>充分性</em>命题：非常温和的邻居偏好，<b>足以</b>产生高度隔离的格局，不需要谁抱有敌意。这个命题不靠拟合数据成立，靠的是它推翻了"看到隔离就说明有强烈歧视"这个默认推论。这类模型该被检验的不是准确率，而是三件事：前提有没有被偷偷加强、结论是不是真的从规则推出来的、以及换一批合理的参数会不会翻盘（也就是稳健性）。</p>
 <p><b>第二，"所有模型都是错的，但有些是有用的"被滥用成了免责声明。</b>这句话出自统计学家 George Box，他的原意是提醒你把力气花在"错得要紧不要紧"上——而不是给任何模型发一张通行证。这句话的正确用法是后面必须跟上两个具体的量：<em>错在哪个方向</em>（系统性地高估还是低估）、<em>量级多大</em>。说不出这两样，就说明这个模型压根没被检验过，那句话只是在提前挡住提问。</p>
@@ -301,9 +296,8 @@ footer a{color:#79a6d2;text-decoration:none}
 <p>给你手上每一个模型贴一个标签，标签只有三种：<b>点预测</b>（该报样本外误差）、<b>概率预测</b>（该报可靠性图，攒不够次数就明说"还没被检验过"）、<b>机制演示</b>（该报前提和稳健性，不该报准确率）。贴错标签是本期所有陷阱里最省事也最常见的一个——用机制模型的口气去做点预测，或者用点预测的精度去嘲笑机制模型，都是同一个错误的两面。</p>
 </div>
 <p class="en-brief"><b>EN</b> Four caveats. Some models are sufficiency demonstrations, not predictors — Schelling's segregation model should be judged on premises and robustness, never on accuracy. "All models are wrong, but some are useful" is a demand for the direction and size of the error, not a licence. Calibration is impossible for one-off events, so weaker substitutes must be labelled as weaker. And the mirror image of overfitting is a model missing the variable that matters — pre-2008 DSGE frameworks generally had no financial intermediation at all. Finally, held-out data is consumable: reuse it and it quietly becomes in-sample.</p>
-
 <div class="bigcat">
-<h3>🎒 场景 · BigCat</h3>
+<h3 data-tts="fb4f1122258534bb">🎒 场景 · BigCat</h3>
 <ol>
 <li><span class="dm">工程与系统设计</span>每次线上故障之后加一条告警规则、或者把某个阈值往下调一格——这是拿一个样本更新参数，做上两年，告警系统就是一条穿过所有历史故障点的过拟合曲线：对已经发生过的事完美，对下一次沉默，同时把人淹在噪声里。可改的东西很具体：<b>给每条告警规则记一个命中率（真实故障数 ÷ 触发次数）</b>，每季度把命中率垫底的那批直接删掉；新增规则前先拿过去 90 天的数据回放一遍，看它会响多少次。该停掉的动作：以"上次那个要是早点告警就好了"作为新增规则的<b>唯一</b>理由。</li>
 <li><span class="dm">带团队与组织</span>给新项目排期时，用一段推理来修正估算——"这次架构更熟""这次不用等外部依赖"。这些修正项就是免费参数，它们的作用是让估算贴合你想要的结论。可改的东西：<b>把团队过去十个项目的「实际耗时 ÷ 当初估的」都算出来，取中位数当固定乘数</b>，先乘上去再讨论。讨论的内容从"这次会不会更快"换成"有什么理由认为这次和过去十次不同"——后者需要举证，前者不需要。</li>
@@ -311,7 +305,7 @@ footer a{color:#79a6d2;text-decoration:none}
 </ol>
 </div>
 <div class="crossx">
-<h3>🌀 越界 · 跨学科的联想<span class="he">（Crossings）</span></h3>
+<h3 data-tts="3b552d89e9223124">🌀 越界 · 跨学科的联想<span class="he">（Crossings）</span></h3>
 <ul>
 <li><b>文学与艺术 · 博尔赫斯的一比一地图</b>：博尔赫斯 1946 年那篇不到一页的《论科学的严谨》里，帝国的制图学家造出了一张与帝国等大、逐点重合的地图，后世觉得它无用，任它烂在沙漠里。通常的读法是"精确到极致就没用了"。本期三条机制合起来能给出一个更硬的版本：那张地图之所以更差而不只是无用，是因为它<b>把噪声一起复制了</b>（第 1 节：零误差意味着记住了全部偶然细节）、它<b>无法被证伪</b>（第 2 节：不做任何取舍的表示不排除任何可能）、并且它<b>无法被校准</b>（第 4 节：它不输出可对照的判断，所以永远得不到反馈）。换句话说，地图的价值不在保留了什么，在<em>敢丢掉什么</em>——丢弃就是模型的全部内容。<b>但这里不成立</b>：博尔赫斯的寓言暗示精度和有用性单调反向，越粗略越好；而第 5 节说得很清楚，欠拟合一样致命——一张漏掉了河流的地图不会因为简洁而安全。寓言能借走的是"表示必须有损"这一条，借不走"越简越好"这个方向。</li>
 <li><b>西方哲学与科学哲学 · 迪昂-蒯因论题</b>：物理学家迪昂（Pierre Duhem，1906）和后来的哲学家蒯因（W. V. O. Quine，1951）指出：一个假设从来不能被单独检验。预测失败时，你总可以保住核心理论，把账记到某个辅助假设头上——仪器不准、边界条件特殊、这次样本有问题。这正是第 1 节和第 2 节的机制在<em>科学理论层面</em>的同构：辅助假设就是那批免费参数，事后指定它们就是事后叙事。由此推出的结论不是"科学不可靠"，而是一件很具操作性的事：<b>既然"该把失败记在哪一笔账上"永远无法由逻辑单独决定，那它只能由「事前承诺」来决定。</b>这就是预注册（pre-registration）的全部力量所在——它不提高任何一次实验的精度，它只是把记账规则挪到了看见结果之前。第 4 节的可靠性图是同一个动作的另一半：先说，再看，不许回头改口径。</li>
@@ -319,7 +313,7 @@ footer a{color:#79a6d2;text-decoration:none}
 </ul>
 </div>
 <div class="thinking">
-<h3>深入思考<span class="he">（Going Deeper）</span></h3>
+<h3 data-tts="02d20ecdafec3d99">深入思考<span class="he">（Going Deeper）</span></h3>
 <details><summary>如果事后叙事是"零误差、零信息"，那历史学还剩下什么？</summary><p>剩下的恰恰是它最不像叙事的那部分：确定发生了什么、什么时候、谁在场、当时的人手上有哪些信息。这些是可以被新证据推翻的，因此携带信息。真正没信息的是那一层"因此他必然会那样做"的因果连缀。一个可用的判据：把这段历史讲给一个不知道结局的人听，他能不能排除掉某些结局？排不掉，那段就是叙事而不是史实。</p></details>
 <details><summary>为什么样本外检验在金融里比在其他领域更难做？</summary><p>因为金融数据的"新样本"极其昂贵：可用的历史就那么长，而且非平稳——制度、参与者、交易机制都在变，二十年前的样本外未必和今天同分布。更麻烦的是策略研究的社会性过拟合：全行业在同一段历史上试过无数种策略，能被发表和流传的天然是那些恰好拟合了这段历史的。所以在金融里，"这个策略回测很好"这句话的先验信息量比在其他领域还要低。</p></details>
 <details><summary>一个模型必须能预测，才算科学吗？</summary><p>不一定，但它必须在某处承担风险。演化论对具体物种的演化路径预测力很弱，可它做了大量可被推翻的断言——化石出现的地层顺序、不同物种基因组的相似度排序。所以判据不是"能不能报数"，是"有没有一类可观察的结果会让它出局"。说不出这类结果的模型，无论多精致，都还没进场。</p></details>
@@ -327,7 +321,7 @@ footer a{color:#79a6d2;text-decoration:none}
 <details><summary>如果大家都在同一批基准数据上迭代，整个领域该怎么止损？</summary><p>目前几种做法都不完美：定期换新测试集（成本高，且旧结果不可比）、把测试集完全封存只允许提交一次（限制了迭代）、或者用只公布聚合结果的隐藏集。更根本的一条是记录"这批数据被查询过多少次"——因为过拟合的程度和查询次数直接相关，而这个次数在今天几乎从来没有人统计。</p></details>
 </div>
 <div class="refs">
-<h3>延伸阅读<span class="he">（Further Reading）</span></h3>
+<h3 data-tts="a4213d2405e8eb56">延伸阅读<span class="he">（Further Reading）</span></h3>
 <ul>
 <li>Clauset, Shalizi &amp; Newman, <a href="https://arxiv.org/abs/0706.1062">Power-law distributions in empirical data</a>（2009，本期第 3 节那套检验流程的原始论文，附大量反例）</li>
 <li>Lazer, Kennedy, King &amp; Vespignani, <a href="https://www.science.org/doi/10.1126/science.1248506">The Parable of Google Flu: Traps in Big Data Analysis</a>（Science, 2014）</li>
@@ -342,9 +336,9 @@ footer a{color:#79a6d2;text-decoration:none}
 </div>
 <footer>BigCat · 复杂性科学 · <a href="index.html">← 全部 Topic</a></footer>
 </div>
-<script src="https://hub.cissychen.com/comments.js" defer></script>
-<script src="https://hub.cissychen.com/search.js" defer></script>
-<script src="https://hub.cissychen.com/index-button.js" defer></script>
-<script src="https://hub.cissychen.com/i18n-tts.js" defer></script>
-<script src="https://hub.cissychen.com/lightbox.js" defer></script>
+<script defer="" src="https://hub.cissychen.com/comments.js"></script>
+<script defer="" src="https://hub.cissychen.com/search.js"></script>
+<script defer="" src="https://hub.cissychen.com/index-button.js"></script>
+<script defer="" src="https://hub.cissychen.com/i18n-tts.js"></script>
+<script defer="" src="https://hub.cissychen.com/lightbox.js"></script>
 </body></html>
