@@ -98,8 +98,26 @@
    **节内越界正例**（短、即时、单机制）：「Milgram 的六度实验其实只有约 5% 的信件送达。'六度'算的是**成功路径**的长度，失败的那 95% 不进分母——所以它描述的是网络里存在捷径，不是人人都够得着。」
 
    **文末大框正例**（长、成套、带边界）：「斯多葛把世界切成'可控/不可控'两半。本期三条机制合起来说明这条线画错了地方：混沌意味着**李雅普诺夫时间之内**你的干预真能改变轨迹、之外只是在放大误差；分岔意味着**逼近临界点时**同样的力气效果剧增；临界慢化意味着**这个窗口可以被监测**。所以'可控'不是按事情的种类分的，是按**你离临界点多远、还剩多少时间**分的——这是斯多葛给不出的操作性。**但这里不成立**：斯多葛的二分是伦理主张，本来就不承诺可预测性，它要解决的是执念而不是预测；用动力学去'纠正'它是越界的。能借走的是那把尺子，不是它的结论。」
-6. `.thinking` 深入思考：3–5 个 `<details>` 开放问题。
-7. `.refs` 延伸阅读：**每条都要可点链接**（维基词条 / arXiv / 出版社，别放纯文本）。
+6. **`.takeaways` 📝 十条要点**（2026-10-16 起，**只在主线 `*-topic{N}.html` 页写，参考库 `ref-*.html` 不写**；**必写，正好 10 条**；放在越界大框之后、「深入思考」之前）：读者拿它直接记笔记。每条一句完整的话，约 20–45 字，**单独抄出去也能看懂**：写出人名、模型名和概念名，不用「它」「这条机制」「这个系统」这类要靠上下文的代词。覆盖各节最值得记的观点、例子和机制，以及越界（节内或文末）里的一两条；顺序跟正文走。**只总结正文已经写过的东西**，不加新信息，不放引语。英文页标题 `Ten Takeaways`。人名不必每条都当主语开头：全组里主角的名字出现两三次就够，其余各条直接写观点、机制或事实（写「欺诈的最优数量大于零」，不写「X 认为欺诈的最优数量大于零」）。
+   ```html
+   <div class="tk">
+   <h3>📝 十条要点<span class="he">（Ten Takeaways）</span></h3>
+   <ol class="takeaways">
+   <li>…</li>
+   </ol>
+   </div>
+   ```
+   CSS（基准页 `<style>` 里没有这段，整块拷完基准页样式后**把它追加进去**；铜色，和决策线同色但一个在节内、一个在页尾，不会撞）：
+   ```css
+   .tk{margin:46px 0 10px}
+   .tk h3{font-size:1.02rem;color:#e0895e;margin-bottom:14px;letter-spacing:0.5px}
+   .takeaways{counter-reset:tk;list-style:none;margin:0;padding:0;border:1px solid rgba(224,137,94,0.3);border-radius:12px;background:rgba(224,137,94,0.04)}
+   .takeaways li{counter-increment:tk;position:relative;margin:0;padding:11px 18px 11px 52px;border-top:1px solid rgba(224,137,94,0.12);font-size:0.94rem;color:#d5cdc1;line-height:1.75}
+   .takeaways li:first-child{border-top:none}
+   .takeaways li::before{content:counter(tk,decimal-leading-zero);position:absolute;left:18px;top:12px;font-family:"SF Mono",Menlo,monospace;font-size:0.78rem;color:#e0895e}
+   ```
+7. `.thinking` 深入思考：3–5 个 `<details>` 开放问题。
+8. `.refs` 延伸阅读：**每条都要可点链接**（维基词条 / arXiv / 出版社，别放纯文本）。
 
 ## 双语双页
 - 中文 `{slug}-topic{N}.html`（`<html lang="zh-CN">`）+ 英文 `.en.html`（`<html lang="en">`）。
@@ -133,4 +151,5 @@
 - [ ] **有没有沦为「把锚撑成句子」**？至少一条是锚里完全没提到、你自己找的吗？
 - [ ] 人物/典故与前两期撞车了吗？（`grep -h 'crossx' *-topic*.html | tail -40`）
 - [ ] 引用的典故、出处、人物观点核实了吗？（跨学科最容易张冠李戴，尤其古籍原文和归属）
+- **十条要点**（主线页）：正好 10 条（`publish.sh` 已内置拦截，只卡新主线页，`ref-*` 不查）；每条脱离上下文能看懂、没有正文之外的新信息。
 - **SVG 箭头自查（发布前必过）**：`node tools/check-svg-arrows.js`（`publish.sh` 已内置拦截）。
