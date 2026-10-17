@@ -61,6 +61,12 @@ details p{margin:12px 0 0;font-size:0.9rem;color:#a9a096;line-height:1.75}
 footer{text-align:center;padding:56px 0 10px;font-size:0.78rem;color:#57524b;font-family:"SF Mono",Menlo,monospace;border-top:1px solid rgba(255,255,255,0.06);margin-top:50px}
 footer a{color:#79a6d2;text-decoration:none}
 @media(max-width:600px){h1{font-size:1.85rem}.wrap{padding:24px 16px 60px}h2{font-size:1.22rem}}
+.tk{margin:46px 0 10px}
+.tk h3{font-size:1.02rem;color:#e0895e;margin-bottom:14px;letter-spacing:0.5px}
+.takeaways{counter-reset:tk;list-style:none;margin:0;padding:0;border:1px solid rgba(224,137,94,0.3);border-radius:12px;background:rgba(224,137,94,0.04)}
+.takeaways li{counter-increment:tk;position:relative;margin:0;padding:11px 18px 11px 52px;border-top:1px solid rgba(224,137,94,0.12);font-size:0.94rem;color:#d5cdc1;line-height:1.75}
+.takeaways li:first-child{border-top:none}
+.takeaways li::before{content:counter(tk,decimal-leading-zero);position:absolute;left:18px;top:12px;font-family:"SF Mono",Menlo,monospace;font-size:0.78rem;color:#e0895e}
 </style></head><body>
 <div class="wrap">
 <header>
@@ -379,6 +385,22 @@ footer a{color:#79a6d2;text-decoration:none}
 <li><b>Biology · convergent evolution</b>: The camera eye, a precise imaging organ, evolved independently in vertebrates and in cephalopods, and the two look startlingly alike; wings evolved at least three separate times, in insects, birds and bats. On the face of it this is the same thing as universality — different substrates, same macroscopic outcome. But lay this issue's mechanisms out and the causes turn out to be entirely different: universality works by a diverging correlation length grinding detail away, whereas convergent evolution works by selection pressure pushing different starting points toward the same optimum. The distinction is not academic fastidiousness; it hands you a usable test. <b>If detail-independence comes from criticality, it holds only near one particular parameter value and fails the moment you leave; if it comes from optimization, it holds steadily across the whole parameter range.</b> So the next time completely different systems yield the same regularity, do not immediately call it a triumph of complexity science — ask which kind it is, by pushing the parameter away and seeing whether it survives.</li>
 <li><b>Engineering and the history of technology · why abstractions leak</b>: there is an old line in software that all non-trivial abstractions leak — you think you need not care how the database stores things, right up until one query is a thousand times slower and the underlying detail comes flooding back. Thermodynamics is an abstraction layer too: nineteenth-century engineers had no idea what an atom looked like and still computed steam engines accurately. This issue's mechanism shows those are two sides of one thing: whether a layer of abstraction holds depends on whether the underlying details shrink toward zero under repeated coarse-graining — and that is not designed in, it is a property the system either has or does not. From which a counter-intuitive corollary: <b>a leaking abstraction is usually not a badly built one; it is a system that has been pushed into a region where the correlation length is long</b> — saturation, congestion, lock contention, a cache that just stopped fitting. Patching the leaky abstraction therefore tends not to work, and the right move is to push the system out of that region (throttle, shard, keep headroom) so that the underlying details go back to being irrelevant. <b>But here it fails</b>: there is no agreed way to measure a "correlation length" for a software system, so the reasoning above is a suggestive analogy, not a model you can compute with. Its value lies in changing the question — from "who wrote this wrong" to "how far is the system from saturation right now" — and that switch costs no numbers at all.</li>
 </ul>
+</div>
+
+<div class="tk">
+<h3>📝 Ten Takeaways</h3>
+<ol class="takeaways">
+<li>An order parameter is zero on one side of a transition and non-zero on the other; choosing it means choosing which symmetry gets broken.</li>
+<li>First-order transitions jump and release latent heat; continuous transitions don't jump, but their correlation length grows without bound at the critical point.</li>
+<li>In 1945 Guggenheim divided eight gases' temperatures and densities by their own critical values, and all eight coexistence curves collapsed onto one.</li>
+<li>Liquid–gas critical points, 3D magnets, binary alloys and demixing liquids all share β ≈ 0.326 — they belong to the 3D Ising universality class.</li>
+<li>At the critical point the correlation length diverges, and density blobs of every size scatter light until carbon dioxide turns milky.</li>
+<li>The renormalization group of Kadanoff and Wilson coarse-grains repeatedly: most parameters shrink to zero, and a few relevant ones alone set critical behaviour.</li>
+<li>A universality class is fixed by just three things — spatial dimension, the number of order-parameter components, and interaction range — never by the material.</li>
+<li>A one-dimensional chain cannot order at any finite temperature, which is also why organizations that pass information along a single chain struggle to hold consensus.</li>
+<li>Universality lives only in a narrow window near the critical point; the window's width, Tc and amplitudes are not universal, so it licenses claims about shape alone.</li>
+<li>Claiming a real phase transition takes at least two independently measured exponents and a check of their scaling relation; one S-shaped curve proves little.</li>
+</ol>
 </div>
 
 <div class="thinking">

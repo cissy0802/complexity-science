@@ -63,6 +63,12 @@ details p{margin:12px 0 0;font-size:0.9rem;color:#a9a096;line-height:1.75}
 footer{text-align:center;padding:56px 0 10px;font-size:0.78rem;color:#57524b;font-family:"SF Mono",Menlo,monospace;border-top:1px solid rgba(255,255,255,0.06);margin-top:50px}
 footer a{color:#79a6d2;text-decoration:none}
 @media(max-width:600px){h1{font-size:1.85rem}.wrap{padding:24px 16px 60px}h2{font-size:1.22rem}}
+.tk{margin:46px 0 10px}
+.tk h3{font-size:1.02rem;color:#e0895e;margin-bottom:14px;letter-spacing:0.5px}
+.takeaways{counter-reset:tk;list-style:none;margin:0;padding:0;border:1px solid rgba(224,137,94,0.3);border-radius:12px;background:rgba(224,137,94,0.04)}
+.takeaways li{counter-increment:tk;position:relative;margin:0;padding:11px 18px 11px 52px;border-top:1px solid rgba(224,137,94,0.12);font-size:0.94rem;color:#d5cdc1;line-height:1.75}
+.takeaways li:first-child{border-top:none}
+.takeaways li::before{content:counter(tk,decimal-leading-zero);position:absolute;left:18px;top:12px;font-family:"SF Mono",Menlo,monospace;font-size:0.78rem;color:#e0895e}
 </style></head><body>
 <div class="wrap">
 <header>
@@ -362,6 +368,21 @@ footer a{color:#79a6d2;text-decoration:none}
 <li><b>历史与军事 · 拿破仑的军团制</b>：1800 年前后，拿破仑把军队拆成若干个军（corps），每个军自带步兵、骑兵、炮兵和参谋班子，能独立支撑一到两天的战斗。三条机制成套出现：模块化（一个军被咬住不等于全军被咬住）、松散耦合（分散行军，各军之间隔着一天的路程，临战才合拢）、以及角色的可互换（哪个军先接敌，哪个就当砧板，其余当锤子）。由此能推出一个通常被漏掉的结论：分散行军最大的收益不是补给方便，而是<b>把一次战役失败的规模上限从"全军"降到"一个军"</b>——它压的是单次释放期的幅度，而不是提高胜率。这两件事在账面上完全不同。<b>但这里不成立</b>：这套结构的重组期完全依赖一个中心——由拿破仑本人重新分派角色；而 panarchy 里的重组是无中心的。所以 1813 年他不得不分兵、由元帅们各自决断时，同一套军团制立刻失灵。<b>模块化本身不产生韧性，除非重组的规则也是分布式的。</b></li>
 <li><b>东方思想 · 庄子的散木</b>：《人间世》里那棵栎社树，木匠看一眼就走了：做船会沉，做棺材会烂，做器具会坏——"无所可用，故能若是之寿"。用本期的话说：一棵树被多少种用途指着，就有多少条链会在它身上传播扰动；把被依赖度降到零，等于把自己从所有人的 K 期里摘出去。这个读法比"与世无争"硬得多，因为它是可测的——被依赖度是能数出来的，而"心境"不能。<b>但这里不成立</b>：散木是<em>个体</em>的存活策略，它的代价恰恰是对系统不再有任何贡献；而适应循环谈的是<em>系统</em>的韧性，一个全是散木的系统没有功能可保持，连 K 期都到不了。把个人保命术直接搬成组织设计原则，得到的不是松散耦合，是解体。这条边界也反过来说明了松散耦合的真正含义：它要的不是少担责任，而是<b>让依赖可中断</b>——依赖照旧存在，只是断掉的时候不至于连坐。</li>
 </ul>
+</div>
+<div class="tk">
+<h3>📝 十条要点<span class="he">（Ten Takeaways）</span></h3>
+<ol class="takeaways">
+<li>工程韧性是受扰动后回到原状的速度，生态韧性是被推进另一个状态之前能吃下的最大扰动，两者可以背道而驰。</li>
+<li>Holling 1973 年指出，深而窄的吸引域恢复快却一推就翻，浅而宽的恢复慢却很难被推出去。</li>
+<li>任何只在常态下采集的指标都测不到吸引域的宽度，要测宽度就得主动施加一次接近极限的扰动。</li>
+<li>Holling 与 Gunderson 的适应循环以潜力和连通度为轴，依次走过生长、保持、释放、重组四个阶段。</li>
+<li>效率和韧性是同一个旋钮的两头：去冗余、专业化、压库存都在提高连通度，所以保持期的韧性最低。</li>
+<li>保持期的可读签名是产出还在创新高，而未承诺的余量在下跌、单点依赖的个数在上升。</li>
+<li>panarchy 把快慢尺度的适应循环嵌套起来，靠造反和记忆两条通道相连，造反只在上层处于保持期时走得通。</li>
+<li>冗余、模块化、响应多样性和松散耦合各挡一类扰动：单点失效、传播、共因失效和发现错误所需的时间。</li>
+<li>三份同供应商、同机房、同配置的备份在共因面前有效重数只有一，法航 447 的三套同型号空速管就是如此。</li>
+<li>不指明谁的韧性、抗什么，韧性一词就不携带信息，而且韧性本身价值中立，耐药肿瘤和独裁政权都很有韧性。</li>
+</ol>
 </div>
 <div class="thinking">
 <h3 data-tts="11844259f633ab03">深入思考<span class="he">（Going Deeper）</span></h3>

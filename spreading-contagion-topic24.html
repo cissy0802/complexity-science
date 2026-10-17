@@ -63,6 +63,12 @@ details p{margin:12px 0 0;font-size:0.9rem;color:#a9a096;line-height:1.75}
 footer{text-align:center;padding:56px 0 10px;font-size:0.78rem;color:#57524b;font-family:"SF Mono",Menlo,monospace;border-top:1px solid rgba(255,255,255,0.06);margin-top:50px}
 footer a{color:#79a6d2;text-decoration:none}
 @media(max-width:600px){h1{font-size:1.85rem}.wrap{padding:24px 16px 60px}h2{font-size:1.22rem}}
+.tk{margin:46px 0 10px}
+.tk h3{font-size:1.02rem;color:#e0895e;margin-bottom:14px;letter-spacing:0.5px}
+.takeaways{counter-reset:tk;list-style:none;margin:0;padding:0;border:1px solid rgba(224,137,94,0.3);border-radius:12px;background:rgba(224,137,94,0.04)}
+.takeaways li{counter-increment:tk;position:relative;margin:0;padding:11px 18px 11px 52px;border-top:1px solid rgba(224,137,94,0.12);font-size:0.94rem;color:#d5cdc1;line-height:1.75}
+.takeaways li:first-child{border-top:none}
+.takeaways li::before{content:counter(tk,decimal-leading-zero);position:absolute;left:18px;top:12px;font-family:"SF Mono",Menlo,monospace;font-size:0.78rem;color:#e0895e}
 </style></head><body>
 <div class="wrap">
 <header>
@@ -319,6 +325,21 @@ footer a{color:#79a6d2;text-decoration:none}
 <li><b>东方思想 · 禅宗为什么把传法弄得那么慢</b>：禅宗的自我描述里，法不靠文字传，必须面授、必须由已得法者当面印可。用本期的语言看，这是把一件本可以是简单传染的事（读一本书，一次曝光即可复制）刻意改造成了受控的传染：接收方必须与已"感染"者长期共处并被确认。这样做的代价是速度——传播被限制在极窄的接触面上，法脉因此呈树状、地理高度集中；收益则是<b>抑制变异</b>：任何单点的偏离都传不出去，因为传出去需要授权，而授权者只有一个。这也顺带解释了一件看着矛盾的事——一个号称不立文字的宗派，却生产了《景德传灯录》这类庞大的文献。灯录记的主要不是教义，是<em>谁传给了谁</em>：它是网络拓扑的账本，是这套传播机制必须自己维护的那份记录。（顺带一提，"不立文字、教外别传"这十六字被归到菩提达摩名下，是宋代的追加——1108 年睦庵善卿的《祖庭事苑》是较早的一处。）<b>但这里不成立</b>：复杂传染的门槛是"多少个<em>邻居</em>已采纳"，是无向的、对称的；而印可是单一权威的、有向的授权，度为 1 就够。所以禅宗的慢不是门槛造成的，是授权者稀缺造成的。能借走的是"限制传播路径会压制变异"这个后果，借不走"需要多次曝光"这个原因。</li>
 <li><b>科学哲学 · 模因论为什么停在原地</b>：1976 年 Dawkins 提出模因（meme），把观念设想成会自我复制、变异、被选择的单位——一个明确的"观念即病毒"纲领。本期三条机制合起来，能说清它卡在哪一步，而且这个诊断比"它不够严谨"具体得多。其一，R₀ 要求"感染"是一个可观测的状态转移，而"持有一个观念"没有可判定的时刻，于是它的核心量根本测不出来。其二，复杂传染意味着采纳依赖于<em>多个邻居的同时状态</em>——传播的最小单位因此不是单个模因，而是一小片局部共识，模因论的原子化假设从一开始就选错了单位。其三，网络的异质性意味着传得开与否主要由结构决定，于是"这个模因更有传播力"这种解释会系统性地把结构的功劳记到内容头上——同一句话，从枢纽说出来和从叶子说出来，命运完全不同。三条合起来给出一个可操作的结论：想让观念传播成为一门经验科学，先要做的不是找更好的复制隐喻，而是<b>定义一个可观测的采纳事件、并把网络画出来</b>。Centola 那个实验之所以站得住，正是因为它把这两件事都做了：注册与否是可观测的，网络是研究者铺的。</li>
 </ul>
+</div>
+<div class="tk">
+<h3>📝 十条要点<span class="he">（Ten Takeaways）</span></h3>
+<ol class="takeaways">
+<li>SIR 模型把人群分成易感者、感染者、移出者三堆，只用两条转移规则描述一场传播。</li>
+<li>R₀ 是接触率、单次传染概率和传染期三项的乘积，其中只有中间那项主要由病原体决定。</li>
+<li>有效再生数等于 R₀ 乘以易感者比例，所以传播会自己吃掉自己的燃料而逐渐放慢。</li>
+<li>越过群体免疫阈值只让新增见顶；R₀ 为 3 时阈值是 67%，自然烧完却会感染约 94%。</li>
+<li>因为有超调，撤除干预的条件应写成某个存量低于某水平并维持多久，而不是一个日期。</li>
+<li>在重尾接触网络上，流行阈值由接触数平方的平均决定，幂指数不超过 3 时阈值趋于零。</li>
+<li>新冠传播高度超离散，约 10% 的病例造成约 80% 的传播，针对场景的干预因此格外便宜。</li>
+<li>病毒碰一次就够，而改变做法往往需要好几个不同的人先做给你看，这就是复杂传染。</li>
+<li>Centola 2010 年的实验里，行为在聚簇网中比在随机网中传得更快更远，采纳率 54% 对 38%。</li>
+<li>模因论停在原地，是因为持有一个观念没有可观测的感染时刻，R₀ 根本无从测量。</li>
+</ol>
 </div>
 <div class="thinking">
 <h3 data-tts="968357f309f4b58d">深入思考<span class="he">（Going Deeper）</span></h3>

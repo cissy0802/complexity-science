@@ -63,6 +63,12 @@ details p{margin:12px 0 0;font-size:0.9rem;color:#a9a096;line-height:1.75}
 footer{text-align:center;padding:56px 0 10px;font-size:0.78rem;color:#57524b;font-family:"SF Mono",Menlo,monospace;border-top:1px solid rgba(255,255,255,0.06);margin-top:50px}
 footer a{color:#79a6d2;text-decoration:none}
 @media(max-width:600px){h1{font-size:1.85rem}.wrap{padding:24px 16px 60px}h2{font-size:1.22rem}}
+.tk{margin:46px 0 10px}
+.tk h3{font-size:1.02rem;color:#e0895e;margin-bottom:14px;letter-spacing:0.5px}
+.takeaways{counter-reset:tk;list-style:none;margin:0;padding:0;border:1px solid rgba(224,137,94,0.3);border-radius:12px;background:rgba(224,137,94,0.04)}
+.takeaways li{counter-increment:tk;position:relative;margin:0;padding:11px 18px 11px 52px;border-top:1px solid rgba(224,137,94,0.12);font-size:0.94rem;color:#d5cdc1;line-height:1.75}
+.takeaways li:first-child{border-top:none}
+.takeaways li::before{content:counter(tk,decimal-leading-zero);position:absolute;left:18px;top:12px;font-family:"SF Mono",Menlo,monospace;font-size:0.78rem;color:#e0895e}
 </style></head><body>
 <div class="wrap">
 <header>
@@ -308,6 +314,21 @@ d<i>x</i>/d<i>t</i> = α<i>x</i> − β<i>xy</i>　　　d<i>y</i>/d<i>t</i> = �
 </ul>
 </div>
 
+<div class="tk">
+<h3>📝 Ten Takeaways</h3>
+<ol class="takeaways">
+<li>Fitness is a ratio against the current opponent, not an absolute score; under coevolution every move the opponent makes redraws your landscape.</li>
+<li>Van Valen found in 1973 that how long a taxon has already survived barely changes its odds of extinction, and named this the Red Queen hypothesis.</li>
+<li>In the Lotka-Volterra model, predator peaks trail prey peaks by about a quarter cycle, so predator numbers report on prey that is already gone.</li>
+<li>Long-run average prey abundance in the Lotka-Volterra model depends only on the predator's parameters, not on how fast the prey breeds.</li>
+<li>Volterra's principle: indiscriminate killing lowers the prey mean and raises the predator mean, which is why broad-spectrum pesticides can trigger pest outbreaks.</li>
+<li>Parasites track the commonest host genotype, so rare types win by being rare; this negative frequency-dependent selection helps explain why sex is worth its twofold cost.</li>
+<li>New Zealand snails are more often sexual where trematodes are heavy, and in Morran's nematode experiments coevolving pathogens pushed populations toward outcrossing.</li>
+<li>Arms-race coevolution ratchets traits in one direction with rising, irreversible costs, while fluctuating selection swings frequencies back and forth with no net direction.</li>
+<li>The testable core of the Red Queen is narrow; a version that makes no new predictions and absorbs counterexamples with patches is rhetoric, not mechanism.</li>
+<li>Britain won the Anglo-German dreadnought race yet gained no security, because Germany shifted its marginal resources into expanding the army instead.</li>
+</ol>
+</div>
 <div class="thinking">
 <h3>🧠 Going Deeper</h3>
 <details><summary>If equilibrium is rare, why do so many industries hold the same shape for years?</summary><p>Be careful not to read "the outcome is unchanged" as "nobody is running." The Red Queen describes exactly this case: stable positions with continually rising inputs. So the test is not in the outcome but in the cost. Plot relative share and absolute investment on one chart over several years: share flat, investment climbing, is a textbook Red Queen, not a steady state. A real steady state has both lines flat.</p></details>

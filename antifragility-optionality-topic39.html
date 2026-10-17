@@ -63,6 +63,12 @@ details p{margin:12px 0 0;font-size:0.9rem;color:#a9a096;line-height:1.75}
 footer{text-align:center;padding:56px 0 10px;font-size:0.78rem;color:#57524b;font-family:"SF Mono",Menlo,monospace;border-top:1px solid rgba(255,255,255,0.06);margin-top:50px}
 footer a{color:#79a6d2;text-decoration:none}
 @media(max-width:600px){h1{font-size:1.85rem}.wrap{padding:24px 16px 60px}h2{font-size:1.22rem}}
+.tk{margin:46px 0 10px}
+.tk h3{font-size:1.02rem;color:#e0895e;margin-bottom:14px;letter-spacing:0.5px}
+.takeaways{counter-reset:tk;list-style:none;margin:0;padding:0;border:1px solid rgba(224,137,94,0.3);border-radius:12px;background:rgba(224,137,94,0.04)}
+.takeaways li{counter-increment:tk;position:relative;margin:0;padding:11px 18px 11px 52px;border-top:1px solid rgba(224,137,94,0.12);font-size:0.94rem;color:#d5cdc1;line-height:1.75}
+.takeaways li:first-child{border-top:none}
+.takeaways li::before{content:counter(tk,decimal-leading-zero);position:absolute;left:18px;top:12px;font-family:"SF Mono",Menlo,monospace;font-size:0.78rem;color:#e0895e}
 </style></head><body>
 <div class="wrap">
 <header>
@@ -386,6 +392,21 @@ footer a{color:#79a6d2;text-decoration:none}
 <li><b>文学与艺术 · 出版社怎么下注</b>：一家出版社的收入分布是极端重尾的——绝大多数书不赚钱，极少数养活整个书目。于是行业演化出的做法是：签得多、单本预付压低、留住随时放弃的余地，同时对少数几本压重注。这正好是一副杠铃，而且四个期权前提都被制度化了：保费小且确定（低预付）、放弃便宜（不续约）、次数多（书目大）、上行重尾（爆款）。由此能推出一个让编辑不太舒服的结论：<b>在这种分布下，提高"眼光"的边际回报，明显低于提高"可放弃性"的边际回报</b>——多签一倍的书并且能干脆地砍掉失败者，比把命中率从三成提到四成更能改变总收益。而这也解释了为什么中等预付的书最容易亏钱：它既不便宜到可以随便放弃，也不重要到值得动用全部资源。</li>
 <li><b>经济与制度 · 有限责任的发明</b>：19 世纪中叶英国用几部法案把有限责任变成了普通公司的常态——股东最多赔掉出资额，不再赔上全部身家。用本期的语言说，这是一次制度层面的凸性改造：把股东的收益曲线在左边硬生生折了个底，右边照旧敞开。结论并不是通常讲的"保护了投资者"那么温情：下行并没有消失，它被<b>移给了债权人、雇员和公众</b>——当一家公司的失败会外溢（银行、化工厂、平台型企业），这套设计恰好把凸性给了最不需要它的一方，也就是利润私有、尾部社会化。<b>但这里不成立</b>：这不是"从波动中变强"。破产的公司不会因此变强，变强的是行业层面的选择过程——个体的凸性和系统的凸性在这里是两笔账，混起来算就会得出"多倒闭几家是好事"这种对当事人毫无意义的结论。能借走的是那把尺子：任何一次"下行封顶"，都要接着问一句<b>那截被削掉的下行去哪儿了</b>。</li>
 </ul>
+</div>
+<div class="tk">
+<h3>📝 十条要点<span class="he">（Ten Takeaways）</span></h3>
+<ol class="takeaways">
+<li>当结果和变量之间的关系是弯的，用平均值代进去算出的结果，不等于结果的平均值。</li>
+<li>曲线下弯（凹）时波动是净损失，上弯（凸）时波动是净收益，韧性则是两不相欠的平线。</li>
+<li>凡是关系为凹，用平均工期、平均负载算出的结论只是乐观上限，不能拿来做承诺。</li>
+<li>脆弱度可以量：把关键变量上下各推 20%，下行变化除以上行变化，大于 1 就是凹的。</li>
+<li>Taleb 与 Douady 的两侧检测不需要估概率，这正是它比依赖概率的风险评级更可靠的地方。</li>
+<li>放疗把总剂量拆成几十次，是因为损伤对单次剂量是凸的，“总量相同”并不等价。</li>
+<li>选择权的价值主要来自能便宜地放弃，而不是选得准；放弃成本一高，期权就退化成承诺。</li>
+<li>期权成立需要四个前提：保费小且已知、放弃真便宜、尝试多且不共享致命风险、上行有重尾。</li>
+<li>杠铃策略两头站、中间空着：截断左尾保证活下去，杠铃的强度等于安全那一端的强度。</li>
+<li>反脆弱只对特定压力源、在特定剂量范围、对特定层级成立，Taleb 这个概念的可证伪性也偏弱。</li>
+</ol>
 </div>
 <div class="thinking">
 <h3 data-tts="e8ed68cb418e52f4">深入思考<span class="he">（Going Deeper）</span></h3>

@@ -63,6 +63,12 @@ details p{margin:12px 0 0;font-size:0.9rem;color:#a9a096;line-height:1.75}
 footer{text-align:center;padding:56px 0 10px;font-size:0.78rem;color:#57524b;font-family:"SF Mono",Menlo,monospace;border-top:1px solid rgba(255,255,255,0.06);margin-top:50px}
 footer a{color:#79a6d2;text-decoration:none}
 @media(max-width:600px){h1{font-size:1.85rem}.wrap{padding:24px 16px 60px}h2{font-size:1.22rem}}
+.tk{margin:46px 0 10px}
+.tk h3{font-size:1.02rem;color:#e0895e;margin-bottom:14px;letter-spacing:0.5px}
+.takeaways{counter-reset:tk;list-style:none;margin:0;padding:0;border:1px solid rgba(224,137,94,0.3);border-radius:12px;background:rgba(224,137,94,0.04)}
+.takeaways li{counter-increment:tk;position:relative;margin:0;padding:11px 18px 11px 52px;border-top:1px solid rgba(224,137,94,0.12);font-size:0.94rem;color:#d5cdc1;line-height:1.75}
+.takeaways li:first-child{border-top:none}
+.takeaways li::before{content:counter(tk,decimal-leading-zero);position:absolute;left:18px;top:12px;font-family:"SF Mono",Menlo,monospace;font-size:0.78rem;color:#e0895e}
 </style></head><body>
 <div class="wrap">
 <header>
@@ -319,6 +325,21 @@ footer a{color:#79a6d2;text-decoration:none}
 <li><b>经济与制度 · 计划经济争论里被漏掉的那一半</b>：1920 到 40 年代关于社会主义能不能"算"的那场争论里，米塞斯和哈耶克的核心论点是<em>信息</em>：价格是分散的、局部的知识的汇总，中央拿不到，所以算不出来。这个论证针对的是第一堵墙。本期第二堵墙给出一个独立的、而且更强的版本：<b>即使全部数据都摆在中央的桌上，也可能没有比让经济自己运行一遍更快的办法算出它的结果。</b>这推出一个当年双方都没提的结论——计划的困难不会随算力和数据量的增长而消退，所以"等计算机足够强就行了"这个几十年来反复出现的期待，是在错误的那堵墙上找门。<b>但这里不成立</b>：不可约性的严格结果是关于<em>固定规则</em>系统的，而经济里的主体会学习、会针对被公布的模型改变行为（第 26 期整期在讲这件事），规则本身在变。这让经济比不可约系统更难预测，但也意味着不能把 Wolfram 的结论直接搬过来当证明——它在这里是类比，不是定理。</li>
 <li><b>生物医学 · 折叠的终态有捷径，折叠的过程没有</b>：Levinthal 在 1969 年算过一笔账：一条中等长度的蛋白质，可能的构型多到用宇宙年龄也穷举不完，而真实的折叠只要毫秒级。这个反差长期被读成"不模拟动力学就别想知道结果"。2020 年 AlphaFold 把这个读法掀了：从氨基酸序列直接预测最终三维结构，准度接近实验，完全跳过了折叠过程——终态是可约的。但它给不出折叠的<b>路径和速率</b>，那部分至今仍要硬跑分子动力学。同一个系统，一个问题有捷径，另一个问题没有。这是本期第三问最强的证据：<b>"这个系统不可预测"是一句没有意义的话，因为可预测性的属主是问题，不是系统。</b>所以听到"这算不出来"时，值钱的追问是："你要算的是终态、轨迹，还是统计量？"——三者的答案可以完全不同，而问的人通常没分清自己要哪一个。</li>
 </ul>
+</div>
+<div class="tk">
+<h3>📝 十条要点<span class="he">（Ten Takeaways）</span></h3>
+<ol class="takeaways">
+<li>洛伦兹 1961 年抄回只剩三位小数的中间结果，天气全变了样：混沌系统的误差按固定的倍增时间翻倍。</li>
+<li>测量精度的投入是乘法级的，预报期的回报只是加法级的，所以天气预报撞上约两周的内在上限。</li>
+<li>集合预报在观测误差之内扰动初值、并行跑几十条，ECMWF 跑 51 条，成员散得多开本身就是产品。</li>
+<li>概率预报能用校准来打分，报 70% 的日子应有约七成下雨；点预测单次报错却分不清是模型差还是运气差。</li>
+<li>可预测性是问题的属性而不是系统的属性：某一天的天气问不出来，气候这类统计量却问得出来。</li>
+<li>元胞自动机规则 90 的每一格都有杨辉三角模 2 的闭式解，规则 30 却只能一步步跑完，这叫计算不可约性。</li>
+<li>分辨两堵墙要问三件事：多十倍精度有没有用，多十倍算力有没有用，要的是轨迹、终态还是统计量。</li>
+<li>集合预报只扰动初始状态、看不见模型本身的错误，所以集合离散度很窄并不等于预报可靠。</li>
+<li>计算不可约性挂在 Wolfram 的计算等价性原理上，至今是猜想而非定理，不能拿来证明任何具体问题都算不出。</li>
+<li>AlphaFold 从序列直接预测蛋白质的最终结构，折叠路径却仍得硬跑：同一个系统，有的问题有捷径，有的没有。</li>
+</ol>
 </div>
 <div class="thinking">
 <h3 data-tts="e727aea2ca1a4ecf">深入思考<span class="he">（Going Deeper）</span></h3>

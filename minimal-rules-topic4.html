@@ -63,6 +63,12 @@ details p{margin:12px 0 0;font-size:0.9rem;color:#a9a096;line-height:1.75}
 footer{text-align:center;padding:56px 0 10px;font-size:0.78rem;color:#57524b;font-family:"SF Mono",Menlo,monospace;border-top:1px solid rgba(255,255,255,0.06);margin-top:50px}
 footer a{color:#79a6d2;text-decoration:none}
 @media(max-width:600px){h1{font-size:1.85rem}.wrap{padding:24px 16px 60px}h2{font-size:1.22rem}}
+.tk{margin:46px 0 10px}
+.tk h3{font-size:1.02rem;color:#e0895e;margin-bottom:14px;letter-spacing:0.5px}
+.takeaways{counter-reset:tk;list-style:none;margin:0;padding:0;border:1px solid rgba(224,137,94,0.3);border-radius:12px;background:rgba(224,137,94,0.04)}
+.takeaways li{counter-increment:tk;position:relative;margin:0;padding:11px 18px 11px 52px;border-top:1px solid rgba(224,137,94,0.12);font-size:0.94rem;color:#d5cdc1;line-height:1.75}
+.takeaways li:first-child{border-top:none}
+.takeaways li::before{content:counter(tk,decimal-leading-zero);position:absolute;left:18px;top:12px;font-family:"SF Mono",Menlo,monospace;font-size:0.78rem;color:#e0895e}
 </style></head><body>
 <div class="wrap">
 <header>
@@ -165,6 +171,21 @@ footer a{color:#79a6d2;text-decoration:none}
 <li><b>东方思想与数学 · 莱布尼茨读《易》</b>：1703 年，莱布尼茨发表二进制算术的论文，同时兴奋地指出：《易经》六十四卦，正是每卦六根阴阳爻（两种符号）排出来的——在邵雍那套排列里，它们恰好对应二进制的 0 到 63。这正是本期第 3 节的机制：<b>一套极小的字母表（两个符号）加一条按位组合的规则，就能穷尽某个长度上所有可表达的东西</b>——和 256 条基本 CA 从"两种颜色 × 八种邻居"里长出来，是同一件事。由此推得一个反直觉的结论：卦的"意义"不在每一卦各自神秘的象征里，而在这套六位编码的<b>组合完备性</b>里——你不需要丰富的原始符号，两个符号加一条位置规则，就已经对那个长度上"能发生的一切"闭合了。丰富从来是组合出来的，不是元件本身带来的。</li>
 <li><b>发育生物学 · 基因组不是蓝图，是程序</b>：一个受精卵长成一整个生物，靠的不是基因组里存着一张"成体设计图"，而是存着一套<b>局部规则</b>（哪个细胞在什么信号下开哪个基因），靠发育一步步跑出来。这正是本期第 4 节的不可约性加第 1 节的落差：从基因型到表型没有捷径，你只能让它<em>发育</em>一遍才知道结果，而且——最能说明问题的是——基因组的大小和生物的复杂度几乎不相关：洋葱的基因组约是人类的五倍大。由此推得：<b>"基因组越大 = 生物越复杂"是典型的蓝图谬误，"某个基因决定某个性状"多半也站不住</b>——因为表型是整套规则跑完之后的不可约输出，读不出在哪一个基因上。<b>但这里要留个边界</b>：发育不是一台封闭的确定 CA，环境、噪声、可塑性都会插进来，"程序"这个比喻低估了这份开放性——它比 CA 更像一台边跑边被改写的机器。</li>
 </ul>
+</div>
+<div class="tk">
+<h3>📝 十条要点<span class="he">（Ten Takeaways）</span></h3>
+<ol class="takeaways">
+<li>基本元胞自动机里每个格子只看自己和左右邻居，8 种邻居组合恰好对应 256 条规则。</li>
+<li>规则 90 长出谢尔宾斯基三角分形，规则 30 长出的噪声乱到被 Mathematica 当作随机数发生器。</li>
+<li>图案的精巧完全不蕴含规则的精巧：看到的复杂度和生成它的规则的复杂度可以毫无关系。</li>
+<li>Wolfram 把 256 条规则分成四类：冻结成均匀态、停在周期结构、持续噪声，以及罕见的第 IV 类。</li>
+<li>第 IV 类规则长出能移动、能碰撞的局部结构，Langton 把这条秩序与混乱之间的窄缝叫作混沌边缘。</li>
+<li>只有四条规则的康威生命游戏能用滑翔机拼出逻辑门，是图灵完备的；规则 110 也被 Matthew Cook 证明图灵完备。</li>
+<li>通用性很廉价，所以「它太简单了，不可能做复杂的事」是一句无效的推理。</li>
+<li>计算不可约性指想知道系统第 N 步的样子，没有比老老实实算完前 N 步更快的办法。</li>
+<li>混沌是对初值敏感的精度问题，不可约性则在初值精确、毫无噪声时依然成立：确定不等于可预测。</li>
+<li>「混沌边缘是计算最佳地带」经 1993 年遗传算法复查，很大程度上是实验设置的产物，并非稳健规律。</li>
+</ol>
 </div>
 <div class="thinking">
 <h3 data-tts="d2127401b7d5f087">深入思考<span class="he">（Going Deeper）</span></h3>

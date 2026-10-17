@@ -59,6 +59,12 @@ details p{margin:12px 0 0;font-size:0.9rem;color:#a9a096;line-height:1.75}
 footer{text-align:center;padding:56px 0 10px;font-size:0.78rem;color:#57524b;font-family:"SF Mono",Menlo,monospace;border-top:1px solid rgba(255,255,255,0.06);margin-top:50px}
 footer a{color:#79a6d2;text-decoration:none}
 @media(max-width:600px){h1{font-size:1.85rem}.wrap{padding:24px 16px 60px}h2{font-size:1.22rem}}
+.tk{margin:46px 0 10px}
+.tk h3{font-size:1.02rem;color:#e0895e;margin-bottom:14px;letter-spacing:0.5px}
+.takeaways{counter-reset:tk;list-style:none;margin:0;padding:0;border:1px solid rgba(224,137,94,0.3);border-radius:12px;background:rgba(224,137,94,0.04)}
+.takeaways li{counter-increment:tk;position:relative;margin:0;padding:11px 18px 11px 52px;border-top:1px solid rgba(224,137,94,0.12);font-size:0.94rem;color:#d5cdc1;line-height:1.75}
+.takeaways li:first-child{border-top:none}
+.takeaways li::before{content:counter(tk,decimal-leading-zero);position:absolute;left:18px;top:12px;font-family:"SF Mono",Menlo,monospace;font-size:0.78rem;color:#e0895e}
 </style></head><body>
 <div class="wrap">
 <header>
@@ -294,6 +300,21 @@ footer a{color:#79a6d2;text-decoration:none}
 </ul>
 </div>
 
+<div class="tk">
+<h3>📝 Ten Takeaways</h3>
+<ol class="takeaways">
+<li>The parts of a complex adaptive system revise their own behavioural rules in response to results; grains of sand and power lines never do.</li>
+<li>A complex adaptive system runs two loops: a fast one acting under current rules, and a slow one that replaces the rules themselves.</li>
+<li>Each 1% increase in lane-miles brings roughly 1% more vehicle-miles travelled, because commuters rewrite when, where and whether they drive.</li>
+<li>Whether a system adapts is checkable: where candidate rules come from, how results feed back into rules, and whether losing rules really die.</li>
+<li>John Holland broke adaptation into three indispensable parts: a diverse pool of candidate rules, credit assignment, and replication with recombination of winners.</li>
+<li>Credit assignment is the hardest part because rewards arrive late; the lag from decision to visible outcome caps how fast any system can learn.</li>
+<li>Goodhart's law: an observed statistical regularity tends to collapse once it is used for control, as agents crowd into the gap between metric and goal.</li>
+<li>The Lucas critique shows no cheating is needed: the Phillips curve broke down in the 1970s because people honestly updated their expectations.</li>
+<li>How fast an intervention gets adapted away depends on the target's cycle time and adjustable space, which is why flu vaccines change yearly and measles vaccines do not.</li>
+<li>Adaptation optimises current payoff, not welfare, and adaptive systems have no universality classes, so lessons from ant colonies do not transfer to organisations.</li>
+</ol>
+</div>
 <div class="thinking">
 <h3>Going Deeper</h3>
 <details><summary>If every published model fails, what is left of science in the social domain?</summary><p>Two things. Results about <b>structure</b> rather than parameters: as long as the slow loop runs, certain shapes recur (metrics get optimised away, arms races, lock-in on local optima) — and knowing them does not let you escape them, so publishing does not destroy them. And predictions about quantities with <b>no adjustable space</b>. What genuinely expires is the parameter-shaped result: "under the current rules, X correlates with Y."</p></details>

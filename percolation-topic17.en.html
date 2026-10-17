@@ -61,6 +61,12 @@ details p{margin:12px 0 0;font-size:0.9rem;color:#a9a096;line-height:1.75}
 footer{text-align:center;padding:56px 0 10px;font-size:0.78rem;color:#57524b;font-family:"SF Mono",Menlo,monospace;border-top:1px solid rgba(255,255,255,0.06);margin-top:50px}
 footer a{color:#79a6d2;text-decoration:none}
 @media(max-width:600px){h1{font-size:1.85rem}.wrap{padding:24px 16px 60px}h2{font-size:1.22rem}}
+.tk{margin:46px 0 10px}
+.tk h3{font-size:1.02rem;color:#e0895e;margin-bottom:14px;letter-spacing:0.5px}
+.takeaways{counter-reset:tk;list-style:none;margin:0;padding:0;border:1px solid rgba(224,137,94,0.3);border-radius:12px;background:rgba(224,137,94,0.04)}
+.takeaways li{counter-increment:tk;position:relative;margin:0;padding:11px 18px 11px 52px;border-top:1px solid rgba(224,137,94,0.12);font-size:0.94rem;color:#d5cdc1;line-height:1.75}
+.takeaways li:first-child{border-top:none}
+.takeaways li::before{content:counter(tk,decimal-leading-zero);position:absolute;left:18px;top:12px;font-family:"SF Mono",Menlo,monospace;font-size:0.78rem;color:#e0895e}
 </style></head><body>
 <div class="wrap">
 <header>
@@ -260,6 +266,21 @@ footer a{color:#79a6d2;text-decoration:none}
 </ul>
 </div>
 
+<div class="tk">
+<h3>📝 Ten Takeaways</h3>
+<ol class="takeaways">
+<li>Percolation began in 1957 with Broadbent and Hammersley's gas-mask question: how porous must a carbon filter be before gas gets through?</li>
+<li>On a square lattice the site threshold is about 0.5927, the bond threshold is exactly 1/2, and a 3D cubic lattice needs only about 0.3116.</li>
+<li>In percolation the occupation probability is a local, continuous knob, while the outcome it controls, whether the whole thing connects, is global and binary.</li>
+<li>The largest cluster hugs the floor until the threshold, then jumps from 5% to 52% within a few points as many mid-sized clusters get stitched together at once.</li>
+<li>You cannot forecast a connectivity event from the size of the largest cluster; watch the second-tier clusters and how many links still separate them.</li>
+<li>Erdős and Rényi showed that in a random network one link per node on average is enough for a giant component to appear.</li>
+<li>In scale-free networks a few hubs drag the percolation threshold toward zero, so removing nodes at random almost never breaks them apart.</li>
+<li>Connectivity is a property of edges, not nodes: to connect, add cross-cluster links; to block, cut the links and hubs that stitch clusters together.</li>
+<li>Clustering, complex contagion that needs several independent exposures, and directed edges each break the textbook conclusions of percolation.</li>
+<li>In landscape ecology, total protected area is the number that sits still before the threshold; what really matters is the corridors stitching habitats together.</li>
+</ol>
+</div>
 <div class="thinking">
 <h3>Going Deeper</h3>
 <details><summary>If a connectivity threshold cannot be forecast, what is left of early warning?</summary><p>What's left is changing the observable. The order parameter — the largest cluster — doesn't move before the line, but the size of the runners-up, the distance between clusters and the count of cross-cluster edges all do. Topic 36's critical slowing down is the same idea in another key: don't watch the state, watch how the system responds to a nudge. The common thread is that suspicious quiet usually means the wrong gauge, not that nothing is happening.</p></details>

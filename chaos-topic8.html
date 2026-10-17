@@ -63,6 +63,12 @@ details p{margin:12px 0 0;font-size:0.9rem;color:#a9a096;line-height:1.75}
 footer{text-align:center;padding:56px 0 10px;font-size:0.78rem;color:#57524b;font-family:"SF Mono",Menlo,monospace;border-top:1px solid rgba(255,255,255,0.06);margin-top:50px}
 footer a{color:#79a6d2;text-decoration:none}
 @media(max-width:600px){h1{font-size:1.85rem}.wrap{padding:24px 16px 60px}h2{font-size:1.22rem}}
+.tk{margin:46px 0 10px}
+.tk h3{font-size:1.02rem;color:#e0895e;margin-bottom:14px;letter-spacing:0.5px}
+.takeaways{counter-reset:tk;list-style:none;margin:0;padding:0;border:1px solid rgba(224,137,94,0.3);border-radius:12px;background:rgba(224,137,94,0.04)}
+.takeaways li{counter-increment:tk;position:relative;margin:0;padding:11px 18px 11px 52px;border-top:1px solid rgba(224,137,94,0.12);font-size:0.94rem;color:#d5cdc1;line-height:1.75}
+.takeaways li:first-child{border-top:none}
+.takeaways li::before{content:counter(tk,decimal-leading-zero);position:absolute;left:18px;top:12px;font-family:"SF Mono",Menlo,monospace;font-size:0.78rem;color:#e0895e}
 </style></head><body>
 <div class="wrap">
 <header>
@@ -263,6 +269,22 @@ footer a{color:#79a6d2;text-decoration:none}
 <li><b>工程与技术史 · 密码学把敏感依赖当资源</b>：好的分组密码和哈希函数都刻意做出<b>雪崩效应</b>（avalanche effect）：输入改一个比特，输出大约一半的比特翻转。这和本期第一节是同一个结构——完全确定、可复现，却在实践中不可预测——只不过它是被设计出来的，不是灾难。放在一起看，能推出一条不显然的结论：混沌从来不是"世界的性质"，而是"<b>给定观察精度</b>下的性质"；同一条敏感依赖，在天气里是障碍，在密码里是产品。<b>但这里不成立</b>，而且失配的地方恰恰说明了这一点：密码没有李雅普诺夫时间，它的扩散是离散的、一步到位的，没有吸引子也没有"短期可预测"那一段。所以曾经流行过的"用混沌映射做加密"多半是弱的——真实的混沌系统精度有限、结构可被逼近，而密码要的正是不可逼近。借得走的是那个结构，借不走的是安全性。</li>
 </ul>
 </div>
+<div class="tk">
+<h3>📝 十条要点<span class="he">（Ten Takeaways）</span></h3>
+<ol class="takeaways">
+<li>1961 年洛伦兹用打印稿上截成 0.506 的初值重启天气模型，几个模拟“月”后天气完全变了样。</li>
+<li>确定论不等于可预测：方程完全决定轨迹，但对初值只有有限精度，只能换来有限的预测时长。</li>
+<li>混沌系统中邻近轨迹按指数拉开，李雅普诺夫指数 λ 大于零是“混沌”最核心的技术含义。</li>
+<li>可预测时长约为 (1/λ)·ln(D/d₀)，初值精度每提高 10 倍，预测时间只增加一个常数。</li>
+<li>大气误差约 1.5 天翻一倍，即使初始场近乎完美，中纬度天气的可预测上限也只有两周左右。</li>
+<li>混沌不是随机：延迟嵌入后混沌信号落在一条细细的奇怪吸引子上，噪声则把整个方框填满。</li>
+<li>检验有没有确定性骨架，就看历史上与当前最相似的几个状态随后一小段是否走向一致。</li>
+<li>不可预测的是轨迹而不是统计，所以气候问的是吸引子的分布怎么移动，并不是很长的天气预报。</li>
+<li>集合预报在初值附近撒一小片云跑几十条轨迹，散开的快慢本身就是今天可预测性的度量。</li>
+<li>决定论关乎世界、可预测性关乎观察者，拉普拉斯妖即使在完全经典的世界里也只能预测有限时长。</li>
+</ol>
+</div>
+
 <div class="thinking">
 <h3 data-tts="548887d731862cba">深入思考<span class="he">（Going Deeper）</span></h3>
 <details><summary>如果混沌系统短期可预测，那"短期"到底该由谁来定？</summary><p>由你能容忍的误差定，不由系统定。同一个系统，要求"误差不超过 1%"和"不超过 50%"，可预测时间差着一个常数倍（就是那条 ln(D/d₀) 的公式）。这带来一个实际的操作：与其去改进模型，不如先去谈判可容忍的误差——后者常常便宜得多，而且效果是同一个量级的。</p></details>

@@ -63,6 +63,12 @@ details p{margin:12px 0 0;font-size:0.9rem;color:#a9a096;line-height:1.75}
 footer{text-align:center;padding:56px 0 10px;font-size:0.78rem;color:#57524b;font-family:"SF Mono",Menlo,monospace;border-top:1px solid rgba(255,255,255,0.06);margin-top:50px}
 footer a{color:#79a6d2;text-decoration:none}
 @media(max-width:600px){h1{font-size:1.85rem}.wrap{padding:24px 16px 60px}h2{font-size:1.22rem}}
+.tk{margin:46px 0 10px}
+.tk h3{font-size:1.02rem;color:#e0895e;margin-bottom:14px;letter-spacing:0.5px}
+.takeaways{counter-reset:tk;list-style:none;margin:0;padding:0;border:1px solid rgba(224,137,94,0.3);border-radius:12px;background:rgba(224,137,94,0.04)}
+.takeaways li{counter-increment:tk;position:relative;margin:0;padding:11px 18px 11px 52px;border-top:1px solid rgba(224,137,94,0.12);font-size:0.94rem;color:#d5cdc1;line-height:1.75}
+.takeaways li:first-child{border-top:none}
+.takeaways li::before{content:counter(tk,decimal-leading-zero);position:absolute;left:18px;top:12px;font-family:"SF Mono",Menlo,monospace;font-size:0.78rem;color:#e0895e}
 </style></head><body>
 <div class="wrap">
 <header>
@@ -414,6 +420,21 @@ footer a{color:#79a6d2;text-decoration:none}
 <li><b>经济与制度 · 中央清算把网络重接了一遍</b>：2008 年之后，二十国集团在 2009 年匹兹堡峰会上要求标准化的场外衍生品都改由<b>中央对手方</b>（central counterparty，缩写 CCP）清算。用本期的三条机制看，这项改革做了什么、又新造了什么，就都清楚了。它把一张稠密的双边网络换成星形网络，这确实<em>降低了交互复杂性</em>——原来最要命的是"我不知道我的交易对手的交易对手是谁"，现在中间只有一个点。但同一个动作把全系统的负载集中到了那个点上（第一节：枢纽即引信），并且清算的保证金追缴是自动的、按日甚至日内计算的、不可协商的——这是标准的<em>紧耦合</em>。2020 年 3 月的抢现金和 2022 年英国负债驱动投资（liability-driven investment，缩写 LDI）引发的英债风波里，出现的都是同一个回路：追缴保证金 → 被迫卖出 → 价格更差 → 追缴更多。<b>由此推出的结论是：这场改革没有减少系统性风险的总量，它把风险从"交互复杂性"那个轴搬到了"紧耦合"这个轴上。</b>Perrow 的二维图说明这种搬家不是免费的，也说明为什么监管界后来的重点转向了保证金的顺周期性。</li>
 <li><b>医学 · 多器官功能障碍综合征</b>：重症监护里最常见的死因不是最初那个损伤，而是随后一个接一个衰竭的器官——感染、循环、肾、肝、凝血。本期三条机制在这里成套出现：一个器官功能下降，它承担的活儿由别的器官代偿，代偿方因此长期超载（负载重分配）；循环与肾互为对方的输入，任何一边被削弱都会递归削弱另一边（相互依赖）；而整个过程以小时计，没有停机重整的余地（紧耦合）。这里能推出一个可检验的东西：既然级联的要害是不可加，那么把六个器官各打 0–4 分再相加得到的总分（临床上常用的序贯器官衰竭评估，Sequential Organ Failure Assessment，缩写 SOFA），在结构上假设了可加性——<b>同样的总分，"六个器官各扣一分"和"一个器官扣六分"不该是同一种病人。</b>而重症医学文献里确实一直把"衰竭器官的<em>数目</em>"当作独立于总分的预后指标来追踪，这正是本期机制预期的方向。</li>
 </ul>
+</div>
+<div class="tk">
+<h3>📝 十条要点<span class="he">（Ten Takeaways）</span></h3>
+<ol class="takeaways">
+<li>级联传播的不是状态而是负担：一个节点失效后，它原来扛的负载必须转移到其他节点身上。</li>
+<li>Motter 与黎作武的模型给每个节点设容量 C=(1+α)×初始负载，超载就失效并把负载按最短路径转出去。</li>
+<li>在少数枢纽扛着大部分流量的网络里，拿掉一个高负载枢纽就足以引发波及全网的级联。</li>
+<li>2003 年大停电前电网通过了 N-1 校核，但 N-1 只管少一个元件，管不到级联的第二步、第三步。</li>
+<li>排队积压等于 ρ/(1−ρ)：利用率从 0.9 提到 0.95，效率只涨 5%，积压却从 9 件翻到 19 件。</li>
+<li>Buldyrev 等人 2010 年发现，两张互为前提的网络会递归剥离，越过阈值后一步塌到底。</li>
+<li>在相互依赖的网络里，枢纽突出不再意味着抗随机故障，两个互为前提的系统的冗余也不能相乘。</li>
+<li>Perrow 认为交互复杂又紧耦合的系统里事故是正常产物，而加装安全装置会引入新零件和新的交互路径。</li>
+<li>纯拓扑模型给的是级联的形状而非名单；相互依赖网络更脆，主要是对随机耦合而言。</li>
+<li>中央清算把稠密的双边网络换成星形网络，降低了交互复杂性，却把系统性风险搬到了紧耦合那一轴上。</li>
+</ol>
 </div>
 <div class="thinking">
 <h3 data-tts="36f97fcc014d60ca">深入思考<span class="he">（Going Deeper）</span></h3>

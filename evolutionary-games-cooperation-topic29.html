@@ -63,6 +63,12 @@ details p{margin:12px 0 0;font-size:0.9rem;color:#a9a096;line-height:1.75}
 footer{text-align:center;padding:56px 0 10px;font-size:0.78rem;color:#57524b;font-family:"SF Mono",Menlo,monospace;border-top:1px solid rgba(255,255,255,0.06);margin-top:50px}
 footer a{color:#79a6d2;text-decoration:none}
 @media(max-width:600px){h1{font-size:1.85rem}.wrap{padding:24px 16px 60px}h2{font-size:1.22rem}}
+.tk{margin:46px 0 10px}
+.tk h3{font-size:1.02rem;color:#e0895e;margin-bottom:14px;letter-spacing:0.5px}
+.takeaways{counter-reset:tk;list-style:none;margin:0;padding:0;border:1px solid rgba(224,137,94,0.3);border-radius:12px;background:rgba(224,137,94,0.04)}
+.takeaways li{counter-increment:tk;position:relative;margin:0;padding:11px 18px 11px 52px;border-top:1px solid rgba(224,137,94,0.12);font-size:0.94rem;color:#d5cdc1;line-height:1.75}
+.takeaways li:first-child{border-top:none}
+.takeaways li::before{content:counter(tk,decimal-leading-zero);position:absolute;left:18px;top:12px;font-family:"SF Mono",Menlo,monospace;font-size:0.78rem;color:#e0895e}
 </style></head><body>
 <div class="wrap">
 <header>
@@ -306,6 +312,21 @@ footer a{color:#79a6d2;text-decoration:none}
 <li><b>生物与医学 · 癌症是一次合作的崩解，而疗法可以反过来利用它</b>：多细胞生物本身就是一个合作均衡——细胞放弃无限增殖，换整体的存活。肿瘤细胞就是那个背叛者：好处全归自己，代价由全体分摊。本期三条机制在这里同时成立：复制动态（长得快的类型份额上升，和"好不好"无关）、空间结构（组织把背叛者局限在原地，这也正是原位与转移的分界）、以及收益取决于人群此刻的构成。合起来推出的结论恰好和直觉相反——<b>用最大剂量把敏感细胞杀干净，等于替抗药细胞清空了竞争对手</b>。Gatenby 一组据此提出适应性疗法：刻意留下一部分敏感细胞去占住空间和资源，用竞争替代杀戮，他们 2017 年在《自然·通讯》上报告了阿比特龙治疗转移性去势抵抗前列腺癌的一个小规模试验。<b>这里要留一句实话</b>：那份报告后来的对照方式遭到公开质疑（入组的是已经对药物有反应的病人，与历史对照并不同质）。机制讲得通，不等于疗效已被证实——这条边界要自己守住。</li>
 <li><b>东方思想 · 孔子为什么不同意「以德报怨」</b>：《论语·宪问》里有人问，以德报怨如何？孔子答：「何以报德？以直报怨，以德报德。」这段通常被读成气度问题，其实是一个策略结构问题。无条件的善意把「对合作者的响应」和「对背叛者的响应」压成了同一个动作，于是两种人在收益上不再有分别——而重复博弈里唯一让合作站得住的东西，正是「我下一步取决于你上一步」这种<b>可区分性</b>。把它抹掉，合作立刻退回到可被随意入侵的状态。孔子那句反问精确地点在这里：问题不是以德报怨太善良，是它把「报德」的位置也一并用掉了，善意于是不再传递任何信息。由此推出一个原本看不出的结论——<b>救得了合作的不是德行的强度，是响应的可区分性</b>；一报还一报赢下 Axelrod 那两届比赛，靠的从来不是善良，是分得清。<b>但这里不成立</b>：儒家的「直」按正当性判定，不按对方上一步判定，它是一条道德标准而不是一个响应函数；而且孔子谈的是个人德行如何安顿，不承诺任何关于群体演化的预测。能借走的是它对「无差别响应」的诊断，不是把《论语》读成博弈论手册。</li>
 </ul>
+</div>
+<div class="tk">
+<h3>📝 十条要点<span class="he">（Ten Takeaways）</span></h3>
+<ol class="takeaways">
+<li>囚徒困境由收益排序定义而非具体数字：背叛对方合作＞双方合作＞双方背叛＞合作对方背叛。</li>
+<li>一次性囚徒困境里背叛是占优策略，双方背叛是纳什均衡，呼吁互相信任在这里无效。</li>
+<li>复制动态规定策略占比的增速正比于其收益减去全场平均收益，囚徒困境下合作者会一路降到零。</li>
+<li>演化稳定策略（ESS）是闯入者占不到便宜的策略，鹰鸽博弈里鹰停在 V/C 的比例上，ESS 不等于最好的策略。</li>
+<li>一报还一报连赢 Axelrod 两届策略比赛；标准收益下，再碰面概率 w 不低于 0.5 时，占一次便宜在总账上就亏了。</li>
+<li>Nowak 与 May 把合作者放上方格只跟邻居玩，合作者先崩再抱团，在完全混合时必然归零的收益下长期存活。</li>
+<li>Ohtsuki 等人的近似规则 b/c &gt; k 说明，每人面对的邻居越多合作越难长出来，而 k 通常可以靠拆小组改小。</li>
+<li>Ostrom 发现长期运转的公共池塘靠清楚的边界、使用者自己监督和分级制裁，既没国有化也没私有化。</li>
+<li>Fehr 与 Gächter 的公共品实验中，不许惩罚时投入滑向零，允许自掏腰包罚人后投入爬到接近全额。</li>
+<li>维持合作的结构是中性的：卡特尔同样靠它，降低 w、打乱配对、让背叛者匿名就能拆掉一段合作。</li>
+</ol>
 </div>
 <div class="thinking">
 <h3 data-tts="4acebdf41dea3613">深入思考</h3>

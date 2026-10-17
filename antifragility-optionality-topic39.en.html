@@ -61,6 +61,12 @@ details p{margin:12px 0 0;font-size:0.9rem;color:#a9a096;line-height:1.75}
 footer{text-align:center;padding:56px 0 10px;font-size:0.78rem;color:#57524b;font-family:"SF Mono",Menlo,monospace;border-top:1px solid rgba(255,255,255,0.06);margin-top:50px}
 footer a{color:#79a6d2;text-decoration:none}
 @media(max-width:600px){h1{font-size:1.85rem}.wrap{padding:24px 16px 60px}h2{font-size:1.22rem}}
+.tk{margin:46px 0 10px}
+.tk h3{font-size:1.02rem;color:#e0895e;margin-bottom:14px;letter-spacing:0.5px}
+.takeaways{counter-reset:tk;list-style:none;margin:0;padding:0;border:1px solid rgba(224,137,94,0.3);border-radius:12px;background:rgba(224,137,94,0.04)}
+.takeaways li{counter-increment:tk;position:relative;margin:0;padding:11px 18px 11px 52px;border-top:1px solid rgba(224,137,94,0.12);font-size:0.94rem;color:#d5cdc1;line-height:1.75}
+.takeaways li:first-child{border-top:none}
+.takeaways li::before{content:counter(tk,decimal-leading-zero);position:absolute;left:18px;top:12px;font-family:"SF Mono",Menlo,monospace;font-size:0.78rem;color:#e0895e}
 </style></head><body>
 <div class="wrap">
 <header>
@@ -379,6 +385,21 @@ footer a{color:#79a6d2;text-decoration:none}
 <li><b>Literature &amp; the arts · how publishers place bets</b>: a publisher's revenue is extremely heavy-tailed — most books lose money, a very few carry the entire list. The practice the industry evolved is: sign many, keep advances low, retain the ability to drop anything, and concentrate heavily on a small number of titles. That is a barbell, and it institutionalises all four option preconditions: the premium is small and known (low advance), quitting is cheap (no renewal), the tries are numerous (a large list), the upside is heavy-tailed (a breakout). Which yields a conclusion editors do not enjoy: <b>under this distribution, the marginal return on better taste is clearly lower than the marginal return on easier abandonment</b> — signing twice as many books and dropping the failures cleanly moves total revenue more than raising the hit rate from 30% to 40%. It also explains why mid-sized advances lose money most reliably: too expensive to abandon casually, not important enough to deserve the full machine.</li>
 <li><b>Economics &amp; institutions · the invention of limited liability</b>: in mid-nineteenth-century Britain a series of acts made limited liability the norm for ordinary companies — a shareholder could lose the sum invested and no more. In this issue's language that is an institutional convexity retrofit: the shareholder's payoff curve was given a hard floor on the left while staying open on the right. The conclusion is less comforting than the usual "it protected investors": the downside did not disappear, it was <b>transferred to creditors, employees and the public</b> — and when a firm's failure spills over (banks, chemical plants, platform companies), the design hands convexity to precisely the party that needs it least: profits private, tail socialised. <b>But it does not hold here</b>: this is not "gaining from disorder". A bankrupt firm does not get stronger; what improves is the selection process at the level of the industry. Individual convexity and system convexity are two separate accounts, and merging them produces conclusions like "a few more bankruptcies are good for us" that mean nothing to the people inside them. What transfers is the measuring stick: every time a downside is capped, ask where the capped-off part went.</li>
 </ul>
+</div>
+<div class="tk">
+<h3>📝 Ten Takeaways</h3>
+<ol class="takeaways">
+<li>When the relationship between outcome and variable is curved, plugging in the average does not give you the average outcome.</li>
+<li>A curve that bends down (concave) turns volatility into a net loss; one that bends up (convex) turns it into a net gain; resilience is the flat line in between.</li>
+<li>For any concave relationship, a forecast built on average duration or average load is an optimistic ceiling, not something to commit to.</li>
+<li>Fragility is measurable: push the key variable 20% each way and divide the downside change by the upside change — above one means concave.</li>
+<li>Taleb and Douady's two-sided test needs no probability estimates, which is exactly why it is sturdier than probability-based risk ratings.</li>
+<li>Radiotherapy splits the total dose into dozens of sessions because tissue damage is convex in the single dose, so the same total is not the same thing.</li>
+<li>An option is worth having mainly because you can quit cheaply, not because you pick well; once quitting gets expensive, the option has become a commitment.</li>
+<li>Optionality needs four conditions: a small known premium, genuinely cheap exits, many tries that share no fatal risk, and a heavy-tailed upside.</li>
+<li>A barbell keeps resources at both extremes and leaves the middle empty; it truncates the left tail, and it is only as strong as its safe end.</li>
+<li>Antifragility holds only for a named stressor, within a dose window, at a stated level, and Taleb's concept remains weak on falsifiability.</li>
+</ol>
 </div>
 <div class="thinking">
 <h3>Going Deeper</h3>

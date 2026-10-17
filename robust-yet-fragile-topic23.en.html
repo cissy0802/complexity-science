@@ -63,6 +63,12 @@ details p{margin:12px 0 0;font-size:0.9rem;color:#a9a096;line-height:1.75}
 footer{text-align:center;padding:56px 0 10px;font-size:0.78rem;color:#57524b;font-family:"SF Mono",Menlo,monospace;border-top:1px solid rgba(255,255,255,0.06);margin-top:50px}
 footer a{color:#79a6d2;text-decoration:none}
 @media(max-width:600px){h1{font-size:1.85rem}.wrap{padding:24px 16px 60px}h2{font-size:1.22rem}}
+.tk{margin:46px 0 10px}
+.tk h3{font-size:1.02rem;color:#e0895e;margin-bottom:14px;letter-spacing:0.5px}
+.takeaways{counter-reset:tk;list-style:none;margin:0;padding:0;border:1px solid rgba(224,137,94,0.3);border-radius:12px;background:rgba(224,137,94,0.04)}
+.takeaways li{counter-increment:tk;position:relative;margin:0;padding:11px 18px 11px 52px;border-top:1px solid rgba(224,137,94,0.12);font-size:0.94rem;color:#d5cdc1;line-height:1.75}
+.takeaways li:first-child{border-top:none}
+.takeaways li::before{content:counter(tk,decimal-leading-zero);position:absolute;left:18px;top:12px;font-family:"SF Mono",Menlo,monospace;font-size:0.78rem;color:#e0895e}
 </style></head><body>
 <div class="wrap">
 <header>
@@ -737,6 +743,21 @@ footer a{color:#79a6d2;text-decoration:none}
 </ul>
 </div>
 
+<div class="tk">
+<h3>📝 Ten Takeaways</h3>
+<ol class="takeaways">
+<li>Remove a random 5% of nodes and a hub-dominated network barely notices; remove the top 5% by degree and it shatters.</li>
+<li>Albert, Jeong and Barabási showed in 2000 that random removal leaves path lengths almost unchanged, while removing the best-connected 5% doubles the network's diameter.</li>
+<li>A network holds together while κ = ⟨k²⟩/⟨k⟩ exceeds 2, and the square means a handful of the largest nodes supply nearly all of that cushion.</li>
+<li>The cushion that protects a network against random failure and the target that exposes it to attack are the same term in κ.</li>
+<li>Carlson and Doyle's highly optimized tolerance (HOT) says optimising against one class of disturbance moves fragility onto the classes nobody planned for.</li>
+<li>"Robust yet fragile" only becomes testable once you name what the system is robust to and where the fragility it paid for has landed.</li>
+<li>Network maps are usually inferred rather than measured, and different collection methods systematically manufacture different hubs.</li>
+<li>Connectivity and function can disagree: removing the single busiest node can leave 96% of nodes connected while only 19% still work.</li>
+<li>The North American power grid has an exponential, not power-law, degree distribution; its vulnerability to attack comes from how power flows reroute, not from hubs.</li>
+<li>Paul Baran's 1964 distributed-network design shows that the defence against targeted attack is not guarding the hubs but flattening the degree distribution.</li>
+</ol>
+</div>
 <div class="thinking">
 <h3>Going Deeper</h3>
 <details><summary>If hubs are both the strength and the weakness, why do evolution and markets keep growing them?</summary><p>Because hubs are cheap along other axes: short paths, low coordination cost, low construction cost. Targeted attack is a very low-frequency disturbance in the history of most systems, while random failure happens daily. On section 03's ledger, spending the budget on the frequent class is rational. The danger is only that the assumption changes and nobody redoes the sum — a structure grown in an environment with no adversary meets its first adversary with the fragility already in place.</p></details>

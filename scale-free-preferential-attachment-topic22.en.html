@@ -63,6 +63,12 @@ details p{margin:12px 0 0;font-size:0.9rem;color:#a9a096;line-height:1.75}
 footer{text-align:center;padding:56px 0 10px;font-size:0.78rem;color:#57524b;font-family:"SF Mono",Menlo,monospace;border-top:1px solid rgba(255,255,255,0.06);margin-top:50px}
 footer a{color:#79a6d2;text-decoration:none}
 @media(max-width:600px){h1{font-size:1.85rem}.wrap{padding:24px 16px 60px}h2{font-size:1.22rem}}
+.tk{margin:46px 0 10px}
+.tk h3{font-size:1.02rem;color:#e0895e;margin-bottom:14px;letter-spacing:0.5px}
+.takeaways{counter-reset:tk;list-style:none;margin:0;padding:0;border:1px solid rgba(224,137,94,0.3);border-radius:12px;background:rgba(224,137,94,0.04)}
+.takeaways li{counter-increment:tk;position:relative;margin:0;padding:11px 18px 11px 52px;border-top:1px solid rgba(224,137,94,0.12);font-size:0.94rem;color:#d5cdc1;line-height:1.75}
+.takeaways li:first-child{border-top:none}
+.takeaways li::before{content:counter(tk,decimal-leading-zero);position:absolute;left:18px;top:12px;font-family:"SF Mono",Menlo,monospace;font-size:0.78rem;color:#e0895e}
 </style></head><body>
 <div class="wrap">
 <header>
@@ -178,6 +184,22 @@ footer a{color:#79a6d2;text-decoration:none}
 <li><b>Sociology of science · the Matthew effect and its randomised test</b>: In 1968 Merton borrowed the line from Matthew — "unto every one that hath shall be given" — to name cumulative advantage in science. Note the ordering: Merton's observation precedes Price's model by eight years, and Price precedes Barabási–Albert by twenty-three — the earliest complete instance of this issue's machinery (growth + allocation by stock + early-arrival advantage) is the citation network itself. From which follows an unflattering conclusion about academic evaluation: if citation is a cumulative-advantage process, then citation counts and the h-index cannot be unbiased measures of quality — they simultaneously measure how early something was published and the luck of its first few citations, and neither term averages away with time; both are amplified as √t. Van de Rijt and colleagues' 2014 experiment supplies direct evidence for the inference: randomly conferred initial success does raise later success rates, with diminishing returns. <b>But here it does not hold</b>: Merton's mechanism contains something this issue's model does not — the same work receives more credit under a famous name. That is a cognitive bias in the evaluator, not a growth rule of the network. Preferential attachment cannot distinguish "I cite it because it is already cited" from "I cite it because the author is famous", and the two call for entirely different remedies: the first needs the allocation rule changed, the second is largely suppressed by double-blind review. Collapsing them into one phrase, "the Matthew effect", turns a fixable problem into an unfixable structural necessity.</li>
 <li><b>Economics and law · why antitrust remedies so often miss</b>: The traditional test in antitrust is conduct — predatory pricing, exclusive dealing; at bottom, "somebody did something wrong". This issue's mechanisms together show that extreme concentration requires no such conduct: as long as the market is growing and new users choose a platform in proportion to its existing users ("network effects" being the economists' name for preferential attachment), concentration is the necessary output of the rule and not anyone's guilt. From which follows a conclusion about remedies: a structural break-up in such a system resets the initial condition without touching the dynamics — the rule is unchanged afterwards, so the system reconverges to a distribution of the same shape with a different winner. What changes the outcome is changing the connection rule: data portability, mandated interoperability, moving new connections off "by stock". <b>But here it does not hold</b>: the BA model assumes nodes never die and all fitnesses are equal, whereas platforms do die (MySpace died in the years after its peak share) and fitness differences are enormous. Pure preferential attachment therefore systematically overstates how firmly a position is locked in — anyone invoking it to argue "without a break-up this can never be reversed" is borrowing a model that assumed away node death.</li>
 </ul>
+</div>
+
+<div class="tk">
+<h3>📝 Ten Takeaways</h3>
+<ol class="takeaways">
+<li>In an Erdős–Rényi random graph, where new links land at random, degrees cluster near the mean and no giants appear.</li>
+<li>With the same number of nodes and edges, the rule for allocating new edges alone decides whether a network grows hubs.</li>
+<li>Barabási and Albert showed that two rules, growth plus preferential attachment, are enough to produce hubs.</li>
+<li>The "preference" in preferential attachment is a probabilistic bias: a well-cited page is simply easier to find, not favoured by anyone.</li>
+<li>The BA model yields a power-law degree distribution with exponent 3, derived from the rules rather than fitted to data.</li>
+<li>In the BA model a node's degree depends only on when it arrived and grows as a square root, so latecomers never catch up.</li>
+<li>The Bianconi–Barabási fitness model lets a young but fitter node overtake incumbents, as Google did with the web.</li>
+<li>Rich-get-richer was found independently by Yule, Simon and Price; what was new in 1999 was applying it to networks under a catchy name.</li>
+<li>Testing 927 real networks, Broido and Clauset put only 4% in the strongest tier: heavy tails are uncontested, strict power laws are not.</li>
+<li>Traceroute-style sampling can manufacture a power law even on a graph where every node has the same degree, so a heavy tail never reveals its mechanism.</li>
+</ol>
 </div>
 
 <div class="thinking">

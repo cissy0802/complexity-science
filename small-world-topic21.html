@@ -63,6 +63,12 @@ details p{margin:12px 0 0;font-size:0.9rem;color:#a9a096;line-height:1.75}
 footer{text-align:center;padding:56px 0 10px;font-size:0.78rem;color:#57524b;font-family:"SF Mono",Menlo,monospace;border-top:1px solid rgba(255,255,255,0.06);margin-top:50px}
 footer a{color:#79a6d2;text-decoration:none}
 @media(max-width:600px){h1{font-size:1.85rem}.wrap{padding:24px 16px 60px}h2{font-size:1.22rem}}
+.tk{margin:46px 0 10px}
+.tk h3{font-size:1.02rem;color:#e0895e;margin-bottom:14px;letter-spacing:0.5px}
+.takeaways{counter-reset:tk;list-style:none;margin:0;padding:0;border:1px solid rgba(224,137,94,0.3);border-radius:12px;background:rgba(224,137,94,0.04)}
+.takeaways li{counter-increment:tk;position:relative;margin:0;padding:11px 18px 11px 52px;border-top:1px solid rgba(224,137,94,0.12);font-size:0.94rem;color:#d5cdc1;line-height:1.75}
+.takeaways li:first-child{border-top:none}
+.takeaways li::before{content:counter(tk,decimal-leading-zero);position:absolute;left:18px;top:12px;font-family:"SF Mono",Menlo,monospace;font-size:0.78rem;color:#e0895e}
 </style></head><body>
 <div class="wrap">
 <header>
@@ -194,6 +200,21 @@ footer a{color:#79a6d2;text-decoration:none}
 <li><b>经济与制度 · 同乡网络与飞地</b>：新移民的同乡网络提供极高的聚类——找住处、找第一份工、借周转钱都靠它，而这些帮助恰恰依赖强关系的可靠性。但同一组机制也预言了它的代价：强关系高度三角闭合，闭合意味着桥少；桥少意味着圈内路径极短、跨圈路径极长；而向上流动的机会几乎只从跨圈的弱关系来。于是"社区越紧密，成员越难走出去"不是一句感叹，是从禁止三元组推出来的。判据也随之明确：评估这类社区的健康，该数<b>跨群体的边数</b>，而不是社区活动的参与率——后者高的时候，前者可能正在归零。<b>但这里不成立</b>：弱关系的优势是关于<em>信息</em>的。边燕杰 1997 年在中国的研究发现，当工作是被分配而不是被公布时，稀缺的东西从信息变成了<b>影响力</b>，而影响力要靠信任和义务才传得动——那正是强关系的强项，于是结论整个翻过来。所以"弱关系更有用"真正的条件不是文化，是这件事缺的到底是消息还是人情。</li>
 <li><b>流行病学 · 有效距离</b>：2013 年 Brockmann 和 Helbing 处理了一个老问题——现代疫情的地理传播看起来毫无规律，一个远方城市可能比隔壁县更早出现病例。他们的做法是把地理距离换掉：两地之间航空客流越大，就定义为越"近"。换上这把新尺子之后，SARS 和 2009 年 H1N1 的传播图立刻变回教科书里那种从源头一圈圈推出去的同心波，到达时间可以直接算。这正是第四节那条机制的现实版：网络没变、传播规则也没变，变的只是度量——而"能不能预测""能不能导航"完全取决于度量选对没有。由此推出一条很具体的政策含义：口岸监测的优先级不该按地理邻近排，该按有效距离排；两者经常给出完全不同的名单。</li>
 </ul>
+</div>
+<div class="tk">
+<h3>📝 十条要点<span class="he">（Ten Takeaways）</span></h3>
+<ol class="takeaways">
+<li>Milgram 实验的 5.2 只是送达链条的平均长度，232 份断掉的链条不进分母，真实距离只会更大。</li>
+<li>“六度分隔”这个词出自 1990 年的同名话剧，并不是 Milgram 本人的说法。</li>
+<li>Facebook 全图测算显示任意两人平均相隔约 4.7 跳，这才是“世界很小”真正站得住的证据。</li>
+<li>Watts–Strogatz 模型在规则格子和随机图之间放了一个重连概率旋钮，中间那段就是小世界。</li>
+<li>一条捷径能让成片点对的路径缩短，却只拆掉一个三角形，所以路径长度掉得比聚类快得多。</li>
+<li>捷径的边际收益急剧递减：第一条把绕半圈变成跳一下，第一百条只再省半跳。</li>
+<li>按 Granovetter 的禁止三元组推理，强关系总被闭合三角包着，所以能当桥的只有弱关系。</li>
+<li>LinkedIn 的大规模随机实验发现弱关系的效果呈倒 U 形，最有用的是中等弱的关系。</li>
+<li>Kleinberg 证明只有捷径长度分布的指数恰好等于维数时，靠局部信息的贪心转发才找得到短路径。</li>
+<li>复杂传染需要从多个人那里反复接触，长桥常是死路，行为扩散靠的是桥的宽度而非长度。</li>
+</ol>
 </div>
 <div class="thinking">
 <h3 data-tts="2b303b47154d835a">深入思考<span class="he">（Going Deeper）</span></h3>

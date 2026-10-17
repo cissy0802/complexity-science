@@ -61,6 +61,12 @@ details p{margin:12px 0 0;font-size:0.9rem;color:#a9a096;line-height:1.75}
 footer{text-align:center;padding:56px 0 10px;font-size:0.78rem;color:#57524b;font-family:"SF Mono",Menlo,monospace;border-top:1px solid rgba(255,255,255,0.06);margin-top:50px}
 footer a{color:#79a6d2;text-decoration:none}
 @media(max-width:600px){h1{font-size:1.85rem}.wrap{padding:24px 16px 60px}h2{font-size:1.22rem}}
+.tk{margin:46px 0 10px}
+.tk h3{font-size:1.02rem;color:#e0895e;margin-bottom:14px;letter-spacing:0.5px}
+.takeaways{counter-reset:tk;list-style:none;margin:0;padding:0;border:1px solid rgba(224,137,94,0.3);border-radius:12px;background:rgba(224,137,94,0.04)}
+.takeaways li{counter-increment:tk;position:relative;margin:0;padding:11px 18px 11px 52px;border-top:1px solid rgba(224,137,94,0.12);font-size:0.94rem;color:#d5cdc1;line-height:1.75}
+.takeaways li:first-child{border-top:none}
+.takeaways li::before{content:counter(tk,decimal-leading-zero);position:absolute;left:18px;top:12px;font-family:"SF Mono",Menlo,monospace;font-size:0.78rem;color:#e0895e}
 </style></head><body>
 <div class="wrap">
 <header>
@@ -540,6 +546,22 @@ footer a{color:#79a6d2;text-decoration:none}
 <li><b>Philosophy of science · a science that warns without explaining</b>: Carl Hempel's covering-law model carries a famous symmetry thesis — explanation and prediction are structurally the same act; whatever explains can predict and whatever predicts can explain. This topic's three mechanisms together make a neat counterexample: slowing down, rising variance and rising autocorrelation all depend only on the system's <b>linearised behaviour near equilibrium</b>, and not at all on the mechanism. Which is why the same indicators serve lakes, cyanobacteria, moods and spreads alike — at the price of total silence about why: the method does not know what is happening in the lake and does not need to. The consequence is odd but practical: <b>the portability of this method comes precisely from its ignorance</b> — because it does not depend on the mechanism, it cannot be invalidated by getting the mechanism wrong; and for the same reason it can never tell you what to fix. <b>But here it does not hold</b>: Hempel's thesis is a normative claim about what counts as a good scientific explanation, while this topic states an empirical fact about a particular class of dynamical systems; using the latter to "refute" the former oversteps. What transfers is the measuring stick — price "can predict" and "can explain" separately, and stop assuming they come as a bundle.</li>
 <li><b>Neuroscience &amp; medicine · thirty years of seizure prediction, where the failure is the information</b>: Since the 1970s people have hunted for a pre-seizure state in the EEG; retrospective algorithmic "successes" have been plentiful and prospective blinded ones scarce. The usual reading is that the methods are not good enough yet. Taking this topic's three mechanisms together suggests a reading worth more attention: <b>when slowing-down indicators fail repeatedly on a system, that failure is itself a diagnosis of what kind of system it is</b> — it is telling you the transition is probably not the slow-approach-to-a-bifurcation kind, but noise-triggered or too fast. And that diagnosis changes what the right response is: away from prediction, toward reducing the density of triggers and increasing reversibility after an event. The same holds well outside the clinic: when a detector has been useless for a long time, suspect the class of transition before you retune the parameters.</li>
 </ul>
+</div>
+
+<div class="tk">
+<h3>📝 Ten Takeaways</h3>
+<ol class="takeaways">
+<li>Critical slowing down means that the closer a system gets to a bifurcation, the slower it recovers from a nudge, until the recovery rate hits zero.</li>
+<li>A system on the edge often looks normal in its state; what actually changes is how long it takes to return after being disturbed.</li>
+<li>Veraart and colleagues in 2012 watched cyanobacteria recover ever more slowly as light pushed them toward collapse, early clean evidence of slowing in a living system.</li>
+<li>Ambient noise keeps nudging every system, so slowing shows up as lag-1 autocorrelation climbing toward 1 and variance widening.</li>
+<li>Variance and autocorrelation live between neighboring readings, so monthly averaging erases them; keep the high-frequency raw data.</li>
+<li>Applying a comparable perturbation and timing the return, as in a cardiac stress test or a chaos-engineering game day, beats reading noise passively.</li>
+<li>Because tipping events are rare, even a detector with 75% sensitivity and a 10% false-positive rate is right only about 13% of the times it fires.</li>
+<li>Early warnings can justify only cheap, reversible actions; making transitions reversible is an alternative route to knowing about them in advance.</li>
+<li>Noise-induced and rate-induced transitions leave no slowing window, and Dansgaard-Oeschger events in the paleoclimate record show no slowdown.</li>
+<li>Rising warning indicators prove lost resilience, not an approaching cliff, and retrospective hits are not prospective validation, so report failure conditions and base rates.</li>
+</ol>
 </div>
 
 <div class="thinking">

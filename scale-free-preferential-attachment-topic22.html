@@ -63,6 +63,12 @@ details p{margin:12px 0 0;font-size:0.9rem;color:#a9a096;line-height:1.75}
 footer{text-align:center;padding:56px 0 10px;font-size:0.78rem;color:#57524b;font-family:"SF Mono",Menlo,monospace;border-top:1px solid rgba(255,255,255,0.06);margin-top:50px}
 footer a{color:#79a6d2;text-decoration:none}
 @media(max-width:600px){h1{font-size:1.85rem}.wrap{padding:24px 16px 60px}h2{font-size:1.22rem}}
+.tk{margin:46px 0 10px}
+.tk h3{font-size:1.02rem;color:#e0895e;margin-bottom:14px;letter-spacing:0.5px}
+.takeaways{counter-reset:tk;list-style:none;margin:0;padding:0;border:1px solid rgba(224,137,94,0.3);border-radius:12px;background:rgba(224,137,94,0.04)}
+.takeaways li{counter-increment:tk;position:relative;margin:0;padding:11px 18px 11px 52px;border-top:1px solid rgba(224,137,94,0.12);font-size:0.94rem;color:#d5cdc1;line-height:1.75}
+.takeaways li:first-child{border-top:none}
+.takeaways li::before{content:counter(tk,decimal-leading-zero);position:absolute;left:18px;top:12px;font-family:"SF Mono",Menlo,monospace;font-size:0.78rem;color:#e0895e}
 </style></head><body>
 <div class="wrap">
 <header>
@@ -176,6 +182,21 @@ footer a{color:#79a6d2;text-decoration:none}
 <li><b>科学社会学 · 马太效应与它的随机实验</b>：1968 年 Merton（默顿）借《马太福音》里那句「凡有的，还要加给他」，给科学界的累积优势命了名。注意这个次序：Merton 的观察比 Price 的模型早八年，Price 又比 BA 早二十三年——本期整套机制（增长 + 按存量分配 + 早到优势）最早的完整实例，就是引用网络本身。由此可以推出一个对学术评价很不客气的结论：既然引用是一个累积优势过程，那么引用数和 h 指数在数学上就不可能是质量的无偏度量——它们同时在测「这篇发表得多早」和「最初几次被引的运气」，而这两项不会随时间被摊平，反而按 √t 放大。van de Rijt 等人 2014 年的实验给了这条推断一个直接证据：随机施予的初始成功确实抬高了后续成功率，且边际递减。<b>但这里不成立</b>：Merton 的机制里有一样本期模型没有的东西——同样的工作，署名有名者获得更多认可。那是评价者的认知偏误，不是网络的生长规则。优先连接分不出「因为它已经被引所以我引」和「因为作者有名所以我引」，而这两者的对策完全不同：前者要改分配规则，后者双盲评审就能压掉一大半。把它们合成一句「马太效应」，等于把一个可修的问题说成了不可修的结构必然。</li>
 <li><b>经济与法律 · 反垄断救济为什么常常打空</b>：反垄断法的传统判据是行为——有没有掠夺性定价、有没有排他协议，说到底是「有人做了坏事」。本期的机制合起来说明份额高度集中不需要任何这类行为：只要市场在长，且新用户按现有用户数来选平台（「网络效应」就是优先连接的经济学名字），集中就是规则的必然输出，而不是谁的罪证。由此推出一个关于救济手段的结论：结构性拆分在这类系统里只重置初值、不改动力学——拆完之后规则没变，系统会重新收敛到形状相同的分布，只是换一个赢家。真正改变结果的是改连接规则：数据可携带、强制互操作、把新增连接从「按存量」上挪开。<b>但这里不成立</b>：BA 模型假设节点永不死亡、且所有节点的适应度相同，而平台会死（MySpace 就死在了它份额最高的那几年之后），适应度差别也巨大。所以纯优先连接会系统性高估锁定的牢固程度——拿它来论证「不拆就永远翻不了身」的人，借用的是一个假设了节点不死的模型。</li>
 </ul>
+</div>
+<div class="tk">
+<h3>📝 十条要点<span class="he">（Ten Takeaways）</span></h3>
+<ol class="takeaways">
+<li>新连接随机落点的随机图，度数按泊松分布挤在均值附近，长不出巨头。</li>
+<li>同样的点数和边数，只改新边的分配规则，就能决定网络里有没有巨头。</li>
+<li>Barabási 与 Albert 指出，网络持续增长加上优先连接，两条规则就足以长出枢纽。</li>
+<li>优先连接里的「优先」是概率偏向：被引用多的网页只是更容易被看见，不需要谁的偏爱。</li>
+<li>BA 模型推出度数分布是指数为 3 的幂律，这个 3 是从规则推导的，不是拟合数据得来的。</li>
+<li>在 BA 模型里节点度数只取决于进场时刻、按平方根拉开，晚到者永远追不上早到者。</li>
+<li>Bianconi–Barabási 适应度模型让年轻但适应度高的节点能超车，Google 就是典型反例。</li>
+<li>「富者愈富」早被 Yule、Simon 和 Price 独立发现过，1999 年新的是接到网络上并起了好卖的名字。</li>
+<li>Broido 与 Clauset 检验 927 个真实网络，只有 4% 落入最强证据级；重尾无争议，严格幂律有争议。</li>
+<li>traceroute 式采样即使在每点度数相同的图上也能造出幂律，看到重尾不能反推机制。</li>
+</ol>
 </div>
 <div class="thinking">
 <h3 data-tts="10fe7579bc5760c1">深入思考<span class="he">（Going Deeper）</span></h3>

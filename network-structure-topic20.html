@@ -63,6 +63,12 @@ details p{margin:12px 0 0;font-size:0.9rem;color:#a9a096;line-height:1.75}
 footer{text-align:center;padding:56px 0 10px;font-size:0.78rem;color:#57524b;font-family:"SF Mono",Menlo,monospace;border-top:1px solid rgba(255,255,255,0.06);margin-top:50px}
 footer a{color:#79a6d2;text-decoration:none}
 @media(max-width:600px){h1{font-size:1.85rem}.wrap{padding:24px 16px 60px}h2{font-size:1.22rem}}
+.tk{margin:46px 0 10px}
+.tk h3{font-size:1.02rem;color:#e0895e;margin-bottom:14px;letter-spacing:0.5px}
+.takeaways{counter-reset:tk;list-style:none;margin:0;padding:0;border:1px solid rgba(224,137,94,0.3);border-radius:12px;background:rgba(224,137,94,0.04)}
+.takeaways li{counter-increment:tk;position:relative;margin:0;padding:11px 18px 11px 52px;border-top:1px solid rgba(224,137,94,0.12);font-size:0.94rem;color:#d5cdc1;line-height:1.75}
+.takeaways li:first-child{border-top:none}
+.takeaways li::before{content:counter(tk,decimal-leading-zero);position:absolute;left:18px;top:12px;font-family:"SF Mono",Menlo,monospace;font-size:0.78rem;color:#e0895e}
 </style></head><body>
 <div class="wrap">
 <header>
@@ -372,6 +378,21 @@ footer a{color:#79a6d2;text-decoration:none}
 <li><b>史学与政治 · 美第奇家族的崛起</b>：Padgett 和 Ansell 1993 年重建了 15 世纪初佛罗伦萨精英家族之间的联姻与经济往来网络，问科西莫·德·美第奇怎么在二十年里从一个商人家族变成实际统治者。图上的答案是纯结构的：美第奇的介数中心性远高于所有对手；更关键的是他们的盟友<em>彼此不通婚</em>，分散在互不相连的几个社群里，而对手寡头们则密集地互相联姻。用本期的话说：美第奇占的是唯一通道的位置（第三节），并且他们的邻居分属不同的块（第四节）——于是每一个盟友都只能通过美第奇去够到别人，而寡头们的每一次串联都不需要美第奇。这推出一个史学上很不客气的结论：<b>解释科西莫的成功不需要给他配一个天才的谋略</b>。Padgett 的原话是他的行动具有"稳健性"（robust action）——恰恰因为在那个结构位置上，含混的、不必自洽的行动也能同时取悦互不相通的几方；一个意图明确的人反而做不到。</li>
 <li><b>神经科学 · 完整的接线图也不够</b>：秀丽隐杆线虫是唯一一种接线图被完整测绘的动物——1986 年 White 等人把它 302 个神经元之间的每一个突触都画了出来。四十年过去，这张图上的度分布、路径长度、社群结构全都算清楚了，可它<em>仍然</em>不能让人从图推出这条虫在什么情况下会转弯。原因正好是本期机制的天花板：结构约束的是<b>可能性</b>——什么信号有可能到达哪里、最少几步——而不是<b>动力学</b>：同一张图上换一套神经元的响应规则，行为就完全不同。这给"先画关系图"划了一条准确的界：画图能把"为什么是这个人"的问题换成"为什么是这个位置"，这是一次真正的进步；但位置只圈定了可能发生什么，不告诉你会发生什么。把网络图当成因果模型的人，通常是在这一步上把约束误当成了机制。</li>
 </ul>
+</div>
+<div class="tk">
+<h3>📝 十条要点<span class="he">（Ten Takeaways）</span></h3>
+<ol class="takeaways">
+<li>两张平均度相同的图只因接线不同，传播结局就差近一倍，起作用的是度分布而不是平均度。</li>
+<li>度、平均最短路径长度和聚类系数分别量局部、全局和“朋友之间是否相识”，三者互相独立。</li>
+<li>度、接近、介数、特征向量四种中心性会选出不同的人，最忙的人和最关键的人往往不是同一个。</li>
+<li>选哪种中心性取决于流动的东西能否复制：消息看度和特征向量，钱和货看介数与接近中心性。</li>
+<li>模块度衡量社群内部的边比保持度不变的随机重接多出多少，随机期望就是这把尺子的零点。</li>
+<li>Zachary 只用空手道俱乐部成员的私下往来图去切分，预测俱乐部分裂后的站队只错了一个人。</li>
+<li>模块度有分辨率极限，只能比较同一张图的不同切法，不能拿大小不同的两张图的模块度相比。</li>
+<li>网络中心性对漏边和“多熟才算一条边”的门槛极其敏感，可信的只有量级和排序，不是小数点。</li>
+<li>观测网络数据里传染、同质选择和共同环境无法区分，而三者对应的干预方案互相排斥。</li>
+<li>美第奇家族的盟友分属互不通婚的社群，介数中心性远超对手，科西莫的崛起主要靠结构位置。</li>
+</ol>
 </div>
 <div class="thinking">
 <h3 data-tts="26e281d6b3d1ae9b">深入思考<span class="he">（Going Deeper）</span></h3>

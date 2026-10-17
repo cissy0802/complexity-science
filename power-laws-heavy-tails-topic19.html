@@ -63,6 +63,12 @@ details p{margin:12px 0 0;font-size:0.9rem;color:#a9a096;line-height:1.75}
 footer{text-align:center;padding:56px 0 10px;font-size:0.78rem;color:#57524b;font-family:"SF Mono",Menlo,monospace;border-top:1px solid rgba(255,255,255,0.06);margin-top:50px}
 footer a{color:#79a6d2;text-decoration:none}
 @media(max-width:600px){h1{font-size:1.85rem}.wrap{padding:24px 16px 60px}h2{font-size:1.22rem}}
+.tk{margin:46px 0 10px}
+.tk h3{font-size:1.02rem;color:#e0895e;margin-bottom:14px;letter-spacing:0.5px}
+.takeaways{counter-reset:tk;list-style:none;margin:0;padding:0;border:1px solid rgba(224,137,94,0.3);border-radius:12px;background:rgba(224,137,94,0.04)}
+.takeaways li{counter-increment:tk;position:relative;margin:0;padding:11px 18px 11px 52px;border-top:1px solid rgba(224,137,94,0.12);font-size:0.94rem;color:#d5cdc1;line-height:1.75}
+.takeaways li:first-child{border-top:none}
+.takeaways li::before{content:counter(tk,decimal-leading-zero);position:absolute;left:18px;top:12px;font-family:"SF Mono",Menlo,monospace;font-size:0.78rem;color:#e0895e}
 </style></head><body>
 <div class="wrap">
 <header>
@@ -324,6 +330,21 @@ footer a{color:#79a6d2;text-decoration:none}
 <li><b>西方哲学与科学哲学 · 归纳问题的一个可以算出来的版本</b>：休谟问的是我们凭什么相信"至今如此"能推出"以后也如此"，这在哲学里是一个原则性的怀疑，你没法拿它去做工程。重尾世界把这个怀疑变成了一个能算的东西：抽 n 个样本，最大值的期望大致按 n 的 1/β 次方增长——<b>"史上最大"是样本量的函数，不是系统的属性。</b>于是"防洪堤按百年一遇设计""压测按历史峰值的两倍"这类做法，其低估幅度是可以估出来的：你观测了一百年，你的"史上最大"就只是一百年这个数字的产物，把观测拉长到一千年，它会按上面那个指数继续长。<b>但这里不成立</b>：休谟的怀疑是普遍的，重尾只给出了一类特定的失败模式；在薄尾的世界里归纳工作得相当好——测一万个人的身高，你对"人类最高能到多少"的估计不会随样本量继续漂。所以这不是对休谟的支持，而是对他的<em>限缩</em>：归纳在哪儿靠不住，是可以按分布形状分类的，不必一概而论。</li>
 <li><b>经济与医学 · 按人头付费为什么会惩罚接重症的医院</b>：美国医疗支出面板调查（Medical Expenditure Panel Survey）2022 年的数据显示，支出最高的 1% 人群占了全部医疗支出的 21.7%，最高的 5% 占了 49.7%，而支出最低的一半人加起来不到 3%。本期几条机制在这里同时成立：均值被尾部主导（"人均医疗费用"不描述任何一个具体的人）、方差极大（同样服务一千人，两家机构的实际支出可以差出数倍，纯属抽样）、已达规模预测继续（重症患者的后续费用期望远高于当前值）。合起来推出一个制度设计上的结论：<b>任何按人头包干的付费方式，都在把一个高方差的抽签结果当成经营能力来考核</b>——接了几个重症的机构会亏，而它并没有做错任何事。这正是风险调整和再保险机制存在的理由，它们不是补贴，是在修一个统计上的错配。<b>但这里不成立</b>：医疗费用有硬上界（人会死、床位有限），而且多项研究显示它更接近对数正态而不是幂律，所以第 02 节"均值不存在"那一条在这儿并不成立——能借走的只有"方差主导决策"这半边，借走另一半就成了危言耸听。</li>
 </ul>
+</div>
+<div class="tk">
+<h3>📝 十条要点<span class="he">（Ten Takeaways）</span></h3>
+<ol class="takeaways">
+<li>总量相同的一百个数，正态分布的最大值只是均值的 1.6 倍，幂律分布的最大值却是均值的 12 倍。</li>
+<li>幂律指规模超过 x 的个数正比于 x 的负 β 次方，在双对数坐标下是一条斜率为 −β 的直线。</li>
+<li>正态分布来自许多小因素相加，把差异磨平；幂律往往来自相乘或传染，把差异放大。</li>
+<li>80/20 法则不是幂律的定义，只是尾指数 β ≈ 1.16 时的一个推论，换个指数比例就完全不同。</li>
+<li>在幂律数据上多收集样本不会让平均值变准：跑动均值长期偏低，偶尔被单个样本一步抬到好几倍。</li>
+<li>幂律的尾指数 β 大于 1 平均值才存在，大于 2 方差才存在；不存在指积分发散，不是数值很大。</li>
+<li>按古登堡-里希特定律，地震能量的尾指数约为 2/3，算得出的平均能量其实由地球尺寸造成的截断位置决定。</li>
+<li>无标度的意思是规模翻倍的概率与当前大小无关，所以在幂律里已经很大恰恰是还会更大的证据，与均值回归正相反。</li>
+<li>双对数图上看起来像直线不是幂律的证据，对数正态分布在两三个数量级内几乎和幂律分不开。</li>
+<li>富者愈富、随机比例增长、临界连通都能产出同一条幂律直线，所以不能从分布形状反推具体机制。</li>
+</ol>
 </div>
 <div class="thinking">
 <h3 data-tts="f38db108ac6ac0f7">深入思考<span class="he">（Going Deeper）</span></h3>

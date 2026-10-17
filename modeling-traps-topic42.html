@@ -63,6 +63,12 @@ details p{margin:12px 0 0;font-size:0.9rem;color:#a9a096;line-height:1.75}
 footer{text-align:center;padding:56px 0 10px;font-size:0.78rem;color:#57524b;font-family:"SF Mono",Menlo,monospace;border-top:1px solid rgba(255,255,255,0.06);margin-top:50px}
 footer a{color:#79a6d2;text-decoration:none}
 @media(max-width:600px){h1{font-size:1.85rem}.wrap{padding:24px 16px 60px}h2{font-size:1.22rem}}
+.tk{margin:46px 0 10px}
+.tk h3{font-size:1.02rem;color:#e0895e;margin-bottom:14px;letter-spacing:0.5px}
+.takeaways{counter-reset:tk;list-style:none;margin:0;padding:0;border:1px solid rgba(224,137,94,0.3);border-radius:12px;background:rgba(224,137,94,0.04)}
+.takeaways li{counter-increment:tk;position:relative;margin:0;padding:11px 18px 11px 52px;border-top:1px solid rgba(224,137,94,0.12);font-size:0.94rem;color:#d5cdc1;line-height:1.75}
+.takeaways li:first-child{border-top:none}
+.takeaways li::before{content:counter(tk,decimal-leading-zero);position:absolute;left:18px;top:12px;font-family:"SF Mono",Menlo,monospace;font-size:0.78rem;color:#e0895e}
 </style></head><body>
 <div class="wrap">
 <header>
@@ -311,6 +317,21 @@ footer a{color:#79a6d2;text-decoration:none}
 <li><b>西方哲学与科学哲学 · 迪昂-蒯因论题</b>：物理学家迪昂（Pierre Duhem，1906）和后来的哲学家蒯因（W. V. O. Quine，1951）指出：一个假设从来不能被单独检验。预测失败时，你总可以保住核心理论，把账记到某个辅助假设头上——仪器不准、边界条件特殊、这次样本有问题。这正是第 1 节和第 2 节的机制在<em>科学理论层面</em>的同构：辅助假设就是那批免费参数，事后指定它们就是事后叙事。由此推出的结论不是"科学不可靠"，而是一件很具操作性的事：<b>既然"该把失败记在哪一笔账上"永远无法由逻辑单独决定，那它只能由「事前承诺」来决定。</b>这就是预注册（pre-registration）的全部力量所在——它不提高任何一次实验的精度，它只是把记账规则挪到了看见结果之前。第 4 节的可靠性图是同一个动作的另一半：先说，再看，不许回头改口径。</li>
 <li><b>经济与制度 · 危机前的宏观模型</b>：2008 年之前，各国央行主力使用的那一类动态随机一般均衡模型，在样本内的拟合质量相当不错，也确实建立在明确的机制推导之上。它没能预警危机，原因不是参数估歪了，而是<b>它的状态空间里根本没有那些变量</b>——金融中介、杠杆、抵押品折价大多不在模型里，于是"银行间市场冻结"这件事在那套语言里连表述都表述不出来。本期几条机制在这里成套出现：拟合优良（第 1 节的蓝线）掩盖了结构缺失，机制推导的严谨性被当成了预测能力的保证（第 5 节的贴错标签），而这个体系从未被要求交出概率并接受记分（第 4 节）。推出的结论相当反直觉：<b>面对这种失败，"改进模型"——加参数、加数据、加算力——恰恰是错的方向</b>；缺的东西不在参数轴上，在"该把什么写进模型"这个更早的决定里。危机后宏观学界补的正是这一块，而不是精度。</li>
 </ul>
+</div>
+<div class="tk">
+<h3>📝 十条要点<span class="he">（Ten Takeaways）</span></h3>
+<ol class="takeaways">
+<li>模型的可调参数越多，越会把测量误差和偶然波动一并记住，这就是过拟合。</li>
+<li>样本内误差随模型复杂度一路下降，样本外误差却呈U形，只有后者和预测有关。</li>
+<li>判断模型要留出一段按时间切、从未参与调参的数据，只在上面报一次误差。</li>
+<li>谷歌流感趋势从五千万个搜索词里挑出四十五个，过拟合发生在挑选变量那一步。</li>
+<li>事后叙事是过拟合的极限情形：词汇免费且无限，对历史的误差永远为零。</li>
+<li>真解释必须提前排除某些结果；结果反过来也能同样讲通的说法，信息量为零。</li>
+<li>双对数图上幂律、对数正态和指数截断几乎重合，Clauset等人重审后多数数据集过不了检验。</li>
+<li>多数决策只需要“重尾”这个更弱的判断，坚持说“幂律”往往是机制故事在作怪。</li>
+<li>校准指你说的概率在长期频率上兑现，天气预报因为每天被记分而做到了这一点。</li>
+<li>给模型分清点预测、概率预测和机制演示三种标签，谢林隔离模型就不该按准确率评价。</li>
+</ol>
 </div>
 <div class="thinking">
 <h3 data-tts="02d20ecdafec3d99">深入思考<span class="he">（Going Deeper）</span></h3>

@@ -61,6 +61,12 @@ details p{margin:12px 0 0;font-size:0.9rem;color:#a9a096;line-height:1.75}
 footer{text-align:center;padding:56px 0 10px;font-size:0.78rem;color:#57524b;font-family:"SF Mono",Menlo,monospace;border-top:1px solid rgba(255,255,255,0.06);margin-top:50px}
 footer a{color:#79a6d2;text-decoration:none}
 @media(max-width:600px){h1{font-size:1.85rem}.wrap{padding:24px 16px 60px}h2{font-size:1.22rem}}
+.tk{margin:46px 0 10px}
+.tk h3{font-size:1.02rem;color:#e0895e;margin-bottom:14px;letter-spacing:0.5px}
+.takeaways{counter-reset:tk;list-style:none;margin:0;padding:0;border:1px solid rgba(224,137,94,0.3);border-radius:12px;background:rgba(224,137,94,0.04)}
+.takeaways li{counter-increment:tk;position:relative;margin:0;padding:11px 18px 11px 52px;border-top:1px solid rgba(224,137,94,0.12);font-size:0.94rem;color:#d5cdc1;line-height:1.75}
+.takeaways li:first-child{border-top:none}
+.takeaways li::before{content:counter(tk,decimal-leading-zero);position:absolute;left:18px;top:12px;font-family:"SF Mono",Menlo,monospace;font-size:0.78rem;color:#e0895e}
 </style></head><body>
 <div class="wrap">
 <header>
@@ -188,6 +194,21 @@ footer a{color:#79a6d2;text-decoration:none}
 </ul>
 </div>
 
+<div class="tk">
+<h3>📝 Ten Takeaways</h3>
+<ol class="takeaways">
+<li>In Bénard convection, a uniformly heated liquid layer splits into convection cells once the temperature difference crosses a threshold, and the layer's depth sets the cell size.</li>
+<li>The Rayleigh number weighs buoyant driving against viscous and thermal damping; past roughly 1708, positive feedback wins and the uniform state gives way to a pattern.</li>
+<li>Turing showed in 1952 that a self-activating chemical plus a faster-diffusing inhibitor can make a perfectly uniform mixture break out in spots and stripes.</li>
+<li>Short-range activation with long-range inhibition produces a characteristic wavelength that shifts with the parameters, which makes it a prediction data can refute.</li>
+<li>Emperor angelfish insert new stripes between old ones as they grow to keep the spacing fixed, and knocking out mouse Hox13 yields more, thinner digits.</li>
+<li>Real starlings align with their six or seven nearest neighbours whatever the distance, so a topologically coupled flock stays connected even when a hawk thins it out.</li>
+<li>Ant colonies lock onto the shorter path through pheromone reinforcement, while evaporation acts as the brake whose rate tunes exploration against exploitation.</li>
+<li>Kauffman argued that collectively autocatalytic sets become almost inevitable once molecular diversity is high enough, but such networks hinge on the catalysis probability and barely evolve.</li>
+<li>Self-organization promises nothing good: the same local rules plus positive feedback build convection hexagons, locust swarms, crowd-crush arches and asset bubbles.</li>
+<li>Blueprint versus self-organization is a false choice in embryos: dynamics generate the periodic repeats, while positional information decides where they go and what parameters they take.</li>
+</ol>
+</div>
 <div class="thinking">
 <h3>Going Deeper</h3>
 <details><summary>Are self-organization and evolution the same thing?</summary><p>No, and keeping them apart matters. Self-organization needs neither heredity nor selection — a convection cell does not pass "hexagon" to its offspring. Evolution needs heritable variation plus differential survival. Kauffman's ambition was to have self-organization underwrite evolution (self-sustaining chemistry first, heredity later), and the difficulty Vasas et al. identified in 2010 sits exactly on that seam: those networks lack heritable variation. So the word "emergence" hides two entirely different mechanisms, and using it loosely makes arguments look stronger than they are.</p></details>

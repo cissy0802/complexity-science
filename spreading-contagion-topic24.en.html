@@ -59,6 +59,12 @@ details p{margin:12px 0 0;font-size:0.9rem;color:#a9a096;line-height:1.75}
 footer{text-align:center;padding:56px 0 10px;font-size:0.78rem;color:#57524b;font-family:"SF Mono",Menlo,monospace;border-top:1px solid rgba(255,255,255,0.06);margin-top:50px}
 footer a{color:#79a6d2;text-decoration:none}
 @media(max-width:600px){h1{font-size:1.85rem}.wrap{padding:24px 16px 60px}h2{font-size:1.22rem}}
+.tk{margin:46px 0 10px}
+.tk h3{font-size:1.02rem;color:#e0895e;margin-bottom:14px;letter-spacing:0.5px}
+.takeaways{counter-reset:tk;list-style:none;margin:0;padding:0;border:1px solid rgba(224,137,94,0.3);border-radius:12px;background:rgba(224,137,94,0.04)}
+.takeaways li{counter-increment:tk;position:relative;margin:0;padding:11px 18px 11px 52px;border-top:1px solid rgba(224,137,94,0.12);font-size:0.94rem;color:#d5cdc1;line-height:1.75}
+.takeaways li:first-child{border-top:none}
+.takeaways li::before{content:counter(tk,decimal-leading-zero);position:absolute;left:18px;top:12px;font-family:"SF Mono",Menlo,monospace;font-size:0.78rem;color:#e0895e}
 </style></head><body>
 <div class="wrap">
 <header>
@@ -310,6 +316,21 @@ footer a{color:#79a6d2;text-decoration:none}
 <li><b>Eastern thought · why Chan Buddhism made transmission so slow</b>: In its own self-description, Chan (Zen) holds that the dharma is not transmitted through texts: it requires face-to-face teaching and formal recognition by someone who already holds it. In this topic's language, that is a deliberate conversion of something that could have been a simple contagion (read a book — one exposure suffices to copy) into a gated one: the receiver must spend long stretches with an already-"infected" person and then be certified. The cost is speed — transmission is confined to a very narrow contact surface, so lineages run tree-like and cluster geographically. The benefit is <b>variance suppression</b>: any single-point deviation cannot propagate, because propagation requires authorisation and there is only one authoriser. It also dissolves an apparent contradiction — a school that claims not to rely on words nonetheless produced vast literatures like the <em>Jingde Record of the Transmission of the Lamp</em>. What those records mainly record is not doctrine but <em>who transmitted to whom</em>: they are a ledger of network topology, the bookkeeping this transmission mechanism has to maintain on itself. (Incidentally, the four-phrase slogan "not established on words, a separate transmission outside the teachings" was attached to Bodhidharma retrospectively — Muan Shanqing's <em>Zuting shiyuan</em> of 1108 is one of the earlier places it appears.) <b>But here it fails</b>: a complex contagion's threshold counts how many <em>neighbours</em> have adopted — undirected, symmetric. Certification is a directed grant from a single authority, and a degree of one suffices. So Chan's slowness comes from scarcity of authorisers, not from a threshold. What transfers is the consequence — restricting transmission paths suppresses variation — not the cause.</li>
 <li><b>Philosophy of science · why memetics stalled</b>: Dawkins proposed the meme in 1976, casting ideas as units that replicate, mutate and are selected — an explicit "ideas are viruses" programme. This topic's three mechanisms together locate exactly where it jams, and the diagnosis is far more specific than "it wasn't rigorous". First, R₀ requires infection to be an observable state transition, and "holding an idea" has no decidable moment, so its central quantity cannot be measured at all. Second, complex contagion means adoption depends on the <em>joint state of several neighbours</em> — so the minimal unit of transmission is not one meme but a small patch of local consensus, and the atomising assumption picked the wrong unit from the start. Third, network heterogeneity means whether something spreads is largely settled by structure, so "this meme is more transmissible" systematically credits content with what structure did — the same sentence from a hub and from a leaf have entirely different fates. Together they give an actionable conclusion: to make idea-spreading an empirical science, the first job is not a better replication metaphor but <b>defining an observable adoption event and drawing the network</b>. Centola's experiment holds up precisely because it did both: registration is observable, and the researchers laid the network themselves.</li>
 </ul>
+</div>
+<div class="tk">
+<h3>📝 Ten Takeaways</h3>
+<ol class="takeaways">
+<li>The SIR model sorts a population into susceptible, infectious and removed, and describes an outbreak with just two transition rules.</li>
+<li>R₀ is contact rate times per-contact transmission probability times infectious period, and only the middle factor belongs mostly to the pathogen.</li>
+<li>The effective reproduction number equals R₀ times the susceptible fraction, so every outbreak burns its own fuel and slows itself down.</li>
+<li>Crossing the herd immunity threshold only turns new cases over: at R₀ = 3 the threshold is 67%, yet an unchecked epidemic infects about 94%.</li>
+<li>Because of overshoot, the rule for lifting an intervention should name a stock held below some level for some time, never a calendar date.</li>
+<li>On heavy-tailed contact networks the epidemic threshold depends on the mean of squared degree, and vanishes when the power-law exponent is 3 or less.</li>
+<li>COVID-19 transmission is strongly overdispersed, with about 10% of cases driving about 80% of spread, which makes setting-targeted measures very cheap.</li>
+<li>A virus needs one exposure, but changing what people do usually takes several different people doing it first; that is complex contagion.</li>
+<li>In Centola's 2010 experiment, sign-ups for a health forum spread faster and farther on clustered networks than random ones, 54% versus 38%.</li>
+<li>Memetics stalled because holding an idea has no observable moment of infection, so its R₀ can never be measured.</li>
+</ol>
 </div>
 <div class="thinking">
 <h3>Going Deeper</h3>

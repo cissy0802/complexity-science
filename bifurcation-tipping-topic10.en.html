@@ -60,6 +60,12 @@ details p{margin:12px 0 0;font-size:0.9rem;color:#a9a096;line-height:1.75}
 footer{text-align:center;padding:56px 0 10px;font-size:0.78rem;color:#57524b;font-family:"SF Mono",Menlo,monospace;border-top:1px solid rgba(255,255,255,0.06);margin-top:50px}
 footer a{color:#79a6d2;text-decoration:none}
 @media(max-width:600px){h1{font-size:1.85rem}.wrap{padding:24px 16px 60px}h2{font-size:1.22rem}}
+.tk{margin:46px 0 10px}
+.tk h3{font-size:1.02rem;color:#e0895e;margin-bottom:14px;letter-spacing:0.5px}
+.takeaways{counter-reset:tk;list-style:none;margin:0;padding:0;border:1px solid rgba(224,137,94,0.3);border-radius:12px;background:rgba(224,137,94,0.04)}
+.takeaways li{counter-increment:tk;position:relative;margin:0;padding:11px 18px 11px 52px;border-top:1px solid rgba(224,137,94,0.12);font-size:0.94rem;color:#d5cdc1;line-height:1.75}
+.takeaways li:first-child{border-top:none}
+.takeaways li::before{content:counter(tk,decimal-leading-zero);position:absolute;left:18px;top:12px;font-family:"SF Mono",Menlo,monospace;font-size:0.78rem;color:#e0895e}
 </style></head><body>
 <div class="wrap">
 <header>
@@ -267,6 +273,21 @@ footer a{color:#79a6d2;text-decoration:none}
 </ul>
 </div>
 
+<div class="tk">
+<h3>📝 Ten Takeaways</h3>
+<ol class="takeaways">
+<li>In a saddle-node bifurcation the system is not pushed out of its stable state; the driver erases its valley and forces a jump elsewhere.</li>
+<li>Nothing unusual happens to the driver at the fold point; what changes is how the system responds, so hunting afterward for an anomalous event usually finds nothing.</li>
+<li>Before a fold the system's position barely moves; a shallowing valley shows only as slower recovery from shocks, while routine monitoring tracks position.</li>
+<li>Under bistability the same conditions support two self-reinforcing states, so one large shock can throw the system across the divide without the driver ever reaching the fold.</li>
+<li>Jamaica's coral reefs were made fragile by decades of overfishing, then tipped by a hurricane and a sea-urchin die-off, and have not recovered in decades.</li>
+<li>Hysteresis puts the forward and backward folds in different places, so a turbid lake clears only when nutrients fall far below the level at which it broke.</li>
+<li>Dutch biomanipulation removes the fish that eat zooplankton; it leaves the driver alone and kicks the lake into the clear-water basin instead.</li>
+<li>A sudden jump in a one-way time series fits a fold, a steep but smooth response, or a jump in the driver equally well.</li>
+<li>Hillebrand and colleagues' 2020 synthesis found no general ecological thresholds, so gradual change should be the default and bistability the claim needing evidence.</li>
+<li>The 1970s boom in applied catastrophe theory borrowed the folded surface without naming drivers or measurable variables, and a 1977 critique ended it.</li>
+</ol>
+</div>
 <div class="thinking">
 <h3>Going Deeper</h3>
 <details><summary>If the state carries no warning before the fold, is early detection possible at all?</summary><p>Yes, but you have to change what you measure. The <em>position</em> of the state carries no information; its <em>recovery speed</em> after a disturbance does — a shallower valley means slower return, and variance and autocorrelation rise accordingly. That is Topic 36. The cost: such signals need high-frequency data and a system that is actually being disturbed repeatedly. Many real systems satisfy neither, which makes this a useful instrument, not an insurance policy.</p></details>

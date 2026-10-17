@@ -63,6 +63,12 @@ details p{margin:12px 0 0;font-size:0.9rem;color:#a9a096;line-height:1.75}
 footer{text-align:center;padding:56px 0 10px;font-size:0.78rem;color:#57524b;font-family:"SF Mono",Menlo,monospace;border-top:1px solid rgba(255,255,255,0.06);margin-top:50px}
 footer a{color:#79a6d2;text-decoration:none}
 @media(max-width:600px){h1{font-size:1.85rem}.wrap{padding:24px 16px 60px}h2{font-size:1.22rem}}
+.tk{margin:46px 0 10px}
+.tk h3{font-size:1.02rem;color:#e0895e;margin-bottom:14px;letter-spacing:0.5px}
+.takeaways{counter-reset:tk;list-style:none;margin:0;padding:0;border:1px solid rgba(224,137,94,0.3);border-radius:12px;background:rgba(224,137,94,0.04)}
+.takeaways li{counter-increment:tk;position:relative;margin:0;padding:11px 18px 11px 52px;border-top:1px solid rgba(224,137,94,0.12);font-size:0.94rem;color:#d5cdc1;line-height:1.75}
+.takeaways li:first-child{border-top:none}
+.takeaways li::before{content:counter(tk,decimal-leading-zero);position:absolute;left:18px;top:12px;font-family:"SF Mono",Menlo,monospace;font-size:0.78rem;color:#e0895e}
 </style></head><body>
 <div class="wrap">
 <header>
@@ -276,6 +282,21 @@ footer a{color:#79a6d2;text-decoration:none}
 <li><b>生态与制度 · 最大可持续产量的系统性失败</b>：二十世纪的渔业管理有一条写进法律的目标，叫<b>最大可持续产量</b>（maximum sustainable yield，缩写 MSY）：既然增长最快的点在 K/2（第 01 节），那就把鱼群维持在 K/2，年年捕走那个最大增量。逻辑无懈可击，实践中它主持了纽芬兰鳕鱼在内的一连串崩溃。本期几条机制合起来说明这不是执行不力，是目标设错了位置：<em>K/2 恰好是拐点</em>，那里增长曲线的顶部意味着任何低估都把种群推到增长开始下降的一侧，越捞越少、越少越该捞（第 01 节）；<em>资源评估有时滞</em>，配额依据的永远是前几年的存量（第 02 节）；<em>K 本身会被捕捞损伤</em>，大鱼被优先捞走，年龄结构被削平，甚至在遗传上选择出更早熟、更小型的鱼——K 和 r 一起往下走（第 02 节）；而<em>拐点之前根本估不准 K</em>（第 04 节），所以"K/2 在哪儿"这个数字本身就是最不可靠的那一个。由此推出一个原本看不出来的结论：把目标定在 K/2 的<b>右侧</b>（保留更高的存量）代价极小——增长曲线在顶点附近是平的，存量留到 0.6K，年产量只损失约 4%，却换来一大截安全边际。不对称性不来自谨慎，来自那条钟形曲线顶部的平坦。</li>
 <li><b>东方思想 ·《周易》乾卦的"亢龙有悔"</b>：乾卦六爻，从"潜龙勿用"一路到上九"亢龙有悔"——升到极处再升就有悔。它给的是一个纯粹的<b>位置</b>判据：你在第几爻，而不是你有多高。本期的机制正好补上了这个判据缺的东西：位置怎么测。答案是不看高度（绝对量），看增速的顶点过没过（第 01 节），看边际产出弯没弯（第 03、04 节）。于是"知进退存亡而不失其正"在这里成了一个可以计算的量，而不只是德性。<b>但这里不成立</b>：易的六爻是<em>事先给定</em>的、离散的、必然走完的六段，"亢"是位置的必然；而 S 曲线的 K 既不事先给定，也可以被抬高——第 03 节整节讲的就是接力如何让一条曲线在该结束的地方不结束。把"亢龙有悔"读成"物极必反的必然"，会把一件可以被创新推翻的事当成命定，从而在该换车的时候选择退守。能借走的是那把尺子（看位置而不看高度），借不走它的宿命论。</li>
 </ul>
+</div>
+<div class="tk">
+<h3>📝 十条要点<span class="he">（Ten Takeaways）</span></h3>
+<ol class="takeaways">
+<li>指数增长的绝大部分动静发生在最后一两个倍增周期里，睡莲铺满池塘的后一半只用了最后一天。</li>
+<li>Verhulst 在 1838 年给指数增长乘上折扣因子 (1 − N/K)，得到 S 形的逻辑斯蒂曲线，K 是承载力。</li>
+<li>逻辑斯蒂增长的增速在走完一半（N = K/2 的拐点）时就见顶，总量要很晚才显出疲态。</li>
+<li>撞上承载力是平滑趋近、阻尼振荡还是超调崩溃，取决于信号时滞和被消耗资源的恢复速度。</li>
+<li>圣马修岛 29 头驯鹿涨到 6000 头后三年掉到 42 头，地衣被啃光使承载力本身塌了。</li>
+<li>承载力 K 不是自然常数，而是当下绑着你的那个约束；换掉约束就开始一条新的 S 曲线。</li>
+<li>多条 S 曲线接力的上沿叫包络曲线，远看像指数，摩尔定律就是最有名的包络。</li>
+<li>Foster 指出换代的正确时点上新方案的绝对水平必然更低，所以决定换车要比斜率而不是比高度。</li>
+<li>拐点之前逻辑斯蒂与指数在噪声里分不开，Pearl 和 Reed 1920 年估出的 1.97 亿上限后来被超出约七成。</li>
+<li>S 形是许多机制的共同外观，只有事先指名约束及其度量方式，S 曲线判断才可证伪。</li>
+</ol>
 </div>
 <div class="thinking">
 <h3 data-tts="e4e72a00d00bb438">深入思考<span class="he">（Going Deeper）</span></h3>

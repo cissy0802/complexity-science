@@ -63,6 +63,12 @@ details p{margin:12px 0 0;font-size:0.9rem;color:#a9a096;line-height:1.75}
 footer{text-align:center;padding:56px 0 10px;font-size:0.78rem;color:#57524b;font-family:"SF Mono",Menlo,monospace;border-top:1px solid rgba(255,255,255,0.06);margin-top:50px}
 footer a{color:#79a6d2;text-decoration:none}
 @media(max-width:600px){h1{font-size:1.85rem}.wrap{padding:24px 16px 60px}h2{font-size:1.22rem}}
+.tk{margin:46px 0 10px}
+.tk h3{font-size:1.02rem;color:#e0895e;margin-bottom:14px;letter-spacing:0.5px}
+.takeaways{counter-reset:tk;list-style:none;margin:0;padding:0;border:1px solid rgba(224,137,94,0.3);border-radius:12px;background:rgba(224,137,94,0.04)}
+.takeaways li{counter-increment:tk;position:relative;margin:0;padding:11px 18px 11px 52px;border-top:1px solid rgba(224,137,94,0.12);font-size:0.94rem;color:#d5cdc1;line-height:1.75}
+.takeaways li:first-child{border-top:none}
+.takeaways li::before{content:counter(tk,decimal-leading-zero);position:absolute;left:18px;top:12px;font-family:"SF Mono",Menlo,monospace;font-size:0.78rem;color:#e0895e}
 </style></head><body>
 <div class="wrap">
 <header>
@@ -379,6 +385,22 @@ footer a{color:#79a6d2;text-decoration:none}
 <li><b>工程与技术史 · 抽象层为什么会漏</b>：软件里有条老话叫"所有不平凡的抽象都是漏的"——你以为不用管数据库怎么存，直到某个查询慢了一千倍，底层的细节一下全涌上来。热力学也是一层抽象：十九世纪的工程师不知道原子长什么样，照样把蒸汽机算得很准。本期的机制解释了这两件事其实是一件事的两面：一层抽象能不能成立，取决于底层细节在反复粗粒化之后是缩向 0 还是不缩——而这不是设计出来的，是系统自己的性质。由此得到一个反直觉的推论：<b>抽象漏水通常不是实现得不好，而是系统被推到了关联长度很长的区域</b>——满载、拥塞、锁竞争、缓存刚好失效。所以修补漏水的抽象往往修不好，正确的动作是把系统推离那个区域（限流、分片、留余量），让底层细节重新变回"无关的"。<b>但这里不成立</b>：软件系统的"关联长度"目前没有公认的量法，上面这套推理还只是一个类比的启发，不是可以拿来算数的模型；它值钱的地方在于换了个提问方式——从"谁写错了"变成"系统现在离饱和有多远"，而这一步转换本身不需要任何数值。</li>
 </ul>
 </div>
+<div class="tk">
+<h3>📝 十条要点<span class="he">（Ten Takeaways）</span></h3>
+<ol class="takeaways">
+<li>序参量是在未翻面一侧恒为 0、翻面后不为 0 的量，挑序参量就是挑出哪种对称性被打破。</li>
+<li>一阶相变会直接跳变并伴随潜热，连续相变不跳，但在临界点上关联距离会长到无穷大。</li>
+<li>1945 年 Guggenheim 把八种气体的温度和密度各除以自身临界值，八条液气共存曲线叠成了一条。</li>
+<li>液气临界点、三维磁体、二元合金和分层液体共享临界指数 β≈0.326，同属三维伊辛普适类。</li>
+<li>临界点上关联长度发散，各种尺寸的密度团块散射可见光，二氧化碳因此变得像牛奶一样浑浊。</li>
+<li>Kadanoff 提出、Wilson 做成的重整化群反复粗粒化，绝大多数参数缩向 0，只剩少数相关参数决定临界行为。</li>
+<li>决定普适类的只有空间维度、序参量分量数和相互作用射程三件事，材料本身一概不算数。</li>
+<li>一维链在任何有限温度下都不会相变，同理信息只能沿一条链传的组织也难以稳住全局共识。</li>
+<li>普适性只在临界点旁一条窄走廊里成立，走廊宽度、Tc 和曲线高度都不普适，只能借它推断形状。</li>
+<li>主张一次相变至少要独立测出两个临界指数并检验标度关系，单条 S 形曲线说明不了什么。</li>
+</ol>
+</div>
+
 <div class="thinking">
 <h3 data-tts="10d99f9530eaa45b">深入思考<span class="he">（Going Deeper）</span></h3>
 <details><summary>如果 Tc 不普适、走廊宽度也不普适，那"普适"到底给了我们什么可用的东西？</summary><p>给了一条极强的约束：它把"可能的宏观行为"从无穷多种压缩到了很少的几类。这意味着当你测出一组指数，你反过来能推断系统的维度、对称性和作用射程——而这三件事往往比指数本身更难直接观测。普适性真正的用途是当反向的探针，不是当正向的预测器。</p></details>

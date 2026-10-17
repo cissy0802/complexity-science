@@ -61,6 +61,12 @@ details p{margin:12px 0 0;font-size:0.9rem;color:#a9a096;line-height:1.75}
 footer{text-align:center;padding:56px 0 10px;font-size:0.78rem;color:#57524b;font-family:"SF Mono",Menlo,monospace;border-top:1px solid rgba(255,255,255,0.06);margin-top:50px}
 footer a{color:#79a6d2;text-decoration:none}
 @media(max-width:600px){h1{font-size:1.85rem}.wrap{padding:24px 16px 60px}h2{font-size:1.22rem}}
+.tk{margin:46px 0 10px}
+.tk h3{font-size:1.02rem;color:#e0895e;margin-bottom:14px;letter-spacing:0.5px}
+.takeaways{counter-reset:tk;list-style:none;margin:0;padding:0;border:1px solid rgba(224,137,94,0.3);border-radius:12px;background:rgba(224,137,94,0.04)}
+.takeaways li{counter-increment:tk;position:relative;margin:0;padding:11px 18px 11px 52px;border-top:1px solid rgba(224,137,94,0.12);font-size:0.94rem;color:#d5cdc1;line-height:1.75}
+.takeaways li:first-child{border-top:none}
+.takeaways li::before{content:counter(tk,decimal-leading-zero);position:absolute;left:18px;top:12px;font-family:"SF Mono",Menlo,monospace;font-size:0.78rem;color:#e0895e}
 </style></head><body>
 <div class="wrap">
 <header>
@@ -321,6 +327,21 @@ footer a{color:#79a6d2;text-decoration:none}
 <li><b>Economics &amp; institutions · reading the invisible hand backwards</b>: Smith said each person pursuing their own gain can aggregate into a public good. This topic's mechanisms show that the inference is <em>symmetric</em> — the same machine that turns local rules into a global pattern grows price discovery and also grows segregation and panic-buying that nobody wanted. So the invisible hand was never a theorem; it is one member of a family of possible outcomes, and what decides which end you land on is not the moral quality of the motives but the structural conditions of section three: whether one agent's action is a positive or a negative externality for others, whether actions are visible, and whether the pattern can be broken unilaterally. From which follows a counter-intuitive conclusion: <b>making the invisible hand work does not require purer self-interest, it requires supplying those structural conditions</b> — which is more or less the entire discipline of market design. <b>But here it does not hold</b>: Smith's argument contains something the checkerboard lacks, namely <em>exchange</em>. Both sides of a trade end up better off; that is positive-sum. Moving house on the board creates no value at all — it is pure redistribution of position, zero-sum or worse. Collapsing the two into "both are bottom-up" erases the most important structural condition of all: whether the interaction is positive-sum in the first place.</li>
 <li><b>Institutional design &amp; sociology of science · why interdisciplinarity needs a building</b>: a researcher's preference over collaborators is mild too — "I'd like at least a couple of people who can follow what I'm saying" is the same order of magnitude as a 30% threshold. And position in a collaboration network ratchets: the more you work with your own field, the cheaper the next same-field collaboration becomes. So disciplinary blocks can form with no parochialism whatsoever, and once formed, nobody has an incentive to step out alone — the first person across pays the entire translation cost. This explains something that looks embarrassingly low-tech: institutions built around crossing fields, such as the Santa Fe Institute, do not rely on manifestos; they rely on putting people in one building and writing afternoon tea into the schedule. <b>Because under this mechanism the thing you can change was never the preference — it is the probability of encounter.</b> The practical corollary: any initiative to "strengthen cross-team collaboration" that does not also change who sits where and who must attend what is arguing with a structural problem.</li>
 </ul>
+</div>
+<div class="tk">
+<h3>📝 Ten Takeaways</h3>
+<ol class="takeaways">
+<li>Agent-based modeling writes rules for individuals rather than equations for aggregates, and the macro pattern it explains must be an output, never an input parameter.</li>
+<li>In Schelling's 1971 checkerboard, each agent wanted only 30% like neighbours, yet the settled board reached 78% like neighbours.</li>
+<li>Schelling's segregation result is a claim about structure, while Arendt's banality of evil concerns a person who stopped thinking; merging them wrongly implies nobody is responsible.</li>
+<li>One agent moving out lowers the like-share of the neighbours left behind, so other people's moves manufacture new unhappiness in a cascade.</li>
+<li>A frozen segregated board only means no one can improve by acting alone; stable, optimal and wanted are three different things.</li>
+<li>With rules, parameters, initial conditions and random seed all adjustable, almost any picture can be produced, so reproducing a phenomenon is weak evidence.</li>
+<li>Schelling's model is a proof of existence: it refutes the idea that extreme segregation requires extreme preferences, but names no real-world cause.</li>
+<li>Needing no malice is not the same as having none: redlining maps and racially restrictive covenants deliberately drove US residential segregation.</li>
+<li>Card, Mas and Rothstein found tipping points between 5% and 20% minority share in census data, with higher thresholds in more tolerant cities.</li>
+<li>The same machinery of local rules producing global patterns can yield price discovery or unwanted segregation and panic buying.</li>
+</ol>
 </div>
 <div class="thinking">
 <h3>Going Deeper</h3>

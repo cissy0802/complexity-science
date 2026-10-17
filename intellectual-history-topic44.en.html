@@ -63,6 +63,12 @@ details p{margin:12px 0 0;font-size:0.9rem;color:#a9a096;line-height:1.75}
 footer{text-align:center;padding:56px 0 10px;font-size:0.78rem;color:#57524b;font-family:"SF Mono",Menlo,monospace;border-top:1px solid rgba(255,255,255,0.06);margin-top:50px}
 footer a{color:#79a6d2;text-decoration:none}
 @media(max-width:600px){h1{font-size:1.85rem}.wrap{padding:24px 16px 60px}h2{font-size:1.22rem}}
+.tk{margin:46px 0 10px}
+.tk h3{font-size:1.02rem;color:#e0895e;margin-bottom:14px;letter-spacing:0.5px}
+.takeaways{counter-reset:tk;list-style:none;margin:0;padding:0;border:1px solid rgba(224,137,94,0.3);border-radius:12px;background:rgba(224,137,94,0.04)}
+.takeaways li{counter-increment:tk;position:relative;margin:0;padding:11px 18px 11px 52px;border-top:1px solid rgba(224,137,94,0.12);font-size:0.94rem;color:#d5cdc1;line-height:1.75}
+.takeaways li:first-child{border-top:none}
+.takeaways li::before{content:counter(tk,decimal-leading-zero);position:absolute;left:18px;top:12px;font-family:"SF Mono",Menlo,monospace;font-size:0.78rem;color:#e0895e}
 </style></head><body>
 <div class="wrap">
 <header>
@@ -344,6 +350,21 @@ footer a{color:#79a6d2;text-decoration:none}
 </ul>
 </div>
 
+<div class="tk">
+<h3>📝 Ten Takeaways</h3>
+<ol class="takeaways">
+<li>Nearly every flagship concept in complexity science was forced out by a concrete job: cybernetics grew from Norbert Wiener's 1940s work predicting where an evading aircraft would be.</li>
+<li>A concept's reach is roughly the reach of the problem that produced it, so any generalisation should state which original premise it is throwing away.</li>
+<li>Geoffrey West's 3/4-power metabolic law rests on fractal supply networks, so it carries over to cities with pipes and grids but loses its footing where no physical network exists.</li>
+<li>The Macy Conferences of 1946–1953 added shortcuts between disciplinary clusters; words like feedback and information spread fast while Wiener's filtering mathematics barely moved.</li>
+<li>A shortcut has limited bandwidth: it carries detachable words easily but not whole structures such as assumptions, error criteria and falsifiers.</li>
+<li>Funding does not decide what is true, but it decides which questions get asked for decades; cold-war defence money favoured problems that improved control and prediction.</li>
+<li>The Santa Fe Institute, founded in 1984 to do theory outside departments and agency budgets, used a different filter and grew topics like the economy as an evolving system.</li>
+<li>The rich-get-richer rule was invented independently by Yule, Simon, Merton, Price and Barabási–Albert, and Merton's Matthew effect applied it to how scientific credit is assigned.</li>
+<li>The funding-as-selection story is close to unfalsifiable, because unfunded and unwritten questions leave no record, so it should be held as a hypothesis rather than a finding.</li>
+<li>Chile's Cybersyn is praised for a 1972 strike, when its telex network coordinated trucks, which validated the network shortcut rather than requisite-variety control theory.</li>
+</ol>
+</div>
 <div class="thinking">
 <h3>Going Deeper</h3>
 <details><summary>If a concept's boundary is its original problem's boundary, is every generalisation illegitimate?</summary><p>Not illegitimate — priced. The cost of generalising is stating explicitly which assumption of the original problem you are discarding and what replaces it. West's 3/4 law extends to cities because cities really do have physical supply networks; extended to something without one, you first owe an answer to "what limits transport here?". No answer means it isn't a generalisation, it's a loan of vocabulary.</p></details>

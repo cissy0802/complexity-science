@@ -61,6 +61,12 @@ details p{margin:12px 0 0;font-size:0.9rem;color:#a9a096;line-height:1.75}
 footer{text-align:center;padding:56px 0 10px;font-size:0.78rem;color:#57524b;font-family:"SF Mono",Menlo,monospace;border-top:1px solid rgba(255,255,255,0.06);margin-top:50px}
 footer a{color:#79a6d2;text-decoration:none}
 @media(max-width:600px){h1{font-size:1.85rem}.wrap{padding:24px 16px 60px}h2{font-size:1.22rem}}
+.tk{margin:46px 0 10px}
+.tk h3{font-size:1.02rem;color:#e0895e;margin-bottom:14px;letter-spacing:0.5px}
+.takeaways{counter-reset:tk;list-style:none;margin:0;padding:0;border:1px solid rgba(224,137,94,0.3);border-radius:12px;background:rgba(224,137,94,0.04)}
+.takeaways li{counter-increment:tk;position:relative;margin:0;padding:11px 18px 11px 52px;border-top:1px solid rgba(224,137,94,0.12);font-size:0.94rem;color:#d5cdc1;line-height:1.75}
+.takeaways li:first-child{border-top:none}
+.takeaways li::before{content:counter(tk,decimal-leading-zero);position:absolute;left:18px;top:12px;font-family:"SF Mono",Menlo,monospace;font-size:0.78rem;color:#e0895e}
 </style></head><body>
 <div class="wrap">
 <header>
@@ -349,6 +355,22 @@ footer a{color:#79a6d2;text-decoration:none}
 <li><b>Sociology of science · "ideas are getting harder to find"</b>: Bloom, Jones, Van Reenen and Webb published solid numbers in 2020: across semiconductors, crop yields and pharmaceuticals, the research effort needed to sustain the same rate of progress keeps rising. The standard reading is that the low-hanging fruit is gone — the problems themselves got harder. Lay this topic's three mechanisms on top and a different, testable reading appears: a field's <b>neighbourhood</b> is defined by the methods it accepts (what counts as a publishable paper), its K by how strongly its variables depend on one another, and its explore/exploit ratio by grant cycles and tenure structure — and all three reward increments inside existing methods. So part of "getting harder" may not be a changed terrain at all, but a field <b>parked on the local optimum its own methods can reach</b>. That version yields a conclusion the first cannot: if the fruit really is gone, more of the same labour is the only answer; if the neighbourhood is too narrow, importing foreign methods (changing the move set) is an order of magnitude cheaper than adding people — and the two cases are separable in the data, by looking at the output elasticity of cross-field method transfer.</li>
 </ul>
 </div>
+<div class="tk">
+<h3>📝 Ten Takeaways</h3>
+<ol class="takeaways">
+<li>In 1932 Sewall Wright drew every possible gene combination on a plane, with reproductive success as height: the fitness landscape.</li>
+<li>A fitness landscape forces you to define three things: what a position is, what counts as a neighbour, and which quantity is height.</li>
+<li>Hill climbing moves only to higher neighbours, so even a run of correct steps can strand you on a local optimum short of the global one.</li>
+<li>From a local optimum, local information cannot tell you whether you are at the global optimum, since every neighbour looks worse from both.</li>
+<li>Moving to a better peak costs two numbers, valley depth and valley length, and most reforms die because the mandate is shorter than the valley.</li>
+<li>Kauffman and Levin's NK model shows that the more each component depends on others (higher K), the more rugged the landscape; at K=0 there is one peak.</li>
+<li>Ruggedness is a consequence of coupling, so decoupling raises no metric directly but makes later small improvements effective again.</li>
+<li>Simulated annealing sets a temperature for accepting worse positions and lowers it over time; the real design object is the cooling schedule.</li>
+<li>Bandit theory finds that the optimal share of exploration rises with the number of rounds you have left to play.</li>
+<li>Eastern Europe's transformational recession reads as a valley crossing, where success hinged on valley length versus the political mandate.</li>
+</ol>
+</div>
+
 <div class="thinking">
 <h3>Going Deeper</h3>
 <details><summary>If ridges are everywhere in high dimensions, is "you must go downhill first" simply a false problem?</summary><p>No, but it applies more narrowly than usually assumed. What matters is how rich your <b>neighbourhood</b> is: biological evolution has thousands of mutable sites, so detours abound; an organisation can typically change two or three things at once, so its effective dimensionality is low and the valley is a real valley. The test is therefore not "is this system complex" but "how many things can I change in one step". It also explains why the same transition is a gentle slope when you can move people, process and incentives together, and a cliff when you can only move one.</p></details>

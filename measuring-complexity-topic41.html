@@ -63,6 +63,12 @@ details p{margin:12px 0 0;font-size:0.9rem;color:#a9a096;line-height:1.75}
 footer{text-align:center;padding:56px 0 10px;font-size:0.78rem;color:#57524b;font-family:"SF Mono",Menlo,monospace;border-top:1px solid rgba(255,255,255,0.06);margin-top:50px}
 footer a{color:#79a6d2;text-decoration:none}
 @media(max-width:600px){h1{font-size:1.85rem}.wrap{padding:24px 16px 60px}h2{font-size:1.22rem}}
+.tk{margin:46px 0 10px}
+.tk h3{font-size:1.02rem;color:#e0895e;margin-bottom:14px;letter-spacing:0.5px}
+.takeaways{counter-reset:tk;list-style:none;margin:0;padding:0;border:1px solid rgba(224,137,94,0.3);border-radius:12px;background:rgba(224,137,94,0.04)}
+.takeaways li{counter-increment:tk;position:relative;margin:0;padding:11px 18px 11px 52px;border-top:1px solid rgba(224,137,94,0.12);font-size:0.94rem;color:#d5cdc1;line-height:1.75}
+.takeaways li:first-child{border-top:none}
+.takeaways li::before{content:counter(tk,decimal-leading-zero);position:absolute;left:18px;top:12px;font-family:"SF Mono",Menlo,monospace;font-size:0.78rem;color:#e0895e}
 </style></head><body>
 <div class="wrap">
 <header>
@@ -373,6 +379,21 @@ footer a{color:#79a6d2;text-decoration:none}
 <li><b>历史与军事 · 珍珠港的"噪声"</b>：Roberta Wohlstetter 1962 年那本关于珍珠港的研究得出的结论是：情报不缺，缺的是把信号从噪声里分出来，而"什么算噪声"事后才看得清。本期的机制成套地说明了为什么这不是能力问题：熵告诉你每条电报的意外程度取决于你事前假设的分布；有效复杂度告诉你切开"规律/噪声"的那把刀是观察者带来的、不在数据里；柯氏复杂度不可计算则意味着不存在一个机械程序能替你切。三条合起来推出一个和常规复盘方向相反的结论：<b>情报失败的正确复盘对象不是"漏了哪一条"，而是"当时的模型允许什么东西被算作信号"</b>——复盘电报是在最容易的那一层用力，复盘模型才动得了下一次的结果。</li>
 <li><b>工程与技术史 · "压缩即智能"这句口号该划到哪儿</b>：2023 年 Delétang 等人做了一个漂亮的实验，把大语言模型（large language model）当通用无损压缩器用——一个 700 亿参数的模型能把从没训练过的图像块压到 43.4%、语音压到 16.4%，都优于该领域的专用压缩器。这被广泛读成"压缩就是智能"。本期机制给这句口号划了两条界：柯氏复杂度抓的是<em>全部</em>规律，它不区分哪一部分是你要的结构、哪一部分只是数据里碰巧稳定的偏斜；逻辑深度则完全不进压缩率的账——一个便宜生成的对象和一个跑了十亿步的对象，压完可以一样短。于是有个具体的结论：用困惑度（perplexity，模型对下一个词的平均意外程度）给模型排序，本质上是拿熵去代理有效复杂度，而这两把尺子在最随机的那一端会给出<em>相反</em>的排序——这也正是为什么困惑度低的模型不一定更有用。</li>
 </ul>
+</div>
+<div class="tk">
+<h3>📝 十条要点<span class="he">（Ten Takeaways）</span></h3>
+<ol class="takeaways">
+<li>一把够格的复杂度尺子必须在两端都给低分：完全有序和完全随机都不复杂，细胞、语言、城市这类东西落在中间。</li>
+<li>香农熵测的是平均要问几个是非题才能猜中下一个符号，它把满分发给乱码，让小说和乱码几乎并列。</li>
+<li>熵不是对象自带的属性，而是相对于假定的信源分布算出来的，所以口令强度只能审计生成方式而非成品。</li>
+<li>柯尔莫哥洛夫复杂度是能生成某个对象的最短程序长度，圆周率看似随机，柯氏复杂度却极低。</li>
+<li>真正随机的串没有比照抄更短的描述，柯氏复杂度最高；而且这个量在数学上算不出来，只能得到上界。</li>
+<li>把东西拿去压缩是个便宜的检验：压得动证明它的复杂只是重复，压不动却不能证明它真的复杂。</li>
+<li>有效复杂度只计规律部分的长度、扣掉随机部分，但规律与噪声的分界线由观察者的粗粒化决定，不在对象里。</li>
+<li>逻辑深度量的是从最短描述跑出对象要多少步，深的东西压着一段无法回放的计算，只能重跑一遍才能得到。</li>
+<li>熵、柯氏复杂度、有效复杂度和逻辑深度在同一对象上排序互相打架，这四把尺子都只描述、不预测任何东西。</li>
+<li>薛定谔的非周期晶体判据说明，生命要的不是低熵，而是规律部分够长、并且是一步步跑出来的结构。</li>
+</ol>
 </div>
 <div class="thinking">
 <h3 data-tts="d1a05b8f21dae473">深入思考<span class="he">（Going Deeper）</span></h3>

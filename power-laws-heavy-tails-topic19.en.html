@@ -61,6 +61,12 @@ details p{margin:12px 0 0;font-size:0.9rem;color:#a9a096;line-height:1.75}
 footer{text-align:center;padding:56px 0 10px;font-size:0.78rem;color:#57524b;font-family:"SF Mono",Menlo,monospace;border-top:1px solid rgba(255,255,255,0.06);margin-top:50px}
 footer a{color:#79a6d2;text-decoration:none}
 @media(max-width:600px){h1{font-size:1.85rem}.wrap{padding:24px 16px 60px}h2{font-size:1.22rem}}
+.tk{margin:46px 0 10px}
+.tk h3{font-size:1.02rem;color:#e0895e;margin-bottom:14px;letter-spacing:0.5px}
+.takeaways{counter-reset:tk;list-style:none;margin:0;padding:0;border:1px solid rgba(224,137,94,0.3);border-radius:12px;background:rgba(224,137,94,0.04)}
+.takeaways li{counter-increment:tk;position:relative;margin:0;padding:11px 18px 11px 52px;border-top:1px solid rgba(224,137,94,0.12);font-size:0.94rem;color:#d5cdc1;line-height:1.75}
+.takeaways li:first-child{border-top:none}
+.takeaways li::before{content:counter(tk,decimal-leading-zero);position:absolute;left:18px;top:12px;font-family:"SF Mono",Menlo,monospace;font-size:0.78rem;color:#e0895e}
 </style></head><body>
 <div class="wrap">
 <header>
@@ -318,6 +324,21 @@ footer a{color:#79a6d2;text-decoration:none}
 <li><b>Philosophy of science · a computable version of the problem of induction</b>: Hume asked what entitles us to move from "so far, always" to "hereafter, likewise" — a principled doubt you cannot take to an engineering meeting. Heavy tails turn it into something you can compute: draw n samples and the expected maximum grows roughly as n to the power 1/β, which means <b>"the largest on record" is a function of your sample size, not a property of the system</b>. So practices like designing levees for the hundred-year flood, or load-testing at twice the historical peak, have an underestimate whose size can be estimated: observe for a century and your record is a product of that century, and extending the window to a millennium grows it by that exponent. <b>This is where it breaks down</b>: Hume's doubt is universal, whereas heavy tails supply one specific failure mode. In the thin-tailed world induction works rather well — measure ten thousand people's heights and your estimate of the human maximum stops drifting with sample size. So this does not vindicate Hume; it <em>narrows</em> him: where induction is untrustworthy can be classified by the shape of the distribution, rather than doubted across the board.</li>
 <li><b>Economics and medicine · why capitation punishes the hospital that takes the sick</b>: the US Medical Expenditure Panel Survey reports that in 2022 the top 1% of spenders accounted for 21.7% of all health expenditure and the top 5% for 49.7%, while the bottom half together accounted for under 3%. Several of this issue's mechanisms hold at once. The mean is tail-dominated, so "average cost per person" describes no actual person. The variance is enormous, so two providers serving a thousand people each can differ severalfold in realised spending by luck alone. And size reached predicts further size, so a seriously ill patient's expected future cost far exceeds their current one. Together they yield a conclusion about institutional design: <b>any per-head capitated payment scheme is grading a high-variance lottery result as though it were managerial competence</b> — the provider that happens to take several severe cases loses money without having done anything wrong. This is exactly why risk adjustment and reinsurance exist; they are not subsidies, they repair a statistical mismatch. <b>This is where it breaks down</b>: medical costs have hard ceilings — people die, beds are finite — and several studies find them closer to log-normal than to a power law, so the section-02 result about a non-existent mean does not apply here. Only the variance-dominates half transfers; taking the other half turns a real design problem into scaremongering.</li>
 </ul>
+</div>
+<div class="tk">
+<h3>📝 Ten Takeaways</h3>
+<ol class="takeaways">
+<li>Two sets of a hundred numbers with the same total: in the normal one the largest is 1.6 times the mean, in the power-law one it is 12 times and the top ten take 44%.</li>
+<li>A power law says the count of items larger than x scales as x to the minus β, which plots as a straight line of slope −β on log-log axes.</li>
+<li>Normal distributions arise from many small causes adding up, which evens things out; power laws tend to arise from multiplication or contagion, which amplifies differences.</li>
+<li>The 80/20 rule is not what defines a power law; it is just what a tail index of about 1.16 happens to give, and other exponents give very different splits.</li>
+<li>With power-law data, more samples do not make the average settle: the running mean stays too low for long stretches, then a single draw lifts it several-fold.</li>
+<li>For a power law with tail index β, the mean exists only when β exceeds 1 and the variance only when β exceeds 2; not existing means the integral diverges, not that the number is large.</li>
+<li>Under the Gutenberg-Richter law earthquake energy has a tail index near 2/3, so any computed average energy is really set by where the Earth's finite size truncates the tail.</li>
+<li>Scale-free means the odds of doubling do not depend on current size, so in a power law being large already is evidence of growing larger, the reverse of regression to the mean.</li>
+<li>Looking like a straight line on a log-log plot is not proof of a power law; over two or three orders of magnitude a log-normal is nearly indistinguishable from one.</li>
+<li>Rich-get-richer, random proportional growth and critical connectivity all produce the same power-law line, so the shape of a distribution cannot identify its mechanism.</li>
+</ol>
 </div>
 <div class="thinking">
 <h3>Going Deeper</h3>

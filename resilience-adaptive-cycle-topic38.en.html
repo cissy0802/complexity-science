@@ -60,6 +60,12 @@ details p{margin:12px 0 0;font-size:0.9rem;color:#a9a096;line-height:1.75}
 footer{text-align:center;padding:56px 0 10px;font-size:0.78rem;color:#57524b;font-family:"SF Mono",Menlo,monospace;border-top:1px solid rgba(255,255,255,0.06);margin-top:50px}
 footer a{color:#79a6d2;text-decoration:none}
 @media(max-width:600px){h1{font-size:1.85rem}.wrap{padding:24px 16px 60px}h2{font-size:1.22rem}}
+.tk{margin:46px 0 10px}
+.tk h3{font-size:1.02rem;color:#e0895e;margin-bottom:14px;letter-spacing:0.5px}
+.takeaways{counter-reset:tk;list-style:none;margin:0;padding:0;border:1px solid rgba(224,137,94,0.3);border-radius:12px;background:rgba(224,137,94,0.04)}
+.takeaways li{counter-increment:tk;position:relative;margin:0;padding:11px 18px 11px 52px;border-top:1px solid rgba(224,137,94,0.12);font-size:0.94rem;color:#d5cdc1;line-height:1.75}
+.takeaways li:first-child{border-top:none}
+.takeaways li::before{content:counter(tk,decimal-leading-zero);position:absolute;left:18px;top:12px;font-family:"SF Mono",Menlo,monospace;font-size:0.78rem;color:#e0895e}
 </style></head><body>
 <div class="wrap">
 <header>
@@ -354,6 +360,21 @@ footer a{color:#79a6d2;text-decoration:none}
 <li><b>Military history · Napoleon's corps system</b>: around 1800 Napoleon broke the army into corps, each carrying its own infantry, cavalry, artillery and staff, each able to hold a fight alone for a day or two. Three mechanisms show up together: modularity (one corps pinned is not the army pinned), loose coupling (march dispersed, a day's march apart, converge only for battle), and interchangeable roles (whichever corps makes contact becomes the anvil, the rest become the hammer). Which yields a conclusion usually missed: the great benefit of marching dispersed was not easier supply but <b>lowering the ceiling on a single defeat from "the army" to "one corps"</b> — it compressed the amplitude of any one release phase rather than raising the odds of winning. Those are entirely different entries in the ledger. <b>But this doesn't hold</b>: reorganization in that structure ran wholly through a centre — Napoleon himself reassigning roles — whereas panarchy's α phase has no centre. So in 1813, when he had to divide his forces and let marshals decide independently, the same corps system failed immediately. <b>Modularity does not produce resilience unless the rules for reorganizing are distributed too.</b></li>
 <li><b>Eastern thought · Zhuangzi's useless tree</b>: in the "Human World" chapter the carpenter takes one look at the great oak by the village shrine and walks on — as a boat it sinks, as a coffin it rots, as a tool it breaks; "good for nothing, and so it has lived this long". In this issue's terms: however many uses point at a tree, that is how many chains can carry a shock into it, and driving your depended-upon count to zero removes you from everybody else's K phase. That reading is far harder than the usual "keep out of worldly strife", because it is measurable — the number of dependencies pointing at you can be counted, and a state of mind cannot. <b>But this doesn't hold</b>: the useless tree is an <em>individual</em> survival strategy whose price is precisely that it contributes nothing to any system; the adaptive cycle is about the resilience of a <em>system</em>, and a system made entirely of useless trees has no function to preserve and never even reaches K. Lift the personal tactic into an organisational design principle and what you get is not loose coupling, it is dissolution. That boundary also says what loose coupling actually means: not fewer obligations, but <b>dependencies that can be interrupted</b> — the dependency stays, it simply stops taking everyone down with it when it breaks.</li>
 </ul>
+</div>
+<div class="tk">
+<h3>📝 Ten Takeaways</h3>
+<ol class="takeaways">
+<li>Engineering resilience is how fast a system returns to its old state; ecological resilience is how big a shock it absorbs before flipping. The two can pull in opposite directions.</li>
+<li>C. S. Holling's 1973 point: a deep, narrow basin of attraction recovers fast but tips easily, while a shallow, wide one recovers slowly but is hard to push out.</li>
+<li>No metric gathered only under normal conditions can measure a basin's width; measuring width requires deliberately applying a near-limit shock.</li>
+<li>Holling and Gunderson's adaptive cycle runs on potential and connectedness through exploitation (r), conservation (K), release (Ω) and reorganization (α).</li>
+<li>Efficiency and resilience are two ends of one dial: cutting redundancy, specializing and minimizing inventory all raise connectedness, so resilience bottoms out in K.</li>
+<li>The readable signature of the conservation phase is output still hitting new highs while uncommitted slack falls and single-point dependencies multiply.</li>
+<li>Panarchy nests fast and slow adaptive cycles, linked only by revolt and remember, and revolt only gets through while the larger cycle sits in K.</li>
+<li>Redundancy, modularity, response diversity and loose coupling each block a different threat: single-point failure, propagation, common-cause failure, and lost time to notice errors.</li>
+<li>Three backups sharing a vendor, a data centre or a config have an effective multiplicity of one against a common cause, as Air France 447's three identical pitot tubes showed.</li>
+<li>Unless you say resilience of what, to what, the word carries no information, and resilience is value-neutral: drug-resistant tumours and dictatorships have plenty.</li>
+</ol>
 </div>
 <div class="thinking">
 <h3>Going Deeper</h3>

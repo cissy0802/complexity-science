@@ -61,6 +61,12 @@ details p{margin:12px 0 0;font-size:0.9rem;color:#a9a096;line-height:1.75}
 footer{text-align:center;padding:56px 0 10px;font-size:0.78rem;color:#57524b;font-family:"SF Mono",Menlo,monospace;border-top:1px solid rgba(255,255,255,0.06);margin-top:50px}
 footer a{color:#79a6d2;text-decoration:none}
 @media(max-width:600px){h1{font-size:1.85rem}.wrap{padding:24px 16px 60px}h2{font-size:1.22rem}}
+.tk{margin:46px 0 10px}
+.tk h3{font-size:1.02rem;color:#e0895e;margin-bottom:14px;letter-spacing:0.5px}
+.takeaways{counter-reset:tk;list-style:none;margin:0;padding:0;border:1px solid rgba(224,137,94,0.3);border-radius:12px;background:rgba(224,137,94,0.04)}
+.takeaways li{counter-increment:tk;position:relative;margin:0;padding:11px 18px 11px 52px;border-top:1px solid rgba(224,137,94,0.12);font-size:0.94rem;color:#d5cdc1;line-height:1.75}
+.takeaways li:first-child{border-top:none}
+.takeaways li::before{content:counter(tk,decimal-leading-zero);position:absolute;left:18px;top:12px;font-family:"SF Mono",Menlo,monospace;font-size:0.78rem;color:#e0895e}
 </style></head><body>
 <div class="wrap">
 <header>
@@ -172,6 +178,21 @@ footer a{color:#79a6d2;text-decoration:none}
 </ul>
 </div>
 
+<div class="tk">
+<h3>📝 Ten Takeaways</h3>
+<ol class="takeaways">
+<li>The logistic map has a single knob, r, and the same rule can settle, alternate, cycle in fours, or never repeat depending on r.</li>
+<li>Seen in isolation, chaotic data looks like an outside shock, yet the rule and environment never changed, only one number did.</li>
+<li>Hog-price boom and bust needs no speculators: in the cobweb model, a strong enough supply response oscillates on its own.</li>
+<li>Past r = 3.0 the stable value splits in two because the restoring pull overshoots; the opposite of stability is overcorrection, not drift.</li>
+<li>Bifurcation intervals shrink so fast that infinitely many period doublings finish before r∞ ≈ 3.5699, and beyond that lies chaos.</li>
+<li>A steady up-down alternation in a this-period-over-last-period ratio flags the first bifurcation; the fix is to back off the driver, not tighten control.</li>
+<li>Feigenbaum found the ratio of successive bifurcation intervals converges to δ ≈ 4.669, the same for any map with one smooth hump.</li>
+<li>Libchaber measured a period-doubling cascade and a ratio matching 4.669 in convecting liquid helium, so universality is not just math on paper.</li>
+<li>Chaos is riddled with infinitely many periodic windows such as period 3 near r ≈ 3.8284, and Li and Yorke proved period three implies chaos.</li>
+<li>The cascade needs discrete generations and noise erases its later splits; chaos is also not collapse, just loss of predictability.</li>
+</ol>
+</div>
 <div class="thinking">
 <h3>Going Deeper</h3>
 <details><summary>If period doubling is the fixed route into chaos, why does one almost never see a full cascade in the real world?</summary><p>Three reasons stack up: noise flattens everything past the third bifurcation; real parameters can rarely be pushed monotonically and in isolation; and period doubling is only <em>one</em> of several routes into chaos (there are also intermittent and quasi-periodic routes). So "no cascade observed" neither proves the system won't go chaotic nor that it will. It only says this particular diagnostic lacks the resolution here.</p></details>

@@ -63,6 +63,12 @@ details p{margin:12px 0 0;font-size:0.9rem;color:#a9a096;line-height:1.75}
 footer{text-align:center;padding:56px 0 10px;font-size:0.78rem;color:#57524b;font-family:"SF Mono",Menlo,monospace;border-top:1px solid rgba(255,255,255,0.06);margin-top:50px}
 footer a{color:#79a6d2;text-decoration:none}
 @media(max-width:600px){h1{font-size:1.85rem}.wrap{padding:24px 16px 60px}h2{font-size:1.22rem}}
+.tk{margin:46px 0 10px}
+.tk h3{font-size:1.02rem;color:#e0895e;margin-bottom:14px;letter-spacing:0.5px}
+.takeaways{counter-reset:tk;list-style:none;margin:0;padding:0;border:1px solid rgba(224,137,94,0.3);border-radius:12px;background:rgba(224,137,94,0.04)}
+.takeaways li{counter-increment:tk;position:relative;margin:0;padding:11px 18px 11px 52px;border-top:1px solid rgba(224,137,94,0.12);font-size:0.94rem;color:#d5cdc1;line-height:1.75}
+.takeaways li:first-child{border-top:none}
+.takeaways li::before{content:counter(tk,decimal-leading-zero);position:absolute;left:18px;top:12px;font-family:"SF Mono",Menlo,monospace;font-size:0.78rem;color:#e0895e}
 </style></head><body>
 <div class="wrap">
 <header>
@@ -186,6 +192,21 @@ footer a{color:#79a6d2;text-decoration:none}
 <li><b>文学与古典学 · 荷马问题</b>：《伊利亚特》是一个人写的还是一群人攒的，争了两千年。1930 年代 Milman Parry 换了个问法：他统计"名字 + 修饰语"的固定组合（"捷足的阿喀琉斯"这类），发现它们与六音步格律的位置精确配套，而且同一个格律位置上几乎只有一个可用组合——一套高度经济、几乎没有冗余的装配系统。Albert Lord 随后在南斯拉夫听活着的口传歌手，确认这些程式是<b>现场装配</b>出来的。本期几条机制在这里成套跑：没有全局蓝图的局部规则（第 3 节）、好用的程式被反复选用从而被自我放大（第 1 节的正反馈）、而格律是那个硬边界条件，它选出了程式的特征长度（第 1、2 节）。于是"作者是谁"被换成了一个能查的问题：装配规则和它的约束是什么。<b>但这里不成立</b>：程式的复用带着明确的功能筛选——歌手要被听众和自己的记忆负荷筛一遍，好用的才活下来；而贝纳德的六角胞被"选中"完全不含任何"更好用"的意思，它只是那个波长恰好增长得最快。把自发涌现读成"经过了筛选所以是好的"，正是第 5 节要拆的那一步。口传传统这边确实有筛选，但那是演化，不是自组织；两者共用同一个"涌现"的说法，机制完全不同。</li>
 <li><b>工程与技术史 · 互联网的路由</b>：全球没有一张主路由表。每个自治系统只跟直接相邻的几个交换"我这边能到哪些地址"，靠的是<b>边界网关协议</b>（Border Gateway Protocol，缩写 BGP）。三条机制成套：局部规则长出全局秩序（第 3 节）、一条通告被邻居再通告出去从而指数扩散（第 1 节的正反馈）、而各家的策略过滤器就是容器壁，图样由它们选出（第 1 节的边界条件）。推出的结论不显然：2008 年巴基斯坦电信的一条错误通告，让全球范围的 YouTube 断了大约两小时——在这类系统里，脆弱点不在"中心"（本来就没有中心），而在<b>收敛规则本身</b>。所以"去中心化"消除的是单点故障的<em>位置</em>，不是单点故障。要加固的是规则的验证（路由起源认证、来源过滤），去找一个更可靠的中心是走错了方向。</li>
 </ul>
+</div>
+<div class="tk">
+<h3>📝 十条要点<span class="he">（Ten Takeaways）</span></h3>
+<ol class="takeaways">
+<li>贝纳德对流中，液层温差越过阈值后自发分成对流胞，胞的大小由液层厚度这一边界条件选出。</li>
+<li>瑞利数是浮力驱动与黏性、热扩散阻尼之比，越过约 1708 时均匀态失稳，图样长出来。</li>
+<li>图灵 1952 年指出：自我激活的物质加上扩散更快的抑制物，能让均匀态自发长出斑纹。</li>
+<li>短程激活加长程抑制的图样有一个特征波长，间距随参数系统地变，因此是可以被数据否掉的预言。</li>
+<li>皇帝神仙鱼长大时在旧条纹间插入新条纹来维持间距；敲掉小鼠 Hox13 则长出更多更细的指头。</li>
+<li>真实椋鸟只跟最近的 6–7 只邻居对齐，这种拓扑交互让鸟群在被冲散、密度骤降时也不会断连。</li>
+<li>蚁群靠信息素的正反馈锁定短路，信息素蒸发则是负反馈，蒸发率就是探索与利用之间的旋钮。</li>
+<li>Kauffman 论证分子种类够多时集体自催化集几乎必然出现，但这类网络几乎不可演化。</li>
+<li>自组织不承诺任何好处：同一套局部规则加正反馈，既长出对流胞，也长出蝗群和资产泡沫。</li>
+<li>胚胎发育里「蓝图还是自组织」是假二分：动力学生成周期性重复，位置信息决定图样出现在哪儿。</li>
+</ol>
 </div>
 <div class="thinking">
 <h3 data-tts="7b00f153654ff9d6">深入思考<span class="he">（Going Deeper）</span></h3>

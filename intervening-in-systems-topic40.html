@@ -63,6 +63,12 @@ details p{margin:12px 0 0;font-size:0.9rem;color:#a9a096;line-height:1.75}
 footer{text-align:center;padding:56px 0 10px;font-size:0.78rem;color:#57524b;font-family:"SF Mono",Menlo,monospace;border-top:1px solid rgba(255,255,255,0.06);margin-top:50px}
 footer a{color:#79a6d2;text-decoration:none}
 @media(max-width:600px){h1{font-size:1.85rem}.wrap{padding:24px 16px 60px}h2{font-size:1.22rem}}
+.tk{margin:46px 0 10px}
+.tk h3{font-size:1.02rem;color:#e0895e;margin-bottom:14px;letter-spacing:0.5px}
+.takeaways{counter-reset:tk;list-style:none;margin:0;padding:0;border:1px solid rgba(224,137,94,0.3);border-radius:12px;background:rgba(224,137,94,0.04)}
+.takeaways li{counter-increment:tk;position:relative;margin:0;padding:11px 18px 11px 52px;border-top:1px solid rgba(224,137,94,0.12);font-size:0.94rem;color:#d5cdc1;line-height:1.75}
+.takeaways li:first-child{border-top:none}
+.takeaways li::before{content:counter(tk,decimal-leading-zero);position:absolute;left:18px;top:12px;font-family:"SF Mono",Menlo,monospace;font-size:0.78rem;color:#e0895e}
 </style></head><body>
 <div class="wrap">
 <header>
@@ -328,6 +334,21 @@ footer a{color:#79a6d2;text-decoration:none}
 <li><b>西方哲学与科学哲学 · Popper 的零星工程</b>：卡尔·波普尔在 1945 年主张社会改造只能是"零星工程"（piecemeal social engineering）——一次改一点、看结果、随时纠错，反对整体性的乌托邦规划。他的论证是认识论的：我们不知道理想社会长什么样，所以只能试错。本期给出的是同一个结论，但理由完全不同，而且更狠：政策阻力说明大干预会被系统反推回来；必要多样性说明中央规划者的手段种类不可能覆盖被规划者的行为种类；不可逆说明大干预出错时没有撤回按钮。<b>三条合起来推出一个波普尔本人不需要的结论：零星工程的正当性并不依赖"我们无知"这个前提——即使规划者全知全能，Ashby 那条仍然成立，因为它约束的是手段的种类数，不是知识的多少。</b>这把一个关于认识的论证升级成了一个关于结构的论证。<b>但这里不成立</b>：波普尔的主张同时还是一条伦理禁令——不能拿活着的人做整体实验——而这一条推不出来，任何动力学都推不出来。用系统论去"证明"零星工程，等于把一条道德约束偷换成一条效率主张；一旦哪天有人算出大干预效率更高，那条禁令就跟着没了。能从本期借走的是那把尺子，不是那条底线。</li>
 <li><b>工程与技术史 · 把火全灭掉的那五十年</b>：1935 年美国林务局定下"10 点规则"——任何一场野火都要在被发现后次日上午 10 点前扑灭，1978 年才正式废止。这套政策在参数层非常成功（着火面积连年下降），却同时干掉了系统自己卸载的机制：不烧掉的枯枝落叶年复一年累积，林下长满密集的小树，于是后来的火不再是低强度地表火，而是烧到树冠、扑不灭的巨型火。用本期的语言：一次第 12 层的干预（把触发阈值压低），压掉的是第 4 层的东西（系统自组织地重新分配燃料的能力），而后果不可逆——五十年积起来的燃料和已经改掉的林分结构没法快速退回去。<b>推论是一条可以直接拿去用的提问：一项"消除小扰动"的政策，先问清楚它消掉的那些小扰动是不是这个系统的卸载机制。</b>是的话，你压下去的不是风险，是风险的分期付款。<b>但这里不成立</b>：并不是所有小扰动都是卸载机制。传染病里压制小规模流行不会养出更大的流行——易感人群会通过出生和迁入不断补充，不存在"烧掉一点就少一点"的存量。把"抑制小的会养出大的"当成普适定律，是本期最容易犯的滥用；它只在<em>存在一个会累积、且只能由事件本身消耗掉的存量</em>时才成立。</li>
 </ul>
+</div>
+<div class="tk">
+<h3>📝 十条要点<span class="he">（Ten Takeaways）</span></h3>
+<ol class="takeaways">
+<li>从外部推动复杂系统里的一个量，会唤醒原本沉睡的补偿性反馈，把系统拉回原处，这就是政策阻力。</li>
+<li>1902 年河内悬赏鼠尾灭鼠，结果有人养鼠剪尾领赏：当局要的是老鼠减少，买到的却是鼠尾。</li>
+<li>干预落在某个指标上、而指标和真实目标之间隔着人的行为时，指标会先动，甚至只有指标动。</li>
+<li>Donella Meadows 的十二个杠杆点里，效力和阻力同向：最容易调的参数几乎不改变系统行为。</li>
+<li>器官捐献改一个默认勾选框，同意率就差出几十个百分点，宣传预算加到底也补不上这个差距。</li>
+<li>Ashby 的必要多样性定律说，只有多样性能消灭多样性：反应种类少于情况种类，结局必然漏出去。</li>
+<li>长期控不住一件事时只有三条出路：增加反应种类、砍掉要应付的情况、公开声明哪部分不保证。</li>
+<li>事先判断不了哪个方案对时，改问哪个错了能撤回，并写下撤回要多久、花多少钱、需要谁点头。</li>
+<li>不干预也是一种干预：按兵不动会让当前占优的回路继续跑，同样要接受层号和退路成本的检验。</li>
+<li>美国林务局的「10 点规则」扑灭所有小火，让燃料年年累积成巨型火，压掉的正是森林自己的卸载机制。</li>
+</ol>
 </div>
 <div class="thinking">
 <h3 data-tts="482e0a98cbb9f95a">🤔 深入思考</h3>

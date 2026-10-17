@@ -63,6 +63,12 @@ details p{margin:12px 0 0;font-size:0.9rem;color:#a9a096;line-height:1.75}
 footer{text-align:center;padding:56px 0 10px;font-size:0.78rem;color:#57524b;font-family:"SF Mono",Menlo,monospace;border-top:1px solid rgba(255,255,255,0.06);margin-top:50px}
 footer a{color:#79a6d2;text-decoration:none}
 @media(max-width:600px){h1{font-size:1.85rem}.wrap{padding:24px 16px 60px}h2{font-size:1.22rem}}
+.tk{margin:46px 0 10px}
+.tk h3{font-size:1.02rem;color:#e0895e;margin-bottom:14px;letter-spacing:0.5px}
+.takeaways{counter-reset:tk;list-style:none;margin:0;padding:0;border:1px solid rgba(224,137,94,0.3);border-radius:12px;background:rgba(224,137,94,0.04)}
+.takeaways li{counter-increment:tk;position:relative;margin:0;padding:11px 18px 11px 52px;border-top:1px solid rgba(224,137,94,0.12);font-size:0.94rem;color:#d5cdc1;line-height:1.75}
+.takeaways li:first-child{border-top:none}
+.takeaways li::before{content:counter(tk,decimal-leading-zero);position:absolute;left:18px;top:12px;font-family:"SF Mono",Menlo,monospace;font-size:0.78rem;color:#e0895e}
 </style></head><body>
 <div class="wrap">
 <header>
@@ -220,6 +226,21 @@ footer a{color:#79a6d2;text-decoration:none}
 <li><b>生物与医学 · 帕拉塞尔苏斯的剂量</b>：16 世纪的帕拉塞尔苏斯（Paracelsus）留下毒理学的地基——「万物皆毒，唯剂量定毒」：没有绝对的毒物，只有致毒的剂量。这正是剂量-反应关系的非线性：同一种物质，低、中、高剂量的效果可以完全不同，甚至变号；有些还是非单调的（毒物兴奋效应，hormesis）——极低剂量刺激、稍高就抑制、再高才致命。本期机制合起来给出一个反直觉的结论：「天然=安全、越少越好」这类判断，骨子里都是线性的（假设风险随剂量成比例、单调上升），而真实的剂量-反应常常先平、带阈值、甚至先降后升。<b>但这里不成立</b>：hormesis 这条「低剂量有益」的曲线本身证据参差、争议很大，绝不能反过来拿它替任何有害暴露开脱——「剂量决定毒性」说的是别做线性外推，不是说「少量就无所谓」。非线性砍掉的是「越少越好」那条简单直线，可它同样砍掉「一点点没关系」的另一条直线。</li>
 <li><b>认知科学 · 韦伯-费希纳定律</b>：19 世纪的韦伯（Weber）与费希纳（Fechner）发现，我们对刺激的感觉不随刺激强度成比例增长，而大致随它的对数增长——你能觉察的最小变化，正比于当前的基准。黑屋里点一根蜡烛，亮如白昼；正午再加一根，毫无感觉。同一根蜡烛（同样的输入），感觉上的输出天差地别。这说明一件容易被漏掉的事：我们感知世界的器官，本身就是个非线性的压缩器。于是本期「直觉总在非线性面前犯错」有一半是硬件问题——不是我们懒得算，是感官在把乘法世界压成加法世界。由此能推出：涨价 10 元，在 100 元的东西上「肉疼」、在 10000 元的东西上「无感」，可它们对你钱包的线性冲击一模一样。凡是「跟着感觉走」的地方，你都在用一把对数的尺子去量一个线性的后果。</li>
 </ul>
+</div>
+<div class="tk">
+<h3>📝 十条要点<span class="he">（Ten Takeaways）</span></h3>
+<ol class="takeaways">
+<li>线性关系有两条性质：成比例和可叠加（两件事一起做的效果等于各自单做之和），非线性至少破掉其中一条。</li>
+<li>在非线性曲线上，同样多加一个单位的效果取决于你站在曲线的哪一段，投入产出比是位置的函数而不是常数。</li>
+<li>小投入撬动大回报和小疏忽酿成大灾难是同一件事的两面，说的都是你正站在曲线的陡峭段。</li>
+<li>阈值型非线性越界前纹丝不动、越界后整个翻转：水被平滑加热到 100℃ 才突然变成蒸汽，连续的因给出不连续的果。</li>
+<li>压垮骆驼的最后一根稻草和第一根一样重，把责任算在它头上，是把连续积累误读成突然冒出的原因。</li>
+<li>人脑默认做线性外推，「照这个速度」已暗含增速不变，所以面对复利型增长总是低估，面对阈值突变总是错愕。</li>
+<li>指数增长的量唯一携带信息的是倍增时间而非此刻大小，所以疫情早期「人数还少」是最危险的安心。</li>
+<li>非线性不等于不可预测：炮弹弹道和行星轨道都是非线性的，照样能算得极准；原理上算不准的是混沌。</li>
+<li>任何光滑曲线凑近看都近似直线，线性近似本身没错，错在把它外推到早已失效的范围之外还浑然不觉。</li>
+<li>非线性让精确时点难测，却常让方向和量级更清楚；说「没法预测」，往往是把没准备说成没法准备。</li>
+</ol>
 </div>
 <div class="thinking">
 <h3 data-tts="c244b501724d6ccf">深入思考<span class="he">（Going Deeper）</span></h3>

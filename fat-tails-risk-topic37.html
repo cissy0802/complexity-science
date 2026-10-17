@@ -63,6 +63,12 @@ details p{margin:12px 0 0;font-size:0.9rem;color:#a9a096;line-height:1.75}
 footer{text-align:center;padding:56px 0 10px;font-size:0.78rem;color:#57524b;font-family:"SF Mono",Menlo,monospace;border-top:1px solid rgba(255,255,255,0.06);margin-top:50px}
 footer a{color:#79a6d2;text-decoration:none}
 @media(max-width:600px){h1{font-size:1.85rem}.wrap{padding:24px 16px 60px}h2{font-size:1.22rem}}
+.tk{margin:46px 0 10px}
+.tk h3{font-size:1.02rem;color:#e0895e;margin-bottom:14px;letter-spacing:0.5px}
+.takeaways{counter-reset:tk;list-style:none;margin:0;padding:0;border:1px solid rgba(224,137,94,0.3);border-radius:12px;background:rgba(224,137,94,0.04)}
+.takeaways li{counter-increment:tk;position:relative;margin:0;padding:11px 18px 11px 52px;border-top:1px solid rgba(224,137,94,0.12);font-size:0.94rem;color:#d5cdc1;line-height:1.75}
+.takeaways li:first-child{border-top:none}
+.takeaways li::before{content:counter(tk,decimal-leading-zero);position:absolute;left:18px;top:12px;font-family:"SF Mono",Menlo,monospace;font-size:0.78rem;color:#e0895e}
 </style></head><body>
 <div class="wrap">
 <header>
@@ -174,6 +180,21 @@ footer a{color:#79a6d2;text-decoration:none}
 <li><b>生物学 · 沙漠植物的种子为什么不全发芽</b>：一年生植物的种子里总有一部分当年不萌发，休眠着等下一年。按期望后代数算，这是纯浪费——全部萌发的期望产出更高。但种群经历的是乘法过程，而且有吸收壁：碰上一个绝收年，全部萌发的品系当场清零，没有以后。所以自然选择实际最大化的是<b>几何平均适合度</b>，休眠率正是本期第三节那套算式的生物版本（Cohen 1966 年的模型讲的就是这件事）。这条推论能反过来用在人的组织上：一个团队的冗余、一家公司的现金储备、一个人不投入产出的那部分时间，<b>在期望值账本上永远显得低效——因为那本账算的是系综，而你活在路径上</b>。</li>
 <li><b>西方哲学与科学哲学 · 圣彼得堡赌局的两次解法</b>：1713 年尼古拉·伯努利提出一个赌局：不断抛硬币直到出现正面，第 n 次才正面则赔 2<sup>n</sup> 元。它的期望收益是无穷大，而没有人愿意为它付出很多钱。1738 年丹尼尔·伯努利给出解法：人衡量的是效用不是钱，效用随财富的对数增长，于是这个赌局的价值有限。三百年后，时间平均给出了同一条对数公式，但理由完全不同——不是人的心理曲线，是重复的乘法过程本身。同一条公式、两种辩护，这件事本身值得停一下：<b>当一个数学形式能被两套互不相容的理由推出来，它的"正确"就不能再当作对任何一方的支持</b>。而它们分叉的地方恰好可以检验：能汇集风险的主体应该偏离对数、逼近期望值——保险公司的行为正是如此，而这在伯努利的心理学解释里是需要额外假设的，在动力学解释里是直接推出来的。</li>
 </ul>
+</div>
+<div class="tk">
+<h3>📝 十条要点<span class="he">（Ten Takeaways）</span></h3>
+<ol class="takeaways">
+<li>厚尾的真正含义是总量由极少数几个观测决定，而且样本变多也不会缓解这种集中。</li>
+<li>判断厚尾只需一个比值：最大一项除以总和，样本翻倍后若比值不降就是厚尾世界。</li>
+<li>在厚尾世界里剔除离群值，算出的“平均行为”描述的是一个从未发生过的系统。</li>
+<li>按“三除以 n”规则，n 次观测里零次出事，只能把发生率的上界压到约 3/n。</li>
+<li>厚尾分布下样本均值和标准差都不收敛，以标准差为地基的风险指标因此不稳定。</li>
+<li>VaR 对超过阈值那 1% 的损失只字不提，而那 1% 里正是“难受”与“出局”的差别。</li>
+<li>费曼对照挑战者号：十万分之一的失效概率报告的不是风险，而是模型的自信。</li>
+<li>一个期望每轮 +5% 的抛硬币赌局，时间平均却是每轮约 −5%，多数人最终亏光大半。</li>
+<li>破产是吸收壁，期望值把出局之后的轮次也算了进去；凯利判据通过控制仓位来最大化时间平均。</li>
+<li>能汇集风险的保险公司真的就是那个系综，所以要先问自己这次是一条路径还是一个系综。</li>
+</ol>
 </div>
 <div class="thinking">
 <h3 data-tts="950c4152efee96ff">深入思考<span class="he">（Going Deeper）</span></h3>

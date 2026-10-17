@@ -63,6 +63,12 @@ details p{margin:12px 0 0;font-size:0.9rem;color:#a9a096;line-height:1.75}
 footer{text-align:center;padding:56px 0 10px;font-size:0.78rem;color:#57524b;font-family:"SF Mono",Menlo,monospace;border-top:1px solid rgba(255,255,255,0.06);margin-top:50px}
 footer a{color:#79a6d2;text-decoration:none}
 @media(max-width:600px){h1{font-size:1.85rem}.wrap{padding:24px 16px 60px}h2{font-size:1.22rem}}
+.tk{margin:46px 0 10px}
+.tk h3{font-size:1.02rem;color:#e0895e;margin-bottom:14px;letter-spacing:0.5px}
+.takeaways{counter-reset:tk;list-style:none;margin:0;padding:0;border:1px solid rgba(224,137,94,0.3);border-radius:12px;background:rgba(224,137,94,0.04)}
+.takeaways li{counter-increment:tk;position:relative;margin:0;padding:11px 18px 11px 52px;border-top:1px solid rgba(224,137,94,0.12);font-size:0.94rem;color:#d5cdc1;line-height:1.75}
+.takeaways li:first-child{border-top:none}
+.takeaways li::before{content:counter(tk,decimal-leading-zero);position:absolute;left:18px;top:12px;font-family:"SF Mono",Menlo,monospace;font-size:0.78rem;color:#e0895e}
 </style></head><body>
 <div class="wrap">
 <header>
@@ -340,6 +346,21 @@ footer a{color:#79a6d2;text-decoration:none}
 <li><b>历史与军事 · 智利的 Cybersyn</b>：1971 到 1973 年，英国控制论学者 Stafford Beer 受邀在智利搭了一套叫 Cybersyn 的系统：一张连接各国营工厂的电传网、一套统计预警软件、一间六边形的操作室。它的理论骨架是艾什比的必要多样性——调节者掌握的状态数必须不少于被调节者，否则控不住。本期两条机制合起来给出一个不太受待见的读法：这个项目最常被引用的一次「有效」，是 1972 年 10 月卡车司机罢工期间，那张电传网被用来调度大约两百辆卡车、维持物资分配；而那间操作室的原型始终没搬进总统府，控制模型本身从未真正跑成闭环。也就是说，<b>Cybersyn 那次成功验证的是第二节那条捷径机制（网络把距离压塌了），不是第三节那套必要多样性的控制理论</b>。这个结论对今天更有用：一个系统被夸的地方和它真正起作用的地方，经常不是同一处；而只有把「哪条机制在跑」拆开问，才看得出来。1973 年 9 月 11 日政变之后项目终止，所以它的控制理论部分至今没有得到过检验——不是被证伪，是没来得及被检验，这两件事不能混。</li>
 <li><b>经济与制度 · 一个出资人给这门学科命的名</b>：1948 年韦弗（Warren Weaver）在《美国科学家》上写《科学与复杂性》，把问题分成三类——简单性问题（几个变量）、无组织的复杂性（变量多到可以用统计平均去处理）、以及夹在中间那类<em>有组织的复杂性</em>（变量既多又互相纠缠，平均掉就没了）。要紧的是他的身份：他是洛克菲勒基金会自然科学部的主任，也就是说，<b>这门学科的问题分类，是由一个分配经费的人写下来的</b>，而且他在文章里直接开出了处方——要靠跨学科的「混合小组」去做。第三节和第二节两条机制在这儿同时成立：出资人写下了验收标准（选择压力），而那套语言随后通过捷径跨了界——1961 年简·雅各布斯（Jane Jacobs）在《美国大城市的死与生》最后一章「城市是哪一类问题」里整段引用了韦弗，用「有组织的复杂性」去反对当时把城市当成两变量问题的规划范式。推论是：这次跨界迁移过去的是<em>分类</em>，不是<em>方法</em>——雅各布斯借走的是一个判断问题类型的框架，而真正能算城市的工具又过了三十年才出现。所以判断一个概念是否真的进了某个领域，看的不是这个词第一次出现在那儿，而是<b>第一个测量出现在那儿</b>。</li>
 </ul>
+</div>
+<div class="tk">
+<h3>📝 十条要点<span class="he">（Ten Takeaways）</span></h3>
+<ol class="takeaways">
+<li>复杂性科学的招牌概念多被具体差事逼出，控制论就来自维纳的高射炮预测任务。</li>
+<li>一个概念的适用边界，基本就是当初逼出它的那个原始问题的边界。</li>
+<li>韦斯特的 3/4 次幂代谢律以分形供给管网为前提，搬到没有管网的东西上就失效。</li>
+<li>梅西会议给几个学科加了捷径，「反馈」「信息」等词迅速扩散，滤波数学却原地没动。</li>
+<li>跨学科捷径传得动可拆卸的词，传不动假设、误差定义、否证标准这类整套约束。</li>
+<li>经费不改变结论对错，却决定哪些问题被问；冷战军方经费偏好控制与预测类问题。</li>
+<li>圣塔菲研究所 1984 年成立，专为在院系和政府预算之外做理论，换了一把经费筛子。</li>
+<li>「已经多的更容易再多」被独立发明过多次，默顿的马太效应把它用在了科学功劳分配上。</li>
+<li>「经费筛掉了某些问题」几乎无法证伪，因为没被资助的问题不留记录，只能算假说。</li>
+<li>智利 Cybersyn 在 1972 年罢工中调度卡车，验证的是网络捷径而非必要多样性理论。</li>
+</ol>
 </div>
 <div class="thinking">
 <h3 data-tts="bf1d1f1f793b9f39">深入思考<span class="he">（Going Deeper）</span></h3>

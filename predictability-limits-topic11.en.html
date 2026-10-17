@@ -60,6 +60,12 @@ details p{margin:12px 0 0;font-size:0.9rem;color:#a9a096;line-height:1.75}
 footer{text-align:center;padding:56px 0 10px;font-size:0.78rem;color:#57524b;font-family:"SF Mono",Menlo,monospace;border-top:1px solid rgba(255,255,255,0.06);margin-top:50px}
 footer a{color:#79a6d2;text-decoration:none}
 @media(max-width:600px){h1{font-size:1.85rem}.wrap{padding:24px 16px 60px}h2{font-size:1.22rem}}
+.tk{margin:46px 0 10px}
+.tk h3{font-size:1.02rem;color:#e0895e;margin-bottom:14px;letter-spacing:0.5px}
+.takeaways{counter-reset:tk;list-style:none;margin:0;padding:0;border:1px solid rgba(224,137,94,0.3);border-radius:12px;background:rgba(224,137,94,0.04)}
+.takeaways li{counter-increment:tk;position:relative;margin:0;padding:11px 18px 11px 52px;border-top:1px solid rgba(224,137,94,0.12);font-size:0.94rem;color:#d5cdc1;line-height:1.75}
+.takeaways li:first-child{border-top:none}
+.takeaways li::before{content:counter(tk,decimal-leading-zero);position:absolute;left:18px;top:12px;font-family:"SF Mono",Menlo,monospace;font-size:0.78rem;color:#e0895e}
 </style></head><body>
 <div class="wrap">
 <header>
@@ -310,6 +316,21 @@ footer a{color:#79a6d2;text-decoration:none}
 <li><b>Economics &amp; institutions · the missing half of the socialist calculation debate</b>: In the argument over whether a socialist economy could be "calculated", running from the 1920s to the 1940s, the central claim of Mises and Hayek was about <em>information</em>: prices aggregate dispersed local knowledge that no centre can obtain, so it cannot be computed. That argument addresses the first wall. This issue's second wall supplies an independent and stronger version: <b>even with every datum on the central desk, there may be no faster way to obtain the outcome than letting the economy run itself once.</b> That yields a conclusion neither side raised at the time — the difficulty of planning does not recede as compute and data grow, so the expectation that keeps resurfacing decade after decade ("once computers are strong enough") is looking for a door in the wrong wall. <b>But here it does not hold</b>: the rigorous results on irreducibility concern systems with <em>fixed rules</em>, whereas the agents in an economy learn and change their behaviour in response to any model you publish (Topic 26 is entirely about this), so the rules themselves move. That makes an economy harder to predict than an irreducible system, but it also means Wolfram's conclusion cannot be imported as a proof — here it is an analogy, not a theorem.</li>
 <li><b>Biomedicine · the folded state has a shortcut, the folding does not</b>: In 1969 Levinthal did an arithmetic: a protein of moderate length has so many possible conformations that the age of the universe would not suffice to enumerate them, yet real folding takes milliseconds. For decades that contrast was read as "you cannot know the outcome without simulating the dynamics". In 2020 AlphaFold overturned the reading: predict the final three-dimensional structure directly from the amino-acid sequence, at close to experimental accuracy, skipping the folding process entirely — the end state is reducible. But it does not give you the folding <b>pathway or rate</b>, and that part still has to be run out in molecular dynamics. Same system; one question has a shortcut, the other does not. This is the strongest evidence for the third question above: <b>"this system is unpredictable" is a meaningless sentence, because predictability belongs to questions, not systems.</b> So when you hear "that can't be computed", the valuable follow-up is: "are you computing an end state, a trajectory, or a statistic?" The three answers can differ completely, and the person asking usually has not sorted out which one they want.</li>
 </ul>
+</div>
+<div class="tk">
+<h3>📝 Ten Takeaways</h3>
+<ol class="takeaways">
+<li>In 1961 Lorenz re-entered a printout rounded to three decimals and got entirely different weather: in chaotic systems error doubles at a fixed interval.</li>
+<li>Spending on measurement precision pays off multiplicatively while forecast horizon grows only additively, so weather forecasting hits an intrinsic ceiling of about two weeks.</li>
+<li>Ensemble forecasting perturbs the initial state within observational error and runs many forecasts — 51 at ECMWF — and the spread of the members is itself the product.</li>
+<li>Probability forecasts can be scored by calibration — days given 70% should see rain about 70% of the time — whereas a single missed point forecast can't be blamed on model or luck.</li>
+<li>Predictability belongs to the question, not the system: the weather on a given day is unanswerable at long range, but a statistic like climate is not.</li>
+<li>Cellular automaton Rule 90 has a closed form for every cell (Pascal's triangle mod 2), while Rule 30 must be run step by step — that is computational irreducibility.</li>
+<li>Three questions tell the walls apart: does ten times the precision help, does ten times the compute help, and do you want a trajectory, an end state, or a statistic?</li>
+<li>Ensembles perturb only the initial conditions and are blind to errors in the model itself, so a narrow spread does not mean a reliable forecast.</li>
+<li>Computational irreducibility rests on Wolfram's principle of computational equivalence, a conjecture rather than a theorem, and proves nothing about any specific question.</li>
+<li>AlphaFold predicts a protein's final structure straight from its sequence, yet the folding pathway still has to be simulated: one system, one question with a shortcut, one without.</li>
+</ol>
 </div>
 <div class="thinking">
 <h3>Going Deeper</h3>

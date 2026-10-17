@@ -63,6 +63,12 @@ details p{margin:12px 0 0;font-size:0.9rem;color:#a9a096;line-height:1.75}
 footer{text-align:center;padding:56px 0 10px;font-size:0.78rem;color:#57524b;font-family:"SF Mono",Menlo,monospace;border-top:1px solid rgba(255,255,255,0.06);margin-top:50px}
 footer a{color:#79a6d2;text-decoration:none}
 @media(max-width:600px){h1{font-size:1.85rem}.wrap{padding:24px 16px 60px}h2{font-size:1.22rem}}
+.tk{margin:46px 0 10px}
+.tk h3{font-size:1.02rem;color:#e0895e;margin-bottom:14px;letter-spacing:0.5px}
+.takeaways{counter-reset:tk;list-style:none;margin:0;padding:0;border:1px solid rgba(224,137,94,0.3);border-radius:12px;background:rgba(224,137,94,0.04)}
+.takeaways li{counter-increment:tk;position:relative;margin:0;padding:11px 18px 11px 52px;border-top:1px solid rgba(224,137,94,0.12);font-size:0.94rem;color:#d5cdc1;line-height:1.75}
+.takeaways li:first-child{border-top:none}
+.takeaways li::before{content:counter(tk,decimal-leading-zero);position:absolute;left:18px;top:12px;font-family:"SF Mono",Menlo,monospace;font-size:0.78rem;color:#e0895e}
 </style></head><body>
 <div class="wrap">
 <header>
@@ -229,6 +235,21 @@ footer a{color:#79a6d2;text-decoration:none}
 <li><b>历史与军事 · 帝国的半径由信使速度定</b>：罗马的国家邮驿（cursus publicus）常速约每天 80 公里、急件可上 160 公里；蒙古的驿站（yam）靠密集换马，信使一天能跑 200–300 公里。本期几条机制合起来，给"帝国能有多大"一个不靠武力的上限：要控制的领土越大，需要协调的事务按超线性涨，而命令传递的速度是那个"不会随帝国变大而变快的末端单元"（正是上一期毛细血管的角色）。于是有效控制半径，由"信号速度 ÷ 协调需求的增速"卡死。罗马和蒙古是在同一堵墙上用了两种解法：罗马靠修更密的路（抬高基础设施），蒙古靠换马接力（抬高末端速度本身）。<b>但这里不成立</b>：帝国缺了城市那超线性的<em>产出</em>回馈——多吞一个行省，只增加协调成本，不像城市多一批人那样带来创新红利；被征服地的产出还常常是负的。所以帝国坐在生物那一侧（次线性、终会见顶），命运更像公司而不是城市——这恰好解释了为什么历史上的帝国像公司一样一个个died，而它们治下的城市一座座活到了今天。能借走的是"分配网络的末端速度设上限"这条推理，不能借城市那条乐观的超线性。</li>
 <li><b>文学与艺术 · 流派会死，而"场景"不会</b>：一个艺术或文学流派（立体主义、某本先锋杂志、某个乐种）的寿命，出奇地像一家公司——它围着一套风格这个"单一产品"转，风格一旦被穷尽或被市场消化，它就以近乎恒定的速率退场，资历不救它。而一座城市的整个艺术生态（"场景"，scene）却像城市本身：巴黎、纽约的艺术不绑在任何一个流派上，一个衰了，另一个从同一批人里长出来。本期的机制对照给出一个对创作者不太舒服的推论：想让作品<em>延续</em>，别把一种风格优化到极致（那是公司路径，通向见顶后的恒定死亡率），而要维持能不断重组的多样输入（城市路径）。<b>但这里不成立</b>：流派的短命未必是失败——一场先锋运动本就可能<em>意在</em>燃尽、以完成为目的，用"活了多少年"去评判它是套错了尺子，就像拿公司寿命去要求一首诗。能借走的是"单一产品挂在次线性、终会恒定衰减"这条结构，不能顺手把"越长寿越好"这个价值判断一起夹带进艺术。</li>
 </ul>
+</div>
+<div class="tk">
+<h3>📝 十条要点<span class="he">（Ten Takeaways）</span></h3>
+<ol class="takeaways">
+<li>城市人口翻一倍，道路、电缆、加油站等基础设施只需约 1.8 倍，按约 0.85 次幂次线性增长。</li>
+<li>基础设施的次线性来自分配网络共享干线、摊薄成本，和动物的供给网络是同一套几何规律。</li>
+<li>工资、GDP、专利等社会产出随城市人口按约 1.15 次幂超线性增长，大城市的人均产出更高。</li>
+<li>超线性的机制在连接：城市越大，每个人能接触到的人、技能和点子增长得比人口还快。</li>
+<li>犯罪和传染病与工资、专利共用约 1.15 的指数，城市的活力和病是同一台发动机的两个出口。</li>
+<li>Daepp 与 West 分析两万五千家北美上市公司，发现其半衰期约十年，死亡率不随公司年龄变化。</li>
+<li>恒定风险率让公司存活曲线呈指数衰减，像原子核衰变一样，老牌资历不提供任何保护。</li>
+<li>West 认为公司活在次线性曲线上、围着少数产品转而日益僵化，城市则靠人的新组合一次次重启。</li>
+<li>城市规模律的指数会随城市边界的划法漂移，而「城市不死」的说法带着明显的幸存者偏差。</li>
+<li>帝国更像公司而非城市：多吞一个行省只增加协调成本，却没有城市那种超线性的产出回馈。</li>
+</ol>
 </div>
 <div class="thinking">
 <h3 data-tts="c3b93d7a9deb2ac3">深入思考<span class="he">（Going Deeper）</span></h3>

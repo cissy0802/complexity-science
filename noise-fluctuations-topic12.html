@@ -63,6 +63,12 @@ details p{margin:12px 0 0;font-size:0.9rem;color:#a9a096;line-height:1.75}
 footer{text-align:center;padding:56px 0 10px;font-size:0.78rem;color:#57524b;font-family:"SF Mono",Menlo,monospace;border-top:1px solid rgba(255,255,255,0.06);margin-top:50px}
 footer a{color:#79a6d2;text-decoration:none}
 @media(max-width:600px){h1{font-size:1.85rem}.wrap{padding:24px 16px 60px}h2{font-size:1.22rem}}
+.tk{margin:46px 0 10px}
+.tk h3{font-size:1.02rem;color:#e0895e;margin-bottom:14px;letter-spacing:0.5px}
+.takeaways{counter-reset:tk;list-style:none;margin:0;padding:0;border:1px solid rgba(224,137,94,0.3);border-radius:12px;background:rgba(224,137,94,0.04)}
+.takeaways li{counter-increment:tk;position:relative;margin:0;padding:11px 18px 11px 52px;border-top:1px solid rgba(224,137,94,0.12);font-size:0.94rem;color:#d5cdc1;line-height:1.75}
+.takeaways li:first-child{border-top:none}
+.takeaways li::before{content:counter(tk,decimal-leading-zero);position:absolute;left:18px;top:12px;font-family:"SF Mono",Menlo,monospace;font-size:0.78rem;color:#e0895e}
 </style></head><body>
 <div class="wrap">
 <header>
@@ -199,6 +205,21 @@ footer a{color:#79a6d2;text-decoration:none}
 <li><b>经济与制度 · 为什么"再造一个硅谷"总是失败</b>：产业集聚的经典解释正是本期这一套——最初几家公司落在哪里带有偶然（一所大学、几笔军方合同、某个人不想搬家），随后人才池、供应商、风投构成增益递增，最后后来者即使给出更便宜的地价也拉不动。合起来能推出一个政策含义：<b>复制失败不是因为要素给得不够，而是因为它在用晚期的钱去买只有早期才买得到的东西</b>——同样的补贴，投在一个还在乱抽的罐子里和一个已经 300 比 20 的罐子里，效果差几个数量级。可操作的反转：产业政策若要押注，该押在<b>尚未锁定的新兴领域</b>（那里方差还大），而不是在已锁定领域搞追赶。<b>但这里不成立</b>：真实的城市有波利亚罐子没有的负反馈——房价、通勤、拥挤会给集聚封顶，所以现实里的锁定不会一路涨到 100%，而是停在某个被成本卡住的份额上。</li>
 <li><b>西方哲学与科学哲学 · 拱肩与"总能编出一个理由"</b>：1979 年 Gould 与 Lewontin 用圣马可教堂穹顶下的<em>拱肩</em>（spandrels）——那是拱券相接后必然剩下的三角空间，不是为了画画而设计的——嘲讽生物学里的适应主义：任何性状都能事后编出一个功能故事。这个批评当年缺一样东西：替代机制。本期正好补上了，而且是可检验的那种——漂变（节 1）加锁定（节 3）能生成一个不需要任何功能优势的解释，Newberry 那类把中性模型当零假设的检验就是它的具体做法。由此推出的是举证责任的反转：<b>面对"为什么是这样"，默认答案应当是"偶然 + 锁定"，功能解释需要额外拿出证据</b>，而不是反过来。<b>但这里不成立</b>：零假设一旦好用就容易被滥用——把每一个说不清的现象都归给漂变，和把每一个都归给适应，在方法论上是同一个毛病。区别只在于，中性模型至少给出了可以被数据否掉的具体预测。</li>
 </ul>
+</div>
+<div class="tk">
+<h3>📝 十条要点<span class="he">（Ten Takeaways）</span></h3>
+<ol class="takeaways">
+<li>大数定律只在每次抽取彼此独立时成立，相对涨落大致按 1/√N 缩小。</li>
+<li>一旦这次的随机结果会改变下一次的概率，涨落就不会被平均掉，而是被写进系统状态，变成历史。</li>
+<li>随机共振：给阈值系统加入适量噪声，能让一直够不着门槛的弱信号被检出，噪声过大又会把它淹没。</li>
+<li>小龙虾的机械感受器、匙吻鲟捕食和加了阈下振动鞋垫的人体平衡，都有随机共振的实证。</li>
+<li>波利亚罐子每摸出一个球就再加一个同色球，红球的最终占比在 0 到 1 之间均匀分布。</li>
+<li>Brian Arthur 的增益递增模型说明：市场一定会锁定，锁定到哪个不可预测，事前更好的也不保证赢。</li>
+<li>在增益递增的市场里，同一份资源投在早期窗口期之内和之外，效果差好几个数量级。</li>
+<li>QWERTY 锁定在劣势键盘上的关键证据，来自与对手键盘有商业利益的 Dvorak 本人主持的实验。</li>
+<li>“历史影响了结果”“结果是低效的”“结果不可逆”是三个不同的主张，后两个需要各自举证。</li>
+<li>Salganik 等人的平行世界音乐实验显示，社会影响越强榜单越不可复现，但歌曲质量仍决定排名的区间。</li>
+</ol>
 </div>
 <div class="thinking">
 <h3 data-tts="58014b92af1c64dd">深入思考<span class="he">（Going Deeper）</span></h3>

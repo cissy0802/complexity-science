@@ -65,6 +65,12 @@ details p{margin:12px 0 0;font-size:0.9rem;color:#a9a096;line-height:1.75}
 footer{text-align:center;padding:56px 0 10px;font-size:0.78rem;color:#57524b;font-family:"SF Mono",Menlo,monospace;border-top:1px solid rgba(255,255,255,0.06);margin-top:50px}
 footer a{color:#79a6d2;text-decoration:none}
 @media(max-width:600px){h1{font-size:1.85rem}.wrap{padding:24px 16px 60px}h2{font-size:1.22rem}}
+.tk{margin:46px 0 10px}
+.tk h3{font-size:1.02rem;color:#e0895e;margin-bottom:14px;letter-spacing:0.5px}
+.takeaways{counter-reset:tk;list-style:none;margin:0;padding:0;border:1px solid rgba(224,137,94,0.3);border-radius:12px;background:rgba(224,137,94,0.04)}
+.takeaways li{counter-increment:tk;position:relative;margin:0;padding:11px 18px 11px 52px;border-top:1px solid rgba(224,137,94,0.12);font-size:0.94rem;color:#d5cdc1;line-height:1.75}
+.takeaways li:first-child{border-top:none}
+.takeaways li::before{content:counter(tk,decimal-leading-zero);position:absolute;left:18px;top:12px;font-family:"SF Mono",Menlo,monospace;font-size:0.78rem;color:#e0895e}
 </style></head><body>
 <div class="wrap">
 <header>
@@ -348,6 +354,22 @@ footer a{color:#79a6d2;text-decoration:none}
 <li><b>生物与神经科学 · 蜂群和大脑在解同一道题</b>：灵长类做知觉判断时（比如判断一片随机运动的点整体朝哪边走），顶叶一些神经元群的放电率会随证据<b>累积</b>上升，触到一个阈值就出决定，而竞争的选项之间存在相互抑制。Marshall 等人 2009 年把这套结构和蜜蜂、蚂蚁选巢的机制放进同一个决策论框架比对，指出两边逼近的是同一个最优检验。第 3 节那三个零件在两边都齐了：证据累积（不是一次表决）、跨选项抑制（不是各自加固）、阈值触发（不是相对多数）。由此推出一条能直接用的结论：<b>速度与准确率的权衡不是意志力问题，是阈值这一个参数</b>——阈值放低，决定得快、错得多；放高，反过来；两端之间不存在「又快又准」的点。而且蚂蚁那边已经把这个参数的可调性做实了：旧巢被毁、必须马上搬走时，蚁群会主动降低法定数，拿准确度换速度。所以对一个团队说「这次要又快又好」，是在要一个模型里不存在的东西；能谈的只是「这次阈值放在哪儿，以及放低之后错误率大概升到多少」。<b>但这里不成立</b>：大脑里的交叉抑制是解剖上的硬连线，蜂群里靠的是停止信号的物理接触——两边都有一个<b>结构性</b>的零件在强制执行「你必须去压制对手的鼓吹者」。人类会议里没有任何东西扮演这个角色，通常还正好相反：声音最大的一方强化的是自己这边，而提反对意见的成本由反对者独自承担。所以「我们像蜂群一样决策」这个说法，在缺了这个零件的情况下是空的——剩下的那部分，恰好就是第 2 节那个级联。</li>
 </ul>
 </div>
+<div class="tk">
+<h3>📝 十条要点<span class="he">（Ten Takeaways）</span></h3>
+<ol class="takeaways">
+<li>群体智慧靠的是各人错的方向互相抵消：Galton 统计的 787 张猜牛卡片，中位数只差 0.75%。</li>
+<li>多样性预测定理是一条纯代数恒等式：群体误差等于平均个体误差减去成员之间的分歧度。</li>
+<li>取平均时群体永远不比平均个体差，而加入一个水平偏低但错法完全不同的人，也可能让整体变得更准。</li>
+<li>信息级联里每个人都做贝叶斯最优决策，但头两个信号一旦偶然一致，后来者的私人信息就不再进入公共池。</li>
+<li>级联形成的共识既容易起又很脆：后面的人身上没有信息支撑，一条公开的新证据就能让整条队伍翻面。</li>
+<li>Salganik 等人的音乐实验显示，能看到下载数的平行世界不平等更大，彼此的歌曲排名也对不上。</li>
+<li>同一批估计换一条聚合规则，答案能从 4 周变成 28 周；把双峰分歧平均掉，等于扔掉唯一的预警。</li>
+<li>蜜蜂选巢靠证据累积、跨选项的交叉抑制和法定数阈值，逼近序贯概率比检验这一最优决策方式。</li>
+<li>群体智慧压得住随机误差，压不住共同偏向；按孔多塞定理，个体准确率低于一半时人越多越确定地错。</li>
+<li>放血疗法延续两千年说明，专业共识的强度不能当证据强度用，关键要看从业者的信息来源有多独立。</li>
+</ol>
+</div>
+
 <div class="thinking">
 <h3 data-tts="2ade13249762d0f5">🧠 深入思考</h3>
 <details><summary>如果分歧度是收益，为什么现实中的组织几乎都在系统性地压缩它？</summary><p>招聘看「文化契合」、晋升看「像不像现在这批人」、开会追求「达成一致」——每一条单看都有合理性，合起来正好是在减少第二项。一个可能的解释是：分歧的收益落在<b>群体的判断精度</b>上，而分歧的成本落在<b>具体某个人的协调工作量</b>上。收益和成本记在不同的账上，于是谁付账谁说了算。如果这个解释对，那么修复的方向就不是宣传多样性的好处，而是把这两笔账并到一处——让为精度负责的人同时承担协调成本。</p></details>

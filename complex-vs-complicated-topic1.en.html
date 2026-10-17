@@ -58,6 +58,12 @@ details p{margin:12px 0 0;font-size:0.9rem;color:#a9a096;line-height:1.75}
 footer{text-align:center;padding:56px 0 10px;font-size:0.78rem;color:#57524b;font-family:"SF Mono",Menlo,monospace;border-top:1px solid rgba(255,255,255,0.06);margin-top:50px}
 footer a{color:#79a6d2;text-decoration:none}
 @media(max-width:600px){h1{font-size:1.85rem}.wrap{padding:24px 16px 60px}h2{font-size:1.22rem}}
+.tk{margin:46px 0 10px}
+.tk h3{font-size:1.02rem;color:#e0895e;margin-bottom:14px;letter-spacing:0.5px}
+.takeaways{counter-reset:tk;list-style:none;margin:0;padding:0;border:1px solid rgba(224,137,94,0.3);border-radius:12px;background:rgba(224,137,94,0.04)}
+.takeaways li{counter-increment:tk;position:relative;margin:0;padding:11px 18px 11px 52px;border-top:1px solid rgba(224,137,94,0.12);font-size:0.94rem;color:#d5cdc1;line-height:1.75}
+.takeaways li:first-child{border-top:none}
+.takeaways li::before{content:counter(tk,decimal-leading-zero);position:absolute;left:18px;top:12px;font-family:"SF Mono",Menlo,monospace;font-size:0.78rem;color:#e0895e}
 </style></head><body>
 <div class="wrap">
 
@@ -298,6 +304,22 @@ footer a{color:#79a6d2;text-decoration:none}
 <li><b>Architecture &amp; design · Alexander's "life"</b>: the architect Christopher Alexander spent a career trying to say why an old city (Venice) or a Gothic cathedral feels <em>alive</em>, while a failed new development feels merely <em>messy</em> and a Modernist grid feels merely <em>dead</em>. On this issue's axis it clicks: the grid sits at the ordered end (frozen), the failed development at the random end (scattered), and "alive" is exactly the middle layer — structure and variation together, across many scales at once. Alexander even tried to find a measurable quantity for this aliveness (he called it wholeness). <b>Corollary: the elusive "vitality" in aesthetics may not be mysticism but our eyes recognising that a system has landed in the complex middle band rather than at either "simple" extreme.</b> This is a direct answer to the issue's anchor (the plain-vs-ornate debate in design): the difference between richness that emerges and mere mess is whether the structure runs across scales.</li>
 <li><b>Biology &amp; medicine · from "one gene, one trait" to omics</b>: early genetics dreamed the reductionist dream — find "the gene for height", "the gene for intelligence". But genome-wide association studies (GWAS) revealed that most common traits are the joint work of thousands of tiny-effect variants; in 2017 Boyle, Li and Pritchard even proposed the "omnigenic" model: nearly every expressed gene nudges a trait a little. That is "more is different" at the molecular level: a trait emerges from the whole regulatory network and maps onto no decomposable "part-cause". <b>Corollary: the so-called "missing heritability" (the genetic contribution nobody can locate) is mostly not a shortage of data but a wrong choice of level — you're looking on the gene level for something that exists only on the network level.</b></li>
 </ul>
+</div>
+
+<div class="tk">
+<h3>📝 Ten Takeaways</h3>
+<ol class="takeaways">
+<li>Perfect order and pure randomness are both simple: order compresses to one sentence, randomness to a single statistic.</li>
+<li>Real complexity lives only in the middle layer between order and randomness, where structure and surprise coexist.</li>
+<li>In 1948 Warren Weaver split scientific problems into simple ones, disorganized complexity, and the hardest kind, organized complexity.</li>
+<li>A complicated system can be taken apart, studied piece by piece and reassembled; splitting a complex system cuts the very relations that make it work.</li>
+<li>Complicated systems usually have a designer and repeatable behaviour; complex ones have no central designer, and the same start can end very differently.</li>
+<li>Treating a complex system as a complicated machine backfires, as when Australia's 1935 cane toads ignored the beetles and became a plague themselves.</li>
+<li>Philip Anderson's 1972 "More Is Different" argued that reducing everything to particles does not let you rebuild the higher levels from particle laws.</li>
+<li>Laws like temperature, memory and inflation appear only at the level where many units aggregate, so digging one level deeper has a ceiling.</li>
+<li>"Edge of chaos" is the most romanticised idea here: the claim that computation peaks near a critical λ did not hold up when re-tested in 1993.</li>
+<li>Before calling something complex, ask whether you can name the macro variable to watch and how to measure it; if not, the word is likely an excuse.</li>
+</ol>
 </div>
 
 <div class="thinking">

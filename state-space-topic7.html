@@ -63,6 +63,12 @@ details p{margin:12px 0 0;font-size:0.9rem;color:#a9a096;line-height:1.75}
 footer{text-align:center;padding:56px 0 10px;font-size:0.78rem;color:#57524b;font-family:"SF Mono",Menlo,monospace;border-top:1px solid rgba(255,255,255,0.06);margin-top:50px}
 footer a{color:#79a6d2;text-decoration:none}
 @media(max-width:600px){h1{font-size:1.85rem}.wrap{padding:24px 16px 60px}h2{font-size:1.22rem}}
+.tk{margin:46px 0 10px}
+.tk h3{font-size:1.02rem;color:#e0895e;margin-bottom:14px;letter-spacing:0.5px}
+.takeaways{counter-reset:tk;list-style:none;margin:0;padding:0;border:1px solid rgba(224,137,94,0.3);border-radius:12px;background:rgba(224,137,94,0.04)}
+.takeaways li{counter-increment:tk;position:relative;margin:0;padding:11px 18px 11px 52px;border-top:1px solid rgba(224,137,94,0.12);font-size:0.94rem;color:#d5cdc1;line-height:1.75}
+.takeaways li:first-child{border-top:none}
+.takeaways li::before{content:counter(tk,decimal-leading-zero);position:absolute;left:18px;top:12px;font-family:"SF Mono",Menlo,monospace;font-size:0.78rem;color:#e0895e}
 </style></head><body>
 <div class="wrap">
 <header>
@@ -305,6 +311,21 @@ footer a{color:#79a6d2;text-decoration:none}
 <li><b>控制论史 · Ashby 的稳态机</b>：1948 年，W. Ross Ashby 用四个互相耦合的电磁单元造了一台叫 homeostat（稳态机）的机器。它没有目标、不知道"正确"是什么：任何一个单元的输出超出容许范围，就随机换一组内部参数，然后看看会怎样；不行就再换。跑上一阵，它总能安顿在一个稳定状态——你拔掉一根线、反接一次极性，它折腾一会儿又找回稳定。本期几条机制在这里成套跑：状态空间（每个单元的电流是一根轴）、稳定与不稳定不动点、以及"随机换参数"其实是在<b>换一整张相图</b>，直到抽中一张里面有稳定不动点、而且当前位置正好在它的吸引域里。由此推出一个很不舒服的结论：<b>适应看上去像是在追求稳定，其实只是不稳定的配置留不下来。</b>这里没有任何目标、任何智能、任何意图——稳定是幸存的结果，不是被追求的对象。凡是看见一个系统"在维持自己"就断定它有目的，都该先想想这台 1948 年的机器。</li>
 <li><b>经济学与科学哲学 · 均衡不等于吸引子</b>：经济学最常说的一句话是"市场长期会回到均衡"。但 Arrow 与 Debreu 1954 年那个著名的一般均衡证明，证的是均衡<em>存在</em>——在给定假设下存在一组价格让所有市场同时出清；它没有证明经济会走到那儿去。而 1970 年代的 Sonnenschein–Mantel–Debreu 定理更进一步：总超额需求函数的形状几乎不受个体理性的约束，因此常规的调整过程（价格随超额需求升降）并不保证收敛。用本期的语言说得最清楚：<b>他们证明的是不动点存在，而不动点存在跟它是不是吸引的，是两个独立的问题。</b>不稳定不动点也是不动点——山顶上那个球一样满足"合力为零"。于是任何"长期会回归"的说法，都必须补上三个问题才算说完：回归的动力学是什么、时间尺度多长、我现在在不在那个吸引域里。这三问对"均值回归""房价长期看涨""市场终会奖励价值"一视同仁地适用。</li>
 </ul>
+</div>
+<div class="tk">
+<h3>📝 十条要点<span class="he">（Ten Takeaways）</span></h3>
+<ol class="takeaways">
+<li>摆的状态需要角度和角速度两个数，因为状态是足以定下未来的最小一组信息。</li>
+<li>把状态变量当坐标轴，系统在某一刻就是状态空间里的一个点，随时间移动画出一条轨迹。</li>
+<li>确定性系统里两条轨迹永不相交，所以平面上的轨迹无法永远不重复地乱窜，混沌至少要三维。</li>
+<li>稳定不动点与不稳定不动点的分界只有一条：推一下之后，系统自己回不回来。</li>
+<li>「一直没出事」不是稳定的证据；应主动做小扰动，记录不加人工干预的恢复时间。</li>
+<li>吸引子分四类：不动点、极限环、环面（准周期）和奇异吸引子，先判断类型再挑预测方法。</li>
+<li>极限环的幅度和周期由系统自己决定，规律波动不需要外部节拍器，移植后的心脏照样自己跳。</li>
+<li>离终点的距离和离分水岭的距离是两个不相干的量，同样的努力在分水岭附近效果大得多。</li>
+<li>相图只在参数不变时成立，参数一变吸引子可能移走或消失，等系统「回到常态」的前提是常态还在。</li>
+<li>Arrow 与 Debreu 证明的是一般均衡存在，而不动点存在与它是否吸引是两个独立的问题。</li>
+</ol>
 </div>
 <div class="thinking">
 <h3 data-tts="e30d81a252f5c3ed">深入思考<span class="he">（Going Deeper）</span></h3>

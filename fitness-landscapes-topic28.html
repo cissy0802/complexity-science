@@ -63,6 +63,12 @@ details p{margin:12px 0 0;font-size:0.9rem;color:#a9a096;line-height:1.75}
 footer{text-align:center;padding:56px 0 10px;font-size:0.78rem;color:#57524b;font-family:"SF Mono",Menlo,monospace;border-top:1px solid rgba(255,255,255,0.06);margin-top:50px}
 footer a{color:#79a6d2;text-decoration:none}
 @media(max-width:600px){h1{font-size:1.85rem}.wrap{padding:24px 16px 60px}h2{font-size:1.22rem}}
+.tk{margin:46px 0 10px}
+.tk h3{font-size:1.02rem;color:#e0895e;margin-bottom:14px;letter-spacing:0.5px}
+.takeaways{counter-reset:tk;list-style:none;margin:0;padding:0;border:1px solid rgba(224,137,94,0.3);border-radius:12px;background:rgba(224,137,94,0.04)}
+.takeaways li{counter-increment:tk;position:relative;margin:0;padding:11px 18px 11px 52px;border-top:1px solid rgba(224,137,94,0.12);font-size:0.94rem;color:#d5cdc1;line-height:1.75}
+.takeaways li:first-child{border-top:none}
+.takeaways li::before{content:counter(tk,decimal-leading-zero);position:absolute;left:18px;top:12px;font-family:"SF Mono",Menlo,monospace;font-size:0.78rem;color:#e0895e}
 </style></head><body>
 <div class="wrap">
 <header>
@@ -356,6 +362,22 @@ footer a{color:#79a6d2;text-decoration:none}
 <li><b>科学社会学 · 「好想法越来越难找」</b>：Bloom、Jones、Van Reenen 与 Webb 在 2020 年的一项研究里给出一组扎实的数字：在半导体、农作物育种、医药等领域，维持同样的进步速度所需的研究人力在持续上升。通行解释是"低垂的果实摘完了"——问题本身变难了。把本期三条机制叠上去，会得到一个不同且可检验的解释：一个领域的<b>邻域</b>是由它认可的方法定义的（什么算一篇能发表的论文），K 由它的变量互相依赖的程度决定，而探索与利用的比例由经费周期和聘期结构决定——这三者都奖励"在既有方法内做增量"。于是"变难"的一部分可能不是地形变了，而是这个领域<b>停在了自己方法所能到达的那个局部最优上</b>。这个版本推出了一个前者推不出的结论：如果真是果实摘完了，投入更多同类人力就是唯一解；如果是邻域太窄，那么引进外来方法（换走法）会比加人便宜一个数量级——而这两种情形在数据上是可以分开的，看的是跨领域方法迁移带来的产出弹性。</li>
 </ul>
 </div>
+<div class="tk">
+<h3>📝 十条要点<span class="he">（Ten Takeaways）</span></h3>
+<ol class="takeaways">
+<li>Sewall Wright 在 1932 年把每种基因组合的繁殖成功率画成高度，造出了适应性景观这张图。</li>
+<li>适应性景观逼人说清三件事：什么算一个位置，什么算相邻，高度用哪个可比大小的量。</li>
+<li>爬山法只搬向更高的邻居，即使每一步都选对，也可能停在局部最优、永远到不了全局最优。</li>
+<li>站在局部最优上，仅凭本地信息分辨不出它和全局最优，因为两处环顾四周都是往下。</li>
+<li>从好位置去更好位置的代价是谷底深度和谷底时长，多数改革死在授权比谷底更短。</li>
+<li>Kauffman 和 Levin 的 NK 模型显示，部件间依赖度 K 越高地形越崎岖，K 为 0 时只有一个山头。</li>
+<li>崎岖度是耦合度的后果，解耦虽然不直接涨指标，却能让以后的小步改进重新有效。</li>
+<li>模拟退火用温度控制接受变差的概率并逐步降温，真正要设计的是那条降温曲线。</li>
+<li>多臂老虎机问题的结论是：剩下的轮数越多，探索的最优比例就越高。</li>
+<li>东欧转轨的转型性衰退可读作一次穿越谷底，成败取决于谷底时长与政治授权周期之比。</li>
+</ol>
+</div>
+
 <div class="thinking">
 <h3 data-tts="6a0a74152b76e12a">深入思考<span class="he">（Going Deeper）</span></h3>
 <details><summary>如果高维空间里山脊到处都是，那"必须先下山"是不是根本就是个伪问题？</summary><p>不是，但它的适用范围比通常以为的窄。关键在于你的<b>邻域</b>有多丰富：生物演化里可动的位点成千上万，所以绕路的机会多；而一个组织能同时改的东西往往只有两三样，有效维度极低，谷就是真的谷。所以判据不是"这个系统复杂不复杂"，是"我一步能同时改几件事"。这也解释了为什么同一个转型，在能同时动人事、流程与激励的时候是斜坡，在只能动一样的时候是悬崖。</p></details>

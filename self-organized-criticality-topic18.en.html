@@ -58,6 +58,12 @@ details p{margin:12px 0 0;font-size:0.9rem;color:#a9a096;line-height:1.75}
 footer{text-align:center;padding:56px 0 10px;font-size:0.78rem;color:#57524b;font-family:"SF Mono",Menlo,monospace;border-top:1px solid rgba(255,255,255,0.06);margin-top:50px}
 footer a{color:#79a6d2;text-decoration:none}
 @media(max-width:600px){h1{font-size:1.85rem}.wrap{padding:24px 16px 60px}h2{font-size:1.22rem}}
+.tk{margin:46px 0 10px}
+.tk h3{font-size:1.02rem;color:#e0895e;margin-bottom:14px;letter-spacing:0.5px}
+.takeaways{counter-reset:tk;list-style:none;margin:0;padding:0;border:1px solid rgba(224,137,94,0.3);border-radius:12px;background:rgba(224,137,94,0.04)}
+.takeaways li{counter-increment:tk;position:relative;margin:0;padding:11px 18px 11px 52px;border-top:1px solid rgba(224,137,94,0.12);font-size:0.94rem;color:#d5cdc1;line-height:1.75}
+.takeaways li:first-child{border-top:none}
+.takeaways li::before{content:counter(tk,decimal-leading-zero);position:absolute;left:18px;top:12px;font-family:"SF Mono",Menlo,monospace;font-size:0.78rem;color:#e0895e}
 </style></head><body>
 <div class="wrap">
 
@@ -277,6 +283,21 @@ footer a{color:#79a6d2;text-decoration:none}
 </ul>
 </div>
 
+<div class="tk">
+<h3>📝 Ten Takeaways</h3>
+<ol class="takeaways">
+<li>The Bak-Tang-Wiesenfeld sandpile of 1987 has one rule: a cell holding more than three grains topples, giving one grain to each of its four neighbours.</li>
+<li>In the sandpile model, the same added grain can do nothing at all or set off an avalanche sweeping across most of the grid.</li>
+<li>In self-organized critical systems the trigger says nothing about the size of the event; the cause of a huge avalanche is always just an ordinary grain.</li>
+<li>An ordinary phase transition must be tuned to its critical point, but a sandpile's critical slope is an attractor: too shallow and it steepens, too steep and an avalanche flattens it.</li>
+<li>Any system built on slow accumulation plus threshold release drifts on its own into a state where a large event can happen at any moment.</li>
+<li>Decades of the US Forest Service putting out every fire let fuel build up, so suppressed small fires were stored as the size of future large ones.</li>
+<li>Avalanche sizes follow a power law with no typical size; the Gutenberg-Richter law for earthquakes is the cleanest real-world example.</li>
+<li>Richardson found that deaths from street brawls up to world wars fall on a single power-law line, with no gap in between.</li>
+<li>Real sand does not obey the sandpile model; in the 1996 rice-pile experiment only elongated grains produced a power law.</li>
+<li>"Big events need no big cause" is a statistical claim about the distribution of sizes, not a claim that nothing caused them or that no one is responsible.</li>
+</ol>
+</div>
 <div class="thinking">
 <h3>Going deeper</h3>
 <details><summary>If suppressing small events builds up big ones, when is suppression the right call?</summary><p>It turns on whether the accumulation genuinely transfers. Forest fuel accumulates, so putting out small fires has a price; early cases of an infectious disease being contained do not get "stored" into a larger future epidemic, because the susceptible population isn't monotonically increasing the way fuel is. The test: whatever the event you prevented would have released — did it stay in the system, or did it actually go away?</p></details>

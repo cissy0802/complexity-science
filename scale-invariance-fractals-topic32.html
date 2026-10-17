@@ -65,6 +65,12 @@ footer{text-align:center;padding:56px 0 10px;font-size:0.78rem;color:#57524b;fon
 footer a{color:#79a6d2;text-decoration:none}
 @media(max-width:600px){h1{font-size:1.85rem}.wrap{padding:24px 16px 60px}h2{font-size:1.22rem}}
 
+.tk{margin:46px 0 10px}
+.tk h3{font-size:1.02rem;color:#e0895e;margin-bottom:14px;letter-spacing:0.5px}
+.takeaways{counter-reset:tk;list-style:none;margin:0;padding:0;border:1px solid rgba(224,137,94,0.3);border-radius:12px;background:rgba(224,137,94,0.04)}
+.takeaways li{counter-increment:tk;position:relative;margin:0;padding:11px 18px 11px 52px;border-top:1px solid rgba(224,137,94,0.12);font-size:0.94rem;color:#d5cdc1;line-height:1.75}
+.takeaways li:first-child{border-top:none}
+.takeaways li::before{content:counter(tk,decimal-leading-zero);position:absolute;left:18px;top:12px;font-family:"SF Mono",Menlo,monospace;font-size:0.78rem;color:#e0895e}
 </style></head><body>
 <div class="wrap">
 <header>
@@ -604,6 +610,21 @@ footer a{color:#79a6d2;text-decoration:none}
 <li><b>经济与制度 · 把日波动乘以根号 T</b>：风险管理里有一条几乎不过脑子的换算——想知道 10 天的风险，把 1 天的波动率乘以 √10。巴塞尔框架下的 10 日在险价值（value at risk，缩写 VaR）就是这么从 1 日数据推出来的。这条换算成立的前提是每天的收益互不相关、方差有限，也就是标度指数正好等于 1/2。本期两条机制合起来说明这个前提是被<em>假设</em>的、不是被<em>测</em>的：金融序列在多个时间尺度上表现出统计自相似（Mandelbrot 1963 年研究棉花价格时就报告过这件事），而自相似的标度指数一般不等于 1/2；指数一偏，√T 就系统性地偏。推出的动作很具体：换算之前先在自己的数据上估一次标度指数，把 √T 换成 T 的 H 次方。<b>但这里不成立</b>：金融数据的标度窗口本身很窄——高频端有买卖价差和撮合机制造成的噪声，低频端样本量根本不够，中间能用的常常不到两个数量级。所以这条联想能给的是一个警告（别把 √T 当自然律），不是一个更好的模型；用一个测不准的 H 去替换一个错的 0.5，可能只是把误差换了个位置。</li>
 <li><b>科学哲学 · 分形对"分层"的那一刺</b>：第 3 期讲过西蒙（Herbert Simon）的近可分解性——复杂系统必然分层，模块内强耦合、模块间弱耦合，所以拆一个系统之前先找它的天然接缝。分形是这套观点的一个有机制的反例：在标度不变的结构里没有天然的层，因为"层"这个概念要成立，得先有一个特征尺度把里和外分开，而尺度不变说的正是没有这样的尺度。由此能推出一个可操作的判据：一个系统能不能被模块化拆解，先看它的标度谱——谱上有明显峰值（存在特征尺度）的系统才有接缝；标度平直的系统，你从哪儿切都一样难，那是在逼你换方法，不是换切口。<b>但这里不成立</b>——而这一条恰恰是本期第 5 节带来的好消息：真实系统的自相似只跨一两个数量级，而截断本身就是特征尺度。内截断和外截断就是接缝所在。所以分形并不取消分层，它只是告诉你接缝不在中间，在两头。</li>
 </ul>
+</div>
+<div class="tk">
+<h3>📝 十条要点<span class="he">（Ten Takeaways）</span></h3>
+<ol class="takeaways">
+<li>Richardson 用圆规量海岸线发现：步长越短，量出的总长度越长，而且始终不收敛。</li>
+<li>Mandelbrot 把长度与步长在双对数图上的直线斜率读成维数 D，光滑曲线 D 为 1，海岸线大于 1。</li>
+<li>科赫曲线每迭代一次总长度乘以 4/3，长度无限增长，却始终待在一块有限的区域里。</li>
+<li>数学分形是严格自相似，海岸、河网、血管只是统计自相似，所以它们的维数只能测、不能算。</li>
+<li>维数可以看放大后变成几份：科赫曲线放大 3 倍得到 4 份，维数约 1.26，不是整数。</li>
+<li>分支网络每分一级体积不变、表面积约涨 26%，肺因此能在几升胸腔里装下一百多平方米表面。</li>
+<li>供给网络优化、临界点、不挑尺度的造形过程三条路都通向分形，所以说某物是分形并不指明机制。</li>
+<li>Avnir 等人统计发现，论文报告的自然分形平均只跨约 1.3 个数量级，窄到难与弯曲曲线区分。</li>
+<li>维数相同的形状可以毫不相干，随手涂鸦也能通过当年用来鉴定波洛克滴画的分形判据。</li>
+<li>风险管理把日波动乘以 √T 推多日风险，前提是标度指数恰为 1/2，这是假设而非实测。</li>
+</ol>
 </div>
 <div class="thinking">
 <h3 data-tts="3b67df2af1b220a0">深入思考<span class="he">（Going Deeper）</span></h3>

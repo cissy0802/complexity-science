@@ -61,6 +61,12 @@ details p{margin:12px 0 0;font-size:0.9rem;color:#a9a096;line-height:1.75}
 footer{text-align:center;padding:56px 0 10px;font-size:0.78rem;color:#57524b;font-family:"SF Mono",Menlo,monospace;border-top:1px solid rgba(255,255,255,0.06);margin-top:50px}
 footer a{color:#79a6d2;text-decoration:none}
 @media(max-width:600px){h1{font-size:1.85rem}.wrap{padding:24px 16px 60px}h2{font-size:1.22rem}}
+.tk{margin:46px 0 10px}
+.tk h3{font-size:1.02rem;color:#e0895e;margin-bottom:14px;letter-spacing:0.5px}
+.takeaways{counter-reset:tk;list-style:none;margin:0;padding:0;border:1px solid rgba(224,137,94,0.3);border-radius:12px;background:rgba(224,137,94,0.04)}
+.takeaways li{counter-increment:tk;position:relative;margin:0;padding:11px 18px 11px 52px;border-top:1px solid rgba(224,137,94,0.12);font-size:0.94rem;color:#d5cdc1;line-height:1.75}
+.takeaways li:first-child{border-top:none}
+.takeaways li::before{content:counter(tk,decimal-leading-zero);position:absolute;left:18px;top:12px;font-family:"SF Mono",Menlo,monospace;font-size:0.78rem;color:#e0895e}
 </style></head><body>
 <div class="wrap">
 <header>
@@ -339,6 +345,21 @@ footer a{color:#79a6d2;text-decoration:none}
 </ul>
 </div>
 
+<div class="tk">
+<h3>📝 Ten Takeaways</h3>
+<ol class="takeaways">
+<li>Pushing a quantity in a complex system from outside wakes up dormant compensating feedback that drags it back: this is policy resistance.</li>
+<li>Hanoi's 1902 rat-tail bounty led people to farm rats for their tails; officials wanted fewer rats but paid for tails.</li>
+<li>When an intervention targets an indicator and human behaviour sits between that indicator and the real goal, the indicator moves first, perhaps alone.</li>
+<li>In Donella Meadows' twelve leverage points, effectiveness and resistance run together: the easiest parameters to tweak barely change behaviour.</li>
+<li>Flipping one default checkbox on organ-donation forms shifts consent by tens of points, a gap no advertising budget can close.</li>
+<li>Ashby's law of requisite variety says only variety can destroy variety: with fewer response types than situations, some outcomes always leak through.</li>
+<li>Facing something you keep failing to control, there are three exits: add response types, cut the range of situations, or openly declare what you won't guarantee.</li>
+<li>When you cannot tell in advance which option is right, ask which one can be undone, and write down how long, how much and whose sign-off reversal takes.</li>
+<li>Doing nothing is also an intervention: it lets the currently dominant loop keep running and deserves the same scrutiny of level and exit cost.</li>
+<li>The US Forest Service's "10 a.m. rule" put out every small fire, letting fuel pile up into unstoppable megafires by suppressing the forest's own release valve.</li>
+</ol>
+</div>
 <div class="thinking">
 <h3>🤔 Going Deeper</h3>
 <details><summary>Why should effectiveness and resistance run in the same direction?</summary><p>One conjecture: the things that can be changed easily are easy precisely because changing them does not threaten the system's persistence, so no protective mechanism ever evolved around them. Conversely, goals and paradigms are defended fiercely because changing them makes the system a different system — the strength of the guard is itself evidence that this is the vital spot. If the conjecture holds, resistance becomes a detector for leverage: the more violently someone reacts to your proposal, the closer you are to a high leverage point. That corollary is suspiciously convenient — it could equally be a way of repackaging "annoying people" as "having insight". Telling those two apart is a real problem.</p></details>

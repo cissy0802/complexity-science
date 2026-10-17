@@ -59,6 +59,12 @@ details p{margin:12px 0 0;font-size:0.9rem;color:#a9a096;line-height:1.75}
 footer{text-align:center;padding:56px 0 10px;font-size:0.78rem;color:#57524b;font-family:"SF Mono",Menlo,monospace;border-top:1px solid rgba(255,255,255,0.06);margin-top:50px}
 footer a{color:#79a6d2;text-decoration:none}
 @media(max-width:600px){h1{font-size:1.85rem}.wrap{padding:24px 16px 60px}h2{font-size:1.22rem}}
+.tk{margin:46px 0 10px}
+.tk h3{font-size:1.02rem;color:#e0895e;margin-bottom:14px;letter-spacing:0.5px}
+.takeaways{counter-reset:tk;list-style:none;margin:0;padding:0;border:1px solid rgba(224,137,94,0.3);border-radius:12px;background:rgba(224,137,94,0.04)}
+.takeaways li{counter-increment:tk;position:relative;margin:0;padding:11px 18px 11px 52px;border-top:1px solid rgba(224,137,94,0.12);font-size:0.94rem;color:#d5cdc1;line-height:1.75}
+.takeaways li:first-child{border-top:none}
+.takeaways li::before{content:counter(tk,decimal-leading-zero);position:absolute;left:18px;top:12px;font-family:"SF Mono",Menlo,monospace;font-size:0.78rem;color:#e0895e}
 </style></head><body>
 <div class="wrap">
 
@@ -306,6 +312,22 @@ footer a{color:#79a6d2;text-decoration:none}
 <li><b>Biology · endosymbiosis: swallowing a living module whole</b>: The mitochondrion inside a eukaryotic cell was once a free-living bacterium that, at some point in evolutionary history, was engulfed by another cell and — instead of being digested — became a stable "energy module" inside it (Lynn Margulis's endosymbiotic theory). This is the watchmaker parable made literal in evolutionary biology: to build a eukaryotic cell, evolution didn't rebuild from atoms; it <em>encapsulated an already-stably-running module whole, then recombined</em> — exactly Hora clicking a ready-made sub-assembly onto the stack. From which follows a non-obvious conclusion: <b>if reusable stable modules are evolution's least-effortful way to build, then the very reason such "swallow a whole module" events are extraordinarily rare (eukaryogenesis succeeded essentially only once in Earth's history of life) is that the hard part isn't the assembly — it's first <em>having</em> a module that can be encapsulated whole and still not scatter afterward</b>. The scarcity of stable intermediate forms, not assembly, is the real bottleneck on jumps in complexity.</li>
 <li><b>Philosophy of science · the domain where reductionism works</b>: Near-decomposability reclassifies the old "reductionism vs holism" quarrel from a clash of stances into an empirical question. <em>When</em> is reductionism — break a system into parts, understand them separately, reassemble — right? The answer is surprisingly precise: <b>exactly when the system is near-decomposable</b>. If inter-module coupling is weak enough, the error you make by studying the parts apart is small enough, and reductionism works (this is just the flip side of section two's "you can solve apart"). In globally strongly-coupled systems like spin glasses or deeply entangled ecological networks, taking things apart discards nearly all the information, and reductionism fails on the spot — which connects to Topic 1's "why reductionism fails in complex systems." <b>But it doesn't hold here</b>: this ruler only measures whether "taking apart to analyse" is valid, not whether the high-level phenomena are real. Even if a system is perfectly near-decomposable and reduces cleanly, the emergent high-level properties (temperature, price) are still real — decomposability is about the <em>epistemic</em> feasibility of analysis, not the <em>ontological</em> existence of levels; don't use the former to deny the latter.</li>
 </ul>
+</div>
+
+<div class="tk">
+<h3>📝 Ten Takeaways</h3>
+<ol class="takeaways">
+<li>In Simon's watchmaker parable, Hora builds stable sub-assemblies and loses only the current module when interrupted, while Tempus builds flat and must start over every time.</li>
+<li>Complex systems built up step by step can only be completed if they have stable intermediate forms, which is why nearly every complex system we see is nested and layered.</li>
+<li>Evolution could produce the eye because every intermediate form, from a light-sensitive patch to a focusing eye, was already a working module in its own right.</li>
+<li>A near-decomposable system has strong, fast interactions within modules and weak, slow interactions between them: weak, not absent, so the parts stay connected but loosely.</li>
+<li>Simon's heated-rooms example shows two timescales: each room evens out its own temperature quickly, and only much later does heat seep through the walls to equalise the building.</li>
+<li>Separability is a claim tied to a timescale: Earth and Moon can be solved as an isolated pair, yet over hundreds of millions of years the Sun's pull reshapes the orbit.</li>
+<li>The real seams of a system lie in its coupling graph, which often fails to match boundaries drawn by function or org chart, and a wrong cut means every change still ripples everywhere.</li>
+<li>Parnas argued that software should be split around design decisions likely to change together, hidden behind stable interfaces, rather than around processing steps.</li>
+<li>Frustrated systems like spin glasses are complex yet have no clean seams, so hierarchy is not the definition of complexity but the entry fee for building it step by step.</li>
+<li>Near-decomposability is a fair-weather property: weak cross-module links strengthen together in a crisis, so the seams you planned around fail exactly when you need them.</li>
+</ol>
 </div>
 
 <div class="thinking">

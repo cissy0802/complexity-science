@@ -61,6 +61,12 @@ details p{margin:12px 0 0;font-size:0.9rem;color:#a9a096;line-height:1.75}
 footer{text-align:center;padding:56px 0 10px;font-size:0.78rem;color:#57524b;font-family:"SF Mono",Menlo,monospace;border-top:1px solid rgba(255,255,255,0.06);margin-top:50px}
 footer a{color:#79a6d2;text-decoration:none}
 @media(max-width:600px){h1{font-size:1.85rem}.wrap{padding:24px 16px 60px}h2{font-size:1.22rem}}
+.tk{margin:46px 0 10px}
+.tk h3{font-size:1.02rem;color:#e0895e;margin-bottom:14px;letter-spacing:0.5px}
+.takeaways{counter-reset:tk;list-style:none;margin:0;padding:0;border:1px solid rgba(224,137,94,0.3);border-radius:12px;background:rgba(224,137,94,0.04)}
+.takeaways li{counter-increment:tk;position:relative;margin:0;padding:11px 18px 11px 52px;border-top:1px solid rgba(224,137,94,0.12);font-size:0.94rem;color:#d5cdc1;line-height:1.75}
+.takeaways li:first-child{border-top:none}
+.takeaways li::before{content:counter(tk,decimal-leading-zero);position:absolute;left:18px;top:12px;font-family:"SF Mono",Menlo,monospace;font-size:0.78rem;color:#e0895e}
 </style></head><body>
 <div class="wrap">
 <header>
@@ -176,6 +182,21 @@ footer a{color:#79a6d2;text-decoration:none}
 </ul>
 </div>
 
+<div class="tk">
+<h3>📝 Ten Takeaways</h3>
+<ol class="takeaways">
+<li>A heavy tail means the total is set by a handful of observations, and a larger sample does not dilute that concentration.</li>
+<li>One ratio tells you which world you are in: largest item over the sum; if it refuses to fall when the sample doubles, the tail is heavy.</li>
+<li>Trimming outliers in a heavy-tailed world yields an “average behavior” for a system that never actually existed.</li>
+<li>By the rule of three, zero adverse events in n observations only bounds the true rate at roughly 3/n.</li>
+<li>Under heavy tails, sample means and standard deviations never settle, so every risk metric built on the standard deviation is unstable.</li>
+<li>Value at risk says nothing about losses beyond its own threshold, which is exactly where discomfort turns into ruin.</li>
+<li>Feynman's Challenger appendix shows that a one-in-100,000 failure figure reports a model's confidence, not the system's risk.</li>
+<li>A coin flip paying +50% or −40% has an expected gain of +5% per round yet a time-average growth of about −5% per round.</li>
+<li>Ruin is an absorbing barrier, so expected value counts rounds you are no longer around for; the Kelly criterion sizes bets to maximize time-average growth.</li>
+<li>An insurer that pools independent risks really is the ensemble, so the first question is whether you are a single path or the ensemble.</li>
+</ol>
+</div>
 <div class="thinking">
 <h3>Going Deeper</h3>
 <details><summary>If sample means are unreliable under heavy tails, how do insurers price anything?</summary><p>Not by the accuracy of a point estimate. By three other things: layering (the catastrophe layer is carved out and sold on to reinsurers), limits (every policy writes a cap, truncating the tail by contract), and capital (reserves cover the tail of the distribution, not its mean). They did not get heavy tails right; they rebuilt themselves into a structure that survives being wrong. It is a mature example of structural intervention beating point prediction.</p></details>

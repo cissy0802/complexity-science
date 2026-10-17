@@ -63,6 +63,12 @@ details p{margin:12px 0 0;font-size:0.9rem;color:#a9a096;line-height:1.75}
 footer{text-align:center;padding:56px 0 10px;font-size:0.78rem;color:#57524b;font-family:"SF Mono",Menlo,monospace;border-top:1px solid rgba(255,255,255,0.06);margin-top:50px}
 footer a{color:#79a6d2;text-decoration:none}
 @media(max-width:600px){h1{font-size:1.85rem}.wrap{padding:24px 16px 60px}h2{font-size:1.22rem}}
+.tk{margin:46px 0 10px}
+.tk h3{font-size:1.02rem;color:#e0895e;margin-bottom:14px;letter-spacing:0.5px}
+.takeaways{counter-reset:tk;list-style:none;margin:0;padding:0;border:1px solid rgba(224,137,94,0.3);border-radius:12px;background:rgba(224,137,94,0.04)}
+.takeaways li{counter-increment:tk;position:relative;margin:0;padding:11px 18px 11px 52px;border-top:1px solid rgba(224,137,94,0.12);font-size:0.94rem;color:#d5cdc1;line-height:1.75}
+.takeaways li:first-child{border-top:none}
+.takeaways li::before{content:counter(tk,decimal-leading-zero);position:absolute;left:18px;top:12px;font-family:"SF Mono",Menlo,monospace;font-size:0.78rem;color:#e0895e}
 </style></head><body>
 <div class="wrap">
 <header>
@@ -391,6 +397,21 @@ footer a{color:#79a6d2;text-decoration:none}
 <li><b>历史与军事 · 克劳塞维茨的「重心」</b>：《战争论》里的 Schwerpunkt（重心）本是一个从力学借来的比喻，指敌方力量所系的那个枢纽。现代美军条令把它变成了作战计划里一个<b>必须填写的栏目</b>；军事学者 Antulio Echevarria 等人长期指出的问题是，不同参谋对同一场战局填出的重心常常互不相同，而且事后都能自圆其说。本期的机制在这里成套跑：借来的隐喻丢了原来的定义域（力学里的重心有唯一定义，战争里没有）、它对任何战局都兼容因此零禁止、而「必填栏」这个制度设计把这种兼容性变成了强制生产——每份计划都必须产出一个重心，哪怕这场仗根本没有。原本看不出的结论是：<b>把一个概念写进模板，是让它免于检验的最有效办法</b>，因为从此它的存在由流程保证、不再由证据保证。这条对任何一家公司的季度汇报模板同样适用。</li>
 <li><b>医学 · 降落伞与证据等级</b>：循证医学把随机对照试验（randomized controlled trial，缩写 RCT）放在证据金字塔顶端，这套等级极大地改善了医学。副作用是：难做 RCT 的领域（外科术式、公共卫生干预、罕见病）被系统性地判成「证据不足」，而「没有证据」在传播中被读成「没有效果」。2003 年《英国医学杂志》上那篇著名的玩笑论文——系统综述发现没有一项 RCT 检验过「跳伞时使用降落伞能否预防伤亡」——正是在戳这个点。本期第五节的机制在这里成套跑：一把好尺子被越界使用，把「我这把尺子量不到」错报成了「那儿没有东西」；而这与「用点预测给复杂性科学打分」是同一个错误的两次出现。推出的结论：批判一个方法时，必须先声明<b>你用的是哪把尺子、它量不到什么</b>——否则批判会系统性地偏袒那些恰好合尺子的对象，而这种偏袒比它要纠正的错误更难被发现，因为它每一步看起来都很严谨。</li>
 </ul>
+</div>
+<div class="tk">
+<h3>📝 十条要点<span class="he">（Ten Takeaways）</span></h3>
+<ol class="takeaways">
+<li>判断一句话有没有分量，不看它能贴到多少现象上，而看它排除掉了哪些可能的观测。</li>
+<li>Packard 报告进化会把元胞自动机推向「混沌边缘」，1993 年 Mitchell 等人重做实验未能复现。</li>
+<li>「组织要待在混沌边缘」脱离了可证伪的原始命题，至今仍作为纯隐喻流行于管理学书籍。</li>
+<li>预测分点预测、分布预测和阈值预测三种，复杂性科学明确放弃点预测，但必须交付后两种。</li>
+<li>渗流阈值、R₀ 跨过 1 的流行阈值和全湖实验验证的临界慢化，是复杂性科学兑现了的预测。</li>
+<li>事后写的机制解释和事前封存的预测在文本上一模一样，只有时间戳能把两者区分开。</li>
+<li>Clauset 等人的检验表明，许多被引用的幂律其实不是幂律，严格的无标度网络很罕见。</li>
+<li>画网络是一次建模选择：边的定义、时间窗口和弱连接阈值一换，谁是枢纽也会跟着换。</li>
+<li>复杂性科学格外容易越界，因为它靠类比工作、没有自己的数据，而且审稿人往往只懂一半。</li>
+<li>用「这很复杂」终止讨论和用复杂性解释一切是同一个动作，两者都不禁止任何东西。</li>
+</ol>
 </div>
 <div class="thinking">
 <h3 data-tts="8821bd5482fde7d6">深入思考<span class="he">（Going Deeper）</span></h3>

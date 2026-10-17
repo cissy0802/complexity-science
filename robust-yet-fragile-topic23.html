@@ -63,6 +63,12 @@ details p{margin:12px 0 0;font-size:0.9rem;color:#a9a096;line-height:1.75}
 footer{text-align:center;padding:56px 0 10px;font-size:0.78rem;color:#57524b;font-family:"SF Mono",Menlo,monospace;border-top:1px solid rgba(255,255,255,0.06);margin-top:50px}
 footer a{color:#79a6d2;text-decoration:none}
 @media(max-width:600px){h1{font-size:1.85rem}.wrap{padding:24px 16px 60px}h2{font-size:1.22rem}}
+.tk{margin:46px 0 10px}
+.tk h3{font-size:1.02rem;color:#e0895e;margin-bottom:14px;letter-spacing:0.5px}
+.takeaways{counter-reset:tk;list-style:none;margin:0;padding:0;border:1px solid rgba(224,137,94,0.3);border-radius:12px;background:rgba(224,137,94,0.04)}
+.takeaways li{counter-increment:tk;position:relative;margin:0;padding:11px 18px 11px 52px;border-top:1px solid rgba(224,137,94,0.12);font-size:0.94rem;color:#d5cdc1;line-height:1.75}
+.takeaways li:first-child{border-top:none}
+.takeaways li::before{content:counter(tk,decimal-leading-zero);position:absolute;left:18px;top:12px;font-family:"SF Mono",Menlo,monospace;font-size:0.78rem;color:#e0895e}
 </style></head><body>
 <div class="wrap">
 <header>
@@ -733,6 +739,21 @@ footer a{color:#79a6d2;text-decoration:none}
 <li><b>语言学 · 功能词是句法的枢纽</b>：把每个词和它在句子里直接支配或被支配的词连起来，得到的「句法依存网络」在多种语言里都被测出是重尾的，而枢纽无一例外是功能词——的、把、了、of、that。本期三条机制在这里成套出现：极不均匀的度分布（少数词承担绝大多数句法连接）、对随机丢失近乎免疫（听漏一个实词、口音吞掉一个音节，几乎不影响理解）、对定点丢失致命（专门抽掉功能词，「谁对谁做了什么」「有没有」「什么时候」就一起丢了，而这些恰恰是猜不回来的部分）。合起来还能推出一个第三条：语言把最要命的枢纽放在了<b>最短、最轻读、最容易被吞掉</b>的那些词上——这正是 HOT 的账目，为「省力」这一类扰动优化到极致，代价落到「信道噪声」这一类上。<b>但这里不成立</b>：网络模型里删掉的节点就是没了，而听者能靠语义和情境把被吞掉的功能词重建出来。语言的鲁棒性有一层网络拓扑完全不提供的来源，所以别拿依存网络的连通性去预测可理解度——能借走的是「枢纽在哪儿、脆弱性被搬到了哪儿」这个记账法。</li>
 <li><b>工程与技术史 · Baran 在 1964 年就把这题做完了</b>：兰德公司的 Paul Baran 为了解决核打击下的通信生存问题，在 1964 年那套报告里给出的方案，正是本期结论的镜像——他没有去加固任何一个中心，而是论证了<b>把度分布压平</b>：每个节点保持三到四条冗余连接的分布式网络，即便损失过半节点仍能保持连通。也就是说，抵抗定点打击的办法不是保护枢纽，是<b>不要有枢纽</b>。而后来真正长出来的互联网并没有照这个方向走，因为主导它形态的不是威胁模型而是成本——集中能省钱，于是枢纽自己长了回来。把第三节的账目套上去，这句话就有了确切含义：<b>我们今天的网络架构，是成本函数选的，不是威胁模型选的。</b>顺带一提，「互联网是为了抵抗核战争而造的」这个流传甚广的说法，混淆的正是 Baran 的研究动机和 ARPANET 的实际立项动机（资源共享），两者不是一回事。这里也有个边界：Baran 的生存判据是「任意两个幸存站点还能不能通话」，也就是连通性；而现代互联网的功能变量是带宽和路由收敛，一张全连通但拥塞的网是不能用的——第四节那张图讲的就是这个错位。经典的鲁棒性结论回答的是一个已经不再是主要矛盾的问题。</li>
 </ul>
+</div>
+<div class="tk">
+<h3>📝 十条要点<span class="he">（Ten Takeaways）</span></h3>
+<ol class="takeaways">
+<li>随机拿掉 5% 的节点，一张有枢纽的网几乎不受影响；挑度数最高的 5% 拿掉，它就碎成许多块。</li>
+<li>2000 年 Albert、Jeong 和 Barabási 用真实网络数据发现：随机移除节点时路径长度几乎不变，移除度数最高的 5% 则网络直径翻倍。</li>
+<li>网络能否连成一片，看 κ = ⟨k²⟩/⟨k⟩ 是否大于 2；式中的平方让少数最大的节点提供了几乎全部安全垫。</li>
+<li>让网络抗随机故障的安全垫和让它怕定点打击的靶子，在数学上是 κ 里的同一项。</li>
+<li>Carlson 和 Doyle 的高度优化容错（HOT）指出：针对某类扰动做优化，会把脆弱性搬到没被算进来的那类扰动上。</li>
+<li>「鲁棒但脆弱」要成为可检验的命题，必须说清系统对哪类扰动结实、付出的脆弱落在哪类扰动上。</li>
+<li>网络拓扑大多是推出来而不是量出来的，不同的采集方式会系统性地造出不同的枢纽。</li>
+<li>连通性和功能可以给出相反答案：拿掉负载最高的一个点后 96% 的节点还连着，却可能只剩 19% 能用。</li>
+<li>北美电网的度分布是指数型而非幂律，它怕定点打击的原因在潮流重新分配，而不在超级枢纽。</li>
+<li>Paul Baran 1964 年为抗核打击设计的分布式网络说明，抵御定点打击的办法不是保护枢纽，而是压平度分布。</li>
+</ol>
 </div>
 <div class="thinking">
 <h3 data-tts="42ef0a5d41ac2b07">深入思考<span class="he">（Going Deeper）</span></h3>

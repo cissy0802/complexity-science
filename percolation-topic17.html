@@ -63,6 +63,12 @@ details p{margin:12px 0 0;font-size:0.9rem;color:#a9a096;line-height:1.75}
 footer{text-align:center;padding:56px 0 10px;font-size:0.78rem;color:#57524b;font-family:"SF Mono",Menlo,monospace;border-top:1px solid rgba(255,255,255,0.06);margin-top:50px}
 footer a{color:#79a6d2;text-decoration:none}
 @media(max-width:600px){h1{font-size:1.85rem}.wrap{padding:24px 16px 60px}h2{font-size:1.22rem}}
+.tk{margin:46px 0 10px}
+.tk h3{font-size:1.02rem;color:#e0895e;margin-bottom:14px;letter-spacing:0.5px}
+.takeaways{counter-reset:tk;list-style:none;margin:0;padding:0;border:1px solid rgba(224,137,94,0.3);border-radius:12px;background:rgba(224,137,94,0.04)}
+.takeaways li{counter-increment:tk;position:relative;margin:0;padding:11px 18px 11px 52px;border-top:1px solid rgba(224,137,94,0.12);font-size:0.94rem;color:#d5cdc1;line-height:1.75}
+.takeaways li:first-child{border-top:none}
+.takeaways li::before{content:counter(tk,decimal-leading-zero);position:absolute;left:18px;top:12px;font-family:"SF Mono",Menlo,monospace;font-size:0.78rem;color:#e0895e}
 </style></head><body>
 <div class="wrap">
 <header>
@@ -258,6 +264,21 @@ footer a{color:#79a6d2;text-decoration:none}
 <li><b>生态学 · 破碎化与走廊</b>：1987 年 Gardner 等人把渗流搬进了景观生态学，用随机地图来问：栖息地要保留多少比例，动物才能跨越整片区域迁徙？答案同样落在 0.59 附近。这推出一条与直觉相反的保护策略：<b>在阈值附近，损失同样面积的栖息地，造成的连通性损失差着数量级</b>——远离阈值时砍掉 5% 只是少了 5%，逼近阈值时砍掉 5% 可能让整片区域断成两半。所以"保护区总面积"这个被写进无数政策文件的指标，恰恰是那个在越线前不动的量；真正该管的是把两块栖息地缝起来的那几条走廊。这也解释了生态廊道为什么性价比高得离谱：它买的是边，不是面积。</li>
 <li><b>经济与制度 · 支付网络的"互联互通"</b>：一个新的支付或结算网络在早期没人用，因为没人用。行业的默认打法是补贴拉新——那是加点。渗流说该加的是边：让它和已有的网络能对接，让同时属于两边的机构存在。这条推论有历史证据：许多支付体系的起飞不是靠用户数堆到某个规模，而是靠一次<em>跨机构清算的打通</em>，之后用户数才跟着涨。于是监管里"互联互通"这类要求就不再只是公平问题——它是在直接调节连通度这个参数，效果远大于同等成本的补贴。<b>顺带一个边界</b>：这条推论只在"接触一次就够"时干净，而更换支付习惯多半属于复杂传染，所以它更适合解释机构侧的贯通，不适合直接搬去解释个人用户的采纳。</li>
 </ul>
+</div>
+<div class="tk">
+<h3>📝 十条要点<span class="he">（Ten Takeaways）</span></h3>
+<ol class="takeaways">
+<li>渗流起源于 1957 年 Broadbent 和 Hammersley 研究的防毒面具问题：多孔碳滤芯的孔要多密，气体才能穿过去。</li>
+<li>方格上的座渗流阈值约为 0.5927，键渗流阈值恰好是 1/2，三维立方格子只需约 0.3116。</li>
+<li>渗流里的占据概率是局部、连续可调的旋钮，而它控制的“通不通”是整张图的、只有两个答案的结果。</li>
+<li>最大簇占比在阈值前几乎贴着地面，越线时一大批中等簇被同时缝合，几个百分点内从 5% 蹿到 52%。</li>
+<li>连通性事件不能靠最大簇的规模来预警，应该盯次大簇的尺寸和簇与簇之间还差几条边。</li>
+<li>Erdős 和 Rényi 证明，随机网络里平均每个点连 1 条边，就会出现吞掉大量节点的巨大连通分支。</li>
+<li>无标度网络里少数枢纽会把渗流阈值拽到接近零，因此随机拆点几乎拆不散这类网络。</li>
+<li>连通度是边的属性而不是点的属性：想贯通就加跨圈的边，想阻断就删把团块缝在一起的边和枢纽。</li>
+<li>真实网络高度扎堆、很多行为属于需要多次独立接触的复杂传染、边还常常有方向，这些都会让渗流的标准结论失效。</li>
+<li>景观生态学里，保护区总面积是越线前不动的指标，真正该管的是把栖息地缝起来的生态走廊。</li>
+</ol>
 </div>
 <div class="thinking">
 <h3 data-tts="182f2f20196dff2c">深入思考<span class="he">（Going Deeper）</span></h3>

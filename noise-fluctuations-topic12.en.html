@@ -61,6 +61,12 @@ details p{margin:12px 0 0;font-size:0.9rem;color:#a9a096;line-height:1.75}
 footer{text-align:center;padding:56px 0 10px;font-size:0.78rem;color:#57524b;font-family:"SF Mono",Menlo,monospace;border-top:1px solid rgba(255,255,255,0.06);margin-top:50px}
 footer a{color:#79a6d2;text-decoration:none}
 @media(max-width:600px){h1{font-size:1.85rem}.wrap{padding:24px 16px 60px}h2{font-size:1.22rem}}
+.tk{margin:46px 0 10px}
+.tk h3{font-size:1.02rem;color:#e0895e;margin-bottom:14px;letter-spacing:0.5px}
+.takeaways{counter-reset:tk;list-style:none;margin:0;padding:0;border:1px solid rgba(224,137,94,0.3);border-radius:12px;background:rgba(224,137,94,0.04)}
+.takeaways li{counter-increment:tk;position:relative;margin:0;padding:11px 18px 11px 52px;border-top:1px solid rgba(224,137,94,0.12);font-size:0.94rem;color:#d5cdc1;line-height:1.75}
+.takeaways li:first-child{border-top:none}
+.takeaways li::before{content:counter(tk,decimal-leading-zero);position:absolute;left:18px;top:12px;font-family:"SF Mono",Menlo,monospace;font-size:0.78rem;color:#e0895e}
 </style></head><body>
 <div class="wrap">
 <header>
@@ -193,6 +199,21 @@ footer a{color:#79a6d2;text-decoration:none}
 <li><b>Economics &amp; institutions · why "building another Silicon Valley" keeps failing</b>: The standard account of industrial clustering is precisely this issue's machinery — where the first few firms landed was partly accidental (a university, some defence contracts, someone who did not want to move), then the talent pool, suppliers and venture capital produce increasing returns, and eventually latecomers cannot pull firms away even with cheaper land. Together these yield a policy conclusion: <b>the failure is not that too few inputs were supplied, but that late money is being used to buy something only early money can buy</b> — the same subsidy into an urn that is still wobbling versus one already at 300-to-20 differs by orders of magnitude. The actionable inversion: if industrial policy is going to bet, it should bet on <b>domains not yet locked in</b>, where variance is still high, rather than on catching up in ones that are. <b>But here it does not hold</b>: real cities have negative feedback the Pólya urn lacks — housing costs, commutes and congestion cap the cluster, so real lock-in does not run to 100% but stalls at whatever share costs allow.</li>
 <li><b>Philosophy of science · spandrels and the story that can always be told</b>: In 1979 Gould and Lewontin used the <em>spandrels</em> of San Marco — the tapering triangles left over wherever arches meet, not designed as canvases — to mock adaptationism in biology: any trait admits a functional story after the fact. What that critique lacked at the time was an alternative mechanism. This issue supplies one, and a testable kind: drift (§1) plus lock-in (§3) generates an explanation requiring no functional advantage at all, and tests like Newberry's, which use a neutral model as the null, are how you actually run it. The consequence is a reversal of the burden of proof: <b>facing "why is it like this", the default answer should be "accident plus lock-in", and it is the functional explanation that owes extra evidence</b> — not the other way round. <b>But here it does not hold</b>: a convenient null gets abused too. Attributing every unexplained pattern to drift is the same methodological vice as attributing every one to adaptation. The only difference — an important one — is that the neutral model makes specific predictions data can refute.</li>
 </ul>
+</div>
+<div class="tk">
+<h3>📝 Ten Takeaways</h3>
+<ol class="takeaways">
+<li>The law of large numbers only holds when each draw is independent of the last; relative fluctuation then shrinks roughly as 1/√N.</li>
+<li>Once a random outcome changes the odds of the next one, fluctuations stop averaging out and get written into the system's state as history.</li>
+<li>Stochastic resonance: a moderate dose of noise lets a threshold system detect a signal too weak to cross the threshold, while too much noise buries it again.</li>
+<li>Stochastic resonance has been shown in crayfish mechanoreceptors, paddlefish foraging, and human balance aided by subsensory vibrating insoles.</li>
+<li>In a Pólya urn, every ball drawn is returned with another of the same colour, and the final share of red is uniformly distributed between 0 and 1.</li>
+<li>Brian Arthur's increasing-returns model says lock-in is certain, which option wins is unpredictable, and the better option is not guaranteed to win.</li>
+<li>Under increasing returns, the same resource spent inside the early window and outside it differs in effect by orders of magnitude.</li>
+<li>The key evidence that QWERTY locked in an inferior layout came from a Navy study run by Dvorak himself, who had a commercial stake in his keyboard.</li>
+<li>"History mattered", "the outcome is inefficient" and "the outcome is irreversible" are three separate claims, and the last two each need their own evidence.</li>
+<li>The parallel-worlds music experiment by Salganik and colleagues found that stronger social influence made charts less reproducible, though song quality still bounded the rankings.</li>
+</ol>
 </div>
 <div class="thinking">
 <h3>Going Deeper</h3>

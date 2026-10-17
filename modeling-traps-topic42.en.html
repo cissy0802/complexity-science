@@ -63,6 +63,12 @@ details p{margin:12px 0 0;font-size:0.9rem;color:#a9a096;line-height:1.75}
 footer{text-align:center;padding:56px 0 10px;font-size:0.78rem;color:#57524b;font-family:"SF Mono",Menlo,monospace;border-top:1px solid rgba(255,255,255,0.06);margin-top:50px}
 footer a{color:#79a6d2;text-decoration:none}
 @media(max-width:600px){h1{font-size:1.85rem}.wrap{padding:24px 16px 60px}h2{font-size:1.22rem}}
+.tk{margin:46px 0 10px}
+.tk h3{font-size:1.02rem;color:#e0895e;margin-bottom:14px;letter-spacing:0.5px}
+.takeaways{counter-reset:tk;list-style:none;margin:0;padding:0;border:1px solid rgba(224,137,94,0.3);border-radius:12px;background:rgba(224,137,94,0.04)}
+.takeaways li{counter-increment:tk;position:relative;margin:0;padding:11px 18px 11px 52px;border-top:1px solid rgba(224,137,94,0.12);font-size:0.94rem;color:#d5cdc1;line-height:1.75}
+.takeaways li:first-child{border-top:none}
+.takeaways li::before{content:counter(tk,decimal-leading-zero);position:absolute;left:18px;top:12px;font-family:"SF Mono",Menlo,monospace;font-size:0.78rem;color:#e0895e}
 </style></head><body>
 <div class="wrap">
 <header>
@@ -312,6 +318,21 @@ footer a{color:#79a6d2;text-decoration:none}
 <li><b>Western philosophy of science · the Duhem–Quine thesis</b>: The physicist Pierre Duhem (1906) and later the philosopher W. V. O. Quine (1951) argued that no hypothesis is ever tested in isolation. When a prediction fails, you can always preserve the core theory and charge the failure to some auxiliary assumption — the instrument was off, the boundary conditions were unusual, this sample was bad. That is precisely sections 1 and 2 running at the level of scientific theory: auxiliary assumptions are the free parameters, and nominating them after the fact is after-the-fact narrative. The conclusion is not "science is unreliable" but something quite operational: <b>since logic alone can never settle which account a failure should be charged to, only a prior commitment can settle it.</b> That is the whole force of pre-registration — it improves the precision of no single experiment; it merely moves the bookkeeping rule to before the results are seen. The reliability diagram of section 4 is the other half of the same gesture: say it, then look, and no changing the units afterwards.</li>
 <li><b>Economics and institutions · the macro models before the crisis</b>: The class of dynamic stochastic general equilibrium models that central banks ran on before 2008 fit their samples respectably and rested on explicit mechanism derivations. They gave no warning of the crisis, and not because the parameters were off — <b>the variables were not in the state space at all.</b> Financial intermediation, leverage, collateral haircuts were largely absent, so "the interbank market freezes" was not a sentence that language could form. Several of this issue's mechanisms appear here as a set: a good fit (section 1's blue line) masked a structural omission; the rigour of the mechanism derivation was mistaken for predictive warrant (section 5's mislabelling); and the whole apparatus was never required to state probabilities and be scored (section 4). The counterintuitive conclusion: <b>faced with this kind of failure, "improving the model" — more parameters, more data, more compute — is exactly the wrong direction.</b> What was missing did not lie along the parameter axis. It lay in the earlier decision about what gets written into the model at all. That is what the field went back and rebuilt after the crisis, not the precision.</li>
 </ul>
+</div>
+<div class="tk">
+<h3>📝 Ten Takeaways</h3>
+<ol class="takeaways">
+<li>Give a model enough free parameters and it memorises measurement error and chance fluctuation along with the signal; that is overfitting.</li>
+<li>In-sample error keeps falling as a model grows more complex, while out-of-sample error is U-shaped, and only the latter speaks to prediction.</li>
+<li>A model should be judged on a held-out slice, cut by time and never touched during tuning, with the error reported on it exactly once.</li>
+<li>Google Flu Trends picked 45 search terms out of 50 million, so the overfitting happened at the variable-selection stage itself.</li>
+<li>Post-hoc narrative is the limiting case of overfitting: words cost nothing and never run out, so the fit to history is always perfect.</li>
+<li>A real explanation rules some outcomes out in advance; an account that runs just as smoothly when the outcome is reversed carries no information.</li>
+<li>On log-log axes a power law, a log-normal and a truncated tail nearly coincide, and Clauset, Shalizi and Newman found most cited datasets fail a proper test.</li>
+<li>Most decisions only need the weaker claim "heavy-tailed", so insisting on "power law" is usually the mechanism story talking.</li>
+<li>Calibration means stated probabilities come true at matching long-run frequencies, and weather forecasting achieves it because it is scored every day.</li>
+<li>Label every model as a point forecast, a probability forecast or a mechanism demonstration; Schelling's segregation model should never be graded on accuracy.</li>
+</ol>
 </div>
 <div class="thinking">
 <h3>Going Deeper</h3>

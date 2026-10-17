@@ -59,6 +59,12 @@ details p{margin:12px 0 0;font-size:0.9rem;color:#a9a096;line-height:1.75}
 footer{text-align:center;padding:56px 0 10px;font-size:0.78rem;color:#57524b;font-family:"SF Mono",Menlo,monospace;border-top:1px solid rgba(255,255,255,0.06);margin-top:50px}
 footer a{color:#79a6d2;text-decoration:none}
 @media(max-width:600px){h1{font-size:1.85rem}.wrap{padding:24px 16px 60px}h2{font-size:1.22rem}}
+.tk{margin:46px 0 10px}
+.tk h3{font-size:1.02rem;color:#e0895e;margin-bottom:14px;letter-spacing:0.5px}
+.takeaways{counter-reset:tk;list-style:none;margin:0;padding:0;border:1px solid rgba(224,137,94,0.3);border-radius:12px;background:rgba(224,137,94,0.04)}
+.takeaways li{counter-increment:tk;position:relative;margin:0;padding:11px 18px 11px 52px;border-top:1px solid rgba(224,137,94,0.12);font-size:0.94rem;color:#d5cdc1;line-height:1.75}
+.takeaways li:first-child{border-top:none}
+.takeaways li::before{content:counter(tk,decimal-leading-zero);position:absolute;left:18px;top:12px;font-family:"SF Mono",Menlo,monospace;font-size:0.78rem;color:#e0895e}
 </style></head><body>
 <div class="wrap">
 <header>
@@ -260,6 +266,22 @@ footer a{color:#79a6d2;text-decoration:none}
 <li><b>History &amp; the military · the legitimate range of counterfactuals</b>: historians have long argued over whether "what if X hadn't happened" is a scholarly question. The mechanism here supplies a ruler rather than a verdict. The existence of a predictability horizon means counterfactuals have a <em>range</em>: inside that range (had it rained that day, would the battle have gone differently) they are discussable, because the trajectory has not yet drowned in error; across decades (without this one man, what would the twentieth century have looked like) they are not refuted but <b>undecidable</b> — they ask about one member of an ensemble that dispersed long ago. §4 supplies the other half: even when individual trajectories have scattered, the statistics remain discussable, so counterfactuals about <em>distributions</em> ("industrialisation would have happened anyway") stand on firmer ground than counterfactuals about <em>a battle</em>. <b>But it doesn't hold here</b>: history is not a fixed set of equations — its rules are rewritten by the participants (that is Topic 26), and a Lyapunov exponent is simply undefined for it. What transfers is the concept of range, not any number; anyone who computes a specific λ for history is impersonating precision.</li>
 <li><b>Engineering &amp; the history of technology · cryptography makes sensitive dependence a resource</b>: good block ciphers and hash functions are deliberately built to have the <b>avalanche effect</b> — flip one input bit and about half the output bits flip. That is structurally what §1 describes — fully deterministic, perfectly reproducible, and unpredictable in practice — except designed rather than suffered. Seen side by side, the pair yields a non-obvious conclusion: chaos is never a property of "the world" but a property relative to <b>a given observational precision</b>; the same sensitive dependence is an obstacle in the atmosphere and a product in a cipher. <b>But it doesn't hold here</b>, and the mismatch is what makes the point: a cipher has no Lyapunov time, its diffusion is discrete and complete in one step, and there is neither an attractor nor a "short-run predictable" phase. Which is why the once-fashionable idea of building encryption out of chaotic maps is mostly weak — real chaotic systems have finite precision and approximable structure, and approximability is exactly what a cipher must not have. The structure transfers; the security does not.</li>
 </ul>
+</div>
+
+<div class="tk">
+<h3>📝 Ten Takeaways</h3>
+<ol class="takeaways">
+<li>In 1961 Lorenz restarted a weather model from a printout rounded to 0.506, and within a few simulated months the two runs showed entirely different weather.</li>
+<li>Determinism does not imply predictability: the equations fix the trajectory, but finite precision about the initial state buys only a finite forecast span.</li>
+<li>In a chaotic system nearby trajectories separate exponentially, and a positive Lyapunov exponent λ is the technical core of what chaos means.</li>
+<li>The forecast horizon is roughly (1/λ)·ln(D/d₀), so each tenfold gain in initial precision adds only a fixed amount of extra time.</li>
+<li>Atmospheric errors double about every 1.5 days, which caps midlatitude weather prediction near two weeks even with a near-perfect starting state.</li>
+<li>Chaos is not randomness: in delay-embedding coordinates a chaotic signal traces a thin strange attractor, while noise fills the whole box.</li>
+<li>A practical test for deterministic structure is whether the closest historical analogues of the current state go on to behave alike for a short while.</li>
+<li>Trajectories are unpredictable but statistics are not, so climate asks how the attractor's distribution shifts rather than being a very long weather forecast.</li>
+<li>Ensemble forecasting runs dozens of members from a small cloud of initial states, and how fast they spread measures today's predictability.</li>
+<li>Determinism is a claim about the world and predictability a claim about the observer, so even in a fully classical world Laplace's demon sees only a finite horizon.</li>
+</ol>
 </div>
 
 <div class="thinking">

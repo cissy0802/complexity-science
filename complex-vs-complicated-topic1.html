@@ -63,6 +63,12 @@ details p{margin:12px 0 0;font-size:0.9rem;color:#a9a096;line-height:1.75}
 footer{text-align:center;padding:56px 0 10px;font-size:0.78rem;color:#57524b;font-family:"SF Mono",Menlo,monospace;border-top:1px solid rgba(255,255,255,0.06);margin-top:50px}
 footer a{color:#79a6d2;text-decoration:none}
 @media(max-width:600px){h1{font-size:1.85rem}.wrap{padding:24px 16px 60px}h2{font-size:1.22rem}}
+.tk{margin:46px 0 10px}
+.tk h3{font-size:1.02rem;color:#e0895e;margin-bottom:14px;letter-spacing:0.5px}
+.takeaways{counter-reset:tk;list-style:none;margin:0;padding:0;border:1px solid rgba(224,137,94,0.3);border-radius:12px;background:rgba(224,137,94,0.04)}
+.takeaways li{counter-increment:tk;position:relative;margin:0;padding:11px 18px 11px 52px;border-top:1px solid rgba(224,137,94,0.12);font-size:0.94rem;color:#d5cdc1;line-height:1.75}
+.takeaways li:first-child{border-top:none}
+.takeaways li::before{content:counter(tk,decimal-leading-zero);position:absolute;left:18px;top:12px;font-family:"SF Mono",Menlo,monospace;font-size:0.78rem;color:#e0895e}
 </style></head><body>
 <div class="wrap">
 <header>
@@ -268,6 +274,21 @@ footer a{color:#79a6d2;text-decoration:none}
 <li><b>建筑与设计 · 亚历山大的「活」</b>：建筑师 Christopher Alexander 穷其一生想说清，为什么一座老城（威尼斯）、一座哥特教堂让人觉得"活"，而一片规划失败的新区只让人觉得<em>乱</em>、一个现代主义的方格网又只让人觉得<em>死</em>。用本期的轴一看就通了：方格网在有序的一端（僵死），失败新区在随机的一端（散乱），而"活"恰恰是中间那层——多尺度上同时有结构又有变化。Alexander 甚至想给这种"活"找一个可测的量（他叫它 wholeness）。<b>推论：审美上那种说不清的"生气"，很可能不是玄学，而是我们的眼睛在识别系统落在了复杂的中间带、而非两个"简单"的极端。</b>这是对本期锚（设计与建筑的繁简之争）的一个正面回答：能涌现的"繁"和纯粹的"乱"，差别就是有没有跨尺度的结构。</li>
 <li><b>生物与医学 · 从"一个基因一个性状"到组学</b>：早期遗传学的还原论梦想是——找到"决定身高的基因""决定智力的基因"。可全基因组关联分析（genome-wide association study，缩写 GWAS）一做下来，发现绝大多数常见性状是成千上万个微效变异共同作用的结果，2017 年 Boyle、Li、Pritchard 甚至提出"全基因组模型"（omnigenic）：几乎每个表达的基因都对性状有一点点影响。这正是分子层面的"更多即不同"：性状是整张调控网络涌现出来的，不对应可拆的"部分-原因"。<b>推论：所谓"缺失的遗传力"（找不到的那部分遗传贡献）多半不是数据不够，而是层选错了——你在基因这一层找一个只在网络这一层才存在的东西。</b></li>
 </ul>
+</div>
+<div class="tk">
+<h3>📝 十条要点<span class="he">（Ten Takeaways）</span></h3>
+<ol class="takeaways">
+<li>完全有序和完全随机其实都简单：有序一句话能说完，随机给个统计参数就够了。</li>
+<li>真正的复杂只住在有序与随机之间那一层，既有结构又有意外，压不成一句话也统计不掉。</li>
+<li>韦弗在 1948 年把科学问题分成简单问题、无组织的复杂和最棘手的有组织的复杂三类。</li>
+<li>繁（complicated）的系统能拆开分块研究再拼回去，杂（complex）的系统一拆，关系就被剪断了。</li>
+<li>繁的系统通常有总设计师、行为可重复；杂的系统没有中央设计者，同样起点可能走向天差地别的结果。</li>
+<li>把杂的系统当繁的来修会反噬：澳洲 1935 年引进甘蔗蟾蜍治甲虫，结果蟾蜍自己泛滥成灾。</li>
+<li>安德森 1972 年的《More is Different》指出，能把万物拆到粒子，不等于能从粒子规律把上层推回来。</li>
+<li>温度、记忆、通胀这类规律只在大量单元聚合后的那一层出现，往下多查一层细节有天花板。</li>
+<li>「混沌边缘」最容易被浪漫化，计算能力在临界参数 λ 处最强的说法，1993 年的再检验并不支持。</li>
+<li>说一个系统「复杂」之前，先问能否说出该看的宏观变量和测法，说不出多半是在拿这个词偷懒。</li>
+</ol>
 </div>
 <div class="thinking">
 <h3 data-tts="c535226eb963635f">深入思考<span class="he">（Going Deeper）</span></h3>

@@ -62,6 +62,12 @@ details p{margin:12px 0 0;font-size:0.9rem;color:#a9a096;line-height:1.75}
 footer{text-align:center;padding:56px 0 10px;font-size:0.78rem;color:#57524b;font-family:"SF Mono",Menlo,monospace;border-top:1px solid rgba(255,255,255,0.06);margin-top:50px}
 footer a{color:#79a6d2;text-decoration:none}
 @media(max-width:600px){h1{font-size:1.85rem}.wrap{padding:24px 16px 60px}h2{font-size:1.22rem}}
+.tk{margin:46px 0 10px}
+.tk h3{font-size:1.02rem;color:#e0895e;margin-bottom:14px;letter-spacing:0.5px}
+.takeaways{counter-reset:tk;list-style:none;margin:0;padding:0;border:1px solid rgba(224,137,94,0.3);border-radius:12px;background:rgba(224,137,94,0.04)}
+.takeaways li{counter-increment:tk;position:relative;margin:0;padding:11px 18px 11px 52px;border-top:1px solid rgba(224,137,94,0.12);font-size:0.94rem;color:#d5cdc1;line-height:1.75}
+.takeaways li:first-child{border-top:none}
+.takeaways li::before{content:counter(tk,decimal-leading-zero);position:absolute;left:18px;top:12px;font-family:"SF Mono",Menlo,monospace;font-size:0.78rem;color:#e0895e}
 </style></head><body>
 <div class="wrap">
 <header>
@@ -188,6 +194,21 @@ footer a{color:#79a6d2;text-decoration:none}
 <li><b>Economics and institutions · hometown networks and enclaves</b>: an immigrant's hometown network supplies extremely high clustering — finding housing, a first job, a short-term loan all run through it, and those favours depend precisely on the reliability of strong ties. But the same set of mechanisms predicts the cost: strong ties are heavily triangle-closed, closure means few bridges, few bridges mean very short paths inside and very long paths out — and opportunities for upward mobility come almost exclusively through cross-circle weak ties. So "the tighter the community, the harder it is for members to get out" is not a lament; it is derived from the forbidden triad. The test follows: to assess the health of such a community, count <b>edges to other groups</b>, not participation in community events — the latter can be high while the former goes to zero. <b>But here it fails</b>: the advantage of weak ties is about <em>information</em>. Yanjie Bian's 1997 research in China found that when jobs are allocated rather than advertised, the scarce thing shifts from information to <b>influence</b>, and influence moves only along trust and obligation — precisely the strength of strong ties, which flips the conclusion entirely. So the real condition on "weak ties are more useful" is not culture; it is whether what is missing is news or a favour.</li>
 <li><b>Epidemiology · effective distance</b>: in 2013 Brockmann and Helbing took on an old problem — the geographic spread of modern epidemics looks lawless, with a distant city seeing cases before a neighbouring county. Their move was to replace geographic distance: the more air traffic between two places, the "closer" they are defined to be. Under that new ruler the spread of SARS and of 2009 H1N1 snaps back into the textbook picture of concentric waves radiating from a source, and arrival times become directly computable. This is the real-world version of section four's mechanism: the network did not change and the transmission rules did not change; only the metric did — and whether something is predictable, or navigable, depends entirely on picking the metric correctly. Which has a very concrete policy implication: border surveillance priorities should be ordered by effective distance rather than geographic proximity, and the two frequently produce completely different lists.</li>
 </ul>
+</div>
+<div class="tk">
+<h3>📝 Ten Takeaways</h3>
+<ol class="takeaways">
+<li>Milgram's 5.2 is the average of the chains that arrived; the 232 broken ones never entered the denominator, so the true distance can only be larger.</li>
+<li>The phrase “six degrees of separation” comes from John Guare's 1990 play, not from Milgram himself.</li>
+<li>Facebook's full-graph measurement of about 4.7 hops between any two users is the evidence that actually supports a small world.</li>
+<li>The Watts–Strogatz model puts a single rewiring knob between a ring lattice and a random graph; the wide middle band is the small world.</li>
+<li>A shortcut shortens paths for whole regions at once but breaks only one triangle, so path length collapses long before clustering does.</li>
+<li>Returns to shortcuts fall off fast: the first turns a trip halfway round the ring into one hop, the hundredth saves half a hop.</li>
+<li>Granovetter's forbidden triad means a strong tie is always wrapped in closed triangles, so only weak ties can serve as bridges.</li>
+<li>A five-year randomized experiment on LinkedIn found an inverted U: moderately weak ties, not the weakest, help most with job changes.</li>
+<li>Kleinberg showed greedy forwarding on local information finds short paths only when the shortcut-length exponent equals the lattice dimension.</li>
+<li>Complex contagions need repeated exposure from several people, so long bridges are often dead ends; behavior spreads through bridge width, not length.</li>
+</ol>
 </div>
 <div class="thinking">
 <h3>Going Deeper</h3>

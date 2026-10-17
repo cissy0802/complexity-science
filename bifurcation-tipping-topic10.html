@@ -63,6 +63,12 @@ details p{margin:12px 0 0;font-size:0.9rem;color:#a9a096;line-height:1.75}
 footer{text-align:center;padding:56px 0 10px;font-size:0.78rem;color:#57524b;font-family:"SF Mono",Menlo,monospace;border-top:1px solid rgba(255,255,255,0.06);margin-top:50px}
 footer a{color:#79a6d2;text-decoration:none}
 @media(max-width:600px){h1{font-size:1.85rem}.wrap{padding:24px 16px 60px}h2{font-size:1.22rem}}
+.tk{margin:46px 0 10px}
+.tk h3{font-size:1.02rem;color:#e0895e;margin-bottom:14px;letter-spacing:0.5px}
+.takeaways{counter-reset:tk;list-style:none;margin:0;padding:0;border:1px solid rgba(224,137,94,0.3);border-radius:12px;background:rgba(224,137,94,0.04)}
+.takeaways li{counter-increment:tk;position:relative;margin:0;padding:11px 18px 11px 52px;border-top:1px solid rgba(224,137,94,0.12);font-size:0.94rem;color:#d5cdc1;line-height:1.75}
+.takeaways li:first-child{border-top:none}
+.takeaways li::before{content:counter(tk,decimal-leading-zero);position:absolute;left:18px;top:12px;font-family:"SF Mono",Menlo,monospace;font-size:0.78rem;color:#e0895e}
 </style></head><body>
 <div class="wrap">
 <header>
@@ -266,6 +272,21 @@ footer a{color:#79a6d2;text-decoration:none}
 <li><b>历史与政治学 · 关键节点</b>：史学和比较政治学里有一对搭配使用的概念——关键节点（critical juncture）与路径依赖（path dependence）：某些短暂的时刻，很小的差别会把一个国家锁进此后几十年的制度轨道。本期的三条机制合起来，能把这个概念从修辞变成一份判据：所谓关键节点应当是①处在折点附近（同样的力气效果剧增）、②存在双稳（两种结果都能长期自我维持，而不是一种必然）、③具备滞后（把当时的条件恢复原样，制度不会跟着回去）。按这份判据，<b>关键节点应该由"后来回不去"来定义，而不是由当时的戏剧性来定义</b>——很多被写进教科书的高光时刻其实处在单稳区间，热闹但不锁定。<b>但这里不成立</b>：历史没有可以反复推的参数轴，也没有能独立测量的驱动量，双稳在史学里几乎无法证伪——上面那三条在生态学里是可以做实验检验的命题，搬到史学就只剩一个整理叙事的框架。能借走的是那份判据的<em>结构</em>（尤其是"用不可逆性来筛选，而不是用戏剧性"），不是它的检验力。</li>
 <li><b>医学 · 复发为什么不需要新的打击</b>：抑郁的临床图景长期困扰研究者——诱发的事件早已过去，症状却维持数月；而恢复期的人可能被一件小事整个打回去。把它当作双稳系统来看，这两件事变成同一件事的两面：抑郁态有自己的维持回路（睡眠紊乱、反刍、退缩、正反馈减少，彼此喂养），所以不需要持续的打击；而恢复期的人是刚刚越过分水岭、还站在浅谷里，所以小扰动就够把他推回去。van de Leemput 等人 2014 年在人的情绪时间序列里找到了临界慢化的迹象，为这个框架提供了间接证据。由此推出的临床含义相当具体：<b>维持期治疗的目标不是"消除症状"（那是状态量），而是把系统按在离折点更远的地方</b>——这解释了为什么症状消失后过早停药，复发率会显著上升。需要说明的是，抑郁是不是真的双稳仍有争议，证据是间接的，而且把它读成"要么病要么好的两个开关"会低估连续谱和共病；这个框架的价值在于它解释了滞后，不在于它给出了分类。</li>
 </ul>
+</div>
+<div class="tk">
+<h3>📝 十条要点<span class="he">（Ten Takeaways）</span></h3>
+<ol class="takeaways">
+<li>鞍结分岔里系统不是被推出稳态，而是驱动量把它所在的谷整个抹掉，系统只能跃迁到别处。</li>
+<li>跨过折点那一刻驱动量并无异常，变的是系统对它的响应方式，所以事后常找不到“反常事件”。</li>
+<li>折点之前状态位置几乎不动，谷变浅只体现在扰动后恢复变慢，而常规监控测的全是位置。</li>
+<li>双稳态下同一外部条件容得下两种各靠正反馈自我维持的状态，大扰动不必等到折点就能把系统掀过分水岭。</li>
+<li>牙买加北岸珊瑚礁先被过度捕捞削浅了谷，再被飓风和海胆大批死亡掀过分水岭，几十年没有恢复。</li>
+<li>滞后意味着往上推和往下退的折点不在同一处，浑浊的浅湖要变清，营养盐必须退到远低于翻车时的水平。</li>
+<li>荷兰浅湖的生物操纵捞走吃浮游动物的鱼，不改驱动量，而是把湖直接踢进清水态的吸引域。</li>
+<li>时间序列上的一次陡跳可能是折点、陡峭的平滑响应或驱动量自身跳变，单向历史数据分不出三者。</li>
+<li>Hillebrand 等人 2020 年的汇总没找到普遍的生态突变阈值，渐变应是缺省，双稳才需要举证。</li>
+<li>1970 年代的突变论应用只借了折叠曲面的形状，不指认驱动量和可测变量，1977 年被批评终结。</li>
+</ol>
 </div>
 <div class="thinking">
 <h3 data-tts="cee1fb960a9b9376">深入思考<span class="he">（Going Deeper）</span></h3>

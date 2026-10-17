@@ -61,6 +61,12 @@ details p{margin:12px 0 0;font-size:0.9rem;color:#a9a096;line-height:1.75}
 footer{text-align:center;padding:56px 0 10px;font-size:0.78rem;color:#57524b;font-family:"SF Mono",Menlo,monospace;border-top:1px solid rgba(255,255,255,0.06);margin-top:50px}
 footer a{color:#79a6d2;text-decoration:none}
 @media(max-width:600px){h1{font-size:1.85rem}.wrap{padding:24px 16px 60px}h2{font-size:1.22rem}}
+.tk{margin:46px 0 10px}
+.tk h3{font-size:1.02rem;color:#e0895e;margin-bottom:14px;letter-spacing:0.5px}
+.takeaways{counter-reset:tk;list-style:none;margin:0;padding:0;border:1px solid rgba(224,137,94,0.3);border-radius:12px;background:rgba(224,137,94,0.04)}
+.takeaways li{counter-increment:tk;position:relative;margin:0;padding:11px 18px 11px 52px;border-top:1px solid rgba(224,137,94,0.12);font-size:0.94rem;color:#d5cdc1;line-height:1.75}
+.takeaways li:first-child{border-top:none}
+.takeaways li::before{content:counter(tk,decimal-leading-zero);position:absolute;left:18px;top:12px;font-family:"SF Mono",Menlo,monospace;font-size:0.78rem;color:#e0895e}
 </style></head><body>
 <div class="wrap">
 <header>
@@ -269,6 +275,21 @@ footer a{color:#79a6d2;text-decoration:none}
 <li><b>Ecology &amp; institutions · the systematic failure of maximum sustainable yield</b>: Twentieth-century fisheries management wrote a goal into law: <b>maximum sustainable yield</b> (MSY). Since growth is fastest at K/2 (section 01), hold the stock at K/2 and harvest that maximum increment every year. The logic is airtight, and in practice it presided over a string of collapses including Newfoundland cod. Several of this issue's mechanisms together show this was not poor execution but a target set in the wrong place. <em>K/2 is precisely the inflection point</em>, so any overestimate pushes the stock onto the side where growth is falling — the less there is, the more you must take (section 01). <em>Stock assessment is delayed</em>, so quotas are always based on a stock level from several years ago (section 02). <em>K itself is damaged by fishing</em>: big fish are taken first, the age structure is flattened, and selection even favours earlier-maturing, smaller fish, so K and r fall together (section 02). And <em>K cannot be estimated accurately before the inflection point</em> (section 04), which makes "where is K/2" the least reliable number in the whole scheme. From which follows a conclusion that is not obvious in advance: setting the target to the <b>right</b> of K/2 (holding a larger stock) costs almost nothing — the growth curve is flat near its peak, so holding 0.6K sacrifices only about 4% of the annual yield while buying a large margin of safety. The asymmetry comes not from caution but from the flatness of the top of that bell.</li>
 <li><b>Eastern thought · the "arrogant dragon" of the </b><i><b>Yijing</b></i>: The first hexagram of the <i>Yijing</i> runs from "the hidden dragon: do not act" up to the top line, <i>kang long you hui</i> — the dragon that has risen to the extreme and rises further will have cause for regret. What it offers is a purely <b>positional</b> criterion: which line you are on, not how high you are. This issue supplies exactly what that criterion lacks — how to measure the position. The answer: not by height (the absolute level) but by whether the growth rate has passed its peak (section 01) and whether the marginal return has begun to bend (sections 03, 04). "Knowing advance and retreat, survival and ruin, without losing what is right" thus becomes a computable quantity rather than a virtue. <b>But here it does not hold</b>: the six lines of a hexagram are <em>given in advance</em>, discrete, and necessarily traversed, so reaching the extreme is positional destiny; whereas the K of an S-curve is neither given in advance nor fixed — section 03 is entirely about how a relay lets a curve fail to end where it should. Reading "the arrogant dragon" as the necessity of reversal at every extreme turns something innovation can overturn into fate, and leads to retreating exactly when one should be switching curves. What can be borrowed is the ruler — watch position, not height — not the fatalism.</li>
 </ul>
+</div>
+<div class="tk">
+<h3>📝 Ten Takeaways</h3>
+<ol class="takeaways">
+<li>Almost all the action in exponential growth happens in the last one or two doublings: the lily pond goes from half covered to full in a single day.</li>
+<li>In 1838 Verhulst multiplied exponential growth by a discount factor, (1 − N/K), producing the logistic S-curve, where K is the carrying capacity.</li>
+<li>On a logistic curve the growth rate peaks at the halfway mark, the inflection point N = K/2, long before the total shows any strain.</li>
+<li>Whether a system lands softly, oscillates, or overshoots and collapses depends on signal delay and on how fast the consumed resource regenerates.</li>
+<li>St. Matthew Island's reindeer went from 29 to 6,000 and then to 42 in three years, because stripping the lichen broke the ceiling itself.</li>
+<li>Carrying capacity is not a constant of nature but a measure of whichever constraint currently binds; swap the constraint and a new S-curve begins.</li>
+<li>The upper hull of relayed S-curves, the envelope curve, looks exponential from a distance; Moore's law is the most famous example.</li>
+<li>Richard Foster showed that at the right moment to switch, the new option is necessarily lower in absolute terms, so compare slopes, not levels.</li>
+<li>Before the inflection point logistic and exponential growth are indistinguishable in noisy data; Pearl and Reed's 1920 ceiling of 197 million is now exceeded by about 70%.</li>
+<li>An S-shape is the common look of many mechanisms, and an S-curve claim becomes falsifiable only if you name the binding constraint and its measure in advance.</li>
+</ol>
 </div>
 <div class="thinking">
 <h3>Going Deeper</h3>

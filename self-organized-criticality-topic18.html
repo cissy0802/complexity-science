@@ -63,6 +63,12 @@ details p{margin:12px 0 0;font-size:0.9rem;color:#a9a096;line-height:1.75}
 footer{text-align:center;padding:56px 0 10px;font-size:0.78rem;color:#57524b;font-family:"SF Mono",Menlo,monospace;border-top:1px solid rgba(255,255,255,0.06);margin-top:50px}
 footer a{color:#79a6d2;text-decoration:none}
 @media(max-width:600px){h1{font-size:1.85rem}.wrap{padding:24px 16px 60px}h2{font-size:1.22rem}}
+.tk{margin:46px 0 10px}
+.tk h3{font-size:1.02rem;color:#e0895e;margin-bottom:14px;letter-spacing:0.5px}
+.takeaways{counter-reset:tk;list-style:none;margin:0;padding:0;border:1px solid rgba(224,137,94,0.3);border-radius:12px;background:rgba(224,137,94,0.04)}
+.takeaways li{counter-increment:tk;position:relative;margin:0;padding:11px 18px 11px 52px;border-top:1px solid rgba(224,137,94,0.12);font-size:0.94rem;color:#d5cdc1;line-height:1.75}
+.takeaways li:first-child{border-top:none}
+.takeaways li::before{content:counter(tk,decimal-leading-zero);position:absolute;left:18px;top:12px;font-family:"SF Mono",Menlo,monospace;font-size:0.78rem;color:#e0895e}
 </style></head><body>
 <div class="wrap">
 <header>
@@ -237,6 +243,21 @@ footer a{color:#79a6d2;text-decoration:none}
 <li><b>工程与制度 · "根因"教条</b>：事故调查行业几十年建立在 root cause analysis 之上——一起事故，找到那个根因，修掉它。但在耦合紧密的系统里，安全科学界（Hollnagel 等人）早已指出根因往往是调查过程<em>构造</em>出来的，而不是发现的：沿因果链回溯时，你总能停在某个看起来"可修"的地方，而停在哪里取决于调查的预算和政治，不取决于系统。这与本期第三节同构——因果链真实存在，但链条的起点不解释结果的规模。于是"修掉根因"这个动作会系统性地低估下一次：你修掉的是那粒沙，沙堆的高度没动。</li>
 <li><b>心理学 · 基本归因错误（fundamental attribution error）</b>：人在解释他人行为时，系统性地高估性格、低估处境。放到本期的语境里，这个偏误有了一个更硬的版本：不只是"我们高估了人的作用"，而是<b>在无标度的系统里，"谁触发的"这个变量本身几乎不含解释方差</b>——不是权重估错了，是这一项接近于零。这也解释了为什么追责如此顽固地令人满意：一个幂律分布不提供任何叙事，而人脑需要的是叙事，不是分布。</li>
 </ul>
+</div>
+<div class="tk">
+<h3>📝 十条要点<span class="he">（Ten Takeaways）</span></h3>
+<ol class="takeaways">
+<li>Per Bak 等人 1987 年的沙堆模型规则极简：一格沙超过 3 粒就倒给四个邻格各 1 粒。</li>
+<li>在沙堆模型里，同样加一粒沙，可能什么都不发生，也可能引发横扫大半张纸的连锁雪崩。</li>
+<li>在自组织临界的系统里，触发事件和事件规模没有对应关系，追问大雪崩的起因只能得到一粒普通的沙。</li>
+<li>普通相变的临界点要精确调出来，沙堆的临界坡度却是吸引子：太缓就堆积变陡，太陡就雪崩变缓。</li>
+<li>凡是具备「缓慢积累 + 阈值释放」结构的系统，都会自发走到随时可能出大事的临界状态。</li>
+<li>美国林务局长期「见火就灭」，林下可燃物几十年不清，被压住的小火以未来大火的规模存了起来。</li>
+<li>雪崩规模服从幂律、没有典型规模；地震的古登堡-里希特定律是现实中最干脆的例子。</li>
+<li>Richardson 发现从街头斗殴到世界大战，死亡规模落在同一条幂律直线上，中间没有断层。</li>
+<li>真沙堆并不服从沙堆模型，1996 年的米堆实验里只有细长米粒堆出了幂律。</li>
+<li>「大事件不需要大原因」是关于规模分布的统计命题，不是说没有原因，更不能拿来替谁开脱责任。</li>
+</ol>
 </div>
 <div class="thinking">
 <h3 data-tts="dfbad26f6c4ee13a">深入思考<span class="he">（Going Deeper）</span></h3>

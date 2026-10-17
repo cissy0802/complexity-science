@@ -67,6 +67,12 @@ footer a{color:#79a6d2;text-decoration:none}
 @media(max-width:600px){h1{font-size:1.85rem}.wrap{padding:24px 16px 60px}h2{font-size:1.22rem}}
 
 
+.tk{margin:46px 0 10px}
+.tk h3{font-size:1.02rem;color:#e0895e;margin-bottom:14px;letter-spacing:0.5px}
+.takeaways{counter-reset:tk;list-style:none;margin:0;padding:0;border:1px solid rgba(224,137,94,0.3);border-radius:12px;background:rgba(224,137,94,0.04)}
+.takeaways li{counter-increment:tk;position:relative;margin:0;padding:11px 18px 11px 52px;border-top:1px solid rgba(224,137,94,0.12);font-size:0.94rem;color:#d5cdc1;line-height:1.75}
+.takeaways li:first-child{border-top:none}
+.takeaways li::before{content:counter(tk,decimal-leading-zero);position:absolute;left:18px;top:12px;font-family:"SF Mono",Menlo,monospace;font-size:0.78rem;color:#e0895e}
 </style></head><body>
 <div class="wrap">
 <header>
@@ -609,6 +615,21 @@ footer a{color:#79a6d2;text-decoration:none}
 </ul>
 </div>
 
+<div class="tk">
+<h3>📝 Ten Takeaways</h3>
+<ol class="takeaways">
+<li>Walking dividers along coastlines, Richardson found that the shorter the step, the longer the measured length, with no sign of converging.</li>
+<li>Mandelbrot read the slope of the log-log line between length and step size as a dimension D: 1 for a smooth curve, above 1 for a coastline.</li>
+<li>Each iteration of the Koch curve multiplies its length by 4/3, so the length grows without bound while the curve stays inside a small patch.</li>
+<li>Mathematical fractals are exactly self-similar; coasts, river networks and blood vessels are only statistically so, which is why their dimension must be measured, not derived.</li>
+<li>Dimension counts the copies you get when you magnify: a Koch curve magnified threefold is four copies of itself, giving a non-integer dimension of about 1.26.</li>
+<li>In a branching network, each generation adds the same volume but about 26% more surface, which is how lungs pack over a hundred square meters into a few liters.</li>
+<li>Supply-network optimization, criticality and scale-free shaping processes all lead to fractal form, so calling something fractal names no mechanism.</li>
+<li>Avnir and colleagues found that reported natural fractals span on average only about 1.3 orders of magnitude, too narrow to tell a line from a gentle curve.</li>
+<li>Two shapes with the same fractal dimension can look nothing alike; casual doodles passed the fractal test once used to authenticate Pollock's drip paintings.</li>
+<li>Scaling one-day volatility by √T to get multi-day risk assumes a scaling exponent of exactly 1/2, an assumption rather than a measurement.</li>
+</ol>
+</div>
 <div class="thinking">
 <h3>Going Deeper</h3>
 <details><summary>If a system's scaling window is only one order of magnitude wide, is it still meaningful to call it fractal?</summary><p>Yes, but the meaning shrinks to one very specific sentence: "within this one order of magnitude I can describe it with a single set of parameters." That is still useful — it means you can interpolate across that range. It supports no inference outside the window, least of all "so the same thing happens at larger scales". The way to check is to ask: if I widened the window by another half an order of magnitude, would the conclusion flip? If it would, the conclusion was a product of the window.</p></details>

@@ -65,6 +65,12 @@ details p{margin:12px 0 0;font-size:0.9rem;color:#a9a096;line-height:1.75}
 footer{text-align:center;padding:56px 0 10px;font-size:0.78rem;color:#57524b;font-family:"SF Mono",Menlo,monospace;border-top:1px solid rgba(255,255,255,0.06);margin-top:50px}
 footer a{color:#79a6d2;text-decoration:none}
 @media(max-width:600px){h1{font-size:1.85rem}.wrap{padding:24px 16px 60px}h2{font-size:1.22rem}}
+.tk{margin:46px 0 10px}
+.tk h3{font-size:1.02rem;color:#e0895e;margin-bottom:14px;letter-spacing:0.5px}
+.takeaways{counter-reset:tk;list-style:none;margin:0;padding:0;border:1px solid rgba(224,137,94,0.3);border-radius:12px;background:rgba(224,137,94,0.04)}
+.takeaways li{counter-increment:tk;position:relative;margin:0;padding:11px 18px 11px 52px;border-top:1px solid rgba(224,137,94,0.12);font-size:0.94rem;color:#d5cdc1;line-height:1.75}
+.takeaways li:first-child{border-top:none}
+.takeaways li::before{content:counter(tk,decimal-leading-zero);position:absolute;left:18px;top:12px;font-family:"SF Mono",Menlo,monospace;font-size:0.78rem;color:#e0895e}
 </style></head><body>
 <div class="wrap">
 <header>
@@ -306,6 +312,21 @@ d<i>x</i>/d<i>t</i> = α<i>x</i> − β<i>xy</i>　　　d<i>y</i>/d<i>t</i> = �
 <li><b>经济与制度 · 学历为什么会通胀</b>：Michael Spence 1973 年的信号理论说，学历的一部分价值在于它把人区分开；Fred Hirsch 则把这类东西叫"位置性商品"——它的价值来自排序，而排序的总量是固定的。这正好套上本期两条机制：负频率依赖（一个信号越普及越不值钱）+ 相对适应度（所有人多读三年，排序不变、成本全涨）。再叠上沃尔泰拉原理，可以推出一个反常识的政策判断：<b>增加学位供给并不能让更多人拿到学历原有的那份收益，它只是稀释了信号本身</b>；真正能改变均衡的是换掉排序规则，或者<b>无差别地、可核查地压低投入</b>——单边减少投入就等于单方裁军。<b>但这里不成立</b>：教育不只是信号，它确实生产能用的技能，那部分是绝对收益，不会因为人人都会而消失。红皇后只吃掉排序的那一份，吃不掉那一份。把两者混在一起，就会从"文凭在通胀"滑到"读书没用"——那是两笔完全不同的账。</li>
 <li><b>工程与技术史 · 反垃圾与反作弊规则</b>：垃圾邮件过滤、风控规则、验证码，这些系统的历史是本期三条机制的合演：军备竞赛（每一轮识别都更贵）+ 负频率依赖（一条规则部署得越广，专门绕过它的手法就越值得开发，规则的价值随部署密度衰减）+ 地理镶嵌（不同平台是不同的热点与冷点，一套规则通吃不了）。合起来推出的结论跟"把模型做得更准"这条直觉不一样：<b>一堆异质的、频繁轮换的、不公开的弱规则，胜过一条更强的公开规则</b>——因为你要防的不是错误率，是被针对性适应。<b>但这里不成立</b>：密码学恰恰要求公开。Kerckhoffs 原则说算法应当公开、只有密钥保密，而且它是对的。差别在于密码学把"稀有性"外包给了一个可以随时轮换的密钥，于是算法本身经得起全世界研究几十年。这个对照给出的其实是更好的做法：<b>与其让检测规则保密，不如给它设计一个"密钥"</b>——一个可轮换的随机成分。保密会随人员流动衰减，可轮换的东西不会。</li>
 </ul>
+</div>
+<div class="tk">
+<h3>📝 十条要点<span class="he">（Ten Takeaways）</span></h3>
+<ol class="takeaways">
+<li>适应度是相对当前对手的比值，不是绝对量；共演化里对手每动一步，你脚下的适应度地形就跟着改一遍。</li>
+<li>Van Valen 1973 年发现，一个类群已存在多久几乎不改变它的灭绝概率，这就是红皇后假说的出发点。</li>
+<li>洛特卡-沃尔泰拉模型里，捕食者高峰比猎物晚约四分之一个周期，捕食者数量反映的是过去的猎物。</li>
+<li>在洛特卡-沃尔泰拉模型中，猎物的长期平均数量只由捕食者一侧的参数决定，与猎物自己的繁殖速度无关。</li>
+<li>沃尔泰拉原理：无差别杀伤会压低猎物均值、抬高捕食者均值，广谱杀虫剂因此可能让害虫暴发得更凶。</li>
+<li>寄生虫紧盯最常见的宿主基因型，稀有型因稀有而占优，这种负频率依赖选择解释了有性繁殖为何值得付出两倍成本。</li>
+<li>新西兰淡水螺在吸虫寄生越重的水体里有性个体越多；Morran 等人的线虫实验中，共演化的病原把种群推向异体交配。</li>
+<li>军备竞赛型共演化的性状单向加码、成本单调上升且退不回去，波动选择型则是频率来回摆、没有净方向。</li>
+<li>红皇后的可检验内容很窄，一个说法若不给新预测、只靠辅助解释吸收反例，就从机制工具退化成了修辞。</li>
+<li>英德无畏舰竞赛中英国赢下了主力舰竞赛却没换来安全，因为德国把竞争挤到了扩陆军这个维度上。</li>
+</ol>
 </div>
 <div class="thinking">
 <h3 data-tts="3169cfafe88ebf2b">🧠 深入思考<span class="he">（Going Deeper）</span></h3>

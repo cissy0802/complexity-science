@@ -58,6 +58,12 @@ details p{margin:12px 0 0;font-size:0.9rem;color:#a9a096;line-height:1.75}
 footer{text-align:center;padding:56px 0 10px;font-size:0.78rem;color:#57524b;font-family:"SF Mono",Menlo,monospace;border-top:1px solid rgba(255,255,255,0.06);margin-top:50px}
 footer a{color:#79a6d2;text-decoration:none}
 @media(max-width:600px){h1{font-size:1.85rem}.wrap{padding:24px 16px 60px}h2{font-size:1.22rem}}
+.tk{margin:46px 0 10px}
+.tk h3{font-size:1.02rem;color:#e0895e;margin-bottom:14px;letter-spacing:0.5px}
+.takeaways{counter-reset:tk;list-style:none;margin:0;padding:0;border:1px solid rgba(224,137,94,0.3);border-radius:12px;background:rgba(224,137,94,0.04)}
+.takeaways li{counter-increment:tk;position:relative;margin:0;padding:11px 18px 11px 52px;border-top:1px solid rgba(224,137,94,0.12);font-size:0.94rem;color:#d5cdc1;line-height:1.75}
+.takeaways li:first-child{border-top:none}
+.takeaways li::before{content:counter(tk,decimal-leading-zero);position:absolute;left:18px;top:12px;font-family:"SF Mono",Menlo,monospace;font-size:0.78rem;color:#e0895e}
 </style></head><body>
 <div class="wrap">
 
@@ -273,6 +279,21 @@ footer a{color:#79a6d2;text-decoration:none}
 </ul>
 </div>
 
+<div class="tk">
+<h3>📝 Ten Takeaways</h3>
+<ol class="takeaways">
+<li>In a phantom traffic jam every car moves forward while the jam itself travels steadily backward, with no accident or bottleneck needed.</li>
+<li>The first sense of emergence: something real, measurable and causally effective need not be any one of its parts.</li>
+<li>The macro layer arises by coarse-graining: average away micro detail and keep what survives, as temperature keeps only mean kinetic energy.</li>
+<li>A glass of water collapses from about 10²³ micro variables to a few effective degrees of freedom, which is why gas laws are so simple.</li>
+<li>A market price is a macro variable like temperature: it pools scattered information, belongs to no one, yet coordinates everyone.</li>
+<li>Weak emergence, as Mark Bedau defines it, is derivable from the micro in principle but only by running the simulation, with no shortcut.</li>
+<li>Strong emergence claims macro properties underivable even in principle, with downward causation; consciousness is almost its only example.</li>
+<li>For weakly emergent systems, knowing everything is not foreseeing everything: the only way to learn the outcome is to let it run.</li>
+<li>When a bad outcome keeps recurring, ask whether anyone in the same seat would produce it; if so, the cause is structural and replacing people won't help.</li>
+<li>Before calling something emergent, say what was coarse-grained, which variables survived, and whether it is weak or strong; otherwise the word just hides ignorance.</li>
+</ol>
+</div>
 <div class="thinking">
 <h3>Going deeper</h3>
 <details><summary>If a macro law is only the residue of averaging, how can it turn around and "constrain" the micro?</summary><p>This is the heart of the downward-causation dispute. The mild reading (which most complexity scientists accept) is that the macro doesn't mysteriously "give orders"; it acts as a <em>boundary condition and statistical constraint</em> on the micro — temperature, for instance, fixes the distribution of molecular speeds. Only the radical reading (strong emergence) claims the macro is an independent causal source, and that step runs into the causal closure of physics and remains unproven. Deciding which one you mean saves half the pointless arguments.</p></details>

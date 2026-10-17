@@ -63,6 +63,12 @@ details p{margin:12px 0 0;font-size:0.9rem;color:#a9a096;line-height:1.75}
 footer{text-align:center;padding:56px 0 10px;font-size:0.78rem;color:#57524b;font-family:"SF Mono",Menlo,monospace;border-top:1px solid rgba(255,255,255,0.06);margin-top:50px}
 footer a{color:#79a6d2;text-decoration:none}
 @media(max-width:600px){h1{font-size:1.85rem}.wrap{padding:24px 16px 60px}h2{font-size:1.22rem}}
+.tk{margin:46px 0 10px}
+.tk h3{font-size:1.02rem;color:#e0895e;margin-bottom:14px;letter-spacing:0.5px}
+.takeaways{counter-reset:tk;list-style:none;margin:0;padding:0;border:1px solid rgba(224,137,94,0.3);border-radius:12px;background:rgba(224,137,94,0.04)}
+.takeaways li{counter-increment:tk;position:relative;margin:0;padding:11px 18px 11px 52px;border-top:1px solid rgba(224,137,94,0.12);font-size:0.94rem;color:#d5cdc1;line-height:1.75}
+.takeaways li:first-child{border-top:none}
+.takeaways li::before{content:counter(tk,decimal-leading-zero);position:absolute;left:18px;top:12px;font-family:"SF Mono",Menlo,monospace;font-size:0.78rem;color:#e0895e}
 </style></head><body>
 
 <div class="wrap">
@@ -313,6 +319,21 @@ footer a{color:#79a6d2;text-decoration:none}
 </ul>
 </div>
 
+<div class="tk">
+<h3>📝 Ten Takeaways</h3>
+<ol class="takeaways">
+<li>A prisoner's dilemma is defined by an ordering of payoffs, not by particular numbers: temptation beats mutual cooperation, which beats mutual defection, which beats being the sucker.</li>
+<li>In a one-shot prisoner's dilemma defection is a dominant strategy and mutual defection a Nash equilibrium, so appeals to trust change nothing.</li>
+<li>Under replicator dynamics a strategy's share grows with its payoff minus the population average, and prisoner's dilemma payoffs drive cooperators all the way to zero.</li>
+<li>An evolutionarily stable strategy is one no small group of invaders can profit against; in Hawk-Dove hawks settle at a share of V/C, and stable does not mean best.</li>
+<li>Tit-for-tat won both of Axelrod's tournaments, and with the standard payoffs a one-time grab stops paying once the chance of meeting again, w, reaches 0.5.</li>
+<li>When Nowak and May put cooperators on a grid playing only their neighbours, cooperators crashed, then survived in clusters under payoffs that wipe them out in a mixed population.</li>
+<li>The approximate rule b/c &gt; k from Ohtsuki and colleagues says the more neighbours each person faces, the harder cooperation is to grow, and k can usually be cut by splitting groups.</li>
+<li>Ostrom found commons that ran for centuries on clear boundaries, monitoring by the users themselves and graduated sanctions, without nationalisation or privatisation.</li>
+<li>In Fehr and Gächter's public goods experiment, contributions slid toward zero without punishment and climbed close to the maximum once players could pay to punish others.</li>
+<li>The structures that sustain cooperation are neutral: cartels rely on them too, and cutting w, scrambling pairings and letting defectors stay anonymous will dismantle a cooperative arrangement.</li>
+</ol>
+</div>
 <div class="thinking">
 <h3>Going Deeper</h3>
 <details><summary>If cooperation is a product of structure, what content is left in the sentence "this person is trustworthy"?</summary><p>One possibility: it compresses a statistic — this person did not take the free lunch in past situations where w was low and taking it was safe. If so, trustworthiness is a measurable quantity with a very specific test: watch only what someone does when there is no next time. Another possibility: people really do internalise norms that do not depend on structure, and those norms are themselves what long-run structural selection produced. Distinguishing the two experimentally is not easy.</p></details>

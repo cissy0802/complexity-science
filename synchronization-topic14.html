@@ -63,6 +63,12 @@ details p{margin:12px 0 0;font-size:0.9rem;color:#a9a096;line-height:1.75}
 footer{text-align:center;padding:56px 0 10px;font-size:0.78rem;color:#57524b;font-family:"SF Mono",Menlo,monospace;border-top:1px solid rgba(255,255,255,0.06);margin-top:50px}
 footer a{color:#79a6d2;text-decoration:none}
 @media(max-width:600px){h1{font-size:1.85rem}.wrap{padding:24px 16px 60px}h2{font-size:1.22rem}}
+.tk{margin:46px 0 10px}
+.tk h3{font-size:1.02rem;color:#e0895e;margin-bottom:14px;letter-spacing:0.5px}
+.takeaways{counter-reset:tk;list-style:none;margin:0;padding:0;border:1px solid rgba(224,137,94,0.3);border-radius:12px;background:rgba(224,137,94,0.04)}
+.takeaways li{counter-increment:tk;position:relative;margin:0;padding:11px 18px 11px 52px;border-top:1px solid rgba(224,137,94,0.12);font-size:0.94rem;color:#d5cdc1;line-height:1.75}
+.takeaways li:first-child{border-top:none}
+.takeaways li::before{content:counter(tk,decimal-leading-zero);position:absolute;left:18px;top:12px;font-family:"SF Mono",Menlo,monospace;font-size:0.78rem;color:#e0895e}
 </style></head><body>
 <div class="wrap">
 <header>
@@ -284,6 +290,21 @@ footer a{color:#79a6d2;text-decoration:none}
 <li><b>历史与军事 · 1831 年布劳顿桥与「便步」军令</b>：一队士兵齐步走过曼彻斯特的布劳顿吊桥，桥塌了。英军此后立下规矩：部队过桥必须解散步伐，各走各的。这条两百年前的军令，正是本期机制的完整实现——它同时动了两个旋钮，既拆掉了共同驱动（口令），又拧宽了频率分散度（各走各的）。但把它和千禧桥并排看，会得到一个军令给不出的结论：<b>这条规矩只治得了共同驱动那一种同步。</b>千禧桥上没有任何口令，那两千人是<em>通过桥本身</em>互相耦合的——你不可能命令一个人"别顺着晃动调整重心"，因为那是站稳的本能。所以两种同步需要两套完全不同的对策：一种可以靠纪律解决，另一种只能靠改结构解决，而千禧桥最终也确实是靠改结构（阻尼）而不是靠管人解决的。<b>把纪律用在第二类问题上，是本期最常见的一种资源错配。</b></li>
 <li><b>经济与制度 · 全球化与商业周期的同步</b>：贸易和资本流动的加深，等价于把各国经济之间的 <em>K</em> 一路推高。把本期机制成套地用上去，得到的不是"风险会传播"这种老生常谈，而是一个关于<em>方差结构</em>的结论：各国周期彼此独立时，坏年份和好年份互相抵消，全球总产出的波动被自然地磨平；一旦越过临界耦合，独立的自由度坍缩成一个共同因子，抵消消失，全球波动率跳升。真正的操作含义在最后一步：<b>"分散到多个国家"这个动作的有效性不是随耦合上升缓慢磨损的，而是在 <em>K</em><sub>c</sub> 附近骤降的。</b>也就是说，一份在过去二十年数据上验证有效的跨国分散方案，可以在耦合越线之后的第一年就大部分失效，而回测完全看不出这件事要来——因为回测样本几乎全落在越线之前。</li>
 </ul>
+</div>
+<div class="tk">
+<h3>📝 十条要点<span class="he">（Ten Takeaways）</span></h3>
+<ol class="takeaways">
+<li>同步需要三样东西：自己会周期循环的振子、各不相同的固有频率与相位，以及让振子互相微调的耦合。</li>
+<li>序参量 <em>r</em> 衡量同步程度：把所有相位当作等长箭头相加，合力为 0 是全散，为 1 是全锁。</li>
+<li>藏本模型里耦合的实际拉力是 <em>K</em>×<em>r</em>，所以无序会自我维持，越过临界耦合 <em>K</em><sub>c</sub> 才突然冒出同步。</li>
+<li>千禧桥约 160 人以上才晃，晃动与步伐整齐同时出现，最后靠阻尼器掐断耦合通道修好。</li>
+<li>频率越分散临界耦合越高，想促成同步时，收窄分散度通常比加大耦合便宜得多。</li>
+<li>同步把 N 个独立自由度压成一个：电网靠对齐工作，而癫痫发作正是神经元过度同步、信息随之消失。</li>
+<li>一群东西一起动可能只是被同一外力推着，相关不等于同步，共同驱动与相互耦合的对策正好相反。</li>
+<li>网络上的嵌合态让锁相和乱走的两半长期共存，只看全局 <em>r</em> 会把截然不同的局面压成同一个数。</li>
+<li>说「这里发生了同步」之前先答三问：谁是振子、相位怎么测、耦合走哪条通道，缺一样多半是共同驱动。</li>
+<li>布劳顿桥 1831 年塌后英军过桥改走便步，这种纪律只治得了共同驱动，治不了经由桥体的耦合。</li>
+</ol>
 </div>
 <div class="thinking">
 <h3 data-tts="cb1786873b60a293">深入思考<span class="he">（Going Deeper）</span></h3>

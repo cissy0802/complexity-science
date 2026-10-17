@@ -63,6 +63,12 @@ details p{margin:12px 0 0;font-size:0.9rem;color:#a9a096;line-height:1.75}
 footer{text-align:center;padding:56px 0 10px;font-size:0.78rem;color:#57524b;font-family:"SF Mono",Menlo,monospace;border-top:1px solid rgba(255,255,255,0.06);margin-top:50px}
 footer a{color:#79a6d2;text-decoration:none}
 @media(max-width:600px){h1{font-size:1.85rem}.wrap{padding:24px 16px 60px}h2{font-size:1.22rem}}
+.tk{margin:46px 0 10px}
+.tk h3{font-size:1.02rem;color:#e0895e;margin-bottom:14px;letter-spacing:0.5px}
+.takeaways{counter-reset:tk;list-style:none;margin:0;padding:0;border:1px solid rgba(224,137,94,0.3);border-radius:12px;background:rgba(224,137,94,0.04)}
+.takeaways li{counter-increment:tk;position:relative;margin:0;padding:11px 18px 11px 52px;border-top:1px solid rgba(224,137,94,0.12);font-size:0.94rem;color:#d5cdc1;line-height:1.75}
+.takeaways li:first-child{border-top:none}
+.takeaways li::before{content:counter(tk,decimal-leading-zero);position:absolute;left:18px;top:12px;font-family:"SF Mono",Menlo,monospace;font-size:0.78rem;color:#e0895e}
 </style></head><body>
 <div class="wrap">
 <header>
@@ -290,6 +296,22 @@ footer a{color:#79a6d2;text-decoration:none}
 <li><b>科学哲学 · 还原论的适用域</b>：「还原论 vs 整体论」这场老争论，近可分解性把它从立场之争改判成了经验问题。还原论——把系统拆成部件、分别理解、再拼回去——<em>什么时候</em>对？答案精确得出人意料：<b>当且仅当系统近可分解</b>。模块间耦合足够弱，你分开研究各部分犯的错就足够小，还原论就管用（这也正是本期第二节「能分开算」的另一面）。而在自旋玻璃、深度纠缠的生态网络那种全局强耦合的系统里，拆开就丢掉了几乎全部信息，还原论当场失灵——这接上了第 1 期讲的「还原论在复杂系统里为何失灵」。<b>但这里不成立</b>：这把尺子只裁「拆开分析对不对」，不裁「高层现象是否真实存在」。就算一个系统完美近可分解、还原得干干净净，涌现出的高层性质（温度、价格）依然是实在的——可分解性谈的是<em>认识论</em>的可行性，不是<em>本体论</em>的存废，别用前者去否认后者。</li>
 </ul>
 </div>
+<div class="tk">
+<h3>📝 十条要点<span class="he">（Ten Takeaways）</span></h3>
+<ol class="takeaways">
+<li>钟表匠寓言里，Hora 先拼稳定小总成，被打断只丢当前模块，平铺装配的 Tempus 则得从头来。</li>
+<li>逐步搭建的复杂系统只有具备稳定中间态才搭得成，所以见到的复杂系统几乎都分层套盒。</li>
+<li>眼睛能被演化造出来，是因为从感光皮肤到成像眼的每个中间形态本身都是能用的模块。</li>
+<li>近可分解指模块内部相互作用强而快、模块之间相互作用弱而慢；是弱不是无，连着但连得松。</li>
+<li>西蒙的隔墙房间例子显示两级时标：短时间里各房间各自匀温可分开算，长时间里热才透过墙渗匀。</li>
+<li>可分解是绑在时标上的说法：地月可先当孤立两体来算，但在几亿年尺度上太阳微扰会改写轨道。</li>
+<li>系统真正的接缝在耦合图上，常与按功能或组织图画的边界不重合，切错了照样牵一发动全身。</li>
+<li>Parnas 主张按「哪些设计决定会一起改变」拆软件，用信息隐藏稳住接口，而不是按处理步骤拆。</li>
+<li>自旋玻璃等阻挫系统复杂却无干净接缝，分层不是复杂的定义，而是可逐步建造的复杂所交的入场费。</li>
+<li>近可分解是好天气性质：危机中跨模块的弱耦合会一起变强，平时的接缝恰在最需要时失效。</li>
+</ol>
+</div>
+
 <div class="thinking">
 <h3 data-tts="f43b980fe34538a4">深入思考<span class="he">（Going Deeper）</span></h3>
 <details><summary>如果一个系统现在不近可分解，能人为把它「模块化」吗？</summary><p>能，但要看你是在<em>发现</em>接缝还是在<em>制造</em>接缝。制造接缝＝主动切断一些原本的强耦合、代之以受控的窄接口（微服务、部门墙、法律实体的隔离都是）。代价是那些被切断的耦合曾经在做有用的事，切了之后要么用接口补回来（有开销），要么就真的损失掉了。所以模块化不是免费的整理，是一笔用「联合优化能力」换「可改动性」的交易，得看这笔汇率划不划算。</p></details>

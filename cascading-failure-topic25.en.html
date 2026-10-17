@@ -59,6 +59,12 @@ details p{margin:12px 0 0;font-size:0.9rem;color:#a9a096;line-height:1.75}
 footer{text-align:center;padding:56px 0 10px;font-size:0.78rem;color:#57524b;font-family:"SF Mono",Menlo,monospace;border-top:1px solid rgba(255,255,255,0.06);margin-top:50px}
 footer a{color:#79a6d2;text-decoration:none}
 @media(max-width:600px){h1{font-size:1.85rem}.wrap{padding:24px 16px 60px}h2{font-size:1.22rem}}
+.tk{margin:46px 0 10px}
+.tk h3{font-size:1.02rem;color:#e0895e;margin-bottom:14px;letter-spacing:0.5px}
+.takeaways{counter-reset:tk;list-style:none;margin:0;padding:0;border:1px solid rgba(224,137,94,0.3);border-radius:12px;background:rgba(224,137,94,0.04)}
+.takeaways li{counter-increment:tk;position:relative;margin:0;padding:11px 18px 11px 52px;border-top:1px solid rgba(224,137,94,0.12);font-size:0.94rem;color:#d5cdc1;line-height:1.75}
+.takeaways li:first-child{border-top:none}
+.takeaways li::before{content:counter(tk,decimal-leading-zero);position:absolute;left:18px;top:12px;font-family:"SF Mono",Menlo,monospace;font-size:0.78rem;color:#e0895e}
 </style></head><body>
 <div class="wrap">
 <header>
@@ -425,6 +431,21 @@ footer a{color:#79a6d2;text-decoration:none}
 </ul>
 </div>
 
+<div class="tk">
+<h3>📝 Ten Takeaways</h3>
+<ol class="takeaways">
+<li>A cascade spreads a burden rather than a state: when a node fails, the load it carried has to move onto other nodes.</li>
+<li>The Motter–Lai model gives each node a capacity of (1+α) times its initial load; an overloaded node fails and its load is rerouted along shortest paths.</li>
+<li>In networks where a few hubs carry most of the traffic, removing a single high-load hub is enough to bring down the whole system.</li>
+<li>The grid passed its N-1 check before the 2003 blackout, but N-1 only covers losing one element, not the second and third steps of a cascade.</li>
+<li>Average queue backlog is ρ/(1−ρ), so pushing utilisation from 0.9 to 0.95 buys 5% more efficiency and doubles the backlog from 9 to 19.</li>
+<li>Buldyrev and colleagues showed in 2010 that two mutually dependent networks prune each other recursively, turning gradual decline into a sudden collapse past a threshold.</li>
+<li>Once networks depend on each other, prominent hubs stop protecting against random failure, and the redundancy of two mutually dependent systems does not multiply.</li>
+<li>Perrow argued that accidents are normal output in systems that are both interactively complex and tightly coupled, and that every added safety device is a new part with new interactions.</li>
+<li>Topological models give the shape of a cascade, not the list of weak points, and interdependence is especially fragile only when the coupling is random rather than structured.</li>
+<li>Central clearing swapped a dense bilateral web for a star, cutting interactive complexity but shifting systemic risk onto the tight-coupling axis.</li>
+</ol>
+</div>
 <div class="thinking">
 <h3>Going Deeper</h3>
 <details><summary>If the exchange rate for slack only gets steep near the critical point, why not sit just to the right of it — cheap and safe?</summary><p>Because you do not know where αc is, and it drifts. αc is set jointly by topology and load distribution, so it moves whenever edges are added or traffic patterns change. The operational lesson is not "hug the threshold" but "don't let the threshold be a quantity you never measure" — at minimum, know which direction your last change pushed it.</p></details>

@@ -63,6 +63,12 @@ details p{margin:12px 0 0;font-size:0.9rem;color:#a9a096;line-height:1.75}
 footer{text-align:center;padding:56px 0 10px;font-size:0.78rem;color:#57524b;font-family:"SF Mono",Menlo,monospace;border-top:1px solid rgba(255,255,255,0.06);margin-top:50px}
 footer a{color:#79a6d2;text-decoration:none}
 @media(max-width:600px){h1{font-size:1.85rem}.wrap{padding:24px 16px 60px}h2{font-size:1.22rem}}
+.tk{margin:46px 0 10px}
+.tk h3{font-size:1.02rem;color:#e0895e;margin-bottom:14px;letter-spacing:0.5px}
+.takeaways{counter-reset:tk;list-style:none;margin:0;padding:0;border:1px solid rgba(224,137,94,0.3);border-radius:12px;background:rgba(224,137,94,0.04)}
+.takeaways li{counter-increment:tk;position:relative;margin:0;padding:11px 18px 11px 52px;border-top:1px solid rgba(224,137,94,0.12);font-size:0.94rem;color:#d5cdc1;line-height:1.75}
+.takeaways li:first-child{border-top:none}
+.takeaways li::before{content:counter(tk,decimal-leading-zero);position:absolute;left:18px;top:12px;font-family:"SF Mono",Menlo,monospace;font-size:0.78rem;color:#e0895e}
 </style></head><body>
 
 <div class="wrap">
@@ -402,6 +408,22 @@ footer a{color:#79a6d2;text-decoration:none}
 <li><b>History &amp; institutions · Sortition in Athens</b>: Athens filled most public offices by lot; the Council of Five Hundred was drawn by tribal and deme quota, allocated on the spot by a stone machine called a kleroterion. The usual defence is fairness and the prevention of capture by a few. Read through this issue's mechanisms, it is really an <b>estimator design</b>: random sampling is the cheapest way to get a sample with no systematic bias relative to the population (precisely boundary one of section 4), and drawing lots abolishes campaigning, which abolishes the channel through which you would watch others before choosing (section 2's cascade loses its entry point). Ostracism, for its part, was only valid above a threshold number of votes — ancient sources disagree over whether that number was the total cast or the number against one man, but that it was an absolute threshold rather than a relative majority is clear. Which yields a conclusion you would not otherwise see: <b>sortition's real rival is not "elections select more capable people" — it is sample size and independence</b>. A council of five hundred is statistically meaningful; the fashionable thirty-person "citizens' jury" faces not only thin representativeness but the fact that after thirty people sit together for several days, section 2's machine has compressed the effective independent sample to well below thirty. So the place to spend money in such designs is <b>independent voting in separate subgroups, with anonymous records</b> — not raising the number from thirty to sixty.</li>
 <li><b>Biology &amp; neuroscience · Swarms and brains are solving the same problem</b>: When a primate makes a perceptual judgment — say, which way a field of randomly moving dots is drifting overall — the firing rate of certain parietal neuron populations rises as evidence <b>accumulates</b>, and a decision is emitted when it hits a threshold; competing options mutually inhibit. In 2009, Marshall and colleagues put that structure and the bee/ant nest-site mechanism in one decision-theoretic frame and showed both approximate the same optimal test. All three parts from section 3 are present on each side: accumulation (not a single ballot), cross-option inhibition (not self-reinforcement), threshold firing (not relative majority). Which yields something directly usable: <b>the speed–accuracy trade-off is not a matter of willpower; it is one parameter, the threshold</b>. Lower it and you decide fast and wrong more often; raise it and the reverse. There is no point between the two ends that is both fast and accurate — and the ants have already demonstrated the parameter is adjustable: when the old nest has been destroyed and the colony must move now, it lowers its quorum, buying speed with accuracy. So telling a team "this time let's be both fast and right" is asking for something that does not exist in the model; what can be discussed is where the threshold goes this time, and roughly how far the error rate rises if it comes down. <b>But here it fails</b>: cross inhibition in a brain is anatomical hardwiring, and in a swarm it rides on the physical contact of a stop signal — both sides have a <b>structural</b> component enforcing "you must go and suppress the other side's advocates." Nothing in a human meeting plays that role, and usually the opposite holds: the loudest voice reinforces its own camp, while the cost of objecting is borne by the objector alone. So "let's decide like a swarm" is empty without that missing part — what remains is exactly section 2's cascade.</li>
 </ul>
+</div>
+
+<div class="tk">
+<h3>📝 Ten Takeaways</h3>
+<ol class="takeaways">
+<li>A crowd is accurate not because its members see clearly, but because their errors cancel: Galton's 787 ox-weight cards had a median off by just 0.75%.</li>
+<li>The diversity prediction theorem is pure algebra: collective error equals average individual error minus the diversity of the estimates.</li>
+<li>Under averaging, a group can never do worse than its average member, and adding a weaker member who errs differently can make the whole more accurate.</li>
+<li>In an information cascade everyone acts as a rational Bayesian, yet once the first two signals happen to agree, later private information stops entering the public pool.</li>
+<li>Cascade consensus forms easily and breaks easily: nobody downstream holds supporting information, so one piece of new public evidence can flip the whole line.</li>
+<li>In the MusicLab experiment by Salganik and colleagues, worlds that showed download counts were more unequal and disagreed with each other on song rankings.</li>
+<li>The same seven estimates yield anything from 4 to 28 weeks depending on the aggregation rule; averaging away a bimodal split discards the only warning signal.</li>
+<li>Honeybee swarms choose a nest through evidence accumulation, cross-inhibition between options and a quorum threshold, approximating the optimal sequential probability ratio test.</li>
+<li>Crowds cancel random error but never shared bias, and by Condorcet's theorem, when individual accuracy is below one half, bigger groups are more surely wrong.</li>
+<li>Two thousand years of bloodletting show that the strength of professional consensus is not the strength of evidence; what matters is how independent the sources are.</li>
+</ol>
 </div>
 
 <div class="thinking">

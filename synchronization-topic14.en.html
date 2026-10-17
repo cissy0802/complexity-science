@@ -61,6 +61,12 @@ details p{margin:12px 0 0;font-size:0.9rem;color:#a9a096;line-height:1.75}
 footer{text-align:center;padding:56px 0 10px;font-size:0.78rem;color:#57524b;font-family:"SF Mono",Menlo,monospace;border-top:1px solid rgba(255,255,255,0.06);margin-top:50px}
 footer a{color:#79a6d2;text-decoration:none}
 @media(max-width:600px){h1{font-size:1.85rem}.wrap{padding:24px 16px 60px}h2{font-size:1.22rem}}
+.tk{margin:46px 0 10px}
+.tk h3{font-size:1.02rem;color:#e0895e;margin-bottom:14px;letter-spacing:0.5px}
+.takeaways{counter-reset:tk;list-style:none;margin:0;padding:0;border:1px solid rgba(224,137,94,0.3);border-radius:12px;background:rgba(224,137,94,0.04)}
+.takeaways li{counter-increment:tk;position:relative;margin:0;padding:11px 18px 11px 52px;border-top:1px solid rgba(224,137,94,0.12);font-size:0.94rem;color:#d5cdc1;line-height:1.75}
+.takeaways li:first-child{border-top:none}
+.takeaways li::before{content:counter(tk,decimal-leading-zero);position:absolute;left:18px;top:12px;font-family:"SF Mono",Menlo,monospace;font-size:0.78rem;color:#e0895e}
 </style></head><body>
 <div class="wrap">
 <header>
@@ -278,6 +284,21 @@ footer a{color:#79a6d2;text-decoration:none}
 <li><b>Military history · Broughton Bridge, 1831, and the order to break step</b>: a column of soldiers marched in cadence across the Broughton suspension bridge near Manchester and it collapsed. The British Army's standing rule dates from there: troops crossing a bridge break step and walk out of time. That two-hundred-year-old order is a complete implementation of this topic's mechanism, and it turns both knobs at once — it removes the common drive (the cadence call) and widens the frequency spread (everyone at their own pace). But set it beside the Millennium Bridge and you get a conclusion the order itself cannot give you: <b>the rule only cures the common-drive kind of synchrony.</b> Nobody was calling cadence on the Millennium Bridge; those two thousand people were coupled to each other <em>through the bridge</em>. You cannot order someone to stop adjusting their balance against a moving deck, because that adjustment is what staying upright is. Two kinds of synchrony therefore need two entirely separate remedies — one yields to discipline, the other only to structural change, and the Millennium Bridge was in the end fixed with dampers rather than with rules about people. <b>Aiming discipline at the second kind is the most common misallocation this topic exposes.</b></li>
 <li><b>Economics &amp; institutions · globalization and business-cycle synchronization</b>: deepening trade and capital flows amount to pushing <em>K</em> between national economies steadily upward. Applying this topic's mechanisms as a set gives something sharper than the familiar "risk spreads": a claim about <em>variance structure</em>. While national cycles are independent, bad years and good years cancel and world output is smoothed for free. Once the coupling crosses threshold, independent degrees of freedom collapse into one common factor, the cancellation disappears, and global volatility jumps. The operational payload is in the last step: <b>the effectiveness of "diversify across countries" does not erode gradually as coupling rises — it falls off a cliff near <em>K</em><sub>c</sub>.</b> A cross-border diversification scheme validated on twenty years of data can therefore lose most of its value in the first year after the crossing, with nothing in the backtest hinting that it was coming, because the backtest sample sits almost entirely on the near side of the line.</li>
 </ul>
+</div>
+<div class="tk">
+<h3>📝 Ten Takeaways</h3>
+<ol class="takeaways">
+<li>Synchronization needs three ingredients: units that cycle on their own (oscillators), each with its own natural frequency and phase, plus coupling that lets them nudge one another.</li>
+<li>The order parameter <em>r</em> measures synchrony: add every phase as a unit arrow, and the resultant runs from 0 when scattered to 1 when fully locked.</li>
+<li>In the Kuramoto model the effective pull is <em>K</em> times <em>r</em>, so incoherence sustains itself until coupling crosses a critical value <em>K</em><sub>c</sub> and order appears abruptly.</li>
+<li>The Millennium Bridge swayed only with more than about 160 people on it, sway and lockstep arriving together, and dampers fixed it by cutting the coupling channel rather than managing walkers.</li>
+<li>The wider the spread of natural frequencies, the higher the critical coupling, so narrowing the spread is usually a cheaper route to synchrony than adding coupling.</li>
+<li>Synchrony collapses N independent degrees of freedom into one: power grids depend on that alignment, while an epileptic seizure is excessive neuronal synchrony that wipes out information.</li>
+<li>Correlated motion is not proof of synchrony, because units may simply share an external driver, and common drive calls for the opposite remedy to mutual coupling.</li>
+<li>Chimera states on networks let a locked half and a drifting half coexist stably, so a single global <em>r</em> can hide two utterly different regimes.</li>
+<li>Before claiming synchrony, name the oscillator, say how phase is measured and identify the coupling channel; missing any one usually means common drive.</li>
+<li>Britain's rule that troops break step on bridges, adopted after the 1831 Broughton collapse, cures common-drive synchrony but not coupling through the deck as on the Millennium Bridge.</li>
+</ol>
 </div>
 <div class="thinking">
 <h3>Going Deeper</h3>

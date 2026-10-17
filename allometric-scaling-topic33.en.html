@@ -59,6 +59,12 @@ details p{margin:12px 0 0;font-size:0.9rem;color:#a9a096;line-height:1.75}
 footer{text-align:center;padding:56px 0 10px;font-size:0.78rem;color:#57524b;font-family:"SF Mono",Menlo,monospace;border-top:1px solid rgba(255,255,255,0.06);margin-top:50px}
 footer a{color:#79a6d2;text-decoration:none}
 @media(max-width:600px){h1{font-size:1.85rem}.wrap{padding:24px 16px 60px}h2{font-size:1.22rem}}
+.tk{margin:46px 0 10px}
+.tk h3{font-size:1.02rem;color:#e0895e;margin-bottom:14px;letter-spacing:0.5px}
+.takeaways{counter-reset:tk;list-style:none;margin:0;padding:0;border:1px solid rgba(224,137,94,0.3);border-radius:12px;background:rgba(224,137,94,0.04)}
+.takeaways li{counter-increment:tk;position:relative;margin:0;padding:11px 18px 11px 52px;border-top:1px solid rgba(224,137,94,0.12);font-size:0.94rem;color:#d5cdc1;line-height:1.75}
+.takeaways li:first-child{border-top:none}
+.takeaways li::before{content:counter(tk,decimal-leading-zero);position:absolute;left:18px;top:12px;font-family:"SF Mono",Menlo,monospace;font-size:0.78rem;color:#e0895e}
 </style></head><body>
 <div class="wrap">
 <header>
@@ -302,6 +308,21 @@ footer a{color:#79a6d2;text-decoration:none}
 <li><b>Engineering history · after Galileo, the bottleneck moved</b>: What Galileo gave in 1638 was a purely static answer — enlarge and you must thicken, because strength follows cross-section as <em>L</em>² while weight follows volume as <em>L</em>³. That intuition governed engineering for centuries and it genuinely works. But the last two mechanisms of this topic together mark a turn he could not see: what actually caps size is usually not <b>load-bearing</b> but <b>flow</b>. Kleiber says supply rises as 3/4 rather than 1; WBE says that discount comes from a distribution network with fixed tips. So the same geometric argument bites in two different places: statics limits whether a thing can stand, network geometry limits whether it can be supplied. That yields a counterintuitive ordering — a server room's ceiling is usually cooling rather than floor loading, a database's ceiling is usually connections rather than disk, a city's ceiling is usually its pipes and cables rather than its land. <b>To judge whether a system can scale, find its distribution network first and its load-bearing members second.</b> Galileo rescued engineering from copying the small thing bigger; three hundred and fifty years later WBE rescued it from staring only at the beams.</li>
 <li><b>Military history · why six hundred thousand men could not move</b>: The army Napoleon led into Russia in 1812 numbered roughly six hundred thousand, several times any force he had previously commanded, and most of it had dissolved before any decisive battle. The standard explanations are weather and scorched earth. This topic's mechanisms suggest something more structural: double an army and the radius it must forage over grows only as the square root (the area supplies the food), while column length, the time to cross a single bridge, and the delay before an order reaches the periphery all grow linearly with headcount. So kilometres advanced per man per day falls with size — the same mechanism as rates falling with a negative power of scale, with roads and supply lines playing the part of the network. The conclusion: six hundred thousand was itself part of the problem, reinforcement had negative returns at that point, and the winter merely pushed over a system that had already stopped moving. <b>But this does not hold</b>: an army has no terminal unit of strictly invariant size the way a capillary does, and its supply tree was improvised rather than optimised over millions of years to minimise transport loss, so it sits far below any optimum. What transfers is the reasoning that the distribution network is the bottleneck; the specific exponent 3/4 does not. Napoleon's problem lives in the same family of geometry, but not on the same curve.</li>
 </ul>
+</div>
+<div class="tk">
+<h3>📝 Ten Takeaways</h3>
+<ol class="takeaways">
+<li>Galileo's square-cube law: scale every edge by k and weight grows as k³ while bone cross-section grows only as k², so no animal can simply be enlarged.</li>
+<li>Rubner argued from heat loss through the skin that metabolic rate should scale as mass to the 2/3 power; the logic was tight, but the data disagreed.</li>
+<li>Kleiber's law: basal metabolic rate scales as mass to the 3/4 power, which puts a 70 kg human at about 82 watts, roughly one light bulb.</li>
+<li>Metabolic rate per gram falls as mass to the −1/4 power, so a gram of elephant runs about twenty times slower than a gram of mouse.</li>
+<li>Rates such as heart rate scale as −1/4 and durations such as lifespan as +1/4; the "billion heartbeats per lifetime" holds only to an order of magnitude, and humans far exceed it.</li>
+<li>Per-capita and per-unit comparisons silently assume an exponent of 1; plot the two raw columns on log-log axes and measure the slope before normalising.</li>
+<li>The WBE model traces 3/4 to the supply network: it fills the body, its capillaries are the same size in every mammal, and transport losses are minimised.</li>
+<li>When a distribution network's terminal units stay fixed while the total grows, supply costs rise superlinearly, and that sets the ceiling on size.</li>
+<li>Whether the exponent is 2/3 or 3/4 is still disputed, and Kolokotrones and colleagues found in 2010 that the metabolic curve is bent on log-log axes.</li>
+<li>To judge whether a system can scale, look at its distribution network before its load-bearing parts: a server room is usually capped by cooling, not floor strength.</li>
+</ol>
 </div>
 <div class="thinking">
 <h3>Going Deeper</h3>

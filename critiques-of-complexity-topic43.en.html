@@ -61,6 +61,12 @@ details p{margin:12px 0 0;font-size:0.9rem;color:#a9a096;line-height:1.75}
 footer{text-align:center;padding:56px 0 10px;font-size:0.78rem;color:#57524b;font-family:"SF Mono",Menlo,monospace;border-top:1px solid rgba(255,255,255,0.06);margin-top:50px}
 footer a{color:#79a6d2;text-decoration:none}
 @media(max-width:600px){h1{font-size:1.85rem}.wrap{padding:24px 16px 60px}h2{font-size:1.22rem}}
+.tk{margin:46px 0 10px}
+.tk h3{font-size:1.02rem;color:#e0895e;margin-bottom:14px;letter-spacing:0.5px}
+.takeaways{counter-reset:tk;list-style:none;margin:0;padding:0;border:1px solid rgba(224,137,94,0.3);border-radius:12px;background:rgba(224,137,94,0.04)}
+.takeaways li{counter-increment:tk;position:relative;margin:0;padding:11px 18px 11px 52px;border-top:1px solid rgba(224,137,94,0.12);font-size:0.94rem;color:#d5cdc1;line-height:1.75}
+.takeaways li:first-child{border-top:none}
+.takeaways li::before{content:counter(tk,decimal-leading-zero);position:absolute;left:18px;top:12px;font-family:"SF Mono",Menlo,monospace;font-size:0.78rem;color:#e0895e}
 </style></head><body>
 <div class="wrap">
 <header>
@@ -393,6 +399,21 @@ footer a{color:#79a6d2;text-decoration:none}
 </ul>
 </div>
 
+<div class="tk">
+<h3>📝 Ten Takeaways</h3>
+<ol class="takeaways">
+<li>A claim earns its weight not by how many phenomena it fits but by which possible observations it rules out.</li>
+<li>Packard reported that evolution drives cellular automata toward the edge of chaos; Mitchell's 1993 rerun failed to replicate it.</li>
+<li>Cut loose from its falsifiable original, "organisations should sit at the edge of chaos" survives as pure metaphor in management books.</li>
+<li>Prediction comes in three kinds — point, distributional and threshold; complexity science gives up the first but owes the other two.</li>
+<li>Percolation thresholds, the R₀ = 1 epidemic threshold and critical slowing down confirmed in a whole-lake experiment are predictions the field delivered.</li>
+<li>An after-the-fact mechanism story and a sealed forecast read exactly alike on the page; only the timestamp tells them apart.</li>
+<li>Clauset and colleagues' tests showed many celebrated power laws are not power laws, and strictly scale-free networks are rare.</li>
+<li>Drawing a network is a modelling choice: change the edge definition, time window or weak-link cutoff and the hub changes too.</li>
+<li>The field is unusually exposed because it works by analogy, owns no data of its own, and its referees each grasp only half a paper.</li>
+<li>Ending a discussion with "it's complex" and explaining everything with complexity are the same move — neither forbids anything.</li>
+</ol>
+</div>
 <div class="thinking">
 <h3>Going Deeper</h3>
 <details><summary>If "what does it forbid" is the only test, what happens to early, still-vague ideas?</summary><p>The test governs <em>conclusions</em>, not <em>questions</em>. Plenty of important ideas could not say what they forbade at the outset — continental drift, plate tectonics, the material basis of the gene. The difference is that they later found a checkable form rather than staying suggestive forever. So the right use is to keep a ledger for each vague idea: it currently sits at the "lead" level; when does it move up to "reason"? Three years without moving usually means it never will.</p></details>

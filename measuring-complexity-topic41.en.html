@@ -61,6 +61,12 @@ details p{margin:12px 0 0;font-size:0.9rem;color:#a9a096;line-height:1.75}
 footer{text-align:center;padding:56px 0 10px;font-size:0.78rem;color:#57524b;font-family:"SF Mono",Menlo,monospace;border-top:1px solid rgba(255,255,255,0.06);margin-top:50px}
 footer a{color:#79a6d2;text-decoration:none}
 @media(max-width:600px){h1{font-size:1.85rem}.wrap{padding:24px 16px 60px}h2{font-size:1.22rem}}
+.tk{margin:46px 0 10px}
+.tk h3{font-size:1.02rem;color:#e0895e;margin-bottom:14px;letter-spacing:0.5px}
+.takeaways{counter-reset:tk;list-style:none;margin:0;padding:0;border:1px solid rgba(224,137,94,0.3);border-radius:12px;background:rgba(224,137,94,0.04)}
+.takeaways li{counter-increment:tk;position:relative;margin:0;padding:11px 18px 11px 52px;border-top:1px solid rgba(224,137,94,0.12);font-size:0.94rem;color:#d5cdc1;line-height:1.75}
+.takeaways li:first-child{border-top:none}
+.takeaways li::before{content:counter(tk,decimal-leading-zero);position:absolute;left:18px;top:12px;font-family:"SF Mono",Menlo,monospace;font-size:0.78rem;color:#e0895e}
 </style></head><body>
 <div class="wrap">
 <header>
@@ -375,6 +381,21 @@ footer a{color:#79a6d2;text-decoration:none}
 </ul>
 </div>
 
+<div class="tk">
+<h3>📝 Ten Takeaways</h3>
+<ol class="takeaways">
+<li>A worthy measure of complexity must score low at both ends: perfect order and pure randomness are dull, while cells, languages and cities sit in between.</li>
+<li>Shannon entropy counts the yes/no questions needed to guess the next symbol, so it hands top marks to gibberish and ranks a novel almost level with noise.</li>
+<li>Entropy belongs to an assumed source distribution, not to a string, which is why password strength can only be judged by how a password was generated.</li>
+<li>Kolmogorov complexity is the length of the shortest program that outputs an object; the digits of pi look random yet have very low Kolmogorov complexity.</li>
+<li>A truly random string has no description shorter than itself, so it scores highest on Kolmogorov complexity, a quantity that is provably uncomputable.</li>
+<li>Compression is a cheap test: if something compresses well its complexity is mere repetition, but failing to compress proves nothing either way.</li>
+<li>Effective complexity counts only the regular part and discards the random part, but where that line falls depends on the observer's coarse-graining.</li>
+<li>Bennett's logical depth measures how many steps it takes to run an object out of its shortest description; deep things carry computation you cannot skip.</li>
+<li>Entropy, Kolmogorov complexity, effective complexity and logical depth rank the same objects in conflicting orders, and none of them predicts anything.</li>
+<li>Schrödinger's aperiodic-crystal criterion suggests life needs not low entropy but a long regular part that had to be computed step by step.</li>
+</ol>
+</div>
 <div class="thinking">
 <h3>Going Deeper</h3>
 <details><summary>If the inverted-U is a requirement we impose, on what grounds do we impose it?</summary><p>An uncomfortable possibility: because we and everything we care about live in the middle, we have encoded "interesting" as "complex". That need not be wrong — rulers are built for uses — but it means the curve has the standing of an engineering spec, not a law of nature. The difference matters: a spec can be changed to suit the use, a law cannot. Anyone wanting to treat it as the latter owes a criterion independent of what we happen to find interesting.</p></details>

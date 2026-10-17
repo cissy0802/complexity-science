@@ -63,6 +63,12 @@ details p{margin:12px 0 0;font-size:0.9rem;color:#a9a096;line-height:1.75}
 footer{text-align:center;padding:56px 0 10px;font-size:0.78rem;color:#57524b;font-family:"SF Mono",Menlo,monospace;border-top:1px solid rgba(255,255,255,0.06);margin-top:50px}
 footer a{color:#79a6d2;text-decoration:none}
 @media(max-width:600px){h1{font-size:1.85rem}.wrap{padding:24px 16px 60px}h2{font-size:1.22rem}}
+.tk{margin:46px 0 10px}
+.tk h3{font-size:1.02rem;color:#e0895e;margin-bottom:14px;letter-spacing:0.5px}
+.takeaways{counter-reset:tk;list-style:none;margin:0;padding:0;border:1px solid rgba(224,137,94,0.3);border-radius:12px;background:rgba(224,137,94,0.04)}
+.takeaways li{counter-increment:tk;position:relative;margin:0;padding:11px 18px 11px 52px;border-top:1px solid rgba(224,137,94,0.12);font-size:0.94rem;color:#d5cdc1;line-height:1.75}
+.takeaways li:first-child{border-top:none}
+.takeaways li::before{content:counter(tk,decimal-leading-zero);position:absolute;left:18px;top:12px;font-family:"SF Mono",Menlo,monospace;font-size:0.78rem;color:#e0895e}
 </style></head><body>
 <div class="wrap">
 <header>
@@ -170,6 +176,21 @@ footer a{color:#79a6d2;text-decoration:none}
 <li><b>工程与技术史 · Ziegler-Nichols 整定法</b>：1942 年，两位工程师给出了一套至今仍在工业现场使用的调参方法：把控制器的比例增益一路调高，直到系统开始<b>等幅振荡</b>，记下此刻的增益和振荡周期，再按经验公式回退一截。它和本期是同一种世界观的两个实例——不建模型、不问被控对象是什么，只把参数推到定性行为改变的那一点，然后<b>用那一点的坐标去标定整个系统</b>。由此推出一条在别处几乎没人执行的结论：面对一个你不理解的系统，最快的诊断不是研究它，而是小心地把它推到它开始振荡的地方。工程里这是标准操作；组织和政策里几乎从不这么做，原因也很清楚——推过头的代价不对称，而且没人愿意为「我故意把它推坏了一下」签字。<b>但这里不成立</b>：Ziegler-Nichols 的临界点是线性稳定性边界（一对根越过虚轴），不是倍周期分岔，那里既没有 δ 也不属于同一个普适类。共通的是「用转变点标定」这个方法，不是转变的类型。</li>
 <li><b>生物医学 · 「动力学疾病」这个提法</b>：1977 年 Mackey 与 Glass 提出一类病的本质不在某个器官坏掉，而在生理控制回路的一个参数漂出了正常范围，使原本平稳的调节变成周期振荡或不规则波动。他们的原型例子是周期性中性粒细胞减少症——白细胞数量以约三周为周期大幅涨落，而每一次单独测量都可能落在正常区间内。本期机制合起来给这个提法补上了操作含义：既然定性行为由参数位置决定，而通往混乱的路上先出现的是<b>周期结构的改变</b>，那么该测的量就不是某个时刻的血值，而是<b>节律本身的周期数与规则性</b>——一个采样频率不够、只看单点的检验体系，在结构上就检不出这类病。<b>但这里不成立</b>：Mackey-Glass 用的是带时滞的连续方程，不是一维单峰映射，费根鲍姆常数在那里没有位置；而且「细节不重要」只在预测定性路线时成立——真要治，恰恰得回到具体分子。</li>
 </ul>
+</div>
+<div class="tk">
+<h3>📝 十条要点<span class="he">（Ten Takeaways）</span></h3>
+<ol class="takeaways">
+<li>逻辑斯蒂映射只有一个参数 r，同一条规则随 r 不同可以稳定、交替、四年一轮或永不重复。</li>
+<li>只看到混沌的那段数据，人会以为系统受了外部冲击，其实规则和环境都没变，变的只是一个数。</li>
+<li>猪周期的大起大落不需要投机者，供给对价格反应够强时，蛛网模型本身就会振荡。</li>
+<li>r 越过 3.0 时稳定值一分为二，原因是回拉力过猛、越过头，稳定的反面不是漂走而是用力过猛。</li>
+<li>分岔间隔飞快缩短，无穷多次倍周期分岔在 r∞ ≈ 3.5699 之前全部完成，越过它就是混沌。</li>
+<li>关键指标出现稳定的「本期 ÷ 上期」一大一小交替，是第一次分岔的早期信号，应退回驱动参数而非加大控制。</li>
+<li>Feigenbaum 发现相邻分岔间隔之比收敛到 δ ≈ 4.669，而且换成任何单峰、峰顶圆滑的映射都是这个数。</li>
+<li>Libchaber 在液氦对流实验中测到了倍周期级联和与 4.669 相符的比值，说明普适性不只是纸上结果。</li>
+<li>混沌区里藏着无穷多个周期窗口，如 r ≈ 3.8284 的周期 3 窗口，Li 与 Yorke 证明周期 3 意味着混沌。</li>
+<li>倍周期级联要求离散世代、会被噪声抹掉后半段，而且混沌不等于崩溃，只是不可预测。</li>
+</ol>
 </div>
 <div class="thinking">
 <h3 data-tts="d223e7eb2c57a9af">深入思考<span class="he">（Going Deeper）</span></h3>

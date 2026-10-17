@@ -62,6 +62,12 @@ details p{margin:12px 0 0;font-size:0.9rem;color:#a9a096;line-height:1.75}
 footer{text-align:center;padding:56px 0 10px;font-size:0.78rem;color:#57524b;font-family:"SF Mono",Menlo,monospace;border-top:1px solid rgba(255,255,255,0.06);margin-top:50px}
 footer a{color:#79a6d2;text-decoration:none}
 @media(max-width:600px){h1{font-size:1.85rem}.wrap{padding:24px 16px 60px}h2{font-size:1.22rem}}
+.tk{margin:46px 0 10px}
+.tk h3{font-size:1.02rem;color:#e0895e;margin-bottom:14px;letter-spacing:0.5px}
+.takeaways{counter-reset:tk;list-style:none;margin:0;padding:0;border:1px solid rgba(224,137,94,0.3);border-radius:12px;background:rgba(224,137,94,0.04)}
+.takeaways li{counter-increment:tk;position:relative;margin:0;padding:11px 18px 11px 52px;border-top:1px solid rgba(224,137,94,0.12);font-size:0.94rem;color:#d5cdc1;line-height:1.75}
+.takeaways li:first-child{border-top:none}
+.takeaways li::before{content:counter(tk,decimal-leading-zero);position:absolute;left:18px;top:12px;font-family:"SF Mono",Menlo,monospace;font-size:0.78rem;color:#e0895e}
 </style></head><body>
 <div class="wrap">
 <header>
@@ -169,6 +175,21 @@ footer a{color:#79a6d2;text-decoration:none}
 </ul>
 </div>
 
+<div class="tk">
+<h3>📝 Ten Takeaways</h3>
+<ol class="takeaways">
+<li>In an elementary cellular automaton each cell sees only itself and its two neighbours, so eight neighbourhoods yield exactly 256 rules.</li>
+<li>Rule 90 grows a Sierpiński-triangle fractal, while Rule 30 produces noise random enough that Mathematica once used it as a random-number generator.</li>
+<li>An intricate pattern says nothing about the intricacy of its rule: visible complexity and rule complexity can be completely unrelated.</li>
+<li>Wolfram sorted the 256 rules into four classes: collapse to a uniform state, frozen or periodic structures, endless noise, and the rare Class IV.</li>
+<li>Class IV rules grow localized structures that move and collide; Langton called this thin gap between order and chaos the edge of chaos.</li>
+<li>Conway's four-rule Game of Life can wire gliders into logic gates and is Turing complete, and Matthew Cook proved the same for Rule 110.</li>
+<li>Universality is cheap, so "it's too simple to be doing anything complex" is an invalid inference.</li>
+<li>Computational irreducibility means there is no faster way to learn a system's state at step N than to actually compute all N steps.</li>
+<li>Chaos is a precision problem of sensitivity to initial conditions; irreducibility holds even with exact, noiseless inputs, so determinism is not predictability.</li>
+<li>A 1993 genetic-algorithm re-check found the claim that the edge of chaos is where computation thrives was largely an artifact of the experimental setup.</li>
+</ol>
+</div>
 <div class="thinking">
 <h3>Going Deeper</h3>
 <details><summary>If the "edge of chaos" is most creative, can a team or organization deliberately stay there?</summary><p>Advocates say yes, and that it's the sweet spot for innovation. But be careful: as §5 notes, this is more metaphor than measurable claim right now — you'd first have to say what the organization's "slope" even is and how you'd measure it. An "edge" with no units is just a nice-sounding word. To make it real, find an observable proxy first (the reversible fraction of decisions, the speed information flows between layers), then talk about "tuning toward the edge."</p></details>

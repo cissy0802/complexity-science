@@ -59,6 +59,12 @@ details p{margin:12px 0 0;font-size:0.9rem;color:#a9a096;line-height:1.75}
 footer{text-align:center;padding:56px 0 10px;font-size:0.78rem;color:#57524b;font-family:"SF Mono",Menlo,monospace;border-top:1px solid rgba(255,255,255,0.06);margin-top:50px}
 footer a{color:#79a6d2;text-decoration:none}
 @media(max-width:600px){h1{font-size:1.85rem}.wrap{padding:24px 16px 60px}h2{font-size:1.22rem}}
+.tk{margin:46px 0 10px}
+.tk h3{font-size:1.02rem;color:#e0895e;margin-bottom:14px;letter-spacing:0.5px}
+.takeaways{counter-reset:tk;list-style:none;margin:0;padding:0;border:1px solid rgba(224,137,94,0.3);border-radius:12px;background:rgba(224,137,94,0.04)}
+.takeaways li{counter-increment:tk;position:relative;margin:0;padding:11px 18px 11px 52px;border-top:1px solid rgba(224,137,94,0.12);font-size:0.94rem;color:#d5cdc1;line-height:1.75}
+.takeaways li:first-child{border-top:none}
+.takeaways li::before{content:counter(tk,decimal-leading-zero);position:absolute;left:18px;top:12px;font-family:"SF Mono",Menlo,monospace;font-size:0.78rem;color:#e0895e}
 </style></head><body>
 <div class="wrap">
 <header>
@@ -296,6 +302,21 @@ footer a{color:#79a6d2;text-decoration:none}
 <li><b>History of cybernetics · Ashby's homeostat</b>: In 1948 W. Ross Ashby built a machine from four coupled electromagnetic units and called it the homeostat. It had no goal and no notion of "correct": whenever a unit's output left its permitted range, the machine randomly reconfigured its internal parameters and saw what happened; if that failed, it drew again. Left running, it always settled into a stable state — unplug a connection or reverse a polarity and after some thrashing it finds stability again. Several of this issue's mechanisms run here at once: a state space (each unit's current is an axis), stable versus unstable fixed points, and the recognition that "randomly change the parameters" means <b>swapping in a whole new phase portrait</b> until one is drawn that contains a stable fixed point with the current position inside its basin. The uncomfortable conclusion: <b>adaptation looks like the pursuit of stability, but all that is happening is that unstable configurations fail to persist.</b> No goal, no intelligence, no intention — stability is a survivorship result, not a target. Any time a system appears to be "maintaining itself" and you are tempted to infer purpose, remember this machine from 1948.</li>
 <li><b>Economics &amp; philosophy of science · equilibrium is not an attractor</b>: Economics' most repeated sentence is that markets return to equilibrium in the long run. But the famous Arrow-Debreu proof of 1954 establishes that an equilibrium <em>exists</em> — under its assumptions there is a set of prices clearing all markets simultaneously. It does not show the economy travels there. The Sonnenschein-Mantel-Debreu results of the 1970s go further: aggregate excess demand functions are barely constrained by individual rationality, so the usual adjustment story (prices move with excess demand) carries no guarantee of convergence. This issue's language states it most sharply: <b>they proved a fixed point exists, and whether a fixed point exists is independent of whether it attracts.</b> An unstable fixed point is still a fixed point — the ball on the hilltop also satisfies "net force is zero". So any claim of long-run return is unfinished until three questions are answered: what is the dynamics of the return, over what timescale, and am I currently inside that basin. The three apply equally to "reversion to the mean", "house prices always rise eventually" and "the market rewards value in the end".</li>
 </ul>
+</div>
+<div class="tk">
+<h3>📝 Ten Takeaways</h3>
+<ol class="takeaways">
+<li>A pendulum's state takes two numbers, angle and angular velocity, because state is the smallest set of information that fixes the future.</li>
+<li>Treat each state variable as an axis and the whole system becomes a single point in state space, tracing out a trajectory as it moves.</li>
+<li>Trajectories of a deterministic system never cross, so a flat two-variable plane cannot hold endless non-repeating wandering; chaos needs at least three dimensions.</li>
+<li>Only one test separates a stable fixed point from an unstable one: give it a push and see whether it comes back on its own.</li>
+<li>"Nothing has gone wrong yet" is not evidence of stability; run a small controlled perturbation and time the unassisted recovery.</li>
+<li>Attractors come in four kinds: fixed point, limit cycle, torus (quasi-periodic) and strange attractor, and the kind dictates the forecasting method.</li>
+<li>A limit cycle sets its own amplitude and period, so regular oscillation needs no outside metronome; a transplanted, denervated heart keeps beating.</li>
+<li>Distance to the endpoint and distance to the separatrix are unrelated quantities, and the same effort buys far more near the boundary.</li>
+<li>A phase portrait holds only while parameters stay fixed; when they shift, the attractor you wait to return to may have moved or vanished.</li>
+<li>Arrow and Debreu proved that a general equilibrium exists, but whether a fixed point exists and whether it attracts are separate questions.</li>
+</ol>
 </div>
 <div class="thinking">
 <h3>Going deeper</h3>

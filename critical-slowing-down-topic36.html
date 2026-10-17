@@ -63,6 +63,12 @@ details p{margin:12px 0 0;font-size:0.9rem;color:#a9a096;line-height:1.75}
 footer{text-align:center;padding:56px 0 10px;font-size:0.78rem;color:#57524b;font-family:"SF Mono",Menlo,monospace;border-top:1px solid rgba(255,255,255,0.06);margin-top:50px}
 footer a{color:#79a6d2;text-decoration:none}
 @media(max-width:600px){h1{font-size:1.85rem}.wrap{padding:24px 16px 60px}h2{font-size:1.22rem}}
+.tk{margin:46px 0 10px}
+.tk h3{font-size:1.02rem;color:#e0895e;margin-bottom:14px;letter-spacing:0.5px}
+.takeaways{counter-reset:tk;list-style:none;margin:0;padding:0;border:1px solid rgba(224,137,94,0.3);border-radius:12px;background:rgba(224,137,94,0.04)}
+.takeaways li{counter-increment:tk;position:relative;margin:0;padding:11px 18px 11px 52px;border-top:1px solid rgba(224,137,94,0.12);font-size:0.94rem;color:#d5cdc1;line-height:1.75}
+.takeaways li:first-child{border-top:none}
+.takeaways li::before{content:counter(tk,decimal-leading-zero);position:absolute;left:18px;top:12px;font-family:"SF Mono",Menlo,monospace;font-size:0.78rem;color:#e0895e}
 </style></head><body>
 <div class="wrap">
 <header>
@@ -541,6 +547,22 @@ footer a{color:#79a6d2;text-decoration:none}
 <li><b>神经科学与医学 · 癫痫预测三十年，失败本身是信息</b>：从 1970 年代起，人们一直想在脑电里找到发作前的先兆，回顾性算法的"成功"报道极多，前瞻盲测里却长期站不住。通常的解读是"方法还不够好"。但把本期三条机制合起来看，有另一种解读更值得认真对待：<b>如果慢化类指标在一个系统上反复失效，这件事本身是关于这个系统类型的诊断</b>——它在告诉你这个跃迁很可能不是"缓慢逼近分岔"型，而是噪声触发或快速型。而这个诊断会直接改变正确的应对：从"提前预测"转向"降低触发密度、提高发作后的可逆性"。同一件事在其他领域也成立：一个报警器长期不灵，先别急着调参数，先怀疑你面对的跃迁根本不属于可预警的那一类。</li>
 </ul>
 </div>
+<div class="tk">
+<h3>📝 十条要点<span class="he">（Ten Takeaways）</span></h3>
+<ol class="takeaways">
+<li>临界慢化指系统越接近分岔点，受扰后恢复原状就越慢，到分岔点时恢复速率降到零。</li>
+<li>快要出事的系统，状态值往往和平时一样，真正在变的是被碰一下之后回到原样的时间。</li>
+<li>2012 年的蓝藻实验在逼近光抑制崩溃时测到恢复越来越慢，是活系统里慢化的早期干净证据。</li>
+<li>环境噪声一直在推系统，慢化会表现为滞后 1 自相关向 1 攀升、方差变宽。</li>
+<li>方差和自相关都是相邻读数之间的量，取月平均会把它们抹掉，所以要保留高频原始数据。</li>
+<li>主动给一个可比较的扰动再掐表，比如运动负荷试验和混沌工程演练，比被动读噪声更快更干净。</li>
+<li>跃迁是罕见事件，即使灵敏度 75%、误报率 10% 的报警器，响起时也只有约 13% 是对的。</li>
+<li>预警信号只适合触发低成本、可逆的动作；提高可逆性和提前预警是两条可以互替的路。</li>
+<li>噪声触发或条件变化太快的跃迁不留慢化窗口，丹斯果-厄施格尔事件就查不到慢化。</li>
+<li>早期预警指标上升只说明韧性下降，回顾性命中也不等于前瞻验证，汇报时须交代失效条件和基率。</li>
+</ol>
+</div>
+
 <div class="thinking">
 <h3 data-tts="d2d61d1b5180daa6">深入思考<span class="he">（Going Deeper）</span></h3>
 <details><summary>如果慢化只在"慢慢逼近分岔"时出现，那你怎么<em>事先</em>知道自己面对的是不是这一类？</summary><p>严格说，事先不能确知。可用的近似判据有两条：一是有没有观察到过滞后回线（同一个参数值上系统能停在两个不同状态，说明存在双稳态，也就存在分岔）；二是驱动条件的变化速度是不是远慢于系统自身的恢复时间。两条都满足时，EWS 的前提大致成立；有一条不满足，就该把它的权重调低。注意这两条判据本身要靠历史数据，而历史里没出现过的跃迁类型，判据也看不见。</p></details>

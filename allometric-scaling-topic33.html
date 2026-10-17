@@ -63,6 +63,12 @@ details p{margin:12px 0 0;font-size:0.9rem;color:#a9a096;line-height:1.75}
 footer{text-align:center;padding:56px 0 10px;font-size:0.78rem;color:#57524b;font-family:"SF Mono",Menlo,monospace;border-top:1px solid rgba(255,255,255,0.06);margin-top:50px}
 footer a{color:#79a6d2;text-decoration:none}
 @media(max-width:600px){h1{font-size:1.85rem}.wrap{padding:24px 16px 60px}h2{font-size:1.22rem}}
+.tk{margin:46px 0 10px}
+.tk h3{font-size:1.02rem;color:#e0895e;margin-bottom:14px;letter-spacing:0.5px}
+.takeaways{counter-reset:tk;list-style:none;margin:0;padding:0;border:1px solid rgba(224,137,94,0.3);border-radius:12px;background:rgba(224,137,94,0.04)}
+.takeaways li{counter-increment:tk;position:relative;margin:0;padding:11px 18px 11px 52px;border-top:1px solid rgba(224,137,94,0.12);font-size:0.94rem;color:#d5cdc1;line-height:1.75}
+.takeaways li:first-child{border-top:none}
+.takeaways li::before{content:counter(tk,decimal-leading-zero);position:absolute;left:18px;top:12px;font-family:"SF Mono",Menlo,monospace;font-size:0.78rem;color:#e0895e}
 </style></head><body>
 <div class="wrap">
 <header>
@@ -310,6 +316,21 @@ footer a{color:#79a6d2;text-decoration:none}
 <li><b>工程与技术史 · 伽利略之后，工程学换了瓶颈</b>：伽利略在 1638 年给出的是纯静力学的答案——放大就要加粗，因为强度随截面走 <em>L</em>²、重量随体积走 <em>L</em>³。这套直觉统治了工程学几百年，也确实管用。但本期后两条机制合起来给出了一个他看不到的转折：真正卡住规模的，通常不是<b>承重</b>，是<b>流量</b>。克莱伯定律说供给随 3/4 涨而不是 1，WBE 说这个折扣来自末端固定的分配网络。于是同一个几何论证在两个不同的地方发力：静力学卡住的是"能不能站着"，网络几何卡住的是"能不能供上"。这推出一个反直觉的排序——机房的天花板通常是散热而不是楼板承重，数据库的天花板通常是连接数而不是磁盘容量，城市的天花板通常是管网而不是土地。<b>评估一个系统能不能放大，先找它的分配网络，再看它的承重件。</b>伽利略把工程学从"照着小的照放大"里救了出来；三百五十年后，WBE 又把它从"只盯着承重"里救了一次。</li>
 <li><b>历史与军事 · 六十万人为什么走不动</b>：1812 年拿破仑带进俄国的大军约六十万人，是他此前任何一次战役的数倍，而它在真正的大战之前就已经融化了大半。传统解释是天气和焦土。但本期的机制给出一个更结构性的读法：军队规模翻倍，就地征粮所需的半径只按平方根扩（可征区域是面积），而行军纵队的长度、通过一座桥的时间、命令传到末梢的延迟，全都按人数线性涨。于是"每人每天能推进多少公里"随规模下降——这正是速率随规模按负幂次走的那条机制，只不过分配网络在这里是道路和补给线。结论是：六十万这个数字本身就是问题的一部分，增兵在那个点上是负回报的，天气只是把已经跑不动的系统推倒。<b>但这里不成立</b>：军队没有毛细血管那样"尺寸严格不变的末端单元"，也没有经过几百万年优化去把运输损耗压到最小——它的补给树是临时拼的，效率远在最优之下。所以能借走的是"分配网络是瓶颈"这条推理，不能借 3/4 这个具体的指数：拿破仑的问题在同一类几何里，但不在同一条曲线上。</li>
 </ul>
+</div>
+<div class="tk">
+<h3>📝 十条要点<span class="he">（Ten Takeaways）</span></h3>
+<ol class="takeaways">
+<li>伽利略用平方立方律说明：边长放大 k 倍，重量涨 k³ 倍而骨头截面只涨 k² 倍，生物无法等比放大。</li>
+<li>鲁伯纳按散热面积推断代谢率随体重的 2/3 次幂增长，论证严丝合缝，却与实测数据不符。</li>
+<li>克莱伯定律：基础代谢率随体重的 3/4 次幂增长，代进 70 千克的人约 82 瓦，相当于一只灯泡。</li>
+<li>每克代谢率随体重的 −1/4 次幂下降，所以大象每一克肉的代谢比小鼠慢约二十倍。</li>
+<li>心率按体重的 −1/4 次幂走、寿命按 +1/4 次幂走，「一生十亿次心跳」只在量级上成立。</li>
+<li>跨规模比较时，「人均」「每单位」默认指数为 1，应先画双对数图量出斜率，再决定怎么折算。</li>
+<li>WBE 模型把 3/4 归因于供给网络：管网填满全身、毛细血管尺寸不随体型变、输送损耗被压到最小。</li>
+<li>分配网络的末端单元固定而总量在涨时，供给成本必然超线性上升，规模的天花板就在那里。</li>
+<li>代谢指数是 2/3 还是 3/4 至今有争议，2010 年的大数据集还显示代谢曲线在双对数图上是弯的。</li>
+<li>评估一个系统能否放大，先找它的分配网络再看承重件：机房的天花板通常是散热，而不是楼板承重。</li>
+</ol>
 </div>
 <div class="thinking">
 <h3 data-tts="63acf68cf3723a8f">深入思考<span class="he">（Going Deeper）</span></h3>

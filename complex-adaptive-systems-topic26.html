@@ -63,6 +63,12 @@ details p{margin:12px 0 0;font-size:0.9rem;color:#a9a096;line-height:1.75}
 footer{text-align:center;padding:56px 0 10px;font-size:0.78rem;color:#57524b;font-family:"SF Mono",Menlo,monospace;border-top:1px solid rgba(255,255,255,0.06);margin-top:50px}
 footer a{color:#79a6d2;text-decoration:none}
 @media(max-width:600px){h1{font-size:1.85rem}.wrap{padding:24px 16px 60px}h2{font-size:1.22rem}}
+.tk{margin:46px 0 10px}
+.tk h3{font-size:1.02rem;color:#e0895e;margin-bottom:14px;letter-spacing:0.5px}
+.takeaways{counter-reset:tk;list-style:none;margin:0;padding:0;border:1px solid rgba(224,137,94,0.3);border-radius:12px;background:rgba(224,137,94,0.04)}
+.takeaways li{counter-increment:tk;position:relative;margin:0;padding:11px 18px 11px 52px;border-top:1px solid rgba(224,137,94,0.12);font-size:0.94rem;color:#d5cdc1;line-height:1.75}
+.takeaways li:first-child{border-top:none}
+.takeaways li::before{content:counter(tk,decimal-leading-zero);position:absolute;left:18px;top:12px;font-family:"SF Mono",Menlo,monospace;font-size:0.78rem;color:#e0895e}
 </style></head><body>
 <div class="wrap">
 <header>
@@ -294,6 +300,21 @@ footer a{color:#79a6d2;text-decoration:none}
 <li><b>西方科学哲学 · 波普尔与"俄狄浦斯效应"</b>：波普尔在《历史决定论的贫困》里论证，历史的进程无法被科学地预测；他另造过一个词叫俄狄浦斯效应，指预言本身反过来促成或阻止了被预言的事——就像那位父王因为听信神谕而做的每一件事，恰好铺成了神谕实现的路。本期的机制让这个说法从修辞变成可操作的判据：关于社会的预测会失效，不是因为数据不够、精度不足，而是因为<b>预测是被预测系统的一部分</b>，第 2 节的机器会把"应对这个预测"的规则选出来。于是这类失效是类型问题，不是精度问题——加数据不解决。<b>但这里不成立</b>：波普尔把界线画在"社会 vs 自然"上，而本期给出的界线不在这里，在<em>被建模者能否读到你的模型、以及有没有可调空间</em>。人口结构的惯性、气候里的物理过程照样可以被长期预测，它们是社会现象，却读不了预测；反过来，一个被公开算法调度的机器群体不是社会，却会被自己的模型改变。分界线是慢回路，不是学科。</li>
 <li><b>文学与艺术 · 侦探小说的诡计只能用一次</b>：黄金时代的推理作家们曾郑重其事地立过"公平游戏"守则（Van Dine 1928 年的二十条、Knox 1929 年的十诫），随后守则被一条条打破——阿加莎·克里斯蒂 1926 年那本让叙述者本人成为凶手的小说，正是当年的丑闻。这不是审美进步，是套利耗尽：读者是有内部模型的主体，作品公开即模型公开，市场评价充当了信用分配，于是"猜不到"这一条回报被反复消耗，类型只能向更复杂的方向漂移。推论是一个可检验的分工：<b>凡是回报依赖于"对方预测不到"的形式，都必然通货膨胀；凡是回报来自熟悉本身的形式，反而不会失效。</b>同一首歌可以听一百遍，同一个诡计不能读两次——差别不在艺术高低，在回报函数里有没有"意外"这一项。</li>
 </ul>
+</div>
+<div class="tk">
+<h3>📝 十条要点<span class="he">（Ten Takeaways）</span></h3>
+<ol class="takeaways">
+<li>复杂适应系统（CAS）的组成部分会按结果改写自己的行为规则，沙堆和电网的组成部分不会。</li>
+<li>复杂适应系统同时跑两条回路：快回路在现有规则下行动，慢回路按结果替换规则本身。</li>
+<li>车道里程每增加 1%，行驶总里程也涨约 1%，因为通勤者改写了走哪条路、几点出门的规则。</li>
+<li>系统会不会适应可以查证：候选规则从哪来、结果如何回馈规则、输掉的规则是否真会消失。</li>
+<li>Holland 把适应拆成三个缺一不可的零件：多样的候选规则、信用分配、对赢家的复制与重组。</li>
+<li>信用分配最难，因为回报来得晚；从做决定到看见结果的间隔，就是一个系统学习速度的上限。</li>
+<li>Goodhart 定律：统计规律一旦被用来施加管控就倾向于崩塌，主体会挤进指标与目标之间的缝。</li>
+<li>卢卡斯批判说明规律崩塌不需要作弊：菲利普斯曲线在 1970 年代失效，源于人们诚实地调整预期。</li>
+<li>干预被适应掉的快慢取决于对方的反馈周期和可调空间，所以流感疫苗年年重配，麻疹疫苗几十年有效。</li>
+<li>适应只优化当下回报，不保证变好；适应系统也没有普适类，从蚁群得出的结论不能直接搬到组织上。</li>
+</ol>
 </div>
 <div class="thinking">
 <h3 data-tts="6d66a2ef0d8cd180">深入思考<span class="he">（Going Deeper）</span></h3>
